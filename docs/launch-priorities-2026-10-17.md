@@ -1,5 +1,10 @@
 # Auction Geek consolidated launch brief — updated 18 October 2026
 
+Current whole-project backlog: [20 October master delivery backlog](master-backlog-2026-10-20.md).
+The owner has explicitly resumed historical collection alongside report work.
+The older archive deferral below is superseded; dated acceptance evidence remains
+limited to what was actually checked. Paid report approval remains closed.
+
 This supersedes the 12 October status table. It separates implemented controls, deployment evidence and outstanding real customer acceptance. Live billing and paid report sales remain closed. The report-product decision below is updated on 18 October; other dated checkpoints retain their recorded scope and are not newly certified by this update.
 
 | Priority | Status | Verified evidence and remaining gate |

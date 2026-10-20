@@ -144,7 +144,9 @@ def _enhance_savills_lot(lot):
             break
     explicit_tenure=re.search(r'\bTenure\s*[:\-]?\s*(Freehold|Long Leasehold|Leasehold)\b',text,re.I)
     if explicit_tenure: lot.tenure=explicit_tenure.group(1).title()
-    elif not lot.tenure and re.search(r"\bLong Leasehold\b",text,re.I): lot.tenure="Long Leasehold"
+    elif (not lot.tenure and re.search(r"\bLong Leasehold\b",text,re.I)
+          or lot.tenure == 'Leasehold' and re.search(r"\bLong Leasehold\s+held\s+(?:on|under)\s+a\s+lease\b",text,re.I)):
+        lot.tenure="Long Leasehold"
     m=re.search(r"term of\s+(\d+)\s+years\s+from\s+(\d{1,2}\.\d{1,2}\.\d{4})",text,re.I)
     if m:
         unexpired=re.search(r"approximately\s+(\d+)\s+years\s+unexpired",text,re.I)

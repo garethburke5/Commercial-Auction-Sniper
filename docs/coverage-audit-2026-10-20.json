@@ -1,0 +1,1838 @@
+{
+  "checked_at": "2026-10-20T09:40:14.701863+00:00",
+  "national_coverage_verified": false,
+  "national_auctioneer_denominator": null,
+  "current": {
+    "snapshot_generated_at": "2026-10-18T21:09:09.688544+00:00",
+    "published_current_rows": 987,
+    "retained_archive_rows": 1169,
+    "reported_sources": 55,
+    "health_counts": {
+      "LIVE": 42,
+      "CATALOGUE PENDING": 7,
+      "DEGRADED": 3,
+      "MERGED SOURCE": 3
+    },
+    "sources": [
+      {
+        "source": "Auction House London",
+        "status": "LIVE",
+        "expected_count": 12,
+        "lots_seen": 12,
+        "published_rows": 12,
+        "checked_at": "2026-10-18T21:08:55.358518+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 72,
+          "detail_pages_inspected": 72,
+          "noncommercial_excluded": 60,
+          "detail_failures": 0,
+          "commercial_mixed_lots": 12,
+          "returned_lots": 12
+        },
+        "message": "Lifecycle-safe AHL future sweep: 11 available commercial/mixed-use lots; 1 unavailable lots retained; 72 unique lots discovered before detail classification; 60 noncommercial excluded; 0 failures."
+      },
+      {
+        "source": "Auction House East Anglia",
+        "status": "LIVE",
+        "expected_count": 35,
+        "lots_seen": 35,
+        "published_rows": 34,
+        "checked_at": "2026-10-18T21:08:55.653547+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 207,
+          "advertised_source_lot_count": 225,
+          "discovered_lot_urls": 207,
+          "detail_pages_inspected": 207,
+          "commercial_mixed_candidates": 34,
+          "commercial_candidates": 28,
+          "mixed_use_candidates": 6,
+          "residential_exclusions": 167,
+          "classification_rejections": 172,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 2
+          },
+          "lot_outcomes": {
+            "record_count": 207
+          },
+          "last_successful_discovery": "2026-10-18T20:47:56.657313+00:00",
+          "last_successful_harvest": "2026-10-18T20:47:56.657313+00:00",
+          "returned_lots": 35
+        },
+        "message": "Current regional storefronts: 225 advertised links; 207 unique owned lots; 0 routed to other canonical regional feeds; 207 detail records; 34 commercial/mixed-use candidates; 172 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House West Yorkshire",
+        "status": "LIVE",
+        "expected_count": 11,
+        "lots_seen": 11,
+        "published_rows": 11,
+        "checked_at": "2026-10-18T21:08:55.749056+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 68,
+          "detail_pages_inspected": 68,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 68,
+          "advertised_source_lot_count": 68,
+          "commercial_mixed_candidates": 11,
+          "commercial_candidates": 10,
+          "mixed_use_candidates": 1,
+          "residential_exclusions": 56,
+          "classification_rejections": 57,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 62
+          },
+          "last_successful_discovery": "2026-10-18T20:47:23.014318+00:00",
+          "last_successful_harvest": "2026-10-18T20:47:23.014318+00:00",
+          "returned_lots": 11
+        },
+        "message": "Current regional storefronts: 68 advertised links; 68 unique owned lots; 0 routed to other canonical regional feeds; 68 detail records; 11 commercial/mixed-use candidates; 57 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Sussex & Hampshire",
+        "status": "LIVE",
+        "expected_count": 9,
+        "lots_seen": 9,
+        "published_rows": 8,
+        "checked_at": "2026-10-18T21:08:55.827619+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 53,
+          "advertised_source_lot_count": 53,
+          "discovered_lot_urls": 53,
+          "detail_pages_inspected": 53,
+          "commercial_mixed_candidates": 8,
+          "commercial_candidates": 6,
+          "mixed_use_candidates": 2,
+          "residential_exclusions": 44,
+          "classification_rejections": 44,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 53
+          },
+          "last_successful_discovery": "2026-10-18T20:47:23.646635+00:00",
+          "last_successful_harvest": "2026-10-18T20:47:23.646635+00:00",
+          "returned_lots": 9
+        },
+        "message": "Current regional storefronts: 53 advertised links; 53 unique owned lots; 0 routed to other canonical regional feeds; 53 detail records; 8 commercial/mixed-use candidates; 44 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House South West",
+        "status": "LIVE",
+        "expected_count": 10,
+        "lots_seen": 10,
+        "published_rows": 8,
+        "checked_at": "2026-10-18T21:08:55.915209+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 78,
+          "advertised_source_lot_count": 78,
+          "discovered_lot_urls": 78,
+          "detail_pages_inspected": 78,
+          "commercial_mixed_candidates": 10,
+          "commercial_candidates": 9,
+          "mixed_use_candidates": 1,
+          "residential_exclusions": 63,
+          "classification_rejections": 68,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 78
+          },
+          "last_successful_discovery": "2026-10-18T20:47:47.459961+00:00",
+          "last_successful_harvest": "2026-10-18T20:47:47.459961+00:00",
+          "returned_lots": 10
+        },
+        "message": "Current regional storefronts: 78 advertised links; 78 unique owned lots; 0 routed to other canonical regional feeds; 78 detail records; 10 commercial/mixed-use candidates; 68 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Wales",
+        "status": "LIVE",
+        "expected_count": 12,
+        "lots_seen": 12,
+        "published_rows": 8,
+        "checked_at": "2026-10-18T21:08:56.048459+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 54,
+          "detail_pages_inspected": 54,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 54,
+          "advertised_source_lot_count": 54,
+          "commercial_mixed_candidates": 11,
+          "commercial_candidates": 6,
+          "mixed_use_candidates": 5,
+          "residential_exclusions": 42,
+          "classification_rejections": 46,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 54
+          },
+          "last_successful_discovery": "2026-10-18T20:47:47.897010+00:00",
+          "last_successful_harvest": "2026-10-18T20:47:47.897010+00:00",
+          "returned_lots": 12
+        },
+        "message": "Current regional storefronts: 54 advertised links; 54 unique owned lots; 0 routed to other canonical regional feeds; 54 detail records; 11 commercial/mixed-use candidates; 46 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Cumbria",
+        "status": "LIVE",
+        "expected_count": 11,
+        "lots_seen": 11,
+        "published_rows": 11,
+        "checked_at": "2026-10-18T21:08:56.102936+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 43,
+          "detail_pages_inspected": 43,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 43,
+          "advertised_source_lot_count": 43,
+          "commercial_mixed_candidates": 11,
+          "commercial_candidates": 11,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 30,
+          "classification_rejections": 32,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 37
+          },
+          "last_successful_discovery": "2026-10-18T20:48:05.568025+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:05.568025+00:00",
+          "returned_lots": 11
+        },
+        "message": "Current regional storefronts: 43 advertised links; 43 unique owned lots; 0 routed to other canonical regional feeds; 43 detail records; 11 commercial/mixed-use candidates; 32 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House North East",
+        "status": "LIVE",
+        "expected_count": 3,
+        "lots_seen": 3,
+        "published_rows": 3,
+        "checked_at": "2026-10-18T21:08:56.141834+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 66,
+          "advertised_source_lot_count": 66,
+          "discovered_lot_urls": 66,
+          "detail_pages_inspected": 66,
+          "commercial_mixed_candidates": 3,
+          "commercial_candidates": 2,
+          "mixed_use_candidates": 1,
+          "residential_exclusions": 58,
+          "classification_rejections": 63,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 66
+          },
+          "last_successful_discovery": "2026-10-18T20:48:12.293416+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:12.293416+00:00",
+          "returned_lots": 3
+        },
+        "message": "Current regional storefronts: 66 advertised links; 66 unique owned lots; 0 routed to other canonical regional feeds; 66 detail records; 3 commercial/mixed-use candidates; 63 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House North West",
+        "status": "LIVE",
+        "expected_count": 27,
+        "lots_seen": 27,
+        "published_rows": 11,
+        "checked_at": "2026-10-18T21:08:56.541303+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 144,
+          "detail_pages_inspected": 144,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 144,
+          "advertised_source_lot_count": 144,
+          "commercial_mixed_candidates": 11,
+          "commercial_candidates": 8,
+          "mixed_use_candidates": 3,
+          "residential_exclusions": 109,
+          "classification_rejections": 117,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 139
+          },
+          "last_successful_discovery": "2026-10-18T20:48:47.084752+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:47.084752+00:00",
+          "returned_lots": 27
+        },
+        "message": "Current regional storefronts: 144 advertised links; 144 unique owned lots; 0 routed to other canonical regional feeds; 144 detail records; 11 commercial/mixed-use candidates; 117 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Lincolnshire, North Notts & South Yorks",
+        "status": "LIVE",
+        "expected_count": 6,
+        "lots_seen": 6,
+        "published_rows": 6,
+        "checked_at": "2026-10-18T21:08:56.629195+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 55,
+          "detail_pages_inspected": 55,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 55,
+          "advertised_source_lot_count": 55,
+          "commercial_mixed_candidates": 6,
+          "commercial_candidates": 6,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 38,
+          "classification_rejections": 49,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 49
+          },
+          "last_successful_discovery": "2026-10-18T20:48:33.923478+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:33.923478+00:00",
+          "returned_lots": 6
+        },
+        "message": "Current regional storefronts: 55 advertised links; 55 unique owned lots; 0 routed to other canonical regional feeds; 55 detail records; 6 commercial/mixed-use candidates; 49 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Manchester",
+        "status": "LIVE",
+        "expected_count": 3,
+        "lots_seen": 3,
+        "published_rows": 3,
+        "checked_at": "2026-10-18T21:08:56.651531+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 39,
+          "detail_pages_inspected": 39,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 39,
+          "advertised_source_lot_count": 39,
+          "commercial_mixed_candidates": 3,
+          "commercial_candidates": 3,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 34,
+          "classification_rejections": 36,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 37
+          },
+          "last_successful_discovery": "2026-10-18T20:48:34.852758+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:34.852758+00:00",
+          "returned_lots": 3
+        },
+        "message": "Current regional storefronts: 39 advertised links; 39 unique owned lots; 0 routed to other canonical regional feeds; 39 detail records; 3 commercial/mixed-use candidates; 36 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Chesterfield & North Derbyshire",
+        "status": "LIVE",
+        "expected_count": 1,
+        "lots_seen": 1,
+        "published_rows": 1,
+        "checked_at": "2026-10-18T21:08:56.657985+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 13,
+          "advertised_source_lot_count": 13,
+          "discovered_lot_urls": 13,
+          "detail_pages_inspected": 13,
+          "commercial_mixed_candidates": 1,
+          "commercial_candidates": 1,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 12,
+          "classification_rejections": 12,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 13
+          },
+          "last_successful_discovery": "2026-10-18T20:48:37.039667+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:37.039667+00:00",
+          "returned_lots": 1
+        },
+        "message": "Current regional storefronts: 13 advertised links; 13 unique owned lots; 0 routed to other canonical regional feeds; 13 detail records; 1 commercial/mixed-use candidates; 12 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Coventry & Warwickshire",
+        "status": "CATALOGUE PENDING",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:08:56.658008+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 24,
+          "advertised_source_lot_count": 24,
+          "discovered_lot_urls": 24,
+          "detail_pages_inspected": 24,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 21,
+          "classification_rejections": 24,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 24
+          },
+          "last_successful_discovery": "2026-10-18T20:48:43.043660+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:43.043660+00:00",
+          "returned_lots": 0
+        },
+        "message": "Current regional storefronts: 24 advertised links; 24 unique owned lots; 0 routed to other canonical regional feeds; 24 detail records; 0 commercial/mixed-use candidates; 24 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Scotland",
+        "status": "LIVE",
+        "expected_count": 46,
+        "lots_seen": 46,
+        "published_rows": 45,
+        "checked_at": "2026-10-18T21:08:57.118661+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 128,
+          "detail_pages_inspected": 128,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 128,
+          "advertised_source_lot_count": 128,
+          "commercial_mixed_candidates": 46,
+          "commercial_candidates": 39,
+          "mixed_use_candidates": 7,
+          "residential_exclusions": 76,
+          "classification_rejections": 82,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 95
+          },
+          "last_successful_discovery": "2026-10-18T20:49:30.937684+00:00",
+          "last_successful_harvest": "2026-10-18T20:49:30.937684+00:00",
+          "returned_lots": 46
+        },
+        "message": "Current regional storefronts: 128 advertised links; 128 unique owned lots; 0 routed to other canonical regional feeds; 128 detail records; 46 commercial/mixed-use candidates; 82 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Hull & East Yorkshire",
+        "status": "LIVE",
+        "expected_count": 2,
+        "lots_seen": 2,
+        "published_rows": 2,
+        "checked_at": "2026-10-18T21:08:57.140248+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 14,
+          "advertised_source_lot_count": 14,
+          "discovered_lot_urls": 14,
+          "detail_pages_inspected": 14,
+          "commercial_mixed_candidates": 2,
+          "commercial_candidates": 2,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 12,
+          "classification_rejections": 12,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 14
+          },
+          "last_successful_discovery": "2026-10-18T20:48:50.451134+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:50.451134+00:00",
+          "returned_lots": 2
+        },
+        "message": "Current regional storefronts: 14 advertised links; 14 unique owned lots; 0 routed to other canonical regional feeds; 14 detail records; 2 commercial/mixed-use candidates; 12 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Birmingham & Black Country",
+        "status": "LIVE",
+        "expected_count": 4,
+        "lots_seen": 4,
+        "published_rows": 4,
+        "checked_at": "2026-10-18T21:08:57.171272+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 32,
+          "advertised_source_lot_count": 32,
+          "discovered_lot_urls": 32,
+          "detail_pages_inspected": 32,
+          "commercial_mixed_candidates": 4,
+          "commercial_candidates": 4,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 25,
+          "classification_rejections": 28,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 32
+          },
+          "last_successful_discovery": "2026-10-18T20:48:57.266130+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:57.266130+00:00",
+          "returned_lots": 4
+        },
+        "message": "Current regional storefronts: 32 advertised links; 32 unique owned lots; 0 routed to other canonical regional feeds; 32 detail records; 4 commercial/mixed-use candidates; 28 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Northants, Beds & Bucks",
+        "status": "LIVE",
+        "expected_count": 1,
+        "lots_seen": 1,
+        "published_rows": 1,
+        "checked_at": "2026-10-18T21:08:57.188244+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 22,
+          "detail_pages_inspected": 22,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 22,
+          "advertised_source_lot_count": 22,
+          "commercial_mixed_candidates": 1,
+          "commercial_candidates": 1,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 20,
+          "classification_rejections": 21,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 21
+          },
+          "last_successful_discovery": "2026-10-18T20:48:59.491333+00:00",
+          "last_successful_harvest": "2026-10-18T20:48:59.491333+00:00",
+          "returned_lots": 1
+        },
+        "message": "Current regional storefronts: 22 advertised links; 22 unique owned lots; 0 routed to other canonical regional feeds; 22 detail records; 1 commercial/mixed-use candidates; 21 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Beds & Bucks",
+        "status": "CATALOGUE PENDING",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:08:57.188283+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 22,
+          "advertised_source_lot_count": 22,
+          "discovered_lot_urls": 22,
+          "detail_pages_inspected": 3,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 2,
+          "classification_rejections": 3,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 19,
+          "shared_feed_routes": {
+            "record_count": 1
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 3
+          },
+          "last_successful_discovery": "2026-10-18T20:49:00.445611+00:00",
+          "last_successful_harvest": "2026-10-18T20:49:00.445611+00:00",
+          "returned_lots": 0
+        },
+        "message": "Current regional storefronts: 22 advertised links; 3 unique owned lots; 19 routed to other canonical regional feeds; 3 detail records; 0 commercial/mixed-use candidates; 3 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Leicestershire",
+        "status": "LIVE",
+        "expected_count": 1,
+        "lots_seen": 1,
+        "published_rows": 1,
+        "checked_at": "2026-10-18T21:08:57.195412+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 7,
+          "detail_pages_inspected": 7,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 7,
+          "advertised_source_lot_count": 7,
+          "commercial_mixed_candidates": 1,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 1,
+          "residential_exclusions": 6,
+          "classification_rejections": 6,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 6
+          },
+          "last_successful_discovery": "2026-10-18T20:49:03.508866+00:00",
+          "last_successful_harvest": "2026-10-18T20:49:03.508866+00:00",
+          "returned_lots": 1
+        },
+        "message": "Current regional storefronts: 7 advertised links; 7 unique owned lots; 0 routed to other canonical regional feeds; 7 detail records; 1 commercial/mixed-use candidates; 6 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House North Yorkshire & Tees Valley",
+        "status": "LIVE",
+        "expected_count": 2,
+        "lots_seen": 2,
+        "published_rows": 2,
+        "checked_at": "2026-10-18T21:08:57.228869+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 21,
+          "detail_pages_inspected": 21,
+          "catalogue_fallbacks": 0,
+          "prior_details_preserved": 0,
+          "detail_failures": 0,
+          "discovery_failures": 0,
+          "current_catalogue_detected": true,
+          "source_lot_count": 21,
+          "advertised_source_lot_count": 21,
+          "commercial_mixed_candidates": 2,
+          "commercial_candidates": 1,
+          "mixed_use_candidates": 1,
+          "residential_exclusions": 17,
+          "classification_rejections": 19,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 19
+          },
+          "last_successful_discovery": "2026-10-18T20:49:07.933750+00:00",
+          "last_successful_harvest": "2026-10-18T20:49:07.933750+00:00",
+          "returned_lots": 2
+        },
+        "message": "Current regional storefronts: 21 advertised links; 21 unique owned lots; 0 routed to other canonical regional feeds; 21 detail records; 2 commercial/mixed-use candidates; 19 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House National Online",
+        "status": "LIVE",
+        "expected_count": 31,
+        "lots_seen": 31,
+        "published_rows": 31,
+        "checked_at": "2026-10-18T21:08:57.588229+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 339,
+          "advertised_source_lot_count": 339,
+          "discovered_lot_urls": 339,
+          "detail_pages_inspected": 339,
+          "commercial_mixed_candidates": 31,
+          "commercial_candidates": 23,
+          "mixed_use_candidates": 8,
+          "residential_exclusions": 272,
+          "classification_rejections": 308,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 339
+          },
+          "last_successful_discovery": "2026-10-18T20:51:06.293042+00:00",
+          "last_successful_harvest": "2026-10-18T20:51:06.293042+00:00",
+          "returned_lots": 31
+        },
+        "message": "Current regional storefronts: 339 advertised links; 339 unique owned lots; 0 routed to other canonical regional feeds; 339 detail records; 31 commercial/mixed-use candidates; 308 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Savills Auctions",
+        "status": "LIVE",
+        "expected_count": 112,
+        "lots_seen": 112,
+        "published_rows": 103,
+        "checked_at": "2026-10-18T21:08:58.323935+00:00",
+        "reconciliation": {
+          "returned_lots": 112
+        },
+        "message": "All-future Savills sweep: 3 future catalogue(s), 3 with commercial inventory, 0 pending; 112 commercial lots discovered, 112 published, 0 failures. 2026-10-20: 85 commercial discovered, 85 published, 0 card images mapped; 2026-11-03: 26 commercial discovered, 26 published, 0 card images mapped; 2026-11-24: 1 commercial discovered, 1 published, 0 card images mapped"
+      },
+      {
+        "source": "Bond Wolfe",
+        "status": "DEGRADED",
+        "expected_count": null,
+        "lots_seen": 26,
+        "published_rows": 26,
+        "checked_at": "2026-10-18T21:08:58.631904+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "catalogue_url": "https://www.bondwolfe.com/order-of-sale/",
+          "auction_date": "2026-10-22",
+          "source_lot_count": 174,
+          "lots_discovered": 174,
+          "lots_parsed": 171,
+          "commercial_candidates": 14,
+          "mixed_use_candidates": 12,
+          "commercial_mixed_candidates": 26,
+          "classification_rejections": 145,
+          "detail_failures": 3,
+          "other_sale_rejections": 0,
+          "lot_outcomes": {
+            "record_count": 174
+          },
+          "returned_lots": 26
+        },
+        "message": "2026-10-22 complete order-of-sale traversal: 174 discovered; 171 parsed; 26 commercial/mixed-use; 145 classification exclusions; 3 detail failures; 0 other-sale pages."
+      },
+      {
+        "source": "Pugh / BTG Eddisons",
+        "status": "LIVE",
+        "expected_count": 78,
+        "lots_seen": 78,
+        "published_rows": 78,
+        "checked_at": "2026-10-18T21:08:59.067105+00:00",
+        "reconciliation": {
+          "catalogue_pages": 19,
+          "discovered_lot_urls": 339,
+          "detail_pages_inspected": 339,
+          "commercial_mixed_lots": 78,
+          "noncommercial_excluded": 261,
+          "detail_failures": 0,
+          "returned_lots": 78
+        },
+        "message": "Newest-first all-future sweep: 19 page(s); 339 lots discovered before classification; 76 available and 2 unavailable commercial/mixed-use lots; 261 noncommercial excluded; 0 detail failures."
+      },
+      {
+        "source": "Strettons",
+        "status": "LIVE",
+        "expected_count": 25,
+        "lots_seen": 25,
+        "published_rows": 20,
+        "checked_at": "2026-10-18T21:08:59.122010+00:00",
+        "reconciliation": {
+          "returned_lots": 25
+        },
+        "message": "Commercial result set advertises 25 entries; 25 exact links discovered; 24 current/future, 0 sold/withdrawn, 1 historic, 0 explicitly rescheduled; 0 parse failures. All discovered commercial rows are preserved with lifecycle status."
+      },
+      {
+        "source": "LSH Auctions",
+        "status": "LIVE",
+        "expected_count": null,
+        "lots_seen": 9,
+        "published_rows": 7,
+        "checked_at": "2026-10-18T21:08:59.569504+00:00",
+        "reconciliation": {
+          "returned_lots": 9
+        },
+        "message": "All-future exact-page sweep via https://propertyauctions.lsh.co.uk/future-auctions: 22 lot pages; 9 commercial/mixed published across 1 future auction date(s); 9 residential; 0 past; 0 undated; 0 failures"
+      },
+      {
+        "source": "Pattinson Auction",
+        "status": "LIVE",
+        "expected_count": 14,
+        "lots_seen": 14,
+        "published_rows": 13,
+        "checked_at": "2026-10-18T21:08:59.824606+00:00",
+        "reconciliation": {
+          "returned_lots": 14
+        },
+        "message": "Rightmove Pattinson Auction fallback exact-page validation: 22 auction-branch cards inspected; 14 current commercial/mixed-use lots retained; 8 rejected by exact-page status/type checks; 0 exact-page fetch failures; property images 14/14; rich particulars 13/14."
+      },
+      {
+        "source": "McHugh & Co",
+        "status": "LIVE",
+        "expected_count": 10,
+        "lots_seen": 10,
+        "published_rows": 10,
+        "checked_at": "2026-10-18T21:08:59.885064+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "catalogue_url": "https://www.mchughandco.com/current-auction",
+          "source_lot_count": 208,
+          "lots_discovered": 208,
+          "lots_parsed": 208,
+          "commercial_candidates": 9,
+          "mixed_use_candidates": 1,
+          "commercial_mixed_candidates": 10,
+          "classification_rejections": 198,
+          "detail_failures": 0,
+          "past_sale_exclusions": 0,
+          "lot_outcomes": {
+            "record_count": 208
+          },
+          "returned_lots": 10
+        },
+        "message": "Current McHugh catalogue via https://www.mchughandco.com/current-auction: 208 lot pages discovered; 208 inspected; 10 commercial/mixed-use; 198 classification exclusions; 0 detail failures; 0 past-sale lots excluded."
+      },
+      {
+        "source": "Allsop Commercial",
+        "status": "LIVE",
+        "expected_count": 187,
+        "lots_seen": 187,
+        "published_rows": 61,
+        "checked_at": "2026-10-18T21:09:01.371849+00:00",
+        "reconciliation": {
+          "catalogues": {
+            "record_count": 5
+          },
+          "detail_pages_discovered": 187,
+          "detail_pages_inspected": 187,
+          "commercial_mixed_lots": 187,
+          "complete": true,
+          "detail_failures": {
+            "record_count": 0
+          },
+          "lot_urls": {
+            "record_count": 187
+          },
+          "retained_statuses": {
+            "record_count": 4
+          },
+          "returned_lots": 187
+        },
+        "message": "Allsop: 187/187 commercial/mixed-use detail records captured across 5 reconciled catalogues; 0 failures."
+      },
+      {
+        "source": "Acuitus",
+        "status": "LIVE",
+        "expected_count": 52,
+        "lots_seen": 52,
+        "published_rows": 52,
+        "checked_at": "2026-10-18T21:09:02.203496+00:00",
+        "reconciliation": {
+          "catalogue_url": "https://www.acuitus.co.uk/find-a-property/?which=sales",
+          "current_catalogue_detected": true,
+          "source_lot_count": 52,
+          "lots_discovered": 52,
+          "lots_parsed": 52,
+          "commercial_candidates": 43,
+          "mixed_use_candidates": 9,
+          "commercial_mixed_candidates": 52,
+          "classification_rejections": 0,
+          "residential_exclusions": 0,
+          "past_auction_exclusions": 0,
+          "catalogue_complete": true,
+          "detail_failures": 0,
+          "lot_outcomes": {
+            "record_count": 52
+          },
+          "returned_lots": 52
+        },
+        "message": "52/52 catalogue cards; 52 current commercial/mixed-use; 0 residential exclusions; 0 past lots; 0 detail failures"
+      },
+      {
+        "source": "Clive Emson",
+        "status": "LIVE",
+        "expected_count": 36,
+        "lots_seen": 36,
+        "published_rows": 32,
+        "checked_at": "2026-10-18T21:09:03.289334+00:00",
+        "reconciliation": {
+          "returned_lots": 36
+        },
+        "message": "Dynamic auction 269: 36 dedicated commercial links; 36 available; 0 sold-prior/withdrawn/postponed retained as history; 0 non-commercial rejects; 0 detail failures."
+      },
+      {
+        "source": "Paul Fosh Auctions",
+        "status": "LIVE",
+        "expected_count": 1,
+        "lots_seen": 1,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:09:03.299441+00:00",
+        "reconciliation": {
+          "catalogue_expected_lots": 3,
+          "detail_pages_discovered": 3,
+          "detail_pages_inspected": 3,
+          "commercial_mixed_lots": 1,
+          "noncommercial_excluded": 2,
+          "catalogue_pages": {
+            "record_count": 4
+          },
+          "detail_failures": {
+            "record_count": 0
+          },
+          "discovery_failures": {
+            "record_count": 0
+          },
+          "complete": true,
+          "lot_urls": {
+            "record_count": 3
+          },
+          "retained_statuses": {
+            "record_count": 1
+          },
+          "returned_lots": 1
+        },
+        "message": "Paul Fosh: 3/3 public lots discovered; 3 details inspected; 1 commercial/mixed-use retained; 2 noncommercial excluded; 0 detail and 0 discovery failures."
+      },
+      {
+        "source": "Barnard Marcus",
+        "status": "DEGRADED",
+        "expected_count": null,
+        "lots_seen": 20,
+        "published_rows": 1,
+        "checked_at": "2026-10-18T21:09:03.485570+00:00",
+        "reconciliation": {
+          "detail_pages_discovered": 363,
+          "detail_pages_inspected": 361,
+          "detail_failures": 2,
+          "commercial_lots": 20,
+          "availability_catalogue_failures": 1,
+          "verified_available_urls": 84,
+          "availability_coverage": {
+            "record_count": 1
+          },
+          "non_commercial_lots": 341,
+          "returned_lots": 20
+        },
+        "message": "Barnard Marcus collector: 363 advertised upcoming/latest-result lot pages inspected; 20 explicit commercial/mixed-use lots published after sale-particular classification; 2 detail failures; 1 availability catalogue failures."
+      },
+      {
+        "source": "Barnett Ross",
+        "status": "LIVE",
+        "expected_count": 11,
+        "lots_seen": 11,
+        "published_rows": 11,
+        "checked_at": "2026-10-18T21:09:03.572076+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 11,
+          "lots_discovered": 11,
+          "lots_parsed": 11,
+          "commercial_candidates": 3,
+          "mixed_use_candidates": 8,
+          "commercial_mixed_candidates": 11,
+          "classification_rejections": 0,
+          "detail_failures": 0,
+          "returned_lots": 11
+        },
+        "message": "Barnett Ross authoritative mixed catalogue: 11 total catalogue rows reconciled; 11 exact lot-detail pages inspected; 11 live commercial/mixed-use lots; 0 sold-prior/withdrawn target lots retained; 0 residential/non-target or non-detail rows excluded rather than mislabelled; 0 detail failures."
+      },
+      {
+        "source": "Harman Healy",
+        "status": "LIVE",
+        "expected_count": null,
+        "lots_seen": 1,
+        "published_rows": 1,
+        "checked_at": "2026-10-18T21:09:03.574471+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 2,
+          "lots_discovered": 2,
+          "lots_parsed": 2,
+          "commercial_mixed_candidates": 1,
+          "classification_rejections": 1,
+          "catalogue_failures": 0,
+          "parse_basis": "individual published catalogue lot records",
+          "returned_lots": 1
+        },
+        "message": "All-future Harman Healy sweep: 2 lots inspected; 1 commercial/mixed published; 1 residential rejected; 0 catalogue failures; 0 alternate-route recoveries."
+      },
+      {
+        "source": "Knight Frank Auctions",
+        "status": "CATALOGUE PENDING",
+        "expected_count": null,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:09:03.574617+00:00",
+        "reconciliation": {
+          "returned_lots": 0
+        },
+        "message": "Knight Frank all-future sweep: 3 future event(s), 0 with published property cards, 3 pending; 0 candidate property pages inspected; 0 commercial/mixed-use lots published; 0 failures."
+      },
+      {
+        "source": "Town & Country Property Auctions",
+        "status": "LIVE",
+        "expected_count": null,
+        "lots_seen": 21,
+        "published_rows": 14,
+        "checked_at": "2026-10-18T21:09:04.187937+00:00",
+        "reconciliation": {
+          "returned_lots": 21
+        },
+        "message": "All-region Town & Country sweep: 21 current/future commercial/mixed-use catalogue cards; 21 published; 0 detail failures; 0 regional discovery failures."
+      },
+      {
+        "source": "Future Property Auctions Scotland",
+        "status": "LIVE",
+        "expected_count": 231,
+        "lots_seen": 231,
+        "published_rows": 220,
+        "checked_at": "2026-10-18T21:09:07.856881+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 755,
+          "lots_discovered": 755,
+          "lots_parsed": 755,
+          "commercial_mixed_candidates": 231,
+          "classification_rejections": 524,
+          "catalogue_pages": 80,
+          "detail_targets": 231,
+          "details_parsed": 231,
+          "catalogue_fallbacks": 0,
+          "detail_failures": 0,
+          "parse_basis": "individual catalogue lot records, with separate detail outcomes",
+          "returned_lots": 231
+        },
+        "message": "All-future Future Property Auctions sweep: 80 catalogue pages inspected; 755 unique future catalogue lots encountered across dates ('2026-10-22', '2026-10-29', '2026-11-05'); 231 commercial/mixed-use targets discovered; 231 captured; lot-bound property images 231/231 (497 first-party export hero mappings available); 0 authoritative catalogue-card fallbacks; 0 unrecovered detail failures."
+      },
+      {
+        "source": "BidX1",
+        "status": "LIVE",
+        "expected_count": 13,
+        "lots_seen": 13,
+        "published_rows": 6,
+        "checked_at": "2026-10-18T21:09:08.015330+00:00",
+        "reconciliation": {
+          "returned_lots": 13
+        },
+        "message": "All-current/future BidX1 UK sweep: 10 list pages; 13 commercial candidates; 13 published; 0 detail failures."
+      },
+      {
+        "source": "Symonds & Sampson",
+        "status": "LIVE",
+        "expected_count": null,
+        "lots_seen": 9,
+        "published_rows": 5,
+        "checked_at": "2026-10-18T21:09:08.207962+00:00",
+        "reconciliation": {
+          "discovered_lot_urls": 50,
+          "detail_pages_inspected": 50,
+          "commercial_mixed_lots": 9,
+          "noncommercial_excluded": 42,
+          "detail_failures": {
+            "record_count": 0
+          },
+          "public_catalogue": {
+            "record_count": 5
+          },
+          "returned_lots": 9
+        },
+        "message": "12 future events; 50 unique lot URLs; 50 details inspected; 9 commercial/mixed-use; 42 excluded; 0 detail failures.  EIG public catalogue: 48/48 details; 3 commercial/mixed-use reconciled."
+      },
+      {
+        "source": "Auction Estates",
+        "status": "LIVE",
+        "expected_count": 13,
+        "lots_seen": 13,
+        "published_rows": 10,
+        "checked_at": "2026-10-18T21:09:08.337495+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 53,
+          "lots_discovered": 53,
+          "lots_parsed": 53,
+          "detail_failures": 0,
+          "commercial_mixed_candidates": 13,
+          "mixed_use_candidates": 1,
+          "commercial_candidates": 12,
+          "classification_rejections": 40,
+          "terminal_lots_preserved": 0,
+          "returned_lots": 13
+        },
+        "message": "Current Auction Estates 2026-12-10 catalogue: 53 total lot pages inspected; 13 live commercial/mixed-use lots; 0 sold-prior/withdrawn/postponed lots preserved for archive; 0 detail failures."
+      },
+      {
+        "source": "Auction House Midlands",
+        "status": "LIVE",
+        "expected_count": 7,
+        "lots_seen": 7,
+        "published_rows": 7,
+        "checked_at": "2026-10-18T21:09:08.407808+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 122,
+          "advertised_source_lot_count": 181,
+          "discovered_lot_urls": 122,
+          "detail_pages_inspected": 80,
+          "commercial_mixed_candidates": 7,
+          "commercial_candidates": 4,
+          "mixed_use_candidates": 3,
+          "residential_exclusions": 57,
+          "classification_rejections": 73,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 42,
+          "shared_feed_routes": {
+            "record_count": 3
+          },
+          "storefronts": {
+            "record_count": 3
+          },
+          "lot_outcomes": {
+            "record_count": 80
+          },
+          "last_successful_discovery": "2026-10-18T20:58:26.122713+00:00",
+          "last_successful_harvest": "2026-10-18T20:58:26.122713+00:00",
+          "returned_lots": 7
+        },
+        "message": "Current regional storefronts: 181 advertised links; 80 unique owned lots; 42 routed to other canonical regional feeds; 80 detail records; 7 commercial/mixed-use candidates; 73 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Kent",
+        "status": "CATALOGUE PENDING",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:09:08.408112+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 8,
+          "advertised_source_lot_count": 8,
+          "discovered_lot_urls": 8,
+          "detail_pages_inspected": 8,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 8,
+          "classification_rejections": 8,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 8
+          },
+          "last_successful_discovery": "2026-10-18T20:58:31.436170+00:00",
+          "last_successful_harvest": "2026-10-18T20:58:31.436170+00:00",
+          "returned_lots": 0
+        },
+        "message": "Current regional storefronts: 8 advertised links; 8 unique owned lots; 0 routed to other canonical regional feeds; 8 detail records; 0 commercial/mixed-use candidates; 8 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House South Yorkshire",
+        "status": "LIVE",
+        "expected_count": 5,
+        "lots_seen": 5,
+        "published_rows": 5,
+        "checked_at": "2026-10-18T21:09:08.493096+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 55,
+          "advertised_source_lot_count": 55,
+          "discovered_lot_urls": 55,
+          "detail_pages_inspected": 55,
+          "commercial_mixed_candidates": 5,
+          "commercial_candidates": 3,
+          "mixed_use_candidates": 2,
+          "residential_exclusions": 38,
+          "classification_rejections": 50,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 55
+          },
+          "last_successful_discovery": "2026-10-18T20:59:00.521592+00:00",
+          "last_successful_harvest": "2026-10-18T20:59:00.521592+00:00",
+          "returned_lots": 5
+        },
+        "message": "Current regional storefronts: 55 advertised links; 55 unique owned lots; 0 routed to other canonical regional feeds; 55 detail records; 5 commercial/mixed-use candidates; 50 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Northern Ireland",
+        "status": "CATALOGUE PENDING",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:09:08.493371+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": false,
+          "source_lot_count": 0,
+          "advertised_source_lot_count": 0,
+          "discovered_lot_urls": 0,
+          "detail_pages_inspected": 0,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 0,
+          "classification_rejections": 0,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 0
+          },
+          "last_successful_discovery": "2026-10-18T20:59:02.618439+00:00",
+          "last_successful_harvest": "2026-10-18T20:59:02.618439+00:00",
+          "returned_lots": 0
+        },
+        "message": "Current regional storefronts: 0 advertised links; 0 unique owned lots; 0 routed to other canonical regional feeds; 0 detail records; 0 commercial/mixed-use candidates; 0 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Auction House Oxfordshire",
+        "status": "CATALOGUE PENDING",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:09:08.493461+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": false,
+          "source_lot_count": 0,
+          "advertised_source_lot_count": 0,
+          "discovered_lot_urls": 0,
+          "detail_pages_inspected": 0,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 0,
+          "classification_rejections": 0,
+          "detail_failures": 0,
+          "catalogue_fallbacks": 0,
+          "shared_feed_lots": 0,
+          "shared_feed_routes": {
+            "record_count": 0
+          },
+          "storefronts": {
+            "record_count": 1
+          },
+          "lot_outcomes": {
+            "record_count": 0
+          },
+          "last_successful_discovery": "2026-10-18T20:59:04.572312+00:00",
+          "last_successful_harvest": "2026-10-18T20:59:04.572312+00:00",
+          "returned_lots": 0
+        },
+        "message": "Current regional storefronts: 0 advertised links; 0 unique owned lots; 0 routed to other canonical regional feeds; 0 detail records; 0 commercial/mixed-use candidates; 0 classification exclusions; 0 detail failures. "
+      },
+      {
+        "source": "Sutton Kersh",
+        "status": "LIVE",
+        "expected_count": 6,
+        "lots_seen": 6,
+        "published_rows": 6,
+        "checked_at": "2026-10-18T21:09:08.517058+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 97,
+          "discovered_lot_urls": 97,
+          "detail_pages_inspected": 97,
+          "commercial_mixed_candidates": 6,
+          "commercial_candidates": 4,
+          "mixed_use_candidates": 2,
+          "residential_exclusions": 83,
+          "classification_rejections": 91,
+          "past_auction_exclusions": 0,
+          "detail_failures": 0,
+          "discovery_failures": {
+            "record_count": 0
+          },
+          "lot_outcomes": {
+            "record_count": 97
+          },
+          "returned_lots": 6
+        },
+        "message": "97 current catalogue lots discovered; 97 details parsed; 6 commercial/mixed-use; 83 residential excluded; 8 without proven commercial use; 0 past lots. "
+      },
+      {
+        "source": "Edward Mellor",
+        "status": "LIVE",
+        "expected_count": 6,
+        "lots_seen": 6,
+        "published_rows": 6,
+        "checked_at": "2026-10-18T21:09:08.574021+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 85,
+          "discovered_lot_urls": 85,
+          "detail_pages_inspected": 85,
+          "commercial_mixed_candidates": 6,
+          "commercial_candidates": 4,
+          "mixed_use_candidates": 2,
+          "residential_exclusions": 75,
+          "classification_rejections": 79,
+          "past_auction_exclusions": 0,
+          "detail_failures": 0,
+          "discovery_failures": {
+            "record_count": 0
+          },
+          "lot_outcomes": {
+            "record_count": 85
+          },
+          "returned_lots": 6
+        },
+        "message": "85 current catalogue lots discovered; 85 details parsed; 6 commercial/mixed-use; 75 residential excluded; 4 without proven commercial use; 0 past lots. "
+      },
+      {
+        "source": "Under The Hammer",
+        "status": "DEGRADED",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 8,
+        "checked_at": "2026-10-18T21:09:08.574326+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": null,
+          "source_lot_count": null,
+          "discovered_lot_urls": 0,
+          "detail_pages_inspected": 0,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 0,
+          "classification_rejections": 0,
+          "past_auction_exclusions": 0,
+          "detail_failures": 0,
+          "lot_outcomes": {
+            "record_count": 0
+          },
+          "discovery_failures": {
+            "record_count": 1
+          },
+          "catalogue_url": "https://www.underthehammer.com/for-auction/properties",
+          "returned_lots": 0
+        },
+        "message": "0/None public records; 0 parsed; 0 past; 0 current commercial/mixed-use. Discovery: 403 Client Error: Forbidden for url: https://www.underthehammer.com/api/properties?top=100&skip=0 Temporary collector outage: retained 25 last-known-good row(s); 8 eligible current row(s) restored on the public board. Undated rows expire after 48 hours without fresh evidence."
+      },
+      {
+        "source": "iamsold",
+        "status": "LIVE",
+        "expected_count": 111,
+        "lots_seen": 111,
+        "published_rows": 111,
+        "checked_at": "2026-10-18T21:09:09.414859+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 278,
+          "discovered_lot_urls": 278,
+          "detail_pages_inspected": 278,
+          "commercial_mixed_candidates": 111,
+          "commercial_candidates": 70,
+          "mixed_use_candidates": 41,
+          "residential_exclusions": 84,
+          "classification_rejections": 167,
+          "detail_failures": 0,
+          "discovery_failures": {
+            "record_count": 0
+          },
+          "detail_errors": {
+            "record_count": 0
+          },
+          "lot_outcomes": {
+            "record_count": 278
+          },
+          "catalogue_traversal": {
+            "record_count": 4
+          },
+          "scope": "National Commercial Property, Guest House/Hotel, Garage/Parking and Land categories; detail-classified. Residential categories not traversed.",
+          "returned_lots": 111
+        },
+        "message": "278 unique catalogue properties; 278 detail pages parsed; 111 commercial/mixed-use. "
+      },
+      {
+        "source": "Wilsons Property Auctions",
+        "status": "CATALOGUE PENDING",
+        "expected_count": 0,
+        "lots_seen": 0,
+        "published_rows": 0,
+        "checked_at": "2026-10-18T21:09:09.415188+00:00",
+        "reconciliation": {
+          "current_catalogue_detected": true,
+          "source_lot_count": 41,
+          "advertised_current_lot_count": 41,
+          "discovered_lot_urls": 41,
+          "detail_pages_inspected": 41,
+          "commercial_mixed_candidates": 0,
+          "commercial_candidates": 0,
+          "mixed_use_candidates": 0,
+          "residential_exclusions": 41,
+          "classification_rejections": 41,
+          "past_auction_exclusions": 0,
+          "detail_failures": 0,
+          "discovery_failures": {
+            "record_count": 0
+          },
+          "lot_outcomes": {
+            "record_count": 41
+          },
+          "catalogues": {
+            "record_count": 7
+          },
+          "scope": "Current/upcoming UK property events linked by the official land/property page; Republic of Ireland excluded.",
+          "returned_lots": 0
+        },
+        "message": "41 advertised UK event lots plus 0 ended record(s); 41/41 detailed records parsed; 0 commercial/mixed-use. "
+      },
+      {
+        "source": "Cheffins",
+        "status": "LIVE",
+        "expected_count": 7,
+        "lots_seen": 7,
+        "published_rows": 3,
+        "checked_at": "2026-10-18T21:09:09.481849+00:00",
+        "reconciliation": {
+          "scope": "Timed/CPN feed and linked current rostrum catalogue; no archive traversal",
+          "current_catalogue_detected": true,
+          "source_lot_count": 28,
+          "catalogue_total_lots": 43,
+          "discovered_lot_urls": 43,
+          "detail_pages_inspected": 8,
+          "past_auction_exclusions": 15,
+          "classification_rejections": 21,
+          "commercial_mixed_candidates": 3,
+          "catalogue_complete": true,
+          "discovery_failures": {
+            "record_count": 0
+          },
+          "lot_outcomes": {
+            "record_count": 4
+          },
+          "catalogue_pages": {
+            "record_count": 1
+          },
+          "timed_catalogue": {
+            "record_count": 13
+          },
+          "rostrum_catalogue": {
+            "record_count": 10
+          },
+          "total_commercial_mixed_candidates": 7,
+          "lots_parsed": 28,
+          "returned_lots": 7
+        },
+        "message": "Timed catalogue: 19 discovered, 15 past results, 4 details checked, 3 commercial/mixed-use.  Rostrum: 24 cards, 4 commercial/mixed-use; complete=True."
+      },
+      {
+        "source": "Network Auctions",
+        "status": "MERGED SOURCE",
+        "expected_count": 78,
+        "lots_seen": 78,
+        "published_rows": null,
+        "checked_at": "2026-10-18T21:08:59.067105+00:00",
+        "reconciliation": {},
+        "message": "Network Auctions is represented by successor source Pugh / BTG Eddisons; inventory is collected there rather than duplicated."
+      },
+      {
+        "source": "SDL Property Auctions",
+        "status": "MERGED SOURCE",
+        "expected_count": 78,
+        "lots_seen": 78,
+        "published_rows": null,
+        "checked_at": "2026-10-18T21:08:59.067105+00:00",
+        "reconciliation": {},
+        "message": "SDL Property Auctions is represented by successor source Pugh / BTG Eddisons; inventory is collected there rather than duplicated."
+      },
+      {
+        "source": "Dedman Gray",
+        "status": "MERGED SOURCE",
+        "expected_count": 13,
+        "lots_seen": 13,
+        "published_rows": null,
+        "checked_at": "2026-10-18T21:09:08.015330+00:00",
+        "reconciliation": {},
+        "message": "Dedman Gray is represented by successor source BidX1; inventory is collected there rather than duplicated."
+      }
+    ]
+  },
+  "historical": {
+    "generated_at": "2026-10-08T19:50:04.011414+00:00",
+    "individual_lot_records_captured": 270629,
+    "records_with_address": 260253,
+    "partial_lot_records": 10376,
+    "exact_address_groups": 152292,
+    "groups_with_repeat_appearances": 37211,
+    "by_auctioneer": {
+      "Acuitus": 5697,
+      "Allsop": 44654,
+      "Allsop Commercial": 66,
+      "Anderson & Garland": 26,
+      "Auction Estates": 2028,
+      "Auction House Beds & Bucks": 14,
+      "Auction House Birmingham & Black Country": 104,
+      "Auction House Cheshire, Staffordshire & Shropshire": 154,
+      "Auction House Chesterfield & North Derbyshire": 1,
+      "Auction House Coventry & Warwickshire": 139,
+      "Auction House Cumbria": 18,
+      "Auction House East Anglia": 160,
+      "Auction House Essex": 16,
+      "Auction House Hull & East Yorkshire": 96,
+      "Auction House Kent": 97,
+      "Auction House Leicestershire": 33,
+      "Auction House Lincolnshire, North Notts & South Yorks": 918,
+      "Auction House London": 19656,
+      "Auction House Manchester": 71,
+      "Auction House North East": 533,
+      "Auction House North West": 385,
+      "Auction House North Yorkshire & Tees Valley": 32,
+      "Auction House Northants, Beds & Bucks": 13,
+      "Auction House Northern Ireland": 6,
+      "Auction House Notts & Derby": 281,
+      "Auction House Scotland": 3,
+      "Auction House South West": 218,
+      "Auction House South Yorkshire": 1762,
+      "Auction House Sussex & Hampshire": 38,
+      "Auction House Wales": 471,
+      "Auction House West Yorkshire": 117,
+      "BTG Eddisons": 2654,
+      "Bagshaws": 84,
+      "Barnard Marcus Auctions": 6354,
+      "Barnett Ross": 7536,
+      "BidX1": 294,
+      "Bond Wolfe": 9407,
+      "Brown&Co": 20,
+      "Cheffins": 740,
+      "Clive Emson": 3931,
+      "Cottons": 7283,
+      "Dedman Gray": 2791,
+      "Edward Mellor": 10065,
+      "Future Property Auctions": 57172,
+      "Goldings Auctions": 621,
+      "Harman Healy": 1507,
+      "Hollis Morgan": 813,
+      "John Francis": 1407,
+      "Knight Frank Auctions": 285,
+      "LSH Auctions": 587,
+      "Maggs & Allen": 108,
+      "McHugh & Co": 13926,
+      "Network Auctions": 1202,
+      "Pattinson Auctions": 449,
+      "Paul Fosh Auctions": 5603,
+      "Phillip Arnold Auctions": 2416,
+      "Pugh Auctioneers": 6844,
+      "SDL Property Auctions": 443,
+      "Savills (London - National)": 1,
+      "Savills Auctions": 30926,
+      "Savills Auctions (London & National)": 4,
+      "Savills Commercial": 2,
+      "Seel & Co": 460,
+      "Sharpes Auctions": 1215,
+      "Smith & Sons": 1007,
+      "Strettons": 123,
+      "Sutton Kersh": 11401,
+      "Swift Property Auctions": 137,
+      "Symonds & Sampson": 215,
+      "Town & Country Property Auctions": 2775,
+      "Unknown auctioneer": 14
+    },
+    "by_sector": {
+      "commercial": 37094,
+      "land": 16483,
+      "mixed-use": 39112,
+      "residential": 132015,
+      "unknown": 45925
+    },
+    "by_year": {
+      "null": 4129,
+      "2002": 129,
+      "2003": 717,
+      "2004": 689,
+      "2005": 841,
+      "2006": 941,
+      "2007": 1884,
+      "2008": 1503,
+      "2009": 1302,
+      "2010": 2294,
+      "2011": 3308,
+      "2012": 3628,
+      "2013": 6296,
+      "2014": 8537,
+      "2015": 7926,
+      "2016": 8656,
+      "2017": 8785,
+      "2018": 8226,
+      "2019": 7394,
+      "2020": 10220,
+      "2021": 14158,
+      "2022": 24189,
+      "2023": 24438,
+      "2024": 37036,
+      "2025": 44024,
+      "2026": 39379
+    },
+    "surviving_catalogues_completely_harvested": 1842,
+    "catalogues_incomplete_or_unreconciled": 618,
+    "catalogue_fetch_or_parse_failures": 69,
+    "limits": [
+      "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
+      "Exact address groups are not a verified count of unique physical buildings.",
+      "Completeness refers to surviving published catalogue content, not all lots originally offered.",
+      "Legacy partial lots retain location and lot number; missing street addresses remain null."
+    ]
+  },
+  "priority_assessments": [
+    {
+      "auctioneer": "Wilsons Property Auctions",
+      "recorded_state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": "2026-10-06",
+      "canonical_source": "Wilsons Property Auctions",
+      "observed_health": "CATALOGUE PENDING",
+      "scope": "Current/upcoming UK property event lot-summary feed reconciled against event totalCount; Republic of Ireland excluded.",
+      "remaining": null
+    },
+    {
+      "auctioneer": "Sutton Kersh",
+      "recorded_state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": null,
+      "canonical_source": "Sutton Kersh",
+      "observed_health": "LIVE",
+      "scope": "Current catalogue detail traversal; historical collectors unchanged",
+      "remaining": null
+    },
+    {
+      "auctioneer": "Cheffins",
+      "recorded_state": "TIMED_COLLECTOR_IMPLEMENTED_ROSTRUM_RECONCILIATION_REQUIRED",
+      "checked_on": "2026-10-17",
+      "canonical_source": "Cheffins",
+      "observed_health": "LIVE",
+      "scope": "Timed/CPN catalogue only; separate rostrum catalogue unverified",
+      "remaining": "Live timed collector verified: 19 discovered records, 4 inspected details (including one past withdrawn residential lot), 3 upcoming commercial lots. Production publication acceptance and separate rostrum catalogue reconciliation remain outstanding."
+    },
+    {
+      "auctioneer": "Edward Mellor",
+      "recorded_state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": null,
+      "canonical_source": "Edward Mellor",
+      "observed_health": "LIVE",
+      "scope": "Current catalogue detail traversal; historical collectors unchanged",
+      "remaining": null
+    },
+    {
+      "auctioneer": "Under The Hammer",
+      "recorded_state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": null,
+      "canonical_source": "Under The Hammer",
+      "observed_health": "DEGRADED",
+      "scope": "Complete public catalogue API pagination and current-lot classification; past rows excluded from current board",
+      "remaining": null
+    },
+    {
+      "auctioneer": "Hollis Morgan",
+      "recorded_state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
+      "checked_on": null,
+      "canonical_source": "Hollis Morgan",
+      "observed_health": null,
+      "scope": null,
+      "remaining": null
+    },
+    {
+      "auctioneer": "Loveitts",
+      "recorded_state": "CURRENT_INVENTORY_MATCHED_CANONICAL_HEALTH_ACCEPTANCE_PENDING",
+      "checked_on": "2026-10-17",
+      "canonical_source": "Auction House Coventry & Warwickshire",
+      "observed_health": "CATALOGUE PENDING",
+      "scope": "Dated manual reconciliation: 22 Loveitts current listings across two pages matched by address and postcode to the existing 24-lot canonical regional feed. No independent collector or duplicate property rows added.",
+      "remaining": "Current Loveitts inventory matched to Auction House Coventry & Warwickshire. Separate Loveitts health attribution and continuing catalogue divergence monitoring remain pending; this is not blanket future inventory sign-off."
+    },
+    {
+      "auctioneer": "iamsold",
+      "recorded_state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": "2026-10-06",
+      "canonical_source": "iamsold",
+      "observed_health": "LIVE",
+      "scope": "National commercial, hotel, garage and land categories; all pages traversed and details classified. Residential categories not traversed.",
+      "remaining": null
+    },
+    {
+      "auctioneer": "Connells Property Auctions",
+      "recorded_state": "IAMSOLD_RELATIONSHIP_VERIFIED_INVENTORY_RECONCILIATION_REQUIRED",
+      "checked_on": "2026-10-17",
+      "canonical_source": "iamsold",
+      "observed_health": "LIVE",
+      "scope": "Connells explicitly describes its modern method of auction as provided through iamsold. This establishes a distribution relationship, not that every Connells lot or traditional/group auction is ingested.",
+      "remaining": "Existing iamsold collector is available; brand-level current commercial inventory and any separate traditional catalogue remain unverified. Do not create duplicate rows or mark the brand complete from group membership alone."
+    },
+    {
+      "auctioneer": "Fox & Sons Property Auctions",
+      "recorded_state": "UPCOMING_CATALOGUE_PENDING_SHARED_RESULTS_IDENTIFIED",
+      "checked_on": "2026-10-17",
+      "canonical_source": "Barnard Marcus",
+      "observed_health": "DEGRADED",
+      "scope": "Current-auction page invites entries for 17 November 2026. Homepage publishes 22 results from 15 October, all linking to exact Barnard Marcus lot pages. Separate modern-method auctions also exist through iamsold; this is not a whole-brand equivalence claim.",
+      "remaining": "First-party shared catalogue relationship verified, but Barnard Marcus current-source health is degraded and post-auction/brand inventory reconciliation is incomplete. No duplicate collector or automatic merged-source sign-off added."
+    },
+    {
+      "auctioneer": "Aberdein Considine",
+      "recorded_state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
+      "checked_on": null,
+      "canonical_source": "Aberdein Considine",
+      "observed_health": null,
+      "scope": null,
+      "remaining": null
+    },
+    {
+      "auctioneer": "SW Property Auctions",
+      "recorded_state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
+      "checked_on": null,
+      "canonical_source": "SW Property Auctions",
+      "observed_health": null,
+      "scope": null,
+      "remaining": null
+    },
+    {
+      "auctioneer": "Commercial.Auction",
+      "recorded_state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
+      "checked_on": null,
+      "canonical_source": "Commercial.Auction",
+      "observed_health": null,
+      "scope": null,
+      "remaining": null
+    },
+    {
+      "auctioneer": "Resi.Auction",
+      "recorded_state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
+      "checked_on": null,
+      "canonical_source": "Resi.Auction",
+      "observed_health": null,
+      "scope": null,
+      "remaining": null
+    },
+    {
+      "auctioneer": "Probate.Auction",
+      "recorded_state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
+      "checked_on": null,
+      "canonical_source": "Probate.Auction",
+      "observed_health": null,
+      "scope": null,
+      "remaining": null
+    }
+  ],
+  "limits": [
+    "Current source health covers the collectors configured for the commercial board, not every UK auctioneer.",
+    "Historical appearances include repeat listings and residential lots; they are not unique physical buildings.",
+    "A current collector may inspect then exclude residential lots; inspection is not permanent banking.",
+    "Merged feeds require brand-level reconciliation. Missing evidence is not zero inventory.",
+    "Timestamp age and successful publication must be checked separately from parser coverage."
+  ]
+}

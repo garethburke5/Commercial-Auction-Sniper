@@ -58,6 +58,15 @@ class SavillsHanoverRegressionTests(unittest.TestCase):
         self.assertNotEqual(headline, "GROUND RENT INVESTMENT")
         self.assertTrue(any("11,178 sq ft vacant" in item for item in highlights))
 
+    def test_long_leasehold_description_never_overrides_explicit_freehold(self):
+        lot=self._lot();lot.tenure='Freehold'
+        lot.description='Tenure: Freehold. Upper flat: Long Leasehold held on a lease for 125 years.'
+        self.assertEqual(_enhance_savills_lot(lot).tenure,'Freehold')
+
+    def test_incidental_long_leasehold_does_not_refine_generic_leasehold(self):
+        lot=self._lot();lot.description='Leasehold shop. Nearby long leasehold investments have sold recently.'
+        self.assertEqual(_enhance_savills_lot(lot).tenure,'Leasehold')
+
     def test_incidental_one_pound_ground_rent_does_not_drive_asset_type(self):
         row = {
             "property_type": "Office",

@@ -503,6 +503,17 @@ this collection and must be reconciled source by source before import.
 
 ## Continuation
 
+20 October: the owner resumed archive work. Scheduled runs now perform two
+rotating tasks, each capped at ten minutes, recording failures/timeouts separately
+from captured-lot counts. `continuation_collection.json` preserves the next task.
+Explicit `all` and `retained-legacy` dispatches remain available for broader work.
+The rebuilt database is also committed in checksum-verified parts under
+`database_parts/`; the website prefers that manifest over the older single gzip.
+This prevents the single-file size limit leaving the site on a stale database
+while newer progress totals are published. Source shards remain the durable
+evidence and can rebuild the database. Current commercial-board scope is separate
+from the all-property historical corpus.
+
 The Historical lot corpus collection workflow resumes incomplete known Savills
 catalogues every six hours and saves checkpoints to the repository. Its separate
 output paths avoid collisions with live-board scans. Modern completed auctions

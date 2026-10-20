@@ -6,13 +6,16 @@ on:
       focus:
         description: 'Run the full corpus or a focused retained-legacy refresh'
         required: false
-        default: all
+        default: bounded
         type: choice
         options:
+          - bounded
           - all
           - retained-legacy
   push:
     paths:
+      - scripts/resume_history_batch.py
+      - web_platform/history_storage.py
       - historical_corpus.py
       - historical_allsop.py
       - scripts/harvest_acuitus_canonical.py
@@ -127,12 +130,8 @@ concurrency:
 
 jobs:
   collect:
-    # Owner priority instruction, 8 October 2026: pause discretionary archive
-    # recovery after its saved checkpoint while Acquisition Intelligence is fixed.
-    # This workflow traverses historical catalogues. Current-stock scans, normal
-    # observation banking and public-site publication have separate workflows.
-    # Resume only after an explicit review of the owner's launch priorities.
-    if: ${{ false }}
+    # Owner resumed archive work on 20 October. Scheduled runs use bounded,
+    # rotating batches; broad legacy sweeps remain explicit dispatch choices.
     runs-on: ubuntu-latest
     timeout-minutes: 55
     steps:
@@ -152,226 +151,232 @@ jobs:
             sudo apt-get install -y poppler-utils tesseract-ocr
           fi
       - name: Verify admission, identities and completeness rules
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_edward_mellor_pdfs.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py tests/test_seel_catalogues.py tests/test_harvest_bond_wolfe_history.py tests/test_harvest_savills_legacy_result_grid.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
+      - name: Check bounded continuation and database storage
+        run: python -m pytest -q tests/test_history_continuation.py tests/test_history_storage.py tests/test_historical_corpus.py
+      - name: Resume bounded archive batch
+        if: inputs.focus == '' || inputs.focus == 'bounded'
+        timeout-minutes: 22
+        run: python -u scripts/resume_history_batch.py
       - name: Refresh the complete Harman Healy retained archive
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_harman_healy_results.py
       - name: Refresh the complete LSH Auctions retained archive
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_lsh_results.py
       - name: Refresh retained Goldings Auctions result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_goldings_results.py
       - name: Refresh retained Maggs & Allen sold results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_maggs_allen_results.py
       - name: Resume oldest Sutton Kersh result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_sutton_kersh_results.py --catalogues 8 --workers 6
       - name: Refresh the retained Knight Frank recently-sold archive
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_knight_frank_results.py 12
       - name: Refresh all retained Auction Estates result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_auction_estates_results.py 8
       - name: Refresh retained Hollis Morgan result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_hollis_morgan_results.py 4
       - name: Collect retained Dedman Gray result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_dedman_gray_results.py --workers 8
       - name: Collect retained John Francis auction lot lists
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_john_francis_results.py --workers 8
       - name: Collect retained Swift Property Auctions results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_swift_property_auctions.py --workers 8
       - name: Collect retained Sharpes traditional and modern results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_sharpes_results.py --workers 12
       - name: Bank retained Seel complete catalogue PDFs
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_seel_catalogues.py
       - name: Bank newly completed Bond Wolfe result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_bond_wolfe_history.py
       - name: Bank every previously recovered legacy lot
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         run: python -u historical_corpus.py bank-legacy
       - name: Bank evidenced lots from saved source-corpus shards
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         run: python -u historical_corpus.py bank-source-corpus
       - name: Traverse and reconcile the public Allsop historical search corpus
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u historical_allsop.py --workers 4
       - name: Collect only newly exposed or unreconciled Acuitus catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_acuitus_canonical.py --all-incomplete
       - name: Collect only newly exposed or unreconciled Clive Emson catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_clive_emson_canonical.py --all-incomplete
       - name: Enrich up to six oldest usable Clive Emson partial catalogues from lot pages
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_clive_emson_canonical.py --enrich-batch 6 --workers 4
       - name: Repair implausible Barnett Ross dates and collect new catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_barnett_ross_canonical.py --repair-dates
       - name: Traverse and bank the retained Pugh property archive
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_pugh_canonical.py
       - name: Bank every retained Symonds and Sampson property page
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_symonds_sampson_canonical.py --workers 8
       - name: Collect complete seeded BidX1 UK historical catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_bidx1_canonical.py
       - name: Bank complete retained Strettons past-auction catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_strettons_results.py 4
       - name: Bank retained Cheffins property-auction result cards
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_cheffins_history.py 6
       - name: Bank retained BTG Eddisons result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_btg_eddisons_catalogues.py 4
       - name: Bank retained SDL legacy catalogue lot cards
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_sdl_legacy_catalogues.py --limit 48
       - name: Bank Smith and Sons retained auction results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_smith_sons_results.py
       - name: Bank Town and Country retained online results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_town_country_results.py --workers 4
       - name: Bank Brown and Co retained property-auction results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_brown_co_results.py
       - name: Bank Bagshaws retained property-auction pages
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_bagshaws_results.py
       - name: Bank Anderson and Garland retained auction results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 5
         continue-on-error: true
         run: python -u scripts/harvest_anderson_garland_results.py
       - name: Bank Edward Mellor retained auction result pages
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_edward_mellor_results.py --limit 24 --workers 8
       - name: Bank Edward Mellor retained legacy result PDFs
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_edward_mellor_pdfs.py 8
       - name: Bank Future Property Auctions archived catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 30
         continue-on-error: true
         run: python -u scripts/harvest_future_property_auctions.py --limit 18 --workers 3
       - name: Collect Auction House North East online results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_northeast.py
       - name: Collect Auction House South Yorkshire online results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_south_yorkshire.py
       - name: Collect Auction House North West online results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_north_west.py
       - name: Collect Auction House South West online results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_south_west.py
       - name: Collect Auction House East Anglia online results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_east_anglia.py
       - name: Deduplicate and bank Auction House National regional results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_national.py
       - name: Recover older dedicated Auction House regional results
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_regions.py
       - name: Bank retained Network Auctions legacy result catalogues
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_network_auctions.py 6
       - name: Ensure OCR tools for retained Cottons scans
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 5
         run: |
           if ! command -v tesseract >/dev/null || ! command -v pdftoppm >/dev/null; then
@@ -379,21 +384,21 @@ jobs:
             sudo apt-get install -y tesseract-ocr poppler-utils
           fi
       - name: Bank Cottons retained result PDFs
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_cottons_results.py 16 16
       - name: Bank retained sold Pattinson online-auction property pages
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_pattinson_history.py 32
       - name: Traverse every known Savills catalogue and all its pages
-        if: (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 30
         run: python -u historical_corpus.py harvest-savills --workers 3
       - name: Collect every Paul Fosh result page
-        if: always() && (inputs.focus == '' || inputs.focus == 'all') && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: always() && inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 15
         continue-on-error: true
         run: python -u historical_corpus.py harvest-paul-fosh --workers 3
@@ -504,10 +509,15 @@ jobs:
         run: python -u scripts/harvest_phillip_arnold_results.py 8
 
       - name: Rebuild database from saved lot records
+        id: rebuild
         if: always()
+        timeout-minutes: 12
         run: python -u historical_corpus.py build
+      - name: Package the complete database below the single-file limit
+        if: steps.rebuild.outcome == 'success'
+        run: python -c "from web_platform.history_storage import publish_parts; publish_parts('data/auction_history/auction_history.sqlite.gz', 'data/auction_history/database_parts')"
       - name: Publish checkpoint without changing the live board
-        if: always()
+        if: success() && steps.rebuild.outcome == 'success'
         run: |
           set -euo pipefail
           test -s data/auction_history/progress.json
@@ -563,6 +573,7 @@ jobs:
           if test -f data/auction_history/swift_property_auctions_collection.json; then git add data/auction_history/swift_property_auctions_collection.json; fi
           if test -f data/auction_history/sharpes_collection.json; then git add data/auction_history/sharpes_collection.json; fi
           if test -f data/auction_history/seel_collection.json; then git add data/auction_history/seel_collection.json; fi
+          git add -A data/auction_history/database_parts
           database_backup=''
           if test -f data/auction_history/auction_history.sqlite.gz; then
             database_bytes=$(stat -c%s data/auction_history/auction_history.sqlite.gz)

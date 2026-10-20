@@ -1,12 +1,10 @@
 """Read-only boundary around the already published data contracts."""
-import gzip
 import hashlib
 import json
 import os
 import re
 import sqlite3
 import tempfile
-import shutil
 import threading
 from collections import Counter
 from datetime import date
@@ -75,8 +73,9 @@ class Catalogue:
         self._history_lock = threading.Lock()
 
     def history(self, address=None, limit=30):
-        packed = self.root / 'data/auction_history/auction_history.sqlite.gz'
-        if not packed.exists():
+        from .history_storage import available, unpack
+        history_root = self.root / 'data/auction_history'
+        if not available(history_root):
             return []
         with self._history_lock:
             if self.history_path is None:
@@ -86,8 +85,7 @@ class Catalogue:
                 try:
                     with tempfile.NamedTemporaryFile(suffix='.sqlite', delete=False) as f:
                         path=Path(f.name)
-                        with gzip.open(packed,'rb') as source:
-                            shutil.copyfileobj(source,f,length=1024*1024)
+                        unpack(history_root,f)
                     with sqlite3.connect(path) as con:
                         con.execute('CREATE INDEX IF NOT EXISTS public_address_lookup ON appearances(lower(address))')
                     self.history_path=path
