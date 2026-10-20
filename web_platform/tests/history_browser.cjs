@@ -7,7 +7,7 @@ from web_platform.plans import CATALOGUE
 from pathlib import Path
 e=Environment(loader=FileSystemLoader('web_platform/templates'),autoescape=select_autoescape())
 e.globals.update(plans=CATALOGUE,url=lambda p:p)
-print('<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+Path('web_platform/static/site.css').read_text()+'</style></head><body><main>')
+print('<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+Path('web_platform/static/site.css').read_text()+'</style></head><body><main>')
 print(e.get_template('history_preview.html').render(row={'id':'example'},history_preview={'previous_appearances':2,'has_changes':True,'has_comparables':True}))
 print('</main></body></html>')
 `],{encoding:'utf8'});
