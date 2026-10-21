@@ -22,7 +22,14 @@
     dialog.innerHTML = '<button type="button" class="share-close" aria-label="Close sharing">×</button><h2 id="share-title">Share this property</h2><p class="share-address"></p><div class="share-options"><a data-channel="whatsapp" target="_blank" rel="noopener noreferrer">WhatsApp</a><a data-channel="email">Email</a><a data-channel="linkedin" target="_blank" rel="noopener noreferrer">LinkedIn</a><a data-channel="facebook" target="_blank" rel="noopener noreferrer">Facebook</a><button type="button" class="share-copy">Copy property link</button></div><label for="share-link">Property link</label><input id="share-link" readonly><p class="share-status" role="status" aria-live="polite"></p>';
     document.body.append(dialog);
     dialog.querySelector('.share-close').onclick = () => dialog.close();
-    dialog.addEventListener('close', () => trigger?.focus());
+    dialog.addEventListener('close', () => {if (!dialog.open) trigger?.focus();});
+    dialog.addEventListener('keydown', e => {
+      if (e.key !== 'Tab') return;
+      const items = [...dialog.querySelectorAll('button,a[href],input')];
+      const first = items[0], last = items[items.length-1];
+      if (e.shiftKey && document.activeElement === first) {e.preventDefault();last.focus();}
+      else if (!e.shiftKey && document.activeElement === last) {e.preventDefault();first.focus();}
+    });
     dialog.addEventListener('click', e => {
       if (e.target === dialog) {const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}
       const link = e.target.closest('[data-channel]');

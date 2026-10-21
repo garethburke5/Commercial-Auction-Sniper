@@ -59,7 +59,7 @@ class Site:
         self.base = self.origin.split('://', 1)[-1].partition('/')[2]
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
-        self.env.globals.update(share_details=lambda row: share_details(row, self.origin), money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE, plans=PLAN_CATALOGUE)
+        self.env.globals.update(share_details=self.social_details, money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE, plans=PLAN_CATALOGUE)
         from .market_context import MarketContext
         self.market=MarketContext(self.catalogue)
         self.fees = load_fees()
@@ -114,9 +114,16 @@ class Site:
             structured.append({'@context':'https://schema.org','@type':'WebSite',
                 'name':'Auction Geek','url':self.origin+'/'})
         return self.env.get_template('page.html').render(title=title, kind=kind, description=description,
-            social=share_details(ctx['row'], self.origin) if kind == 'property' else {'title':title+' | Auction Geek','text':description,'image':''},
+            social=self.social_details(ctx['row']) if kind == 'property' else {'title':title+' | Auction Geek','text':description,'image':''},
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)
+
+    def social_details(self, row):
+        detail=share_details(row,self.origin)
+        path=getattr(self,'social_images',{}).get(detail['image'])
+        if path:
+            detail.update(image=self.origin+path, image_width=1200, image_height=630, image_type='image/jpeg')
+        return detail
 
     def snapshot(self, row):
         evidence = self.evidence.get(row['url'], {})
@@ -127,7 +134,7 @@ class Site:
 
     def snapshot_page(self, row):
         return self.env.get_template('snapshot.html').render(
-            s=self.snapshot(row), row=row, social=share_details(row, self.origin),
+            s=self.snapshot(row), row=row, social=self.social_details(row),
             canonical=self.origin + row['snapshot_path'])
 
     def routes(self):

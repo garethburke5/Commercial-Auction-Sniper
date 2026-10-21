@@ -9,8 +9,8 @@ history fragment. No authentication, payment, AI or document processing is used.
 
 Mobile coarse-pointer devices use Web Share when supported. Cancellation does
 not reopen the menu; API denial/failure opens the fallback dialog. Desktop and
-unsupported devices offer WhatsApp (the recipient/group is selected in
-WhatsApp), email, LinkedIn, Facebook, clipboard copy and a manually selectable
+unsupported devices offer WhatsApp through `https://api.whatsapp.com/send?text=` (the recipient/group
+is selected in WhatsApp), email, LinkedIn, Facebook, clipboard copy and a manually selectable
 link if clipboard access fails. The native dialog provides keyboard focus
 containment, Escape dismissal and return focus. No message is sent by the site.
 
@@ -18,9 +18,14 @@ Social metadata is rendered into the HTML, not added by JavaScript. Open Graph
 and Twitter cards include the address, brand, structured public description,
 guide, auction date, known availability status and the auctioneer's existing
 property photograph. No unrelated/generated replacement image is inserted when
-an image is missing. Images remain hosted on the existing source services;
-their uptime and each social platform's preview cache remain external factors.
-No dimensions or file types are invented for source images.
+an image is missing. The static publisher makes a bounded best-effort pass to produce 1200×630 JPEGs
+from existing photographs, with an Auction Geek band below the full contained
+photo. Successful copies are hosted on Auction Geek; failed/blocked downloads
+retain the original source image. No dimensions or file types are invented for
+source-image fallbacks. Social-platform caches remain external factors. The image
+pass has a 90-second budget, bounded downloads and private-address rejection.
+Savills images use the same `resized/images/w1500` route seen in its own gallery,
+avoiding full-size PNG originals that can exceed 30 MB.
 
 Anonymous channel/action/placement counters use the existing Render operational
 logging service. The public endpoint rejects extra dimensions and invalid

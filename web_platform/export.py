@@ -8,6 +8,8 @@ def export(destination, origin):
     dest=Path(destination)
     dest.mkdir(parents=True, exist_ok=True)
     site=Site(origin=origin)
+    from .social_images import build_social_images
+    site.social_images=build_social_images(site.catalogue.all_properties,dest)
     routes=dict(site.routes())
     for path,html in routes.items():
         target=dest/path.strip('/')/'index.html'
