@@ -107,9 +107,18 @@ def relationship(previous,current,*,same_address=False):
     if pu and cu and pu!=cu:
         reasons.append('The tenancy schedules list different units.')
     def lease_years(r):
-        text=str(r.get('tenure') or '')+' '+str(r.get('description') or '')
-        m=re.search(r'(?:new\s+)?(\d{2,4})[ -]+year\s+lease(?:hold)?\b',text,re.I)
-        return int(m[1]) if m else None
+        # Occupational tenant leases do not describe the interest being sold.
+        if tenure_kind(r) != 'leasehold':return None
+        tenure=str(r.get('tenure') or '')
+        m=re.search(r'\b(\d{2,4})[ -]+years?\b',tenure,re.I)
+        if m:return int(m[1])
+        description=str(r.get('description') or '')
+        m=re.search(r'\bheld\s+(?:on|under)\s+(?:a\s+)?(?:new\s+)?(\d{2,4})[ -]+year\s+lease\b',description,re.I)
+        if m:return int(m[1])
+        # Only long new grants are accepted without explicit ownership wording.
+        for m in re.finditer(r'\bnew\s+(\d{2,4})[ -]+year\s+lease\b',description,re.I):
+            if int(m[1])>=99:return int(m[1])
+        return None
     py,cy=lease_years(previous),lease_years(current)
     if before==after=='leasehold' and py and cy and py!=cy and re.search(r'new\s+\d{2,4}[ -]+year\s+lease',str(current.get('tenure') or '')+' '+str(current.get('description') or ''),re.I):
         reasons.append('The advertised leasehold terms differ: '+str(py)+' years previously and '+str(cy)+' years in this offering.')

@@ -126,3 +126,16 @@ def test_observation_price_changes_suppressed_when_interest_or_extent_changes(ch
     m=MarketContext(None);m.loaded=True
     m.observed[address_key(row['address'])]=[{'tenure':'Freehold','address_as_published':row['address'],'source_evidence':{'listing_url':'https://source.test/1'},'observations':[previous,current]}]
     assert m.observations(dict(row,**changed))==[]
+
+
+@pytest.mark.parametrize('tenure,description,expected',[
+    ('Freehold','Let on a new 10 year lease',None),
+    ('Leasehold','Let to a tenant on a new 10 year lease',None),
+    ('Leasehold','Let on a 10 year lease. Offered on a new 999 year lease.',999),
+    ('Leasehold - 999 years from 2026','Let on a 10 year lease',999),
+    ('Leasehold','Held under a 99-year lease. Tenant has a 10-year lease.',99),
+])
+def test_ownership_lease_term_is_not_the_occupational_tenant_lease(tenure,description,expected):
+    old=dict(BASE,unit_count=2)
+    current=dict(BASE,unit_count=1,tenure=tenure,description=description)
+    assert relationship(old,current,same_address=True)['current_lease_years']==expected
