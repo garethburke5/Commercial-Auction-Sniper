@@ -32,7 +32,9 @@ const render=mode=>execFileSync(process.env.PYTHON||'python',['-m','web_platform
   assert.equal(whatsapp.hostname,'api.whatsapp.com');assert.equal(whatsapp.pathname,'/send');assert(whatsapp.searchParams.get('text').includes('Guide price £190,000'));
   assert(!whatsapp.searchParams.get('text').includes('utm_source'));
   for(const channel of ['linkedin','facebook']){const link=new URL(await dialog.locator(`[data-channel=${channel}]`).getAttribute('href'));assert.equal(link.searchParams.get(channel==='linkedin'?'url':'u'),canonical);}
-  await dialog.locator('.share-copy').click();assert.equal(await page.evaluate(()=>window.copied),canonical);
+  await dialog.locator('.share-copy').click();
+  assert(await dialog.locator('.share-copy').evaluate(e=>{const s=getComputedStyle(e);const rgb=v=>v.match(/\d+/g).slice(0,3).map(Number).map(x=>{x/=255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4});const lum=v=>{const c=rgb(v);return .2126*c[0]+.7152*c[1]+.0722*c[2]};const a=lum(s.color),b=lum(s.backgroundColor);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05)>=4.5;}),'Copy button text must remain readable after hover/focus');
+  assert.equal(await page.evaluate(()=>window.copied),canonical);
   await page.waitForFunction(()=>document.querySelector('.share-status').textContent==='Property link copied.');
   await page.keyboard.press('Escape');assert(!(await dialog.isVisible()));assert(await button.evaluate(e=>e===document.activeElement));
   // Keyboard entry and modal focus containment.
