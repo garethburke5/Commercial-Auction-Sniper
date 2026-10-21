@@ -10,6 +10,9 @@ def share_details(row, origin):
     parts = [f"{kind} at auction with {source}."]
     if row.get('guide') and row['guide'] != 'Not stated':
         parts.append(f"Guide price {row['guide']}.")
+    if row.get('annual_rent'):
+        from .catalogue import money
+        parts.append(f"Annual rental income {money(row['annual_rent'])}.")
     if row.get('auction_date'):
         from .site import uk_date
         parts.append(f"Auction {uk_date(row['auction_date'])}.")

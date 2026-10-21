@@ -47,7 +47,7 @@
     dialog.querySelector('#share-link').value = url;
     dialog.querySelector('.share-status').textContent = '';
     const links = {
-      whatsapp: 'https://wa.me/?text=' + encodeURIComponent(message),
+      whatsapp: 'https://api.whatsapp.com/send?text=' + encodeURIComponent(message),
       email: 'mailto:?subject=' + encodeURIComponent(title) + '&body=' + encodeURIComponent(message),
       linkedin: 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(url),
       facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url)
@@ -63,7 +63,7 @@
     if (!['http:', 'https:'].includes(url.protocol)) return;
     url.search = '';url.hash = '';
     trigger = button;
-    active = {title:button.dataset.shareTitle, text:button.dataset.shareText, url:url.href, placement:button.dataset.sharePlacement || 'property'};
+    active = {title:button.dataset.shareTitle, text:button.dataset.shareText+'\nView property details and investment intelligence on Auction Geek:', url:url.href, placement:button.dataset.sharePlacement || 'property'};
     track('menu', 'opened');
     const data = {title:active.title,text:active.text,url:active.url};
     let canShare = false;

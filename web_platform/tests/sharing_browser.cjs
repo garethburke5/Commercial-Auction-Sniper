@@ -29,7 +29,7 @@ const render=mode=>execFileSync(process.env.PYTHON||'python',['-m','web_platform
   const email=new URL(await dialog.locator('[data-channel=email]').getAttribute('href'));
   assert(email.searchParams.get('body').includes(canonical));assert(email.searchParams.get('subject').includes('Auction Geek'));
   const whatsapp=new URL(await dialog.locator('[data-channel=whatsapp]').getAttribute('href'));
-  assert.equal(whatsapp.hostname,'wa.me');assert(whatsapp.searchParams.get('text').includes('Guide price £190,000'));
+  assert.equal(whatsapp.hostname,'api.whatsapp.com');assert.equal(whatsapp.pathname,'/send');assert(whatsapp.searchParams.get('text').includes('Guide price £190,000'));
   assert(!whatsapp.searchParams.get('text').includes('utm_source'));
   for(const channel of ['linkedin','facebook']){const link=new URL(await dialog.locator(`[data-channel=${channel}]`).getAttribute('href'));assert.equal(link.searchParams.get(channel==='linkedin'?'url':'u'),canonical);}
   await dialog.locator('.share-copy').click();assert.equal(await page.evaluate(()=>window.copied),canonical);
