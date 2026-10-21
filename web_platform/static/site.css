@@ -292,12 +292,13 @@
 .report-offer-actions .button:hover{background:#ffe6b6;border-color:#ffe6b6;color:#182e48}
 .report-offer-actions>span{font-size:.8rem;color:#e0e8f0}
 .report-offer .report-offer-availability{font-size:.74rem;line-height:1.6;color:#c4d3e1;margin:18px 0 0}
-.report-offer-shortcut{display:flex;align-items:center;gap:12px;border:1px solid #dec389;background:#fff8e9;border-radius:8px;padding:12px 14px;margin:15px 0;text-decoration:none;color:#182e48;font-size:.82rem;font-weight:750}
+.report-offer-shortcut{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:12px 14px;margin:15px 0;text-decoration:none;color:#182e48;font-size:.82rem;font-weight:750}
 .report-offer-shortcut>span:first-child{flex:1;min-width:0;line-height:1.35}
 .report-offer-shortcut small{display:block;font-size:.65rem;font-weight:500;margin-top:5px;color:#536071}
 .report-offer-shortcut strong{font-size:1.65rem;line-height:1.2;white-space:nowrap}
-.report-offer-shortcut:hover{background:#ffedc7;color:#182e48;border-color:#b98429}
-.report-offer a:focus-visible,.report-offer-shortcut:focus-visible{outline:3px solid #b98429;outline-offset:4px}
+.report-offer-shortcut:hover{background:var(--paper);color:#182e48;border-color:var(--line)}
+.report-offer a:focus-visible{outline:3px solid #b98429;outline-offset:4px}
+.report-offer-shortcut:focus-visible{outline:3px solid var(--accent);outline-offset:4px}
 @media(max-width:650px){.report-offer{padding:22px 18px}.report-offer h2{font-size:1.4rem}.report-offer-heading{gap:16px}.report-offer-price{padding:10px 16px}.report-offer-benefits{display:grid;gap:10px}.report-offer-actions .button{width:100%}}
 
 /* Public history previews contain no hidden historical figures. */
