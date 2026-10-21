@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from datetime import datetime
 
 from legal_pack_review import document_pages, norm
 
@@ -103,6 +104,62 @@ def _rent_substitution(document, rents):
             'evidence': [head[0][1], clause, _evidence(document, annex_page, annex_text)] + [ev for _, ev in tail]}
 
 
+def _law_society_particulars(document, pages):
+    """Recognise the labelled business-lease form, including split year boxes.
+
+    Read only the opening particulars. Annexes and standard guarantee wording
+    do not establish another tenancy, a named guarantor or completed execution.
+    The rent still goes through the shared competing-amount check below.
+    """
+    if not pages:
+        return {}, []
+    page, text = pages[0]
+    term_label = r'\bTERM FOR WHICH.{0,12}?THE PROPERTY IS.{0,12}?LEASED\b'
+    if not (re.search(r'\bLaw Society\b', text, re.I)
+            and re.search(term_label, text, re.I)
+            and re.search(r'\bFIRST PAYMENT\b', text, re.I)):
+        return {}, []
+    fields = {'evidence': []}
+    tenant = re.search(r'\bTENANT\s+(.{2,150}?)\s+ADDRESS\b', text)
+    if tenant and not re.search(r'\b(?:GUARANTOR|LANDLORD|COMPANY NO)\b', tenant[1]):
+        # Registration numbers are identifiers, not part of the tenant name.
+        # Retain the original excerpt; do not guess OCR digits in that number.
+        fields['tenant'] = re.sub(r'\b(Charity|Limited|Ltd|PLC)\s+(?:No\.?|Number)\s+[\d\s]+$',
+                                 r'\1', norm(tenant[1]), flags=re.I)
+        fields['evidence'].append(_evidence(document, page, tenant.group()))
+    unit = re.search(r'\bPROPERTY\s+(.{5,200}?)\s+shown edged (?:red|blue)\b', text, re.I)
+    if unit:
+        # A complete printed postcode terminates the address before OCR noise
+        # from the form's vertical margin. Preserve the printed postcode itself.
+        label = norm(unit[1])
+        postcode = re.search(r'\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b', label, re.I)
+        fields['demise'] = label[:postcode.end()] if postcode else label
+        fields['evidence'].append(_evidence(document, page, unit.group()))
+    date_pattern = r'(\d{1,2})(?:st|nd|rd|th)?\s+(' + MONTH + r')\s+(19|20)\s*(\d{2})\b'
+    def read_date(match):
+        try:
+            return datetime.strptime(f'{match[1]} {match[2]} {match[3]}{match[4]}', '%d %B %Y').date()
+        except ValueError:
+            return None
+    dated = re.search(r'\bDATE OF LEASE\s+' + date_pattern, text, re.I)
+    if dated and read_date(dated):
+        fields['lease_date'] = read_date(dated).strftime('%d %B %Y').lstrip('0')
+        fields['lease_date_evidence'] = [_evidence(document, page, dated.group())]
+    term = re.search(term_label + r'(.{0,220}?)\bPARKING\b', text, re.I)
+    if term:
+        start = re.search(r'From\s+and\s+including\s+' + date_pattern, term[1], re.I)
+        end = re.search(r'To\s*and\s+including\s+' + date_pattern, term[1], re.I)
+        if start and end and read_date(start) and read_date(end) and read_date(end) >= read_date(start):
+            ev = _evidence(document, page, term.group())
+            fields['term'] = {'text': 'From and including ' + read_date(start).strftime('%d %B %Y').lstrip('0')
+                + ' to and including ' + read_date(end).strftime('%d %B %Y').lstrip('0'),
+                'uncertain': False, 'evidence': [ev]}
+            fields['evidence'].append(ev)
+    rent = re.search(r'\bRENT\s+(?:(?!FIRST PAYMENT).){0,180}?\bPounds\b[^\d]{0,16}'
+                     r'(\d[\d,]*(?:\.\d{1,2})?)\s*\)\s*a\s+year\b', text, re.I)
+    return fields, [(rent, _evidence(document, page, rent.group()))] if rent else []
+
+
 def extract_lease_evidence(documents):
     leases, findings = [], []
 
@@ -140,18 +197,23 @@ def extract_lease_evidence(documents):
                 row['lease_date'] = norm(dated.group(3) or dated.group(1)+' '+dated.group(2))
                 row['lease_date_evidence'] = [_evidence(document,page,dated.group())]
 
+        form, form_rents = _law_society_particulars(document, pages)
+        row.update({k: v for k, v in form.items() if k != 'evidence'})
+        row['evidence'].extend(form.get('evidence', []))
+
         parties = _matches(document,
             r"\(2\)\s*([A-Z][A-Z ,.&'’()\-]{2,140}?)\s+of\s+.{3,180}?\(Tenant\)", 1)
         if not parties:
             parties = _matches(document,
                 r"\bTenant\s+([A-Z][A-Z ,.&'’()\-]{2,140}?)\s+of\s+.{3,180}?(?=\bLR4\b|\bBackground\b)", 1)
-        if parties:
+        if parties and not row['tenant']:
             match, ev = parties[0]
             row["tenant"] = norm(match.group(1))
             row["evidence"].append(ev)
 
         rents = _matches(document,
             r"\b(?:Annual|Initial|Yearly) Rent[’'\"]?\s*(?::|means)?\s*(?:rent\s+)?(?:at\s+)?(?:a\s+)?(?:rate\s+of\s+|the yearly sum of\s+)?[^£.]{0,80}£\s*([\d,]+(?:\.\d{1,2})?)", 30)
+        rents += form_rents
         amounts = {float(m.group(1).replace(",", "")) for m, _ in rents}
         substitution = _rent_substitution(document, rents) if len(amounts) > 1 else None
         if substitution:
@@ -178,7 +240,7 @@ def extract_lease_evidence(documents):
 
         terms = _matches(document,
             r"\b(?:Contractual Term:\s*)?(?:a\s+)?term (?:of\s+)?(?:\d+|FIVE|TEN|FIFTEEN|TWENTY)[ -]?years from.{0,150}?(?:\]\s*20\d{2}|\b20\d{2}\b)(?:\s+to and including\s+.{0,60}?\b20\d{2}\b)?(?:\.)?", 1)
-        if terms:
+        if terms and not row['term']:
             row["term"] = {"text": terms[0][0].group(0),
                            "uncertain": _uncertain_date(terms[0][0].group(0)),
                            "evidence": [terms[0][1]]}

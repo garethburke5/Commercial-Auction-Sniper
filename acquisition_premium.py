@@ -93,8 +93,8 @@ def chart_png(block):
     out = BytesIO(); fig.savefig(out, format='png', bbox_inches='tight', facecolor='white'); plt.close(fig)
     return out.getvalue()
 
-def render_pdf(report):
-    from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,Image,KeepTogether
+def render_pdf(report, *, page_map=None):
+    from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,Image,KeepTogether,Flowable
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib import colors
     from reportlab.lib.pagesizes import A4
@@ -115,8 +115,16 @@ def render_pdf(report):
     styles['evidence']=ParagraphStyle('evidence',parent=styles['caption'],fontSize=8,leading=10.3)
     def para(t,style='body'):return Paragraph(escape(str(t)).replace('\n','<br/>'),styles.get(style,styles['body']))
     story=[]
+    class PageMarker(Flowable):
+        def __init__(self, index, title):
+            super().__init__()
+            self.index, self.title = index, title
+        def draw(self):
+            page_map.append({'section': self.index, 'title': self.title,
+                'page': self.canv.getPageNumber(), 'appendix': self.index >= len(brief['pages'])})
     for i,page in enumerate(brief['pages']+brief.get('appendix_pages',[])):
         if i:story.append(PageBreak())
+        if page_map is not None:story.append(PageMarker(i, page['title']))
         for b in page['blocks']:
             kind=b['kind']
             if kind=='hero':

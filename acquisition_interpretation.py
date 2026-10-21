@@ -41,6 +41,7 @@ def source_evidence(record):
 
 def interpret(report):
     from acquisition_public_terms import published_terms
+    from acquisition_unit_schedule import income_schedule
     public = published_terms(report)
     inv=report['investigation']; finance=financial_view(report); underwriting=underwriting_view(report)
     findings=customer_findings(report); ds=inv.get('demises',[])
@@ -73,7 +74,11 @@ def interpret(report):
         ownership+=f" The identified income comes from {len(commercial)} commercial {'letting' if len(commercial)==1 else 'lettings'}."
         ownership+=' '+ '; '.join(f"{d['label']} produces {money(d['annual_rent'])} a year" for d in commercial)+'.'
     if residential:
-        ownership+=f" The {len(residential)} flats have already been sold on long leases. A buyer would receive {money(sum(d.get('annual_rent') or 0 for d in residential))} a year in ground rent, rather than the market rents from letting the flats."
+        ownership+=f" The {len(residential)} {'flat has' if len(residential)==1 else 'flats have'} already been sold on long leases."
+        if income_schedule(report)['reconciled']:
+            ownership+=f" A buyer would receive {money(sum(d['annual_rent'] for d in residential))} a year in ground rent, rather than the market rents from letting the flats."
+        else:
+            ownership+=' The ground rents need confirming separately; the buyer does not receive the flats’ residential letting income.'
     if profile.get('listed'):
         heritage=next((r for r in external if r.get('kind')=='heritage_designation'),None)
         grade=re.search(r'Grade:\s*(II\*?|I)\b',heritage.get('quote','')) if heritage else None
@@ -98,16 +103,22 @@ def interpret(report):
         add('ownership-extent','Title boundaries and access',
             'The register excludes the ground floor within a defined part of the title plan. This is a description of the ownership boundary, not by itself a title defect. Compare that area with the lease plans and access rights; it matters commercially if rental space, access or repair responsibilities are affected.',[f])
     for f in energy:
-        unit=next((d for d in ds if any(e.get('document')==d.get('document') for e in f.get('evidence',[]))),None)
+        unit=next((d for d in ds if d.get('id') and f.get('id','').endswith('-'+d['id'])),None)
+        if unit is None:
+            unit=next((d for d in ds if any(e.get('document')==d.get('document') for e in f.get('evidence',[]))),None)
         name=unit['label'] if unit else 'the relevant commercial space'
         state=f.get('id','')
-        if state.startswith('epc-expired'):
+        if state.startswith('epc-substandard') and unit and unit.get('epc'):
+            body=f"The Energy Performance Certificate (EPC) matched to {name} records a rating of {unit['epc']['rating']}. The letting position needs assessment against the applicable requirements and any valid exemption."
+        elif state.startswith('epc-expired'):
             body=f'The energy certificate identified for {name} has expired. A current Energy Performance Certificate (EPC), or evidence that one is not required, is needed before relying on the letting position.'
         else:
             body=f'We have not established a current Energy Performance Certificate (EPC) covering {name}. A failed register search does not prove that the letting is unlawful.'
         if profile.get('listed'):body+=' Listed status alone does not settle whether a certificate or energy improvements are required.'
-        body+=' The seller should supply the certificate or explain the legal basis for not needing one. Any required work could cost money and delay finding a replacement tenant.'
-        add(f['id'],'Confirm the energy position for '+name,body,[f])
+        if not (unit and unit.get('epc')):
+            body+=' The seller should supply the certificate or explain the legal basis for not needing one.'
+        body+=' Any required improvements could affect the purchase budget and the time needed to relet the unit.'
+        add(f['id'],'Energy requirements for '+name,body,[f])
     for f in insurance:
         if 'excludes subsidence' in (f.get('finding','')+' '+f.get('summary','')).lower():
             body='The insurance certificate expressly excludes subsidence. That leaves a potentially serious gap if the building suffers that type of damage. The environmental search is a warning about possible hazards, not evidence that the building is damaged. A buyer needs an insurance quotation that addresses the exclusion, alongside advice on the building’s condition.'

@@ -1,5 +1,19 @@
 # Auction Geek master delivery backlog — 20 October 2026
 
+## Continuation checkpoint — 21 October 2026
+
+- Subscriber history inclusion is deployed. Both pricing cards and comparison
+  rows were verified on the main domain; hosted browser and PostgreSQL checks
+  passed. This completes the inclusion change, not H2/H3/H6/H8 sales acceptance.
+- The 05:15 UTC historical checkpoint records 270,736 appearances and 260,372
+  addressed records, with 10,364 partial records. The later checkpoint does not
+  establish complete national or twenty-year coverage. Scheduled collection
+  has continued; the earlier 270,629 figure below is a dated baseline.
+- Report work has resumed as the first development priority. Shared income/EPC
+  schedules, safer certificate matching and standard-form lease extraction are
+  covered in `report-unit-evidence-2026-10-21.md`. R1–R4 remain open: an offline
+  improvement or a passing test is not a paid-quality acceptance.
+
 The owner has instructed continuous progress across the full programme, with
 substantial completion sought over the next few days. This supersedes the earlier
 pause on discretionary historical collection. Report product quality remains

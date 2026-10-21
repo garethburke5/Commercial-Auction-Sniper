@@ -10,6 +10,51 @@ def lease(name, pages):
 
 
 class LeaseEvidenceTests(unittest.TestCase):
+    def form_particulars(self):
+        return ('The Law Society. DATE OF LEASE 20th April 20 26. '
+                'LANDLORD Example Estates Ltd ADDRESS 9 Other Road. '
+                'TENANT Example Charity No 123456 ADDRESS 15 Other Street. '
+                'GUARANTOR ADDRESS POSTCODE COMPANY NO. '
+                'PROPERTY Ground Floor 71 Example Road, Town, EX1 1AB '
+                'shown edged red on the attached plan being part of the Building. '
+                'TERM FOR WHICH oS THE PROPERTY IS c LEASED '
+                'From and including 13th April 20 26 = Toand including 12th April 20 31 = '
+                'PARKING No more than n/a vehicles USE ALLOWED Retail '
+                'RENT Twelve thousand Pounds ea 12,000.00 ) a year, subject to increase. '
+                'FIRST PAYMENT DATE 13 April 2026. The Landlord lets the property to the Tenant.')
+
+    def test_law_society_form_preserves_unit_tenant_rent_dates_and_source_page(self):
+        row = extract_lease_evidence([lease('Business lease.pdf', [self.form_particulars()])])['leases'][0]
+        self.assertEqual(row['annual_rent'], 12000)
+        self.assertEqual(row['tenant'], 'Example Charity')
+        self.assertEqual(row['demise'], 'Ground Floor 71 Example Road, Town, EX1 1AB')
+        self.assertEqual(row['lease_date'], '20 April 2026')
+        self.assertEqual(row['term']['text'], 'From and including 13 April 2026 to and including 12 April 2031')
+        self.assertTrue(all(e['page'] == 1 for e in row['evidence']))
+        self.assertNotIn('9 Other Road', str(row['evidence']))
+        self.assertEqual(row['guarantee'], 'No separately identified guarantor established')
+
+    def test_form_amount_does_not_override_a_conflicting_rent_in_the_document(self):
+        row = extract_lease_evidence([lease('Business lease.pdf', [self.form_particulars(),
+            'Annual Rent: £13,000 per annum.'])])['leases'][0]
+        self.assertIsNone(row['annual_rent'])
+        self.assertTrue(row['rent_conflicted'])
+
+    def test_form_requires_annual_basis_and_correct_form_not_a_quoted_annex(self):
+        for text in [self.form_particulars().replace('a year', 'a month'),
+                     self.form_particulars().replace('The Law Society', 'Some particulars')]:
+            row = extract_lease_evidence([lease('Unknown.pdf', [text])])['leases'][0]
+            self.assertIsNone(row['annual_rent'])
+        row = extract_lease_evidence([lease('Renewal.pdf', ['LEASE. Unclear renewal particulars.',
+            self.form_particulars()])])['leases'][0]
+        self.assertIsNone(row.get('demise'))
+        self.assertIsNone(row['annual_rent'])
+
+    def test_impossible_boxed_date_does_not_create_a_lease_deadline(self):
+        text = self.form_particulars().replace('12th April 20 31', '31st February 20 31')
+        row = extract_lease_evidence([lease('Business lease.pdf', [text])])['leases'][0]
+        self.assertIsNone(row['term'])
+
     def test_service_charge_cap_keeps_indexation_and_scope(self):
         doc=lease('Shop lease.pdf', ['LEASE. Service Charge: a fair proportion of structural repair costs including managing agent costs, provided that such costs will be capped at £3,200.00 per annum until the first anniversary and thereafter increase by Retail Price Index per annum. After 8-year anniversary there is no cap. Service Media: pipes.'])
         result=extract_lease_evidence([doc])

@@ -50,6 +50,7 @@ def make_brief(report):
 
 def _make_brief(report):
     from acquisition_public_terms import published_terms, natural_date
+    from acquisition_unit_schedule import schedule_blocks
     public = published_terms(report)
     if report.get('access')=='snapshot':raise ValueError('Full report required')
     analysis=interpret(report); inv=report['investigation']; finance=analysis['finance']; ds=inv.get('demises',[])
@@ -184,6 +185,7 @@ def _make_brief(report):
     if incomplete:
         header[0]=p('AUCTION GEEK  /  RESEARCH UPDATE / NO CHARGE','kicker')
         blocks=header+[h('The pack does not yet support a full investment report'),p('We found documents that need to be read together before the current rent and ownership can be established. Some may describe earlier arrangements, rather than extra lettings. Adding their rent figures would give a misleading picture.'),p(analysis['opening']),h('What the documents do tell us')]
+        blocks += schedule_blocks(report, 'income', reference_index)
         commercial=[d for d in ds if d.get('document') and not d.get('residential_reversion')]
         substitutions=[c for c in analysis['cards'] if c['kind']=='rent_substitution']
         for c in substitutions:blocks+=section(c)
@@ -213,10 +215,7 @@ def _make_brief(report):
     if sale:page1+=[p('The auctioneer reports a sale at '+cash(price)+'.','small')]+cite(record_ref(sale))
     if report.get('guide'):
         page1.append(p('The earlier guide was '+cash(report['guide'])+(' to '+cash(report['guide_upper']) if report.get('guide_upper') and report['guide_upper']!=report['guide'] else '')+'. It is separate from the reported sale price used here.','small'))
-    page2=[h('Where the income comes from')]
-    if inv.get('income_reconciled'):
-        rows=[[d['label'],d['annual_rent'],f"{ratio(d['annual_rent'],rent):.1f}%"] for d in ds if d.get('annual_rent') is not None]
-        page2+=[chart('Annual rent by letting','income',rows),p('The commercial rents and ground rents total '+money(rent)+' a year.')]+cite([e for d in ds for e in d.get('evidence',[])])
+    page2=[h('Where the income comes from')] + schedule_blocks(report, 'income', reference_index)
     events,unresolved=lease_events(ds)
     if events:
         page2+=[chart('When the main lease terms change','timeline',events),p('An early termination right allows a tenant to leave if the lease conditions are met; it is not a prediction that they will leave. A rent review is an opportunity to reassess the rent, not a guaranteed increase.','small')]+cite([e for x in events for e in x['evidence']])
@@ -232,14 +231,14 @@ def _make_brief(report):
             if event['coincident_rent_review']:
                 detail+='The rent review falls on the same date. It will not preserve the tenancy if the tenant validly exercises the break.'
             if detail:page2+=[p(detail,'small')]+cite(event['evidence'])
-    residential=[d for d in ds if d.get('residential_reversion')]
-    if residential:page2.append(p('The flats contribute only '+money(sum(d.get('annual_rent') or 0 for d in residential))+' a year in ground rent. Their long leases mean the buyer cannot simply let them at residential market rents.','small'))
+    # Ground rents, including unknown amounts, are already shown in the schedule.
     # Select by source finding type, not a case-specific identifier.
     arrears=next((c for c in analysis['cards'] if c['id'].startswith('cpse-rent-arrears')),None)
     if arrears:page2+=[p(arrears['body'],'small')]+cite(arrears['evidence'])
     page3=[h('Building and legal issues that could affect the purchase')]
+    page3 += schedule_blocks(report, 'property', reference_index)
     main_ids={'ownership-extent','repair-allocation'}
-    selected=[c for c in analysis['cards'] if c['id'] in main_ids or c['id'].startswith(('epc-','cover-hazard','fire-safety-','asbestos-')) or (c['kind']=='additional_review' and any(f['id'] in c['finding_ids'] and f['materiality']=='decision_gate' for f in analysis['findings']))]
+    selected=[c for c in analysis['cards'] if c['id'] in main_ids or c['id'].startswith(('cover-hazard','fire-safety-','asbestos-')) or (c['kind']=='additional_review' and any(f['id'] in c['finding_ids'] and f['materiality']=='decision_gate' for f in analysis['findings']))]
     for c in selected:page3+=section(c)
     if not selected:page3.append(p('The available evidence does not establish the building’s condition or the costs that will fall to the landlord. A current survey, insurance quotation and review of the repair clauses are needed to complete the purchase budget.'))
     page4=[h('What the market evidence says about the price')]
@@ -312,7 +311,7 @@ def _make_brief(report):
     # No unfamiliar material issue is hidden in order to achieve the page target.
     appendix=[h('Further checks before purchase'),p('Supporting document names and page references are collected at the end. These additional checks should be read alongside the main assessment.','small')]
     selected_ids={c['id'] for c in selected}|{'income-building-interaction'}
-    remaining=[c for c in analysis['cards'] if c['id'] not in selected_ids and not c['id'].startswith(('cpse-rent-arrears','income-unreconciled'))]
+    remaining=[c for c in analysis['cards'] if c['id'] not in selected_ids and not c['id'].startswith(('epc-','cpse-rent-arrears','income-unreconciled'))]
     for c in remaining:appendix+=[h(c['title']),p(c['body'],'small')]+cite(c['evidence'])
     for f in analysis['unedited_findings']:
         appendix+=[h('Further review: '+f['title']),p(f.get('summary') or f['finding'],'small'),p(f['consequence'],'small'),p('This finding still needs editorial review. The report must be held before customer release.','small')]+cite(f.get('evidence'))

@@ -8,6 +8,7 @@ from __future__ import annotations
 from datetime import date, datetime
 from hashlib import sha256
 from decimal import Decimal, ROUND_HALF_UP
+from math import isfinite
 import re
 
 from acquisition_evidence_graph import (norm, build_ledger, validate_external_research,
@@ -15,7 +16,7 @@ from acquisition_evidence_graph import (norm, build_ledger, validate_external_re
 
 
 def cash(value):
-    if not isinstance(value, (int, float, Decimal)) or isinstance(value, bool):
+    if not isinstance(value, (int, float, Decimal)) or isinstance(value, bool) or not isfinite(value):
         return 'Not established'
     return '£' + format(value, ',.0f' if value == int(value) else ',.2f')
 
@@ -59,9 +60,17 @@ def _scope_matches(record, demise):
     # address matching. A postcode alone never links a certificate to a demise.
     if record.get('demise_document'):
         return record['demise_document'] == demise.get('document')
-    subject = re.sub(r'[^a-z0-9]', '', record.get('subject', '').lower())
-    label = re.sub(r'[^a-z0-9]', '', demise.get('label', '').lower())
-    return bool(label and len(label) > 5 and (label in subject or subject == label))
+    def address(value):
+        value = norm(value).casefold().replace('–', '-').replace('—', '-')
+        value = re.sub(r'\bst\.?\b', 'street', value)
+        value = re.sub(r'\brd\.?\b', 'road', value)
+        return norm(re.sub(r'[^a-z0-9 /-]', ' ', value))
+    label = address(demise.get('label', ''))
+    # Match the full unit/address, optionally followed by comma-separated
+    # locality. Substring matching joins 1 to 11 and a shop to an upper flat.
+    subject = address(record.get('subject', ''))
+    street = address(str(record.get('subject') or '').split(',')[0])
+    return bool(label and len(label) > 5 and label in (subject, street))
 
 
 def _profile(report, model, catalogue):
@@ -93,7 +102,7 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
     research = validate_external_research(research or catalogue.get('research'))
     result_prices = [r for r in research['records'] if r['kind']=='subject_sale_result' and norm(r.get('subject')).casefold()==norm(report['property']).casefold() and isinstance(r.get('price'),(int,float))]
     report['assessment_price'] = result_prices[-1]['price'] if result_prices else report.get('guide_upper') or report.get('guide')
-    report['assessment_price_basis'] = 'Auctioneer-reported sale price; completion not verified' if result_prices else 'Upper guide' if report.get('guide_upper') else 'Guide price'
+    report['assessment_price_basis'] = 'Auctioneer-reported sale price' if result_prices else 'Upper guide' if report.get('guide_upper') else 'Guide price'
     ledger = build_ledger(model, catalogue, research)
     profile = _profile(report, model, catalogue)
     designations=[r for r in research['records'] if r.get('kind')=='heritage_designation'
@@ -163,11 +172,12 @@ def investigate(report, model, catalogue=None, research=None, open_review=None):
                        'interest': 'Vacant sale' if profile['vacant'] else 'Interest requires verification',
                        'breaks': [], 'reviews': [], 'evidence': [], 'residential_reversion': False})
 
+    from acquisition_financials import number
     rents = [x['annual_rent'] for x in demises]
     comparable_income = (not profile['vacant'] and len(rents) > 0 and
                          all(d.get('document') and d.get('evidence') and d.get('demise_identified') for d in demises) and
-                         all(isinstance(r, (int, float)) for r in rents) and
-                         isinstance(report.get('rent'), (int, float)) and
+                         all(number(r) for r in rents) and
+                         number(report.get('rent')) and
                          abs(sum(rents) - report['rent']) < .01)
     same_demise = len({d['label'].lower() for d in demises}) < len(demises)
     temporal_conflict = any(d.get('temporal_status') in ('STATED TERM ENDED / HOLDING OVER UNCONFIRMED','DRAFT / UNCERTAIN','FUTURE STATED TERM') for d in report.get('lease_reconciliation', []))
