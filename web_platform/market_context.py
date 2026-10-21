@@ -134,7 +134,7 @@ class MarketContext:
                     if postcode(address):
                         compact={k:event.get(k) for k in ('address_as_published','tenure','source')}
                         compact['source_evidence']={'listing_url':(event.get('source_evidence') or {}).get('listing_url')}
-                        compact['observations']=[{k:o.get(k) for k in ('observed_at','guide_price','annual_rent','tenant','lease_term','occupation','status')} for o in event.get('observations') or []]
+                        compact['observations']=[{k:o.get(k) for k in ('observed_at','guide_price','annual_rent','tenant','lease_term','occupation','status','tenure','area_sqft','unit_count','title_numbers')} for o in event.get('observations') or []]
                         self.observed[address_key(address)].append(compact)
         self.c.history(limit=1)
         if not self.c.history_path:return
@@ -258,6 +258,11 @@ class MarketContext:
             if not url or not url.startswith(('https://','http://')):continue
             observations=sorted(event.get('observations') or [],key=lambda x:x.get('observed_at') or '')
             for previous,current in zip(observations,observations[1:]):
+                before_scope=dict(previous,address=row['address'],tenure=previous.get('tenure') or event.get('tenure'))
+                after_scope=dict(current,address=row['address'],tenure=current.get('tenure') or event.get('tenure'))
+                pair=relationship(before_scope,after_scope,same_address=True)
+                subject=relationship(after_scope,row,same_address=True)
+                if any(link and link['match_type']=='related_interest' for link in (pair,subject)):continue
                 changes=[]
                 for field,label in fields:
                     before=previous.get(field);after=current.get(field)

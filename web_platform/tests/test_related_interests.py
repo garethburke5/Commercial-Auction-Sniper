@@ -113,3 +113,14 @@ def test_other_actual_catalogue_unit_disposals_remain_separate(tmp_path):
         assert result['history']==[] and len(result['related_interests'])==1
         assert not result['related_interests'][0]['price_comparable']
         assert result['related_interests'][0]['original_url']==case['previous']['original_url']
+
+
+@pytest.mark.parametrize('changed',[{'tenure':'Leasehold'},{'area_sqft':500},{'unit_count':1},{'title_numbers':['AB654321']}])
+def test_observation_price_changes_suppressed_when_interest_or_extent_changes(changed):
+    from web_platform.market_context import address_key
+    row=dict(BASE,tenure='Freehold',area_sqft=1000,unit_count=2,title_numbers=['AB123456'])
+    previous=dict(row,observed_at='2026-01-01',guide_price=200000)
+    current=dict(previous,observed_at='2026-02-01',guide_price=100000,**changed)
+    m=MarketContext(None);m.loaded=True
+    m.observed[address_key(row['address'])]=[{'tenure':'Freehold','address_as_published':row['address'],'source_evidence':{'listing_url':'https://source.test/1'},'observations':[previous,current]}]
+    assert m.observations(dict(row,**changed))==[]

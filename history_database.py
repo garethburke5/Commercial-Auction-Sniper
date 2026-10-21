@@ -151,11 +151,14 @@ def _observation(item, observed_at):
         "tenant": item.get("tenant"),
         "lease_term": item.get("lease_term"),
         "occupation": item.get("occupation"),
+        "area_sqft": item.get("area_sqft"),
+        "unit_count": item.get("unit_count"),
+        "title_numbers": item.get("title_numbers"),
     }
 
 
 def _material_observation_changed(previous, current):
-    keys = ("status", "guide_price", "sale_price", "annual_rent", "gross_yield", "tenure", "tenant", "lease_term", "occupation")
+    keys = ("status", "guide_price", "sale_price", "annual_rent", "gross_yield", "tenure", "tenant", "lease_term", "occupation", "area_sqft", "unit_count", "title_numbers")
     return any(previous.get(k) != current.get(k) for k in keys)
 
 
