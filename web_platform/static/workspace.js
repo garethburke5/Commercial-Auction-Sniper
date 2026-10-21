@@ -33,11 +33,11 @@ function renderCheckoutReturn(){
  const title=document.querySelector('#checkout-return-title'),message=document.querySelector('#checkout-return-message'),retry=document.querySelector('#checkout-refresh');
  let heading='Checking your membership',detail='Welcome back from Stripe. We are checking your account. Please do not submit another payment.',refresh=false;
  if(!session){heading='Welcome back from Stripe';detail='Sign in with the account you used at checkout to check your membership. Please do not submit another payment.';}
- else if(checkoutFailed){heading='We could not check your membership';detail='Your payment may have completed. Check again below; please do not submit another payment. If this continues, contact team@auctiongeek.co.uk.';refresh=true;}
+ else if(checkoutFailed){heading='We could not check your membership';detail='Your payment may have completed. Check again below; please do not submit another payment. If this continues, contact info@auctiongeek.co.uk.';refresh=true;}
  else if(checkoutAccount){
   if(checkoutAccount.billing?.payment_required){
    heading='Your payment needs attention';
-   detail='Stripe has not confirmed a successful payment. Paid monitoring and new report credits are paused; your shortlist and previously paid reports remain available. '+(checkoutAccount.billing.has_customer&&!preview&&(config.billing_enabled||checkoutAccount.is_owner)?'Use Update payment method & invoices to resolve payment.':'Contact team@auctiongeek.co.uk for help with payment.')+' Please do not start another subscription.';
+   detail='Stripe has not confirmed a successful payment. Paid monitoring and new report credits are paused; your shortlist and previously paid reports remain available. '+(checkoutAccount.billing.has_customer&&!preview&&(config.billing_enabled||checkoutAccount.is_owner)?'Use Update payment method & invoices to resolve payment.':'Contact info@auctiongeek.co.uk for help with payment.')+' Please do not start another subscription.';
    refresh=true;
   }else if(['investor','professional'].includes(checkoutAccount.plan)){
    const name=config?.plans?.[checkoutAccount.plan]?.name||(checkoutAccount.plan==='professional'?'Investor Pro':'Investor');
@@ -49,7 +49,7 @@ function renderCheckoutReturn(){
    if(preview)detail+=' You are viewing a customer preview; select My account to use your membership.';
   }else if(['canceled','incomplete_expired'].includes(checkoutAccount.billing?.status)){
    heading='Your membership is not active';detail='Your account is on Free. Your shortlist and previously paid reports remain available.';
-  }else{heading='Your membership update is pending';detail='Your account has not yet received an active membership. Check again shortly; please do not submit another payment. If this continues, contact team@auctiongeek.co.uk.';refresh=true;}
+  }else{heading='Your membership update is pending';detail='Your account has not yet received an active membership. Check again shortly; please do not submit another payment. If this continues, contact info@auctiongeek.co.uk.';refresh=true;}
  }
  title.textContent=heading;message.textContent=detail;retry.hidden=!refresh;
 }
@@ -460,7 +460,7 @@ async function loadAccount(){
  if(manage){manage.toggleAttribute('hidden',!canManage);manage.textContent=billing?.payment_required?'Update payment method & invoices':'Manage subscription & invoices';}
  if(billingNotice){
   billingNotice.toggleAttribute('hidden',!billing?.payment_required||!!preview);
-  billingNotice.textContent=billing?.payment_required?'Your membership payment needs attention. Paid monitoring and new report credits are paused. Your shortlist and previously paid reports remain available. '+(canManage?'Use Update payment method & invoices to resolve payment, then check your membership again.':'Contact team@auctiongeek.co.uk for help with payment.') : '';
+  billingNotice.textContent=billing?.payment_required?'Your membership payment needs attention. Paid monitoring and new report credits are paused. Your shortlist and previously paid reports remain available. '+(canManage?'Use Update payment method & invoices to resolve payment, then check your membership again.':'Contact info@auctiongeek.co.uk for help with payment.') : '';
  }
  if(preview&&reviews)reviews.replaceChildren(document.createTextNode('Purchased reports are excluded from customer previews.'));
  if(preview&&evidence)evidence.replaceChildren(document.createTextNode('Purchased evidence is excluded from customer previews.'));

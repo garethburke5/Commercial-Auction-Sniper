@@ -47,8 +47,8 @@ function show(r){
   state==='awaiting_confirmation'?'Check and confirm the property before continuing.':
   state==='awaiting_scope'?'Review and accept the scope. No payment or paid investigation has started.':
   state==='requires_review'?'Analysis is awaiting source-quality review. Your purchase is retained.':
-  state==='processing'?(r.processing_overdue?'Your investigation is taking longer than expected. Contact team@auctiongeek.co.uk so we can check it safely. Your purchase is retained; do not pay again.':'Your investigation is in progress. Your purchase is retained; do not pay again.'):
-  state==='failed'&&!r.processing_allowed?'Your investigation needs support review. Contact team@auctiongeek.co.uk. Your purchase is retained.':
+  state==='processing'?(r.processing_overdue?'Your investigation is taking longer than expected. Contact info@auctiongeek.co.uk so we can check it safely. Your purchase is retained; do not pay again.':'Your investigation is in progress. Your purchase is retained; do not pay again.'):
+  state==='failed'&&!r.processing_allowed?'Your investigation needs support review. Contact info@auctiongeek.co.uk. Your purchase is retained.':
   r.processing_allowed?'Purchase or credit verified. Start the investigation; documents are optional unless included in your chosen scope.':
   r.access==='full'?'Full Investment Report saved to My Auction Geek.':
   'Report preparation saved. '+(r.report?.quality_status?.message||'');

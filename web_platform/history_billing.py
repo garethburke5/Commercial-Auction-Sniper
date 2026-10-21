@@ -56,7 +56,7 @@ def purchase(billing,user,product,row,*,sandbox=False):
             WHERE p.user_id=? AND p.status='pending' ORDER BY p.created_at DESC LIMIT 1''',(user,)).fetchone()
         if pending:
             if not pending['session_id'] and int(time.time())-pending['created_at']>=23*3600:
-                raise HTTPException(409,'An earlier checkout needs checking before another payment. Contact team@auctiongeek.co.uk.')
+                raise HTTPException(409,'An earlier checkout needs checking before another payment. Contact info@auctiongeek.co.uk.')
             if pending['session_id']:
                 old=plain(billing.client.v1.checkout.sessions.retrieve(pending['session_id']))
                 if old.get('status')=='expired':
