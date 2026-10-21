@@ -1,8 +1,18 @@
-<div class="reading contact-page">
-  <p>For general enquiries, property-data corrections, technical support or business enquiries, email us at:</p>
-  <p class="contact-address"><a href="mailto:info@auctiongeek.co.uk">info@auctiongeek.co.uk</a></p>
-  <h2>How can we help?</h2>
-  <p>If your enquiry concerns a property, please include its address and Auction Geek page link so we can find the right listing.</p>
-  <p>For technical support, tell us what you were trying to do and include any error message you saw.</p>
-  <p class="small muted">Please do not send passwords or payment-card details. <a href="{{ url('/privacy/') }}">Read our privacy information</a>.</p>
-</div>
+<section class="contact-panel" aria-label="Contact details and enquiry guidance">
+  <div class="contact-email-card">
+    <span class="contact-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/></svg></span>
+    <h2>Email Auction Geek</h2>
+    <p>For questions, feedback or business enquiries, get in touch with our team.</p>
+    <a class="contact-email-link" href="mailto:info@auctiongeek.co.uk"><span>info@auctiongeek.co.uk</span><span aria-hidden="true">↗</span></a>
+    <p class="contact-email-hint">Opens your email app.</p>
+  </div>
+  <div class="contact-guidance">
+    <h2>How can we help?</h2>
+    <dl>
+      <div><dt>Property information &amp; corrections</dt><dd>Include the property address, its Auction Geek link and the detail you would like us to check.</dd></div>
+      <div><dt>Technical support</dt><dd>Tell us what you were trying to do and include any error message you saw.</dd></div>
+      <div><dt>General &amp; business enquiries</dt><dd>For questions about Auction Geek, working with us or other opportunities.</dd></div>
+    </dl>
+  </div>
+</section>
+<p class="contact-privacy">Please leave out passwords and payment-card details. <a href="{{ url('/privacy/') }}">Privacy information →</a></p>

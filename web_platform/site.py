@@ -198,7 +198,7 @@ class Site:
             'Clear explanations of commercial property yields, leases, auction fees, legal packs, VAT and auction terminology.',
             glossary=GROUPS, glossary_sources=SOURCES, glossary_reviewed=REVIEWED)
         yield '/contact/',self.page('/contact/','Contact Auction Geek','contact',
-            'Get in touch for general enquiries, property-data corrections, technical support and business enquiries.')
+            'Questions about a property or Auction Geek? We’re here to help.')
         yield '/privacy/',self.page('/privacy/','Privacy and cookies','privacy',
             'How the public Auction Geek website handles browsing data and external links.')
         yield '/due-diligence/',self.page('/due-diligence/','Property Investment Reports','due-diligence',
