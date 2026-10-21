@@ -9,7 +9,7 @@
 {% for reason in r.relationship_reasons %}<p>{{ reason }}</p>{% endfor %}
 <dl class="history-metrics">
 <div><dt>Earlier legal interest</dt><dd>{{ r.tenure or 'Not recorded' }}</dd></div>
-<div><dt>Current legal interest</dt><dd>{{ row.tenure or 'Not recorded' }}</dd></div>
+<div><dt>Current legal interest</dt><dd>{{ row.tenure or 'Not recorded' }}{% if r.current_lease_years %} — {{ 'new ' if r.current_lease_is_new else '' }}{{ r.current_lease_years }}-year lease{% endif %}</dd></div>
 <div><dt>Earlier offering's guide price</dt><dd>{{ r.guide_price_text or money(r.guide_price) }}{% if r.guide_price_high and r.guide_price_high!=r.guide_price and not r.guide_price_text %}–{{ money(r.guide_price_high) }}{% endif %}</dd></div>
 <div><dt>Auctioneer-reported sale price</dt><dd>{{ money(r.result_evidence.sale_price) }}</dd></div>
 <div><dt>Earlier offering's annual rent</dt><dd>{{ money(r.annual_rent) }}</dd></div>
@@ -17,7 +17,7 @@
 {% if r.area_sqft %}<div><dt>Earlier accommodation</dt><dd>{{ '{:,.0f}'.format(r.area_sqft) }} sq ft</dd></div>{% endif %}
 {% if row.area_sqft %}<div><dt>Current accommodation</dt><dd>{{ '{:,.0f}'.format(row.area_sqft) }} sq ft</dd></div>{% endif %}
 </dl>
-{% if r.tenancy_schedule %}<h4>Units included in the earlier offering</h4><ul>{% for unit in r.tenancy_schedule %}{% if unit.get('Address') %}<li>{{ unit['Address'] }}{% if unit.get('Accommodation') %} — {{ unit['Accommodation']|join(', ') }}{% endif %}</li>{% endif %}{% endfor %}</ul>{% endif %}
+{% if r.tenancy_schedule %}<h4>Units included in the earlier offering</h4><ul>{% for unit in r.tenancy_schedule %}{% if unit.get('Address') %}<li>{{ unit['Address'] }}{% if unit.get('Accommodation') %} — {{ unit['Accommodation']|join(', ') }}{% endif %}{% if (unit.get('Lease Details') or '').lower().startswith('subject to a lease') %}. {{ unit['Lease Details'] }}{% endif %}</li>{% endif %}{% endfor %}</ul>{% endif %}
 {% if r.result_observed_at %}<p class="small muted">Result checked against the auctioneer's listing on {{ uk_date(r.result_observed_at[:10]) }}.</p>{% endif %}
 {% if r.original_url and r.original_url.startswith(('https://','http://')) %}<a class="textlink" href="{{ r.original_url }}" rel="noopener noreferrer">View earlier auction listing ↗</a>{% endif %}
 </li>{% endfor %}

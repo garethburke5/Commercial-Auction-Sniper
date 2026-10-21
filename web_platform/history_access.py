@@ -63,6 +63,7 @@ def preview(context):
     """Publish counts and a scope warning; prices, results and sources stay private."""
     return {'previous_appearances':len(context.get('history') or []),
             'related_interests':len(context.get('related_interests') or []),
+            'different_interest':any(r.get('interest_changed') for r in context.get('related_interests') or []),
             'has_changes':bool(context.get('observations')),
             'has_comparables':bool(context.get('comparables'))}
 

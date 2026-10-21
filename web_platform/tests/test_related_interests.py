@@ -33,6 +33,8 @@ def test_newbury_real_sources_archive_refresh_and_separate_interests(tmp_path,si
     for fact in ('£190,000','£26,700','£20,000','1 The Arcade','151A','Reported sold','7 October 2026'):assert fact in private
     assert 'Guide changed' not in private and 'Rent changed' not in private
     assert previous['url'] in private
+    assert 'new 999-year lease' in private and 'also included 1 The Arcade' in private
+    assert 'Subject to a lease for a term expiring 2138' in private
 
 @pytest.mark.parametrize('changes',[
     {'address':'Unit 2, 10 High Street, Example, AB1 2CD'},

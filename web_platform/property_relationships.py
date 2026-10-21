@@ -87,9 +87,14 @@ def relationship(previous,current,*,same_address=False):
     before,after=tenure_kind(previous),tenure_kind(current)
     reasons=[]
     if before and after and before!=after:
-        reasons.append('The legal interest differs: '+str(previous['tenure'])+' in the earlier offering; '+str(current['tenure'])+' in this listing.')
+        reasons.append('The earlier offering was '+before+'. This listing offers a '+after+' interest.')
     if not same_address:
-        if ps and cs:
+        old_parts=set(address_parts(str(previous.get('address') or '')));new_parts=set(address_parts(str(current.get('address') or '')))
+        extra_roads={p[1] for p in old_parts}-{p[1] for p in new_parts}
+        if new_parts and new_parts < old_parts and extra_roads:
+            extras=sorted({p[2]+' '+p[1].title() for p in old_parts if p[1] in extra_roads})
+            reasons.append('The earlier offering also included '+', '.join(extras)+'.')
+        elif ps and cs:
             reasons.append('Both records identify the same building or site, but use different unit or address descriptions.')
         else:
             reasons.append('The records share a building address or title, but the accommodation covered by each offering needs to be checked.')
@@ -117,10 +122,12 @@ def relationship(previous,current,*,same_address=False):
         m=re.search(r'([\d,.]+)\s*(?:sq\s*ft|sqft|ft²)',str(r.get('floor_area') or ''),re.I)
         return float(m[1].replace(',','')) if m else None
     a,b=area(previous),area(current)
-    if all(isinstance(v,(int,float)) and not isinstance(v,bool) and v>0 for v in (a,b)) and abs(a-b)/max(a,b)>.05:
+    if not reasons and all(isinstance(v,(int,float)) and not isinstance(v,bool) and v>0 for v in (a,b)) and abs(a-b)/max(a,b)>.05:
         reasons.append('The recorded floor area differs from this listing; the accommodation may have changed.')
     if reasons:
         return {'match_type':'related_interest','price_comparable':False,'relationship_reasons':reasons,
+                'current_lease_years':cy,'current_lease_is_new':bool(cy and re.search(r'new\s+'+str(cy)+r'[ -]+year\s+lease',str(current.get('tenure') or '')+' '+str(current.get('description') or ''),re.I)),
+                'interest_changed':bool(before and after and before!=after),
                 'match_basis':'Shared published building address or title; a different property interest or extent is recorded.'}
     if same_address:
         return {'match_type':'exact_match','price_comparable':bool(before and after and before==after),
