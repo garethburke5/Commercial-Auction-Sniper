@@ -110,7 +110,7 @@ def test_standalone_page_safe_links_sources_at_end_and_no_backend_dependencies(p
         soup = BeautifulSoup(html, 'html.parser')
         assert soup.select_one('link[rel=canonical]')['href'] == public_site.origin + row['snapshot_path']
         assert '<script>alert' not in html
-        assert [s['src'].split('?')[0] for s in soup.select('script[src]')] == ['/auction/static/snapshot.js']
+        assert [s['src'].split('?')[0] for s in soup.select('script[src]')] == ['/auction/static/share.js', '/auction/static/snapshot.js']
         assert not soup.select('iframe, form, img, video, audio, link[rel=preconnect]')
         assert soup.select_one('main > footer .sources')
         assert not any(soup.select(f'section:not(.sources) a[href^="https://example.com"]'))

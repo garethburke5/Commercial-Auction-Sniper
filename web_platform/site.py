@@ -16,6 +16,7 @@ from .board import index_row, SEARCH_INDEX_VERSION
 from .fees import load_fees, directory, fee_profile, estimate_fee
 from .particulars import structured_particulars
 from .free_snapshot import build_snapshot
+from .sharing import share_details
 from .enrichment import ordered_images
 from .glossary import GROUPS, SOURCES, REVIEWED
 from .workspace import observation
@@ -58,7 +59,7 @@ class Site:
         self.base = self.origin.split('://', 1)[-1].partition('/')[2]
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
-        self.env.globals.update(money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE, plans=PLAN_CATALOGUE)
+        self.env.globals.update(share_details=lambda row: share_details(row, self.origin), money=money, uk_date=uk_date, url=lambda p: self.prefix+p, live=LIVE, plans=PLAN_CATALOGUE)
         from .market_context import MarketContext
         self.market=MarketContext(self.catalogue)
         self.fees = load_fees()
@@ -75,12 +76,13 @@ class Site:
         # Card bundles change when their markup or deployment prefix changes,
         # even if the underlying catalogue is unchanged.
         self.board_version = hashlib.sha256(json.dumps(self.catalogue.properties,sort_keys=True).encode()
-            + (HERE/'templates/cards.html').read_bytes() + self.prefix.encode()
+            + (HERE/'templates/cards.html').read_bytes() + (HERE/'templates/share.html').read_bytes() + (HERE/'sharing.py').read_bytes() + self.origin.encode() + self.prefix.encode()
             + str(SEARCH_INDEX_VERSION).encode()).hexdigest()[:12]
         self.env.globals['asset_version'] = hashlib.sha256((HERE/'static/site.css').read_bytes()
             + (HERE/'static/workspace.js').read_bytes() + (HERE/'static/board.js').read_bytes() + (HERE/'static/search.js').read_bytes()
             + (HERE/'static/navigation.js').read_bytes() + (HERE/'static/reviews.js').read_bytes()
             + (HERE/'static/report-evidence.js').read_bytes() + (HERE/'static/history.js').read_bytes()).hexdigest()[:12]
+        self.env.globals['share_version'] = hashlib.sha256((HERE/'static/share.js').read_bytes() + (HERE/'static/share.css').read_bytes()).hexdigest()[:12]
         self.env.globals['snapshot_version'] = hashlib.sha256((HERE/'static/snapshot.css').read_bytes() + (HERE/'static/snapshot.js').read_bytes()).hexdigest()[:12]
         self.env.globals.update(board_index=f'/board/{self.board_version}/index.json')
 
@@ -112,6 +114,7 @@ class Site:
             structured.append({'@context':'https://schema.org','@type':'WebSite',
                 'name':'Auction Geek','url':self.origin+'/'})
         return self.env.get_template('page.html').render(title=title, kind=kind, description=description,
+            social=share_details(ctx['row'], self.origin) if kind == 'property' else {'title':title+' | Auction Geek','text':description,'image':''},
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)
 
@@ -124,7 +127,7 @@ class Site:
 
     def snapshot_page(self, row):
         return self.env.get_template('snapshot.html').render(
-            s=self.snapshot(row), row={k: row[k] for k in ('path', 'id')},
+            s=self.snapshot(row), row=row, social=share_details(row, self.origin),
             canonical=self.origin + row['snapshot_path'])
 
     def routes(self):
@@ -205,7 +208,7 @@ class Site:
         public_key=os.environ.get('SUPABASE_PUBLISHABLE_KEY','')
         api_origin=os.environ.get('PRIVATE_API_ORIGIN','')
         enabled=bool(supabase.startswith('https://') and public_key and api_origin.startswith('https://'))
-        yield '/platform-config.json',json.dumps({'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled,'plans':PLAN_CATALOGUE})
+        yield '/platform-config.json',json.dumps({'share_analytics_endpoint':api_origin.rstrip('/')+'/api/share-events' if api_origin.startswith('https://') else None,'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled,'plans':PLAN_CATALOGUE})
         yield '/source-reconciliation.json',json.dumps(self.reconciliation,ensure_ascii=False)
         rows=self.catalogue.properties
         root=f'/board/{self.board_version}/'

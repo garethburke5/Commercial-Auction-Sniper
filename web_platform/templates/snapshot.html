@@ -6,11 +6,14 @@
   <meta name="description" content="Property facts, rental yield and purchase-cost calculations for {{ s.address }}. Read Auction Geek’s free snapshot and save it as a PDF.">
   <meta name="robots" content="{{ 'index,follow' if s.indexable else 'noindex,follow' }}">
   <link rel="canonical" href="{{ canonical }}">
+  {% include 'social.html' %}
+  <link rel="stylesheet" href="{{ url('/static/share.css') }}?v={{ share_version }}"><script defer src="{{ url('/static/share.js') }}?v={{ share_version }}"></script>
   <link rel="stylesheet" href="{{ url('/static/snapshot.css') }}?v={{ snapshot_version }}">
   <script defer src="{{ url('/static/snapshot.js') }}?v={{ snapshot_version }}"></script>
 </head>
-<body>
-  <nav class="toolbar" aria-label="Snapshot actions"><a href="{{ url(row.path) }}">← Property listing</a><button type="button" id="print-snapshot">Print / Save as PDF</button></nav>
+<body data-prefix="{{ url('') }}">
+  {% from 'share.html' import share_button with context %}
+  <nav class="toolbar" aria-label="Snapshot actions"><a href="{{ url(row.path) }}">← Property listing</a><button type="button" id="print-snapshot">Print / Save as PDF</button>{{ share_button(row, 'snapshot') }}</nav>
   <main>
     <header><a class="brand" href="{{ url('/') }}">AUCTION <b>GEEK</b><span>PROPERTY INVESTMENT SNAPSHOT</span></a><p class="edition">Free snapshot{% if s.captured_at %} · Updated {{ uk_date(s.captured_at) }}{% endif %}</p><h1>{{ s.address }}</h1></header>
     <dl class="headline"><div><dt>{{ s.price_label }}</dt><dd>{{ s.price }}</dd></div><div><dt>Annual rental income</dt><dd>{{ s.rent }}</dd></div><div><dt>Gross rental yield</dt><dd>{{ s.yield }}</dd></div></dl>

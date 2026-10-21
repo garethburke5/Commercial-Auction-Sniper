@@ -88,6 +88,20 @@ def create_app(site=None):
     def user(authorization):
         uid=authenticated_user(authorization);accounts,billing=private_services();accounts.ensure(uid)
         return uid,accounts,billing
+    from .share_analytics import ShareEvent, ShareMetrics
+    share_metrics = ShareMetrics()
+    @app.post('/api/share-events', status_code=204)
+    def share_event(event: ShareEvent, request: Request):
+        # No identity/session lookup: sharing works for every visitor.
+        if request.headers.get('origin') != public.scheme+'://'+public.netloc:
+            raise HTTPException(403, 'Public site origin required')
+        share_metrics.record(event)
+        return Response(status_code=204)
+    @app.get('/api/admin/share-events')
+    def share_summary(authorization: str | None = Header(default=None)):
+        uid=authenticated_user(authorization)
+        require_owner(uid)
+        return share_metrics.summary()
     @app.get('/healthz')
     def health():
         # Liveness only: no secrets, customer counts or activation claims.

@@ -1,4 +1,4 @@
-<div data-current-property="{{ row.id }}" class="save-actions property-save"><button data-save="{{ row.id }}" aria-pressed="false">♡ Save</button><button data-watch="{{ row.id }}" aria-pressed="false">◉ Watch</button><a href="{{ url('/account/') }}">My notes & shortlist →</a></div>
+<div data-current-property="{{ row.id }}" class="save-actions property-save"><button data-save="{{ row.id }}" aria-pressed="false">♡ Save</button><button data-watch="{{ row.id }}" aria-pressed="false">◉ Watch</button>{{ share_button(row) }}<a href="{{ url('/account/') }}">My notes & shortlist →</a></div>
 <nav class="property-jumps" aria-label="On this property"><a href="#particulars">Particulars</a><a href="#investment-details">Investment analysis</a><a href="#property-fees">Auction fee</a><a href="#history">Property history</a><a href="#evidence">Source & legal pack</a></nav>
 <div class="propertylayout"><div class="property-main">
   <section class="property-gallery" aria-label="Property images">

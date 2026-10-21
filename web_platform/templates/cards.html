@@ -1,3 +1,4 @@
+{% from 'share.html' import share_button with context %}
 {% macro card(r) -%}
 <article class="card" data-id="{{ r.id }}" data-rent="{{ r.annual_rent or '' }}">
   <a class="previewLink" href="{{ url(r.path) }}" aria-label="View {{ r.address }}">
@@ -5,7 +6,7 @@
     <span class="image-label">{{ r.source }}</span>
   </a>
   <div class="cardbody">
-    <div class="card-meta"><span>LOT {{ r.lot_label }}</span><div class="save-actions card-save-actions"><button type="button" data-save="{{ r.id }}" aria-pressed="false" title="Save to your free account shortlist">♡ Save</button><button type="button" data-watch="{{ r.id }}" aria-pressed="false" title="Monitor property changes with membership">◉ Watch</button></div></div>
+    <div class="card-meta"><span>LOT {{ r.lot_label }}</span><div class="save-actions card-save-actions"><button type="button" data-save="{{ r.id }}" aria-pressed="false" title="Save to your free account shortlist">♡ Save</button><button type="button" data-watch="{{ r.id }}" aria-pressed="false" title="Monitor property changes with membership">◉ Watch</button>{{ share_button(r, 'card') }}</div></div>
     <p class="card-auction-date">{% if r.post_auction_available %}Available after auction · {% endif %}{{ r.auction_date or 'Date to confirm' }}</p>
     <p class="opportunity">{{ r.opportunity }}</p>
     <h2><a href="{{ url(r.path) }}">{{ r.address }}</a></h2>

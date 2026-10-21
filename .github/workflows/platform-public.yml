@@ -44,11 +44,14 @@ jobs:
           NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/report_evidence_browser.cjs
           NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/account_auth_browser.cjs
           NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/history_browser.cjs
+          NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/sharing_browser.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: history-preview-browser
-          path: test-artifacts/history-*.png
+          path: |
+            test-artifacts/history-*.png
+            test-artifacts/share-*.png
           if-no-files-found: ignore
       - uses: actions/configure-pages@v5
         id: pages

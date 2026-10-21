@@ -2,6 +2,13 @@
 
 ## Continuation checkpoint — 21 October 2026
 
+- Property sharing is implemented across shared property/card/snapshot templates,
+  with public social metadata and anonymous interaction monitoring. See
+  `property-sharing-2026-10-21.md` for validation and the distinction between
+  server-log counters, the worker-lifetime summary and the outstanding long-term
+  analytics dashboard. Hosted deployment and real-platform preview checks must
+  be confirmed separately.
+
 - Subscriber history inclusion is deployed. Both pricing cards and comparison
   rows were verified on the main domain; hosted browser and PostgreSQL checks
   passed. This completes the inclusion change, not H2/H3/H6/H8 sales acceptance.

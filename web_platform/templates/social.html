@@ -1,0 +1,7 @@
+{% set social = social|default({'title': title ~ ' | Auction Geek', 'text': description, 'image': ''}) %}
+<meta property="og:type" content="website"><meta property="og:locale" content="en_GB">
+<meta property="og:site_name" content="Auction Geek">
+<meta property="og:title" content="{{ social.title }}"><meta property="og:description" content="{{ social.text }}"><meta property="og:url" content="{{ canonical }}">
+<meta name="twitter:card" content="{{ 'summary_large_image' if social.image else 'summary' }}">
+<meta name="twitter:title" content="{{ social.title }}"><meta name="twitter:description" content="{{ social.text }}">
+{% if social.image %}<meta property="og:image" content="{{ social.image }}"><meta property="og:image:alt" content="{{ social.image_alt }}"><meta name="twitter:image" content="{{ social.image }}"><meta name="twitter:image:alt" content="{{ social.image_alt }}">{% endif %}
