@@ -1,7 +1,7 @@
 import unittest
 
 from acquisition_lease_evidence import extract_lease_evidence
-from legal_pack_engine import DocType, PackDocument
+from legal_pack_engine import DocType, PackDocument, classify_document
 
 
 def lease(name, pages):
@@ -10,6 +10,33 @@ def lease(name, pages):
 
 
 class LeaseEvidenceTests(unittest.TestCase):
+    def test_tenancy_agreement_name_outranks_attached_epc_reference(self):
+        text = 'Tenancy agreement. Included documents: Energy Performance Certificate. How to Rent guide.'
+        for name in ('Flat tenancy_agreement_123.pdf', 'Residential tenancy agreement.pdf', 'tenancy-agreement.pdf'):
+            self.assertEqual(classify_document(name, text), DocType.LEASE)
+        self.assertEqual(classify_document('EPC.pdf', 'Certificate provided with the tenancy agreement'), DocType.EPC)
+
+    def test_retained_ocr_replay_reclassifies_documents_but_requires_original_hash(self):
+        import hashlib
+        import tempfile
+        from pathlib import Path
+        from scripts.build_report_benchmark import replay
+        name = 'Flat tenancy_agreement.pdf'
+        raw = b'original fixture bytes'
+        text = 'Tenancy agreement. Energy Performance Certificate attached. Tenant. Annual Rent: £12,000 per annum.'
+        bundle = {'ingestion': {'documents': [{'name': name, 'type': 'epc',
+            'sha256': hashlib.sha256(raw).hexdigest(), 'metadata': {'pages': [{'page': 1, 'text': text}]}}],
+            'assets': [], 'issues': []}}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory)
+            (path/name).write_bytes(raw)
+            report = replay(bundle, path, {'address': '71 Example Road', 'rent': 12000}, {})
+            self.assertEqual(report['documents'][0]['type'], 'lease')
+            self.assertEqual(report['lease_details'][0]['annual_rent'], 12000)
+            (path/name).write_bytes(b'different original')
+            with self.assertRaisesRegex(ValueError, 'does not match'):
+                replay(bundle, path, {'address': '71 Example Road'}, {})
+
     def form_particulars(self):
         return ('The Law Society. DATE OF LEASE 20th April 20 26. '
                 'LANDLORD Example Estates Ltd ADDRESS 9 Other Road. '

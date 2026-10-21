@@ -24,6 +24,10 @@ not a claim that an automated £19 report has passed customer acceptance.
   different competing rent still prevents automatic selection. Annexed forms,
   monthly amounts and impossible dates do not become current annual rent or
   deadlines. Registration numbers and OCR margin digits are not tenant names.
+- Explicit tenancy-agreement filenames take precedence over incidental EPC
+  references inside the document. This corrects a retained residential tenancy
+  that had been classified as an energy certificate; it does not by itself
+  establish its current rent, periodic continuation or statutory position.
 - Full references remain together at the end. The renderer records physical
   section starts for validation, separating main-brief overflow from additional
   source pages. No type-size reduction or finding deletion is used to pass.

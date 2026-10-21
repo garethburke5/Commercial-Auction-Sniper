@@ -10,7 +10,7 @@ import hashlib
 import json
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from legal_pack_engine import PackDocument, DocType
+from legal_pack_engine import PackDocument, classify_document
 from legal_pack_ingest import IngestResult, IngestAsset, IngestIssue
 from legal_pack_review import build_evidence_report
 from acquisition_transcription import apply_transcriptions
@@ -31,8 +31,11 @@ def replay(bundle, originals, catalogue, research, corrections=(), visual=(), no
             continue
         seen.add(digest)
         meta=copy.deepcopy(cached['metadata'])
-        documents.append(PackDocument(cached['name'],DocType(cached['type']),
-                         '\n\n'.join(p.get('text','') for p in meta['pages']),digest,meta))
+        text='\n\n'.join(p.get('text','') for p in meta['pages'])
+        # Cached OCR is reusable; a stale document classification is not. Replay
+        # the current classifier so a repaired role reaches the real pipeline.
+        documents.append(PackDocument(cached['name'],classify_document(cached['name'],text),
+                         text,digest,meta))
     documents=apply_transcriptions(documents,corrections)
     ingestion=IngestResult(documents=documents,
         assets=[IngestAsset(**a) for a in bundle['ingestion']['assets']],
