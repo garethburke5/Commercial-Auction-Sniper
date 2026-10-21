@@ -272,7 +272,7 @@ test('portal return waits for verified recovery and clears the failed-payment no
 test('closed billing gives customers a real support instruction and owner a sandbox portal',async()=>{
  const app=await setup({initial:buyer('a'),billingReturn:true,billing:failedBilling()});
  assert.equal(app.elements['#account-billing'].hidden,true);
- assert.match(app.elements['#checkout-return-message'].textContent,/Contact team@/);
+ assert.match(app.elements['#checkout-return-message'].textContent,/Contact info@auctiongeek\.co\.uk/);
  assert.doesNotMatch(app.elements['#checkout-return-message'].textContent,/invoices below/);
  const owner=await setup({initial:buyer('owner'),owner:true,ownerPreview:false,billing:failedBilling()});
  await owner.click(owner.elements['#account-billing']);
