@@ -120,7 +120,7 @@ class Site:
 
     def social_details(self, row):
         detail=share_details(row,self.origin)
-        path=getattr(self,'social_images',{}).get(detail['image'])
+        path=getattr(self,'social_images',{}).get(row.get('image_url'))
         if path:
             detail.update(image=self.origin+path, image_width=1200, image_height=630, image_type='image/jpeg')
         return detail

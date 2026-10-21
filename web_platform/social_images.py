@@ -75,7 +75,7 @@ def branded_photo(data):
     return out.getvalue()
 
 
-def build_social_images(rows, destination, *, max_seconds=90, workers=8, downloader=download_photo):
+def build_social_images(rows, destination, *, max_seconds=90, workers=16, downloader=download_photo):
     urls=list(dict.fromkeys(r.get('image_url') for r in rows if r.get('image_url')))
     output=Path(destination)/'static/share-images';output.mkdir(parents=True,exist_ok=True)
     deadline=time.monotonic()+max_seconds

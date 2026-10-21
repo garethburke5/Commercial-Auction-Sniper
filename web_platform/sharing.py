@@ -23,6 +23,8 @@ def share_details(row, origin):
     image = str(row.get('image_url') or '')
     if urlsplit(image).scheme not in ('http', 'https'):
         image = ''
+    if urlsplit(image).hostname == 'resize.auctions.savills.co.uk' and urlsplit(image).path.startswith('/assets/images/'):
+        image = image.replace('/assets/images/', '/resized/images/w1500/', 1)
     return {'title': title + ' | Auction Geek', 'text': description,
             'url': origin.rstrip('/') + row['path'], 'image': image,
             'image_alt': title + ' — property photograph'}

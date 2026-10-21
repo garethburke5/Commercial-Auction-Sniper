@@ -43,3 +43,11 @@ def test_build_uses_real_downloads_once_and_falls_back_safely(site,tmp_path):
     def failed(url,deadline):raise ValueError('blocked')
     assert build_social_images([row],tmp_path/'failed',downloader=failed)=={}
     assert build_social_images([row],tmp_path/'expired',downloader=download,max_seconds=-1)=={}
+
+
+def test_savills_fallback_is_gallery_sized_and_cached_brand_still_wins(site):
+    row=site.catalogue.properties[0]
+    row['image_url']='https://resize.auctions.savills.co.uk/assets/images/lots/1/2/photo.png'
+    assert site.social_details(row)['image']=='https://resize.auctions.savills.co.uk/resized/images/w1500/lots/1/2/photo.png'
+    site.social_images={row['image_url']:'/static/share-images/example.jpg'}
+    assert site.social_details(row)['image']==site.origin+'/static/share-images/example.jpg'
