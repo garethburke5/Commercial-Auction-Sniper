@@ -1,10 +1,11 @@
 <section id="history" class="premium-history" data-history-property="{{ row.id }}">
  <div class="history-preview-heading"><div><p class="eyebrow">LOOK BEYOND TODAY’S LISTING</p><h2>Premium Property History &amp; Intelligence</h2></div><span class="history-lock" aria-label="Premium access"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v3"/></svg></span></div>
  <div data-history-preview>
+ {% if history_preview.related_interests %}<p class="history-found"><strong>Related property interests found.</strong> {{ history_preview.related_interests }} earlier auction offering{{ 's' if history_preview.related_interests != 1 else '' }} relate to this building, and may cover different units, accommodation or legal interests. These are shown separately from exact historical matches; their prices are not a like-for-like comparison.</p>{% endif %}
  {% if history_preview.previous_appearances %}<p class="history-found"><strong>{{ history_preview.previous_appearances }} earlier auction appearance{{ 's' if history_preview.previous_appearances != 1 else '' }} identified.</strong> Compare the recorded prices, income and outcomes with this listing.</p>
  {% elif history_preview.has_changes %}<p class="history-found"><strong>Changes to this property’s listing have been recorded.</strong> Explore how the advertised terms have changed.</p>
- {% else %}<p>No earlier auction appearances are currently linked to this property. We continue to collect and match historical records.</p>{% endif %}
- {% if history_preview.previous_appearances or history_preview.has_changes %}
+ {% elif not history_preview.related_interests %}<p>No earlier auction appearances are currently linked to this property. We continue to collect and match historical records.</p>{% endif %}
+ {% if history_preview.previous_appearances or history_preview.related_interests or history_preview.has_changes %}
  <div class="history-preview-points"><div><b>Previous guides &amp; results</b><span>See what was advertised and the result recorded</span></div><div><b>Rental &amp; lease changes</b><span>Compare the income and terms across appearances</span></div><div><b>Original auction evidence</b><span>Follow the sources behind the historical records</span></div></div>
  <div class="history-unlock-options">
  <button type="button" data-history-buy="property_history" disabled><span>Unlock this property’s history</span><strong>{{ plans.history_products.property_history.price_label }}</strong><small>Permanent history access</small></button>

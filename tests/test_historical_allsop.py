@@ -37,3 +37,11 @@ def test_reference_day_is_preferred_over_inconsistent_timestamp():
     assert a.reference_day("R130917 137") == "2013-09-17"
     assert a.auction_day({"allsop_auctionreference": "C250521",
                           "allsop_auctiondate": "2025-05-22T00:00:00Z"}) == "2025-05-21"
+
+
+def test_unsold_is_not_a_sold_result_even_if_source_contains_price():
+    raw={'allsop_lotid':'one','allsop_auctionid':'auction','allsop_lotnumber':1,
+         'allsop_name':'C260101 001','full_address':'1 High Street, AB1 2CD',
+         'lot_status':'Unsold','sale_price':190000}
+    row,reason=a.convert(raw,{})
+    assert reason is None and row['status']=='unsold' and row['sale_price'] is None

@@ -5,6 +5,7 @@ from datetime import date
 from urllib.parse import urlsplit
 from collections import defaultdict
 from functools import cached_property
+from .property_relationships import candidate_keys, relationship, result_evidence, tenure_kind
 
 POSTCODE=re.compile(r'\b([A-Z]{1,2}\d[A-Z\d]?)\s*(\d[A-Z]{2})\b',re.I)
 def address_key(value):
@@ -82,15 +83,48 @@ def metrics(r):
 class MarketContext:
     def __init__(self,catalogue):
         self.c=catalogue;self.by_address=defaultdict(list);self.by_street=defaultdict(list);self.by_district=defaultdict(list);self.loaded=False;self.observed=defaultdict(list)
+        self.by_relationship=defaultdict(list);self.latest_by_url=defaultdict(list)
         self._load_lock=threading.Lock()
     def load(self):
         with self._load_lock:
             if self.loaded:return
-            self.by_address.clear();self.by_street.clear();self.by_district.clear();self.observed.clear()
+            self.by_address.clear();self.by_street.clear();self.by_district.clear();self.observed.clear();self.by_relationship.clear();self.latest_by_url.clear()
             self._load()
             self.loaded=True
 
+    @staticmethod
+    def _url_key(row):
+        u=urlsplit(str(row.get('original_url') or row.get('url') or ''))
+        return (u.netloc.lower(),u.path.rstrip('/')) if u.netloc else None
+
+    def _fresh_record(self,record):
+        for newer in self.latest_by_url.get(self._url_key(record),[]):
+            try:near=abs((date.fromisoformat(str(record.get('auction_date'))[:10])-date.fromisoformat(str(newer.get('auction_date'))[:10])).days)<=14
+            except ValueError:near=False
+            old_time=(record.get('source_evidence') or {}).get('retrieved_at') or record.get('collected_at') or ''
+            if near and str(record.get('lot_number','')).removeprefix('Lot ')==str(newer.get('lot_number','')).removeprefix('Lot ') and newer.get('collected_at','')>old_time:
+                original=record
+                record=dict(record)
+                for field in ('auction_date','status','source_availability','sale_price','tenure','description','area_sqft','annual_rent','tenant','tenancy_schedule','lease_term'):
+                    if newer.get(field) is not None:record[field]=newer[field]
+                if result_evidence(newer)['kind']!='reported_sale':record['sale_price']=None
+                record['result_evidence_url']=newer.get('url')
+                record['result_observed_at']=newer.get('collected_at')
+                record['earlier_observation']={k:original.get(k) for k in ('auction_date','status','sale_price','source_evidence')}
+                break
+        return record
+
     def _load(self):
+        # Recent catalogue captures can be newer than the bulk archive. Keep
+        # their evidence, while reconciling only the same source lot and event.
+        for raw in getattr(self.c,'all_properties',[]):
+            if not raw.get('auction_date') or raw['auction_date']>date.today().isoformat():continue
+            r=dict(raw,original_url=raw.get('url'),auctioneer=raw.get('source'),result_observed_at=raw.get('collected_at'))
+            self.latest_by_url[self._url_key(r)].append(r)
+            self.by_address[address_key(r['address'])].append(r)
+            street=street_address_key(r['address'])
+            if street:self.by_street[street].append(r)
+            for anchor in candidate_keys(r):self.by_relationship[anchor].append(r)
         observations_path=self.c.root/'data/property_history.json'
         if observations_path.exists():
             import ijson
@@ -105,9 +139,11 @@ class MarketContext:
         self.c.history(limit=1)
         if not self.c.history_path:return
         with sqlite3.connect(self.c.history_path.as_uri()+'?mode=ro',uri=True) as db:
-            for rowid,raw in db.execute("SELECT rowid,record_json FROM appearances WHERE sector IN ('commercial','mixed-use') AND address IS NOT NULL AND auction_date<=?",(date.today().isoformat(),)):
+            for rowid,raw in db.execute("SELECT rowid,record_json FROM appearances WHERE address IS NOT NULL AND auction_date<=?",(date.today().isoformat(),)):
                 r=json.loads(raw);p=postcode(r.get('postcode') or r['address'])
                 if not p:continue
+                for anchor in candidate_keys(r):self.by_relationship[anchor].append(rowid)
+                if r.get('sector') not in ('commercial','mixed-use'):continue
                 self.by_address[address_key(r['address'])].append(rowid)
                 street_key=street_address_key(r['address'])
                 if street_key:self.by_street[street_key].append(rowid)
@@ -116,24 +152,29 @@ class MarketContext:
 
     def _records(self,refs):
         if not refs:return
-        # In-memory fixture contexts retain the same public matching contract.
-        if isinstance(refs[0],dict):
-            yield from refs;return
+        for record in refs:
+            if isinstance(record,dict):yield record
+        ids=list(dict.fromkeys(r for r in refs if not isinstance(r,dict)))
+        if not ids:return
         with sqlite3.connect(self.c.history_path.as_uri()+'?mode=ro',uri=True) as db:
-            for start in range(0,len(refs),400):
-                batch=refs[start:start+400]
+            for start in range(0,len(ids),400):
+                batch=ids[start:start+400]
                 for raw, in db.execute('SELECT record_json FROM appearances WHERE rowid IN ('+','.join('?' for _ in batch)+') ORDER BY rowid',batch):
-                    yield json.loads(raw)
+                    yield self._fresh_record(json.loads(raw))
     def for_property(self,row,limit=4):
         self.load();key=address_key(row['address']);p=postcode(row['address']);typ=use_type(row);occ=occupancy(row)
-        history=[];appearance_keys=set()
+        history=[];related=[];appearance_keys=set()
         refs=list(self.by_address.get(key,[]))+list(self.by_street.get(street_address_key(row['address']),[]))
+        for anchor in candidate_keys(row):refs.extend(self.by_relationship.get(anchor,[]))
         for r in self._records(refs):
             if not p or postcode(r.get('postcode') or r['address'])!=p:continue
-            if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
+            if row.get('auction_date') and r.get('auction_date') and r['auction_date']>=row['auction_date']:continue
             exact=address_key(r['address'])==key
-            # Require affirmative agreement on the interest for a broader match.
-            if not exact and (not r.get('tenure') or not row.get('tenure')):continue
+            same_address=same_property_address(r['address'],row['address'])
+            link=relationship(r,row,same_address=same_address)
+            if not link:continue
+            # Broader locality aliases require affirmative agreement on tenure.
+            if link['match_type']=='exact_match' and not exact and (not tenure_kind(r) or not tenure_kind(row)):continue
             historical_url=urlsplit(str(r.get('original_url') or ''))
             current_url=urlsplit(str(row.get('url') or ''))
             same_source=historical_url.netloc and (historical_url.netloc.lower(),historical_url.path.rstrip('/')) == (current_url.netloc.lower(),current_url.path.rstrip('/'))
@@ -143,11 +184,15 @@ class MarketContext:
                 # A small date correction is not a new auction appearance.
                 # URLs reused in later years must still retain earlier appearances.
                 continue
-            if r.get('auction_date')==row.get('auction_date') and str(r.get('lot_number','')).removeprefix('Lot ')==str(row.get('lot_number','')).removeprefix('Lot '):continue
-            appearance=(r.get('auctioneer') or r.get('source'),r.get('auction_date'),str(r.get('lot_number') or ''),address_key(r['address']))
+            if same_source and r.get('auction_date')==row.get('auction_date') and str(r.get('lot_number','')).removeprefix('Lot ')==str(row.get('lot_number','')).removeprefix('Lot '):continue
+            appearance=(self._url_key(r) or r.get('auctioneer') or r.get('source'),r.get('auction_date'),str(r.get('lot_number') or '').removeprefix('Lot '),address_key(r['address']))
             if appearance in appearance_keys:continue
             appearance_keys.add(appearance)
-            record=dict(r)
+            record=dict(r,**link)
+            record['result_evidence']=result_evidence(r)
+            if link['match_type']=='related_interest':
+                record['comparison_notes']=link['relationship_reasons']
+                related.append(record);continue
             record['match_basis']='Exact address' if exact else 'Same numbered street address, postcode and tenure; locality wording differs'
             record['comparison_notes']=[]
             before,after=metrics(r)['area_sqft'],metrics(row)['area_sqft']
@@ -157,13 +202,16 @@ class MarketContext:
                 record['comparison_notes'].append('Tenure was not recorded for this appearance. Confirm that it covers the same property interest.')
             history.append(record)
         history.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
+        related.sort(key=lambda x:x.get('auction_date') or '',reverse=True)
         for i,r in enumerate(history[:-1]):
             prev=history[i+1];r['changes']=[]
+            pair=relationship(prev,r,same_address=same_property_address(prev['address'],r['address']))
+            if not pair or not pair['price_comparable']:continue
             for field,label in [('guide_price','Guide'),('annual_rent','Rent'),('tenant','Tenant'),('lease_expiry','Lease expiry'),('vacancy','Occupation')]:
                 if r.get(field) is not None and prev.get(field) is not None and r[field]!=prev[field]:r['changes'].append({'label':label,'before':prev[field],'after':r[field]})
         candidates={};seen=set()
         for r in self._records(self.by_district.get(p[0],[])) if p and typ else []:
-            if same_property_address(r['address'],row['address']) or use_type(r)!=typ:continue
+            if same_property_address(r['address'],row['address']) or relationship(r,row) or use_type(r)!=typ:continue
             if not occ or occupancy(r)!=occ:continue
             if r.get('tenure') and row.get('tenure') and r['tenure'].lower()!=row['tenure'].lower():continue
             try:age=(date.today()-date.fromisoformat(r['auction_date'][:10])).days
@@ -196,7 +244,7 @@ class MarketContext:
             if k in seen:continue
             seen.add(k);selected.append(r)
             if len(selected)>=limit:break
-        return {'observations':self.observations(row),'history':history,'comparables':selected,'metrics':metrics(row),'matching':'Exact address or matching numbered street address, postcode and tenure; unit and extent qualifiers retained. Extent remains subject to source verification.'}
+        return {'observations':self.observations(row),'history':history,'related_interests':related,'comparables':selected,'metrics':metrics(row),'matching':'Matching addresses and recorded interests are separated from related building, unit and title interests. Prices for related interests are not compared.'}
 
     def observations(self,row):
         """Use already banked source observations; a capture date is not a sale date."""

@@ -17,7 +17,7 @@ def test_full_catalogue_traverses_pagination_and_rejects_false_completion():
 
 def test_public_detail_decimal_lot_number_featured_image_and_tenancy_schedule():
     row={'allsop_auctionid':'sale','allsop_lotid':'id1','allsop_lotnumber':1,'allsop_name':'C261001 155',
-         'full_address':'108 Watling Street, Radlett, WD7 7AB','allsop_propertybyline':'Freehold Shop Investment',
+         'sale_price':'610000.00','allsop_lotstatus':'Sold','full_address':'108 Watling Street, Radlett, WD7 7AB','allsop_propertybyline':'Freehold Shop Investment',
          'allsop_propertytown':'Radlett','comm_property_types':['Retail'],'is_commercial':True}
     schedule={'headers':[{'key':'tenant','label':'Present Lessee'},{'key':'lease','label':'Lease Details'},
                          {'key':'rent','label':'Current Rent'},{'key':'review','label':'Next Review / Reversion'}],
@@ -35,6 +35,10 @@ def test_public_detail_decimal_lot_number_featured_image_and_tenancy_schedule():
     assert lot.lot_number=='Lot 1' and lot.auction_date=='2026-10-07'
     assert lot.guide_price==650000 and lot.guide_price_upper==675000
     assert lot.annual_rent==39000 and lot.gross_yield==6
+    assert lot.sale_price==610000
+    detail['version']['allsop_lotstatus']='Unsold'
+    assert _detail(row,lambda _:detail).sale_price is None
+    detail['version']['allsop_lotstatus']='Sold'
     assert lot.image_url=='https://www.allsop.co.uk/api/image/primary/884/497'
     assert lot.image_is_primary and lot.tenancy_schedule and lot.fri
     assert lot.tenant=='Occupational tenant' and '2031' in lot.break_clause

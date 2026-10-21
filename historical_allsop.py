@@ -94,7 +94,7 @@ def convert(raw, evidence):
     row["guide_price_high"] = h.money(raw.get("guide_price_upper"))
     status = h.clean(raw.get("lot_status") or raw.get("allsop_lotstatus")).lower() or "unknown"
     row["status"] = status
-    if "sold" in status:
+    if status.replace("_", " ") in {"sold", "sold prior", "sold after", "sold post", "sold at auction"}:
         row["sale_price"] = h.money(raw.get("sale_price"))
     row["available_price"] = h.money(raw.get("available_at_price"))
     row["annual_rent"] = h.money(raw.get("current_rent_per_annum") or raw.get("income"))

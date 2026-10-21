@@ -1,4 +1,5 @@
-<p class="small muted">Earlier auction appearances are matched by full address, postcode and tenure. Check the recorded units, title and floor area before treating prices as like-for-like.</p>
-{% include 'history.html' %}
+<p class="small muted">Exact historical matches and related property interests are shown separately. A related offering may cover a different unit, a larger building or a different legal interest.</p>
+{% if history %}<h2>Exact historical matches</h2>{% include 'history.html' %}{% endif %}
+{% include 'related_interests.html' %}
 {% include 'observations.html' %}
 {% include 'market.html' %}

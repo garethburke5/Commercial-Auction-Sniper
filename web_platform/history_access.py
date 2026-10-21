@@ -60,8 +60,9 @@ def access(accounts, user, row, *, now=None, db=None):
     with accounts.db() as con:return check(con)
 
 def preview(context):
-    """Only aggregate existence information crosses the public build boundary."""
+    """Publish counts and a scope warning; prices, results and sources stay private."""
     return {'previous_appearances':len(context.get('history') or []),
+            'related_interests':len(context.get('related_interests') or []),
             'has_changes':bool(context.get('observations')),
             'has_comparables':bool(context.get('comparables'))}
 

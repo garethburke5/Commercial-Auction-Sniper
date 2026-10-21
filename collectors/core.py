@@ -147,6 +147,7 @@ class Lot:
     lot_number: Optional[str] = None
     auction_date: Optional[str] = None
     image_url: Optional[str] = None
+    sale_price: Optional[float] = None
     guide_price: Optional[float] = None
     guide_price_upper: Optional[float] = None
     guide_price_text: Optional[str] = None

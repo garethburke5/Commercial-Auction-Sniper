@@ -156,6 +156,7 @@ def _detail(row, get=_get):
     occupation = 'Part Vacant / Part Let' if vacancy and rent else 'Vacant' if vacancy else 'Tenanted' if rent else None
     lot = Lot(source=SOURCE, url=url, auction_id=row['allsop_auctionid'], address=row.get('full_address') or row.get('allsop_address'),
               lot_number='Lot '+_lot_number(version['allsop_lotnumber']), auction_date=_day((detail.get('auction') or {}).get('date') or row.get('auction_date')),
+              sale_price=_number(data.get('sale_price') or row.get('sale_price')) if source_status in {'SOLD','SOLD PRIOR','SOLD AFTER','SOLD POST'} else None,
               guide_price=parse_guide('Guide Price '+guide_text), guide_price_upper=_number(data.get('guide_price_upper')),
               guide_price_text=guide_text, annual_rent=rent, image_url=_primary_image(detail), image_is_primary=True, image_source_url=url,
               tenure=version.get('allsop_propertytenure'), property_type='Mixed Use' if mixed else (' / '.join(types) or None),

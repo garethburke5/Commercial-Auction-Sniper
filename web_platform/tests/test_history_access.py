@@ -120,6 +120,7 @@ def test_public_build_and_api_boundary(site,billing,monkeypatch):
     from web_platform.market_context import MarketContext
     row=site.catalogue.properties[0]
     context={'history':[{'auctioneer':'Private historic house','auction_date':'2022-01-01','guide_price':876543,'sale_price':765432,'annual_rent':23456,'status':'sold','original_url':'https://example.org/premium-source'}], 'observations':[], 'comparables':[], 'metrics':{}}
+    context['related_interests']=[dict(context['history'][0],address='Other units in the building',match_type='related_interest',price_comparable=False,relationship_reasons=['Different legal interest'],result_evidence={'label':'Reported sold','sale_price':765432})]
     monkeypatch.setattr(MarketContext,'for_property',lambda self,row:context)
     pages=dict(site.routes());public=''.join(pages.values())+''.join(v for _,v in site.board_assets())
     for secret in ('876,543','765,432','23,456','Private historic house','premium-source'):assert secret not in public
@@ -162,8 +163,9 @@ def test_address_ranges_units_and_duplicates():
     context=MarketContext(None);context.loaded=True
     context.by_address[address_key(row['address'])]=[old,dict(old)]
     result=context.for_property(row)
-    assert len(result['history'])==1
-    assert 'floor area differs' in result['history'][0]['comparison_notes'][0]
+    assert result['history']==[] and len(result['related_interests'])==1
+    assert 'floor area differs' in result['related_interests'][0]['comparison_notes'][0]
+    assert result['related_interests'][0]['price_comparable'] is False
 
 def test_same_source_lot_with_corrected_date_is_not_an_earlier_appearance():
     from web_platform.market_context import MarketContext,address_key

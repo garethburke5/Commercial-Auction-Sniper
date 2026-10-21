@@ -162,3 +162,8 @@ History work does not approve or supersede R1–R9. Paid reports remain closed.
   is implemented; the durable owner analytics dashboard remains outstanding.
 - Full evidence and limitations: `docs/property-sharing-2026-10-21.md`. Existing
   report-quality, historical coverage/matching and paid-launch gates remain open.
+
+
+## Related property interests — 21 October implementation
+
+Newbury exposed a missing relationship category: whole-building freeholds and later unit/leasehold offerings are now linked separately from exact historical matches. The shared matcher, premium renderer and API support this without merging records or comparing non-equivalent guide prices. Newbury source results were refreshed and Allsop sale-price retention corrected. A current-catalogue check found 21 listings with related candidates, including uncertain scope cases; this does not certify title genealogy. Regression evidence and limits: [related-property-interests-2026-10-21.md](related-property-interests-2026-10-21.md). Existing premium sales and report-quality gates remain unchanged.

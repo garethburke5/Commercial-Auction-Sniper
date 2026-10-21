@@ -41,7 +41,7 @@ def install(app,site,user,current_catalogue):
         row=property_row(body.property_id)
         if not sandbox and not sales_ready():raise HTTPException(503,'History purchases are not open yet')
         context=market_for(current_catalogue()).for_property(row)
-        if not context['history'] and not context['observations']:
+        if not context['history'] and not context.get('related_interests') and not context['observations']:
             raise HTTPException(409,'There is no linked history to unlock for this property yet')
         from .history_billing import purchase
         return {'url':purchase(billing,uid,body.product,row,sandbox=sandbox)}

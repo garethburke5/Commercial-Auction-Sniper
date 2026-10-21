@@ -38,7 +38,7 @@ def test_broadway_cross_auctioneer_history_and_source_render(tmp_path, site):
     assert old['address']==PAST['address']  # Keep original evidence intact.
     assert 'locality wording differs' in old['match_basis']
     html=site.env.get_template('history.html').render(kind='property',history=result['history'])
-    assert '£300,000' in html and 'withdrawn' in html
+    assert '£300,000' in html and 'withdrawn' in html.lower()
     assert PAST['original_url'] in html
     assert result['comparables']==[]  # The same asset is not its own comparable.
 
