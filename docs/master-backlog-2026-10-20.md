@@ -146,3 +146,19 @@ History work does not approve or supersede R1–R9. Paid reports remain closed.
 - The 17:05 current scan was stopped by its publication quality gate. A two-bedroom Landkey house had been misclassified as commercial because its location paragraph mentioned the village pub. The classifier now excludes that location evidence while retaining genuine commercial accommodation and preserving excluded records.
 - The classifier regression suite passed (79 tests and 6 subtests). Reprocessing the retained failed candidate in an isolated temporary directory passed the full unchanged publication gate: 1,003 published properties; South West rich-particular coverage 66.7%. A fresh scheduled scan and subsequent live publication remain to be verified.
 - Actual Stripe sandbox checkout-to-access, tax/terms confirmation and private archive migration remain outstanding. All history sales gates remain disabled.
+
+### Property sharing — 21 October production verification
+
+- Reusable public sharing is live on property pages, cards/catalogues and Free
+  Snapshots, including dedicated WhatsApp, email, LinkedIn, Facebook, Copy Link
+  and native mobile handoff. Clean canonical links preserve premium restrictions.
+- Property-specific metadata and best-effort branded real photographs are live.
+  Broadway's branded 1200×630 JPEG and Copy Link were verified on the main domain.
+- Release `71add957` passed public CI `39574788295` (434 tests, three subtests and
+  six sharing browser cases) and private PostgreSQL CI `39574788499`.
+- Remaining sharing acceptance: actual WhatsApp desktop/mobile apps and received
+  previews on Windows Chrome/Edge, Android and iOS. The cloud browser blocked the
+  WhatsApp handoff; no actual-device pass is claimed. Aggregate interaction logging
+  is implemented; the durable owner analytics dashboard remains outstanding.
+- Full evidence and limitations: `docs/property-sharing-2026-10-21.md`. Existing
+  report-quality, historical coverage/matching and paid-launch gates remain open.

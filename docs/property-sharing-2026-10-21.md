@@ -54,3 +54,20 @@ Validation:
 
 Paid report and premium-history sales gates are unchanged. Continue the report
 quality, historical collection/matching, billing and owner analytics roadmap.
+
+Production verification, 21 October 2026 at 09:18 UTC:
+- Release `71add957428ae47256b3544b014713d1cdf010bd` is live on Render;
+  readiness returned 200, accounts ready, live billing disabled.
+- Public workflow `39574788295` passed: 434 Python tests, 14 skips and three
+  subtests, plus all six 390px/1440px sharing browser cases. Private PostgreSQL
+  workflow `39574788499` passed.
+- Main-domain Broadway page serves share asset `6868ad027e51`. Live Copy Link
+  copied the exact canonical URL without query parameters. Hovered Copy Link
+  uses white text on RGB(36,69,98), correcting the earlier contrast defect.
+- The page's branded Open Graph image returned 200, image/jpeg, 146,129 bytes,
+  1200×630, from `/static/share-images/864e66e731135e3c51dc6420.jpg`.
+- Dedicated WhatsApp URL contains address, current guide, rent, auction date,
+  Auction Geek attribution and canonical URL. Cloud-browser URL security blocked
+  the app handoff. No message was sent. Actual Windows Chrome/Edge, Android/iOS
+  app flows and received-message previews remain unverified; responsive Chromium
+  and mocked native-share tests do not satisfy those device acceptance checks.
