@@ -20,15 +20,18 @@ def detail(url,seed,page):
     f=fields(page);auction=f.get('FOR SALE BY LIVE ONLINE AUCTION','')
     m=re.search(r'(?:Live Online Auction is on|auction on)\s+[^.\n]+',auction,re.I)
     day=published_date(m[0]) if m else None
-    title=page.h2;body=f.get('THE PROPERTY','')
-    if not title or not day or not body:raise ValueError('Missing address, exact property auction date or property particulars')
-    text='\n'.join(k+': '+f[k] for k in ('THE PROPERTY','THE OPPORTUNITY','TENURE','TENANCY','ACCOMMODATION') if f.get(k))
+    title=page.h2
+    label=next((k for k in f if re.fullmatch(r'THE (?:PROPERTY|PROPERTIES|SITE|GARAGE|LAND)(?:\s*\|.*)?|FREEHOLD & GROUND RENTS',k)),None)
+    body=f.get(label,'')
+    undated=bool(re.search(r'AUCTION DATE TBC',auction,re.I))
+    if not title or (not day and not undated) or not body:raise ValueError('Missing address, exact property auction date or property particulars')
+    text='THE PROPERTY: '+label+': '+body+'\n'+'\n'.join(k+': '+f[k] for k in ('THE OPPORTUNITY','TENURE','TENANCY','ACCOMMODATION') if f.get(k))
     price_heading=page.h1.get_text(' ',strip=True) if page.h1 else seed['result']
     low,high,guide=guide_range(auction)
     if low is None:low,high,guide=guide_range(price_heading)
     status,price=outcome(price_heading)
     image=page.select_one('img.main-image[src],img[src^="/resize/"]')
-    lot=Lot(SOURCE,url,norm(title.text),auction_date=day,auction_id='hollis:'+day,lot_number=seed['lot'],
+    lot=Lot(SOURCE,url,norm(title.text),auction_date=day,auction_id='hollis:'+day if day else None,lot_number=seed['lot'],
         description=text,guide_price=low,guide_price_upper=high,guide_price_text=guide,sale_price=price,
         status=status,source_availability=status,tenure=parse_tenure(text),annual_rent=parse_rent(text),vat_status=parse_vat(text),
         image_url=urljoin(BASE,image['src']) if image else seed['image'],image_is_primary=True,image_source_url=url)

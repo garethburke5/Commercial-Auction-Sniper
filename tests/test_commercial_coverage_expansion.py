@@ -103,3 +103,15 @@ def test_shared_storefront_provenance_does_not_duplicate_or_reassign_lot(monkeyp
     attach(data)
     assert len(data['properties'])==1 and row['source']=='Auction House National Online'
     assert 'Auction House Nottinghamshire & Derby' in row['source_brands']
+
+
+def test_alternate_hollis_asset_sections_preserve_ground_rent_and_garage_interests():
+    from bs4 import BeautifulSoup
+    from collectors.hollis_morgan import detail,classify
+    from collectors.publication_quality import commercial_decision
+    for label,body in [('THE GARAGE','A Freehold rank of 4 single garages. Sold with vacant possession.'),
+                       ('FREEHOLD & GROUND RENTS','The lot comprises the Freehold previously converted into 15 apartments. Tenure - Freehold')]:
+        html=f'<h1>Guide Price £50,000</h1><h2>1 Example Road, Bristol, BS3 4BW</h2><h3>FOR SALE BY LIVE ONLINE AUCTION</h3><p>The Live Online Auction is on Wednesday 18th November 2026.</p><h3>{label}</h3><p>{body}</p>'
+        lot=detail('https://www.hollismorgan.co.uk/property-details/1',{'lot':None,'image':None,'result':''},BeautifulSoup(html,'lxml'))
+        assert lot.auction_date=='2026-11-18' and classify(lot.to_dict()) is True
+    assert commercial_decision({'description':'A leasehold two-bedroom flat. Ground rent £250 per annum.'}) is False

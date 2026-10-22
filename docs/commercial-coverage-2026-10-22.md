@@ -133,3 +133,9 @@ GTH's `/page-N` routes expose 199 auction-tagged properties across 17 pages. 189
 Both adapters are wired into the existing collector schedule. Production validation and public page checks are still required. Brown & Co and Kivells remain unintegrated current-source gaps; their catalogue investigation has not been rebranded as successful ingestion.
 
 Savills, Strettons, Clive Emson and BidX1 now emit comparable URL/date evidence only for successfully reconciled commercial catalogue scopes. Strettons additionally requires its advertised result count to agree. Failed or incomplete scopes retain unknown coverage rather than claiming 100% from the number successfully returned.
+
+## Final collection fixes
+
+Hollis Morgan now reads alternative asset sections (garage, site, land, properties and freehold ground rents). All 69 cached source pages parse successfully, producing 14 commercial interests: 11 current-dated offerings and three recent results. A residential flat with a ground-rent liability remains excluded; a separately offered freehold ground-rent investment is retained. The previously skipped garage blocks also retain their exact auction result/guide distinction.
+
+The follow-up production run stalled before collection in its unbounded package installation. The scanner now pins Ubuntu 24.04, skips already-present PDF/OCR utilities and limits installation to five minutes with bounded network retries. This is an operational repair; publication quality and financial-integrity gates are unchanged.

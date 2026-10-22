@@ -51,6 +51,10 @@ def commercial_decision(item):
     """Reject residential assets; require particulars to prove mixed use."""
     asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
+    # A separately offered freehold ground-rent interest is not an ordinary
+    # residential flat merely because the occupational leases are residential.
+    if re.search(r'\bfreehold\s*(?:&|and)\s*ground rents\b',asset,re.I):
+        return True
     # A flat's wider building can contain a shop without that shop being part
     # of the interest offered. Do not classify the whole building as the lot.
     if re.search(r'\b(?:a |the )?leasehold flat (?:located|set|situated)\b[^.]{0,140}\bmixed[ -]use (?:corner property|building)\b',asset,re.I):
@@ -90,7 +94,7 @@ def commercial_decision(item):
                     or re.search(r'\b(?:former |operating )?nightclub\b',asset,re.I)
                     or (re.search(r'\bformer surgery\b',asset,re.I) and re.search(r'\btreatment rooms?\b',asset,re.I)
                         and not re.search(r'\b(?:converted|conversion|dwelling|bedroom|family home)\b',asset,re.I))
-                    or re.search(r'\bblock of (?:\d+|two|three|four|five|six|seven|eight|nine|ten) (?:single |lock[ -]up )?garages\b',asset,re.I)
+                    or re.search(r'\b(?:block|rank) of (?:\d+(?: and \d+)?|two|three|four|five|six|seven|eight|nine|ten) (?:single |lock[ -]up )?garages\b',asset,re.I)
                     or re.search(r'\bclub and premises assessment\b', asset, re.I)
                     or re.search(r'\b(?:hairdressing salon|haulage yard|storage building|industrial development opportunity|currently let for (?:cruise )?car parking)\b', asset, re.I)
                     or re.search(r'\b(?:children[’\']s home|estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
