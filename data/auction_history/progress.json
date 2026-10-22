@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-22T12:22:47.683846+00:00",
-  "individual_lot_records_captured": 278536,
-  "records_with_address": 268172,
+  "generated_at": "2026-10-22T13:01:39.924125+00:00",
+  "individual_lot_records_captured": 278542,
+  "records_with_address": 268178,
   "partial_lot_records": 10364,
-  "exact_address_groups": 152643,
+  "exact_address_groups": 152644,
   "groups_with_repeat_appearances": 38045,
   "by_auctioneer": {
     "Acuitus": 5697,
@@ -37,7 +37,7 @@
     "Auction House Sussex & Hampshire": 39,
     "Auction House Wales": 475,
     "Auction House West Yorkshire": 117,
-    "BTG Eddisons": 2691,
+    "BTG Eddisons": 2697,
     "Bagshaws": 84,
     "Barnard Marcus Auctions": 6354,
     "Barnett Ross": 7536,
@@ -79,7 +79,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4129,
+    "null": 4135,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -107,18 +107,18 @@
     "2026": 40621
   },
   "by_sector": {
-    "commercial": 38852,
+    "commercial": 38859,
     "land": 17109,
-    "mixed-use": 41980,
-    "residential": 134398,
-    "unknown": 46197
+    "mixed-use": 41989,
+    "residential": 134450,
+    "unknown": 46135
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
   "surviving_catalogues_completely_harvested": 1865,
-  "catalogues_incomplete_or_unreconciled": 618,
+  "catalogues_incomplete_or_unreconciled": 619,
   "catalogue_fetch_or_parse_failures": 69,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -133,9 +133,9 @@
     "totals": {
       "lot_appearances": 271322,
       "auction_ids_observed": 6948,
-      "with_guide_price": 94582,
+      "with_guide_price": 94665,
       "with_sale_price": 104372,
-      "with_both_prices": 45037,
+      "with_both_prices": 45069,
       "marked_sold": 142065,
       "marked_sold_without_sale_price": 38433
     },
@@ -3247,9 +3247,9 @@
         "year": 2026,
         "lot_appearances": 283,
         "auction_ids_observed": 7,
-        "with_guide_price": 0,
+        "with_guide_price": 83,
         "with_sale_price": 113,
-        "with_both_prices": 0,
+        "with_both_prices": 32,
         "marked_sold": 158,
         "marked_sold_without_sale_price": 45
       },
@@ -5861,7 +5861,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4129,
+    "undated_appearances": 4135,
     "future_dated_appearances": 42,
     "national_completeness_verified": false,
     "limits": [
@@ -5873,14 +5873,14 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-20T09:43:11.742222+00:00",
+    "checked_at": "2026-10-22T13:00:17.253435+00:00",
     "lots_captured": 5603,
-    "current_run_unique_lots": 5598,
-    "expected_public_results": 5598,
+    "current_run_unique_lots": 5601,
+    "expected_public_results": 5601,
     "run_new_appearances": 0,
     "run_new_address_records": 0,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 5,
+    "retained_not_in_current_public_pagination": 2,
     "pages_captured": [
       1,
       2,
@@ -5993,9 +5993,10 @@
       109,
       110,
       111,
-      112
+      112,
+      113
     ],
-    "pages_expected": 112,
+    "pages_expected": 113,
     "results_complete": true,
     "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
