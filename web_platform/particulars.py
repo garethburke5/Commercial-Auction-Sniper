@@ -7,6 +7,8 @@ TITLES = ('Description', 'Key Investment Points', 'Accommodation', 'Tenancy', 'L
           'Tenure', 'Planning / Development Potential', 'VAT', 'EPC', 'Location',
           'Other Important Information')
 HEADINGS = {'particulars': 'Description', 'property': 'Description', 'description': 'Description',
+    'the property': 'Description', 'the properties': 'Description', 'the garage': 'Description',
+    'the site': 'Description', 'the land': 'Description', 'the opportunity': 'Key Investment Points',
     'summary': 'Key Investment Points', 'property summary': 'Key Investment Points',
     'key features': 'Key Investment Points', 'key investment points': 'Key Investment Points',
     'accommodation': 'Accommodation',
@@ -44,7 +46,7 @@ def structured_particulars(row):
     labels = '|'.join(sorted((re.escape(x) for x in HEADINGS), key=len, reverse=True))
     heading = re.compile(r'(?i)(?<!\w)(' + labels + r')\s*:\s*')
     text = heading.sub(lambda m: '\n@@' + HEADINGS[m.group(1).lower()] + '@@\n', text)
-    uppercase = re.compile(r'(?<!\w)(PROPERTY|SITUATION|SERVICES|LOCAL AUTHORITY|ENERGY PERFORMANCE CERTIFICATE)(?!\w)')
+    uppercase = re.compile(r'(?<!\w)(THE PROPERTY|PROPERTY|SITUATION|SERVICES|LOCAL AUTHORITY|ENERGY PERFORMANCE CERTIFICATE)(?!\w)')
     text = uppercase.sub(lambda m: '\n@@'+HEADINGS[m.group(1).lower()]+'@@\n', text)
     current = None
     for part in re.split(r'(@@[^@]+@@)', text):

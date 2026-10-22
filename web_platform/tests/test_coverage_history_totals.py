@@ -10,3 +10,13 @@ def test_historical_labels_are_counted_without_reassigning_acquired_brands():
     assert rows['Pugh / BTG Eddisons']['historical_records']==25
     assert rows['SDL Property Auctions']['historical_records']==7
     assert history['by_auctioneer']==original
+
+
+def test_source_property_headings_do_not_leave_stray_the_bullets():
+    from web_platform.particulars import structured_particulars
+    row={'description':'THE PROPERTY: THE GARAGE: A freehold rank of 4 single garages. THE OPPORTUNITY: Sold with vacant possession.'}
+    items=[v for s in structured_particulars(row) for v in s['items']]
+    assert 'THE' not in items
+    assert any('4 single garages' in v for v in items)
+    assert any('vacant possession' in v for v in items)
+    assert not any('THE OPPORTUNITY:' in v or 'THE GARAGE:' in v for v in items)
