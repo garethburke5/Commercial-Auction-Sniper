@@ -78,6 +78,12 @@ def structured_particulars(row):
                     if re.search(pattern, sentence, re.I):
                         destination = section
                         break
+            if (destination == 'Tenure' and current == 'Description'
+                and re.match(r'^(?:A|An)\s+(?:Freehold|Leasehold)\b', sentence, re.I)
+                and re.search(r'\b(?:building|property|garages?|units?|accommodation)\b', sentence, re.I)):
+                # An opening description of the accommodation is not merely a
+                # tenure field; snapshots must retain the actual asset summary.
+                destination = 'Description'
             add(destination or current or 'Description', sentence)
 
     source_text = key(clean(row.get('description')))

@@ -20,3 +20,12 @@ def test_source_property_headings_do_not_leave_stray_the_bullets():
     assert any('4 single garages' in v for v in items)
     assert any('vacant possession' in v for v in items)
     assert not any('THE OPPORTUNITY:' in v or 'THE GARAGE:' in v for v in items)
+
+
+def test_free_snapshot_retains_the_asset_description_with_freehold_wording():
+    from web_platform.free_snapshot import snapshot_particulars
+    row={'tenure':'Freehold','description':'THE PROPERTY: A Freehold mid terraced commercial building with accommodation of 980 Sq Ft arranged over two floors including a basement. THE OPPORTUNITY: The property is let at £16,200 per annum.'}
+    sections=snapshot_particulars(row)
+    property_text=' '.join(next(s['items'] for s in sections if s['title']=='The property'))
+    assert '980 Sq Ft' in property_text and 'two floors' in property_text
+    assert 'THE.' not in property_text
