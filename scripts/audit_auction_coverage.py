@@ -4,6 +4,8 @@ from collections import Counter
 from datetime import datetime,timezone
 import json
 from pathlib import Path
+from coverage_metrics import source_metrics
+from board_presentation import current_board_row
 
 
 def audit(snapshot,history,registry):
@@ -20,15 +22,10 @@ def audit(snapshot,history,registry):
     return {'checked_at':datetime.now(timezone.utc).isoformat(),
         'national_coverage_verified':False,'national_auctioneer_denominator':None,
         'current':{'snapshot_generated_at':snapshot.get('generated_at'),
-            'published_current_rows':len(snapshot.get('properties',[])),
+            'published_current_rows':sum(current_board_row(r) for r in snapshot.get('properties',[])),
             'retained_archive_rows':len(snapshot.get('archive',[])),
             'reported_sources':len(health),'health_counts':dict(Counter(r['status'] for r in health)),
-            'sources':[{'source':r['source'],'status':r['status'],
-                'expected_count':r.get('expected_count'),'lots_seen':r.get('lots_seen'),
-                'published_rows':r.get('published_rows'),'checked_at':r.get('checked_at'),
-                'reconciliation':{key:(value if isinstance(value,(str,int,float,bool)) or value is None
-                    else {'record_count':len(value)}) for key,value in (r.get('reconciliation') or {}).items()},
-                'message':r.get('message')} for r in health]},
+            'sources':source_metrics(snapshot,history,registry)},
         'historical':{k:history.get(k) for k in ('generated_at','individual_lot_records_captured',
             'records_with_address','partial_lot_records','exact_address_groups',
             'groups_with_repeat_appearances','by_auctioneer','by_sector','by_year',

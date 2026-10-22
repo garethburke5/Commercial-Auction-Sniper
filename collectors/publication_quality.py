@@ -51,6 +51,10 @@ def commercial_decision(item):
     """Reject residential assets; require particulars to prove mixed use."""
     asset = asset_text(item.get('description'))
     kind = str(item.get('property_type') or '')
+    # A flat's wider building can contain a shop without that shop being part
+    # of the interest offered. Do not classify the whole building as the lot.
+    if re.search(r'\b(?:a |the )?leasehold flat (?:located|set|situated)\b[^.]{0,140}\bmixed[ -]use (?:corner property|building)\b',asset,re.I):
+        return False
     if (re.search(r'\bpart[ -]completed development\b', asset, re.I)
         and re.search(r'\bconversion into\s+(?:\w+|\d+)\s+(?:terraced\s+)?(?:dwellings|houses)\b', asset, re.I)
         and not MIXED.search(asset)):
@@ -83,6 +87,7 @@ def commercial_decision(item):
     # A collector-generated type is not independent evidence. In particular,
     # nearby restaurants previously caused flats to be labelled "Mixed Use".
     positive = bool(COMMERCIAL.search(asset) or MIXED.search(asset)
+                    or re.search(r'\b(?:former |operating )?nightclub\b',asset,re.I)
                     or (re.search(r'\bformer surgery\b',asset,re.I) and re.search(r'\btreatment rooms?\b',asset,re.I)
                         and not re.search(r'\b(?:converted|conversion|dwelling|bedroom|family home)\b',asset,re.I))
                     or re.search(r'\bblock of (?:\d+|two|three|four|five|six|seven|eight|nine|ten) (?:single |lock[ -]up )?garages\b',asset,re.I)

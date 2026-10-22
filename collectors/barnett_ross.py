@@ -212,6 +212,9 @@ def collect():
         mixed=sum(bool(MIXED.search(x.description or "") or (re.search(r"shop|retail",x.description or "",re.I) and re.search(r"flat|residential",x.description or "",re.I))) for x in lots)
         telemetry.update(commercial_candidates=len(lots)-mixed,mixed_use_candidates=mixed,lots_parsed=len(targets)-failures,commercial_mixed_candidates=len(lots),classification_rejections=max(0,len(targets)-failures-len(lots)),detail_failures=failures)
         status="DEGRADED" if failures or not lots else "LIVE"
+        from .catalogue_evidence import inventory_evidence
+        telemetry.update(inventory_evidence(lots,not failures and len(lots)==len(targets)==len(table_rows),'Entire published Barnett Ross current catalogue; exact lot URL and auction date'))
+        telemetry['catalogue_pages']=[CURRENT]
         return SourceResult(SOURCE,status,lots,
             f"Barnett Ross authoritative mixed catalogue: {len(table_rows)} total catalogue rows reconciled; {len(targets)} exact lot-detail pages inspected; {current} live commercial/mixed-use lots; {terminal} sold-prior/withdrawn target lots retained; {excluded} residential/non-target or non-detail rows excluded rather than mislabelled; {failures} detail failures.",
             expected_count=len(lots) if status=="LIVE" else None,discovered_count=len(lots),authoritative_snapshot=bool(status=="LIVE"),scope_dates=tuple(sorted({x.auction_date for x in lots if x.auction_date})),reconciliation=telemetry)

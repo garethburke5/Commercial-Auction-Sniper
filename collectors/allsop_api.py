@@ -220,9 +220,11 @@ def collect():
                 except Exception as exc:
                     failures.append({'url':_url(row), 'error':str(exc)})
         complete = not failures and bool(catalogues)
+        from .catalogue_evidence import inventory_evidence
         reconciliation = {'catalogues':catalogues, 'detail_pages_discovered':len(targets), 'detail_pages_inspected':len(targets)-len(failures),
                           'commercial_mixed_lots':len(lots), 'complete':complete, 'detail_failures':failures,
                           'lot_urls':sorted(_url(r) for r in targets.values()), 'retained_statuses':dict(Counter(x.status for x in lots))}
+        reconciliation.update(inventory_evidence(lots,complete and len(lots)==len(targets),'Selected forthcoming and last-60-day Allsop catalogues: commercial departments and source-labelled commercial entries; dates listed in catalogue evidence'))
         return SourceResult(SOURCE, 'LIVE' if complete else 'DEGRADED', lots,
                             f'Allsop: {len(targets)-len(failures)}/{len(targets)} commercial/mixed-use detail records captured across {len(catalogues)} reconciled catalogues; {len(failures)} failures.',
                             expected_count=len(lots) if complete else None, discovered_count=len(targets), authoritative_snapshot=complete,

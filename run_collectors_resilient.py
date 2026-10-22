@@ -233,6 +233,10 @@ def _install_replacements():
     for collector in (collect_sutton_kersh, collect_edward_mellor, collect_under_the_hammer, collect_iamsold, collect_wilsons, collect_cheffins):
         if not any(getattr(c,'__name__','')==collector.__name__ for c in upgraded):upgraded.append(collector)
     pipeline.COLLECTORS = upgraded
+    from collectors import shepherd, maggs_allen, prime_property, shonki_bros, hollis_morgan
+    for module in (shepherd, maggs_allen, prime_property, shonki_bros, hollis_morgan):
+        if not any(c.__module__ == module.__name__ for c in pipeline.COLLECTORS):
+            pipeline.COLLECTORS.append(module.collect)
 
 
 def run():

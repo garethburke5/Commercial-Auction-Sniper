@@ -20,4 +20,4 @@ jobs:
         with:
           python-version: '3.11'
       - name: Require publication within two scan intervals plus grace
-        run: python -m scripts.check_collection_freshness --max-age-hours 14
+        run: python -m scripts.check_collection_freshness --max-age-hours 14 --sources

@@ -97,6 +97,13 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
             'degraded_sources':sum(r['status']=='DEGRADED' for r in records)}
 
 def attach(snapshot, previous=None):
+    old_health={h['source']:h for h in (previous or {}).get('source_health',[])}
+    for h in snapshot.get('source_health',[]):
+        prior=old_health.get(h['source'],{})
+        if h.get('collector_executed') and h.get('status')=='LIVE':
+            h['last_successful_collection']=h.get('checked_at')
+        else:
+            h['last_successful_collection']=prior.get('last_successful_collection') or (prior.get('checked_at') if prior.get('status')=='LIVE' else None)
     snapshot['source_reconciliation']=reconcile(snapshot,previous)
     health={h['source']:h for h in snapshot.get('source_health',[])}
     for record in snapshot['source_reconciliation']['sources']:

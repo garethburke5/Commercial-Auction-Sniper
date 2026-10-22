@@ -227,6 +227,15 @@ Lot Address Result
         parse_result_text(text, ocr_expected, {"basis": "OCR"})
 
 
+def test_identical_repeated_result_rows_are_counted_once_but_conflicts_fail():
+    text='21 October 2026 Results\nLot Address Result\n1 1 HIGH STREET, BIRMINGHAM B1 1AA £150,000\n2 2 HIGH STREET, BIRMINGHAM B1 1AB SOLD PRIOR\n1 1 HIGH STREET, BIRMINGHAM B1 1AA £150,000\n'
+    state, rows=parse_result_text(text,expected('2026-10-21'),{})
+    assert len(rows)==2 and state['identical_duplicate_rows']==1
+    assert state['catalogue_complete'] is True
+    with pytest.raises(ValueError,match='conflicting evidence'):
+        parse_result_text(text+'1 1 HIGH STREET, BIRMINGHAM B1 1AA £155,000\n',expected('2026-10-21'),{})
+
+
 def test_ocr_lot_50_is_repaired_only_when_bracketed_by_49_and_51():
     text = """
 Auction : 17 February 2011 Results

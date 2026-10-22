@@ -503,13 +503,26 @@ async function loadCoverage(){
   paragraph(`${number(history.catalogues_incomplete_or_unreconciled)} historical catalogues remain incomplete or unreconciled; ${number(history.catalogue_fetch_or_parse_failures)} fetch/parse failures were recorded. Repeat appearances are included in the totals.`);
   paragraph('Nationwide completeness has not been verified. Current-source counts reflect the commercial catalogue; historical holdings include other property types. A source marked LIVE is not proof that every UK property has been captured.');
   const table=document.createElement('table'),head=document.createElement('thead'),tr=document.createElement('tr');
-  for(const title of ['Auction source','Collection status','Seen / expected','Published']){const th=document.createElement('th');th.textContent=title;tr.append(th);}
+  for(const title of ['Auction source','Status','Official commercial lots','Captured in same scope','Coverage','Missing','Duplicates','Current published','Last successful collection','Historical records','Reported outcomes']){const th=document.createElement('th');th.textContent=title;tr.append(th);}
   head.append(tr);table.append(head);const body=document.createElement('tbody');
   for(const row of current.sources){const tr=document.createElement('tr');
-   for(const value of [row.source,row.status,`${number(row.lots_seen)} / ${number(row.expected_count)}`,number(row.published_rows)]){const td=document.createElement('td');td.textContent=value;tr.append(td);}
+   for(const value of [row.source,row.status,number(row.official_commercial_lots),number(row.comparable_captured_lots),Number.isFinite(row.coverage_pct)?`${row.coverage_pct}%`:'Unknown',Array.isArray(row.missing_lots)?number(row.missing_lots.length):'Unknown',number(row.duplicate_lots),number(row.published_rows),`${date(row.last_successful_collection)}${row.stale?' — overdue':''}`,number(row.historical_records),Number.isFinite(row.reported_outcome_pct)?`${row.reported_outcomes}/${row.result_scope_lots} (${row.reported_outcome_pct}%)`:'Unknown']){const td=document.createElement('td');td.textContent=value;tr.append(td);}
    body.append(tr);
+   if(row.collection_errors?.length||row.missing_lots?.length||row.remaining||row.catalogue_urls?.length){
+    const detailRow=document.createElement('tr'),cell=document.createElement('td');cell.colSpan=11;
+    const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent=`${row.source}: scope, evidence and gaps`;details.append(summary);
+    const p=document.createElement('p');p.textContent=row.coverage_scope;details.append(p);
+    const list=document.createElement('ul');
+    for(const text of [...(row.collection_errors||[]),...(row.remaining?[row.remaining]:[])]){const li=document.createElement('li');li.textContent=text;list.append(li);}
+    for(const [label,urls] of [['Missing lot',row.missing_lots],['Official catalogue',row.catalogue_urls]])for(const url of urls||[]){
+     if(!/^https?:\/\//i.test(url))continue;
+     const li=document.createElement('li'),a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=`${label}: ${url}`;li.append(a);list.append(li);
+    }
+    details.append(list);cell.append(details);detailRow.append(cell);body.append(detailRow);
+   }
   }
   table.append(body);const wrap=document.createElement('div');wrap.style.overflowX='auto';wrap.append(table);output.append(wrap);
+  paragraph('Coverage compares the same identified catalogue lots, including recent results where stated. Unknown means no complete commercial denominator has been established. Reported outcomes are auctioneer reports in the inspected past-lot scope, not Land Registry confirmation of completed sales.');
   const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent='Historical holdings by auctioneer';details.append(summary);
   const list=document.createElement('ul');
   for(const [source,count] of Object.entries(history.by_auctioneer||{})){const item=document.createElement('li');item.textContent=`${source}: ${number(count)} appearances`;list.append(item);}

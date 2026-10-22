@@ -474,9 +474,10 @@
       "canonical_network": "BTG Eddisons Property Auctions",
       "parent_family": null,
       "source_url": null,
-      "relationship_evidence": "Existing source configuration only; independent primary-source confirmation outstanding",
+      "relationship_evidence": "https://www.btgeddisonspropertyauctions.com/our-acquisitions/network-auctions",
       "inventory_equivalence_verified": false,
-      "assessment": "Corporate grouping is not proof that every legacy catalogue lot is ingested; unique-inventory reconciliation outstanding."
+      "assessment": "Corporate grouping is not proof that every legacy catalogue lot is ingested; unique-inventory reconciliation outstanding.",
+      "verified_on": "2026-10-22"
     }
   ],
   "priority_assessments": [
@@ -530,8 +531,17 @@
     },
     {
       "auctioneer": "Hollis Morgan",
-      "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
-      "collector_verified": false
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "collector_verified": false,
+      "checked_on": "2026-10-22",
+      "scope": "Live online auction; current listings and PDF archives",
+      "failure_reason": "Recent-listing denominator not independently stated; historical archive already partly banked.",
+      "catalogue_urls": [
+        "https://www.hollismorgan.co.uk/search-auction/?bid=11&showstc=on&orderby=lot_no+asc&extra_2%21=501%2C502"
+      ],
+      "historical_names": [
+        "Hollis Morgan"
+      ]
     },
     {
       "auctioneer": "Loveitts",
@@ -613,6 +623,202 @@
       "auctioneer": "Probate.Auction",
       "state": "PRIMARY_SOURCE_RECONCILIATION_REQUIRED",
       "collector_verified": false
+    },
+    {
+      "auctioneer": "Shepherd Commercial Auctions",
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": "2026-10-22",
+      "scope": "HTML catalogue and detail pages",
+      "failure_reason": "Whole-catalogue denominator unavailable; 20-year archive import remains outstanding.",
+      "catalogue_urls": [
+        "https://www.shepherd.co.uk/auctions/auctions-search/"
+      ],
+      "historical_names": [
+        "Shepherd Commercial Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Knight Frank Auctions",
+      "state": "CURRENT_COLLECTOR_REPAIRED",
+      "checked_on": "2026-10-22",
+      "scope": "Public catalogue search form and detail pages",
+      "failure_reason": "Production reconciliation required after deployment; retain past-auction outcome updates.",
+      "catalogue_urls": [
+        "https://www.knightfrankauctions.com/forthcoming-auctions/"
+      ],
+      "historical_names": [
+        "Knight Frank Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Maggs & Allen",
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": "2026-10-22",
+      "scope": "HTML auction cards, detail pages and retained results",
+      "failure_reason": "Some particulars omit exact auction year; preserve these as unresolved, not invented dates.",
+      "catalogue_urls": [
+        "https://www.maggsandallen.co.uk/search-auction/"
+      ],
+      "historical_names": [
+        "Maggs & Allen"
+      ]
+    },
+    {
+      "auctioneer": "Prime Property Auctions",
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": "2026-10-22",
+      "scope": "Timed event catalogues and lot pages",
+      "failure_reason": "Factual summaries only. Marketing prose and photographs withheld; live bids are not guides or sale results.",
+      "catalogue_urls": [
+        "https://bid.primepropertyauctions.co.uk/"
+      ],
+      "historical_names": [
+        "Prime Property Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Cottons",
+      "state": "HISTORICAL_COLLECTOR_ONLY",
+      "checked_on": "2026-10-22",
+      "scope": "Live room/online auction; PDF catalogues and results",
+      "failure_reason": "Historical result collection exists; current catalogue/guide/tenancy enrichment is not integrated.",
+      "catalogue_urls": [
+        "https://www.cottons.co.uk/auction-archive/"
+      ],
+      "historical_names": [
+        "Cottons"
+      ]
+    },
+    {
+      "auctioneer": "Bradley Hall Auctions",
+      "state": "ACCESS_UNRESOLVED",
+      "checked_on": "2026-10-22",
+      "scope": "Online property auction",
+      "failure_reason": "Official catalogue returned HTTP 403 in this environment. No current ingestion verified.",
+      "catalogue_urls": [
+        "https://auction.bradleyhall.co.uk/"
+      ],
+      "historical_names": [
+        "Bradley Hall Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Landwood Property Auctions",
+      "state": "ACCESS_UNRESOLVED",
+      "checked_on": "2026-10-22",
+      "scope": "Online property auction",
+      "failure_reason": "Official catalogue returned HTTP 403 in this environment. No current ingestion verified.",
+      "catalogue_urls": [
+        "https://www.landwoodpropertyauctions.com/future-auctions"
+      ],
+      "historical_names": [
+        "Landwood Property Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Goldings Auctions",
+      "state": "ACCESS_UNRESOLVED",
+      "checked_on": "2026-10-22",
+      "scope": "Property auctions and historical results",
+      "failure_reason": "Current official site returned HTTP 403 here. Historical results already banked.",
+      "catalogue_urls": [
+        "https://www.goldingsauctions.co.uk/"
+      ],
+      "historical_names": [
+        "Goldings Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Shonki Bros",
+      "state": "CURRENT_COLLECTOR_IMPLEMENTED",
+      "checked_on": "2026-10-22",
+      "scope": "Live streamed auction; Internet, telephone and proxy bidding",
+      "failure_reason": "No independent offered-lot total. Separate operator from Kal Sangra Shonki Brothers.",
+      "catalogue_urls": [
+        "https://www.shonkibros.com/auctions/latest-auctions/view"
+      ],
+      "historical_names": [
+        "Shonki Bros"
+      ]
+    },
+    {
+      "auctioneer": "Brown & Co",
+      "state": "HISTORICAL_COLLECTOR_ONLY",
+      "checked_on": "2026-10-22",
+      "scope": "Live stream and online property auctions",
+      "failure_reason": "Property auction collector outstanding; machinery auction platform must not be ingested as property.",
+      "catalogue_urls": [
+        "https://www.brown-co.com/auctions/property-land"
+      ],
+      "historical_names": [
+        "Brown&Co"
+      ]
+    },
+    {
+      "auctioneer": "Greenslade Taylor Hunt",
+      "state": "CURRENT_COLLECTOR_MISSING",
+      "checked_on": "2026-10-22",
+      "scope": "Live and online timed property/land auctions",
+      "failure_reason": "Official auction search accessible; commercial classification, dates and pagination require integration.",
+      "catalogue_urls": [
+        "https://www.gth.net/properties/sales/tag-auction"
+      ],
+      "historical_names": [
+        "Greenslade Taylor Hunt"
+      ]
+    },
+    {
+      "auctioneer": "First for Auctions",
+      "state": "ACCESS_UNRESOLVED",
+      "checked_on": "2026-10-22",
+      "scope": "Online commercial and residential auctions",
+      "failure_reason": "Commercial service confirmed; online catalogue returned HTTP 403. No ingestion verified.",
+      "catalogue_urls": [
+        "https://www.firstforauctions.co.uk/buyers/commercial-auction/"
+      ],
+      "historical_names": [
+        "First for Auctions"
+      ]
+    },
+    {
+      "auctioneer": "Agents Property Auction",
+      "state": "CURRENT_COLLECTOR_MISSING",
+      "checked_on": "2026-10-22",
+      "scope": "Property auctions with results archive",
+      "failure_reason": "Official property search accessible; property-specific dates and full catalogue pagination require integration.",
+      "catalogue_urls": [
+        "https://www.agentspropertyauction.com/property-search/"
+      ],
+      "historical_names": [
+        "Agents Property Auction"
+      ]
+    },
+    {
+      "auctioneer": "Kivells",
+      "state": "CURRENT_COLLECTOR_MISSING",
+      "checked_on": "2026-10-22",
+      "scope": "Property and land auctions",
+      "failure_reason": "Additional omission identified from official catalogue. Commercial classification and dated lots require integration.",
+      "catalogue_urls": [
+        "https://www.kivells.com/properties-for-auction"
+      ],
+      "historical_names": [
+        "Kivells"
+      ]
+    },
+    {
+      "auctioneer": "Auction House Notts & Derby",
+      "state": "SHARED_FEED_RECONCILIATION_REQUIRED",
+      "checked_on": "2026-10-22",
+      "scope": "Auction House shared Midlands feed",
+      "failure_reason": "Collected through Midlands; brand-specific catalogue coverage requires reconciliation.",
+      "catalogue_urls": [
+        "https://www.auctionhouse.co.uk/nottsandderby"
+      ],
+      "historical_names": [
+        "Auction House Notts & Derby"
+      ],
+      "canonical_source": "Auction House Midlands"
     }
   ]
 }

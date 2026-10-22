@@ -4,6 +4,11 @@ from scripts.harvest_edward_mellor_results import (
 
 
 def test_date_ranges_and_future_filtering(monkeypatch):
+    from datetime import date
+    class FixedDate(date):
+        @classmethod
+        def today(cls): return cls(2026,10,1)
+    monkeypatch.setattr('scripts.harvest_edward_mellor_results.date',FixedDate)
     assert parse_date_span("9th-10th September 2026") == ("2026-09-09", "2026-09-10")
     assert parse_date_span("30th September-1st October 2026") == ("2026-09-30", "2026-10-01")
     html = """

@@ -340,6 +340,17 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             repaired_rows.append((lot, body))
         raw_rows = repaired_rows
 
+    # Some official sheets repeat an identical final table row. Preserve the
+    # source duplication count, but bank the appearance once. A repeated lot
+    # with different address or result still fails: it is ambiguous evidence.
+    source_row_count = len(raw_rows)
+    unique_rows = {}
+    for lot, body in raw_rows:
+        key=lot.upper()
+        if key in unique_rows and unique_rows[key] != body:
+            raise ValueError('duplicate lot labels in result PDF with conflicting evidence')
+        unique_rows[key]=body
+    raw_rows=list(unique_rows.items())
     labels = [lot.upper() for lot, _ in raw_rows]
     if len(labels) != len(set(labels)):
         raise ValueError("duplicate lot labels in result PDF")
@@ -384,6 +395,8 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
         "catalogue_complete": complete,
         "source_rows_complete": complete,
         "visible_result_rows": len(rows),
+        "source_table_rows": source_row_count,
+        "identical_duplicate_rows": source_row_count-len(rows),
         "lots_captured": len(rows),
         "published_lots_offered": max_lot,
         "lettered_additional_rows": len(rows) - len(base_numbers),

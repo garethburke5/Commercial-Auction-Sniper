@@ -1,0 +1,1259 @@
+{
+  "production_verified": false,
+  "basis": "Local live-source runs, followed by existing publication checks; awaiting production scan",
+  "sources": [
+    {
+      "source": "Hollis Morgan",
+      "status": "DEGRADED",
+      "discovered": 69,
+      "parsed": 56,
+      "local_publication_eligible_records": 8,
+      "unclassified_lots": 21,
+      "commercial_denominator_complete": false,
+      "failures": [
+        "https://www.hollismorgan.co.uk/property-details/34883909/gloucestershire/gloucestershire/cranhams-lane: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34976004/gloucestershire/gloucester/green-gardens: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34961201/south-gloucestershire/nibley/frome-mill-farm-2: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34961202/south-gloucestershire/nibley/frome-mill-farm-3: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34715392/bristol-city/bristol/st-lukes-hall: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34851725/bristol-city/bristol/alma-road-2: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34869363/oxfordshire/oxford/high-street: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34912703/bristol-city/bristol/x-apartments-everards-court: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34913351/somerset/somerset/horton-cross: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34917260/bristol-city/bristol/95a-1: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34922132/bath-and-north-east-somerset/somerset/the-street: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34973731/bath-and-north-east-somerset/bath/95: ValueError: Missing address, exact property auction date or property particulars",
+        "https://www.hollismorgan.co.uk/property-details/34264610/bristol-city/bristol/32-2: ValueError: Missing address, exact property auction date or property particulars"
+      ],
+      "records": [
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34893143/bath-and-north-east-somerset/bath/new-king-street-1",
+          "address": "36a New King Street, City Centre, BA1 2BN",
+          "auction_date": "2026-10-21",
+          "guide_price": 425000.0,
+          "annual_rent": null,
+          "sale_price": 586000.0,
+          "status": "SOLD"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34984357/somerset/somerset/11",
+          "address": "Former Bank Premises + 3 Flats, 11 Huntspill Road, Highbridge, TA9 3DD",
+          "auction_date": "2026-11-18",
+          "guide_price": 300000.0,
+          "annual_rent": 27900.0,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34961500/bristol-city/bristol/lyndale-road",
+          "address": "31 Lyndale Road, St George, BS5 7AA",
+          "auction_date": "2026-11-18",
+          "guide_price": 250000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34989572/bristol-city/bristol/ashley-road-1",
+          "address": "71 Ashley Road, Montpelier, BS6 5NR",
+          "auction_date": "2026-11-18",
+          "guide_price": 925000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34474154/bristol-city/bristol/willway-street",
+          "address": "Fiddlers Club Willway Street, Bedminster, BS3 4BG",
+          "auction_date": "2026-11-18",
+          "guide_price": 900000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34834722/herefordshire/herefordshire/flats-1-25",
+          "address": "Palma Court, Flats 1 - 25 Brookend Street, Ross-On-Wye, HR9 7EE",
+          "auction_date": "2026-11-18",
+          "guide_price": 1450000.0,
+          "annual_rent": 182280.0,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34837029/gloucestershire/gloucestershire/breadstone",
+          "address": "Breadstone House Breadstone, Berkeley, GL13 9HG",
+          "auction_date": "2026-11-18",
+          "guide_price": 650000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Hollis Morgan",
+          "url": "https://www.hollismorgan.co.uk/property-details/34928614/wiltshire/wiltshire/the-bridge",
+          "address": "7 The Bridge, Chippenham, SN15 1HA",
+          "auction_date": "2026-11-18",
+          "guide_price": 140000.0,
+          "annual_rent": 16200.0,
+          "sale_price": null,
+          "status": "CURRENT"
+        }
+      ]
+    },
+    {
+      "source": "Knight Frank Auctions",
+      "status": "LIVE",
+      "discovered": 18,
+      "parsed": 18,
+      "local_publication_eligible_records": 3,
+      "unclassified_lots": 0,
+      "commercial_denominator_complete": true,
+      "failures": [],
+      "records": [
+        {
+          "source": "Knight Frank Auctions",
+          "url": "https://www.knightfrankauctions.com/property/371137/58-parkway-camden-london-nw1-7ah/",
+          "address": "58 Parkway, Camden, London, NW1 7AH",
+          "auction_date": "2026-10-22",
+          "guide_price": 1250000.0,
+          "annual_rent": 110600.0,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Knight Frank Auctions",
+          "url": "https://www.knightfrankauctions.com/property/365175/manor-house-87-manor-road-and-land-adjoining-65-manor-road-medomsley-consett-county-durham-dh8-6qn/",
+          "address": "Manor House, 87 Manor Road and Land adjoining 65 Manor Road, Medomsley, Consett, County Durham, DH8 6QN",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": 390000.0,
+          "status": "SOLD"
+        },
+        {
+          "source": "Knight Frank Auctions",
+          "url": "https://www.knightfrankauctions.com/property/355394/11-latimer-road-north-kensington-london-w10-6rq/",
+          "address": "11 Latimer Road, North Kensington, London, W10 6RQ",
+          "auction_date": "2026-10-22",
+          "guide_price": 2600000.0,
+          "annual_rent": 80000.0,
+          "sale_price": null,
+          "status": "CURRENT"
+        }
+      ]
+    },
+    {
+      "source": "Maggs & Allen",
+      "status": "DEGRADED",
+      "discovered": 36,
+      "parsed": 29,
+      "local_publication_eligible_records": 4,
+      "unclassified_lots": null,
+      "commercial_denominator_complete": false,
+      "failures": [
+        "https://www.maggsandallen.co.uk/property-details/34884283/-/bristol/church-road: ValueError: Missing exact address, auction date or particulars",
+        "https://www.maggsandallen.co.uk/property-details/34851008/bristol-city/bristol/salisbury-road: ValueError: Missing exact address, auction date or particulars",
+        "https://www.maggsandallen.co.uk/property-details/34937350/-/bristol/clifton-wood-court: ValueError: Missing exact address, auction date or particulars",
+        "https://www.maggsandallen.co.uk/property-details/34933976/bristol/bristol/5b: ValueError: Missing exact address, auction date or particulars",
+        "https://www.maggsandallen.co.uk/property-details/34917634/-/bristol/ashley: ValueError: Missing exact address, auction date or particulars",
+        "https://www.maggsandallen.co.uk/property-details/34895658/-/bristol/cherington: ValueError: Missing exact address, auction date or particulars",
+        "https://www.maggsandallen.co.uk/property-details/34994077/-/bristol/beachgrove-road: ValueError: Missing exact address, auction date or particulars"
+      ],
+      "records": [
+        {
+          "source": "Maggs & Allen",
+          "url": "https://www.maggsandallen.co.uk/property-details/34900635/bristol-city/bristol/old-market-street",
+          "address": "33, Old Market Street, Old Market, Bristol, BS2 0HB",
+          "auction_date": "2026-10-15",
+          "guide_price": 150000.0,
+          "annual_rent": null,
+          "sale_price": 190000.0,
+          "status": "SOLD"
+        },
+        {
+          "source": "Maggs & Allen",
+          "url": "https://www.maggsandallen.co.uk/property-details/34957499/-/bristol/high-street-1",
+          "address": "15-17, High Street, Kingswood, Bristol, BS15 4AA",
+          "auction_date": "2026-10-15",
+          "guide_price": 185000.0,
+          "annual_rent": null,
+          "sale_price": 200000.0,
+          "status": "SOLD"
+        },
+        {
+          "source": "Maggs & Allen",
+          "url": "https://www.maggsandallen.co.uk/property-details/34950852/-/bristol/gloucester-road-north",
+          "address": "27, Gloucester Road North, Filton, Bristol, BS7 0SQ",
+          "auction_date": "2026-10-15",
+          "guide_price": 550000.0,
+          "annual_rent": null,
+          "sale_price": 630000.0,
+          "status": "SOLD"
+        },
+        {
+          "source": "Maggs & Allen",
+          "url": "https://www.maggsandallen.co.uk/property-details/34844340/-/shirehampton/high-street",
+          "address": "22, High Street, Shirehampton, BS11 0DL",
+          "auction_date": "2026-10-15",
+          "guide_price": 125000.0,
+          "annual_rent": null,
+          "sale_price": 125000.0,
+          "status": "SOLD"
+        }
+      ]
+    },
+    {
+      "source": "Prime Property Auctions",
+      "status": "LIVE",
+      "discovered": 380,
+      "parsed": 380,
+      "local_publication_eligible_records": 82,
+      "unclassified_lots": 40,
+      "commercial_denominator_complete": false,
+      "failures": [],
+      "records": [
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743276/Golden-Cross-58-George-Street-Stranraer-DG9-7RH",
+          "address": "Golden Cross, 58 George Street, Stranraer, DG9 7RH",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 4560.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743292/Basement-1-125-Constitution-Street-Edinburgh-EH6-7BT",
+          "address": "Basement 1 125 Constitution Street, Edinburgh, EH6 7BT",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743319/26-Castle-Street-22-High-Street-Maybole-KA19-7BX",
+          "address": "2-6 Castle Street & 22 High Street, Maybole, KA19 7BX",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743537/First-Floor-2-4-Ruby-Street-Cardiff-CF24-1LN",
+          "address": "First Floor, 2 - 4 Ruby Street, Cardiff, CF24 1LN",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743587/5-West-Princes-Street-Rothesay-Isle-Of-Bute-PA20-9AF",
+          "address": "5 West Princes Street, Rothesay, Isle Of Bute, PA20 9AF",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743617/13-Kellas-Road-Wellbank-Broughty-Ferry-Angus-Dundee-DD5-3PE",
+          "address": "13 Kellas Road, Wellbank, Broughty Ferry, Angus, Dundee, DD5 3PE",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 1800.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743767/73-St-Georges-Road-Glasgow-G3-6JA",
+          "address": "73 St. Georges Road, Glasgow, G3 6JA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 17000.04,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743793/5557-High-Street-Sanquhar-DG4-6DJ",
+          "address": "55-57 High Street, Sanquhar, DG4 6DJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 7800.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18743990/Anaya-Smith-Creative-111-Links-Street-Kirkcaldy-KY1-1QL",
+          "address": "Anaya & Smith Creative 111 Links Street, Kirkcaldy, KY1 1QL",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 9600.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744102/Land-At-Kings-Inch-Road-Renfrew-PA4-8XQ",
+          "address": "Land At Kings Inch Road, Renfrew, PA4 8XQ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746513/The-Strone-Inn-Strone-Dunoon-PA23-8TA",
+          "address": "The Strone Inn Strone, Dunoon, PA23 8TA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 150000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746586/St-Marys-South-Church-And-Hall-Reform-Street-Blairgowrie-PH10-6AZ",
+          "address": "St. Mary's South Church And Hall Reform Street, Blairgowrie, PH10 6AZ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746633/46-Main-Street-Beith-KA15-2AA",
+          "address": "46 Main Street, Beith, KA15 2AA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746710/62-Rosemount-East-Church-Street-Buckie-AB56-1ER",
+          "address": "62 Rosemount, East Church Street, Buckie, AB56 1ER",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746774/183-High-Street-Dundee-DD2-3DB",
+          "address": "183 High Street, Dundee, DD2 3DB",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 6552.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746835/5557-Dundee-Loan-Forfar-DD8-1EA",
+          "address": "55-57 Dundee Loan, Forfar, DD8 1EA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748782/29-Kirkpatrick-Girvan-KA26-0AD",
+          "address": "29 Kirkpatrick, Girvan, KA26 0AD",
+          "auction_date": "2026-10-22",
+          "guide_price": 35000.0,
+          "annual_rent": 4800.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748799/76-Main-Street-Kilwinning-KA13-6AN",
+          "address": "76 Main Street, Kilwinning, KA13 6AN",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 60000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748936/54-Gordon-Street-Level-4-Unit-4-Glasgow-Scotland-G1-3PU",
+          "address": "54 Gordon Street, Level 4 Unit 4, Glasgow, Scotland, G1 3PU",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18749000/Golden-Eagle-27-Main-Street-Dalry-KA24-5DP",
+          "address": "Golden Eagle 27 Main Street, Dalry, KA24 5DP",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 8640.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744115/Unit-5-13-Queens-Court-Ayr-KA7-1BH",
+          "address": "Unit 5 & 13 Queens Court, Ayr, KA7 1BH",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744131/19-Kirk-Wynd-Kirkcaldy-KY1-1EH",
+          "address": "19 Kirk Wynd, Kirkcaldy, KY1 1EH",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 16000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744161/27-Sandgate-Ayr-KA7-1BH",
+          "address": "27 Sandgate, Ayr, KA7 1BH",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744208/Clarendon-Place-Stirling-FK8-2QW",
+          "address": "Clarendon Place, Stirling, FK8 2QW",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744242/2830-Panmure-Street-Brechin-DD9-6AP",
+          "address": "28-30 Panmure Street, Brechin, DD9 6AP",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744303/30-Meneage-Street-Helston-TR13-8AB",
+          "address": "30 Meneage Street, Helston, TR13 8AB",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 10800.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744349/2228-Bannatyne-Street-Lanark-ML11-7JR",
+          "address": "22-28 Bannatyne Street, Lanark, ML11 7JR",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 69000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744495/3-Bonnygate-Cupar-KY15-4BU",
+          "address": "3 Bonnygate, Cupar, KY15 4BU",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746085/122-Main-Street-Newmilns-KA16-9DJ",
+          "address": "122 Main Street, Newmilns, KA16 9DJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 28980.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746102/138-138A-King-Street-Castle-Douglas-DG7-1LU",
+          "address": "138 & 138A King Street, Castle Douglas, DG7 1LU",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 5820.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746163/36-Afton-Bridgend-New-Cumnock-KA18-4AU",
+          "address": "36 Afton Bridgend, New Cumnock, KA18 4AU",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746390/Land-At-Upper-Cartsburn-Greenock-PA15-3AD",
+          "address": "Land At Upper Cartsburn, Greenock, PA15 3AD",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745148/423-High-Street-Kirkcaldy-KY1-2SG",
+          "address": "423 High Street, Kirkcaldy, KY1 2SG",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 6500.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745224/95-Business-Centre-SMK-Business-Centre-Morrison-Street-Glasgow-G5-8BE",
+          "address": "95 Business Centre SMK Business Centre, Morrison Street, Glasgow, G5 8BE",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746848/12a-Hamilton-Street-Saltcoats-KA21-5DS",
+          "address": "12a Hamilton Street, Saltcoats, KA21 5DS",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746861/4-Dishlandtown-Street-Arbroath-Angus-DD11-1QX",
+          "address": "4 Dishlandtown Street, Arbroath, Angus, DD11 1QX",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746891/51-Mill-Road-Thankerton-Biggar-ML12-6NY",
+          "address": "51 Mill Road, Thankerton Biggar, ML12 6NY",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746904/6-Hope-Street-Ayr-KA7-1LT",
+          "address": "6 Hope Street, Ayr, KA7 1LT",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 1350.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746937/911-Ladywell-Road-Maybole-KA19-7BE",
+          "address": "9-11 Ladywell Road, Maybole, KA19 7BE",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 18000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747079/84-High-Street-Invergordon-IV18-0DL",
+          "address": "84 High Street, Invergordon, IV18 0DL",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747112/18-Princess-Street-Thurso-KW14-7BQ",
+          "address": "18 Princess Street, Thurso, KW14 7BQ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 28800.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748069/190-Rosemount-Place-Aberdeen-AB25-2XQ",
+          "address": "190 Rosemount Place, Aberdeen, AB25 2XQ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 7500.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748085/Former-Mosside-Transport-Cafe-Grantshouse-Duns-TD11-3RW",
+          "address": "Former Mosside Transport Cafe, Grantshouse, Duns, TD11 3RW",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748153/33-Main-Street-Beith-KA15-2AD",
+          "address": "33 Main Street, Beith, KA15 2AD",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748170/112-Castle-Street-Montrose-DD10-8AX",
+          "address": "112 Castle Street, Montrose, DD10 8AX",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748187/44-Main-Street-Dreghorn-KA11-4AA",
+          "address": "44 Main Street, Dreghorn, KA11 4AA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 9360.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748204/Leslie-Parish-Church-Leslie-Insch-AB52-6NT",
+          "address": "Leslie Parish Church, Leslie, Insch, AB52 6NT",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748238/Land-At-Croftamie-Glasgow-G63-0HD",
+          "address": "Land At Croftamie, Glasgow, G63 0HD",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748349/Plot-6-Alexander-Street-And-Gordon-Street-Dunoon-PA23-7EJ",
+          "address": "Plot 6 Alexander Street And Gordon Street, Dunoon, PA23 7EJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748366/Plot-5-Alexander-Street-And-Gordon-Street-Dunoon-PA23-7EJ",
+          "address": "Plot 5 Alexander Street And Gordon Street, Dunoon, PA23 7EJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748380/Plot-4-Alexander-Street-And-Gordon-Street-Dunoon-PA23-7EJ",
+          "address": "Plot 4 Alexander Street And Gordon Street, Dunoon, PA23 7EJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18748410/10-Broomknoll-Street-Airdrie-ML6-6BN",
+          "address": "10 Broomknoll Street, Airdrie, ML6 6BN",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744563/62-64-Auchinraith-Road-Blantyre-Glasgow-G72-0PR",
+          "address": "62, 64 Auchinraith Road, Blantyre, Glasgow, G72 0PR",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 36000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744657/1820-Newtown-Street-Kilsyth-Glasgow-G65-0LY",
+          "address": "18-20 Newtown Street, Kilsyth, Glasgow, G65 0LY",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18744881/Tiara-Hairstylist-Muglet-Lane-Maltby-S66-7NA",
+          "address": "Tiara Hairstylist Muglet Lane, Maltby, S66 7NA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745714/52-High-Street-Fraserburgh-Aberdeen-AB43-6LE",
+          "address": "52 High Street, Fraserburgh, Aberdeen, AB43 6LE",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745825/9-10-Oakfield-Road-Liverpool-L4-2QG",
+          "address": "9 & 10 Oakfield Road, Liverpool, L4 2QG",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745941/Yard-34-Redding-Industrial-Estate-Falkirk-FK2-9TT",
+          "address": "Yard 3/4, Redding Industrial Estate, Falkirk, FK2 9TT",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 70000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745974/The-Village-Chipper-4-Russell-Street-Boddam-Peterhead-AB42-3NG",
+          "address": "The Village Chipper 4 Russell Street Boddam, Peterhead, AB42 3NG",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18746008/2A-Ashdale-Road-79-St-Johns-Road-Waterloo-Liverpool-L22-9QU",
+          "address": "2A Ashdale Road & 79 St. Johns Road, Waterloo Liverpool, L22 9QU",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747716/Bobbys-Fish-Chips-79-Blackwell-Road-Carlisle-CA2-4AJ",
+          "address": "Bobby's Fish & Chips 79 Blackwell Road, Carlisle, CA2 4AJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747746/The-Parsonage-Bar-47-Crossgate-Fife-KY15-5AS",
+          "address": "The Parsonage Bar 47 Crossgate, Fife, KY15 5AS",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747763/95-Mansel-Street-Swansea-SA1-5TZ",
+          "address": "95 Mansel Street, Swansea, SA1 5TZ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 482895.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747806/10-Main-Street-Dalry-KA24-5DH",
+          "address": "10 Main Street, Dalry, KA24 5DH",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 6000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747918/15-Duff-Street-Turriff-AB53-4AX",
+          "address": "15 Duff Street, Turriff, AB53 4AX",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 6000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747962/206-Main-Street-Longridge-EH47-8AE",
+          "address": "206 Main Street, Longridge, EH47 8AE",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747978/3-5-West-Stewart-Street-Greenock-PA15-1RJ",
+          "address": "3 - 5 West Stewart Street, Greenock, PA15 1RJ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747995/113-Mid-Street-Keith-AB55-5AA",
+          "address": "113 Mid Street, Keith, AB55 5AA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745314/140-East-High-Street-Forfar-DD8-2ER",
+          "address": "140 East High Street, Forfar, DD8 2ER",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745555/30-Bank-Street-Kilmarnock-KA1-1HA",
+          "address": "30 Bank Street, Kilmarnock, KA1 1HA",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 27000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745568/Land-In-Arrochar-Loch-Long-G83-7AX",
+          "address": "Land In Arrochar, Loch Long, G83 7AX",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18745618/Land-At-Kings-Inch-Road-Renfrew-PA4-8XQ",
+          "address": "Land At Kings Inch Road, Renfrew, PA4 8XQ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747300/172-High-Street-Lochee-DD2-3BZ",
+          "address": "172 High Street, Lochee, DD2 3BZ",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747404/2-The-Shore-Wick-KW1-4LU",
+          "address": "2 The Shore, Wick, KW1 4LU",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 35000.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747420/8-Church-Street-Crieff-PH7-3AE",
+          "address": "8 Church Street, Crieff, PH7 3AE",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 4500.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747454/10-Bogwood-Court-Mayfield-Dalkeith-EH22-5DG",
+          "address": "10 Bogwood Court, Mayfield, Dalkeith, EH22 5DG",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747485/82-Brandon-Street-Hamilton-Scotland-ML3-6AB",
+          "address": "82 Brandon Street, Hamilton, Scotland, ML3 6AB",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747527/57-Strait-Path-Banff-AB45-1AD",
+          "address": "5-7 Strait Path, Banff, AB45 1AD",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747557/24-26-Main-Street-Dalry-KA24-5DH",
+          "address": "24 - 26 Main Street, Dalry, KA24 5DH",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": 7500.0,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747574/21A-Kirk-Brae-Fraserburgh-AB43-9BY",
+          "address": "21A Kirk Brae, Fraserburgh, AB43 9BY",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747605/Queensberry-Arms-Hotel-7172-Main-Street-Kirkconnel-DG4-6NB",
+          "address": "Queensberry Arms Hotel 71-72 Main Street, Kirkconnel, DG4 6NB",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        },
+        {
+          "source": "Prime Property Auctions",
+          "url": "https://bid.primepropertyauctions.co.uk/Event/LotDetails/18747635/29-The-Old-Cottage-Shop-Newton-Street-Kilbirnie-KA25-6HW",
+          "address": "29 The Old Cottage Shop, Newton Street, Kilbirnie, KA25 6HW",
+          "auction_date": "2026-10-22",
+          "guide_price": null,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "Live"
+        }
+      ]
+    },
+    {
+      "source": "Shepherd Commercial Auctions",
+      "status": "LIVE",
+      "discovered": 39,
+      "parsed": 39,
+      "local_publication_eligible_records": 19,
+      "unclassified_lots": null,
+      "commercial_denominator_complete": false,
+      "failures": [],
+      "records": [
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10104/3-montague-street-rothesay-isle-of-bute-argyll-and-bute-auction-property",
+          "address": "3 Montague Street, Rothesay, Isle Of Bute, Argyll And Bute",
+          "auction_date": "2026-10-22",
+          "guide_price": 15000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10126/43-and-a-half-rosebank-terrace-aberdeen-aberdeenshire-auction-property",
+          "address": "43 And A Half, Rosebank Terrace, Aberdeen, Aberdeenshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 95000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10142/62-the-muirs-kinross-perth-and-kinross-auction-property",
+          "address": "62 The Muirs, Kinross, Perth And Kinross",
+          "auction_date": "2026-10-22",
+          "guide_price": 75000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10136/373-and-377-union-street-aberdeen-aberdeenshire-auction-property",
+          "address": "373 & 377 Union Street, Aberdeen, Aberdeenshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 200000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9608/5-the-cross-dalry-north-ayrshire-auction-property",
+          "address": "5 The Cross, Dalry, North Ayrshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 35000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9609/7-the-cross-dalry-north-ayrshire-auction-property",
+          "address": "7 The Cross, Dalry, North Ayrshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 20000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10128/the-station-bar-2493-2499-dumbarton-road-glasgow-city-of-glasgow-auction-property",
+          "address": "The Station Bar, 2493-2499 Dumbarton Road, Glasgow, City Of Glasgow",
+          "auction_date": "2026-10-22",
+          "guide_price": 195000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9487/59-station-road-ellon-aberdeenshire-auction-property",
+          "address": "59 Station Road, Ellon, Aberdeenshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 85000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9900/st-kane's-hall-main-street-new-deer-turriff-aberdeenshire-commercial-development-and-land",
+          "address": "St Kane's Hall, Main Street, New Deer, Turriff, Aberdeenshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 25000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10112/30-inverkip-street-greenock-inverclyde-auction-property",
+          "address": "30 Inverkip Street, Greenock, Inverclyde",
+          "auction_date": "2026-10-22",
+          "guide_price": 180000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10135/cree-house-20-22-victoria-street-newton-stewart-dumfries-and-galloway-auction-property",
+          "address": "Cree House, 20-22 Victoria Street, Newton Stewart, Dumfries And Galloway",
+          "auction_date": "2026-10-22",
+          "guide_price": 75000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9571/7-new-bridge-street-ayr-south-ayrshire-auction-property",
+          "address": "7 New Bridge Street, Ayr, South Ayrshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 42000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/8839/oceans-11-19-fowlds-street-kilmarnock-east-ayrshire-auction-property",
+          "address": "Oceans 11, 19 Fowlds Street, Kilmarnock, East Ayrshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 150000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9993/144-high-street-montrose-angus-auction-property",
+          "address": "144 High Street, Montrose, Angus",
+          "auction_date": "2026-10-22",
+          "guide_price": 45000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/9742/65-the-castle-new-cumnock-east-ayrshire-retail",
+          "address": "65 The Castle, New Cumnock, East Ayrshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 43000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/4135/38-newmarket-street-ayr-auction-property",
+          "address": "38 Newmarket Street, Ayr",
+          "auction_date": "2026-10-22",
+          "guide_price": 40000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10114/11-15-crombie-road-aberdeen-aberdeenshire-auction-property",
+          "address": "11-15 Crombie Road, Aberdeen, Aberdeenshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 120000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10129/2-4-high-street-paisley-renfrewshire-auction-property",
+          "address": "2-4 High Street, Paisley, Renfrewshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 140000.0,
+          "annual_rent": 34500.0,
+          "sale_price": null,
+          "status": "CURRENT"
+        },
+        {
+          "source": "Shepherd Commercial Auctions",
+          "url": "https://www.shepherd.co.uk/property/details/10149/3-cathcart-street-ayr-south-ayrshire-auction-property",
+          "address": "3 Cathcart Street, Ayr, South Ayrshire",
+          "auction_date": "2026-10-22",
+          "guide_price": 18000.0,
+          "annual_rent": null,
+          "sale_price": null,
+          "status": "CURRENT"
+        }
+      ]
+    },
+    {
+      "source": "Shonki Bros",
+      "status": "LIVE",
+      "discovered": 16,
+      "parsed": 16,
+      "local_publication_eligible_records": 0,
+      "unclassified_lots": 1,
+      "commercial_denominator_complete": false,
+      "failures": [],
+      "records": []
+    }
+  ]
+}

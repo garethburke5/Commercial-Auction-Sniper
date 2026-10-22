@@ -298,6 +298,7 @@ def collect():
         current=any(d>=date.today().isoformat() for d in dates)
         authoritative=complete and not counts['detail_failure'] and current
         status='LIVE' if authoritative else 'DEGRADED' if lots else 'FAILED'
+        from .catalogue_evidence import inventory_evidence
         return SourceResult(SOURCE,status,lots,
             f'{len(targets)}/{expected if expected is not None else "unknown"} catalogue cards; {len(lots)} current commercial/mixed-use; '
             f'{counts["classification_rejected"]} residential exclusions; {counts["past_auction"]} past lots; {counts["detail_failure"]} detail failures',
@@ -308,6 +309,7 @@ def collect():
                 'commercial_candidates':counts['commercial'],'mixed_use_candidates':counts['mixed_use'],
                 'commercial_mixed_candidates':len(lots),'classification_rejections':counts['classification_rejected'],
                 'residential_exclusions':counts['classification_rejected'],'past_auction_exclusions':counts['past_auction'],
-                'catalogue_complete':complete,'detail_failures':counts['detail_failure'],'lot_outcomes':outcomes})
+                'catalogue_complete':complete,'detail_failures':counts['detail_failure'],'lot_outcomes':outcomes,
+                **inventory_evidence(lots,authoritative and len(lots)==len(targets),'Entire current Acuitus sales catalogue; exact lot URL and auction date')})
     except Exception as exc:
         return SourceResult(SOURCE,'FAILED',[],str(exc),reconciliation={'catalogue_url':URL})
