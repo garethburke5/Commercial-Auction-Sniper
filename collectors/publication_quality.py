@@ -9,7 +9,7 @@ from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 from .core import Lot, clean_description
 
 RESIDENTIAL = re.compile(r'\b(?:residential (?:property|investment|development|flat)|apartments?|maisonettes?|bungalows?|flats?(?![ -]roof)|(?:detached|semi[ -]detached|terraced|town|dwelling|family|self[ -]contained)\s*houses?|family home|\d+[ -](?:beds?|bedrooms?)|(?:one|two|three|four|five|six)[ -]bedrooms?|HMO|house in multiple occupation)\b', re.I)
-COMMERCIAL = re.compile(r'\b(?:mixed[ -]use|commercial (?:property|units?|premises|buildings?|accommodation)|retail (?:units?|premises|investment|shop|parade)|(?:ground[ -]floor|lock[ -]up) (?:retail|shop)|shop (?:and|with|investment|units?)|offices? (?:units?|buildings?|premises|accommodation|space|block)|(?:former|ground floor) offices|accommodation comprising offices|industrial (?:units?|property|premises)|warehouse|factory|trade counter|public house|detached pub|hostel|amusement arcade|funeral parlour|chapel of rest|betting (?:office|shop)|(?:lock[ -]up|block|portfolio) (?:of )?garages|restaurant|takeaway|supermarket|convenience store|post office|caf[eé]|healthcare centre|(?:dental|veterinary|doctors?) surgery|shopping centre|care home|hotel|day nursery|petrol station|commercial yard)\b', re.I)
+COMMERCIAL = re.compile(r'\b(?:mixed[ -]use|commercial (?:property|units?|premises|buildings?|accommodation)|retail (?:units?|premises|investment|shop|parade|area)|(?:ground[ -]floor|lock[ -]up) (?:retail|shop)|shop (?:and|with|investment|units?)|offices? (?:units?|buildings?|premises|accommodation|space|block|suites?)|(?:former|ground floor) offices|accommodation comprising offices|industrial (?:units?|property|premises)|warehouse|factory|trade counter|public house|detached pub|hostel|amusement arcade|funeral parlour|chapel of rest|betting (?:office|shop)|(?:lock[ -]up|block|portfolio) (?:of )?garages|restaurant|takeaway|supermarket|conven?ience store|post office|caf[eé]|healthcare centre|(?:dental|veterinary|doctors?) surgery|shopping centre|care home|hotel|day nursery|petrol station|commercial yard)\b', re.I)
 MIXED = re.compile(r'\bmixed[ -]use\b|\b(?:commercial|retail|shop)\s*(?:and|&|/)\s*(?:residential|flats?)\b', re.I)
 
 
@@ -30,6 +30,8 @@ def asset_text(description):
                   ' ',text,flags=re.I)
     # Local amenities are not part of the lot, even without a Location heading.
     text = re.sub(r'\b(?:Located in (?:the |a )?(?:charming |popular |sought.after )?(?:village|town)|(?:The (?:flat|house|property) is )?a short walk from)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
+    # 'Landmark Location' is an asset highlight, not a Location section heading.
+    text = re.sub(r'\blandmark location\b', 'Landmark setting', text, flags=re.I)
     # Auction House's Location section describes surrounding shops/roads, not
     # the accommodation being sold. A house on a mixed-use road is still a house.
     text = re.sub(r'\bLocation(?:\s*:\s*|\s+(?=The\b|Directly\b)).*?(?=\b(?:Accommodation|Tenancy|Tenure|Planning|Note|EPC Rating|Exterior|VAT)\s*(?::|-)|$)', ' ', text)
@@ -94,14 +96,15 @@ def commercial_decision(item):
                     or re.search(r'\b(?:former |operating )?nightclub\b',asset,re.I)
                     or (re.search(r'\bformer surgery\b',asset,re.I) and re.search(r'\btreatment rooms?\b',asset,re.I)
                         and not re.search(r'\b(?:converted|conversion|dwelling|bedroom|family home)\b',asset,re.I))
-                    or re.search(r'\b(?:block|rank) of (?:\d+(?: and \d+)?|two|three|four|five|six|seven|eight|nine|ten) (?:single |lock[ -]up )?garages\b',asset,re.I)
+                    or re.search(r'\b(?:block|rank) of (?:\d+x?(?: and \d+)?|two|three|four|five|six|seven|eight|nine|ten) (?:single |lock[ -]up )?garages\b',asset,re.I)
+                    or re.search(r'\b(?:outdoor leisure centre|equestrian facilit(?:y|ies)|car park comprising|arranged as offices)\b', asset, re.I)
                     or re.search(r'\bclub and premises assessment\b', asset, re.I)
                     or re.search(r'\b(?:hairdressing salon|haulage yard|storage building|industrial development opportunity|currently let for (?:cruise )?car parking)\b', asset, re.I)
                     or re.search(r'\b(?:children[’\']s home|estate agency|estate agents?|vet(?:erinary)? (?:surgery|practice|clinic)|ground[ -]floor shops?|shop\s+(?:let|leased|producing|tenanted)|commercial space|(?:hair|beauty) salon|barbers?|(?:block|parade) of (?:\d+|\w+) shops|sports? education facility)\b', asset, re.I))
     residential = bool(RESIDENTIAL.search(asset+' '+str(item.get('address') or '')) or re.fullmatch(r'(?:Residential|House|Flat|Apartment|Bungalow)(?: / Residential)?', kind, re.I))
     # A study/office within a family house is domestic accommodation. Require
     # independent commercial evidence before turning that house into mixed use.
-    if residential and re.search(r'^(?:.{0,100}\b)(?:farmhouse|cottage|(?:detached|terraced) house)\b', asset, re.I):
+    if residential and re.search(r'^(?:.{0,100}\b)(?:farmhouse|cottage|(?:detached|semi[ -]detached|terraced|family|town) house)\b', asset, re.I):
         without_study = re.sub(r'\boffice space\b', '', asset, flags=re.I)
         if not COMMERCIAL.search(without_study) and not MIXED.search(without_study):
             positive = False

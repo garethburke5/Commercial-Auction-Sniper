@@ -88,6 +88,14 @@ def clean_description(text):
     if not value:
         return ""
 
+    # Clive Emson can return the complete page ahead of its particulars.
+    # Cut at its explicit category/tenure boundary, not a guessed first sentence.
+    if 'Skip navigation' in value and re.search(r'\bCategory\s+.{0,80}\s+Tenure\b', value):
+        boundary = re.search(r'\bCategory\s+.{0,80}?\s+Tenure\s+(?:Freehold|Leasehold)\b', value, re.I)
+        if boundary:
+            value = value[boundary.end():].strip()
+    value = re.split(r'The map and satellite images are based on postcode information', value, maxsplit=1, flags=re.I)[0].strip()
+
     strong = _first_marker(value, DESCRIPTION_START_MARKERS)
     if strong:
         pos, marker = strong

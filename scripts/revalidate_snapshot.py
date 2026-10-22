@@ -12,11 +12,48 @@ from collectors.pattinson import repair_particulars as repair_pattinson
 from dataclasses import fields
 from run_collectors_resilient import _finalize_published_snapshot
 from scripts.repair_legacy_ahl_particulars import repair as repair_ahl
+from collectors.publication_quality import commercial_decision, lot_identity, canonical_url
+
+
+def restore_reclassified_current_lots(data, now=None):
+    """Reconsider fresh inspected facts after a classification repair, never stale stock."""
+    now=now or datetime.now(timezone.utc)
+    try:
+        observed=datetime.fromisoformat(data.get('generated_at','').replace('Z','+00:00'))
+        age=(now-observed).total_seconds()
+    except (TypeError, ValueError):
+        return 0
+    if not 0 <= age <= 14*3600:
+        return 0
+    inspected=set()
+    for source in data.get('source_health',[]):
+        evidence=source.get('reconciliation') or {}
+        for row in evidence.get('commercial_lot_evidence') or evidence.get('lot_outcomes') or []:
+            if row.get('commercial') is True:
+                inspected.add((source['source'],canonical_url(row.get('url')),row.get('auction_date')))
+    existing={lot_identity(row) for row in data.get('properties',[])}
+    retained=[]; restored=0
+    for row in data.get('excluded_properties',[]):
+        day=row.get('auction_date')
+        key=(row.get('source'),canonical_url(row.get('url')),day)
+        if (str(row.get('publication_exclusion','')).startswith('Pure residential:')
+            and key in inspected and (not day or day>=now.date().isoformat())
+            and str(row.get('status','')).upper()!='ARCHIVED'
+            and commercial_decision(row) is True):
+            if lot_identity(row) not in existing:
+                item=dict(row);item.pop('publication_exclusion',None)
+                data.setdefault('properties',[]).append(item)
+                existing.add(lot_identity(item));restored+=1
+        else:
+            retained.append(row)
+    data['excluded_properties']=retained
+    return restored
 
 
 def revalidate(path=Path('data/properties.json')):
     data=json.loads(path.read_text())
     repair_ahl(data)
+    restored=restore_reclassified_current_lots(data)
     for item in data.get('properties', []):
         if item.get('source') == 'Auction Estates' and item.get('property_type') == 'Mixed Use':
             text=item.get('description') or ''
@@ -39,7 +76,7 @@ def revalidate(path=Path('data/properties.json')):
     integrity['revalidated_at']=datetime.now(timezone.utc).isoformat()
     # generated_at and collected_at retain the timestamps of the actual crawl.
     path.write_text(json.dumps(data,indent=2))
-    print('REVALIDATED',len(data['properties']),'published rows; collector snapshot',data.get('generated_at'))
+    print('REVALIDATED',len(data['properties']),'published rows;',restored,'fresh reclassified lots; collector snapshot',data.get('generated_at'))
 
 
 if __name__ == '__main__':
