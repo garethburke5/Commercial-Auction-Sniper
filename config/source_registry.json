@@ -808,17 +808,21 @@
     },
     {
       "auctioneer": "Auction House Notts & Derby",
-      "state": "SHARED_FEED_RECONCILIATION_REQUIRED",
+      "state": "SHARED_FEED_WITH_LOT_PROVENANCE",
       "checked_on": "2026-10-22",
       "scope": "Auction House shared Midlands feed",
-      "failure_reason": "Collected through Midlands; brand-specific catalogue coverage requires reconciliation.",
+      "failure_reason": "Canonical Midlands collection records individual storefront lot URLs; commercial completeness remains unverified until all classifications reconcile.",
       "catalogue_urls": [
         "https://www.auctionhouse.co.uk/nottsandderby"
       ],
       "historical_names": [
         "Auction House Notts & Derby"
       ],
-      "canonical_source": "Auction House Midlands"
+      "canonical_source": "Auction House Midlands",
+      "storefront_region": "nottsandderby",
+      "brand_names": [
+        "Auction House Nottinghamshire & Derby"
+      ]
     }
   ]
 }

@@ -21,7 +21,15 @@ def source_metrics(snapshot, history, registry, now=None):
     result = []
     for name in sorted(set(health) | set(inventories)):
         h = health.get(name, {}); t = h.get('reconciliation') or {}; a = inventories.get(name, {})
-        own = [r for r in rows if name == r.get('source') or name in (r.get('source_brands') or [])]
+        storefront_urls=set()
+        if not h and a.get('storefront_region'):
+            h=health.get(a.get('canonical_source'),{})
+            storefront=next((s for s in (h.get('reconciliation') or {}).get('storefronts',[]) if s.get('region')==a['storefront_region']),{})
+            storefront_urls=set(storefront.get('lot_urls') or [])
+            t={'scope':'Shared regional storefront; published lot links reconciled separately from the canonical feed. Commercial denominator remains unverified.',
+               'source_lot_count':storefront.get('source_lot_count'),'catalogue_pages':[storefront['source_url']] if storefront.get('source_url') else [],'discovery_failures':[]}
+        names={name,*a.get('brand_names',[])}
+        own = [r for r in rows if r.get('source') in names or names.intersection(r.get('source_brands') or []) or (r.get('url') in storefront_urls and current_board_row(r))]
         published = [r for r in own if not publication_exclusion(r)]
         evidence = t.get('commercial_lot_evidence') or t.get('lot_outcomes') or []
         inspected_dates = {url_key(r.get('url')): r.get('auction_date') for r in evidence if r.get('commercial') is True}

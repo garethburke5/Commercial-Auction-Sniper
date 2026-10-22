@@ -56,6 +56,7 @@ TASKS=(
     ('auction_house_regions', ['scripts/harvest_auction_house_regions.py']),
     ('network_auctions', ['scripts/harvest_network_auctions.py', '6']),
     ('cottons_results', ['scripts/harvest_cottons_results.py', '16', '16']),
+    ('cottons_guides', ['scripts/enrich_cottons_guides.py', '2']),
     ('pattinson_history', ['scripts/harvest_pattinson_history.py', '32']),
     ('eddisons_insights', ['scripts/harvest_eddisons_insights.py']),
     ('mchugh_legacy', ['scripts/harvest_mchugh_legacy.py', '8']),

@@ -102,3 +102,14 @@ def test_advertised_total_and_actual_page_size_override_excess_pager(monkeypatch
     urls,scopes,errors=c.discover()
     assert len(urls)==132 and len(calls)==10 and not errors
     assert scopes[0]['pages']==11 and scopes[0]['advertised_lots']==132
+
+
+def test_property_listed_status_and_explicit_floor_area_are_retained():
+    for spelling,expected in [('Grade 2','Grade II listed'),('Grade II*','Grade II* listed'),('Grade I','Grade I listed')]:
+        lot=c.parse_detail(detail(f'A {spelling} listed commercial building with original features and a floor area of 35 square metres.'),URL)
+        assert lot.listed_status==expected
+        assert lot.area_sqm==35 and lot.area_sqft==376.7
+    lot=c.parse_detail(detail('A shop overlooking a Grade II listed church in the town centre.'),URL)
+    assert lot.listed_status is None
+    lot=c.parse_detail(detail('A commercial property in the town centre. Grade II Listed Council Tax Band: Band Not Applicable Tenure: Freehold'),URL)
+    assert lot.listed_status=='Grade II listed'

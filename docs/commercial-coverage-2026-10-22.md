@@ -113,3 +113,13 @@ No paid advertising, AI generation or paid data subscription has been added.
 ## Pre-deployment verification
 
 1,440 tests passed, 14 skipped, plus 22 subtests. Following additional catalogue instrumentation and classification fixes, 30 targeted checks and then 38 regression checks passed. JavaScript syntax passed. Local eligible records: Knight Frank 3, Shepherd 19, Maggs & Allen 4 recent outcomes, Prime 82, Hollis Morgan 8, Shonki Bros 0. These are inspected records, not a claimed increase in current live properties. See the accompanying collector-verification JSON for individual source URLs, dates and figures.
+
+## Follow-up: publication and historical guides
+
+The production collection at 12:39 UTC on 22 October returned 982 published-board candidate rows and 1,334 archived rows. These are **unpublished candidate counts**, not live coverage. Publication correctly stopped because iamsold's captured-fact coverage was 58.9%, below the existing 60% gate. The gate remains unchanged. The iamsold parser now captures explicit property listed status and floor areas expressed in square metres/feet; adjacent listed landmarks are excluded. A fresh production run must pass before a live increase is claimed.
+
+The owner coverage interface is deployed: the public JavaScript includes the new columns, anonymous access to `/api/admin/coverage` returns HTTP 401, and desktop/mobile account browser checks pass. Source failures and unknown denominators remain visible.
+
+Regional provenance now retains the exact current lot URLs found through each Auction House storefront. Notts & Derby can therefore be counted as a storefront of its canonical collector without cloning lots or reassigning historical auctioneer identity. Its commercial denominator remains unknown until independently reconciled.
+
+Cottons catalogue-guide enrichment matched all 83 banked result appearances from 9 September and 21 October 2026 to their dated catalogue lot sequences. It preserves the result price separately and attaches source URL, PDF page and hash evidence for each guide. The scheduled historical workflow will reproduce and bank the source PDFs and changes; local verification alone is not a production-bank claim. Subsequent bounded runs continue with older available catalogues.

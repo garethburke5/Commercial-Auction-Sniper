@@ -284,7 +284,7 @@ def _collect_region(slug):
         try:
             count,cards = _home_inventory(base._fetch(url),url)
             storefronts.append({'region':branch,'source_url':url,'source_lot_count':count,
-                               'lots_discovered':len(cards)})
+                               'lots_discovered':len(cards),'lot_urls':sorted(cards)})
             total += count;targets.update(cards)
             if len(cards)!=count:failures.append(f'{branch}: catalogue advertises {count}, discovered {len(cards)} lot links')
         except Exception as exc:failures.append(f'{branch}: {type(exc).__name__}: {exc}')

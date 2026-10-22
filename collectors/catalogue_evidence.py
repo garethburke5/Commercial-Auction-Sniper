@@ -51,13 +51,14 @@ def hydrate(source,seeds,parser,*,fetcher=None,expected=None,pages=(),errors=(),
         elif record['commercial'] is True:lots.append(lot)
     complete=expected is not None and len(seeds)==expected and not errors
     if expected is not None and len(seeds)!=expected:errors.append(f'Catalogue contains {expected} lots; {len(seeds)} unique links captured')
-    current=[l for l in lots if l.auction_date and l.auction_date>=today.isoformat()]
+    current=[l for l in lots if not l.auction_date or l.auction_date>=today.isoformat()]
     classified=all(r.get('commercial') is not None for r in records)
     t={'scope':scope,'source_lot_count':expected,'discovered_lot_urls':len(seeds),
        'detail_pages_inspected':sum(r['outcome']!='detail failure' for r in records),
        'commercial_mixed_candidates':len(current),'commercial_records_including_results':len(lots),
        'classification_rejections':sum(r.get('commercial') is not True and r['outcome']!='detail failure' for r in records),
        'past_auction_exclusions':sum(bool(l.auction_date and l.auction_date<today.isoformat()) for l in lots),
+       'unknown_auction_date_lots':sum(not l.auction_date for l in lots),
        'catalogue_complete':complete if expected is not None else None,
        'commercial_inventory_complete':complete and classified,
        'unclassified_lots':sum(r.get('commercial') is None for r in records), 'discovery_failures':errors,

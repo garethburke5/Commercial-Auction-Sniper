@@ -97,6 +97,18 @@ def reconcile(snapshot, previous=None, live_rows=None, live_checked_at=None):
             'degraded_sources':sum(r['status']=='DEGRADED' for r in records)}
 
 def attach(snapshot, previous=None):
+    # One canonical lot may be advertised through several regional storefronts.
+    # Record that observed distribution without cloning its property/auction.
+    brands={r.get('region_slug'):r.get('brand') for r in source_registry() if r.get('region_slug')}
+    by_url={}
+    for h in snapshot.get('source_health',[]):
+        for storefront in (h.get('reconciliation') or {}).get('storefronts',[]):
+            brand=brands.get(storefront.get('region'))
+            if brand:
+                for url in storefront.get('lot_urls',[]):by_url.setdefault(url,set()).add(brand)
+    for row in snapshot.get('properties',[]):
+        if current_board_row(row) and row.get('url') in by_url:
+            row['source_brands']=sorted(set(row.get('source_brands') or [])|by_url[row['url']]|{row['source']})
     old_health={h['source']:h for h in (previous or {}).get('source_health',[])}
     for h in snapshot.get('source_health',[]):
         prior=old_health.get(h['source'],{})

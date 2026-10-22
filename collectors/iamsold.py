@@ -128,6 +128,15 @@ def parse_detail(soup, url):
         vat_status=parse_vat(description),image_url=hero.get('content') if hero else None,
         image_is_primary=bool(hero and hero.get('content')),image_source_url=canonical(url))
     enrich_common_fields(lot,description)
+    # Capture explicit listed status about the property, not a nearby landmark.
+    # iamsold places this either in the opening asset description or as a
+    # standalone fact immediately before its Council Tax/Tenure block.
+    opening=description.split('. ')[0]
+    grade=r'Grade\s+(II\*|II|I|2\*|2|1)\s+listed\b'
+    m=re.search(grade,opening,re.I)
+    if m and re.search(r'near|opposite|overlook|adjacent|view of',opening,re.I):m=None
+    m=m or re.search(r'(?:^|[.!?]\s+)'+grade+r'\s+(?=Council Tax|Tenure)',description,re.I)
+    if m:lot.listed_status='Grade '+{'2':'II','2*':'II*','1':'I'}.get(m[1].upper(),m[1].upper())+' listed'
     # Countdown dates are dynamically supplied; never fabricate a catalogue date.
     return lot.finalise()
 

@@ -93,3 +93,13 @@ def test_flat_in_mixed_use_building_does_not_include_the_shop():
     assert commercial_decision({'description':'A freehold mixed use building comprising 4 flats and a small shop.'}) is True
     assert hollis.classify({'description':'THE PROPERTY: A Leasehold Bungalow with two bedrooms. THE OPPORTUNITY: Nearby cafe and restaurant.'}) is False
     assert hollis.classify({'description':'THE PROPERTY: A Freehold former nightclub with vacant possession.'}) is True
+
+
+def test_shared_storefront_provenance_does_not_duplicate_or_reassign_lot(monkeypatch):
+    from source_reconciliation import attach
+    monkeypatch.setattr('source_reconciliation.source_registry',lambda:[{'region_slug':'nottsandderby','brand':'Auction House Nottinghamshire & Derby'}])
+    row={'source':'Auction House National Online','url':'https://www.auctionhouse.co.uk/national/auction/lot/1','auction_date':'2099-11-01','address':'1 High Street AB1 2CD','description':'A freehold shop investment.'}
+    data={'properties':[row],'source_health':[{'source':'Auction House Midlands','status':'LIVE','collector_executed':True,'reconciliation':{'storefronts':[{'region':'nottsandderby','lot_urls':[row['url']]}]}}]}
+    attach(data)
+    assert len(data['properties'])==1 and row['source']=='Auction House National Online'
+    assert 'Auction House Nottinghamshire & Derby' in row['source_brands']

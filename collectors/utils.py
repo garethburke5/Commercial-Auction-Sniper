@@ -215,11 +215,11 @@ def _common_area(text):
     manufacture an area when a source page contains dates, phone numbers or prices.
     """
     sqft=sqm=None
-    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²)\b", text or "", re.I):
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*ft|sqft|ft²|square feet)\b", text or "", re.I):
         v=_money_number(m.group(1))
         if v and 20 <= v <= 5_000_000:
             sqft=max(sqft or 0,v)
-    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²)\b", text or "", re.I):
+    for m in re.finditer(r"([\d,]+(?:\.\d+)?)\s*(?:sq\.?\s*m|sqm|m²|square met(?:re|er)s)\b", text or "", re.I):
         v=_money_number(m.group(1))
         if v and 2 <= v <= 500_000:
             sqm=max(sqm or 0,v)
