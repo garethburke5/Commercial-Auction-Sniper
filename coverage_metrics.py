@@ -1,6 +1,6 @@
 """Comparable catalogue coverage. Missing evidence is not a zero denominator."""
 from collections import Counter
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from urllib.parse import urlsplit, urlunsplit
 from board_presentation import current_board_row
 from collectors.publication_quality import publication_exclusion
@@ -10,6 +10,13 @@ def url_key(value):
     p = urlsplit(str(value or ''))
     # Keep query parameters: several auctioneers identify lots in the query.
     return urlunsplit((p.scheme.lower(), p.netloc.lower(), p.path.rstrip('/'), p.query, ''))
+
+
+def _past_date(value, today):
+    try:
+        return date.fromisoformat(value) < today
+    except (TypeError, ValueError):
+        return False
 
 
 def source_metrics(snapshot, history, registry, now=None):
@@ -50,7 +57,7 @@ def source_metrics(snapshot, history, registry, now=None):
         errors = list(t.get('discovery_failures') or [])
         if h.get('status') in ('DEGRADED', 'FAILED') and h.get('message') and not errors: errors.append(h['message'])
         outcomes = evidence
-        assessed = [r for r in outcomes if r.get('commercial') is True and r.get('auction_date', '9999') < now.date().isoformat()]
+        assessed = [r for r in outcomes if r.get('commercial') is True and _past_date(r.get('auction_date'), now.date())]
         known = sum(r.get('status') in ('SOLD','SOLD PRIOR','SOLD AFTER','UNSOLD','WITHDRAWN','POSTPONED') for r in assessed)
         historical_names = a.get('historical_names') or [name]
         historical = sum((history.get('by_auctioneer') or {}).get(n, 0) for n in historical_names)

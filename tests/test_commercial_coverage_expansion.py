@@ -9,6 +9,15 @@ from scripts.check_collection_freshness import check_sources
 
 def page(text): return BeautifulSoup(text, 'lxml')
 
+def test_coverage_does_not_treat_undated_or_invalid_dates_as_past_results():
+    outcomes=[{'commercial':True,'auction_date':day,'status':'SOLD'}
+              for day in (None,'','TBC','2026-02-30','2026-10-21','2026-10-22','2026-10-23')]
+    snapshot={'source_health':[{'source':'Test','status':'LIVE','reconciliation':{'lot_outcomes':outcomes}}]}
+    metric=source_metrics(snapshot,{}, {},now=datetime(2026,10,22,tzinfo=timezone.utc))[0]
+    assert metric['result_scope_lots']==metric['reported_outcomes']==1
+    assert metric['reported_outcome_pct']==100
+    assert metric['coverage_pct'] is None
+
 def test_knight_search_shell_is_paginated_and_guide_is_not_sold_price():
     calls=[]
     def fetch(url):
