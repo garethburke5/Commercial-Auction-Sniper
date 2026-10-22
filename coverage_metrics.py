@@ -5,6 +5,15 @@ from urllib.parse import urlsplit, urlunsplit
 from board_presentation import current_board_row
 from collectors.publication_quality import publication_exclusion
 
+# Historical labels remain stored unchanged. These display groups combine only
+# naming variants; separately acquired brands keep their own historical totals.
+HISTORICAL_SOURCE_NAMES = {
+    'Allsop Commercial': ['Allsop', 'Allsop Commercial'],
+    'Future Property Auctions Scotland': ['Future Property Auctions', 'Future Property Auctions Scotland'],
+    'Barnard Marcus': ['Barnard Marcus Auctions', 'Barnard Marcus'],
+    'Pugh / BTG Eddisons': ['Pugh Auctioneers', 'BTG Eddisons', 'Pugh / BTG Eddisons'],
+}
+
 
 def url_key(value):
     p = urlsplit(str(value or ''))
@@ -59,8 +68,8 @@ def source_metrics(snapshot, history, registry, now=None):
         outcomes = evidence
         assessed = [r for r in outcomes if r.get('commercial') is True and _past_date(r.get('auction_date'), now.date())]
         known = sum(r.get('status') in ('SOLD','SOLD PRIOR','SOLD AFTER','UNSOLD','WITHDRAWN','POSTPONED') for r in assessed)
-        historical_names = a.get('historical_names') or [name]
-        historical = sum((history.get('by_auctioneer') or {}).get(n, 0) for n in historical_names)
+        historical_names = a.get('historical_names') or HISTORICAL_SOURCE_NAMES.get(name, [name])
+        historical = sum((history.get('by_auctioneer') or {}).get(n, 0) for n in set(historical_names))
         catalogue_urls = t.get('catalogue_pages')
         if not isinstance(catalogue_urls,list):catalogue_urls = [t['catalogue_url']] if t.get('catalogue_url') else a.get('catalogue_urls') or []
         result.append({
@@ -72,7 +81,7 @@ def source_metrics(snapshot, history, registry, now=None):
             'coverage_scope': t.get('scope') or 'Catalogue denominator not independently reconciled',
             'missing_lots': missing, 'duplicate_lots': sum(n - 1 for n in duplicates.values() if n > 1),
             'last_successful_collection': last, 'hours_since_success': age, 'stale': age is not None and age > 14,
-            'collection_errors': errors, 'historical_records': historical,
+            'collection_errors': errors, 'historical_records': historical, 'historical_source_names': historical_names,
             'result_scope_lots': len(assessed), 'reported_outcomes': known,
             'reported_outcome_pct': round(100 * known / len(assessed), 1) if assessed else None,
             'catalogue_urls': [u for u in catalogue_urls if isinstance(u,str)],

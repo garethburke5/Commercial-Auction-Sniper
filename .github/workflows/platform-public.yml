@@ -18,7 +18,7 @@ concurrency:
 jobs:
   publish:
     if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
@@ -38,6 +38,7 @@ jobs:
         with:
           node-version: '22'
       - name: Check evidence links and account sign-in in Chromium
+        timeout-minutes: 5
         run: |
           npm install --prefix "$RUNNER_TEMP/evidence-browser" playwright@1.51.1 --no-audit --no-fund
           node "$RUNNER_TEMP/evidence-browser/node_modules/playwright/cli.js" install --with-deps chromium
