@@ -1,18 +1,18 @@
 {
-  "checked_at": "2026-10-22T12:56:46.708895+00:00",
+  "checked_at": "2026-10-22T17:39:54.809653+00:00",
   "catalogues_attempted": 2,
-  "catalogues_enriched": [
+  "catalogues_enriched": [],
+  "records_with_catalogue_guides": 83,
+  "failures": [
     {
-      "auction_date": "2026-10-21",
-      "lots_enriched": 39,
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2026/10/OCT-Catalogue_WEB.pdf"
+      "auction_date": "2026-07-15",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/07/Catalogue-WEB-COPY-15-JULY26.pdf",
+      "error": "Missing guide for printed lot 14"
     },
     {
-      "auction_date": "2026-09-09",
-      "lots_enriched": 44,
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2026/09/WEB-COPY-Catalogue_SEPT26_WEB.pdf"
+      "auction_date": "2026-04-22",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/04/Catalogue-LowRes-20260422-20260409120624.pdf",
+      "error": "Catalogue lot sequence incomplete: 44/46"
     }
-  ],
-  "records_with_catalogue_guides": 83,
-  "failures": []
+  ]
 }

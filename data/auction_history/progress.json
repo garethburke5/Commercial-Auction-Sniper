@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-22T13:01:39.924125+00:00",
-  "individual_lot_records_captured": 278542,
-  "records_with_address": 268178,
+  "generated_at": "2026-10-22T17:42:55.555501+00:00",
+  "individual_lot_records_captured": 278627,
+  "records_with_address": 268263,
   "partial_lot_records": 10364,
-  "exact_address_groups": 152644,
-  "groups_with_repeat_appearances": 38045,
+  "exact_address_groups": 152694,
+  "groups_with_repeat_appearances": 38064,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 44654,
@@ -48,7 +48,7 @@
     "Clive Emson": 3931,
     "Cottons": 7366,
     "Dedman Gray": 2851,
-    "Edward Mellor": 10065,
+    "Edward Mellor": 10150,
     "Future Property Auctions": 64584,
     "Goldings Auctions": 621,
     "Harman Healy": 1507,
@@ -79,7 +79,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4135,
+    "null": 4136,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -104,13 +104,13 @@
     "2023": 29620,
     "2024": 38519,
     "2025": 44024,
-    "2026": 40621
+    "2026": 40705
   },
   "by_sector": {
-    "commercial": 38859,
-    "land": 17109,
-    "mixed-use": 41989,
-    "residential": 134450,
+    "commercial": 38866,
+    "land": 17110,
+    "mixed-use": 41994,
+    "residential": 134522,
     "unknown": 46135
   },
   "date_range": [
@@ -118,7 +118,7 @@
     "2026-12-01"
   ],
   "surviving_catalogues_completely_harvested": 1865,
-  "catalogues_incomplete_or_unreconciled": 619,
+  "catalogues_incomplete_or_unreconciled": 620,
   "catalogue_fetch_or_parse_failures": 69,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -131,13 +131,13 @@
     "through_date": "2026-10-22",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 271322,
-      "auction_ids_observed": 6948,
-      "with_guide_price": 94665,
-      "with_sale_price": 104372,
-      "with_both_prices": 45069,
-      "marked_sold": 142065,
-      "marked_sold_without_sale_price": 38433
+      "lot_appearances": 271406,
+      "auction_ids_observed": 6949,
+      "with_guide_price": 94747,
+      "with_sale_price": 104386,
+      "with_both_prices": 45082,
+      "marked_sold": 142104,
+      "marked_sold_without_sale_price": 38458
     },
     "by_auctioneer_and_year": [
       {
@@ -3564,13 +3564,13 @@
       {
         "auctioneer": "Edward Mellor",
         "year": 2026,
-        "lot_appearances": 600,
-        "auction_ids_observed": 12,
-        "with_guide_price": 579,
-        "with_sale_price": 235,
-        "with_both_prices": 227,
-        "marked_sold": 429,
-        "marked_sold_without_sale_price": 194
+        "lot_appearances": 684,
+        "auction_ids_observed": 13,
+        "with_guide_price": 661,
+        "with_sale_price": 249,
+        "with_both_prices": 240,
+        "marked_sold": 468,
+        "marked_sold_without_sale_price": 219
       },
       {
         "auctioneer": "Future Property Auctions",
@@ -5861,7 +5861,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4135,
+    "undated_appearances": 4136,
     "future_dated_appearances": 42,
     "national_completeness_verified": false,
     "limits": [
