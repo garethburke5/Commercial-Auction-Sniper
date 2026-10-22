@@ -756,10 +756,10 @@
     },
     {
       "auctioneer": "Greenslade Taylor Hunt",
-      "state": "CURRENT_COLLECTOR_MISSING",
+      "state": "COLLECTOR_IMPLEMENTED_PARTIAL_HISTORY",
       "checked_on": "2026-10-22",
-      "scope": "Live and online timed property/land auctions",
-      "failure_reason": "Official auction search accessible; commercial classification, dates and pagination require integration.",
+      "scope": "199 auction-tagged property pages across 17 search pages; source property IDs and unit extents retained",
+      "failure_reason": "Five dated commercial historical appearances validated locally; no current commercial records established. Ten date/particular failures remain and commercial scope is conservative; completeness unknown.",
       "catalogue_urls": [
         "https://www.gth.net/properties/sales/tag-auction"
       ],
@@ -782,10 +782,10 @@
     },
     {
       "auctioneer": "Agents Property Auction",
-      "state": "CURRENT_COLLECTOR_MISSING",
+      "state": "COLLECTOR_IMPLEMENTED_PENDING_PRODUCTION",
       "checked_on": "2026-10-22",
-      "scope": "Property auctions with results archive",
-      "failure_reason": "Official property search accessible; property-specific dates and full catalogue pagination require integration.",
+      "scope": "All published search lots via session-bound pagination, both price orders and property-type reconciliation",
+      "failure_reason": "215 advertised lots reconciled and parsed locally; six eligible commercial interests. Three have no exact published auction date. Production publication pending.",
       "catalogue_urls": [
         "https://www.agentspropertyauction.com/property-search/"
       ],

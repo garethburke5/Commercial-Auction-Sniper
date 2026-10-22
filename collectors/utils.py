@@ -235,7 +235,7 @@ def _common_property_type(text):
         ("Mixed Use", ("mixed use","mixed-use","commercial/residential","shop and flat","shop with flat")),
         ("Retail", ("retail investment","retail unit","retail premises","shop investment","ground floor shop","supermarket","pharmacy")),
         ("Office", ("office investment","office building","office premises","office unit")),
-        ("Industrial / Warehouse", ("industrial unit","industrial property","warehouse","factory","trade counter","workshop")),
+        ("Industrial / Warehouse", ("industrial unit","industrial property","industrial premises","warehouse","factory","trade counter","workshop")),
         ("Leisure / Hospitality", ("public house","pub investment","hotel","restaurant","leisure investment")),
         ("Commercial", ("commercial property","commercial development property","commercial premises","commercial building","commercial investment","commercial unit")),
     )

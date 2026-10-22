@@ -9,6 +9,7 @@ from __future__ import annotations
 import re
 from datetime import datetime
 
+from .catalogue_evidence import inventory_evidence
 from .core import SourceResult, Lot, norm, parse_guide, parse_tenure, parse_vat
 from .utils import soup, image_from_soup, legal_pack
 from . import clive_emson as base
@@ -184,6 +185,6 @@ def collect():
             else: rejected += 1
         expected = len(links); complete = failures == 0 and rejected == 0 and len(lots) == expected
         status = "LIVE" if complete else "DEGRADED" if lots else "FAILED"; available = len(lots) - terminal_count
-        return SourceResult(SOURCE, status, lots, f"Dynamic auction {auction_id}: {expected} dedicated commercial links; {available} available; {terminal_count} sold-prior/withdrawn/postponed retained as history; {rejected} non-commercial rejects; {failures} detail failures.", expected_count=expected, discovered_count=expected, authoritative_snapshot=complete, scope_dates=(auction_date,) if auction_date else ())
+        return SourceResult(SOURCE, status, lots, f"Dynamic auction {auction_id}: {expected} dedicated commercial links; {available} available; {terminal_count} sold-prior/withdrawn/postponed retained as history; {rejected} non-commercial rejects; {failures} detail failures.", expected_count=expected, discovered_count=expected, authoritative_snapshot=complete, scope_dates=(auction_date,) if auction_date else (), reconciliation={**inventory_evidence(lots,complete,"Dedicated Clive Emson commercial feed for auction "+str(auction_id)),"detail_pages_inspected":len(lots),"source_lot_count":expected,"detail_failures":failures,"classification_rejections":rejected})
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Clive Emson lifecycle-safe discovery failed: {exc}")

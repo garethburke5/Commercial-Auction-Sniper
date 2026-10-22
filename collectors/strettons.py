@@ -4,6 +4,7 @@ from urllib.parse import urljoin
 
 from bs4 import BeautifulSoup
 
+from .catalogue_evidence import inventory_evidence
 from .core import SourceResult, norm
 from .utils import soup, detail_lot, nearest_card
 
@@ -193,6 +194,7 @@ def collect():
             SOURCE,status,lots,
             f"Commercial result set advertises {advertised if advertised is not None else 'unknown'} entries; {len(targets)} exact links discovered; {sum(1 for x in lots if x.status=='CURRENT')} current/future, {terminal_count} sold/withdrawn, {historic_count} historic, {rescheduled_count} explicitly rescheduled; {failures} parse failures. All discovered commercial rows are preserved with lifecycle status.",
             expected_count=expected, discovered_count=len(targets), authoritative_snapshot=(status=="LIVE"), scope_dates=scope_dates,
+            reconciliation={**inventory_evidence(lots,status=="LIVE" and advertised is not None and advertised==len(targets),"Strettons advertised commercial search result set, including terminal and historical entries"),"source_lot_count":advertised,"detail_pages_inspected":len(lots),"detail_failures":failures,"catalogue_pages":[COMMERCIAL]},
         )
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"Strettons discovery failed: {exc}")

@@ -5,6 +5,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
 from .browser import get_html
+from .catalogue_evidence import inventory_evidence
 from .core import SourceResult, parse_guide, parse_rent, parse_tenure, parse_vat, norm
 from .savills import SOURCE, BASE, UPCOMING, _auction_dates, _discover_commercial_feed, _detail, _detail_href, _lot_no
 
@@ -218,4 +219,4 @@ def collect():
     elif lots: status="DEGRADED"
     elif pending_catalogues and failures==0: status="CATALOGUE PENDING"
     else: status="FAILED"
-    return SourceResult(SOURCE,status,lots,f"All-future Savills sweep: {len(auctions)} future catalogue(s), {published_catalogues} with commercial inventory, {pending_catalogues} pending; {discovered} commercial lots discovered, {len(lots)} published, {failures} failures. "+"; ".join(notes),expected_count=expected or None,discovered_count=discovered,authoritative_snapshot=bool(status=="LIVE" and expected and len(lots)==expected),scope_dates=tuple(sorted(scopes)))
+    return SourceResult(SOURCE,status,lots,f"All-future Savills sweep: {len(auctions)} future catalogue(s), {published_catalogues} with commercial inventory, {pending_catalogues} pending; {discovered} commercial lots discovered, {len(lots)} published, {failures} failures. "+"; ".join(notes),expected_count=expected or None,discovered_count=discovered,authoritative_snapshot=bool(status=="LIVE" and expected and len(lots)==expected),scope_dates=tuple(sorted(scopes)), reconciliation={**inventory_evidence(lots,status=="LIVE" and bool(expected) and len(lots)==expected,"Commercial-filtered lots in published current/future Savills catalogues; pending catalogues excluded"),"catalogue_pages":[a["catalogue"] for a in auctions],"pending_catalogues":pending_catalogues,"published_catalogues":published_catalogues,"detail_failures":failures})

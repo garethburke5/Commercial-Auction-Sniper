@@ -2,6 +2,7 @@ import re
 from datetime import date, datetime
 from urllib.parse import urljoin
 
+from .catalogue_evidence import inventory_evidence
 from .core import SourceResult, Lot, norm, parse_guide, parse_rent, parse_tenure, parse_vat
 from .utils import soup, legal_pack
 from .financials import guide_range
@@ -315,7 +316,7 @@ def collect():
             return SourceResult(SOURCE, "FAILED", [], f"BidX1 exposed {len(targets)} current/future commercial auction candidates across {pages} pages but none could be parsed.", expected_count=len(targets) if complete else None, discovered_count=len(targets), authoritative_snapshot=False, scope_dates=scope_dates)
         if lots:
             status = "LIVE" if complete and failures == 0 and len(lots) == len(targets) else "DEGRADED"
-            return SourceResult(SOURCE, status, lots, f"All-current/future BidX1 UK sweep: {pages} list pages; {len(targets)} commercial candidates; {len(lots)} published; {failures} detail failures.", expected_count=len(targets) if complete else None, discovered_count=len(targets), authoritative_snapshot=bool(complete and failures == 0 and scope_dates), scope_dates=scope_dates)
+            return SourceResult(SOURCE, status, lots, f"All-current/future BidX1 UK sweep: {pages} list pages; {len(targets)} commercial candidates; {len(lots)} published; {failures} detail failures.", expected_count=len(targets) if complete else None, discovered_count=len(targets), authoritative_snapshot=bool(complete and failures == 0 and scope_dates), scope_dates=scope_dates, reconciliation={**inventory_evidence(lots,status=="LIVE","BidX1 UK current/future commercial-filtered catalogue pages"),"detail_pages_inspected":len(lots),"catalogue_page_count":pages,"detail_failures":failures,"source_lot_count":len(targets) if complete else None})
         return SourceResult(SOURCE, "CATALOGUE PENDING", [], f"BidX1 UK inventory inspected across {pages} pages; no current/future commercial or mixed-use auction lots identified.", expected_count=0 if complete else None, discovered_count=0, authoritative_snapshot=False, scope_dates=scope_dates)
     except Exception as exc:
         return SourceResult(SOURCE, "FAILED", [], f"BidX1 collection failed: {type(exc).__name__}: {exc}")
