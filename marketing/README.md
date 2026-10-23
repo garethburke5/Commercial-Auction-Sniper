@@ -38,11 +38,22 @@ Then run **Auction Geek social marketing → Run workflow → pause**. This sets
 
 ## What makes a property worth sharing
 
-Prioritise properties an investor might send to a friend or discuss: accessible guide prices, supported high yields, unusual asset types and meaningful investment choices. Expensive properties need a distinctive asset type or a documented substantial guide reduction for the same legal interest; a large price tag or high yield alone is insufficient. These are editorial selection criteria, not a claim that a property is a bargain, low-risk or suitable for beginners.
+Affordability alone never qualifies a property. Prefer an empty slot to an uninteresting or insufficiently supported post. Owner exclusions apply to both selection and the final pre-publication check. Prioritise properties an investor might send to a friend or discuss: accessible guide prices, supported high yields, unusual asset types and meaningful investment choices. Expensive properties need a distinctive asset type, existing lettings alongside vacant commercial space, or a documented substantial guide reduction for the same legal interest; a large price tag or high yield alone is insufficient. These are editorial selection criteria, not a claim that a property is a bargain, low-risk or suitable for beginners.
 
-Initial configurable thresholds in `editorial_selection`: strongest preference at guides up to £100,000, followed by up to £250,000; high-yield interest starts at 10% gross; above £500,000 requires the additional story. Upper guide prices are used for ranges. Verified same-interest guide reductions must be at least 20%. Existing source, income, availability and legal-interest checks run first. Do not pad the feed with ordinary expensive lots if nothing suitable qualifies.
+Initial configurable thresholds in `editorial_selection`: accessible pricing at guides up to £250,000, with no extra preference below £100,000; high-yield interest starts at 10% gross; above £500,000 requires the additional story. Upper guide prices are used for ranges. Verified same-interest guide reductions must be at least 20%. Explicit descriptions of the subject hotel, multiple commercial units, and existing lettings alongside vacant space can also establish editorial interest. Nearby occupiers and unsupported conversion claims cannot. Existing source, income, availability and legal-interest checks run first. Non-payment of rent is held for editorial review rather than promoted using an unqualified headline yield. Do not pad the feed with ordinary expensive lots if nothing suitable qualifies.
 
 Each new property caption may include one relevant investment question to encourage a useful discussion. Do not use “tag a friend”, manufactured urgency, guaranteed-return claims or unsupported development potential. Shareability is an editorial aim, not a measured prediction of engagement. Record the reasons for selection with each generated post. Existing six review drafts retain their reviewed captions; these rules apply to new selection and generation. Publishing remains disabled pending approval.
+
+### Owner examples reviewed on 23 October 2026
+
+The owner subsequently requested these examples not be used. All four are excluded through `excluded_property_ids`; they remain regression fixtures and editorial references only:
+
+- Percy Street, Stoke: £225,000 guide, four commercial units and £29,000 advertised annual rent (12.89% gross at guide). An accessible multi-unit investment.
+- Upper Regent Street, Mansfield: £350,000 guide, two let units and two vacant units plus former offices. A reletting story outside the accessible price band. The particulars state £29,210 current rent, but the catalogue income field is empty; automated copy must not call it income-free or silently add historic vacant-unit rents. Correcting that website extraction is separate from this selection change.
+- Travelodge, Aberdeen: £1.6m guide; explicit hotel description supplies the story despite the catalogue's Industrial label. Captured particulars say the restaurant tenant is not paying rent. Hold automated promotion for reviewed treatment of income; do not advertise the headline total as rent collected. The catalogue classification itself is not changed by this selector.
+- 1 The Arcade, Newbury: £20,000 guide and £6,500 stated annual rent imply 32.5% gross at guide. Editorially interesting, but the existing exceptional-yield review hold remains. Explain the new 999-year lease and responsibilities before approving promotional copy.
+
+These examples inform reusable selection logic; they do not override freshness, availability, income or publishing-approval checks.
 
 ## Images
 

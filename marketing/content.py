@@ -12,7 +12,7 @@ from web_platform.market_context import evidenced_rent, address_key
 from web_platform.property_relationships import relationship
 
 ORIGIN = 'https://auctiongeek.co.uk'
-SELECTION = {'entry_guide_ceiling': 100000, 'accessible_guide_ceiling': 250000,
+SELECTION = {'accessible_guide_ceiling': 250000,
              'expensive_guide_threshold': 500000, 'high_yield_percent': 10,
              'significant_guide_reduction_percent': 20}
 
@@ -24,16 +24,27 @@ def editorial_interest(row, archive=(), config=None):
     yield_pct = 100 * rent / price if rent else 0
     reasons = []
     score = 0
-    if price <= policy['entry_guide_ceiling']:
-        reasons.append('lower guide price'); score += 24
-    elif price <= policy['accessible_guide_ceiling']:
+    if price <= policy['accessible_guide_ceiling']:
         reasons.append('accessible guide price'); score += 16
     if yield_pct >= policy['high_yield_percent']:
         reasons.append('high gross yield at guide'); score += 10 + min(yield_pct, 15) / 3
-    # Use the classified asset type, not sales adjectives or neighbouring uses.
+    # An explicit description of the subject can correct a broad/mistaken type.
+    # Never treat a nearby hotel, proposed hotel or sales adjective as the asset.
+    text = row.get('description') or ''
+    hotel = re.search(r'\bthe property comprises (?:a |an )?(?:(?:modern|purpose-built|refurbished) )?(?:[A-Z][\w-]* )?hotel\b', text, re.I)
+    unit_match = re.search(r'\b(?:comprising|comprises) (two|three|four|five|six|[2-9]) (?:commercial |retail |shop )?units\b', text, re.I)
+    partial = re.search(r'\btwo are currently let and income producing,? while the remaining two are vacant\b', text, re.I)
+    details = []
+    if hotel: details.append('The property includes a hotel.')
+    if unit_match:
+        details.append(f'The offering comprises {unit_match[1].lower()} commercial units.')
+        reasons.append('multiple commercial units'); score += 6
+    if partial:
+        details.append('Two commercial units are let and two are vacant, offering scope to increase income through reletting.')
+        reasons.append('existing lettings and vacant space'); score += 12
     distinctive = str(row.get('property_type') or '').strip().lower() in {
         'hotel', 'hotels', 'leisure', 'pub', 'public house', 'cinema', 'theatre',
-        'church', 'chapel', 'petrol station', 'car park', 'marina', 'holiday park'}
+        'church', 'chapel', 'petrol station', 'car park', 'marina', 'holiday park'} or bool(hotel)
     if distinctive:
         reasons.append('distinctive property type'); score += 12
     reductions = [h for h in history_context(row, archive) if h['price_comparable'] and
@@ -42,10 +53,12 @@ def editorial_interest(row, archive=(), config=None):
         reasons.append('substantial same-interest guide reduction'); score += 10
     expensive = price > policy['expensive_guide_threshold']
     # A large price tag, named tenant or yield by itself is not a story.
-    eligible = bool(reasons) and (not expensive or distinctive or bool(reductions))
+    eligible = any(r != 'accessible guide price' for r in reasons) and (not expensive or distinctive or bool(reductions) or bool(partial))
     if eligible and clean_tenant(row): score += 2
     question = None
-    if eligible and yield_pct >= policy['high_yield_percent']:
+    if eligible and partial:
+        question = 'Would you take on the vacant units, or prefer a fully let investment?'
+    elif eligible and yield_pct >= policy['high_yield_percent']:
         question = 'At this guide price, what would you examine first: the lease terms or the building’s running costs?'
     elif eligible and price <= policy['accessible_guide_ceiling']:
         question = 'Would you consider a property at this guide price for your first commercial investment?'
@@ -53,7 +66,7 @@ def editorial_interest(row, archive=(), config=None):
         question = 'Would this type of property interest you more than a conventional shop or office investment?'
     elif eligible and reductions:
         question = 'What would you want to understand before bidding at the lower guide price?'
-    return {'eligible': eligible, 'score': score, 'reasons': reasons, 'question': question}
+    return {'eligible': eligible, 'score': score, 'reasons': reasons, 'question': question, 'details': details}
 EDUCATION = [
     ('gross-yield', 'Gross yield is the starting point',
      'A property producing £20,000 in annual rent has a 10% gross yield at a £200,000 purchase price. At £250,000, the same rent produces 8%. These are illustrative figures.\n\nPurchase costs, repairs, insurance and empty periods reduce the return. Compare properties using the same assumptions before deciding what to bid.',
@@ -82,6 +95,8 @@ def fresh(value, now, hours):
     except (ValueError, TypeError): return False
 
 def reject_reason(row, now, config, *, due=None):
+    if identity(row) in config.get('excluded_property_ids', {}):
+        return 'excluded from social promotion by owner'
     if str(row.get('status') or '').upper() not in {'CURRENT', 'AVAILABLE', 'FOR SALE'}:
         return 'not a current available lot'
     availability = str(row.get('source_availability') or '').upper()
@@ -100,6 +115,8 @@ def reject_reason(row, now, config, *, due=None):
     if row.get('guide_price_upper') is not None and (not positive(row['guide_price_upper']) or row['guide_price_upper'] < row['guide_price']):
         return 'inconsistent guide range'
     rent = evidenced_rent(row)
+    if re.search(r'\b(?:not (?:currently )?paying rent|rent (?:is |remains )?unpaid|rent arrears)\b', row.get('description') or '', re.I):
+        return 'rent payment issue requires editorial review'
     if row.get('annual_rent') and not rent: return 'current rent not established'
     if rent:
         # A number elsewhere on the listing is not evidence of current rent.
@@ -172,6 +189,7 @@ def property_post(row, service, archive=(), config=None):
             lines.append(f'The current guide is {cash(old["current_guide"])} compared with {cash(old["previous_guide"])} at the previous auction. These are guide prices, not sale results.')
         lines.append(f'An earlier auction appearance is recorded with {old["source"]} on {date.fromisoformat(old["auction_date"]).strftime("%-d %B %Y")}.')
     interest = editorial_interest(row, archive, config)
+    lines.extend(interest['details'])
     if interest['question']: lines.append(interest['question'])
     lines.append('Check the tenancy terms, buyer’s fees and legal pack when assessing your bid.')
     canonical = ORIGIN + f'/property/{key}/{slug(row["address"])[:110]}/'

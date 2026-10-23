@@ -60,7 +60,7 @@ def test_stale_whole_catalogue_cannot_be_used():
     with pytest.raises(ValueError):candidates({'generated_at':(NOW-timedelta(days=2)).isoformat()},NOW,CFG)
 
 def test_affordable_property_ranks_above_expensive_high_yield_shop():
-    affordable=row(address='2 High Street, York YO1 1AA',guide_price=80000,annual_rent=None,description='A vacant freehold retail shop.')
+    affordable=row(address='2 High Street, York YO1 1AA',guide_price=80000,annual_rent=10000,description='A freehold retail investment. Current rent reserved £10,000 per annum.')
     expensive=row(guide_price=1000000,annual_rent=150000,description='A freehold retail investment. Let to Example Retail Limited on a five year lease. Current rent reserved £150,000 per annum.',property_type='Retail')
     snapshot={'generated_at':NOW.isoformat(),'properties':[expensive,affordable],
               'source_health':[{'source':'Test Auctions','status':'LIVE'}]}
@@ -85,12 +85,12 @@ def test_neighbouring_hotel_or_sales_hype_does_not_qualify_expensive_shop():
 def test_price_thresholds_are_configurable():
     config={**CFG,'editorial_selection':{'accessible_guide_ceiling':300000}}
     interest=editorial_interest(row(guide_price=280000,annual_rent=None),config=config)
-    assert interest['eligible']
+    assert 'accessible guide price' in interest['reasons']
 
 def test_caption_invites_relevant_discussion_without_claiming_suitability():
-    post=property_post(row(guide_price=80000,annual_rent=None),'facebook')
+    post=property_post(row(guide_price=80000,annual_rent=None,description='An investment comprising four commercial units.'),'facebook')
     assert 'Would you consider a property at this guide price' in post['caption']
-    assert 'lower guide price' in post['editorial_interest']['reasons']
+    assert 'accessible guide price' in post['editorial_interest']['reasons']
     assert 'ideal for beginners' not in post['caption']
 
 def test_different_interest_price_history_cannot_qualify_expensive_property():
@@ -338,3 +338,60 @@ def test_educational_bank_rotates_after_90_days_without_reposting_recent_topics(
     assert educational_choice('facebook',state,[],NOW+timedelta(days=60)) is None
     later=educational_choice('facebook',state,[],NOW+timedelta(days=91))
     assert later and later['key'] not in state['posts'] and later['topic_key']=='facebook:education:gross-yield'
+
+
+def test_no_extra_preference_below_one_hundred_thousand():
+    cheap=editorial_interest(row(guide_price=80000,annual_rent=None),config=CFG)
+    accessible=editorial_interest(row(guide_price=225000,annual_rent=None),config=CFG)
+    assert cheap['score']==accessible['score']
+    assert cheap['reasons']==accessible['reasons']
+
+
+def test_explicit_subject_hotel_overrides_industrial_label():
+    hotel=row(property_type='Industrial',guide_price=1600000,description='The property comprises a modern Travelodge hotel providing 40 bedrooms.')
+    assert editorial_interest(hotel,config=CFG)['eligible']
+
+
+def test_part_let_part_vacant_is_a_story_above_accessible_threshold():
+    r=row(guide_price=350000,annual_rent=None,description='Of the four ground-floor commercial units, two are currently let and income producing, while the remaining two are vacant.')
+    interest=editorial_interest(r,config=CFG)
+    assert interest['eligible']
+    assert 'existing lettings and vacant space' in interest['reasons']
+    assert 'fully let investment' in property_post(r,'facebook')['caption']
+
+
+def test_unpaid_component_blocks_unqualified_income_promotion():
+    assert reject_reason(row(description=row()['description']+' The restaurant tenant is not currently paying rent.'),NOW,CFG)=='rent payment issue requires editorial review'
+
+
+def test_exceptional_yield_still_requires_review():
+    r=row(guide_price=20000,annual_rent=6500,description='A retail investment paying £6,500 per annum.')
+    assert editorial_interest(r,config=CFG)['eligible']
+    assert reject_reason(r,NOW,CFG)=='unusual yield needs editorial review'
+
+
+def test_owner_examples_have_editorial_interest_with_evidence_holds_preserved():
+    from pathlib import Path
+    from marketing.content import stamp
+    examples=json.loads((Path(__file__).parent/'fixtures/editorial_examples.json').read_text())
+    expected={'e520ea36351af0e6a993':None,'7805dc3f5da6663d2b0a':None,
+              '2f3a9d98059853585273':'rent payment issue requires editorial review',
+              '43b78d84ef981465f0bc':'unusual yield needs editorial review'}
+    assert {r['property_id'] for r in examples['properties']}==set(expected)
+    for r in examples['properties']:
+        assert editorial_interest(r,config=CFG)['eligible'],r['address']
+        assert reject_reason(r,stamp(examples['captured_at']),{**CFG,'excluded_property_ids':{}})==expected[r['property_id']]
+        assert reject_reason(r,stamp(examples['captured_at']),CFG)=='excluded from social promotion by owner'
+    mansfield=next(r for r in examples['properties'] if r['property_id']=='7805dc3f5da6663d2b0a')
+    caption=property_post(mansfield,'facebook')['caption']
+    assert 'Two commercial units are let and two are vacant' in caption
+    assert 'No passing income' not in caption
+
+
+def test_affordable_price_alone_is_not_a_reason_to_post():
+    r=row(guide_price=80000,annual_rent=None,description='A vacant freehold retail shop.')
+    assert not editorial_interest(r,config=CFG)['eligible']
+    snapshot={'generated_at':NOW.isoformat(),'properties':[r],'source_health':[{'source':'Test Auctions','status':'LIVE'}]}
+    selected,rejected=candidates(snapshot,NOW,CFG)
+    assert selected==[]
+    assert rejected['no supported editorial reason for promotion']==1
