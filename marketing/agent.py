@@ -138,7 +138,7 @@ def perform(mode, *, store=None, client=None, now=None):
                     proposal=educational_choice(service,state,prepared,now)
                 if proposal is None:
                     for row in rows:
-                        item=property_post(row,service,snapshot.get('archive',[]))
+                        item=property_post(row,service,snapshot.get('archive',[]),config)
                         if duplicate(item,state,remote,prepared,now):continue
                         if reject_reason(row,now,config,due=due):continue
                         proposal=item;break
@@ -169,7 +169,8 @@ def perform(mode, *, store=None, client=None, now=None):
         store.media(post);validate_links(post)
         entry={'service':post['service'],'channel_id':channel_id,'kind':post['kind'],'property_id':post.get('property_id'),
                'caption_hash':digest(post['caption']),'fingerprint':post['fingerprint'],'asset_key':post.get('asset_key'),'status':'pending',
-               'created_at':now.isoformat(),'topic_key':post.get('topic_key'),'evidence':post['evidence'],'caption':post['caption'],'image_url':post['image_url']}
+               'created_at':now.isoformat(),'topic_key':post.get('topic_key'),'evidence':post['evidence'],
+               'editorial_interest':post.get('editorial_interest'),'caption':post['caption'],'image_url':post['image_url']}
         if updating:entry['buffer_id']=existing['buffer_id']
         state['posts'][key]=entry
         state['attempts']=state['attempts'][-499:]

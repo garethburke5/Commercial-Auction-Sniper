@@ -3,7 +3,7 @@ from datetime import datetime,timezone,timedelta
 import io,json,urllib.error
 from unittest.mock import patch
 import pytest
-from marketing.content import reject_reason,property_post,history_context,education_post,candidates
+from marketing.content import reject_reason,property_post,history_context,education_post,candidates,editorial_interest
 from marketing.agent import reconcile,digest,expiry
 from marketing.buffer import Buffer,BufferError
 from marketing.scheduler import publishing_allowed,available_slots
@@ -58,6 +58,45 @@ def test_scheduling_checks_auction_lead_at_publication():
 
 def test_stale_whole_catalogue_cannot_be_used():
     with pytest.raises(ValueError):candidates({'generated_at':(NOW-timedelta(days=2)).isoformat()},NOW,CFG)
+
+def test_affordable_property_ranks_above_expensive_high_yield_shop():
+    affordable=row(address='2 High Street, York YO1 1AA',guide_price=80000,annual_rent=None,description='A vacant freehold retail shop.')
+    expensive=row(guide_price=1000000,annual_rent=150000,description='A freehold retail investment. Let to Example Retail Limited on a five year lease. Current rent reserved £150,000 per annum.',property_type='Retail')
+    snapshot={'generated_at':NOW.isoformat(),'properties':[expensive,affordable],
+              'source_health':[{'source':'Test Auctions','status':'LIVE'}]}
+    selected,rejected=candidates(snapshot,NOW,CFG)
+    assert selected==[affordable]
+    assert rejected['no supported editorial reason for promotion']==1
+
+def test_expensive_distinctive_asset_can_feature_without_hype():
+    interest=editorial_interest(row(guide_price=2500000,property_type='Hotel'),config=CFG)
+    assert interest['eligible']
+    assert 'distinctive property type' in interest['reasons']
+
+def test_price_range_does_not_mislabel_affordability():
+    interest=editorial_interest(row(guide_price=90000,guide_price_upper=300000),config=CFG)
+    assert not interest['eligible']
+    assert not any('guide price' in reason for reason in interest['reasons'])
+
+def test_neighbouring_hotel_or_sales_hype_does_not_qualify_expensive_shop():
+    interest=editorial_interest(row(guide_price=750000,description='Inspirational unique shop near a hotel and marina. Current rent reserved £20,000 per annum.'),config=CFG)
+    assert not interest['eligible']
+
+def test_price_thresholds_are_configurable():
+    config={**CFG,'editorial_selection':{'accessible_guide_ceiling':300000}}
+    interest=editorial_interest(row(guide_price=280000,annual_rent=None),config=config)
+    assert interest['eligible']
+
+def test_caption_invites_relevant_discussion_without_claiming_suitability():
+    post=property_post(row(guide_price=80000,annual_rent=None),'facebook')
+    assert 'Would you consider a property at this guide price' in post['caption']
+    assert 'lower guide price' in post['editorial_interest']['reasons']
+    assert 'ideal for beginners' not in post['caption']
+
+def test_different_interest_price_history_cannot_qualify_expensive_property():
+    current=row(guide_price=750000,tenure='Leasehold')
+    old=row(guide_price=1500000,auction_date='2021-07-20',tenure='Freehold')
+    assert not editorial_interest(current,[old],CFG)['eligible']
 
 def test_historical_different_interest_no_discount_claim():
     current=row(tenure='Leasehold');old=row(auction_date='2021-07-20',guide_price=300000)

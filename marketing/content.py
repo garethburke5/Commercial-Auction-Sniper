@@ -12,6 +12,48 @@ from web_platform.market_context import evidenced_rent, address_key
 from web_platform.property_relationships import relationship
 
 ORIGIN = 'https://auctiongeek.co.uk'
+SELECTION = {'entry_guide_ceiling': 100000, 'accessible_guide_ceiling': 250000,
+             'expensive_guide_threshold': 500000, 'high_yield_percent': 10,
+             'significant_guide_reduction_percent': 20}
+
+def editorial_interest(row, archive=(), config=None):
+    """Explain why a lot merits a post, independently of its eligibility checks."""
+    policy = {**SELECTION, **((config or {}).get('editorial_selection') or {})}
+    price = row.get('guide_price_upper') or row['guide_price']
+    rent = evidenced_rent(row)
+    yield_pct = 100 * rent / price if rent else 0
+    reasons = []
+    score = 0
+    if price <= policy['entry_guide_ceiling']:
+        reasons.append('lower guide price'); score += 24
+    elif price <= policy['accessible_guide_ceiling']:
+        reasons.append('accessible guide price'); score += 16
+    if yield_pct >= policy['high_yield_percent']:
+        reasons.append('high gross yield at guide'); score += 10 + min(yield_pct, 15) / 3
+    # Use the classified asset type, not sales adjectives or neighbouring uses.
+    distinctive = str(row.get('property_type') or '').strip().lower() in {
+        'hotel', 'hotels', 'leisure', 'pub', 'public house', 'cinema', 'theatre',
+        'church', 'chapel', 'petrol station', 'car park', 'marina', 'holiday park'}
+    if distinctive:
+        reasons.append('distinctive property type'); score += 12
+    reductions = [h for h in history_context(row, archive) if h['price_comparable'] and
+                  100 * (h['previous_guide'] - h['current_guide']) / h['previous_guide'] >= policy['significant_guide_reduction_percent']]
+    if reductions:
+        reasons.append('substantial same-interest guide reduction'); score += 10
+    expensive = price > policy['expensive_guide_threshold']
+    # A large price tag, named tenant or yield by itself is not a story.
+    eligible = bool(reasons) and (not expensive or distinctive or bool(reductions))
+    if eligible and clean_tenant(row): score += 2
+    question = None
+    if eligible and yield_pct >= policy['high_yield_percent']:
+        question = 'At this guide price, what would you examine first: the lease terms or the building’s running costs?'
+    elif eligible and price <= policy['accessible_guide_ceiling']:
+        question = 'Would you consider a property at this guide price for your first commercial investment?'
+    elif eligible and distinctive:
+        question = 'Would this type of property interest you more than a conventional shop or office investment?'
+    elif eligible and reductions:
+        question = 'What would you want to understand before bidding at the lower guide price?'
+    return {'eligible': eligible, 'score': score, 'reasons': reasons, 'question': question}
 EDUCATION = [
     ('gross-yield', 'Gross yield is the starting point',
      'A property producing £20,000 in annual rent has a 10% gross yield at a £200,000 purchase price. At £250,000, the same rent produces 8%. These are illustrative figures.\n\nPurchase costs, repairs, insurance and empty periods reduce the return. Compare properties using the same assumptions before deciding what to bid.',
@@ -104,7 +146,7 @@ def history_context(row, archive):
             result[-1].update(price_comparable=True, previous_guide=old['guide_price'], current_guide=ceiling)
     return sorted(result, key=lambda x: x['auction_date'], reverse=True)
 
-def property_post(row, service, archive=()):
+def property_post(row, service, archive=(), config=None):
     key = identity(row)
     price = row['guide_price']; upper = row.get('guide_price_upper')
     guide = cash(price) + ('–' + cash(upper) if upper and upper != price else '')
@@ -129,6 +171,8 @@ def property_post(row, service, archive=()):
         if old['price_comparable']:
             lines.append(f'The current guide is {cash(old["current_guide"])} compared with {cash(old["previous_guide"])} at the previous auction. These are guide prices, not sale results.')
         lines.append(f'An earlier auction appearance is recorded with {old["source"]} on {date.fromisoformat(old["auction_date"]).strftime("%-d %B %Y")}.')
+    interest = editorial_interest(row, archive, config)
+    if interest['question']: lines.append(interest['question'])
     lines.append('Check the tenancy terms, buyer’s fees and legal pack when assessing your bid.')
     canonical = ORIGIN + f'/property/{key}/{slug(row["address"])[:110]}/'
     track = canonical + '?' + urlencode({'utm_source': service, 'utm_medium': 'organic_social', 'utm_campaign': 'auction_properties', 'utm_content': key})
@@ -145,7 +189,7 @@ def property_post(row, service, archive=()):
             'asset_key':address_key(row['address'])+'|'+str(row.get('tenure') or '').lower(),
             'address': row['address'], 'title': row['address'], 'subtitle': f'{row["source"]} · {when}',
             'stats': stats, 'caption': '\n\n'.join(lines), 'canonical_url': canonical, 'tracking_url': track,
-            'auction_date': row['auction_date'], 'evidence': evidence,
+            'auction_date': row['auction_date'], 'evidence': evidence, 'editorial_interest': interest,
             'fingerprint': sha256(json.dumps(facts,sort_keys=True).encode()).hexdigest(),
             'image_source': row.get('image_url')}
 
@@ -166,11 +210,12 @@ def candidates(snapshot, now, config):
         h=health.get(row.get('source'),{})
         if h.get('status') not in {'LIVE','OK'}: reason=reason or 'source collection not healthy'
         if reason: rejected[reason]=rejected.get(reason,0)+1; continue
-        rent=evidenced_rent(row); y=100*rent/(row.get('guide_price_upper') or row['guide_price']) if rent else 0
-        # Prefer readable, supported investments, with diversity handled below.
-        score=min(y,15)+(4 if clean_tenant(row) else 0)+(2 if row.get('tenure')=='Freehold' else 0)
-        if history_context(row,snapshot.get('archive',[])):score+=2
-        good.append((score,row))
+        interest=editorial_interest(row,snapshot.get('archive',[]),config)
+        if not interest['eligible']:
+            reason='no supported editorial reason for promotion'
+            rejected[reason]=rejected.get(reason,0)+1
+            continue
+        good.append((interest['score'],row))
     return [r for _,r in sorted(good,key=lambda x:(-x[0],x[1]['address']))], rejected
 
 def samples(snapshot, now, config):
@@ -184,6 +229,6 @@ def samples(snapshot, now, config):
     if len(selected)<2:raise ValueError('Not enough evidenced properties for the sample set')
     posts=[]
     for service in config['channels']:
-        posts.extend(property_post(r,service,snapshot.get('archive',[])) for r in selected)
+        posts.extend(property_post(r,service,snapshot.get('archive',[]),config) for r in selected)
         posts.append(education_post(service))
     return posts,rejected

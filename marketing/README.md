@@ -36,6 +36,14 @@ Then run **Auction Geek social marketing → Run workflow → pause**. This sets
 - Agent-owned queued property posts return to drafts if evidence becomes stale, a lot disappears/withdraws, or an advertised fact changes. This uses the latest existing collector data; it is not a real-time guarantee against changes made after a source check.
 - Occasional original educational posts use explicitly hypothetical examples and no fresh AI calls. Topics rotate, with a minimum 90-day gap before reuse. The initial set includes one educational post per channel.
 
+## What makes a property worth sharing
+
+Prioritise properties an investor might send to a friend or discuss: accessible guide prices, supported high yields, unusual asset types and meaningful investment choices. Expensive properties need a distinctive asset type or a documented substantial guide reduction for the same legal interest; a large price tag or high yield alone is insufficient. These are editorial selection criteria, not a claim that a property is a bargain, low-risk or suitable for beginners.
+
+Initial configurable thresholds in `editorial_selection`: strongest preference at guides up to £100,000, followed by up to £250,000; high-yield interest starts at 10% gross; above £500,000 requires the additional story. Upper guide prices are used for ranges. Verified same-interest guide reductions must be at least 20%. Existing source, income, availability and legal-interest checks run first. Do not pad the feed with ordinary expensive lots if nothing suitable qualifies.
+
+Each new property caption may include one relevant investment question to encourage a useful discussion. Do not use “tag a friend”, manufactured urgency, guaranteed-return claims or unsupported development potential. Shareability is an editorial aim, not a measured prediction of engagement. Record the reasons for selection with each generated post. Existing six review drafts retain their reviewed captions; these rules apply to new selection and generation. Publishing remains disabled pending approval.
+
 ## Images
 
 Initial samples use original navy/teal typographic cards, 1080 × 1080, with no stock or generated property imagery. No documented social reuse permission was found for the collected auctioneer photographs. `photo_permissions.json` accepts **exact image URL**, `social_reuse: true`, `permission_evidence`, `expires_on` and `attribution`; only then can the renderer fetch a genuine photograph. A public photograph or existing webpage preview is not assumed to grant advertising rights. Prime photographs remain withheld. Photo failures fall back to original cards.
