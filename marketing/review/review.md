@@ -55,7 +55,7 @@ Purchase costs, repairs, insurance and empty periods reduce the return. Compare 
 Explore commercial auctions and free property snapshots on Auction Geek:
 https://auctiongeek.co.uk/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_research&utm_content=gross-yield
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/e31fb03c8e4749f2e5fa5b16.jpg)
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/be8a9592f92be415260a3576.jpg)
 
 Source: Editorial explainer; hypothetical numbers explicitly labelled
 
@@ -115,6 +115,6 @@ Explore commercial auctions and free property snapshots through the website link
 
 #AuctionGeek #CommercialProperty #PropertyResearch
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/e31fb03c8e4749f2e5fa5b16.jpg)
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/be8a9592f92be415260a3576.jpg)
 
 Source: Editorial explainer; hypothetical numbers explicitly labelled

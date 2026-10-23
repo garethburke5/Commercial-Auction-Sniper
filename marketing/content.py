@@ -15,7 +15,7 @@ ORIGIN = 'https://auctiongeek.co.uk'
 EDUCATION = [
     ('gross-yield', 'Gross yield is the starting point',
      'A property producing £20,000 in annual rent has a 10% gross yield at a £200,000 purchase price. At £250,000, the same rent produces 8%. These are illustrative figures.\n\nPurchase costs, repairs, insurance and empty periods reduce the return. Compare properties using the same assumptions before deciding what to bid.',
-     [('£20,000', 'Illustrative annual rent'), ('10% → 8%', 'Gross yield as price rises')]),
+     [('£20,000', 'Illustrative annual rent'), ('£200,000 → £250,000', 'Illustrative purchase price'), ('10% → 8%', 'Gross yield before costs')]),
     ('lease-break', 'Read beyond the lease expiry date',
      'A tenant break clause may allow a tenant to leave before the lease expires. Check the earliest break date, the notice period and the conditions attached to it.\n\nWhen comparing investments, consider how long it could take to find another tenant and what costs would continue while the property is empty.',
      [('Break date', 'When could the tenant leave?'), ('Reletting costs', 'What would you need to fund?')]),

@@ -40,19 +40,30 @@ class Buffer:
                 raise BufferError('Buffer transport failure; mutation outcome may be unknown' if mutation else 'Buffer read failed') from None
             if result.get('errors'):
                 codes=[str(x.get('extensions',{}).get('code','GRAPHQL_ERROR')) for x in result['errors']]
-                raise BufferError('Buffer query rejected: '+','.join(c for c in codes if re.fullmatch(r'[A-Z_0-9]+',c)))
+                paths=[str(x.get('path',[])) for x in result['errors']]
+                messages=[str(x.get('message','')).replace(self._key,'[redacted]')[:250] for x in result['errors']]
+                raise BufferError('Buffer query rejected: '+','.join(c for c in codes if re.fullmatch(r'[A-Z_0-9]+',c))+'; '+str(paths)+'; '+re.sub(r'[\r\n]',' ',str(messages)))
             if not isinstance(result.get('data'),dict):raise BufferError('Malformed Buffer response')
             return result['data']
         raise BufferError('Read retry budget exhausted')
 
     def connection(self, organization):
-        data=self.request('query($org:OrganizationId!){ account { organizations { id name channelCount limits { channels scheduledPosts } } } channels(input:{organizationId:$org}) { id name service isDisconnected isLocked isQueuePaused allowedActions timezone postingSchedule { day paused times } } }', {'org':organization})
+        data=self.request('query($org:OrganizationId!){ account { organizations { id name } } channels(input:{organizationId:$org}) { id name service isDisconnected isLocked isQueuePaused allowedActions timezone postingSchedule { day paused times } } }', {'org':organization})
+        try:
+            detailed=self.request('{ account { organizations { id limits { channels scheduledPosts } } } }')['account']['organizations']
+            for org in data['account']['organizations']:
+                org['limits']=next(x['limits'] for x in detailed if x['id']==org['id'])
+                org['limits_source']='live_api'
+        except BufferError:
+            for org in data['account']['organizations']:
+                org['limits']={'channels':3,'scheduledPosts':10}
+                org['limits_source']='documented_free_plan_conservative_fallback'
         return data
 
     def posts(self, organization, channels):
         result=[];cursor=None
         for _ in range(15):
-            data=self.request('query($input:PostsInput!,$after:String){ posts(input:$input,first:100,after:$after) { edges { node { id text channelId status dueAt createdAt } } pageInfo { hasNextPage endCursor } } }',
+            data=self.request('query($input:PostsInput!,$after:String){ posts(input:$input,first:50,after:$after) { edges { node { id text channelId status dueAt createdAt } } pageInfo { hasNextPage endCursor } } }',
                 {'input':{'organizationId':organization,'filter':{'channelIds':channels}},'after':cursor})['posts']
             result.extend(e['node'] for e in data['edges'])
             if not data['pageInfo']['hasNextPage']:return result

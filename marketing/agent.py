@@ -134,6 +134,7 @@ def perform(mode, *, store=None, client=None, now=None):
                 if proposal:
                     proposal['due_at']=due.isoformat();build([proposal],'marketing/media',permissions,config['image_origin']);prepared.append(proposal)
     if state.get('paused') or config.get('paused'):prepared=[]
+    created_this_run=[]
     for post in prepared:
         key=post['key'];channel_id=config['channels'][post['service']]
         if key in state['posts']:continue
@@ -162,11 +163,17 @@ def perform(mode, *, store=None, client=None, now=None):
         try:
             result=client.create(post,channel_id,draft=draft,due=post.get('due_at'),approved=authorised)
             entry.update(buffer_id=result['id'],status=result['status'],due_at=result.get('dueAt'))
-            state['attempts'][-1]['result']=result['status'];remote.append(result)
+            state['attempts'][-1]['result']=result['status'];remote.append(result);created_this_run.append(result['id'])
         except BufferError as exc:
             entry['status']='unknown';state['attempts'][-1]['result']='failed_or_unknown';state['attempts'][-1]['error']=str(exc)
             store.write(STATE,state);raise
         store.write(STATE,state)
+    if created_this_run:
+        fetched=client.posts(config['organization_id'],list(config['channels'].values()))
+        saved={p['id']:p for p in fetched}
+        if any(pid not in saved or (mode=='drafts' and saved[pid]['status']!='draft') for pid in created_this_run):
+            raise ValueError('Could not independently confirm all saved draft statuses')
+        reconcile(state,fetched)
     state['last_checked_at']=now.isoformat();store.write(STATE,state)
     report={'checked_at':now.isoformat(),'publishing_enabled':authorised,'paused':state.get('paused') or config.get('paused'),
             'key_expires_on':config['key_expires_on'],'days_to_key_expiry':days,'connection':conn,
