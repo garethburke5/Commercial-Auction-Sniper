@@ -57,7 +57,7 @@ These examples inform reusable selection logic; they do not override freshness, 
 
 ## Images
 
-The revised review set uses the actual Darlington, Belsize Road and Huntly listing photographs, with a large image, compact Auction Geek header, guide, yield and source attribution. Original image markings are retained. Grimsby is excluded following the owner's visual review. Inspect image appeal and property identity as part of editorial selection; price and yield alone do not establish that a post will interest an audience.
+The revised review set uses the actual Darlington, Belsize Road and North Trinity, Kelso listing photographs, with a large image, compact Auction Geek header, guide, yield and source attribution. Original image markings are retained. Grimsby and Huntly are excluded following the owner's visual review. North Trinity provides a visually distinctive conversion story; its draft attributes the planning scheme to the auctioneer and makes no income claim. Inspect image appeal and property identity as part of editorial selection; price and yield alone do not establish that a post will interest an audience.
 
 `photo_permissions.json` records exact image URLs. It supports documented permission (`permission_evidence`) or explicit owner instructions (`authorization_basis: owner_instruction`, `authorization_evidence`), with expiry and attribution. On 23 October the owner instructed use of the existing listing photographs. This is recorded as owner authorization, not as a licence granted by the auctioneer. A missing/failed photograph cannot silently become a text card when `require_photo` is true. Public image delivery still uses bounded download and public-address checks.
 

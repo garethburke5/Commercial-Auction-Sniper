@@ -29,6 +29,16 @@ def test_valid_current_lot_and_correct_yield():
     assert 'utm_source=facebook' in post['caption']
     assert 'Example Retail Limited' in post['caption']
 
+def test_former_church_subject_is_distinctive_but_nearby_church_is_not():
+    subject=row(annual_rent=None,property_type='Mixed Use',description='An opportunity to acquire this former Church on Bowmont Street.')
+    assert editorial_interest(subject,config=CFG)['eligible']
+    assert 'former church' in property_post(subject,'facebook')['caption']
+    nearby=row(annual_rent=None,description='A shop opposite a former church and close to the town centre.')
+    assert not editorial_interest(nearby,config=CFG)['eligible']
+
+def test_rejected_social_choices_remain_excluded():
+    assert {'d142e9af0727c19261ce','c85b0f1f9e9cd089e94c'} <= CFG['excluded_property_ids'].keys()
+
 def test_guide_range_uses_upper_bound_not_optimistic_lower():
     post=property_post(row(guide_price_upper=250000),'instagram')
     assert '8.00% gross yield at the upper guide price' in post['caption']

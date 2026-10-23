@@ -70,33 +70,37 @@ Source: https://auctionhouselondon.co.uk/lot/207-belsize-road-camden-london-nw6-
 
 ## 5. Facebook
 
-A Morrisons Daily shop with four-bedroom accommodation above, guided at £135,000.
+A former church in the Scottish Borders, with a £170,000 guide.
 
-5 The Square, Huntly is advertised at £14,750 annual rent: a 10.93% gross yield at guide, before purchase and running costs. The accommodation forms part of the shop lease, which runs to 2033.
+North Trinity in Kelso has a striking stone tower and an unusual proposed future: a film studio, community hall and staff accommodation. Auction House Scotland advertises planning permission for that scheme.
 
-Auction House Scotland: 26 November 2026.
+This is a conversion project: the works budget and planning conditions need assessing before bidding.
 
-Would a property like this in a Scottish market town make your shortlist?
+Freehold · Auction House Scotland · 26 November 2026.
+
+Could you see this building working as a creative venue?
 
 Explore the property on Auction Geek:
-https://auctiongeek.co.uk/property/c85b0f1f9e9cd089e94c/5-the-square-huntly-aberdeenshire-ab54-8br/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=c85b0f1f9e9cd089e94c
+https://auctiongeek.co.uk/property/8d8430d426d5e147a83a/north-trinity-bowmont-street-kelso-scottish-borders-td5-7jh/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=8d8430d426d5e147a83a
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0219e45bcf1a51183e38cf80.jpg)
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/abf74a567c0e622509cf8390.jpg)
 
-Source: https://www.auctionhouse.co.uk/scotland/auction/lot/153537
+Source: https://www.auctionhouse.co.uk/scotland/auction/lot/153601
 
 ## 6. Instagram
 
-A Morrisons Daily shop with four-bedroom accommodation above, guided at £135,000.
+A former church in the Scottish Borders, with a £170,000 guide.
 
-5 The Square, Huntly is advertised at £14,750 annual rent: a 10.93% gross yield at guide, before purchase and running costs. The accommodation forms part of the shop lease, which runs to 2033.
+North Trinity in Kelso has a striking stone tower and an unusual proposed future: a film studio, community hall and staff accommodation. Auction House Scotland advertises planning permission for that scheme.
 
-Auction House Scotland: 26 November 2026.
+This is a conversion project: the works budget and planning conditions need assessing before bidding.
 
-Would a property like this in a Scottish market town make your shortlist?
+Freehold · Auction House Scotland · 26 November 2026.
 
-See the property on Auction Geek through the website link in our profile. Search for 5 The Square, Huntly. #AuctionGeek #CommercialProperty #PropertyAuctions
+Could you see this building working as a creative venue?
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0219e45bcf1a51183e38cf80.jpg)
+See the property on Auction Geek through the website link in our profile. Search for North Trinity, Kelso. #AuctionGeek #PropertyAuctions #PropertyDevelopment
 
-Source: https://www.auctionhouse.co.uk/scotland/auction/lot/153537
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/abf74a567c0e622509cf8390.jpg)
+
+Source: https://www.auctionhouse.co.uk/scotland/auction/lot/153601

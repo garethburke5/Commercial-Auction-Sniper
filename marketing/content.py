@@ -32,10 +32,12 @@ def editorial_interest(row, archive=(), config=None):
     # Never treat a nearby hotel, proposed hotel or sales adjective as the asset.
     text = row.get('description') or ''
     hotel = re.search(r'\bthe property comprises (?:a |an )?(?:(?:modern|purpose-built|refurbished) )?(?:[A-Z][\w-]* )?hotel\b', text, re.I)
+    former_church = re.search(r'\b(?:acquire (?:this|the)|(?:this|the) property (?:is|comprises)) (?:a |an )?former (church|chapel)\b', text, re.I)
     unit_match = re.search(r'\b(?:comprising|comprises) (two|three|four|five|six|[2-9]) (?:commercial |retail |shop )?units\b', text, re.I)
     partial = re.search(r'\btwo are currently let and income producing,? while the remaining two are vacant\b', text, re.I)
     details = []
     if hotel: details.append('The property includes a hotel.')
+    if former_church: details.append('The property is a former '+former_church[1].lower()+'.')
     if unit_match:
         details.append(f'The offering comprises {unit_match[1].lower()} commercial units.')
         reasons.append('multiple commercial units'); score += 6
@@ -44,7 +46,7 @@ def editorial_interest(row, archive=(), config=None):
         reasons.append('existing lettings and vacant space'); score += 12
     distinctive = str(row.get('property_type') or '').strip().lower() in {
         'hotel', 'hotels', 'leisure', 'pub', 'public house', 'cinema', 'theatre',
-        'church', 'chapel', 'petrol station', 'car park', 'marina', 'holiday park'} or bool(hotel)
+        'church', 'chapel', 'petrol station', 'car park', 'marina', 'holiday park'} or bool(hotel or former_church)
     if distinctive:
         reasons.append('distinctive property type'); score += 12
     reductions = [h for h in history_context(row, archive) if h['price_comparable'] and
