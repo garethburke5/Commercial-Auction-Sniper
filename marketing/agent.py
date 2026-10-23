@@ -137,8 +137,11 @@ def perform(mode, *, store=None, client=None, now=None):
     created_this_run=[]
     for post in prepared:
         key=post['key'];channel_id=config['channels'][post['service']]
-        if key in state['posts']:continue
-        if any(p['channelId']==channel_id and digest(p['text'])==digest(post['caption']) for p in remote):continue
+        existing=state['posts'].get(key)
+        updating=bool(mode=='drafts' and existing and existing.get('status')=='draft' and existing.get('buffer_id') and
+                      (existing.get('image_url')!=post['image_url'] or existing.get('caption_hash')!=digest(post['caption'])))
+        if existing and not updating:continue
+        if not updating and any(p['channelId']==channel_id and digest(p['text'])==digest(post['caption']) for p in remote):continue
         if len(post['caption'])>2100:raise ValueError('Caption too long')
         if post['kind']=='property':
             row=current.get(post['property_id'])
@@ -156,12 +159,13 @@ def perform(mode, *, store=None, client=None, now=None):
         entry={'service':post['service'],'channel_id':channel_id,'kind':post['kind'],'property_id':post.get('property_id'),
                'caption_hash':digest(post['caption']),'fingerprint':post['fingerprint'],'asset_key':post.get('asset_key'),'status':'pending',
                'created_at':now.isoformat(),'evidence':post['evidence'],'caption':post['caption'],'image_url':post['image_url']}
+        if updating:entry['buffer_id']=existing['buffer_id']
         state['posts'][key]=entry
         state['attempts']=state['attempts'][-499:]
-        state['attempts'].append({'key':key,'at':now.isoformat(),'action':'draft' if draft else 'schedule','result':'pending'})
+        state['attempts'].append({'key':key,'at':now.isoformat(),'action':'edit_draft' if updating else ('draft' if draft else 'schedule'),'result':'pending'})
         store.write(STATE,state)  # Durable intent BEFORE sending a mutation.
         try:
-            result=client.create(post,channel_id,draft=draft,due=post.get('due_at'),approved=authorised)
+            result=client.edit_draft(existing['buffer_id'],post) if updating else client.create(post,channel_id,draft=draft,due=post.get('due_at'),approved=authorised)
             entry.update(buffer_id=result['id'],status=result['status'],due_at=result.get('dueAt'))
             state['attempts'][-1]['result']=result['status'];remote.append(result);created_this_run.append(result['id'])
         except BufferError as exc:

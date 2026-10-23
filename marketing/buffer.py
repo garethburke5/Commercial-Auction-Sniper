@@ -77,12 +77,22 @@ class Buffer:
                  'mode':'addToQueue' if draft else 'customScheduled','saveToDraft':draft,
                  'assets':[{'image':{'url':post['image_url']}}], 'source':'auction-geek-social',
                  'metadata':{post['service']:{'type':'post'}}}
+        if post['service']=='instagram':payload['metadata']['instagram']['shouldShareToFeed']=True
+        if post.get('media_evidence',{}).get('alt'):
+            payload['assets'][0]['image']['metadata']={'altText':post['media_evidence']['alt']}
         if due:payload['dueAt']=due
         response=self.request('mutation($input:CreatePostInput!){ createPost(input:$input) { __typename ... on PostActionSuccess { post { id status dueAt text channelId } } ... on MutationError { message } } }',{'input':payload},mutation=True)['createPost']
         if 'post' not in response:raise BufferError('Buffer rejected post: '+response.get('__typename','MutationError'))
         if draft and response['post']['status']!='draft':
             self.to_draft(response['post']['id'])
             raise BufferError('Unexpected draft status; returned post to draft')
+        return response['post']
+
+    def edit_draft(self, post_id, post):
+        payload={'id':post_id,'text':post['caption'],'saveToDraft':True,
+                 'assets':[{'image':{'url':post['image_url'],'metadata':{'altText':post['media_evidence']['alt']}}}]}
+        response=self.request('mutation($input:EditPostInput!){ editPost(input:$input) { __typename ... on PostActionSuccess { post { id status dueAt text channelId } } ... on MutationError { message } } }',{'input':payload},mutation=True)['editPost']
+        if response.get('post',{}).get('status')!='draft':raise BufferError('Could not confirm edited draft')
         return response['post']
 
     def to_draft(self, post_id):

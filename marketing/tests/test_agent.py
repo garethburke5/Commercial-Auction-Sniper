@@ -128,7 +128,7 @@ def test_actual_draft_payload_cannot_publish():
     b.create(post,'c')
     data=json.loads(op.requests[0].data)['variables']['input']
     assert data['saveToDraft'] is True and data['mode']=='addToQueue'
-    assert data['metadata']=={'instagram':{'type':'post'}}
+    assert data['metadata']=={'instagram':{'type':'post','shouldShareToFeed':True}}
     with pytest.raises(BufferError):b.create(post,'c',draft=False,due='2026-10-26T08:30:00Z')
 
 def test_mutation_timeout_not_retried_or_secret_logged():
