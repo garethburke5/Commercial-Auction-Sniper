@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Sharpes Auctions",
+  "source_auction_id": "sharpes:modern:2026-10-22",
+  "auction_type": "modern",
+  "auction_date": "2026-10-22",
+  "source_url": "https://www.sharpesauctions.co.uk/previous-auction-properties.php?date=2026-10-22",
+  "lots_captured": 2,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every property card in the first-party unpaginated result page",
+  "visible_source_rows": 2,
+  "distinct_appearance_identities": 2,
+  "heading_auction_date": "2026-10-22",
+  "heading_date_matches_archive": true,
+  "malformed_source_rows": [],
+  "catalogue_complete": true,
+  "source_evidence": {
+    "source_url": "https://www.sharpesauctions.co.uk/previous-auction-properties.php?date=2026-10-22",
+    "retrieved_at": "2026-10-23T21:37:47.356309+00:00",
+    "sha256": "4173cb137d731604cd4a81687a512e232ad2e38495a0c0800a69a2f6723ef63e",
+    "snapshot_path": "data/auction_history/sources/sharpes/auction-modern-2026-10-22-4173cb137d731604.json.gz",
+    "basis": "first-party retained unpaginated modern-auction results",
+    "archive_evidence": {
+      "source_url": "https://www.sharpesauctions.co.uk/previous-auctions.php?type=modern",
+      "retrieved_at": "2026-10-23T21:37:46.911685+00:00",
+      "sha256": "614a982e1ad82f5a06fd2805f24b26a22baad1a2bd2bd928a2041bf3073c21a7",
+      "snapshot_path": "data/auction_history/sources/sharpes/archive-modern-614a982e1ad82f5a.json.gz",
+      "basis": "first-party retained modern-auction archive",
+      "catalogues_discovered": 24
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-10-23T21:37:47.366658+00:00"
+}
