@@ -64,8 +64,8 @@ class Buffer:
     def posts(self, organization, channels):
         result=[];cursor=None
         for _ in range(15):
-            data=self.request('query($input:PostsInput!,$after:String){ posts(input:$input,first:50,after:$after) { edges { node { id text channelId status dueAt createdAt } } pageInfo { hasNextPage endCursor } } }',
-                {'input':{'organizationId':organization,'filter':{'channelIds':channels,'startDate':(datetime.now(timezone.utc)-timedelta(days=100)).isoformat()}},'after':cursor})['posts']
+            data=self.request('query($input:PostsInput!,$after:String){ posts(input:$input,first:50,after:$after) { edges { node { id text channelId status dueAt createdAt assets { source mimeType type } } } pageInfo { hasNextPage endCursor } } }',
+                {'input':{'organizationId':organization,'filter':{'channelIds':channels,'status':['draft','scheduled','sending','sent','error','needs_approval'],'startDate':(datetime.now(timezone.utc)-timedelta(days=100)).isoformat()}},'after':cursor})['posts']
             result.extend(e['node'] for e in data['edges'])
             if not data['pageInfo']['hasNextPage']:return result
             cursor=data['pageInfo']['endCursor']
