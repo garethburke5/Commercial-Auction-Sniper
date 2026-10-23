@@ -65,7 +65,7 @@ class Buffer:
         result=[];cursor=None
         for _ in range(15):
             data=self.request('query($input:PostsInput!,$after:String){ posts(input:$input,first:50,after:$after) { edges { node { id text channelId status dueAt createdAt assets { source mimeType type } } } pageInfo { hasNextPage endCursor } } }',
-                {'input':{'organizationId':organization,'filter':{'channelIds':channels,'status':['draft','scheduled','sending','sent','error','needs_approval'],'startDate':(datetime.now(timezone.utc)-timedelta(days=100)).isoformat()}},'after':cursor})['posts']
+                {'input':{'organizationId':organization,'filter':{'channelIds':channels,'status':['draft','scheduled','sending','sent','error','needs_approval']}},'after':cursor})['posts']
             result.extend(e['node'] for e in data['edges'])
             if not data['pageInfo']['hasNextPage']:return result
             cursor=data['pageInfo']['endCursor']
@@ -87,6 +87,11 @@ class Buffer:
         if draft and response['post']['status']!='draft':
             self.to_draft(response['post']['id'])
             raise BufferError('Unexpected draft status; returned post to draft')
+        if not draft:
+            saved=response['post']
+            same_time=bool(saved.get('dueAt')) and datetime.fromisoformat(saved['dueAt'].replace('Z','+00:00'))==datetime.fromisoformat(due.replace('Z','+00:00'))
+            if saved['status']!='scheduled' or not same_time:
+                self.to_draft(saved['id']);raise BufferError('Buffer schedule mismatch; returned post to draft')
         return response['post']
 
     def edit_draft(self, post_id, post):

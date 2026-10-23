@@ -184,7 +184,7 @@ class FakeBuffer:
     def create(self,post,cid,**kwargs):
         self.created.append(kwargs)
         if self.fail:raise BufferError('Transport timeout; unknown')
-        result={'id':'draft-'+str(len(self.remote)),'channelId':cid,'text':post['caption'],'status':'draft','dueAt':None}
+        result={'id':'draft-'+str(len(self.remote)),'channelId':cid,'text':post['caption'],'status':'draft' if kwargs.get('draft',True) else 'scheduled','dueAt':kwargs.get('due')}
         self.remote.append(result);return result
     def to_draft(self,pid):self.retracted.append(pid);return {'id':pid,'status':'draft','dueAt':None}
     def metrics(self,*args):return {'edges':[],'pageInfo':{'hasNextPage':False}}
@@ -214,7 +214,8 @@ def test_full_unknown_mutation_is_not_retried_on_next_run(tmp_path,monkeypatch):
     setup_files(tmp_path,monkeypatch,[post]);store=MemoryStore(CFG);client=FakeBuffer(fail=True)
     with pytest.raises(BufferError):perform('drafts',store=store,client=client,now=NOW)
     assert store.values['marketing/state.json']['posts'][post['key']]['status']=='unknown'
-    perform('drafts',store=store,client=client,now=NOW)
+    with pytest.raises(ValueError,match='missing from independent Buffer readback'):
+        perform('drafts',store=store,client=client,now=NOW)
     assert len(client.created)==1
 
 def test_full_unapproved_run_makes_no_posts(tmp_path,monkeypatch):
@@ -251,3 +252,43 @@ def test_cross_auctioneer_duplicate_blocked_for_90_days():
 
 def test_interface_text_is_not_a_property_address():
     assert reject_reason(row(address='Auction Details - 1 High Street - GUIDE PRICE £200,000'),NOW,CFG)=='address unsuitable'
+
+def test_explicit_draft_filter_includes_review_posts():
+    op=Opener({'data':{'posts':{'edges':[],'pageInfo':{'hasNextPage':False,'endCursor':None}}}})
+    Buffer('secret',opener=op).posts('org',['c'])
+    payload=json.loads(op.requests[0].data)
+    assert 'draft' in payload['variables']['input']['filter']['status']
+
+def test_instagram_draft_edit_keeps_feed_metadata_and_never_schedules():
+    op=Opener({'data':{'editPost':{'post':{'id':'p','status':'draft'}}}})
+    post=education_post('instagram');post.update(image_url='https://example.com/owned.jpg',media_evidence={'alt':'Example'})
+    Buffer('secret',opener=op).edit_draft('p',post)
+    data=json.loads(op.requests[0].data)['variables']['input']
+    assert data['saveToDraft'] and data['metadata']['instagram']['shouldShareToFeed']
+    assert data['assets'][0]['image']['metadata']['altText']=='Example'
+
+def test_authorised_scheduling_uses_exact_slot_and_checks_saved_due_time():
+    due='2026-10-26T08:30:00+00:00'
+    op=Opener({'data':{'createPost':{'post':{'id':'p','status':'scheduled','dueAt':'2026-10-26T08:30:00Z'}}}})
+    post=education_post('facebook');post['image_url']='https://example.com/owned.jpg'
+    result=Buffer('secret',opener=op).create(post,'c',draft=False,due=due,approved=True)
+    data=json.loads(op.requests[0].data)['variables']['input']
+    assert not data['saveToDraft'] and data['mode']=='customScheduled' and data['dueAt']==due
+    assert result['status']=='scheduled'
+
+def test_full_approved_run_schedules_without_duplicates(tmp_path,monkeypatch):
+    from marketing.agent import perform
+    setup_files(tmp_path,monkeypatch,[])
+    (tmp_path/'data/properties.json').write_text(json.dumps({'properties':[row()],'archive':[],'generated_at':NOW.isoformat()}))
+    (tmp_path/'marketing/photo_permissions.json').write_text('{"images":{}}')
+    monkeypatch.setenv('SOCIAL_PUBLISHING_ENABLED','true')
+    monkeypatch.setattr('marketing.agent.candidates',lambda *args:([row()],{}))
+    def build_posts(posts,*args):
+        for p in posts:p.update(image_url='https://example.com/owned.jpg',image_file='owned.jpg')
+        return posts
+    monkeypatch.setattr('marketing.agent.build',build_posts)
+    store=MemoryStore({**CFG,'publishing_approved':True});client=FakeBuffer()
+    perform('run',store=store,client=client,now=NOW)
+    assert len(client.created)==2 and all(not p['draft'] and p['approved'] and p['due'] for p in client.created)
+    perform('run',store=store,client=client,now=NOW)
+    assert len(client.created)==2

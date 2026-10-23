@@ -175,16 +175,22 @@ def perform(mode, *, store=None, client=None, now=None):
             entry['status']='unknown';state['attempts'][-1]['result']='failed_or_unknown';state['attempts'][-1]['error']=str(exc)
             store.write(STATE,state);raise
         store.write(STATE,state)
-    if created_this_run:
-        fetched=client.posts(config['organization_id'],list(config['channels'].values()))
-        saved={p['id']:p for p in fetched}
-        if any(pid not in saved or (mode=='drafts' and saved[pid]['status']!='draft') for pid in created_this_run):
-            raise ValueError('Could not independently confirm all saved draft statuses')
-        reconcile(state,fetched)
+    fetched=client.posts(config['organization_id'],list(config['channels'].values()))
+    saved={p['id']:p for p in fetched}
+    if any(pid not in saved or (mode=='drafts' and saved[pid]['status']!='draft') for pid in created_this_run):
+        raise ValueError('Could not independently confirm all saved draft statuses')
+    reconcile(state,fetched)
+    if mode=='drafts' and not state.get('paused') and not config.get('paused'):
+        expected=json.loads(Path('marketing/samples.json').read_text())['posts']
+        for p in expected:
+            entry=state['posts'].get(p['key'],{})
+            if entry.get('buffer_id') not in saved or saved[entry['buffer_id']]['status']!='draft':
+                raise ValueError('Sample draft missing from independent Buffer readback: '+p['key'])
     state['last_checked_at']=now.isoformat();store.write(STATE,state)
     report={'checked_at':now.isoformat(),'publishing_enabled':authorised,'paused':state.get('paused') or config.get('paused'),
             'key_expires_on':config['key_expires_on'],'days_to_key_expiry':days,'connection':conn,
             'api_requests':client.calls,'rate_limits':client.rate_limits,
+            'buffer_readback':[{'id':p['id'],'status':p['status'],'channel_id':p['channelId'],'due_at':p.get('dueAt'),'assets':p.get('assets',[]),'caption_hash':digest(p['text'])} for p in fetched],
             'posts':[{'key':k,**v} for k,v in state['posts'].items()]}
     if now.weekday()==4 or mode in {'drafts','monitor'}:
         try:report['metrics']=client.metrics(config['organization_id'],list(config['channels'].values()))
