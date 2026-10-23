@@ -292,3 +292,10 @@ def test_full_approved_run_schedules_without_duplicates(tmp_path,monkeypatch):
     assert len(client.created)==2 and all(not p['draft'] and p['approved'] and p['due'] for p in client.created)
     perform('run',store=store,client=client,now=NOW)
     assert len(client.created)==2
+
+def test_educational_bank_rotates_after_90_days_without_reposting_recent_topics():
+    from marketing.agent import educational_choice
+    state={'posts':{education_post('facebook',i)['key']:{'status':'sent','created_at':NOW.isoformat()} for i in range(3)}}
+    assert educational_choice('facebook',state,[],NOW+timedelta(days=60)) is None
+    later=educational_choice('facebook',state,[],NOW+timedelta(days=91))
+    assert later and later['key'] not in state['posts'] and later['topic_key']=='facebook:education:gross-yield'

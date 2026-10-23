@@ -62,6 +62,18 @@ def duplicate(post,state,remote,prepared,now):
         if any(p.get('asset_key')==post['asset_key'] and p['service']==post['service'] for p in prepared):return True
     return any(digest(p['text'])==digest(post['caption']) for p in remote)
 
+def educational_choice(service,state,prepared,now):
+    for index in range(3):
+        item=education_post(service,index);topic=item['key']
+        used=[entry for key,entry in state['posts'].items() if key==topic or key.startswith(topic+':')]
+        if any(p.get('topic_key',p['key'])==topic for p in prepared):continue
+        if any(p.get('status') in {'draft','pending','unknown','scheduled','sending'} or
+               not p.get('created_at') or now-stamp(p['created_at'])<timedelta(days=90) for p in used):continue
+        item['topic_key']=topic
+        if used:item['key']=topic+':'+now.date().isoformat()
+        return item
+    return None
+
 def write_review(posts, output):
     output=Path(output);output.mkdir(exist_ok=True,parents=True)
     style='body{font:16px/1.6 system-ui;background:#f6f8f7;color:#182e48;max-width:1150px;margin:40px auto;padding:24px}h1{font-size:32px}article{display:grid;grid-template-columns:360px 1fr;gap:30px;margin:36px 0;padding:24px;background:white;border:1px solid #dbe3e4}img{width:100%;height:auto}pre{font:inherit;white-space:pre-wrap;overflow-wrap:anywhere}small{color:#596873}@media(max-width:760px){article{grid-template-columns:1fr}}'
@@ -123,9 +135,7 @@ def perform(mode, *, store=None, client=None, now=None):
                 past=[p for p in state['posts'].values() if p['service']==service and p.get('status') in {'sent','scheduled'}]
                 proposal=None
                 if (len(past)+sum(p['service']==service for p in prepared))%6==5:
-                    for index in range(3):
-                        item=education_post(service,index)
-                        if item['key'] not in state['posts'] and not any(p['key']==item['key'] for p in prepared):proposal=item;break
+                    proposal=educational_choice(service,state,prepared,now)
                 if proposal is None:
                     for row in rows:
                         item=property_post(row,service,snapshot.get('archive',[]))
@@ -159,7 +169,7 @@ def perform(mode, *, store=None, client=None, now=None):
         store.media(post);validate_links(post)
         entry={'service':post['service'],'channel_id':channel_id,'kind':post['kind'],'property_id':post.get('property_id'),
                'caption_hash':digest(post['caption']),'fingerprint':post['fingerprint'],'asset_key':post.get('asset_key'),'status':'pending',
-               'created_at':now.isoformat(),'evidence':post['evidence'],'caption':post['caption'],'image_url':post['image_url']}
+               'created_at':now.isoformat(),'topic_key':post.get('topic_key'),'evidence':post['evidence'],'caption':post['caption'],'image_url':post['image_url']}
         if updating:entry['buffer_id']=existing['buffer_id']
         state['posts'][key]=entry
         state['attempts']=state['attempts'][-499:]
@@ -194,7 +204,9 @@ def perform(mode, *, store=None, client=None, now=None):
             'posts':[{'key':k,**v} for k,v in state['posts'].items()]}
     if now.weekday()==4 or mode in {'drafts','monitor'}:
         try:report['metrics']=client.metrics(config['organization_id'],list(config['channels'].values()))
-        except BufferError:report['metrics_status']='Unavailable for this account or API response; no upgrade requested'
+        except BufferError as exc:
+            report['metrics_status']='Unavailable for this account or API response; no upgrade requested'
+            report['metrics_error']=str(exc)
     report['api_requests']=client.calls
     out=Path('social-output');out.mkdir(exist_ok=True)
     (out/'status.json').write_text(json.dumps(report,indent=2))

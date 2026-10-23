@@ -1,6 +1,6 @@
 # Auction Geek social marketing
 
-Status: **review drafts only; automatic publishing is disabled**. No paid AI, advertising, messaging API or new subscription is used. The existing GitHub Actions runner selects facts, calculates yields, renders JPEGs and calls Buffer. The public repository hosts the original images without a new service.
+Status: **six drafts saved and independently read back from Buffer; automatic publishing is disabled**. A repeated live run retained the same six IDs and made no additional post writes. See `verification.json`. No paid AI, advertising, messaging API or new subscription is used. The existing GitHub Actions runner selects facts, calculates yields, renders JPEGs and calls Buffer. The public repository hosts the original images without a new service.
 
 ## Review and activation
 
@@ -34,7 +34,7 @@ Then run **Auction Geek social marketing → Run workflow → pause**. This sets
 - Previous appearances are linked through the existing reusable property relationship engine. Price comparison additionally requires identical recorded titles, unit count, floor area, tenure and rent. Different legal interests are never advertised as discounts. Guides remain guides, not sale prices.
 - Raw interface text, overlong addresses and captions are rejected. Each caption and image has an evidence record and fingerprint.
 - Agent-owned queued property posts return to drafts if evidence becomes stale, a lot disappears/withdraws, or an advertised fact changes. This uses the latest existing collector data; it is not a real-time guarantee against changes made after a source check.
-- Occasional original educational posts use explicitly hypothetical examples and no fresh AI calls. The initial set includes one educational post per channel.
+- Occasional original educational posts use explicitly hypothetical examples and no fresh AI calls. Topics rotate, with a minimum 90-day gap before reuse. The initial set includes one educational post per channel.
 
 ## Images
 
@@ -64,7 +64,7 @@ Credentials are passed only through Actions environment variables. Buffer authen
 
 Facebook links point to the canonical Auction Geek property URL with `utm_source=facebook`, `utm_medium=organic_social`, campaign and property ID. Ordinary copied property links remain unchanged. Instagram captions direct visitors to the profile website link and give a property search term. Recommended profile website: `https://auctiongeek.co.uk/?utm_source=instagram&utm_medium=organic_social&utm_campaign=profile`. This implementation does not silently change the Instagram profile.
 
-The runner collects available Buffer post metrics, preserving the metric name, unit and last-updated date. Missing metrics are reported as unavailable, never zero. Metrics are for the latest 30 sent posts, with a pagination flag if more exist. No posts have been published during setup, so engagement results should initially be empty.
+The runner attempts to collect available Buffer post metrics, preserving the metric name, unit and last-updated date. Missing metrics are reported as unavailable, never zero. Metrics are for the latest 30 sent posts, with a pagination flag if more exist. The agent has published no posts during setup. An existing manually published account post is left untouched. The metrics call currently returns an API error; this is reported as unavailable and must not be presented as zero engagement.
 
 UTM links enable attribution in a compatible site analytics system. This integration does not establish that Cloudflare Web Analytics/GA has been activated or that its credentials are available. Until verified, report Buffer engagement separately from actual website visits. Likes or reach are not visits; Instagram caption links are not clickable, and private forwards cannot be measured reliably.
 
