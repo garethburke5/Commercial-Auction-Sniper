@@ -273,6 +273,47 @@
       "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/cf04a85af067287a678f769e.jpg",
       "buffer_id": "6adbc74e9acae620d8194939",
       "due_at": null
+    },
+    "facebook:c85b0f1f9e9cd089e94c": {
+      "service": "facebook",
+      "channel_id": "6adb59c3778b240e2f9cee6d",
+      "kind": "property",
+      "property_id": "c85b0f1f9e9cd089e94c",
+      "caption_hash": "e2649dcc9f89feb2636df72f00d054abf80086008f5df4f7adc91d8b1a55ed69",
+      "fingerprint": "be09d6281576290d770e1a2855721eca73e7206dae469d8e730d12e58767714d",
+      "asset_key": "5 the square huntly aberdeenshire ab54 8br|freehold",
+      "status": "pending",
+      "created_at": "2026-10-23T20:44:47.025580+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "https://www.auctionhouse.co.uk/scotland/auction/lot/153537",
+        "observed_at": "2026-10-23T11:44:08.449372+00:00",
+        "facts": {
+          "address": "5 The Square, Huntly, Aberdeenshire AB54 8BR",
+          "auction_date": "2026-11-26",
+          "guide_price": 135000.0,
+          "guide_price_upper": null,
+          "annual_rent": 14750.0,
+          "tenure": "Freehold",
+          "status": "CURRENT",
+          "source_availability": null
+        },
+        "history": [],
+        "source_text_sha256": "5a274faee6f8b17b6446a000aa928437d8958cf0f4162daaf3fa581c95ef4369",
+        "calculation": "14750.0 / 135000.0 * 100"
+      },
+      "editorial_interest": {
+        "eligible": true,
+        "score": 29.641975308641975,
+        "reasons": [
+          "accessible guide price",
+          "high gross yield at guide"
+        ],
+        "question": "At this guide price, what would you examine first: the lease terms or the building’s running costs?",
+        "details": []
+      },
+      "caption": "A Morrisons Daily shop with four-bedroom accommodation above, guided at £135,000.\n\n5 The Square, Huntly is advertised at £14,750 annual rent: a 10.93% gross yield at guide, before purchase and running costs. The accommodation forms part of the shop lease, which runs to 2033.\n\nAuction House Scotland: 26 November 2026.\n\nWould a property like this in a Scottish market town make your shortlist?\n\nExplore the property on Auction Geek:\nhttps://auctiongeek.co.uk/property/c85b0f1f9e9cd089e94c/5-the-square-huntly-aberdeenshire-ab54-8br/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=c85b0f1f9e9cd089e94c",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0219e45bcf1a51183e38cf80.jpg"
     }
   },
   "attempts": [
@@ -374,6 +415,12 @@
       "at": "2026-10-23T20:44:47.025580+00:00",
       "action": "draft",
       "result": "draft"
+    },
+    {
+      "key": "facebook:c85b0f1f9e9cd089e94c",
+      "at": "2026-10-23T20:44:47.025580+00:00",
+      "action": "draft",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-10-23T17:22:40.782901+00:00"
