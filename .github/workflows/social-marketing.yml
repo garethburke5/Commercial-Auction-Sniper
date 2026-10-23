@@ -1,0 +1,67 @@
+name: Auction Geek social marketing
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'drafts creates the six review drafts; pause returns agent-owned queued posts to drafts'
+        type: choice
+        options: [monitor, drafts, run, pause]
+        default: monitor
+  push:
+    branches: [main]
+    paths: ['marketing/**', '.github/workflows/social-marketing.yml']
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_run:
+    workflows: ['Auction Sniper Scan', 'Auction Sniper Publish Now']
+    types: [completed]
+permissions:
+  contents: write
+concurrency:
+  group: auction-geek-social-marketing
+  cancel-in-progress: false
+jobs:
+  social:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*.py
+            /marketing/
+            /collectors/
+            /web_platform/
+            /data/properties.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install 'Pillow>=10,<12' requests beautifulsoup4 pytest
+      - name: Test selection, publishing gates and duplicate protection
+        run: python -m pytest marketing/tests -q
+      - name: Run review-first social agent
+        env:
+          BUFFER_API_KEY: ${{ secrets.BUFFER_API_KEY }}
+          GITHUB_TOKEN: ${{ github.token }}
+          SOCIAL_PUBLISHING_ENABLED: ${{ vars.SOCIAL_PUBLISHING_ENABLED }}
+          REQUESTED_MODE: ${{ inputs.mode }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = push ]; then
+            python -m marketing.agent --mode drafts
+          elif [ "$EVENT_NAME" = workflow_dispatch ]; then
+            python -m marketing.agent --mode "$REQUESTED_MODE"
+          else
+            python -m marketing.agent --mode run
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: social-review-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            social-output/
+            marketing/media/
+          retention-days: 30

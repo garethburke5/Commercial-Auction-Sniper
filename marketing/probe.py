@@ -1,4 +1,4 @@
-"""Read-only Buffer verification. Never log secrets or raw remote errors."""
+"""Read-only Buffer connection check. No tokens or raw errors are logged."""
 import json, os, urllib.request, urllib.error
 from pathlib import Path
 
@@ -12,6 +12,7 @@ def query(document):
             print('HTTP',response.status,'rate limits',response.headers.get('RateLimit','not returned'))
     except urllib.error.HTTPError as e: raise SystemExit('Buffer HTTP '+str(e.code)) from None
     if result.get('errors'):
+        # Schema errors contain no request headers; output only error codes, not arbitrary server text.
         print('GraphQL error codes:',[x.get('extensions',{}).get('code','unspecified') for x in result['errors']])
         raise SystemExit('Buffer query rejected')
     return result['data']
