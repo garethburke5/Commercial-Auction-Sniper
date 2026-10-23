@@ -5,6 +5,7 @@ import re
 import time
 import urllib.request
 import urllib.error
+from datetime import datetime, timezone, timedelta
 
 class BufferError(RuntimeError): pass
 
@@ -64,7 +65,7 @@ class Buffer:
         result=[];cursor=None
         for _ in range(15):
             data=self.request('query($input:PostsInput!,$after:String){ posts(input:$input,first:50,after:$after) { edges { node { id text channelId status dueAt createdAt } } pageInfo { hasNextPage endCursor } } }',
-                {'input':{'organizationId':organization,'filter':{'channelIds':channels}},'after':cursor})['posts']
+                {'input':{'organizationId':organization,'filter':{'channelIds':channels,'startDate':(datetime.now(timezone.utc)-timedelta(days=100)).isoformat()}},'after':cursor})['posts']
             result.extend(e['node'] for e in data['edges'])
             if not data['pageInfo']['hasNextPage']:return result
             cursor=data['pageInfo']['endCursor']
@@ -89,10 +90,12 @@ class Buffer:
         return response['post']
 
     def edit_draft(self, post_id, post):
-        payload={'id':post_id,'text':post['caption'],'saveToDraft':True,
+        payload={'id':post_id,'text':post['caption'],'saveToDraft':True,'mode':'addToQueue','schedulingType':'automatic',
+                 'metadata':{post['service']:{'type':'post'}},
                  'assets':[{'image':{'url':post['image_url'],'metadata':{'altText':post['media_evidence']['alt']}}}]}
+        if post['service']=='instagram':payload['metadata']['instagram']['shouldShareToFeed']=True
         response=self.request('mutation($input:EditPostInput!){ editPost(input:$input) { __typename ... on PostActionSuccess { post { id status dueAt text channelId } } ... on MutationError { message } } }',{'input':payload},mutation=True)['editPost']
-        if response.get('post',{}).get('status')!='draft':raise BufferError('Could not confirm edited draft')
+        if response.get('post',{}).get('status')!='draft':raise BufferError('Could not confirm edited draft: '+response.get('__typename','unknown')+' '+str(response.get('message','')).replace(self._key,'[redacted]')[:300])
         return response['post']
 
     def to_draft(self, post_id):

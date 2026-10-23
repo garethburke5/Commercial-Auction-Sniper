@@ -117,6 +117,7 @@ def perform(mode, *, store=None, client=None, now=None):
         permissions=json.loads(Path('marketing/photo_permissions.json').read_text())
         for service,channel in channels.items():
             for due in available_slots(channel,remote,now,config):
+                if due.date()>=date.fromisoformat(config['key_expires_on']):continue
                 # One educational item after five property items, rotated and
                 # never repeated within 90 days on the same channel.
                 past=[p for p in state['posts'].values() if p['service']==service and p.get('status') in {'sent','scheduled'}]
@@ -169,6 +170,8 @@ def perform(mode, *, store=None, client=None, now=None):
             entry.update(buffer_id=result['id'],status=result['status'],due_at=result.get('dueAt'))
             state['attempts'][-1]['result']=result['status'];remote.append(result);created_this_run.append(result['id'])
         except BufferError as exc:
+            if updating:
+                entry['image_url']=existing['image_url'];entry['caption_hash']=existing['caption_hash']
             entry['status']='unknown';state['attempts'][-1]['result']='failed_or_unknown';state['attempts'][-1]['error']=str(exc)
             store.write(STATE,state);raise
         store.write(STATE,state)
