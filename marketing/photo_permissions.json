@@ -1,4 +1,29 @@
 {
-  "description": "Exact image URLs only. Record social_reuse=true, permission_evidence, attribution and expiry before use. A public listing is not permission to reproduce its photograph in marketing.",
-  "images": {}
+  "description": "Exact image-use records. Owner instructions are recorded separately from auctioneer permission; no third-party licence is inferred.",
+  "images": {
+    "https://resize.auctions.savills.co.uk/assets/images/lots/245/25753/d7e25310d3b7ef6dfb454ad75367ef9f.png": {
+      "social_reuse": true,
+      "authorization_basis": "owner_instruction",
+      "authorization_evidence": "23 October 2026: owner instructed use of existing listing photographs for Auction Geek social drafts. This is not a claim of auctioneer permission.",
+      "expires_on": "2026-11-03",
+      "attribution": "Photo source: Savills Auctions",
+      "source_listing": "https://auctions.savills.co.uk/auctions/3-november-2026-245/61-northgate-darlington-county-durham-dl1-1tr-25753"
+    },
+    "https://cdn.eigpropertyauctions.co.uk/ams/images/20/auction/3480/2964030_web_medium": {
+      "social_reuse": true,
+      "authorization_basis": "owner_instruction",
+      "authorization_evidence": "23 October 2026: owner instructed use of existing listing photographs for Auction Geek social drafts. This is not a claim of auctioneer permission.",
+      "expires_on": "2026-11-11",
+      "attribution": "Photo source: Auction House London",
+      "source_listing": "https://auctionhouselondon.co.uk/lot/207-belsize-road-camden-london-nw6-4aa-371704"
+    },
+    "https://www.auctionhouse.co.uk/lot-image/944332?w=670": {
+      "social_reuse": true,
+      "authorization_basis": "owner_instruction",
+      "authorization_evidence": "23 October 2026: owner instructed use of existing listing photographs for Auction Geek social drafts. This is not a claim of auctioneer permission.",
+      "expires_on": "2026-11-26",
+      "attribution": "Photo source: Auction House Scotland",
+      "source_listing": "https://www.auctionhouse.co.uk/scotland/auction/lot/153537"
+    }
+  }
 }

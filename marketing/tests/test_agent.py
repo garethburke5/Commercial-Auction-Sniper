@@ -395,3 +395,34 @@ def test_affordable_price_alone_is_not_a_reason_to_post():
     selected,rejected=candidates(snapshot,NOW,CFG)
     assert selected==[]
     assert rejected['no supported editorial reason for promotion']==1
+
+
+def test_owner_image_instruction_is_not_labelled_third_party_permission(tmp_path):
+    from marketing.media import photo_card
+    from PIL import Image
+    p=property_post(row(),'facebook');p['image_source']='https://example.com/property.jpg'
+    grant={'social_reuse':True,'authorization_basis':'owner_instruction','authorization_evidence':'Owner requested use of listing photograph','expires_on':'2026-11-09','attribution':'Photo source: Test Auctions'}
+    assert permission(p,{'images':{p['image_source']:grant}},NOW.date())==grant
+    source=io.BytesIO();Image.new('RGB',(600,400),'blue').save(source,'JPEG')
+    name,evidence=photo_card(p,source.getvalue(),grant,tmp_path)
+    assert evidence['authorization_basis']=='owner_instruction'
+    assert 'permission_evidence' not in evidence
+    assert Image.open(tmp_path/name).size==(1080,1080)
+
+
+def test_owner_image_instruction_still_needs_a_record_and_expiry():
+    p={'image_source':'https://example.com/property.jpg'}
+    grant={'social_reuse':True,'authorization_basis':'owner_instruction','authorization_evidence':'Owner requested use','expires_on':'2026-10-22'}
+    assert permission(p,{'images':{p['image_source']:grant}},NOW.date()) is None
+    grant['expires_on']='2026-11-09';del grant['authorization_evidence']
+    assert permission(p,{'images':{p['image_source']:grant}},NOW.date()) is None
+
+
+def test_required_photo_does_not_silently_become_a_text_card(tmp_path):
+    p=property_post(row(),'facebook');p['require_photo']=True
+    with pytest.raises(ValueError,match='image-use instruction'):
+        render(p,tmp_path,{'images':{}})
+
+
+def test_owner_rejected_grimsby_stays_out_of_selection():
+    assert 'd142e9af0727c19261ce' in CFG['excluded_property_ids']

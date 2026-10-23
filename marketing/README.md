@@ -57,7 +57,11 @@ These examples inform reusable selection logic; they do not override freshness, 
 
 ## Images
 
-Initial samples use original navy/teal typographic cards, 1080 × 1080, with no stock or generated property imagery. No documented social reuse permission was found for the collected auctioneer photographs. `photo_permissions.json` accepts **exact image URL**, `social_reuse: true`, `permission_evidence`, `expires_on` and `attribution`; only then can the renderer fetch a genuine photograph. A public photograph or existing webpage preview is not assumed to grant advertising rights. Prime photographs remain withheld. Photo failures fall back to original cards.
+The revised review set uses the actual Darlington, Belsize Road and Huntly listing photographs, with a large image, compact Auction Geek header, guide, yield and source attribution. Original image markings are retained. Grimsby is excluded following the owner's visual review. Inspect image appeal and property identity as part of editorial selection; price and yield alone do not establish that a post will interest an audience.
+
+`photo_permissions.json` records exact image URLs. It supports documented permission (`permission_evidence`) or explicit owner instructions (`authorization_basis: owner_instruction`, `authorization_evidence`), with expiry and attribution. On 23 October the owner instructed use of the existing listing photographs. This is recorded as owner authorization, not as a licence granted by the auctioneer. A missing/failed photograph cannot silently become a text card when `require_photo` is true. Public image delivery still uses bounded download and public-address checks.
+
+The first six typographic drafts have a later photographic review replacement in `samples.json`. Older unselected Buffer drafts are not automatically scheduled. Automatic publishing remains off.
 
 ## Buffer Free limits and permissions
 

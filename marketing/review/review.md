@@ -4,117 +4,99 @@ Drafts only. Automatic publishing is off.
 
 ## 1. Facebook
 
-61 Northgate, Darlington, County Durham, DL1 1TR
+A freehold shop let to British Heart Foundation, with a £180,000 guide.
 
-Savills Auctions · 3 November 2026 · Guide £180,000
+61 Northgate, Darlington produces an advertised £27,500 annual rent: a 15.28% gross yield at guide, before purchase and running costs. The lease expires in June 2029, and Savills notes that the property is elected for VAT.
 
-The advertised annual rent of £27,500 produces a 15.28% gross yield at the guide price, before purchase and running costs.
+Savills auction: 3 November 2026.
 
-The property includes space let to British Heart Foundation.
+Would the rental return and recognisable tenant put this on your shortlist?
 
-Tenure: Freehold.
-
-Check the tenancy terms, buyer’s fees and legal pack when assessing your bid.
-
-Explore the property and its free snapshot on Auction Geek:
+Explore the property on Auction Geek:
 https://auctiongeek.co.uk/property/f0afe6e63d79fcc61a2c/61-northgate-darlington-county-durham-dl1-1tr/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=f0afe6e63d79fcc61a2c
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/cd658c3cd103299093903940.jpg)
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/a8194802fd83fc6f0b144135.jpg)
 
 Source: http://auctions.savills.co.uk/auctions/3-november-2026-245/61-northgate-darlington-county-durham-dl1-1tr-25753
 
-## 2. Facebook
+## 2. Instagram
 
-State House, 22 Dale Street, Liverpool, Merseyside, L2 4TR
+A freehold shop let to British Heart Foundation, with a £180,000 guide.
 
-Allsop Commercial · 11 November 2026 · Guide £2,500,000+
+61 Northgate, Darlington produces an advertised £27,500 annual rent: a 15.28% gross yield at guide, before purchase and running costs. The lease expires in June 2029, and Savills notes that the property is elected for VAT.
 
-The advertised annual rent of £401,140 produces a 16.05% gross yield at the guide price, before purchase and running costs.
+Savills auction: 3 November 2026.
 
-The property includes space let to Scion Hotels (Liverpool) LP t/a The Z Hotel Liverpool.
+Would the rental return and recognisable tenant put this on your shortlist?
 
-Tenure: Freehold.
+See the property on Auction Geek through the website link in our profile. Search for 61 Northgate. #AuctionGeek #CommercialProperty #PropertyAuctions
 
-Check the tenancy terms, buyer’s fees and legal pack when assessing your bid.
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/a8194802fd83fc6f0b144135.jpg)
 
-Explore the property and its free snapshot on Auction Geek:
-https://auctiongeek.co.uk/property/6b153c864735685c86ba/state-house-22-dale-street-liverpool-merseyside-l2-4tr/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=6b153c864735685c86ba
-
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/b77588f30711d823e5ad9889.jpg)
-
-Source: https://www.allsop.co.uk/lot-overview/freehold-city-centre-hotel-retail-and-office-investment-with-development-potential-in-liverpool/c261111-023
+Source: http://auctions.savills.co.uk/auctions/3-november-2026-245/61-northgate-darlington-county-durham-dl1-1tr-25753
 
 ## 3. Facebook
 
-Gross yield is the starting point
+London commercial property with a £250,000 guide and £30,000 advertised annual rent.
 
-A property producing £20,000 in annual rent has a 10% gross yield at a £200,000 purchase price. At £250,000, the same rent produces 8%. These are illustrative figures.
+207 Belsize Road, NW6 comprises a ground-floor shop and lower-ground offices. That is a 12% gross yield at guide, before purchase and running costs. The ownership is leasehold, with approximately 93 years remaining.
 
-Purchase costs, repairs, insurance and empty periods reduce the return. Compare properties using the same assumptions before deciding what to bid.
+Auction House London: 11 November 2026.
 
-Explore commercial auctions and free property snapshots on Auction Geek:
-https://auctiongeek.co.uk/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_research&utm_content=gross-yield
+Would you favour a London location over a higher headline yield elsewhere?
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/be8a9592f92be415260a3576.jpg)
+Explore the property on Auction Geek:
+https://auctiongeek.co.uk/property/84848ee18b3720074dc5/207-belsize-road-camden-london-nw6-4aa/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=84848ee18b3720074dc5
 
-Source: Editorial explainer; hypothetical numbers explicitly labelled
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/cf04a85af067287a678f769e.jpg)
+
+Source: https://auctionhouselondon.co.uk/lot/207-belsize-road-camden-london-nw6-4aa-371704
 
 ## 4. Instagram
 
-61 Northgate, Darlington, County Durham, DL1 1TR
+London commercial property with a £250,000 guide and £30,000 advertised annual rent.
 
-Savills Auctions · 3 November 2026 · Guide £180,000
+207 Belsize Road, NW6 comprises a ground-floor shop and lower-ground offices. That is a 12% gross yield at guide, before purchase and running costs. The ownership is leasehold, with approximately 93 years remaining.
 
-The advertised annual rent of £27,500 produces a 15.28% gross yield at the guide price, before purchase and running costs.
+Auction House London: 11 November 2026.
 
-The property includes space let to British Heart Foundation.
+Would you favour a London location over a higher headline yield elsewhere?
 
-Tenure: Freehold.
+See the property on Auction Geek through the website link in our profile. Search for 207 Belsize Road. #AuctionGeek #CommercialProperty #PropertyAuctions
 
-Check the tenancy terms, buyer’s fees and legal pack when assessing your bid.
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/cf04a85af067287a678f769e.jpg)
 
-Explore this property on Auction Geek via the website link in our profile. Search for 61 Northgate.
+Source: https://auctionhouselondon.co.uk/lot/207-belsize-road-camden-london-nw6-4aa-371704
 
-#AuctionGeek #CommercialProperty #PropertyAuctions
+## 5. Facebook
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/cd658c3cd103299093903940.jpg)
+A Morrisons Daily shop with four-bedroom accommodation above, guided at £135,000.
 
-Source: http://auctions.savills.co.uk/auctions/3-november-2026-245/61-northgate-darlington-county-durham-dl1-1tr-25753
+5 The Square, Huntly is advertised at £14,750 annual rent: a 10.93% gross yield at guide, before purchase and running costs. The accommodation forms part of the shop lease, which runs to 2033.
 
-## 5. Instagram
+Auction House Scotland: 26 November 2026.
 
-State House, 22 Dale Street, Liverpool, Merseyside, L2 4TR
+Would a property like this in a Scottish market town make your shortlist?
 
-Allsop Commercial · 11 November 2026 · Guide £2,500,000+
+Explore the property on Auction Geek:
+https://auctiongeek.co.uk/property/c85b0f1f9e9cd089e94c/5-the-square-huntly-aberdeenshire-ab54-8br/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=c85b0f1f9e9cd089e94c
 
-The advertised annual rent of £401,140 produces a 16.05% gross yield at the guide price, before purchase and running costs.
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0219e45bcf1a51183e38cf80.jpg)
 
-The property includes space let to Scion Hotels (Liverpool) LP t/a The Z Hotel Liverpool.
-
-Tenure: Freehold.
-
-Check the tenancy terms, buyer’s fees and legal pack when assessing your bid.
-
-Explore this property on Auction Geek via the website link in our profile. Search for State House.
-
-#AuctionGeek #CommercialProperty #PropertyAuctions
-
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/b77588f30711d823e5ad9889.jpg)
-
-Source: https://www.allsop.co.uk/lot-overview/freehold-city-centre-hotel-retail-and-office-investment-with-development-potential-in-liverpool/c261111-023
+Source: https://www.auctionhouse.co.uk/scotland/auction/lot/153537
 
 ## 6. Instagram
 
-Gross yield is the starting point
+A Morrisons Daily shop with four-bedroom accommodation above, guided at £135,000.
 
-A property producing £20,000 in annual rent has a 10% gross yield at a £200,000 purchase price. At £250,000, the same rent produces 8%. These are illustrative figures.
+5 The Square, Huntly is advertised at £14,750 annual rent: a 10.93% gross yield at guide, before purchase and running costs. The accommodation forms part of the shop lease, which runs to 2033.
 
-Purchase costs, repairs, insurance and empty periods reduce the return. Compare properties using the same assumptions before deciding what to bid.
+Auction House Scotland: 26 November 2026.
 
-Explore commercial auctions and free property snapshots through the website link in our profile.
+Would a property like this in a Scottish market town make your shortlist?
 
-#AuctionGeek #CommercialProperty #PropertyResearch
+See the property on Auction Geek through the website link in our profile. Search for 5 The Square, Huntly. #AuctionGeek #CommercialProperty #PropertyAuctions
 
-![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/be8a9592f92be415260a3576.jpg)
+![Post image](https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0219e45bcf1a51183e38cf80.jpg)
 
-Source: Editorial explainer; hypothetical numbers explicitly labelled
+Source: https://www.auctionhouse.co.uk/scotland/auction/lot/153537
