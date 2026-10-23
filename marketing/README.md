@@ -53,7 +53,7 @@ Read-only operations can retry bounded transient failures. Mutations are never a
 Current key expiry: **22 November 2026**. The scheduled job writes an Actions warning from **1 November** (21 days before expiry), with days remaining and the renewal instructions. It refuses API work on the expiry date. Warnings appear in run summaries/logs; no email or Slack service is configured.
 
 1. Open Buffer → Settings → API / Developer settings (https://publish.buffer.com/settings/api).
-2. Generate/rotate the personal API key for the same organisation. The Free plan permits one key; follow Buffer's replacement flow.
+2. Generate/rotate the personal API key for the same organisation, retaining `account:read`, `posts:read`, `posts:write` and including `insights:read` for engagement reporting. The Free plan permits one key; follow Buffer's replacement flow.
 3. Paste it directly into GitHub repository → Settings → Secrets and variables → Actions → `BUFFER_API_KEY` → Update. Never paste it into a report, code, issue or chat.
 4. Update `key_expires_on` in `marketing/config.json` to the new expiry shown by Buffer.
 5. Run **Social marketing connection check**, then the main workflow in `monitor` mode. Keep publishing paused until the check succeeds.
@@ -64,7 +64,7 @@ Credentials are passed only through Actions environment variables. Buffer authen
 
 Facebook links point to the canonical Auction Geek property URL with `utm_source=facebook`, `utm_medium=organic_social`, campaign and property ID. Ordinary copied property links remain unchanged. Instagram captions direct visitors to the profile website link and give a property search term. Recommended profile website: `https://auctiongeek.co.uk/?utm_source=instagram&utm_medium=organic_social&utm_campaign=profile`. This implementation does not silently change the Instagram profile.
 
-The runner attempts to collect available Buffer post metrics, preserving the metric name, unit and last-updated date. Missing metrics are reported as unavailable, never zero. Metrics are for the latest 30 sent posts, with a pagination flag if more exist. The agent has published no posts during setup. An existing manually published account post is left untouched. The metrics call currently returns an API error; this is reported as unavailable and must not be presented as zero engagement.
+The runner attempts to collect available Buffer post metrics, preserving the metric name, unit and last-updated date. Missing metrics are reported as unavailable, never zero. Metrics are for the latest 30 sent posts, with a pagination flag if more exist. The agent has published no posts during setup. An existing manually published account post is left untouched. The metrics call currently returns `INSUFFICIENT_SCOPE`: the key grants `account:read`, `posts:read`, `posts:write`, `ideas:read`, but lacks `insights:read`. Add `insights:read` in Buffer API key settings if editable, or include it when replacing the key. The settings page requires sign-in in this session, so this permission was not changed. This is reported as unavailable and must not be presented as zero engagement.
 
 UTM links enable attribution in a compatible site analytics system. This integration does not establish that Cloudflare Web Analytics/GA has been activated or that its credentials are available. Until verified, report Buffer engagement separately from actual website visits. Likes or reach are not visits; Instagram caption links are not clickable, and private forwards cannot be measured reliably.
 
