@@ -359,6 +359,49 @@
       "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0219e45bcf1a51183e38cf80.jpg",
       "buffer_id": "6adbc7570b5343d0704d1116",
       "due_at": null
+    },
+    "facebook:8d8430d426d5e147a83a": {
+      "service": "facebook",
+      "channel_id": "6adb59c3778b240e2f9cee6d",
+      "kind": "property",
+      "property_id": "8d8430d426d5e147a83a",
+      "caption_hash": "4d33ba0f704462fb2313bad7dd5c69c3b59492e3a57ca1c90bb095dd0c2d33f9",
+      "fingerprint": "adf988d3eba6f04696e7e4e978720898227d2e7f33775e05694650d900fcc400",
+      "asset_key": "north trinity bowmont street kelso scottish borders td5 7jh|freehold",
+      "status": "pending",
+      "created_at": "2026-10-23T20:55:45.041325+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "https://www.auctionhouse.co.uk/scotland/auction/lot/153601",
+        "observed_at": "2026-10-23T11:44:36.071366+00:00",
+        "facts": {
+          "address": "North Trinity, Bowmont Street, Kelso, Scottish Borders TD5 7JH",
+          "auction_date": "2026-11-26",
+          "guide_price": 170000.0,
+          "guide_price_upper": null,
+          "annual_rent": null,
+          "tenure": "Freehold",
+          "status": "CURRENT",
+          "source_availability": null
+        },
+        "history": [],
+        "source_text_sha256": "8e674523af0949a629fe45db3c94c05a7352e8b8eb5d66b4b32bebe2530c0160",
+        "calculation": null
+      },
+      "editorial_interest": {
+        "eligible": true,
+        "score": 28,
+        "reasons": [
+          "accessible guide price",
+          "distinctive property type"
+        ],
+        "question": "Would you consider a property at this guide price for your first commercial investment?",
+        "details": [
+          "The property is a former church."
+        ]
+      },
+      "caption": "A former church in the Scottish Borders, with a £170,000 guide.\n\nNorth Trinity in Kelso has a striking stone tower and an unusual proposed future: a film studio, community hall and staff accommodation. Auction House Scotland advertises planning permission for that scheme.\n\nThis is a conversion project: the works budget and planning conditions need assessing before bidding.\n\nFreehold · Auction House Scotland · 26 November 2026.\n\nCould you see this building working as a creative venue?\n\nExplore the property on Auction Geek:\nhttps://auctiongeek.co.uk/property/8d8430d426d5e147a83a/north-trinity-bowmont-street-kelso-scottish-borders-td5-7jh/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=8d8430d426d5e147a83a",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/abf74a567c0e622509cf8390.jpg"
     }
   },
   "attempts": [
@@ -472,6 +515,12 @@
       "at": "2026-10-23T20:44:47.025580+00:00",
       "action": "draft",
       "result": "draft"
+    },
+    {
+      "key": "facebook:8d8430d426d5e147a83a",
+      "at": "2026-10-23T20:55:45.041325+00:00",
+      "action": "draft",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-10-23T20:44:47.025580+00:00"
