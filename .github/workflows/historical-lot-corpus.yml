@@ -526,7 +526,7 @@ jobs:
       - name: Bank newly saved source-corpus lots
         if: always()
         timeout-minutes: 5
-        run: python -u historical_corpus.py bank-source-corpus
+        run: python -u -c "from historical_corpus import bank_source_corpus; bank_source_corpus()"
       - name: Rebuild database from saved lot records
         id: rebuild
         if: always()
@@ -549,6 +549,7 @@ jobs:
           # Every collector summary is historical provenance. Stage the glob so a new
           # retained collector cannot silently leave stale run-gain counters on main.
           git add data/auction_history/*_collection.json
+          if test -f data/auction_history/anderson_garland_detail_checks.json; then git add data/auction_history/anderson_garland_detail_checks.json; fi
           git add data/auction_history/source_register.json
           git add data/historical_source_corpus/*.json
           if test -f data/auction_history/paul_fosh_collection.json; then git add data/auction_history/paul_fosh_collection.json; fi

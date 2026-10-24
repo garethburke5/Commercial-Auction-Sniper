@@ -11,6 +11,7 @@ import hashlib
 import json
 import re
 import sys
+import time
 from pathlib import Path
 from urllib.parse import urljoin
 
@@ -271,7 +272,18 @@ def harvest() -> None:
 
     listing_urls, listing_index_evidence = discover_retained_listings()
     detail_rows, detail_failures, detail_audit = [], [], []
+    cache_path=corpus.DATA/'anderson_garland_detail_checks.json'
+    cache=json.loads(cache_path.read_text()) if cache_path.exists() else {}
     for url in listing_urls:
+        saved=cache.get(url,{})
+        reuse_for=21600 if saved.get('error') else 86400
+        if 0 <= time.time()-saved.get('checked_at_epoch',0) < reuse_for:
+            if saved.get('error'):
+                detail_failures.append(saved['error'])
+                continue
+            detail_audit.append(saved['audit'])
+            if saved.get('row'):detail_rows.append(saved['row'])
+            continue
         try:
             detail_response = requests.get(url, headers=HEADERS, timeout=75)
             detail_response.raise_for_status()
@@ -297,8 +309,15 @@ def harvest() -> None:
             if detail_row:
                 corpus.save_gzip(detail_snapshot, {"evidence": detail_evidence, "html": detail_html})
                 detail_rows.append(detail_row)
+            # Save successful checks, including non-auction listings, so a
+            # bounded run resumes instead of repeatedly fetching the same prefix.
+            cache[url]={'checked_at_epoch':time.time(),'row':detail_row,'audit':detail_audit[-1]}
+            corpus.save_json(cache_path,cache)
         except Exception as exc:
-            detail_failures.append({"url": url, "error": f"{type(exc).__name__}: {exc}"[:500]})
+            failure={"url": url, "error": f"{type(exc).__name__}: {exc}"[:500]}
+            detail_failures.append(failure)
+            cache[url]={"checked_at_epoch":time.time(),"error":failure}
+            corpus.save_json(cache_path,cache)
 
     merged = {row["appearance_id"]: row for row in existing}
     for row in rows:
