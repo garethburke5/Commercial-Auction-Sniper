@@ -127,7 +127,7 @@ on:
       - data/historical_source_corpus/**
       - data/source_corpus_shards/**
   schedule:
-    - cron: '37 */6 * * *'
+    - cron: '37 * * * *'
 
 permissions:
   contents: write

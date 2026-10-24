@@ -32,6 +32,8 @@ def test_parses_visible_rows_and_stable_ids():
     assert rows[0]["status"] == "sold" and rows[0]["sale_price"] == 120000
     assert rows[2]["guide_price"] == 100000 and rows[2]["guide_price_high"] == 120000
     assert rows[1]["sector"] == "land"
+    assert rows[1]["status"] == "unsold"
+    assert rows[1]["sale_price"] is None
 
 
 def test_future_pending_is_excluded_but_completed_result_is_kept():

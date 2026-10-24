@@ -94,10 +94,11 @@ def status_and_prices(value: str | None) -> tuple[str, int | None, int | None, i
         status = "sold_prior"
     elif "sold post" in low or "sold after" in low or "post auction" in low:
         status = "sold_after"
-    elif "sold" in low:
-        status = "sold"
-    elif "unsold" in low:
+    elif re.search(r"\bunsold\b", low):
         status = "unsold"
+        sale = None
+    elif re.search(r"\bsold\b", low):
+        status = "sold"
     elif "withdrawn" in low:
         status = "withdrawn"
     elif "postponed" in low:
