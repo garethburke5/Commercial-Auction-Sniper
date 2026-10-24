@@ -619,7 +619,22 @@ jobs:
           git commit -m 'Bank historical auction lot records and source evidence'
           checkpoint_branch="history-checkpoints/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           # Preserve the entire collection before attempting to merge moving main.
-          git push origin "HEAD:refs/heads/$checkpoint_branch"
+          checkpoint_saved=false
+          checkpoint_sha=$(git rev-parse HEAD)
+          for backup_attempt in 1 2 3 4; do
+            if git -c http.version=HTTP/1.1 push origin "HEAD:refs/heads/$checkpoint_branch"; then
+              checkpoint_saved=true
+              break
+            fi
+            # A lost HTTP response can follow a successful server-side update.
+            remote_sha=$(git ls-remote --heads origin "refs/heads/$checkpoint_branch" | awk '{print $1}')
+            if test "$remote_sha" = "$checkpoint_sha"; then
+              checkpoint_saved=true
+              break
+            fi
+            sleep 5
+          done
+          test "$checkpoint_saved" = true
           pushed=false
           for attempt in 1 2 3 4; do
             git fetch origin main
@@ -652,7 +667,7 @@ jobs:
               git commit --amend --no-edit
               build_base=$(git rev-parse origin/main)
             fi
-            if git push origin HEAD:main; then
+            if git -c http.version=HTTP/1.1 push origin HEAD:main; then
               pushed=true
               break
             fi
