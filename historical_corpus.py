@@ -579,6 +579,18 @@ def bank_source_corpus():
                     "checked_at": clean(payload.get("captured_at_utc")) or now(),
                 }
                 save_json(DATA / "auctions/source-corpus" / (source_path.stem + ".json"), state)
+            elif payload.get("catalogue_complete") is False:
+                auction_ids = {row["source_auction_id"] for row in rows}
+                auction_dates = {row.get("auction_date") for row in rows}
+                if len(auction_ids) == 1 and len(auction_dates) == 1 and None not in auction_dates:
+                    save_json(DATA / "auctions/source-corpus" / (source_path.stem + ".json"), {
+                        "auctioneer": rows[0]["auctioneer"], "source_auction_id": next(iter(auction_ids)),
+                        "auction_date": next(iter(auction_dates)), "source_url": payload.get("source_url"),
+                        "catalogue_complete": False, "lots_captured": len(rows),
+                        "expected_raw_records": payload.get("catalogue_lot_count") or payload.get("source_reported_rows"),
+                        "errors": payload.get("reconciliation_errors") or ["Source catalogue remains unreconciled"],
+                        "checked_at": payload.get("captured_at") or now(),
+                    })
         for enrichment in enrichment_rows:
             if not isinstance(enrichment, dict):
                 continue

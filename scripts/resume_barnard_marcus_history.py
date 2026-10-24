@@ -5,7 +5,7 @@ import argparse,json,re,sys
 from urllib.parse import urlparse
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
-from scripts.harvest_barnard_marcus import BASE,fetch_text,harvest
+from scripts.harvest_barnard_marcus import BASE,fetch_text,harvest,recover_sitemap_rows
 
 
 def discover(text,today=None):
@@ -45,7 +45,9 @@ def run(limit=4):
         attempted.append(day)
         print(f'Barnard Marcus: collecting {day} from {url}',flush=True)
         try:
-            payload=harvest(url,day,workers=2,allow_incomplete=True)
+            payload=harvest(url,day,workers=2,allow_incomplete=True,
+                            cache_dir=corpus.DATA/"sources/barnard-marcus/api-pages"/day)
+            payload=recover_sitemap_rows(payload)
             payload['captured_at']=corpus.now();payload['discovery_evidence']=str(snapshot.relative_to(corpus.ROOT))
             corpus.save_json(path,payload)
             # Persist the individual lots immediately; a later timeout must not

@@ -61,3 +61,28 @@ def test_wrong_page_identity_is_rejected_even_in_partial_mode(monkeypatch):
     monkeypatch.setattr(collector,'fetch_json',lambda u:{'pagination':{'pageCount':2,'currentPage':1,'totalCount':2},'items':[{'id':1}]})
     with pytest.raises(RuntimeError,match='different page identity'):
         collector.harvest('https://example.com/','2026-10-15',allow_incomplete=True)
+
+
+def test_page_checkpoint_reuses_source_payload_and_refreshes_after_expiry(monkeypatch,tmp_path):
+    calls=[]
+    monkeypatch.setattr(collector.time,'time',lambda:100000)
+    monkeypatch.setattr(collector,'fetch_json',lambda url:calls.append(url) or {'items':[{'id':42}]})
+    url='https://example.com/api?page=2'
+    assert collector.fetch_json_cached(url,tmp_path)=={'items':[{'id':42}]}
+    assert collector.fetch_json_cached(url,tmp_path)=={'items':[{'id':42}]}
+    assert calls==[url]
+    monkeypatch.setattr(collector.time,'time',lambda:121601)
+    collector.fetch_json_cached(url,tmp_path)
+    assert calls==[url,url]
+
+
+def test_sitemap_recovers_missing_identity_but_conflicting_total_stays_incomplete(monkeypatch):
+    payload={'catalogue_complete':False,'lot_records':[{'source_record_id':'barnard-marcus-property:1'}],
+             'source_url':'https://example.com/auction/','auction_date':'2026-10-15','source_reported_rows':3}
+    monkeypatch.setattr(collector,'sitemap_lot_urls',lambda u:['https://example.com/auction/1/','https://example.com/auction/2/'])
+    monkeypatch.setattr(collector,'item_from_lot_page',lambda u:{'id':2,'lotNumber':'2','addressLine1':'2 High Street'})
+    result=collector.recover_sitemap_rows(payload)
+    assert result['published_rows']==2
+    assert result['sitemap_recovery']['rows_recovered']==1
+    assert result['reconciliation_shortfall']==1
+    assert result['catalogue_complete'] is False

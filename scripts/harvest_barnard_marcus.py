@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 from concurrent.futures import ThreadPoolExecutor
 import html
+import hashlib
 import json
 import re
 import time
@@ -30,6 +31,26 @@ def fetch_json(url: str, attempts: int = 4) -> dict:
                 raise
             time.sleep(2**attempt)
     raise AssertionError("unreachable")
+
+
+def fetch_json_cached(url: str, cache_dir: Path | None = None) -> dict:
+    """Checkpoint each response so a bounded run can resume mid-catalogue."""
+    if cache_dir is None:
+        return fetch_json(url)
+    cache_dir = Path(cache_dir)
+    path = cache_dir / (hashlib.sha256(url.encode()).hexdigest()[:24] + '.json')
+    try:
+        saved = json.loads(path.read_text())
+        if saved['source_url'] == url and 0 <= time.time() - saved['retrieved_at_epoch'] < 21600:
+            return saved['payload']
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    payload = fetch_json(url)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_suffix('.tmp')
+    temporary.write_text(json.dumps({'source_url': url, 'retrieved_at_epoch': time.time(), 'payload': payload}))
+    temporary.replace(path)
+    return payload
 
 
 def fetch_text(url: str, attempts: int = 4) -> str:
@@ -99,66 +120,7 @@ def item_from_lot_page(url: str) -> dict:
     raise RuntimeError(f"active lot card {lot_id} was not found in {url}")
 
 
-def harvest(
-    page_url: str,
-    auction_date: str,
-    workers: int = 4,
-    allow_incomplete: bool = False,
-) -> dict:
-    house_id, auction_id = parse_ids(page_url)
-    endpoint = (
-        f"{BASE}/umbraco/Api/SearchApi/Search?auctionHouseId={house_id}"
-        f"&auctionId={auction_id}&lots=1&sortBy=LotAsc&page={{page}}"
-    )
-    first = fetch_json(endpoint.format(page=1))
-    pagination = first["pagination"]
-    pages = pagination["pageCount"]
-    reconciliation_errors = []
-    reported_totals = {pagination["totalCount"]}
-    inventory_method = "search_api"
-    inventory_urls: list[str] = []
-    if pages:
-        remaining = list(range(2, pages + 1))
-        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-            payloads = list(pool.map(lambda page: fetch_json(endpoint.format(page=page)), remaining))
-        items = list(first["items"])
-        for page, payload in zip(remaining, payloads):
-            page_meta = payload["pagination"]
-            if page_meta["currentPage"] != page:
-                raise RuntimeError(f"page {page} returned a different page identity")
-            reported_totals.add(page_meta["totalCount"])
-            if page_meta["pageCount"] != pages or page_meta["totalCount"] != pagination["totalCount"]:
-                message = f"page {page} reports {page_meta['totalCount']} lots / {page_meta['pageCount']} pages; first page reports {pagination['totalCount']} / {pages}"
-                if not allow_incomplete:
-                    raise RuntimeError(message)
-                reconciliation_errors.append(message)
-            items.extend(payload["items"])
-        expected_rows = max(reported_totals)
-    else:
-        # Some retained auction pages outlive their SearchApi index. The public
-        # sitemap still provides an exact lot-page inventory, and every detail
-        # page embeds the same lot-card JSON used by the search API.
-        inventory_method = "sitemap_lot_pages"
-        inventory_urls = sitemap_lot_urls(page_url)
-        if not inventory_urls:
-            raise RuntimeError("SearchApi returned zero rows and sitemap has no lot pages")
-        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
-            items = list(pool.map(item_from_lot_page, inventory_urls))
-        expected_rows = len(inventory_urls)
-
-    unique_items = {}
-    for item in items:
-        if item["id"] in unique_items:
-            if not allow_incomplete:
-                raise RuntimeError("source IDs are not unique")
-            reconciliation_errors.append(f"duplicate source ID {item['id']} across source pages")
-        else:
-            unique_items[item["id"]] = item
-    items = list(unique_items.values())
-    reconciled = len(items) == expected_rows and not reconciliation_errors
-    if not reconciled and not allow_incomplete:
-        raise RuntimeError(f"expected {expected_rows} rows, got {len(items)}")
-
+def items_to_rows(items, auction_date):
     source_auction_id = f"barnard-marcus:{auction_date}"
     rows = []
     for item in items:
@@ -199,6 +161,72 @@ def harvest(
             "status": status,
         })
 
+    return rows
+
+
+def harvest(
+    page_url: str,
+    auction_date: str,
+    workers: int = 4,
+    allow_incomplete: bool = False,
+    cache_dir: Path | None = None,
+) -> dict:
+    house_id, auction_id = parse_ids(page_url)
+    endpoint = (
+        f"{BASE}/umbraco/Api/SearchApi/Search?auctionHouseId={house_id}"
+        f"&auctionId={auction_id}&lots=1&sortBy=LotAsc&page={{page}}"
+    )
+    first = fetch_json(endpoint.format(page=1))
+    pagination = first["pagination"]
+    pages = pagination["pageCount"]
+    reconciliation_errors = []
+    reported_totals = {pagination["totalCount"]}
+    inventory_method = "search_api"
+    inventory_urls: list[str] = []
+    if pages:
+        remaining = list(range(2, pages + 1))
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+            payloads = list(pool.map(lambda page: fetch_json_cached(endpoint.format(page=page), cache_dir), remaining))
+        items = list(first["items"])
+        for page, payload in zip(remaining, payloads):
+            page_meta = payload["pagination"]
+            if page_meta["currentPage"] != page:
+                raise RuntimeError(f"page {page} returned a different page identity")
+            reported_totals.add(page_meta["totalCount"])
+            if page_meta["pageCount"] != pages or page_meta["totalCount"] != pagination["totalCount"]:
+                message = f"page {page} reports {page_meta['totalCount']} lots / {page_meta['pageCount']} pages; first page reports {pagination['totalCount']} / {pages}"
+                if not allow_incomplete:
+                    raise RuntimeError(message)
+                reconciliation_errors.append(message)
+            items.extend(payload["items"])
+        expected_rows = max(reported_totals)
+    else:
+        # Some retained auction pages outlive their SearchApi index. The public
+        # sitemap still provides an exact lot-page inventory, and every detail
+        # page embeds the same lot-card JSON used by the search API.
+        inventory_method = "sitemap_lot_pages"
+        inventory_urls = sitemap_lot_urls(page_url)
+        if not inventory_urls:
+            raise RuntimeError("SearchApi returned zero rows and sitemap has no lot pages")
+        with ThreadPoolExecutor(max_workers=max(1, workers)) as pool:
+            items = list(pool.map(item_from_lot_page, inventory_urls))
+        expected_rows = len(inventory_urls)
+
+    unique_items = {}
+    for item in items:
+        if item["id"] in unique_items:
+            if not allow_incomplete:
+                raise RuntimeError("source IDs are not unique")
+            reconciliation_errors.append(f"duplicate source ID {item['id']} across source pages")
+        else:
+            unique_items[item["id"]] = item
+    items = list(unique_items.values())
+    reconciled = len(items) == expected_rows and not reconciliation_errors
+    if not reconciled and not allow_incomplete:
+        raise RuntimeError(f"expected {expected_rows} rows, got {len(items)}")
+
+    rows = items_to_rows(items, auction_date)
+
     ids = [row["source_record_id"] for row in rows]
     lots = [row["lot_number"] for row in rows]
     numbered_lots = [lot for lot in lots if lot is not None]
@@ -215,7 +243,7 @@ def harvest(
         "source_url": page_url,
         "archive_url": f"{BASE}/auctions/previous/",
         "auction_date": auction_date,
-        "source_auction_id": source_auction_id,
+        "source_auction_id": f"barnard-marcus:{auction_date}",
         "lot_enumeration_complete": reconciled,
         "catalogue_complete": reconciled,
         "catalogue_lot_count": expected_rows,
@@ -272,6 +300,31 @@ def main() -> None:
         "pages": payload["pagination_pages_expected"],
     }))
 
+
+
+def recover_sitemap_rows(payload):
+    """Recover missing identities without claiming conflicting API totals reconcile."""
+    if payload.get('catalogue_complete'):
+        return payload
+    have={row['source_record_id'] for row in payload['lot_records']}
+    try:
+        urls=sitemap_lot_urls(payload['source_url'])
+    except Exception as exc:
+        payload.setdefault('reconciliation_errors',[]).append(f'Sitemap discovery failed: {str(exc)[:200]}')
+        return payload
+    missing=[url for url in urls if 'barnard-marcus-property:'+url.rstrip('/').rsplit('/',1)[-1] not in have]
+    recovered=[];recovered_urls=[]
+    for url in missing:
+        try:
+            recovered.extend(items_to_rows([item_from_lot_page(url)],payload['auction_date']))
+            recovered_urls.append(url)
+        except Exception as exc:
+            payload.setdefault('reconciliation_errors',[]).append(f'Sitemap recovery failed {url}: {str(exc)[:200]}')
+    payload['lot_records'].extend(recovered)
+    payload['published_rows']=len(payload['lot_records'])
+    payload['reconciliation_shortfall']=payload['source_reported_rows']-payload['published_rows']
+    payload['sitemap_recovery']={'expected_urls':len(urls),'missing_before_recovery':len(missing),'rows_recovered':len(recovered),'recovered_urls':recovered_urls}
+    return payload
 
 if __name__ == "__main__":
     main()

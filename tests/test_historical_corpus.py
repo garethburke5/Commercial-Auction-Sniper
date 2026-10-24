@@ -317,3 +317,17 @@ def test_database_builder_does_not_retry_integrity_failures(tmp_path, monkeypatc
     with pytest.raises(h.sqlite3.IntegrityError, match="duplicate appearance"):
         h.build_database()
     assert attempts == [False]
+
+
+def test_partial_source_catalogue_remains_visible_in_coverage_gaps(tmp_path,monkeypatch):
+    monkeypatch.setattr(h,'ROOT',tmp_path);monkeypatch.setattr(h,'DATA',tmp_path/'data/auction_history')
+    folder=tmp_path/'data/historical_source_corpus';folder.mkdir(parents=True)
+    (folder/'partial.json').write_text(json.dumps({'catalogue_complete':False,'source_reported_rows':2,
+      'source_url':'https://example.com/catalogue','reconciliation_errors':['page totals disagree'],
+      'lot_records':[{'source':'Example','source_record_id':'example:1','source_auction_id':'example:2026-10-01',
+        'auction_date':'2026-10-01','lot_number':'1','address':'1 High Street','source_url':'https://example.com/lot/1'}]}))
+    h.bank_source_corpus()
+    state=json.loads((h.DATA/'auctions/source-corpus/partial.json').read_text())
+    assert state['catalogue_complete'] is False
+    assert state['lots_captured']==1 and state['expected_raw_records']==2
+    assert state['errors']==['page totals disagree']
