@@ -174,7 +174,7 @@ def harvest(
             "lot_number": lot_number,
             "property_type": None,
             "raw_card_text": raw,
-            "result_price_gbp": price if descriptor and "sold" in descriptor.lower() else None,
+            "result_price_gbp": price if descriptor and re.match(r'^sold\b',descriptor,re.I) else None,
             "result_status": result_status,
             "source": "Barnard Marcus Auctions",
             "source_auction_id": source_auction_id,

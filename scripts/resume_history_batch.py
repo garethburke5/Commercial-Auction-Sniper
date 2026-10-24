@@ -63,6 +63,7 @@ TASKS=(
     ('pattinson_history', ['scripts/harvest_pattinson_history.py', '32']),
     ('eddisons_insights', ['scripts/harvest_eddisons_insights.py']),
     ('mchugh_legacy', ['scripts/harvest_mchugh_legacy.py', '8']),
+    ('barnard_marcus', ['scripts/resume_barnard_marcus_history.py', '--limit', '4']),
 )
 
 

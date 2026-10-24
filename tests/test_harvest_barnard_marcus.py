@@ -31,3 +31,10 @@ def test_reconciled_search_inventory_declares_standard_catalogue_completeness(mo
     assert payload["reconciliation_shortfall"] == 0
     assert payload["lot_records"][0]["source_record_id"] == "barnard-marcus-property:42"
     assert payload["lot_records"][0]["result_price_gbp"] == 250_000
+
+
+def test_unsold_price_cannot_become_sale_amount(monkeypatch):
+    monkeypatch.setattr(collector,'parse_ids',lambda u:('house','auction'))
+    monkeypatch.setattr(collector,'fetch_json',lambda u:{'pagination':{'pageCount':1,'currentPage':1,'totalCount':1},'items':[{'id':42,'lotNumber':'1','addressLine1':'1 High Street','priceDescriptor':'Unsold','price':'£250,000','statusLabel':'Unsold'}]})
+    row=collector.harvest('https://example.com/','2026-02-03')['lot_records'][0]
+    assert row['result_price_gbp'] is None
