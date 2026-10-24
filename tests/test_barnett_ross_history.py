@@ -83,3 +83,23 @@ def test_result_semantics_remain_distinct():
     assert status_and_prices("£2.09M") == ("sold", 2090000, None)
     assert status_and_prices("£82.5K") == ("sold", 82500, None)
     assert status_and_prices("Withdrawn Prior - Refer") == ("withdrawn prior", None, None)
+
+
+def test_catalogue_rows_strip_utf8_bom_from_published_lot_labels():
+    raw = b'''<div>Auction Date: October 2016</div><table>
+    <tr><th>Lot</th><th>Address</th><th>Result</th></tr>
+    <tr><td>\xef\xbb\xbf1</td>
+      <td class="address">86 Brighton Road, Horley, Surrey RH6 7JQ</td>
+      <td>\xc2\xa3290,000</td></tr>
+    </table>'''
+    rows, reconciliation = parse_catalogue(
+        raw, {"key": "201610-0"}, {"source_url": "https://example.test/october-2016"}
+    )
+    assert reconciliation["visible_lot_rows"] == 1
+    assert reconciliation["catalogue_complete"] is True
+    assert reconciliation["auction_date"] is None
+    assert reconciliation["auction_date_basis"] == "month_only_unresolved"
+    assert rows[0]["lot_number"] == "1"
+    assert rows[0]["sale_price"] == 290000
+    assert rows[0]["record_quality"] == "address_record"
+

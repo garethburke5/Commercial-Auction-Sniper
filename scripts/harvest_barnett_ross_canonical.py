@@ -50,7 +50,10 @@ def get(session: requests.Session, url: str, attempts: int = 4) -> tuple[str, by
 
 
 def clean(value: str | None) -> str | None:
-    value = re.sub(r"\s+", " ", value or "").strip()
+    # Some retained tables prefix lot labels with a decoded UTF-8 BOM. Strip
+    # that formatting marker before strict lot-number validation.
+    value = (value or "").replace("\ufeff", "")
+    value = re.sub(r"\s+", " ", value).strip()
     return value or None
 
 
