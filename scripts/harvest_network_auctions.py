@@ -77,7 +77,8 @@ def archived_platform_migrated(html: str) -> bool:
     """Recognise the first-party acquisition page replacing the old archive."""
     text = clean(BeautifulSoup(html, "lxml").get_text(" ", strip=True)) or ""
     return (
-        "Network Auctions now operates as part of BTG Eddisons Property Auctions" in text
+        "Network Auctions" in text
+        and "BTG Eddisons Property Auctions" in text
         and "joined BTG Eddisons in 2025" in text
     )
 
