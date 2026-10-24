@@ -47,3 +47,20 @@ def test_parse_catalogue_rejects_denominator_or_date_mismatch():
     assert rows == []
     assert reconciliation["heading_date_matches_archive"] is False
     assert reconciliation["catalogue_complete"] is False
+
+
+def test_harvest_banks_valid_lots_but_does_not_clear_count_discrepancy(tmp_path,monkeypatch):
+    import json
+    monkeypatch.setattr(swift.corpus,'ROOT',tmp_path)
+    monkeypatch.setattr(swift.corpus,'DATA',tmp_path/'data/auction_history')
+    archive='<article class="date-card"><p>1 lot</p><a href="/previous-auctions/99" aria-label="16th July 2024">View</a></article>'
+    def card(i):
+        return f'<article class="auction-lot x-result-lot" data-result="sold"><span class="auction-lot-badge">Lot {i}</span><h3><a href="/lots/{i}">{i} High Street</a></h3><p class="auction-lot-location">York YO1 1AA</p><div class="auction-guide">£100,000</div><div class="auction-guide x-result-price">£110,000</div></article>'
+    detail='<h1>16th July 2024</h1>'+card(1)+card(2)
+    monkeypatch.setattr(swift,'get',lambda u:((archive if u==swift.ARCHIVE_URL else detail).encode(),u))
+    result=swift.harvest(workers=1)
+    assert result['run_new_appearances']==2 and not result['complete']
+    state=json.loads(swift.state_path('99').read_text())
+    assert state['lots_captured']==2 and not state['denominator_reconciled']
+    assert not state['catalogue_complete'] and state['errors']
+    assert swift.harvest(workers=1)['run_new_appearances']==0

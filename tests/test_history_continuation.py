@@ -29,3 +29,19 @@ def test_expanded_batch_wraps_and_preserves_existing_cursor(tmp_path):
     assert len({name for name,command in TASKS})==len(TASKS)
     project=Path(__file__).resolve().parents[1]
     assert all((project/command[0]).is_file() for name,command in TASKS)
+
+def test_fast_tasks_use_remaining_budget_and_keep_source_failures(tmp_path):
+    elapsed=[0]
+    def runner(command,root,timeout):
+        elapsed[0]+=1
+        return {'outcome':'failed','exit_code':1,'diagnostic_tail':'archive no longer exposes lot cards'}
+    result=run(tmp_path,runner,count=len(TASKS),timeout=300,budget=8,clock=lambda:elapsed[0])
+    assert len(result['runs'])==8 and result['next_task']==8
+    assert len(result['latest_by_source'])==8
+    assert result['runs'][0]['diagnostic_tail']=='archive no longer exposes lot cards'
+
+def test_task_timeout_is_capped_to_remaining_batch_budget(tmp_path):
+    seen=[]
+    def runner(command,root,timeout):seen.append(timeout);return 'completed'
+    run(tmp_path,runner,count=1,timeout=300,budget=12,clock=lambda:0)
+    assert seen==[12]

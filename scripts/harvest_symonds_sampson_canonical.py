@@ -17,6 +17,8 @@ import re
 import sys
 import time
 import threading
+from html import unescape
+from bs4 import BeautifulSoup
 from pathlib import Path
 from urllib.parse import urlparse
 from urllib.request import Request, urlopen
@@ -68,7 +70,40 @@ def fetch_reader(url: str, attempts: int = 6) -> tuple[str, bytes]:
 
 
 def discover(markdown: str) -> list[str]:
-    return sorted(set(PROPERTY_URL_RE.findall(markdown)))
+    # Official sitemap XML and rendered Markdown carry the same property URLs.
+    return sorted(set(re.findall(r'https://auctions\.symondsandsampson\.co\.uk/property/[^\s<>"\')]+',unescape(markdown))))
+
+
+def fetch_sitemap():
+    try:
+        with urlopen(Request(SITEMAP,headers={'User-Agent':'Commercial-Auction-Sniper/1.0'}),timeout=30) as response:
+            raw=response.read()
+        if discover(raw.decode('utf-8','replace')):return SITEMAP,raw
+    except (OSError,ValueError):pass
+    return fetch_reader(SITEMAP)
+
+
+def html_as_markdown(raw):
+    soup=BeautifulSoup(raw,'html.parser')
+    # Recommendations must never supply another property's guide or status.
+    marker=soup.find(lambda t:t.name in {'h2','h3'} and 'other properties you might' in t.get_text(' ',strip=True).lower())
+    if marker:
+        for element in list(marker.find_all_next()):element.decompose()
+        marker.decompose()
+    for element in soup.select('script,style,nav,footer,form'):element.decompose()
+    for heading in soup.select('h1,h2,h3,h4'):
+        heading.replace_with('\n'+'#'*(2 if heading.name=='h1' else int(heading.name[1]))+' '+heading.get_text(' ',strip=True)+'\n')
+    return soup.get_text(' ',strip=True).replace('\n ','\n')
+
+
+def fetch_property(url):
+    try:
+        with urlopen(Request(url,headers={'User-Agent':'Commercial-Auction-Sniper/1.0'}),timeout=30) as response:raw=response.read()
+        text=html_as_markdown(raw)
+        if AUCTION_DATE_RE.search(text):return url,raw,text
+    except (OSError,ValueError):pass
+    transport,raw=fetch_reader(url)
+    return transport,raw,raw.decode('utf-8','replace')
 
 
 def clean_markdown(value: str | None) -> str | None:
@@ -117,8 +152,8 @@ def parse_property(markdown: str, url: str, evidence: dict) -> dict:
     status_match = re.search(r"^####\s+(Sold by Auction|Sold STC|Sold|Withdrawn|For Sale|Available|Unsold)\s*$", markdown, re.M | re.I)
     status_text = status_match.group(1).lower() if status_match else "unknown"
     status = {"sold by auction": "sold", "sold stc": "sold", "for sale": "available"}.get(status_text, status_text)
-    sale_match = re.search(r"Sold by Auction for\s*£+\s*[\d,.]+\s*[mk]?", markdown, re.I)
-    guide_match = re.search(r"(?:Guide(?: Price)?|Guide)\s*£+\s*[\d,.]+\s*[mk]?", markdown, re.I)
+    sale_match = re.search(r"Sold by Auction for\s*(?:£\s*)+[\d,.]+\s*[mk]?", markdown, re.I)
+    guide_match = re.search(r"Guide(?: Price)?\s*(?:£\s*)+[\d,.]+\s*[mk]?", markdown, re.I)
     address = strict_address(heading)
     postcode_match = POSTCODE_RE.search(heading or "")
     path_parts = [part for part in urlparse(url).path.split("/") if part]
@@ -139,13 +174,13 @@ def parse_property(markdown: str, url: str, evidence: dict) -> dict:
 
 
 def harvest(workers: int = 2) -> None:
-    _, sitemap_raw = fetch_reader(SITEMAP)
+    sitemap_transport, sitemap_raw = fetch_sitemap()
     sitemap_text = sitemap_raw.decode("utf-8", "replace")
     urls = discover(sitemap_text)
     if not urls:
         raise SystemExit("Symonds & Sampson sitemap exposed zero property pages")
     sitemap_snapshot = corpus.DATA / "sources/symonds-sampson" / f"sitemap-{corpus.digest(sitemap_raw)[:16]}.json.gz"
-    corpus.save_gzip(sitemap_snapshot, {"source_url": SITEMAP, "transport_url": READER + SITEMAP.split('://',1)[1],
+    corpus.save_gzip(sitemap_snapshot, {"source_url": SITEMAP, "transport_url": sitemap_transport,
                                        "retrieved_at": corpus.now(), "sha256": corpus.digest(sitemap_raw),
                                        "markdown": sitemap_text})
     existing_path = corpus.DATA / "appearances/symonds-sampson/retained-property-pages.jsonl.gz"
@@ -155,7 +190,7 @@ def harvest(workers: int = 2) -> None:
     failures, added = [], []
 
     def one(url: str):
-        reader_url, raw = fetch_reader(url)
+        reader_url, raw, text = fetch_property(url)
         sid = SOURCE_ID_RE.search(url).group(1).lower()
         snapshot = corpus.DATA / "sources/symonds-sampson/properties" / f"{sid}-{corpus.digest(raw)[:16]}.json.gz"
         evidence = {"source_url": url, "transport_url": reader_url,
@@ -163,9 +198,8 @@ def harvest(workers: int = 2) -> None:
                     "sitemap_snapshot_path": str(sitemap_snapshot.relative_to(corpus.ROOT)),
                     "sha256": corpus.digest(raw), "retrieved_at": corpus.now(),
                     "basis": "official property page enumerated by official sitemap; reader is transport only"}
-        text = raw.decode("utf-8", "replace")
         row = parse_property(text, url, evidence)
-        corpus.save_gzip(snapshot, {"evidence": evidence, "markdown": text})
+        corpus.save_gzip(snapshot, {"evidence": evidence, "source_content":raw.decode('utf-8','replace'),"markdown": text})
         return row
 
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 2))) as executor:
@@ -175,6 +209,7 @@ def harvest(workers: int = 2) -> None:
                 row = future.result()
                 rows.append(row)
                 added.append(row)
+                corpus.write_rows("symonds-sampson/retained-property-pages", rows)
             except Exception as exc:
                 failures.append({"url": jobs[future], "error": f"{type(exc).__name__}: {exc}"[:500]})
     rows.sort(key=lambda row: row["source_lot_id"])
@@ -200,7 +235,9 @@ def harvest(workers: int = 2) -> None:
                "partial_lots": sum(not row.get("address") for row in rows),
                "exact_dates_recovered": len([d for d in by_date if d]),
                "date_unresolved_pages": by_date.get(None, 0), "by_sector": dict(Counter(row["sector"] for row in rows)),
-               "failures": failures, "complete": len(rows) == len(urls) and not failures}
+               "retained_pages_no_longer_in_sitemap":len(existing_ids-{SOURCE_ID_RE.search(u).group(1).lower() for u in urls}),
+               "failures": failures, "complete": {SOURCE_ID_RE.search(u).group(1).lower() for u in urls}.issubset({r['source_lot_id'] for r in rows}) and not failures,
+               "completion_scope":"currently exposed sitemap URLs only; not twenty-year catalogue completeness"}
     corpus.save_json(corpus.DATA / "symonds_sampson_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
     if failures:

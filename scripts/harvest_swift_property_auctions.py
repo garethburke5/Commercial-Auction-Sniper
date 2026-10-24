@@ -222,20 +222,24 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
                 }
                 corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
                 rows, reconciliation = parse_catalogue(html, item, evidence)
-                if not reconciliation["catalogue_complete"]:
-                    raise ValueError(f"catalogue reconciliation failed: {reconciliation}")
+                # A wrong archive total must not discard independently identified
+                # dated lot cards. Keep catalogue completeness false and retry it.
+                if not reconciliation['heading_date_matches_archive'] or reconciliation['malformed_source_rows']:
+                    raise ValueError(f"unsafe catalogue identity/date: {reconciliation}")
+                errors=[] if reconciliation['catalogue_complete'] else ['Published archive total differs from visible, uniquely identified lot cards']
+                if errors:failures.append({'source_id':item['source_id'],'auction_date':item['auction_date'],'error':errors[0],'reconciliation':reconciliation})
                 total = corpus.write_rows(f"swift-property-auctions/{item['source_id']}", rows)
                 state = {
                     "auctioneer": "Swift Property Auctions",
                     "source_auction_id": f"swift:{item['source_id']}",
                     "auction_date": item["auction_date"], "source_url": resolved,
                     "lots_captured": total, "source_rows_complete": True,
-                    "pagination_reconciled": True, "denominator_reconciled": True,
+                    "pagination_reconciled": True, "denominator_reconciled": reconciliation['catalogue_complete'],
                     "completion_scope": "every property card in the first-party unpaginated result page",
-                    **reconciliation, "source_evidence": evidence, "errors": [], "checked_at": corpus.now(),
+                    **reconciliation, "source_evidence": evidence, "errors": errors, "checked_at": corpus.now(),
                 }
                 corpus.save_json(state_path(item["source_id"]), state)
-                print(f"Swift {item['auction_date']} ({item['source_id']}): {total} rows complete", flush=True)
+                print(f"Swift {item['auction_date']} ({item['source_id']}): {total} rows banked; catalogue complete={reconciliation['catalogue_complete']}", flush=True)
             except Exception as exc:
                 failures.append({"source_id": item["source_id"], "auction_date": item["auction_date"], "error": str(exc)})
                 print(f"Swift {item['source_id']}: FAILED {exc}", flush=True)

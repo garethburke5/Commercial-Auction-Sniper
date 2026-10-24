@@ -6,6 +6,17 @@ def test_sitemap_discovery_is_exact_and_deduplicated():
     [x](https://auctions.symondsandsampson.co.uk/property/dwr000493/dt9/sherborne/217a-high-street/terraced-house/2-bedrooms)'''
     assert len(discover(text)) == 1
 
+def test_official_xml_discovery_excludes_neighbours_and_nonproperty_urls():
+    text='<urlset><loc>https://auctions.symondsandsampson.co.uk/property/abc/dt1/house</loc><loc>https://other.example/property/abc/</loc><loc>https://auctions.symondsandsampson.co.uk/about</loc></urlset>'
+    assert discover(text)==['https://auctions.symondsandsampson.co.uk/property/abc/dt1/house']
+
+def test_official_html_keeps_subject_price_not_recommendation():
+    from scripts.harvest_symonds_sampson_canonical import html_as_markdown
+    text=html_as_markdown('<h2>17 High Street, Dorchester DT1</h2><h2>Guide Price £ £ 75,000</h2><p>For sale by Auction 13 December 2023</p><h3>Other properties you might be interested in</h3><h2>Guide Price £999,000</h2>')
+    row=parse_property(text,'https://auctions.symondsandsampson.co.uk/property/abc/dt1/house',{})
+    assert row['guide_price']==75000 and row['auction_date']=='2023-12-13'
+    assert '999,000' not in text
+
 
 def test_detail_page_banks_exact_date_address_and_result():
     text = '''## 217a High Street, Milborne Port, Sherborne, Somerset, DT9

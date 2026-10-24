@@ -1,11 +1,14 @@
 """Resume rotating, bounded archive tasks and preserve each outcome."""
 from datetime import datetime,timezone
+import argparse
 import json
 import os
 from pathlib import Path
 import signal
 import subprocess
 import sys
+import time
+import tempfile
 
 ROOT=Path(__file__).resolve().parents[1]
 TASKS=(
@@ -64,29 +67,50 @@ TASKS=(
 
 
 def execute(command, root, timeout):
-    process=subprocess.Popen([sys.executable,*command],cwd=root,start_new_session=True)
-    try:
-        return 'completed' if process.wait(timeout=timeout)==0 else 'failed'
-    except subprocess.TimeoutExpired:
-        os.killpg(process.pid,signal.SIGTERM)
-        try:process.wait(timeout=10)
+    # Capture a bounded diagnostic tail without buffering an entire harvest in RAM.
+    with tempfile.TemporaryFile() as log:
+        process=subprocess.Popen([sys.executable,'-u',*command],cwd=root,start_new_session=True,
+                                 stdout=log,stderr=subprocess.STDOUT)
+        try:
+            code=process.wait(timeout=timeout)
+            outcome='completed' if code==0 else 'failed'
         except subprocess.TimeoutExpired:
-            os.killpg(process.pid,signal.SIGKILL);process.wait()
-        return 'timed_out'
+            os.killpg(process.pid,signal.SIGTERM)
+            try:process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                os.killpg(process.pid,signal.SIGKILL);process.wait()
+            code=process.returncode;outcome='timed_out'
+        length=log.tell();log.seek(max(0,length-6000))
+        tail=log.read().decode('utf-8','replace')
+        return {'outcome':outcome,'exit_code':code,'diagnostic_tail':tail}
 
 
-def run(root=ROOT,runner=execute,count=2,timeout=600):
+def run(root=ROOT,runner=execute,count=2,timeout=600,budget=None,clock=time.monotonic):
     root=Path(root);path=root/'data/auction_history/continuation_collection.json'
     state=json.loads(path.read_text()) if path.exists() else {'next_task':0,'runs':[]}
+    started=clock()
     for _ in range(min(count,len(TASKS))):
+        remaining=None if budget is None else budget-(clock()-started)
+        if remaining is not None and remaining<1:break
         index=state['next_task']%len(TASKS);name,command=TASKS[index]
-        outcome=runner(command,root,timeout)
-        state['runs'].append({'source':name,'outcome':outcome,'checked_at':datetime.now(timezone.utc).isoformat()})
-        state['runs']=state['runs'][-60:];state['next_task']=(index+1)%len(TASKS)
+        task_started=clock()
+        outcome=runner(command,root,timeout if remaining is None else min(timeout,remaining))
+        result={'outcome':outcome} if isinstance(outcome,str) else outcome
+        entry={'source':name,**result,'duration_seconds':round(clock()-task_started,2),
+               'checked_at':datetime.now(timezone.utc).isoformat()}
+        state['runs'].append(entry)
+        state.setdefault('latest_by_source',{})[name]=entry
+        state['runs']=state['runs'][-500:];state['next_task']=(index+1)%len(TASKS)
         path.parent.mkdir(parents=True,exist_ok=True)
         temp=path.with_suffix('.tmp');temp.write_text(json.dumps(state,indent=2)+'\n');temp.replace(path)
         print(json.dumps(state['runs'][-1]),flush=True)
     return state
 
 
-if __name__=='__main__':run(count=4,timeout=300)
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--count',type=int,default=len(TASKS))
+    parser.add_argument('--timeout',type=int,default=300)
+    parser.add_argument('--budget',type=int,default=1200)
+    args=parser.parse_args()
+    run(count=args.count,timeout=args.timeout,budget=args.budget)
