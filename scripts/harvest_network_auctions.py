@@ -70,9 +70,16 @@ def discover_auctions(html: str) -> list[dict]:
                     "url": CATALOGUE.format(auction_id),
                 }
                 break
-    if not found:
-        raise ValueError("archive contains no legacy auction_id catalogues")
     return sorted(found.values(), key=lambda item: item["auction_date"])
+
+
+def archived_platform_migrated(html: str) -> bool:
+    """Recognise the first-party acquisition page replacing the old archive."""
+    text = clean(BeautifulSoup(html, "lxml").get_text(" ", strip=True)) or ""
+    return (
+        "Network Auctions now operates as part of BTG Eddisons Property Auctions" in text
+        and "joined BTG Eddisons in 2025" in text
+    )
 
 
 def money(value: str | None) -> int | None:
@@ -208,6 +215,35 @@ def harvest(workers: int = 6) -> None:
     existing_by_auction: dict[str, list[dict]] = {}
     for row in existing:
         existing_by_auction.setdefault(row["source_auction_id"], []).append(row)
+
+    if not auctions:
+        if not existing or not archived_platform_migrated(archive_html):
+            raise ValueError("archive contains no legacy auction_id catalogues")
+        summary_path = corpus.DATA / "network_auctions_collection.json"
+        previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+        summary = {
+            **previous,
+            "checked_at": corpus.now(),
+            "source_url": ARCHIVE,
+            "legacy_auctions_discovered": 0,
+            "appearances_captured": len(existing),
+            "run_new_appearances": 0,
+            "run_new_address_records": 0,
+            "run_new_partial_lots": 0,
+            "archive_evidence": archive_evidence,
+            "archive_terminal_migration": {
+                "status": "acquired_and_legacy_archive_removed",
+                "successor": "BTG Eddisons Property Auctions",
+                "acquired_in": 2025,
+                "basis": "first-party replacement page",
+                "preserved_complete_legacy_catalogues": previous.get("auctions_complete", 0),
+                "preserved_appearances": len(existing),
+            },
+            "failures": [],
+        }
+        corpus.save_json(summary_path, summary)
+        print(json.dumps(summary, indent=2), flush=True)
+        return
 
     states, run_rows, pending, failures, reused = {}, [], [], [], 0
     for item in auctions:

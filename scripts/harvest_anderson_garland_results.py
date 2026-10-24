@@ -227,7 +227,7 @@ def discover_retained_listings() -> tuple[list[str], list[dict]]:
         sha = corpus.digest(raw)
         snapshot = corpus.DATA / "sources/anderson-garland/listing-index" / f"page-{page}-{sha[:16]}.json.gz"
         item = {
-            "source_url": response_url, "retrieved_at": corpus.now(), "sha256": sha,
+            "source_url": response.url, "retrieved_at": corpus.now(), "sha256": sha,
             "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
             "basis": "first-party paginated property-search index",
         }

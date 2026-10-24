@@ -1,6 +1,7 @@
 import pytest
 
 from scripts.harvest_network_auctions import (
+    archived_platform_migrated,
     discover_auctions,
     parse_catalogue,
     status_and_prices,
@@ -80,3 +81,14 @@ def test_duplicate_first_party_lot_ids_are_rejected():
     duplicate = CATALOGUE.replace("lot_id=199237", "lot_id=199235")
     with pytest.raises(ValueError, match="duplicate first-party lot IDs"):
         parse_catalogue(duplicate, expected, {"sha256": "x"})
+
+
+def test_acquisition_page_is_a_terminal_archive_migration_not_an_empty_catalogue():
+    html = """
+    <main>
+      <h1>Network Auctions is now BTG Eddisons Property Auctions</h1>
+      <p>Network Auctions joined BTG Eddisons in 2025.</p>
+    </main>
+    """
+    assert discover_auctions(html) == []
+    assert archived_platform_migrated(html) is True
