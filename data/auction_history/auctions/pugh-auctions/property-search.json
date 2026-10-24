@@ -4,23 +4,22 @@
   "auction_date": null,
   "catalogue_complete": false,
   "archive_pagination_complete": false,
-  "lots_captured": 6882,
+  "lots_captured": 6891,
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "pages_expected": 357,
-  "published_property_rows": 7139,
-  "published_rows_reconciled": 7139,
+  "pages_expected": 359,
+  "published_property_rows": 7161,
+  "published_rows_reconciled": 7181,
   "source_rows_reconciled_complete": true,
-  "grid_tail_source_rows": 199,
+  "grid_tail_source_rows": 221,
   "reverse_tail_source_rows": 0,
   "reverse_covered_normal_pages": [],
   "reverse_tail_upgraded_undated": 0,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 199,
-  "undated_tail_appearances_captured": 65,
-  "undated_tail_existing_appearances_enriched": 133,
+  "undated_tail_source_rows": 221,
+  "undated_tail_appearances_captured": 57,
+  "undated_tail_existing_appearances_enriched": 163,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
-    "11115",
     "202508071608sq_nlsh",
     "202509021043sq_eh1m",
     "202511041437sq_oq21",
@@ -55,7 +54,6 @@
     "202604221320sq_flm9",
     "202604241518sq_l2gr",
     "202604271510sq_5ibq",
-    "202604301203sq_n6aq",
     "202605150925sq_baap",
     "202605281713sq_whws",
     "202605291304sq_rifz",
@@ -67,11 +65,7 @@
     "202606300914sq_1y5v",
     "202607011126sq_axou",
     "202607011129sq_94tl",
-    "202607021633sq_vrqy",
-    "202607101208sq_vcgd",
-    "202607221633sq_jkex",
     "202607241507sq_5y1k",
-    "202607251008sq_inyf",
     "202607281200sq_fs8j",
     "202607291003sq_9l1y",
     "202608041343sq_hq3x",
@@ -81,74 +75,14 @@
     "202608281350sq_e5wq",
     "202609021014sq_jfpn",
     "202609140959sq_q7n5",
-    "34357",
-    "34396",
-    "34446",
-    "34893",
-    "35648",
-    "36245",
-    "36246",
-    "9088"
+    "202610131313sq_5019",
+    "34893"
   ],
   "detail_page_blockers": [
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "34446",
-      "url": "https://www.pugh-auctions.com/property/34446",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/34446"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "36246",
-      "url": "https://www.pugh-auctions.com/property/36246",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/36246"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "9088",
-      "url": "https://www.pugh-auctions.com/property/9088",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/9088"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "34396",
-      "url": "https://www.pugh-auctions.com/property/34396",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/34396"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "36245",
-      "url": "https://www.pugh-auctions.com/property/36245",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/36245"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "35648",
-      "url": "https://www.pugh-auctions.com/property/35648",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/35648"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "34357",
-      "url": "https://www.pugh-auctions.com/property/34357",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/33085"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "34893",
-      "url": "https://www.pugh-auctions.com/property/34893",
-      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202601131047sq_rdbv",
-      "url": "https://www.pugh-auctions.com/property/202601131047sq_rdbv",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202601261627sq_5f6n",
-      "url": "https://www.pugh-auctions.com/property/202601261627sq_5f6n",
+      "source_lot_id": "202601261613sq_2fp3",
+      "url": "https://www.pugh-auctions.com/property/202601261613sq_2fp3",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -159,26 +93,32 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202601261555sq_vub0",
-      "url": "https://www.pugh-auctions.com/property/202601261555sq_vub0",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
       "source_lot_id": "202601231232sq_gm55",
       "url": "https://www.pugh-auctions.com/property/202601231232sq_gm55",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202601261613sq_2fp3",
-      "url": "https://www.pugh-auctions.com/property/202601261613sq_2fp3",
+      "source_lot_id": "202601261644sq_l40y",
+      "url": "https://www.pugh-auctions.com/property/202601261644sq_l40y",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202601261644sq_l40y",
-      "url": "https://www.pugh-auctions.com/property/202601261644sq_l40y",
+      "source_lot_id": "202601131047sq_rdbv",
+      "url": "https://www.pugh-auctions.com/property/202601131047sq_rdbv",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202601261555sq_vub0",
+      "url": "https://www.pugh-auctions.com/property/202601261555sq_vub0",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202601261627sq_5f6n",
+      "url": "https://www.pugh-auctions.com/property/202601261627sq_5f6n",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -201,12 +141,6 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202508071608sq_nlsh",
-      "url": "https://www.pugh-auctions.com/property/202508071608sq_nlsh",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
       "source_lot_id": "202602040926sq_9w1m",
       "url": "https://www.pugh-auctions.com/property/202602040926sq_9w1m",
       "error": "ValueError: detail page has no exact lot and auction date"
@@ -225,6 +159,12 @@
     },
     {
       "kind": "detail_page_recovery",
+      "source_lot_id": "202508071608sq_nlsh",
+      "url": "https://www.pugh-auctions.com/property/202508071608sq_nlsh",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
       "source_lot_id": "202602241100sq_ywgw",
       "url": "https://www.pugh-auctions.com/property/202602241100sq_ywgw",
       "error": "ValueError: detail page has no exact lot and auction date"
@@ -233,6 +173,12 @@
       "kind": "detail_page_recovery",
       "source_lot_id": "202603031455sq_aej1",
       "url": "https://www.pugh-auctions.com/property/202603031455sq_aej1",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202603031719sq_vwyn",
+      "url": "https://www.pugh-auctions.com/property/202603031719sq_vwyn",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -249,8 +195,8 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202603031719sq_vwyn",
-      "url": "https://www.pugh-auctions.com/property/202603031719sq_vwyn",
+      "source_lot_id": "202604081055sq_nj0y",
+      "url": "https://www.pugh-auctions.com/property/202604081055sq_nj0y",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -261,20 +207,14 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202603161009sq_tpkv",
-      "url": "https://www.pugh-auctions.com/property/202603161009sq_tpkv",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202604081055sq_nj0y",
-      "url": "https://www.pugh-auctions.com/property/202604081055sq_nj0y",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
       "source_lot_id": "202603161044sq_v2xs",
       "url": "https://www.pugh-auctions.com/property/202603161044sq_v2xs",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202603161009sq_tpkv",
+      "url": "https://www.pugh-auctions.com/property/202603161009sq_tpkv",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -291,8 +231,8 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202604091030sq_71rv",
-      "url": "https://www.pugh-auctions.com/property/202604091030sq_71rv",
+      "source_lot_id": "202603161028sq_nsk2",
+      "url": "https://www.pugh-auctions.com/property/202603161028sq_nsk2",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -303,14 +243,14 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202603161039sq_4b79",
-      "url": "https://www.pugh-auctions.com/property/202603161039sq_4b79",
+      "source_lot_id": "202604091030sq_71rv",
+      "url": "https://www.pugh-auctions.com/property/202604091030sq_71rv",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202604271510sq_5ibq",
-      "url": "https://www.pugh-auctions.com/property/202604271510sq_5ibq",
+      "source_lot_id": "202603161039sq_4b79",
+      "url": "https://www.pugh-auctions.com/property/202603161039sq_4b79",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -327,14 +267,20 @@
     },
     {
       "kind": "detail_page_recovery",
+      "source_lot_id": "202604271510sq_5ibq",
+      "url": "https://www.pugh-auctions.com/property/202604271510sq_5ibq",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
       "source_lot_id": "202605150925sq_baap",
       "url": "https://www.pugh-auctions.com/property/202605150925sq_baap",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202603161028sq_nsk2",
-      "url": "https://www.pugh-auctions.com/property/202603161028sq_nsk2",
+      "source_lot_id": "202606051018sq_9uap",
+      "url": "https://www.pugh-auctions.com/property/202606051018sq_9uap",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -347,18 +293,6 @@
       "kind": "detail_page_recovery",
       "source_lot_id": "202601200958sq_6ljq",
       "url": "https://www.pugh-auctions.com/property/202601200958sq_6ljq",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202606051018sq_9uap",
-      "url": "https://www.pugh-auctions.com/property/202606051018sq_9uap",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202604301203sq_n6aq",
-      "url": "https://www.pugh-auctions.com/property/202604301203sq_n6aq",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -387,20 +321,8 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202605291304sq_rifz",
-      "url": "https://www.pugh-auctions.com/property/202605291304sq_rifz",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
       "source_lot_id": "202607011129sq_94tl",
       "url": "https://www.pugh-auctions.com/property/202607011129sq_94tl",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202607281200sq_fs8j",
-      "url": "https://www.pugh-auctions.com/property/202607281200sq_fs8j",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -411,32 +333,26 @@
     },
     {
       "kind": "detail_page_recovery",
+      "source_lot_id": "202607281200sq_fs8j",
+      "url": "https://www.pugh-auctions.com/property/202607281200sq_fs8j",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
       "source_lot_id": "202606300914sq_1y5v",
       "url": "https://www.pugh-auctions.com/property/202606300914sq_1y5v",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
       "kind": "detail_page_recovery",
+      "source_lot_id": "202605291304sq_rifz",
+      "url": "https://www.pugh-auctions.com/property/202605291304sq_rifz",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
       "source_lot_id": "202607291003sq_9l1y",
       "url": "https://www.pugh-auctions.com/property/202607291003sq_9l1y",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202607101208sq_vcgd",
-      "url": "https://www.pugh-auctions.com/property/202607101208sq_vcgd",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202607251008sq_inyf",
-      "url": "https://www.pugh-auctions.com/property/202607251008sq_inyf",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202607221633sq_jkex",
-      "url": "https://www.pugh-auctions.com/property/202607221633sq_jkex",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -465,26 +381,20 @@
     },
     {
       "kind": "detail_page_recovery",
+      "source_lot_id": "202608281350sq_e5wq",
+      "url": "https://www.pugh-auctions.com/property/202608281350sq_e5wq",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
       "source_lot_id": "202609021014sq_jfpn",
       "url": "https://www.pugh-auctions.com/property/202609021014sq_jfpn",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "202607021633sq_vrqy",
-      "url": "https://www.pugh-auctions.com/property/202607021633sq_vrqy",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
       "source_lot_id": "202608211436sq_cv3j",
       "url": "https://www.pugh-auctions.com/property/202608211436sq_cv3j",
-      "error": "ValueError: detail page has no exact lot and auction date"
-    },
-    {
-      "kind": "detail_page_recovery",
-      "source_lot_id": "202608281350sq_e5wq",
-      "url": "https://www.pugh-auctions.com/property/202608281350sq_e5wq",
       "error": "ValueError: detail page has no exact lot and auction date"
     },
     {
@@ -501,12 +411,18 @@
     },
     {
       "kind": "detail_page_recovery",
-      "source_lot_id": "11115",
-      "url": "https://www.pugh-auctions.com/property/11115",
-      "error": "TooManyRedirects: Exceeded 30 redirects."
+      "source_lot_id": "202610131313sq_5019",
+      "url": "https://www.pugh-auctions.com/property/202610131313sq_5019",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "34893",
+      "url": "https://www.pugh-auctions.com/property/34893",
+      "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875"
     }
   ],
   "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
   "errors": [],
-  "checked_at": "2026-10-21T12:20:28.783854+00:00"
+  "checked_at": "2026-10-24T23:13:03.229155+00:00"
 }

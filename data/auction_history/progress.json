@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-24T22:07:43.451699+00:00",
-  "individual_lot_records_captured": 279738,
-  "records_with_address": 269368,
-  "partial_lot_records": 10370,
-  "exact_address_groups": 153441,
-  "groups_with_repeat_appearances": 38297,
+  "generated_at": "2026-10-24T23:31:28.726744+00:00",
+  "individual_lot_records_captured": 279794,
+  "records_with_address": 269425,
+  "partial_lot_records": 10369,
+  "exact_address_groups": 153479,
+  "groups_with_repeat_appearances": 38307,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 44927,
@@ -39,8 +39,8 @@
     "Auction House West Yorkshire": 117,
     "BTG Eddisons": 2697,
     "Bagshaws": 84,
-    "Barnard Marcus Auctions": 6700,
-    "Barnett Ross": 7547,
+    "Barnard Marcus Auctions": 6701,
+    "Barnett Ross": 7601,
     "BidX1": 294,
     "Bond Wolfe": 9582,
     "Brown&Co": 28,
@@ -62,7 +62,7 @@
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
-    "Pugh Auctioneers": 6892,
+    "Pugh Auctioneers": 6893,
     "SDL Property Auctions": 443,
     "Savills (London - National)": 1,
     "Savills Auctions": 30926,
@@ -79,7 +79,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4147,
+    "null": 4202,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -104,22 +104,22 @@
     "2023": 29620,
     "2024": 38519,
     "2025": 44025,
-    "2026": 41796
+    "2026": 41797
   },
   "by_sector": {
-    "commercial": 38897,
+    "commercial": 38899,
     "land": 17156,
     "mixed-use": 42052,
-    "residential": 135422,
-    "unknown": 46211
+    "residential": 135423,
+    "unknown": 46264
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 1872,
-  "catalogues_incomplete_or_unreconciled": 624,
-  "catalogue_fetch_or_parse_failures": 87,
+  "surviving_catalogues_completely_harvested": 1873,
+  "catalogues_incomplete_or_unreconciled": 625,
+  "catalogue_fetch_or_parse_failures": 116,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -131,13 +131,13 @@
     "through_date": "2026-10-24",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 272520,
+      "lot_appearances": 272521,
       "auction_ids_observed": 6976,
-      "with_guide_price": 95257,
-      "with_sale_price": 104869,
+      "with_guide_price": 95251,
+      "with_sale_price": 104893,
       "with_both_prices": 45228,
-      "marked_sold": 142269,
-      "marked_sold_without_sale_price": 38140
+      "marked_sold": 142256,
+      "marked_sold_without_sale_price": 38103
     },
     "by_auctioneer_and_year": [
       {
@@ -2519,13 +2519,13 @@
       {
         "auctioneer": "Barnard Marcus Auctions",
         "year": 2026,
-        "lot_appearances": 2743,
+        "lot_appearances": 2744,
         "auction_ids_observed": 8,
-        "with_guide_price": 1257,
-        "with_sale_price": 821,
+        "with_guide_price": 1250,
+        "with_sale_price": 823,
         "with_both_prices": 0,
-        "marked_sold": 1458,
-        "marked_sold_without_sale_price": 637
+        "marked_sold": 1465,
+        "marked_sold_without_sale_price": 642
       },
       {
         "auctioneer": "Barnett Ross",
@@ -4130,8 +4130,8 @@
         "with_guide_price": 0,
         "with_sale_price": 12,
         "with_both_prices": 0,
-        "marked_sold": 15,
-        "marked_sold_without_sale_price": 3
+        "marked_sold": 14,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "LSH Auctions",
@@ -4141,8 +4141,8 @@
         "with_guide_price": 0,
         "with_sale_price": 22,
         "with_both_prices": 0,
-        "marked_sold": 27,
-        "marked_sold_without_sale_price": 5
+        "marked_sold": 24,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "LSH Auctions",
@@ -4196,8 +4196,8 @@
         "with_guide_price": 0,
         "with_sale_price": 25,
         "with_both_prices": 0,
-        "marked_sold": 33,
-        "marked_sold_without_sale_price": 8
+        "marked_sold": 32,
+        "marked_sold_without_sale_price": 7
       },
       {
         "auctioneer": "LSH Auctions",
@@ -4207,8 +4207,8 @@
         "with_guide_price": 0,
         "with_sale_price": 52,
         "with_both_prices": 0,
-        "marked_sold": 79,
-        "marked_sold_without_sale_price": 27
+        "marked_sold": 77,
+        "marked_sold_without_sale_price": 25
       },
       {
         "auctioneer": "LSH Auctions",
@@ -4218,8 +4218,8 @@
         "with_guide_price": 0,
         "with_sale_price": 34,
         "with_both_prices": 0,
-        "marked_sold": 72,
-        "marked_sold_without_sale_price": 38
+        "marked_sold": 65,
+        "marked_sold_without_sale_price": 31
       },
       {
         "auctioneer": "LSH Auctions",
@@ -4229,8 +4229,8 @@
         "with_guide_price": 0,
         "with_sale_price": 21,
         "with_both_prices": 0,
-        "marked_sold": 55,
-        "marked_sold_without_sale_price": 34
+        "marked_sold": 51,
+        "marked_sold_without_sale_price": 30
       },
       {
         "auctioneer": "Maggs & Allen",
@@ -4887,10 +4887,10 @@
         "lot_appearances": 3,
         "auction_ids_observed": 3,
         "with_guide_price": 0,
-        "with_sale_price": 0,
+        "with_sale_price": 2,
         "with_both_prices": 0,
         "marked_sold": 3,
-        "marked_sold_without_sale_price": 3
+        "marked_sold_without_sale_price": 1
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -4898,10 +4898,10 @@
         "lot_appearances": 3,
         "auction_ids_observed": 3,
         "with_guide_price": 0,
-        "with_sale_price": 0,
+        "with_sale_price": 3,
         "with_both_prices": 0,
         "marked_sold": 3,
-        "marked_sold_without_sale_price": 3
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -4909,10 +4909,10 @@
         "lot_appearances": 305,
         "auction_ids_observed": 5,
         "with_guide_price": 0,
-        "with_sale_price": 60,
+        "with_sale_price": 77,
         "with_both_prices": 0,
-        "marked_sold": 239,
-        "marked_sold_without_sale_price": 179
+        "marked_sold": 237,
+        "marked_sold_without_sale_price": 160
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -4974,7 +4974,7 @@
         "year": 2026,
         "lot_appearances": 2299,
         "auction_ids_observed": 19,
-        "with_guide_price": 453,
+        "with_guide_price": 454,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 1477,
@@ -5883,7 +5883,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4147,
+    "undated_appearances": 4202,
     "future_dated_appearances": 28,
     "national_completeness_verified": false,
     "limits": [
@@ -5895,14 +5895,14 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-24T21:44:16.700259+00:00",
+    "checked_at": "2026-10-24T23:30:01.164474+00:00",
     "lots_captured": 5603,
-    "current_run_unique_lots": 5601,
+    "current_run_unique_lots": 5250,
     "expected_public_results": 5601,
     "run_new_appearances": 0,
     "run_new_address_records": 0,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 2,
+    "retained_not_in_current_public_pagination": 353,
     "pages_captured": [
       1,
       2,
@@ -6008,18 +6008,10 @@
       102,
       103,
       104,
-      105,
-      106,
-      107,
-      108,
-      109,
-      110,
-      111,
-      112,
-      113
+      105
     ],
     "pages_expected": 113,
-    "results_complete": true,
+    "results_complete": false,
     "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
