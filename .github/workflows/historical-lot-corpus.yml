@@ -617,7 +617,7 @@ jobs:
           fi
           build_base=$(git rev-parse HEAD)
           git commit -m 'Bank historical auction lot records and source evidence'
-          checkpoint_branch="history-checkpoints/${GITHUB_RUN_ID}"
+          checkpoint_branch="history-checkpoints/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           # Preserve the entire collection before attempting to merge moving main.
           git push origin "HEAD:refs/heads/$checkpoint_branch"
           pushed=false
