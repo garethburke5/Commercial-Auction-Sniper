@@ -523,6 +523,10 @@ jobs:
         continue-on-error: true
         run: python -u scripts/harvest_phillip_arnold_results.py 8
 
+      - name: Bank newly saved source-corpus lots
+        if: always()
+        timeout-minutes: 5
+        run: python -u historical_corpus.py bank-source-corpus
       - name: Rebuild database from saved lot records
         id: rebuild
         if: always()
@@ -546,7 +550,7 @@ jobs:
           # retained collector cannot silently leave stale run-gain counters on main.
           git add data/auction_history/*_collection.json
           git add data/auction_history/source_register.json
-          git add data/historical_source_corpus/barnard_marcus_*.json
+          git add data/historical_source_corpus/*.json
           if test -f data/auction_history/paul_fosh_collection.json; then git add data/auction_history/paul_fosh_collection.json; fi
           if test -f data/auction_history/allsop_collection.json; then git add data/auction_history/allsop_collection.json; fi
           if test -f data/auction_history/commercial_expansion.json; then git add data/auction_history/commercial_expansion.json; fi
@@ -611,6 +615,9 @@ jobs:
             exit 0
           fi
           git commit -m 'Bank historical auction lot records and source evidence'
+          checkpoint_branch="history-checkpoints/${GITHUB_RUN_ID}"
+          # Preserve the entire collection before attempting to merge moving main.
+          git push origin "HEAD:refs/heads/$checkpoint_branch"
           pushed=false
           for attempt in 1 2 3 4; do
             git fetch origin main
@@ -618,7 +625,11 @@ jobs:
             # publication allow-list. Preserve it while rebasing instead of
             # losing an otherwise valid historical checkpoint when main moves.
             git status --short
-            git rebase --autostash origin/main
+            if ! git rebase --autostash origin/main; then
+              git rebase --abort
+              echo "::error::Publication needs reconciliation. Full source checkpoint retained on $checkpoint_branch."
+              exit 1
+            fi
             if git push origin HEAD:main; then
               pushed=true
               break
@@ -626,6 +637,13 @@ jobs:
           done
           if test -n "$database_backup"; then cp "$database_backup" data/auction_history/auction_history.sqlite.gz; fi
           test "$pushed" = true
+          git push origin --delete "$checkpoint_branch"
+      - name: Restore the newly built database for artifact retention
+        if: always()
+        run: |
+          if test -f "$RUNNER_TEMP/auction_history.sqlite.gz"; then
+            cp "$RUNNER_TEMP/auction_history.sqlite.gz" data/auction_history/auction_history.sqlite.gz
+          fi
       - name: Preserve downloadable database
         if: always()
         uses: actions/upload-artifact@v4

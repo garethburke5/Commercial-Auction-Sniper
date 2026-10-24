@@ -62,7 +62,9 @@ def build(progress,directory,registry,continuation,catalogues):
 
 def run(root=ROOT):
     root=Path(root);folder=root/'data/auction_history';path=folder/'source_register.json'
-    previous=json.loads(path.read_text()) if path.exists() else {}
+    seed_path=root/'config/historical_auctioneer_directory.json'
+    seed=json.loads(seed_path.read_text()) if seed_path.exists() else {}
+    previous=json.loads(path.read_text()) if path.exists() else seed
     discovery=previous.get('directory_discovery',{})
     directory=previous.get('directory_entries',[])
     try:
