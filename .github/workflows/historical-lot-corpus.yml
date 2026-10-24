@@ -139,6 +139,9 @@ concurrency:
 
 jobs:
   collect:
+    # Publishing a generated checkpoint touches historical paths.  Treat that
+    # commit as terminal so it cannot recursively launch another collector.
+    if: ${{ !startsWith(github.event.head_commit.message, 'Bank historical auction lot records') }}
     # Owner resumed archive work on 20 October. Scheduled runs use bounded,
     # rotating batches; broad legacy sweeps remain explicit dispatch choices.
     runs-on: ubuntu-latest
