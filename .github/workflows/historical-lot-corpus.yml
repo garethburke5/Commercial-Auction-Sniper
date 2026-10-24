@@ -615,6 +615,7 @@ jobs:
             if test -n "$database_backup"; then cp "$database_backup" data/auction_history/auction_history.sqlite.gz; fi
             exit 0
           fi
+          build_base=$(git rev-parse HEAD)
           git commit -m 'Bank historical auction lot records and source evidence'
           checkpoint_branch="history-checkpoints/${GITHUB_RUN_ID}"
           # Preserve the entire collection before attempting to merge moving main.
@@ -630,6 +631,26 @@ jobs:
               git rebase --abort
               echo "::error::Publication needs reconciliation. Full source checkpoint retained on $checkpoint_branch."
               exit 1
+            fi
+            # A clean rebase can still introduce new source shards from main.
+            # Rebuild against that merged evidence before publishing its database.
+            if ! git diff --quiet "$build_base" origin/main -- data/auction_history/appearances data/auction_history/auctions data/historical_source_corpus; then
+              python -u -c "from historical_corpus import bank_source_corpus; bank_source_corpus()"
+              python -u historical_corpus.py build
+              python -c "from web_platform.history_storage import publish_parts; publish_parts('data/auction_history/auction_history.sqlite.gz', 'data/auction_history/database_parts')"
+              python scripts/history_source_register.py
+              git add data/auction_history/appearances data/auction_history/sources data/auction_history/auctions data/auction_history/progress.json data/auction_history/source_register.json
+              git add -A data/auction_history/database_parts
+              database_bytes=$(stat -c%s data/auction_history/auction_history.sqlite.gz)
+              if test "$database_bytes" -lt 99000000; then
+                git add data/auction_history/auction_history.sqlite.gz
+              else
+                database_backup="$RUNNER_TEMP/auction_history.sqlite.gz"
+                cp data/auction_history/auction_history.sqlite.gz "$database_backup"
+                git restore data/auction_history/auction_history.sqlite.gz
+              fi
+              git commit --amend --no-edit
+              build_base=$(git rev-parse origin/main)
             fi
             if git push origin HEAD:main; then
               pushed=true
