@@ -227,7 +227,7 @@ def discover_retained_listings() -> tuple[list[str], list[dict]]:
         sha = corpus.digest(raw)
         snapshot = corpus.DATA / "sources/anderson-garland/listing-index" / f"page-{page}-{sha[:16]}.json.gz"
         item = {
-            "source_url": response.url, "retrieved_at": corpus.now(), "sha256": sha,
+            "source_url": response_url, "retrieved_at": corpus.now(), "sha256": sha,
             "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
             "basis": "first-party paginated property-search index",
         }
@@ -245,23 +245,39 @@ def discover_retained_listings() -> tuple[list[str], list[dict]]:
 
 
 def harvest() -> None:
-    response = requests.get(SOURCE_URL, headers=HEADERS, timeout=75)
-    response.raise_for_status()
-    raw = response.content
-    if len(raw) < 1000:
-        raise ValueError("source response is unexpectedly short")
-    retrieved_at, sha = corpus.now(), corpus.digest(raw)
-    snapshot = corpus.DATA / "sources/anderson-garland" / f"recent-auction-results-{sha[:16]}.json.gz"
-    evidence = {
-        "source_url": response.url,
-        "retrieved_at": retrieved_at,
-        "sha256": sha,
-        "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party retained recent auction results page",
-    }
-    html = raw.decode("utf-8", "replace")
-    corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
-    rows = parse_results(html, evidence)
+    # The selected-results marketing page is less durable than the finite
+    # listing index.  A transient outage or layout change must not prevent
+    # reconciliation of retained listing details that can still add exact,
+    # dated sold-auction appearances.
+    rows: list[dict] = []
+    evidence: dict | None = None
+    response_url = SOURCE_URL
+    result_page_failure: dict | None = None
+    try:
+        response = requests.get(SOURCE_URL, headers=HEADERS, timeout=75)
+        response.raise_for_status()
+        response_url = response.url
+        raw = response.content
+        if len(raw) < 1000:
+            raise ValueError("source response is unexpectedly short")
+        retrieved_at, sha = corpus.now(), corpus.digest(raw)
+        snapshot = corpus.DATA / "sources/anderson-garland" / f"recent-auction-results-{sha[:16]}.json.gz"
+        evidence = {
+            "source_url": response.url,
+            "retrieved_at": retrieved_at,
+            "sha256": sha,
+            "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+            "basis": "first-party retained recent auction results page",
+        }
+        html = raw.decode("utf-8", "replace")
+        corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
+        rows = parse_results(html, evidence)
+    except Exception as exc:
+        result_page_failure = {
+            "url": SOURCE_URL,
+            "error": f"{type(exc).__name__}: {exc}"[:500],
+            "reason": "selected-results page unavailable; retained listing reconciliation continued",
+        }
 
     path = corpus.DATA / "appearances/anderson-garland/recent-results.jsonl.gz"
     existing = list(corpus.iter_rows(path)) if path.exists() else []
@@ -345,21 +361,29 @@ def harvest() -> None:
     total = corpus.write_rows("anderson-garland/recent-results", list(merged.values()))
     added = [row for key, row in merged.items() if key not in existing_ids]
 
+    state_path = corpus.DATA / "auctions/anderson-garland/recent-results.json"
+    previous_state = json.loads(state_path.read_text()) if state_path.exists() else {}
     state = {
         "auctioneer": "Anderson & Garland",
         "source_auction_id": "anderson-garland:recent-auction-results",
         "auction_date": None,
         "catalogue_complete": False,
-        "result_page_rows_complete": True,
-        "published_selected_results": len(rows),
-        "lots_captured": len(rows),
-        "source_url": response.url,
+        "result_page_rows_complete": result_page_failure is None,
+        "published_selected_results": (
+            len(rows) if result_page_failure is None
+            else previous_state.get("published_selected_results")
+        ),
+        "lots_captured": (
+            len(rows) if result_page_failure is None
+            else previous_state.get("lots_captured", len(existing))
+        ),
+        "source_url": response_url,
         "completion_scope": "every sold-property block on the first-party recent-results page; not a dated full catalogue",
-        "source_evidence": evidence,
-        "errors": [],
+        "source_evidence": evidence or previous_state.get("source_evidence"),
+        "errors": [result_page_failure] if result_page_failure else [],
         "checked_at": corpus.now(),
     }
-    corpus.save_json(corpus.DATA / "auctions/anderson-garland/recent-results.json", state)
+    corpus.save_json(state_path, state)
     summary = {
         "checked_at": corpus.now(),
         "source_url": response.url,
@@ -374,11 +398,11 @@ def harvest() -> None:
         "detail_audit": detail_audit,
         "catalogue_scope_warning": "source is a recent selected-results page plus exact dated sold-auction details from the reconciled retained listing index; original catalogue denominators remain unavailable",
         "result_page": state,
-        "failures": detail_failures,
+        "failures": ([result_page_failure] if result_page_failure else []) + detail_failures,
     }
     corpus.save_json(corpus.DATA / "anderson_garland_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if detail_failures:
+    if result_page_failure or detail_failures:
         raise SystemExit(1)
 
 
