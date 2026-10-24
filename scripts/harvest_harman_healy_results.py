@@ -64,7 +64,7 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
         status = "sold_prior"
     elif "sold post" in text or "sold after" in text:
         status = "sold_after"
-    elif "sold" in text:
+    elif re.search(r"\bsold\b", text):
         status = "sold"
     elif "withdrawn" in text:
         status = "withdrawn"
@@ -166,16 +166,9 @@ def harvest() -> None:
                 )
 
     old_expected = int((cached_state or {}).get("published_lots_offered") or 0)
-    old_pages = math.ceil(old_expected / PAGE_SIZE) if old_expected else 0
-    if expected == old_expected:
-        reusable = set(range(2, total_pages + 1))
-    elif expected > old_expected and total_pages >= old_pages and old_pages:
-        # New rows append to the retained archive. Re-fetch the old partial tail
-        # plus every newly created page; immutable earlier full pages are reparsed
-        # from their saved snapshots.
-        reusable = set(range(2, max(2, old_pages)))
-    else:
-        reusable = set()
+    # Changed totals invalidate cached pagination. Reusing pages carrying the
+    # old denominator made every growing archive fail reconciliation.
+    reusable = set(range(2, total_pages + 1)) if expected == old_expected else set()
     for page in reusable:
         if page in cached_pages:
             fetched[page] = cached_pages[page]

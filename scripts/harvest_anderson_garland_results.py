@@ -78,9 +78,8 @@ def parse_results(html: str, evidence: dict) -> list[dict]:
     body = soup.select_one("#about-content")
     if body is None:
         raise ValueError("recent-results content container is absent")
-    heading = clean(body.get_text(" ", strip=True)) or ""
-    if "Selling Success at Auction" not in heading:
-        raise ValueError("first-party auction-results heading is absent")
+    # Marketing headings change; the validated address/description/sold-price
+    # blocks below establish the result structure. Never admit an empty page.
 
     paragraphs = body.find_all("p")
     result_indexes = [index for index, node in enumerate(paragraphs)
@@ -263,6 +262,13 @@ def harvest() -> None:
     corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
     rows = parse_results(html, evidence)
 
+    path = corpus.DATA / "appearances/anderson-garland/recent-results.jsonl.gz"
+    existing = list(corpus.iter_rows(path)) if path.exists() else []
+    existing_ids = {row["appearance_id"] for row in existing}
+    # Retain newly evidenced selected results before slower detail enrichment.
+    # Do not overwrite a previously dated record with this undated preview.
+    corpus.write_rows("anderson-garland/recent-results", existing + [row for row in rows if row["appearance_id"] not in existing_ids])
+
     listing_urls, listing_index_evidence = discover_retained_listings()
     detail_rows, detail_failures, detail_audit = [], [], []
     for url in listing_urls:
@@ -294,9 +300,6 @@ def harvest() -> None:
         except Exception as exc:
             detail_failures.append({"url": url, "error": f"{type(exc).__name__}: {exc}"[:500]})
 
-    path = corpus.DATA / "appearances/anderson-garland/recent-results.jsonl.gz"
-    existing = list(corpus.iter_rows(path)) if path.exists() else []
-    existing_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
     for row in rows:
         merged[row["appearance_id"]] = row

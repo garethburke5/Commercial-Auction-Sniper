@@ -84,3 +84,11 @@ def test_detail_requires_explicit_sold_result_and_exact_auction_date():
         "https://aglandandproperty.com/listings/residential_sale-RX572185-stanley",
         {},
     ) is None
+
+
+def test_changed_marketing_heading_does_not_hide_valid_auction_results():
+    updated=HTML.replace('Outstanding 96% Selling Success at Auction','AVERAGE UPLIFT FROM GUIDE TO SALE PRICE 37%. OUTSTANDING SELLING SUCCESS RATE OF 96%.')
+    rows=parse_results(updated,{'sha256':'new-heading'})
+    assert len(rows)==2
+    assert rows[0]['address']=='2 Fawdon Lane, Newcastle'
+    assert rows[0]['sale_price']==213000

@@ -45,3 +45,31 @@ def test_stable_identity_is_source_lot_id_not_address():
     rows = hh.parse_page(FIXTURE, 1, {})
     assert rows[0]["appearance_id"] == "Harman Healy|eig-lot:381c1785-8681-4361-9653-9211dc113afd"
     assert rows[0]["source_auction_id"] == "harman-healy:2023-05-18"
+
+
+def test_unsold_asking_amount_is_not_a_sale():
+    assert hh.status_and_price('Unsold £175,000')==('unsold',None)
+
+
+def test_growing_archive_refetches_old_pages_before_reconciliation(monkeypatch,tmp_path):
+    import json
+    monkeypatch.setattr(hh.corpus,'ROOT',tmp_path)
+    monkeypatch.setattr(hh.corpus,'DATA',tmp_path/'data/auction_history')
+    monkeypatch.setattr(hh,'PAGE_SIZE',2)
+    saved=[]
+    for page in range(1,4):
+        evidence={'page':page,'source_url':f'https://example.com/{page}','snapshot_path':f'page{page}.json.gz'}
+        hh.corpus.save_gzip(tmp_path/evidence['snapshot_path'],{'html':f'{page}:6','evidence':evidence})
+        saved.append(evidence)
+    hh.corpus.save_json(hh.corpus.DATA/'auctions/harman-healy/retained-past-auctions.json',{'catalogue_complete':True,'published_lots_offered':6,'source_evidence':saved})
+    fetched=[]
+    def fetch(page):
+        fetched.append(page)
+        return page,f'{page}:8'.encode(),f'https://example.com/{page}'
+    monkeypatch.setattr(hh,'fetch',fetch)
+    monkeypatch.setattr(hh,'published_total',lambda html:int(html.split(':')[1]))
+    monkeypatch.setattr(hh,'parse_page',lambda html,page,ev:[{'appearance_id':f'row:{page}:{i}','auction_date':'2026-10-01','address':f'{page}-{i} High Street','source_evidence':ev} for i in range(2)])
+    hh.harvest()
+    assert sorted(fetched)==[1,2,3,4]
+    state=json.loads((hh.corpus.DATA/'auctions/harman-healy/retained-past-auctions.json').read_text())
+    assert state['catalogue_complete'] is True and state['lots_captured']==8

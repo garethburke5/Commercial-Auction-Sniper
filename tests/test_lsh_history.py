@@ -49,3 +49,8 @@ def test_source_specific_result_labels_are_not_lost():
     assert lsh.status_and_price("Sale Agreed for £150,300") == ("sold", 150300)
     assert lsh.status_and_price("Sale Agreed Prior") == ("sold_prior", None)
     assert lsh.status_and_price("Postponed") == ("postponed", None)
+
+
+def test_explicit_unsold_price_is_not_an_achieved_sale():
+    from scripts.harvest_lsh_results import status_and_price
+    assert status_and_price('Unsold £175,000')==('unsold',None)

@@ -61,7 +61,7 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
         status = "sold_prior"
     elif "sold post" in text or "sold after" in text:
         status = "sold_after"
-    elif "sold" in text or "sale agreed" in text:
+    elif re.search(r"\bsold\b", text) or "sale agreed" in text:
         status = "sold"
     elif "postponed" in text:
         status = "postponed"
