@@ -386,7 +386,7 @@ def harvest() -> None:
     corpus.save_json(state_path, state)
     summary = {
         "checked_at": corpus.now(),
-        "source_url": response.url,
+        "source_url": response_url,
         "selected_result_appearances_captured": total,
         "run_new_appearances": len(added),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
