@@ -9,6 +9,7 @@ import html
 import json
 import re
 import time
+import requests
 from pathlib import Path
 from urllib.parse import parse_qs, urljoin, urlparse
 from urllib.request import Request, urlopen
@@ -21,8 +22,9 @@ UA = "Mozilla/5.0 (compatible; Commercial-Auction-Sniper historical corpus)"
 def fetch_json(url: str, attempts: int = 4) -> dict:
     for attempt in range(attempts):
         try:
-            with urlopen(Request(url, headers={"User-Agent": UA}), timeout=45) as response:
-                return json.load(response)
+            response=requests.get(url,headers={"User-Agent":UA},timeout=(10,30))
+            response.raise_for_status()
+            return response.json()
         except Exception:
             if attempt + 1 == attempts:
                 raise
@@ -33,8 +35,9 @@ def fetch_json(url: str, attempts: int = 4) -> dict:
 def fetch_text(url: str, attempts: int = 4) -> str:
     for attempt in range(attempts):
         try:
-            with urlopen(Request(url, headers={"User-Agent": UA}), timeout=60) as response:
-                return response.read().decode("utf-8")
+            response=requests.get(url,headers={"User-Agent":UA},timeout=(10,30))
+            response.raise_for_status()
+            return response.content.decode('utf-8')
         except Exception:
             if attempt + 1 == attempts:
                 raise

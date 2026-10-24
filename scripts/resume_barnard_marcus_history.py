@@ -17,6 +17,16 @@ def discover(text,today=None):
     return sorted(found.items())
 
 
+def reconciled(payload):
+    rows=payload.get('lot_records') or []
+    ids=[r.get('source_record_id') for r in rows]
+    # Earlier captures used lot_enumeration_complete. Respect their retained
+    # reconciliation evidence rather than repeatedly re-fetching old catalogues.
+    return bool(rows and (payload.get('catalogue_complete') or payload.get('lot_enumeration_complete'))
+                and len(rows)==payload.get('published_rows')==payload.get('source_reported_rows')
+                and all(ids) and len(set(ids))==len(ids))
+
+
 def run(limit=4):
     index=BASE+'/sitemap.xml';raw=fetch_text(index)
     auctions=discover(raw)
@@ -25,10 +35,12 @@ def run(limit=4):
     snapshot=corpus.DATA/'sources/barnard-marcus'/('sitemap-'+corpus.digest(raw.encode())[:16]+'.json.gz')
     corpus.save_gzip(snapshot,{'source_url':index,'retrieved_at':corpus.now(),'xml':raw})
     attempted=[];failures=[];captured=0
-    for day,url in auctions:
+    # Uncaptured catalogues first; then repair previously partial captures.
+    ordered=sorted(auctions,key=lambda item:((root/('barnard_marcus_'+item[0].replace('-','_')+'.json')).exists(),item[0]))
+    for day,url in ordered:
         path=root/('barnard_marcus_'+day.replace('-','_')+'.json')
         prior=json.loads(path.read_text()) if path.exists() else {}
-        if prior.get('catalogue_complete') and prior.get('lot_records'):continue
+        if reconciled(prior):continue
         if len(attempted)>=limit:break
         attempted.append(day)
         print(f'Barnard Marcus: collecting {day} from {url}',flush=True)
@@ -46,7 +58,7 @@ def run(limit=4):
     for day,url in auctions:
         p=root/('barnard_marcus_'+day.replace('-','_')+'.json')
         s=json.loads(p.read_text()) if p.exists() else {}
-        if not(s.get('catalogue_complete') and s.get('lot_records')):remaining.append({'date':day,'url':url})
+        if not reconciled(s):remaining.append({'date':day,'url':url})
     result={'checked_at':corpus.now(),'catalogues_discovered':len(auctions),'catalogues_attempted':attempted,
             'lot_rows_captured_this_run':captured,'remaining_catalogues':remaining,'failures':failures,
             'complete':not remaining and not failures,'completion_scope':'Retained official sitemap catalogues only; not a claim of twenty-year completeness'}
