@@ -38,3 +38,26 @@ def test_unsold_price_cannot_become_sale_amount(monkeypatch):
     monkeypatch.setattr(collector,'fetch_json',lambda u:{'pagination':{'pageCount':1,'currentPage':1,'totalCount':1},'items':[{'id':42,'lotNumber':'1','addressLine1':'1 High Street','priceDescriptor':'Unsold','price':'£250,000','statusLabel':'Unsold'}]})
     row=collector.harvest('https://example.com/','2026-02-03')['lot_records'][0]
     assert row['result_price_gbp'] is None
+
+
+def test_changing_source_total_retains_valid_lots_without_claiming_complete(monkeypatch):
+    monkeypatch.setattr(collector, 'parse_ids', lambda u: ('house','auction'))
+    def fetch(url):
+        page=int(url.rsplit('=',1)[1])
+        return {'pagination':{'pageCount':2,'currentPage':page,'totalCount':2 if page==1 else 3},
+                'items':[{'id':page,'lotNumber':str(page),'addressLine1':f'{page} High Street'}]}
+    monkeypatch.setattr(collector,'fetch_json',fetch)
+    payload=collector.harvest('https://example.com/','2026-10-15',allow_incomplete=True)
+    assert payload['published_rows']==2
+    assert payload['catalogue_complete'] is False
+    assert payload['source_reported_totals']==[2,3]
+    assert payload['reconciliation_shortfall']==1
+    assert payload['reconciliation_errors']
+
+
+def test_wrong_page_identity_is_rejected_even_in_partial_mode(monkeypatch):
+    import pytest
+    monkeypatch.setattr(collector,'parse_ids',lambda u:('house','auction'))
+    monkeypatch.setattr(collector,'fetch_json',lambda u:{'pagination':{'pageCount':2,'currentPage':1,'totalCount':2},'items':[{'id':1}]})
+    with pytest.raises(RuntimeError,match='different page identity'):
+        collector.harvest('https://example.com/','2026-10-15',allow_incomplete=True)

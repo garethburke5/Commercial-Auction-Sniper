@@ -45,7 +45,7 @@ def run(limit=4):
         attempted.append(day)
         print(f'Barnard Marcus: collecting {day} from {url}',flush=True)
         try:
-            payload=harvest(url,day,workers=2)
+            payload=harvest(url,day,workers=2,allow_incomplete=True)
             payload['captured_at']=corpus.now();payload['discovery_evidence']=str(snapshot.relative_to(corpus.ROOT))
             corpus.save_json(path,payload)
             # Persist the individual lots immediately; a later timeout must not

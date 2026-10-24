@@ -518,7 +518,15 @@ def bank_source_corpus():
             row["sector"] = sector(" ".join(str(v or "") for v in
                                     (row["property_type"], row["description"])))
             result = clean(raw.get("result_status") or raw.get("result") or raw.get("status"))
-            if row["sale_price"] is not None or result.lower() == "sold":
+            result_key=result.lower().replace('_',' ').replace('-',' ')
+            if re.match(r'^(?:unsold|withdrawn|postponed)\b',result_key):
+                row['status']=result_key.split()[0]
+                row['sale_price']=None
+            elif re.match(r'^sold\s+(?:prior|before)\b',result_key):
+                row['status']='sold_prior'
+            elif re.match(r'^sold\s+(?:after|post)\b',result_key):
+                row['status']='sold_after'
+            elif row["sale_price"] is not None or result_key == "sold":
                 row["status"] = "sold"
             elif result:
                 row["status"] = result.lower()

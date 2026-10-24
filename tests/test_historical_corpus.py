@@ -6,6 +6,20 @@ import pytest
 import historical_corpus as h
 
 
+def test_source_banking_preserves_prior_after_and_unsold_outcomes(tmp_path,monkeypatch):
+    monkeypatch.setattr(h,'ROOT',tmp_path);monkeypatch.setattr(h,'DATA',tmp_path/'data/auction_history')
+    folder=tmp_path/'data/historical_source_corpus';folder.mkdir(parents=True)
+    statuses=['Sold prior','Sold after','Unsold','Withdrawn prior to auction']
+    rows=[{'source':'Test','source_record_id':str(i),'source_url':'https://example.com/'+str(i),
+           'auction_date':'2020-01-01','address':'1 High Street','result_status':status,
+           'result_price_gbp':100000} for i,status in enumerate(statuses)]
+    (folder/'example.json').write_text(json.dumps({'lot_records':rows}))
+    h.bank_source_corpus()
+    saved=list(h.iter_rows(h.DATA/'appearances/source-corpus/example.jsonl.gz'))
+    assert [r['status'] for r in saved]==['sold_prior','sold_after','unsold','withdrawn']
+    assert [r['sale_price'] for r in saved]==[100000,100000,None,None]
+
+
 def test_js_json_is_parsed_as_data_and_preserves_unicode():
     body = r'''lots: JSON.parse('[{"name":"O\'Brien – café","id":"3"}]')'''
     assert h.embedded(body, "lots", True) == [{"name": "O'Brien – café", "id": "3"}]

@@ -113,6 +113,8 @@ def harvest(
     first = fetch_json(endpoint.format(page=1))
     pagination = first["pagination"]
     pages = pagination["pageCount"]
+    reconciliation_errors = []
+    reported_totals = {pagination["totalCount"]}
     inventory_method = "search_api"
     inventory_urls: list[str] = []
     if pages:
@@ -122,14 +124,16 @@ def harvest(
         items = list(first["items"])
         for page, payload in zip(remaining, payloads):
             page_meta = payload["pagination"]
-            if (
-                page_meta["currentPage"] != page
-                or page_meta["pageCount"] != pages
-                or page_meta["totalCount"] != pagination["totalCount"]
-            ):
-                raise RuntimeError(f"page {page} did not reconcile")
+            if page_meta["currentPage"] != page:
+                raise RuntimeError(f"page {page} returned a different page identity")
+            reported_totals.add(page_meta["totalCount"])
+            if page_meta["pageCount"] != pages or page_meta["totalCount"] != pagination["totalCount"]:
+                message = f"page {page} reports {page_meta['totalCount']} lots / {page_meta['pageCount']} pages; first page reports {pagination['totalCount']} / {pages}"
+                if not allow_incomplete:
+                    raise RuntimeError(message)
+                reconciliation_errors.append(message)
             items.extend(payload["items"])
-        expected_rows = pagination["totalCount"]
+        expected_rows = max(reported_totals)
     else:
         # Some retained auction pages outlive their SearchApi index. The public
         # sitemap still provides an exact lot-page inventory, and every detail
@@ -142,7 +146,16 @@ def harvest(
             items = list(pool.map(item_from_lot_page, inventory_urls))
         expected_rows = len(inventory_urls)
 
-    reconciled = len(items) == expected_rows
+    unique_items = {}
+    for item in items:
+        if item["id"] in unique_items:
+            if not allow_incomplete:
+                raise RuntimeError("source IDs are not unique")
+            reconciliation_errors.append(f"duplicate source ID {item['id']} across source pages")
+        else:
+            unique_items[item["id"]] = item
+    items = list(unique_items.values())
+    reconciled = len(items) == expected_rows and not reconciliation_errors
     if not reconciled and not allow_incomplete:
         raise RuntimeError(f"expected {expected_rows} rows, got {len(items)}")
 
@@ -216,6 +229,8 @@ def harvest(
         "published_rows": len(rows),
         "source_reported_rows": expected_rows,
         "reconciliation_shortfall": expected_rows - len(rows),
+        "reconciliation_errors": reconciliation_errors,
+        "source_reported_totals": sorted(reported_totals),
         "unnumbered_rows": sum(row["lot_number"] is None for row in rows),
         "duplicate_lot_numbers": duplicate_lot_numbers,
         "pagination_pages_captured": list(range(1, pages + 1)),
@@ -229,8 +244,7 @@ def harvest(
             else "official sitemap lot-page inventory; active embedded lot-card JSON "
             "extracted from every retained first-party detail page and reconciled"
             if reconciled
-            else "official source inventory traversed, but the expected total exceeds "
-            "the returned rows"
+            else "official source pages traversed; source counts or identities remain unreconciled"
         ),
         "lot_records": rows,
     }
