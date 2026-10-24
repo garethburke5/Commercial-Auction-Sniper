@@ -49,3 +49,22 @@ The first widened production run attempted 45 tasks in 20 minutes: 36 completed,
 Publication now preserves a uniquely named recovery branch before rebasing, stages all historical source-corpus JSON files, banks those files before rebuilding, rebuilds again if main contributes additional source records, and restores the new oversized database before artifact upload even when publication fails. A rebuild-only mode avoids another collection delay when publishing already saved records. Retained failed checkpoint branches require reconciliation, not deletion of their evidence.
 
 The existing hourly Auction History Capture research automation was resumed on 24 October with the all-auctioneer scope and instructions to improve actual collection, recover publication checkpoints, investigate uncovered sources/years and verify persisted output. Other paused automations were left alone. The GitHub collector is separately scheduled hourly; neither schedule establishes national completeness.
+
+## Barnett Ross October 2016 recovery finding
+
+The official October 2016 result page still exposes 54 individual result rows with
+address text and outcomes. The saved zero-row state is a parser defect, not an
+empty catalogue: each published lot label begins with Unicode byte-order mark
+\`U+FEFF\`, so the otherwise valid labels \`1\` through \`54\` fail the strict
+lot-number regular expression before identity construction.
+
+The safe repair is to remove \`U+FEFF\` from the extracted lot-label cell before
+applying \`LOT_RE\`, with a regression fixture using the UTF-8 byte sequence
+\`EF BB BF 31\`. This normalization was reproduced independently: the raw label
+fails the current expression and the normalized label passes it. A recovery run
+must then reconcile exactly 54 distinct appearances and bank them as address
+records with their published result states. The source publishes only “October
+2016”, so \`auction_date\` must remain null unless separate exact-day evidence is
+recovered; no day may be inferred from the month-only archive URL. This repair is
+queued until the active generated-data publication run has finished, avoiding a
+second collector or concurrent writes.
