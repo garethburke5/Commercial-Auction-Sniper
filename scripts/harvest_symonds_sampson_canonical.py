@@ -93,7 +93,7 @@ def html_as_markdown(raw):
     for element in soup.select('script,style,nav,footer,form'):element.decompose()
     for heading in soup.select('h1,h2,h3,h4'):
         heading.replace_with('\n'+'#'*(2 if heading.name=='h1' else int(heading.name[1]))+' '+heading.get_text(' ',strip=True)+'\n')
-    return soup.get_text(' ',strip=True).replace('\n ','\n')
+    return soup.get_text('\n',strip=True)
 
 
 def fetch_property(url):
@@ -173,6 +173,30 @@ def parse_property(markdown: str, url: str, evidence: dict) -> dict:
     return row
 
 
+def recover_saved_html(rows):
+    """Re-extract partial records from retained first-party HTML, without refetching."""
+    repaired=0
+    for row in rows:
+        if row.get('address'):
+            continue
+        evidence=row.get('source_evidence',{})
+        snapshot=corpus.ROOT/(evidence.get('snapshot_path') or '__missing__')
+        if not snapshot.is_file():
+            continue
+        saved=corpus.read_gzip(snapshot)
+        raw=saved.get('source_content','')
+        if '<html' not in raw.lower():
+            continue
+        candidate=parse_property(html_as_markdown(raw),row['original_url'],evidence)
+        if candidate.get('address'):
+            for key,value in candidate.items():
+                if value is not None:
+                    row[key]=value
+            row['source_extraction_version']=2
+            repaired+=1
+    return repaired
+
+
 def harvest(workers: int = 2) -> None:
     sitemap_transport, sitemap_raw = fetch_sitemap()
     sitemap_text = sitemap_raw.decode("utf-8", "replace")
@@ -185,6 +209,7 @@ def harvest(workers: int = 2) -> None:
                                        "markdown": sitemap_text})
     existing_path = corpus.DATA / "appearances/symonds-sampson/retained-property-pages.jsonl.gz"
     rows = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
+    repaired = recover_saved_html(rows)
     existing_ids = {row["source_lot_id"] for row in rows}
     pending_urls = [url for url in urls if SOURCE_ID_RE.search(url).group(1).lower() not in existing_ids]
     failures, added = [], []
@@ -231,6 +256,7 @@ def harvest(workers: int = 2) -> None:
     summary = {"checked_at": corpus.now(), "sitemap_property_urls": len(urls),
                "property_pages_captured": len(rows), "pages_already_banked": len(existing_ids),
                "pages_attempted_this_run": len(pending_urls), "run_new_appearances": len(added),
+               "addresses_recovered_from_saved_html": repaired,
                "address_records": sum(bool(row.get("address")) for row in rows),
                "partial_lots": sum(not row.get("address") for row in rows),
                "exact_dates_recovered": len([d for d in by_date if d]),

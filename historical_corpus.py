@@ -519,6 +519,13 @@ def bank_source_corpus():
                                     (row["property_type"], row["description"])))
             result = clean(raw.get("result_status") or raw.get("result") or raw.get("status"))
             result_key=result.lower().replace('_',' ').replace('-',' ')
+            badge=clean(raw.get('status')).lower().replace('_',' ').replace('-',' ')
+            # A guide-price caption is not the outcome. Preserve the explicit
+            # lifecycle badge supplied alongside it (notably Bond Wolfe).
+            if re.fullmatch(r'unsold|withdrawn|postponed',badge):
+                result_key=badge
+            elif re.fullmatch(r'sold (?:prior|before|after|post)',badge) and not re.match(r'^sold (?:prior|before|after|post)\b',result_key):
+                result_key=badge
             if re.match(r'^(?:unsold|withdrawn|postponed)\b',result_key):
                 row['status']=result_key.split()[0]
                 row['sale_price']=None

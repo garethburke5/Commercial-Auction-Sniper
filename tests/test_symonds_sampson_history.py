@@ -15,6 +15,7 @@ def test_official_html_keeps_subject_price_not_recommendation():
     text=html_as_markdown('<h2>17 High Street, Dorchester DT1</h2><h2>Guide Price £ £ 75,000</h2><p>For sale by Auction 13 December 2023</p><h3>Other properties you might be interested in</h3><h2>Guide Price £999,000</h2>')
     row=parse_property(text,'https://auctions.symondsandsampson.co.uk/property/abc/dt1/house',{})
     assert row['guide_price']==75000 and row['auction_date']=='2023-12-13'
+    assert row['address']=='17 High Street, Dorchester DT1'
     assert '999,000' not in text
 
 
@@ -45,3 +46,13 @@ def test_detail_page_accepts_on_prefixed_auction_date():
 def test_locality_only_listing_remains_partial():
     assert strict_address("East Coker, Yeovil, Somerset, BA22") is None
     assert strict_address("Hine Town Lane, Blandford Forum, Dorset, DT11") is not None
+
+
+def test_saved_html_recovers_partial_address_without_network(tmp_path,monkeypatch):
+    import scripts.harvest_symonds_sampson_canonical as c
+    monkeypatch.setattr(c.corpus,'ROOT',tmp_path)
+    c.corpus.save_gzip(tmp_path/'source.json.gz',{'source_content':'<html><title>Property</title><h2>17 High Street, Dorchester DT1</h2><p>For sale by Auction 13 December 2023</p></html>'})
+    rows=[{'address':None,'original_url':'https://auctions.symondsandsampson.co.uk/property/abc/dt1/house','source_evidence':{'snapshot_path':'source.json.gz'}}]
+    assert c.recover_saved_html(rows)==1
+    assert rows[0]['address']=='17 High Street, Dorchester DT1'
+    assert c.recover_saved_html(rows)==0

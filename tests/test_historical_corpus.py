@@ -331,3 +331,17 @@ def test_partial_source_catalogue_remains_visible_in_coverage_gaps(tmp_path,monk
     assert state['catalogue_complete'] is False
     assert state['lots_captured']==1 and state['expected_raw_records']==2
     assert state['errors']==['page totals disagree']
+
+
+def test_source_status_badge_is_not_replaced_by_guide_caption(tmp_path,monkeypatch):
+    monkeypatch.setattr(h,'ROOT',tmp_path);monkeypatch.setattr(h,'DATA',tmp_path/'data/auction_history')
+    folder=tmp_path/'data/historical_source_corpus';folder.mkdir(parents=True)
+    rows=[{'source':'Example','source_record_id':f'example:{i}','source_auction_id':'example:2026-10-01',
+           'auction_date':'2026-10-01','lot_number':str(i),'address':f'{i} High Street','source_url':f'https://example.com/lot/{i}',
+           'status':status,'result_status':caption,'guide_price_gbp':100000}
+          for i,status,caption in [(1,'UNSOLD','Guide Price £100,000'),(2,'SOLD PRIOR','Sold for £110,000')]]
+    (folder/'outcomes.json').write_text(json.dumps({'lot_records':rows}))
+    h.bank_source_corpus()
+    actual=list(h.iter_rows(h.DATA/'appearances/source-corpus/outcomes.jsonl.gz'))
+    assert {r['status'] for r in actual}=={'unsold','sold_prior'}
+    assert all(r['sale_price'] is None for r in actual)
