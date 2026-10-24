@@ -160562,9 +160562,9 @@
       "quality_gate_rejections": 0,
       "production_rows": 181,
       "last_successful_collection": "2026-10-23T12:11:15.542403+00:00",
-      "published_rows": 48,
+      "published_rows": 5,
       "coverage_status": "DEGRADED",
-      "coverage_failure_reason": "Candidate/publication drop: 181 commercial/mixed-use candidates \u2192 48 current rows; inspect dates and rejection evidence"
+      "coverage_failure_reason": "Candidate/publication drop: 181 commercial/mixed-use candidates \u2192 5 current rows; inspect dates and rejection evidence; Count collapse: 48 still-current prior rows \u2192 5 published"
     },
     {
       "source": "Acuitus",
@@ -161790,9 +161790,9 @@
       "quality_gate_rejections": 0,
       "production_rows": 21,
       "last_successful_collection": null,
-      "published_rows": 2,
+      "published_rows": 1,
       "coverage_status": "DEGRADED",
-      "coverage_failure_reason": "Barnard Marcus collector: 475 advertised upcoming/latest-result lot pages inspected; 21 explicit commercial/mixed-use lots published after sale-particular classification; 3 detail failures; 0 availability catalogue failures.; Candidate/publication drop: 21 commercial/mixed-use candidates \u2192 2 current rows; inspect dates and rejection evidence"
+      "coverage_failure_reason": "Barnard Marcus collector: 475 advertised upcoming/latest-result lot pages inspected; 21 explicit commercial/mixed-use lots published after sale-particular classification; 3 detail failures; 0 availability catalogue failures.; Candidate/publication drop: 21 commercial/mixed-use candidates \u2192 1 current rows; inspect dates and rejection evidence"
     },
     {
       "source": "Barnett Ross",
@@ -162164,7 +162164,9 @@
       "quality_gate_rejections": 0,
       "production_rows": 3,
       "last_successful_collection": "2026-10-23T12:11:21.666277+00:00",
-      "published_rows": 3
+      "published_rows": 0,
+      "coverage_status": "DEGRADED",
+      "coverage_failure_reason": "Collector returned no published current lots; current catalogue and zero publication are not verified; Candidate/publication drop: 3 commercial/mixed-use candidates \u2192 0 current rows; inspect dates and rejection evidence; Count collapse: 5 still-current prior rows \u2192 0 published"
     },
     {
       "source": "Auction Estates",
@@ -170596,8 +170598,8 @@
     "zero_inventory_outage_sources": [
       "Greenslade Taylor Hunt"
     ],
-    "publication_revision": "36becf44a726dfa676678ca5cc4ffd6dfac6f66a",
-    "revalidated_at": "2026-10-23T12:12:09.034290+00:00"
+    "publication_revision": "74967c676cbca918b882bb4554aba32e8b8aea7b",
+    "revalidated_at": "2026-10-24T21:13:25.721981+00:00"
   },
   "excluded_properties": [
     {
@@ -173288,7 +173290,7 @@
         "verified_on": "2026-10-22"
       }
     ],
-    "generated_at": "2026-10-23T12:12:09.031962+00:00",
+    "generated_at": "2026-10-24T21:13:25.720017+00:00",
     "snapshot_generated_at": "2026-10-23T12:11:23.154974+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -173444,14 +173446,14 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": null,
-        "qualifying_current_lots": 48,
+        "qualifying_current_lots": 5,
         "shared_feed_rows": 0,
-        "production_rows": 48,
-        "published_rows": 48,
+        "production_rows": 5,
+        "published_rows": 5,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 48,
-        "failure_reason": "Candidate/publication drop: 181 commercial/mixed-use candidates \u2192 48 current rows; inspect dates and rejection evidence",
+        "failure_reason": "Candidate/publication drop: 181 commercial/mixed-use candidates \u2192 5 current rows; inspect dates and rejection evidence; Count collapse: 48 still-current prior rows \u2192 5 published",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-23T12:11:15.542403+00:00",
@@ -176689,14 +176691,14 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 451,
-        "qualifying_current_lots": 2,
+        "qualifying_current_lots": 1,
         "shared_feed_rows": 0,
-        "production_rows": 2,
-        "published_rows": 2,
+        "production_rows": 1,
+        "published_rows": 1,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 2,
-        "failure_reason": "Barnard Marcus collector: 475 advertised upcoming/latest-result lot pages inspected; 21 explicit commercial/mixed-use lots published after sale-particular classification; 3 detail failures; 0 availability catalogue failures.; Candidate/publication drop: 21 commercial/mixed-use candidates \u2192 2 current rows; inspect dates and rejection evidence",
+        "failure_reason": "Barnard Marcus collector: 475 advertised upcoming/latest-result lot pages inspected; 21 explicit commercial/mixed-use lots published after sale-particular classification; 3 detail failures; 0 availability catalogue failures.; Candidate/publication drop: 21 commercial/mixed-use candidates \u2192 1 current rows; inspect dates and rejection evidence",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-23T12:11:17.079929+00:00",
@@ -178555,10 +178557,10 @@
         "auctioneer": "Symonds & Sampson",
         "collector_configured": true,
         "collector_executed": true,
-        "status": "LIVE",
+        "status": "DEGRADED",
         "collection_status": "LIVE",
         "publication_status": "not independently verified",
-        "current_catalogue_detected": true,
+        "current_catalogue_detected": null,
         "source_lot_count": 0,
         "lots_discovered": 0,
         "parsed_count": 0,
@@ -178569,14 +178571,14 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 0,
-        "qualifying_current_lots": 3,
+        "qualifying_current_lots": 0,
         "shared_feed_rows": 0,
-        "production_rows": 3,
-        "published_rows": 3,
+        "production_rows": 0,
+        "published_rows": 0,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 5,
-        "failure_reason": null,
+        "failure_reason": "Collector returned no published current lots; current catalogue and zero publication are not verified; Candidate/publication drop: 3 commercial/mixed-use candidates \u2192 0 current rows; inspect dates and rejection evidence; Count collapse: 5 still-current prior rows \u2192 0 published",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-23T12:11:21.666277+00:00",
@@ -178774,6 +178776,6 @@
         "storefronts": []
       }
     ],
-    "degraded_sources": 32
+    "degraded_sources": 33
   }
 }
