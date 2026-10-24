@@ -6,9 +6,22 @@
   "archive_url": "https://www.barnardmarcusauctions.co.uk/auctions/previous/",
   "auction_date": "2026-05-19",
   "source_auction_id": "barnard-marcus:2026-05-19",
-  "lot_enumeration_complete": true,
+  "lot_enumeration_complete": false,
+  "catalogue_complete": false,
+  "catalogue_lot_count": 346,
+  "completion_scope": "all 346 first-party lot identities captured exactly once from 22 reconciled search pages",
   "published_rows": 346,
+  "source_reported_rows": 346,
+  "reconciliation_shortfall": 0,
+  "reconciliation_errors": [
+    "page 2 reports 346 lots / 22 pages; first page reports 345 / 22"
+  ],
+  "source_reported_totals": [
+    345,
+    346
+  ],
   "unnumbered_rows": 0,
+  "duplicate_lot_numbers": 0,
   "pagination_pages_captured": [
     1,
     2,
@@ -34,7 +47,10 @@
     22
   ],
   "pagination_pages_expected": 22,
-  "capture_method": "official SearchApi result cards with Show All; every API page reconciled",
+  "inventory_method": "search_api",
+  "sitemap_lot_urls_expected": null,
+  "sitemap_lot_urls_captured": null,
+  "capture_method": "official source pages traversed; source counts or identities remain unreconciled",
   "lot_records": [
     {
       "address": "5B, Richmond Way, London, W12 8LQ",
@@ -2628,9 +2644,9 @@
       "image_url": "https://www.barnardmarcusauctions.co.uk/media/446538/b5e774da-d255-4c8d-b068-e807d29204ae.jpg?mode=pad&width=320&upscale=false",
       "lot_number": "145",
       "property_type": null,
-      "raw_card_text": "LOT 145\nSOLD\n3, Fleet Way\nDIDCOT, Oxfordshire, OX11 8BZ\nsold for\nundisclosed",
+      "raw_card_text": "LOT 145\nSOLD\n3, Fleet Way\nDIDCOT, Oxfordshire, OX11 8BZ\nsold after\nundisclosed",
       "result_price_gbp": null,
-      "result_status": "sold for undisclosed",
+      "result_status": "sold after undisclosed",
       "source": "Barnard Marcus Auctions",
       "source_auction_id": "barnard-marcus:2026-05-19",
       "source_record_id": "barnard-marcus-property:687126",
@@ -3253,18 +3269,18 @@
       "address": "3c, Longford Road, BOGNOR REGIS, West Sussex, PO21 1AA",
       "auction_date": "2026-05-19",
       "description": "Leasehold first floor flat 76 years remaining on the lease",
-      "guide_price_gbp": null,
+      "guide_price_gbp": 80000,
       "image_url": "https://www.barnardmarcusauctions.co.uk/media/448795/818bcc9c-5d2b-4794-8724-bb3577de5f76.jpg?mode=pad&width=320&upscale=false",
       "lot_number": "182",
       "property_type": null,
-      "raw_card_text": "LOT 182\nSOLD\n3c, Longford Road\nBOGNOR REGIS, West Sussex, PO21 1AA\nsold after\nundisclosed",
+      "raw_card_text": "LOT 182\nUNSOLD\n3c, Longford Road\nBOGNOR REGIS, West Sussex, PO21 1AA\navailable for\n£80,000",
       "result_price_gbp": null,
-      "result_status": "sold after undisclosed",
+      "result_status": "available for £80,000",
       "source": "Barnard Marcus Auctions",
       "source_auction_id": "barnard-marcus:2026-05-19",
       "source_record_id": "barnard-marcus-property:688364",
       "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/688364/",
-      "status": "sold"
+      "status": "unsold"
     },
     {
       "address": "4, Hendra Heights, ST. AUSTELL, Cornwall, PL26 8FZ",
@@ -5103,23 +5119,6 @@
       "status": "sold"
     },
     {
-      "address": "82, Ollerton Road, RETFORD, Nottinghamshire, DN22 7TH",
-      "auction_date": "2026-05-19",
-      "description": "Extended three-bedroom detached property with generous garden, Popular location, close to local amenities.",
-      "guide_price_gbp": 250000,
-      "image_url": "https://www.barnardmarcusauctions.co.uk/media/447863/4fe8d588-cf43-4abc-aad8-ab505f1dc091.jpg?mode=pad&width=320&upscale=false",
-      "lot_number": "289",
-      "property_type": null,
-      "raw_card_text": "LOT 289\n82, Ollerton Road\nRETFORD, Nottinghamshire, DN22 7TH\nguide price*\n£250,000",
-      "result_price_gbp": null,
-      "result_status": "guide price* £250,000",
-      "source": "Barnard Marcus Auctions",
-      "source_auction_id": "barnard-marcus:2026-05-19",
-      "source_record_id": "barnard-marcus-property:688402",
-      "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/688402/",
-      "status": null
-    },
-    {
       "address": "98 Magellan House, Armouries Way, LEEDS, West Yorkshire, LS10 1JG",
       "auction_date": "2026-05-19",
       "description": "Ideal investment opportunity in the heart of Leeds, Modern apartment block.",
@@ -5917,6 +5916,33 @@
       "source_record_id": "barnard-marcus-property:688700",
       "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/688700/",
       "status": null
+    },
+    {
+      "address": "8, Arrowsmith Square, NEWTON AYCLIFFE, County Durham, DL5 5RB",
+      "auction_date": "2026-05-19",
+      "description": "Freehold end of terrace house",
+      "guide_price_gbp": 60000,
+      "image_url": "https://www.barnardmarcusauctions.co.uk/media/1021/bm-awiating-image.jpg?mode=pad&width=320&upscale=false",
+      "lot_number": null,
+      "property_type": null,
+      "raw_card_text": "LOT TBC\n8, Arrowsmith Square\nNEWTON AYCLIFFE, County Durham, DL5 5RB\nguide price*\n£60,000",
+      "result_price_gbp": null,
+      "result_status": "guide price* £60,000",
+      "source": "Barnard Marcus Auctions",
+      "source_auction_id": "barnard-marcus:2026-05-19",
+      "source_record_id": "barnard-marcus-property:694377",
+      "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/694377/",
+      "status": null
     }
-  ]
+  ],
+  "sitemap_recovery": {
+    "expected_urls": 346,
+    "missing_before_recovery": 1,
+    "rows_recovered": 1,
+    "recovered_urls": [
+      "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/694377/"
+    ]
+  },
+  "captured_at": "2026-10-24T21:39:43.801533+00:00",
+  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-e1949fb710a0d49e.json.gz"
 }

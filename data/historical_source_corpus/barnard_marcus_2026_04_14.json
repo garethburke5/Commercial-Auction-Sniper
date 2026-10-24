@@ -6,11 +6,19 @@
   "archive_url": "https://www.barnardmarcusauctions.co.uk/auctions/previous/",
   "auction_date": "2026-04-14",
   "source_auction_id": "barnard-marcus:2026-04-14",
-  "lot_enumeration_complete": false,
+  "lot_enumeration_complete": true,
+  "catalogue_complete": true,
+  "catalogue_lot_count": 316,
+  "completion_scope": "all 316 first-party lot identities captured exactly once from 20 reconciled search pages",
   "published_rows": 316,
-  "source_reported_rows": 317,
-  "reconciliation_shortfall": 1,
+  "source_reported_rows": 316,
+  "reconciliation_shortfall": 0,
+  "reconciliation_errors": [],
+  "source_reported_totals": [
+    316
+  ],
   "unnumbered_rows": 0,
+  "duplicate_lot_numbers": 0,
   "pagination_pages_captured": [
     1,
     2,
@@ -34,7 +42,10 @@
     20
   ],
   "pagination_pages_expected": 20,
-  "capture_method": "official SearchApi result cards with Show All; all API pages traversed, but the source-reported total exceeds the returned rows",
+  "inventory_method": "search_api",
+  "sitemap_lot_urls_expected": null,
+  "sitemap_lot_urls_captured": null,
+  "capture_method": "official SearchApi result cards with Show All; every API page reconciled",
   "lot_records": [
     {
       "address": "317, North Circular Road, NEASDEN, London, NW10 0HY",
@@ -5408,5 +5419,7 @@
       "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/14-april-2026/680802/",
       "status": "withdrawn"
     }
-  ]
+  ],
+  "captured_at": "2026-10-24T21:38:03.886668+00:00",
+  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-e1949fb710a0d49e.json.gz"
 }

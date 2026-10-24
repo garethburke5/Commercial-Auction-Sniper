@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-24T16:14:35.528257+00:00",
-  "individual_lot_records_captured": 279143,
-  "records_with_address": 268779,
-  "partial_lot_records": 10364,
-  "exact_address_groups": 153082,
-  "groups_with_repeat_appearances": 38151,
+  "generated_at": "2026-10-24T21:52:41.257305+00:00",
+  "individual_lot_records_captured": 279547,
+  "records_with_address": 269177,
+  "partial_lot_records": 10370,
+  "exact_address_groups": 153298,
+  "groups_with_repeat_appearances": 38265,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 44927,
@@ -39,14 +39,14 @@
     "Auction House West Yorkshire": 117,
     "BTG Eddisons": 2697,
     "Bagshaws": 84,
-    "Barnard Marcus Auctions": 6354,
+    "Barnard Marcus Auctions": 6700,
     "Barnett Ross": 7547,
     "BidX1": 294,
     "Bond Wolfe": 9407,
     "Brown&Co": 28,
     "Cheffins": 740,
     "Clive Emson": 3931,
-    "Cottons": 7366,
+    "Cottons": 7405,
     "Dedman Gray": 2851,
     "Edward Mellor": 10150,
     "Future Property Auctions": 64584,
@@ -73,13 +73,13 @@
     "Smith & Sons": 1007,
     "Strettons": 123,
     "Sutton Kersh": 11401,
-    "Swift Property Auctions": 137,
-    "Symonds & Sampson": 215,
+    "Swift Property Auctions": 144,
+    "Symonds & Sampson": 227,
     "Town & Country Property Auctions": 2832,
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4136,
+    "null": 4145,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -104,22 +104,22 @@
     "2023": 29620,
     "2024": 38519,
     "2025": 44024,
-    "2026": 41213
+    "2026": 41608
   },
   "by_sector": {
-    "commercial": 38874,
-    "land": 17123,
-    "mixed-use": 42027,
-    "residential": 134958,
-    "unknown": 46161
+    "commercial": 38882,
+    "land": 17142,
+    "mixed-use": 42037,
+    "residential": 135277,
+    "unknown": 46209
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 1868,
-  "catalogues_incomplete_or_unreconciled": 621,
-  "catalogue_fetch_or_parse_failures": 69,
+  "surviving_catalogues_completely_harvested": 1871,
+  "catalogues_incomplete_or_unreconciled": 624,
+  "catalogue_fetch_or_parse_failures": 87,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -131,13 +131,13 @@
     "through_date": "2026-10-24",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 271939,
-      "auction_ids_observed": 6970,
-      "with_guide_price": 95022,
-      "with_sale_price": 104619,
-      "with_both_prices": 45210,
-      "marked_sold": 142408,
-      "marked_sold_without_sale_price": 38529
+      "lot_appearances": 272331,
+      "auction_ids_observed": 6973,
+      "with_guide_price": 95256,
+      "with_sale_price": 104748,
+      "with_both_prices": 45227,
+      "marked_sold": 142587,
+      "marked_sold_without_sale_price": 38579
     },
     "by_auctioneer_and_year": [
       {
@@ -2150,8 +2150,8 @@
         "with_guide_price": 449,
         "with_sale_price": 213,
         "with_both_prices": 213,
-        "marked_sold": 329,
-        "marked_sold_without_sale_price": 116
+        "marked_sold": 330,
+        "marked_sold_without_sale_price": 117
       },
       {
         "auctioneer": "Auction House Sussex & Hampshire",
@@ -2519,13 +2519,13 @@
       {
         "auctioneer": "Barnard Marcus Auctions",
         "year": 2026,
-        "lot_appearances": 2397,
-        "auction_ids_observed": 7,
-        "with_guide_price": 1065,
-        "with_sale_price": 712,
+        "lot_appearances": 2743,
+        "auction_ids_observed": 8,
+        "with_guide_price": 1257,
+        "with_sale_price": 821,
         "with_both_prices": 0,
-        "marked_sold": 1306,
-        "marked_sold_without_sale_price": 594
+        "marked_sold": 1458,
+        "marked_sold_without_sale_price": 637
       },
       {
         "auctioneer": "Barnett Ross",
@@ -3245,13 +3245,13 @@
       {
         "auctioneer": "Cottons",
         "year": 2026,
-        "lot_appearances": 283,
-        "auction_ids_observed": 7,
-        "with_guide_price": 83,
-        "with_sale_price": 113,
-        "with_both_prices": 32,
-        "marked_sold": 158,
-        "marked_sold_without_sale_price": 45
+        "lot_appearances": 322,
+        "auction_ids_observed": 8,
+        "with_guide_price": 122,
+        "with_sale_price": 130,
+        "with_both_prices": 49,
+        "marked_sold": 180,
+        "marked_sold_without_sale_price": 50
       },
       {
         "auctioneer": "Dedman Gray",
@@ -5753,13 +5753,13 @@
       {
         "auctioneer": "Swift Property Auctions",
         "year": 2026,
-        "lot_appearances": 37,
-        "auction_ids_observed": 6,
-        "with_guide_price": 20,
-        "with_sale_price": 6,
+        "lot_appearances": 44,
+        "auction_ids_observed": 7,
+        "with_guide_price": 23,
+        "with_sale_price": 9,
         "with_both_prices": 0,
-        "marked_sold": 17,
-        "marked_sold_without_sale_price": 11
+        "marked_sold": 21,
+        "marked_sold_without_sale_price": 12
       },
       {
         "auctioneer": "Symonds & Sampson",
@@ -5883,8 +5883,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4136,
-    "future_dated_appearances": 25,
+    "undated_appearances": 4145,
+    "future_dated_appearances": 28,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -5895,7 +5895,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-22T13:00:17.253435+00:00",
+    "checked_at": "2026-10-24T21:44:16.700259+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,

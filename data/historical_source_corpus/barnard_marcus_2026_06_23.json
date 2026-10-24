@@ -7,8 +7,18 @@
   "auction_date": "2026-06-23",
   "source_auction_id": "barnard-marcus:2026-06-23",
   "lot_enumeration_complete": true,
+  "catalogue_complete": true,
+  "catalogue_lot_count": 369,
+  "completion_scope": "all 369 first-party lot identities captured exactly once from 24 reconciled search pages",
   "published_rows": 369,
+  "source_reported_rows": 369,
+  "reconciliation_shortfall": 0,
+  "reconciliation_errors": [],
+  "source_reported_totals": [
+    369
+  ],
   "unnumbered_rows": 0,
+  "duplicate_lot_numbers": 0,
   "pagination_pages_captured": [
     1,
     2,
@@ -36,7 +46,10 @@
     24
   ],
   "pagination_pages_expected": 24,
-  "capture_method": "official result cards with Show All selected; all Load More pages reconciled",
+  "inventory_method": "search_api",
+  "sitemap_lot_urls_expected": null,
+  "sitemap_lot_urls_captured": null,
+  "capture_method": "official SearchApi result cards with Show All; every API page reconciled",
   "lot_records": [
     {
       "address": "1B, Hartismere Road, London, SW6 7TS",
@@ -3357,18 +3370,18 @@
       "address": "3c, Longford Road, BOGNOR REGIS, West Sussex, PO21 1AA",
       "auction_date": "2026-06-23",
       "description": "Leasehold first floor flat 76 years remaining on the lease",
-      "guide_price_gbp": null,
+      "guide_price_gbp": 60000,
       "image_url": "https://www.barnardmarcusauctions.co.uk/media/456327/0464cf08-b41d-446f-bd24-fe02afd283f5.jpg?mode=pad&width=320&upscale=false",
       "lot_number": "186A",
       "property_type": null,
-      "raw_card_text": "LOT 186A\nSOLD\n3c, Longford Road\nBOGNOR REGIS, West Sussex, PO21 1AA\nsold after\nundisclosed",
+      "raw_card_text": "LOT 186A\nUNSOLD\n3c, Longford Road\nBOGNOR REGIS, West Sussex, PO21 1AA\navailable for\n£60,000",
       "result_price_gbp": null,
-      "result_status": "sold after undisclosed",
+      "result_status": "available for £60,000",
       "source": "Barnard Marcus Auctions",
       "source_auction_id": "barnard-marcus:2026-06-23",
       "source_record_id": "barnard-marcus-property:701051",
       "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/23-june-2026/701051/",
-      "status": "sold"
+      "status": "unsold"
     },
     {
       "address": "16, Westoe Village, SOUTH SHIELDS, Tyne and Wear, NE33 3EB",
@@ -5690,9 +5703,9 @@
       "image_url": "https://www.barnardmarcusauctions.co.uk/media/453743/aa9a0e1f-84ca-44d1-98f0-3ffd67d86077.jpg?mode=pad&width=320&upscale=false",
       "lot_number": "322",
       "property_type": null,
-      "raw_card_text": "LOT 322\nSOLD\nOld Cider Mill, Linley Green Road\nWORCESTER, Worcestershire, WR6 5RE\nsold after\nundisclosed",
+      "raw_card_text": "LOT 322\nSOLD\nOld Cider Mill, Linley Green Road\nWORCESTER, Worcestershire, WR6 5RE\nsold for\nundisclosed",
       "result_price_gbp": null,
-      "result_status": "sold after undisclosed",
+      "result_status": "sold for undisclosed",
       "source": "Barnard Marcus Auctions",
       "source_auction_id": "barnard-marcus:2026-06-23",
       "source_record_id": "barnard-marcus-property:697941",
@@ -6311,5 +6324,7 @@
       "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/23-june-2026/699171/",
       "status": "sold"
     }
-  ]
+  ],
+  "captured_at": "2026-10-24T21:41:09.464260+00:00",
+  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-e1949fb710a0d49e.json.gz"
 }
