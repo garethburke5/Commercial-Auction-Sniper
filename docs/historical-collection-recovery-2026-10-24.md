@@ -50,21 +50,10 @@ Publication now preserves a uniquely named recovery branch before rebasing, stag
 
 The existing hourly Auction History Capture research automation was resumed on 24 October with the all-auctioneer scope and instructions to improve actual collection, recover publication checkpoints, investigate uncovered sources/years and verify persisted output. Other paused automations were left alone. The GitHub collector is separately scheduled hourly; neither schedule establishes national completeness.
 
-## Barnett Ross October 2016 recovery finding
+## Verified consolidated build
 
-The official October 2016 result page still exposes 54 individual result rows with
-address text and outcomes. The saved zero-row state is a parser defect, not an
-empty catalogue: each published lot label begins with Unicode byte-order mark
-\`U+FEFF\`, so the otherwise valid labels \`1\` through \`54\` fail the strict
-lot-number regular expression before identity construction.
+The successful 21:52 UTC production checkpoint published 279,547 records. The later 22:04 UTC rebuild in run `40136239889` combined the saved recoveries with 39 Cottons additions and one Pugh addition, reaching **279,738 records**, 595 above the starting checkpoint. Its downloadable artifact `12578100573` was retrieved and independently checked: the SQLite `appearances` table contains 279,738 rows and `PRAGMA integrity_check` returns `ok`. There are 269,368 addressed records, 10,370 partial records and 624 incomplete or unreconciled catalogue states.
 
-The safe repair is to remove \`U+FEFF\` from the extracted lot-label cell before
-applying \`LOT_RE\`, with a regression fixture using the UTF-8 byte sequence
-\`EF BB BF 31\`. This normalization was reproduced independently: the raw label
-fails the current expression and the normalized label passes it. A recovery run
-must then reconcile exactly 54 distinct appearances and bank them as address
-records with their published result states. The source publishes only “October
-2016”, so \`auction_date\` must remain null unless separate exact-day evidence is
-recovered; no day may be inferred from the month-only archive URL. This repair is
-queued until the active generated-data publication run has finished, avoiding a
-second collector or concurrent writes.
+That run's database publication failed with an HTTP 500 while pushing the checkpoint branch. The artifact is valid; it must not be described as a successfully published main-branch database. Subsequent publication retries fetch the current remote before negotiating, use bounded retry handling, and avoid unnecessary OCR installation for rebuild-only jobs. Final main-branch publication remains a separate verification step. The 270 collector tests and 44 continuation/storage tests passed in the consolidated build.
+
+**Publication verified at 22:08 UTC:** run `40137085354` successfully completed its publication step. Main-branch `progress.json` now reports 279,738 records, generated at `2026-10-24T22:07:43.451699+00:00`; the published checkpoint commit is `df4d0e39c92a06ee2532f6c79a882c1a3fe94f3c`. The 595-record gain is therefore published, rather than merely retained in an artifact. This does not establish that all records have appeared on live property timelines, or that national collection is complete.
