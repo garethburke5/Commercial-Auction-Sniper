@@ -52,5 +52,45 @@ def test_revised_catalogue_gap_is_allowed_only_when_result_labels_match_exactly(
         parse_guides(text, '2024-07-10')
     rows = parse_guides(text, '2024-07-10', expected_labels={'1', '3'})
     assert set(rows) == {'1', '3'}
+    rows = parse_guides(text, '2024-07-10', expected_labels={'1', '2', '3'})
+    assert set(rows) == {'1', '3'}
     with pytest.raises(ValueError, match='incomplete'):
-        parse_guides(text, '2024-07-10', expected_labels={'1', '2', '3'})
+        parse_guides(text, '2024-07-10', expected_labels={'1', '2'})
+
+
+def test_parenthesised_promotional_cross_reference_is_not_a_duplicate_lot():
+    text = (
+        'Wednesday 13 December 2023: 1pm\fA Collective Auction Sale of 1 Lots\f'
+        'Freehold House LOT 1 *Guide Price: £90,000 (+Fees)\n'
+        'A rare signed shirt (LOT 1) will raise money for charity.\n'
+    )
+    rows = parse_guides(text, '2023-12-13', expected_labels={'1'})
+    assert set(rows) == {'1'}
+    assert rows['1']['guide_price'] == 90000
+
+
+def test_catalogue_omission_is_partial_enrichment_not_a_fabricated_guide():
+    text = (
+        'Wednesday 22 May 2024: 1pm\fA Collective Auction Sale of 3 Lots\f'
+        'Freehold House LOT 1 *Guide Price: £90,000 (+Fees)\n'
+        'Freehold House LOT 3 *Guide Price: £120,000 (+Fees)\n'
+    )
+    rows = parse_guides(text, '2024-05-22', expected_labels={'1', '2', '3'})
+    assert set(rows) == {'1', '3'}
+    assert '2' not in rows
+    assert set(parse_guides(text, '2024-05-22', expected_labels={'1', '3'})) == {'1', '3'}
+    with pytest.raises(ValueError, match='incomplete'):
+        parse_guides(text, '2024-05-22', expected_labels={'1', '2'})
+
+
+def test_late_entry_may_exceed_stale_cover_total_only_with_exact_result_sequence():
+    text = (
+        'Wednesday 12 July 2023: 1pm\fA Collective Auction Sale of 2 Lots\f'
+        'Freehold House LOT 1 *Guide Price: £90,000 (+Fees)\n'
+        'Freehold House LOT 2 *Guide Price: £100,000 (+Fees)\n'
+        'Freehold House LOT 3 *Guide Price: £120,000 (+Fees)\n'
+    )
+    rows = parse_guides(text, '2023-07-12', expected_labels={'1', '2', '3'})
+    assert set(rows) == {'1', '2', '3'}
+    with pytest.raises(ValueError, match='incomplete'):
+        parse_guides(text, '2023-07-12', expected_labels={'1', '2'})

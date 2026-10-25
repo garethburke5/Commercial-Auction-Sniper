@@ -79,6 +79,14 @@ def parse_guides(text, auction_date, expected_labels=None):
             match = re.search(r"\bLOT\s+(\d+[A-Z]?)\b(.*)", line)
             if not match:
                 continue
+            # Some catalogues repeat an earlier identity in promotional copy,
+            # for example ``A rare ... shirt (LOT 1)`` near the back.  A true
+            # catalogue marker is never parenthesised in this layout.  Ignore
+            # that cross-reference rather than treating it as a duplicate lot.
+            before = line[: match.start()].rstrip()
+            after_label = line[match.end(1) :].lstrip()
+            if before.endswith("(") and after_label.startswith(")"):
+                continue
             inline_title = norm(line[: match.start()])
             title = inline_title or next(
                 (norm(previous) for previous in reversed(lines[:i]) if previous.strip()),
@@ -109,18 +117,39 @@ def parse_guides(text, auction_date, expected_labels=None):
     expected = set(map(str, range(1, int(total[1]) + 1)))
     actual = set(guides)
     expected_labels = set(expected_labels) if expected_labels is not None else None
-    # Revised catalogues can deliberately omit a withdrawn/not-offered label
-    # while retaining the original headline total. Permit that only when the
-    # independently parsed result sheet has the exact same label set and the
-    # catalogue still reaches the published terminal lot. This enriches the
-    # evidenced rows but does not promote the result sheet to complete.
-    exact_source_gap = bool(
-        expected_labels
-        and actual == expected_labels
+    # First-party catalogues sometimes have publication defects.  Allow only
+    # evidence-bounded variants anchored by the independently parsed results:
+    # (a) the catalogue omits one or more labels but all visible labels are a
+    #     subset of a full 1..N result sheet and the terminal lot is present;
+    # (b) a late-entry catalogue adds labels beyond a stale cover total, while
+    #     the visible catalogue and result labels agree exactly and form 1..M.
+    # Missing catalogue labels are not fabricated and remain unchecked/null.
+    result_labels = set(expected_labels) if expected_labels is not None else None
+    result_and_catalogue_gap = bool(
+        result_labels
+        and actual == result_labels
         and all(label.isdigit() and 1 <= int(label) <= int(total[1]) for label in actual)
         and max(map(int, actual)) == int(total[1])
     )
-    if actual != expected and not exact_source_gap:
+    source_omission = bool(
+        result_labels == expected
+        and actual < result_labels
+        and all(label.isdigit() for label in actual)
+        and max(map(int, actual)) == int(total[1])
+    )
+    late_entry_total = bool(
+        result_labels
+        and actual == result_labels
+        and all(label.isdigit() for label in actual)
+        and actual == set(map(str, range(1, max(map(int, actual)) + 1)))
+        and max(map(int, actual)) > int(total[1])
+    )
+    if (
+        actual != expected
+        and not result_and_catalogue_gap
+        and not source_omission
+        and not late_entry_total
+    ):
         raise ValueError(f"Catalogue lot sequence incomplete: {len(guides)}/{total[1]}")
     return guides
 
@@ -153,8 +182,9 @@ def enrich(limit=2):
             guides = parse_guides(
                 extract_layout(raw), item["auction_date"], expected_labels=result_labels
             )
-            if {row["lot_number"] for row in matching} != set(guides):
-                raise ValueError("Results and catalogue lot sequences differ")
+            result_labels = {row["lot_number"] for row in matching}
+            if not set(guides).issubset(result_labels):
+                raise ValueError("Catalogue contains lot identities absent from results")
             digest = corpus.digest(raw)
             dest = (
                 corpus.DATA
@@ -173,7 +203,12 @@ def enrich(limit=2):
             }
             without_guide = 0
             for row in matching:
-                guide = guides[row["lot_number"]]
+                guide = guides.get(row["lot_number"])
+                if guide is None:
+                    # The source contains no catalogue row for this result lot.
+                    # Preserve nulls and do not claim it was guide-checked.
+                    without_guide += 1
+                    continue
                 row["catalogue_guide_checked"] = {**evidence, "page": guide["page"]}
                 if guide["guide_price"] is not None:
                     row.update(
@@ -192,7 +227,8 @@ def enrich(limit=2):
             done.append(
                 {
                     "auction_date": item["auction_date"],
-                    "lots_checked": len(matching),
+                    "lots_checked": len(guides),
+                    "result_lots": len(matching),
                     "lots_with_published_guide": len(matching) - without_guide,
                     "lots_without_published_guide": without_guide,
                     "catalogue_labels_absent": sorted(
