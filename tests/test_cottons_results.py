@@ -2,6 +2,7 @@ import pytest
 
 from scripts.harvest_cottons_results import (
     discover_result_sheets,
+    merge_result_row,
     parse_date,
     parse_result_text,
     result_semantics,
@@ -299,3 +300,33 @@ Lot Address Result
     assert rows[-1]["status"] == "sold_prior"
     assert state["missing_base_lot_numbers"] == list(range(1, 36))
     assert state["result_parser_version"] == 2
+
+
+def test_result_refresh_preserves_catalogue_enrichment():
+    previous = {
+        "appearance_id": "Cottons|sale|lot:1",
+        "guide_price": 180000,
+        "guide_price_high": 200000,
+        "guide_price_text": "£180,000 - £200,000",
+        "guide_evidence": {"source_url": "catalogue"},
+        "catalogue_guide_checked": {"source_url": "catalogue"},
+        "property_type": "Freehold Shop Investment",
+        "tenure": "Freehold",
+        "sector": "commercial",
+        "sale_price": 250000,
+    }
+    observed = {
+        "appearance_id": "Cottons|sale|lot:1",
+        "guide_price": None,
+        "guide_price_high": None,
+        "property_type": None,
+        "tenure": None,
+        "sector": "residential",
+        "sale_price": 255000,
+    }
+    merged = merge_result_row(previous, observed)
+    assert merged["guide_price"] == 180000
+    assert merged["catalogue_guide_checked"]["source_url"] == "catalogue"
+    assert merged["property_type"] == "Freehold Shop Investment"
+    assert merged["sector"] == "commercial"
+    assert merged["sale_price"] == 255000

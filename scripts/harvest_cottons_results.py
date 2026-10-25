@@ -53,6 +53,15 @@ OCR_DPI = 300
 # contiguous 1..N prefix and still be truncated at page furniture, so count
 # equality alone is not enough to reuse states parsed by an older algorithm.
 RESULT_PARSER_VERSION = 2
+CATALOGUE_ENRICHMENT_FIELDS = (
+    "catalogue_guide_checked",
+    "guide_price",
+    "guide_price_high",
+    "guide_price_text",
+    "guide_evidence",
+    "property_type",
+    "tenure",
+)
 MONEY_RE = re.compile(r"£\s*([\d][\d,.]*)", re.I)
 RESULT_SUFFIX_RE = re.compile(
     r"(?:"
@@ -76,6 +85,19 @@ FOOTER_RE = re.compile(
 def clean(value) -> str | None:
     value = re.sub(r"\s+", " ", str(value or "")).strip(" ,")
     return value or None
+
+
+def merge_result_row(previous: dict | None, observed: dict) -> dict:
+    """Refresh result evidence without discarding catalogue enrichment."""
+    if not previous:
+        return observed
+    merged = {**observed}
+    for field in CATALOGUE_ENRICHMENT_FIELDS:
+        if previous.get(field) is not None:
+            merged[field] = previous[field]
+    if previous.get("property_type") and previous.get("sector"):
+        merged["sector"] = previous["sector"]
+    return merged
 
 
 def parse_date(value: str) -> str:
@@ -600,7 +622,9 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
             corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
             states[item["auction_id"]] = state
             for row in rows:
-                merged[row["appearance_id"]] = row
+                merged[row["appearance_id"]] = merge_result_row(
+                    merged.get(row["appearance_id"]), row
+                )
             ocr_recovered += len(rows)
             print("COTTONS OCR", item["auction_date"], len(rows), "lots",
                   state["catalogue_complete"], flush=True)
@@ -644,7 +668,9 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
             corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
             states[item["auction_id"]] = state
             for row in rows:
-                merged[row["appearance_id"]] = row
+                merged[row["appearance_id"]] = merge_result_row(
+                    merged.get(row["appearance_id"]), row
+                )
             print("COTTONS", item["auction_date"], len(rows), "lots", state["catalogue_complete"], flush=True)
         except requests.HTTPError as exc:
             status_code = exc.response.status_code if exc.response is not None else None
@@ -709,7 +735,9 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                         corpus.save_json(corpus.DATA / "auctions/cottons" / state_name, state)
                         states[item["auction_id"]] = state
                         for row in rows:
-                            merged[row["appearance_id"]] = row
+                            merged[row["appearance_id"]] = merge_result_row(
+                    merged.get(row["appearance_id"]), row
+                )
                         ocr_recovered += len(rows)
                         print("COTTONS OCR", item["auction_date"], len(rows), "lots",
                               state["catalogue_complete"], flush=True)
