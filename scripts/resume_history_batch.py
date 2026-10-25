@@ -22,6 +22,7 @@ TASKS=(
     ('clive_emson_catalogues', ['scripts/harvest_clive_emson_canonical.py','--all-incomplete']),
     ('mchugh', ['scripts/harvest_mchugh_results.py','2']),
     ('phillip_arnold', ['scripts/harvest_phillip_arnold_results.py','2']),
+    ('agents_property_auction', ['scripts/harvest_agents_property_auction_results.py','2','--workers','4']),
     ('harman_healy_results', ['scripts/harvest_harman_healy_results.py']),
     ('lsh_results', ['scripts/harvest_lsh_results.py']),
     ('goldings_results', ['scripts/harvest_goldings_results.py']),

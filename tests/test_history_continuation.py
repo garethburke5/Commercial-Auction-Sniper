@@ -45,3 +45,30 @@ def test_task_timeout_is_capped_to_remaining_batch_budget(tmp_path):
     def runner(command,root,timeout):seen.append(timeout);return 'completed'
     run(tmp_path,runner,count=1,timeout=300,budget=12,clock=lambda:0)
     assert seen==[12]
+
+
+def test_agents_property_auction_result_rows_keep_month_only_and_undisclosed_null():
+    from scripts.harvest_agents_property_auction_results import parse_result_page
+    html='''
+      <h1>Results from our auction at Newcastle in February 2012</h1>
+      <table class="table--results"><tbody>
+        <tr><td>1 High Street, Durham, DH1 1AA</td><td>£55,000</td></tr>
+        <tr><td>Land at 1 High Street, Durham, DH1 1AA</td><td>undisclosed</td></tr>
+      </tbody></table>
+    '''
+    state,rows=parse_result_page(html,'https://example.test/results','Newcastle',2012,2,{'sha256':'abc'})
+    assert state['catalogue_complete'] is False
+    assert state['result_rows_complete'] is True
+    assert state['published_auction_month']=='2012-02'
+    assert [row['auction_date'] for row in rows]==[None,None]
+    assert [row['sale_price'] for row in rows]==[55000,None]
+    assert all(row['record_quality']=='address_record' for row in rows)
+    assert rows[0]['property_id'] != rows[1]['property_id']
+
+
+def test_agents_property_auction_rejects_filter_fallback():
+    import pytest
+    from scripts.harvest_agents_property_auction_results import parse_result_page
+    html='<h1>Results from our latest auction at Cumbria in March 2026</h1>'
+    with pytest.raises(ValueError,match='not Newcastle February 2012'):
+        parse_result_page(html,'https://example.test/results','Newcastle',2012,2,{})
