@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-10-25T15:11:50.860195+00:00",
-  "individual_lot_records_captured": 279826,
-  "records_with_address": 269457,
+  "generated_at": "2026-10-25T16:12:55.430112+00:00",
+  "individual_lot_records_captured": 279955,
+  "records_with_address": 269586,
   "partial_lot_records": 10369,
   "exact_address_groups": 153507,
   "groups_with_repeat_appearances": 38315,
@@ -48,7 +48,7 @@
     "Clive Emson": 3931,
     "Cottons": 7435,
     "Dedman Gray": 2851,
-    "Edward Mellor": 10150,
+    "Edward Mellor": 10279,
     "Future Property Auctions": 64584,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
@@ -94,8 +94,8 @@
     "2013": 6300,
     "2014": 8542,
     "2015": 7928,
-    "2016": 8656,
-    "2017": 8785,
+    "2016": 8678,
+    "2017": 8892,
     "2018": 8229,
     "2019": 7397,
     "2020": 10222,
@@ -108,18 +108,18 @@
   },
   "by_sector": {
     "commercial": 38970,
-    "land": 17138,
+    "land": 17144,
     "mixed-use": 42110,
-    "residential": 135961,
-    "unknown": 45647
+    "residential": 135972,
+    "unknown": 45759
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2007,
-  "catalogues_incomplete_or_unreconciled": 491,
-  "catalogue_fetch_or_parse_failures": 58,
+  "surviving_catalogues_completely_harvested": 2014,
+  "catalogues_incomplete_or_unreconciled": 484,
+  "catalogue_fetch_or_parse_failures": 50,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -131,13 +131,13 @@
     "through_date": "2026-10-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 272553,
+      "lot_appearances": 272682,
       "auction_ids_observed": 6976,
       "with_guide_price": 96231,
-      "with_sale_price": 104911,
+      "with_sale_price": 104967,
       "with_both_prices": 45690,
-      "marked_sold": 142295,
-      "marked_sold_without_sale_price": 38124
+      "marked_sold": 142379,
+      "marked_sold_without_sale_price": 38152
     },
     "by_auctioneer_and_year": [
       {
@@ -3435,10 +3435,10 @@
         "lot_appearances": 651,
         "auction_ids_observed": 8,
         "with_guide_price": 0,
-        "with_sale_price": 212,
+        "with_sale_price": 218,
         "with_both_prices": 0,
-        "marked_sold": 341,
-        "marked_sold_without_sale_price": 129
+        "marked_sold": 351,
+        "marked_sold_without_sale_price": 133
       },
       {
         "auctioneer": "Edward Mellor",
@@ -3446,10 +3446,10 @@
         "lot_appearances": 705,
         "auction_ids_observed": 8,
         "with_guide_price": 0,
-        "with_sale_price": 191,
+        "with_sale_price": 220,
         "with_both_prices": 0,
-        "marked_sold": 335,
-        "marked_sold_without_sale_price": 144
+        "marked_sold": 379,
+        "marked_sold_without_sale_price": 159
       },
       {
         "auctioneer": "Edward Mellor",
@@ -3476,24 +3476,24 @@
       {
         "auctioneer": "Edward Mellor",
         "year": 2016,
-        "lot_appearances": 579,
+        "lot_appearances": 601,
         "auction_ids_observed": 8,
         "with_guide_price": 0,
-        "with_sale_price": 205,
+        "with_sale_price": 211,
         "with_both_prices": 0,
-        "marked_sold": 306,
-        "marked_sold_without_sale_price": 101
+        "marked_sold": 314,
+        "marked_sold_without_sale_price": 103
       },
       {
         "auctioneer": "Edward Mellor",
         "year": 2017,
-        "lot_appearances": 502,
+        "lot_appearances": 609,
         "auction_ids_observed": 8,
         "with_guide_price": 0,
-        "with_sale_price": 206,
+        "with_sale_price": 221,
         "with_both_prices": 0,
-        "marked_sold": 278,
-        "marked_sold_without_sale_price": 72
+        "marked_sold": 300,
+        "marked_sold_without_sale_price": 79
       },
       {
         "auctioneer": "Edward Mellor",
