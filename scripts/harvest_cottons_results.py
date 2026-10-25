@@ -49,6 +49,10 @@ ROW_RE = re.compile(
 )
 OCR_VERSION = 3
 OCR_DPI = 300
+# Bump when native-PDF row reconstruction changes. A saved sheet can have a
+# contiguous 1..N prefix and still be truncated at page furniture, so count
+# equality alone is not enough to reuse states parsed by an older algorithm.
+RESULT_PARSER_VERSION = 2
 MONEY_RE = re.compile(r"£\s*([\d][\d,.]*)", re.I)
 RESULT_SUFFIX_RE = re.compile(
     r"(?:"
@@ -458,6 +462,7 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
         "denominator_reconciled": complete,
         "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
         "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
+        "result_parser_version": RESULT_PARSER_VERSION,
         "source_url": expected["result_url"],
         "errors": [] if complete else [{"error": "non-contiguous result lot sequence", "missing": missing}],
         "checked_at": corpus.now(),
@@ -564,6 +569,7 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                 blockers.append(state["source_blocker"])
             continue
         if (state and state.get("catalogue_complete") and saved_rows and
+                state.get("result_parser_version", 0) >= RESULT_PARSER_VERSION and
                 state.get("lots_captured") == len(saved_rows)):
             states[item["auction_id"]] = state
             reused += 1

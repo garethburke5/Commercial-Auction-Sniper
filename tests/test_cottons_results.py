@@ -298,3 +298,4 @@ Lot Address Result
     assert rows[-2]["status"] == "not_offered"
     assert rows[-1]["status"] == "sold_prior"
     assert state["missing_base_lot_numbers"] == list(range(1, 36))
+    assert state["result_parser_version"] == 2
