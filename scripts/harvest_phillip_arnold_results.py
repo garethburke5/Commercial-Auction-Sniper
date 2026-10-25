@@ -264,7 +264,10 @@ def harvest(workers: int = 8) -> None:
         "result_pages_discovered": len(result_urls), "result_pages_captured": len(states),
         "result_pages_complete": sum(bool(state["catalogue_complete"]) for state in states.values()),
         "result_pages_published_offered_differs_from_visible_rows": sum(
-            state["published_lots_offered_matches_visible_rows"] is not True for state in states.values()
+            state["published_lots_offered_matches_visible_rows"] is False for state in states.values()
+        ),
+        "result_pages_published_offered_missing": sum(
+            state["published_lots_offered_matches_visible_rows"] is None for state in states.values()
         ),
         "appearances_captured": total, "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
