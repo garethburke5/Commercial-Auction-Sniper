@@ -178,3 +178,19 @@ National completeness remains unverified: 500 catalogue states, 68 current sourc
 - The collector now treats that unchanged combination as terminal until a materially different free retrieval route exists. This prevents repeated zero-result probes while usable sources elsewhere remain. The directory entry stays unlinked and no national-coverage claim is made.
 - The same verified workflow refreshed Savills `savills:3`: complete retained catalogue states increased from 1,998 to 1,999, incomplete states fell from 500 to 499, and current source errors fell from 68 to 67. This is a reconciliation improvement, not a new appearance.
 - Published corpus totals remain **279,796 individual appearances**: **269,427 address records**, **10,369 partial lots**, and **4,202 undated appearances**.
+
+
+## Checkpoint: Cottons split-row recovery and enrichment preservation
+
+Published parser repair `54e3a0777ac05d09a93511e17d0e130c5389a66f`, queued-head/focused-run repairs through `4981edffa31f715cb7cdc74f9e86926092fea806`, and generated checkpoint `bea458cdc75e225b3824fa485eb6da72c8e1d091`:
+
+- Cottons' first-party 21 May 2025 result PDF contains lots 1–53. The previous native-PDF parser stopped at page furniture after lot 36 and did not recognise standalone numeric table cells for lots 37 and 43. The repaired parser now banks all 53 exact lot labels.
+- This checkpoint adds **17 dated address appearances**, all for 21 May 2025: no partial or undated rows. The sheet now contains 27 sold, 5 sold after, 4 sold prior, 10 available, 6 not offered and 1 under offer appearances.
+- Corpus totals are **279,813 individual appearances**, **269,444 address records**, **10,369 partial lots** and **4,202 undated appearances**. Exact address groups increased to 153,492; they remain grouping keys rather than a count of unique buildings.
+- Result-parser states now carry a version. A completed state parsed by an older row-reconstruction algorithm is refreshed instead of being reused solely because its saved 1..N prefix is contiguous. Two focused passes refreshed 31 retained sheets; 101 older states remain queued for bounded version refresh.
+- Result refresh now preserves later catalogue evidence (guide ranges, guide provenance, property type and tenure) when it replaces the underlying result row. The recovery checked 776 Cottons appearances against catalogues and retains 800 guide-priced appearances. All 53 May 2025 rows have catalogue-check evidence.
+- Three catalogue-specific parse failures remain explicit: 22 May 2024 (46 labels against a headline 47), 13 December 2023 (repeated printed label) and 12 July 2023 (35 extracted labels against headline 34). No speculative lot or guide was created.
+- Push-triggered collection now refreshes to current main after concurrency waits, preventing a queued code run from restarting a stale continuation cursor. A focused Cottons path banks successful rows even when other source sheets retain recorded failures, then rebuilds and publishes the database.
+- The Cottons regression suite, workflow/storage tests, source banking, database rebuild, source-register reconciliation, checkpoint publication and artifact retention passed in workflow run `40187420567`.
+
+National completeness remains unverified: **499** catalogue states remain incomplete or unreconciled, **67** current fetch/parse failures remain and operator/branch/shared-platform directory reconciliation is unfinished.
