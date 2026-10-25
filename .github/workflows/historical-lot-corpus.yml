@@ -125,6 +125,8 @@ on:
       - tests/test_harvest_savills_legacy_result_grid.py
       - web_platform/tests/test_acuitus_admission.py
       - .github/workflows/historical-lot-corpus.yml
+      - config/source_registry.json
+      - config/historical_auctioneer_directory.json
       - data/historical_source_corpus/**
       - data/source_corpus_shards/**
   schedule:
