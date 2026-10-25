@@ -209,3 +209,23 @@ Published parser repair `5ffebae40423ce0816017ae98d1541f3b57b4f7d`, focused work
 
 National completeness remains unverified. The remaining incomplete catalogue states, current source failures, 505 unlinked directory entries and source-by-source inventory gaps must be reconciled before a national-coverage claim.
 
+
+
+## Checkpoint: Cottons validated label-gap and OCR recovery
+
+Published repairs `a1829759633fdfa17160049de39ad26e7ff52ed1`, `e2ddda5c44bda08bddbf2ee05faaa4dcc5ebda16` and `9d82dc84dfd891f7f5e4a756ba920301a81347fc`, followed by generated checkpoint `9dd4ab98b5c3e707600c1b89fb78b362d7da9185`:
+
+- The 10 July 2024 first-party result sheet and catalogue each contain the same 50 lot identities: labels 1–51 with 31 unassigned. The collector now promotes this publication only after exact saved-result/catalogue evidence proves that the same single label is absent from both sources. It records lot 31 as an explicitly unassigned publication label and does not create a synthetic property row.
+- Retained native-PDF OCR variants are repaired only at result-row starts: `Al` maps to lot 41, `§2` to lot 52, `§3` to lot 53 and `$2` to lot 52. Existing sequence, duplicate and missing-label guards still apply.
+- Five dated address appearances were newly banked; there were no partial or undated additions:
+  - 11 July 2013 lot 52, 3 Orchard Road, Erdington, Birmingham, B24 9JL — sold for £166,000.
+  - 11 July 2013 lot 53, 5 Dovedale Avenue, Willenhall, West Midlands, WV12 4NA — not offered.
+  - 29 October 2013 lot 52, 12 Crusader Close, Oldbury, West Midlands, B69 1EF — sold for £46,000.
+  - 3 June 2015 lot 41, Red Lion Cottage, Bell Square, Weobley, Hereford, HR4 8SE — available at £80,000.
+  - 15 October 2015 lot 41, 59 Rock Road, Olton, Solihull, West Midlands, B92 7LD — sold for £137,000.
+- Published corpus totals are now **279,818 individual appearances**: **269,449 address records**, **10,369 partial lots** and **4,202 undated appearances**. Complete catalogue states increased from 1,999 to **2,003**; incomplete states fell from 499 to **495**; current source failures fell from 67 to **62**.
+- Cottons now retains **7,427 appearances** across **94 complete result sheets**; 32 sheets remain pending and 3 blocked. The result-sheet count is not a proxy for properties.
+- The focused Cottons suite passes 32 tests. All three workflows passed collection/banking, database rebuild, packaging, checkpoint publication and artifact retention. The final SQLite artifact passed integrity checking and contains the five recovered identities exactly once.
+- Final artifact `12600802966` is 301,625,375 bytes with SHA-256 `10fef203aea16bbb913d5d0d7bd203b9ba66dfc85598e943e55a9be4e3ee8a26`.
+
+National completeness remains unverified: 495 incomplete catalogue states, 62 current source failures, 505 unlinked directory entries and uncovered source/year inventories remain.
