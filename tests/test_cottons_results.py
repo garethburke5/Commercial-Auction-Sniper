@@ -6,6 +6,7 @@ from scripts.harvest_cottons_results import (
     parse_date,
     parse_result_text,
     reconcile_catalogue_validated_gap,
+    result_state_reusable,
     result_semantics,
 )
 
@@ -238,6 +239,77 @@ AQ | 32 HUMBER ROAD, COVENTRY CV3 1BA £106,000
     assert state["missing_base_lot_numbers"] == list(range(1, 10)) + list(range(13, 39))
     assert rows[1]["available_price"] == 50000
     assert rows[4]["sale_price"] == 106000
+
+
+@pytest.mark.parametrize(
+    ("prefix", "artifact", "expected_lot"),
+    [
+        ("", "{| 68 WOODBOURNE ROAD, SMETHWICK B67 5NB £129,000", "1"),
+        ("4 4 HIGH STREET, BIRMINGHAM £40,000\n", "§ | 2 HIGH STREET, MOXLEY £50,000", "5"),
+        ("6 6 HIGH STREET, BIRMINGHAM £60,000\n", "T FLAT 2 JACKSON CLOSE, CANNOCK £49,000", "7"),
+        ("6 6 HIGH STREET, BIRMINGHAM £60,000\n", "J 1 32 LANE ROAD, WOLVERHAMPTON NOT AVAILABLE", "7"),
+        ("9 9 HIGH STREET, BIRMINGHAM £90,000\n", "1Q | THE COACH HOUSE, WILLENHALL SOLD PRIOR", "10"),
+        ("10 10 HIGH STREET, BIRMINGHAM £100,000\n", "il | 1 COLLEGE GROVE, BIRMINGHAM AVAILABLE @ £95,000", "11"),
+        ("46 46 HIGH STREET, BIRMINGHAM £146,000\n", "AT | 2-24 BRETFORD ROAD, COVENTRY AVAILABLE @ £275,000", "47"),
+        ("50 50 HIGH STREET, BIRMINGHAM £150,000\n", "S51 | 72A DEANS ROAD, WOLVERHAMPTON £87,000", "51"),
+    ],
+)
+def test_ocr_sequential_row_start_artifacts_are_repaired_only_at_next_slot(
+        prefix, artifact, expected_lot):
+    text = f"""
+Auction : 04 December 2014 Results Sheet
+Lot Address Result
+{prefix}{artifact}
+"""
+    ocr_expected = {
+        **expected("2014-12-04"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-04-Dec-2014.pdf",
+    }
+    state, rows = parse_result_text(text, ocr_expected, {"basis": "OCR"})
+    assert rows[-1]["lot_number"] == expected_lot
+    assert int(expected_lot) not in state["missing_base_lot_numbers"]
+
+
+def test_ocr_separator_and_terminal_period_do_not_pollute_address_or_outcome():
+    text = """
+Auction : 25 February 2014 Results Sheet
+Lot Address Result
+4 4 HIGH STREET, BIRMINGHAM £40,000
+§ | 2 HIGH STREET, MOXLEY SOLD PRIOR.
+"""
+    state, rows = parse_result_text(text, expected("2014-02-25"), {"basis": "OCR"})
+    assert rows[-1]["lot_number"] == "5"
+    assert rows[-1]["address"] == "2 HIGH STREET, MOXLEY"
+    assert rows[-1]["status"] == "sold_prior"
+
+
+def test_complete_ocr_state_is_refreshed_when_ocr_parser_version_changes():
+    rows = [{"appearance_id": "one"}]
+    common = {
+        "catalogue_complete": True,
+        "result_parser_version": 2,
+        "lots_captured": 1,
+    }
+    assert result_state_reusable(common, rows) is True
+    assert result_state_reusable(
+        {**common, "ocr_recovered": True, "ocr_version": 5}, rows
+    ) is False
+    assert result_state_reusable(
+        {**common, "ocr_recovered": True, "ocr_version": 6}, rows
+    ) is True
+
+
+def test_ocr_row_start_artifact_is_not_repaired_out_of_sequence():
+    text = """
+Auction : 04 December 2014 Results Sheet
+Lot Address Result
+5 5 HIGH STREET, BIRMINGHAM £50,000
+AT | AN ADDRESS CONTINUATION WHICH MUST NOT BECOME LOT 47
+6 6 HIGH STREET, BIRMINGHAM £60,000
+"""
+    state, rows = parse_result_text(text, expected("2014-12-04"), {"basis": "OCR"})
+    assert [row["lot_number"] for row in rows] == ["5", "6"]
+    assert "AT | AN ADDRESS CONTINUATION" in rows[0]["address"]
 
 
 @pytest.mark.parametrize("lot_52_artifact", ["§2", "$2"])

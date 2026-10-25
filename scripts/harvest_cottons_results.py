@@ -47,7 +47,7 @@ ROW_RE = re.compile(
     r"^(\d+[A-Za-z]?|I|LI|L1|I1|AQ|AL|[§$]2|§3)[.)}\]]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
     re.I,
 )
-OCR_VERSION = 3
+OCR_VERSION = 6
 OCR_DPI = 300
 # Bump when native-PDF row reconstruction changes. A saved sheet can have a
 # contiguous 1..N prefix and still be truncated at page furniture, so count
@@ -72,7 +72,7 @@ RESULT_SUFFIX_RE = re.compile(
     r"WITHDRAWN(?:\s+AFTER)?|POSTPONED|UNSOLD|SOLD|"
     r"AVAILABLE(?:\s*@|\s+AT)?\s*£?\s*[\d,.]+(?:\s+PLUS\s+VAT)?|"
     r"£\s*[\d,.]+\s*(?:AVAILABLE)?"
-    r")\s*$",
+    r")\.?\s*$",
     re.I,
 )
 FOOTER_RE = re.compile(
@@ -264,6 +264,50 @@ def split_result_row(value: str) -> tuple[str | None, str]:
     return address, clean(match.group()) or ""
 
 
+def repair_sequential_ocr_row_start(
+        line: str, current_lot: str | None, raw_rows: list[tuple[str, str]]) -> str:
+    """Repair a small set of evidenced row labels only at the next sequence slot.
+
+    Several older Cottons scans distort a complete lot label into punctuation
+    or letters.  The replacement is deliberately conditional on the preceding
+    admitted numeric lot, so the same characters in an address continuation
+    cannot manufacture a row.  The first-row repair is likewise allowed only
+    before any lot has been admitted.
+    """
+    if current_lot and current_lot.isdigit():
+        expected = int(current_lot) + 1
+    elif current_lot is None and not raw_rows:
+        expected = 1
+    else:
+        return line
+    patterns = {
+        1: r"^\{\|\s+",
+        5: r"^§\s*(?:\|\s*)?(?=\d)",
+        7: r"^(?:T\s+(?=FLAT\b)|J\s+1\s+(?=\d))",
+        10: r"^1Q\s*\|\s*",
+        11: r"^il\s*\|\s*",
+        47: r"^AT\s*\|\s*",
+        51: r"^S51\s*\|\s*",
+    }
+    pattern = patterns.get(expected)
+    if pattern and re.match(pattern, line):
+        return re.sub(pattern, f"{expected} | ", line, count=1)
+    return line
+
+
+def result_state_reusable(state: dict | None, saved_rows: list[dict]) -> bool:
+    """Return whether a saved state was produced by the active parser paths."""
+    return bool(
+        state
+        and state.get("catalogue_complete")
+        and saved_rows
+        and state.get("result_parser_version", 0) >= RESULT_PARSER_VERSION
+        and (not state.get("ocr_recovered")
+             or state.get("ocr_version", 0) >= OCR_VERSION)
+        and state.get("lots_captured") == len(saved_rows)
+    )
+
+
 def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, list[dict]]:
     try:
         heading_date = parse_date(text[:1600])
@@ -415,6 +459,8 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
                     continuation = []
                 if continuation and line_index == consumed_to + 1:
                     continue
+        if "OCR" in str(evidence.get("basis") or "").upper():
+            line = repair_sequential_ocr_row_start(line, current_lot, raw_rows)
         match = ROW_RE.match(line)
         # The first printed 1 is occasionally recognised as a capital I. It
         # is safe to repair only before any numbered row has been admitted;
@@ -436,6 +482,7 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
                 "li": "11",
                 "l1": "11",
                 "i1": "11",
+                "il": "11",
                 "aq": "40",
                 "al": "41",
                 "§2": "52",
@@ -660,9 +707,7 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
             else:
                 blockers.append(state["source_blocker"])
             continue
-        if (state and state.get("catalogue_complete") and saved_rows and
-                state.get("result_parser_version", 0) >= RESULT_PARSER_VERSION and
-                state.get("lots_captured") == len(saved_rows)):
+        if result_state_reusable(state, saved_rows):
             states[item["auction_id"]] = state
             reused += 1
         else:
