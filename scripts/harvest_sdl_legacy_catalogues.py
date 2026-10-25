@@ -42,6 +42,10 @@ HEADERS = {
 }
 SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
+TERMINAL_REDIRECT_PATHS = {
+    urlsplit(ARCHIVE).path.rstrip("/"),
+    "/buy-property",
+}
 PROPERTY_RE = re.compile(r"/property/(\d+)/", re.I)
 AUCTION_RE = re.compile(r"/auction/(\d+)/", re.I)
 URL_DATE_RE = re.compile(r"(20\d{2}-\d{2}-\d{2})")
@@ -263,6 +267,72 @@ def load_saved_archive(summary_path: Path, root: Path = corpus.ROOT) -> tuple[st
     return html, saved_evidence
 
 
+
+def normalise_terminal_state(state: dict) -> tuple[dict, bool]:
+    """Separate confirmed source retirement from fetch/parser failures."""
+    final_path = urlsplit(state.get("final_url") or "").path.rstrip("/")
+    if not state.get("terminal_unavailable") or final_path not in TERMINAL_REDIRECT_PATHS:
+        return state, False
+    prior_errors = [str(error) for error in state.get("errors") or []]
+    existing = state.get("source_blocker") or {}
+    blocker = {
+        "kind": "first_party_catalogue_retired",
+        "source_url": state.get("source_url"),
+        "final_url": state.get("final_url"),
+        "detail": state.get("incomplete_reason"),
+        "original_errors": prior_errors or existing.get("original_errors") or [],
+    }
+    changed = bool(prior_errors) or existing != blocker
+    if changed:
+        state = dict(state)
+        state["errors"] = []
+        state["source_blocker"] = blocker
+        state["blocker_reconciled_at"] = corpus.now()
+    return state, changed
+
+
+def reconcile_saved_terminal_blockers(data_root: Path = corpus.DATA) -> dict:
+    """Migrate saved SDL terminal redirects without touching banked lot rows."""
+    state_dir = data_root / "auctions/sdl-property-auctions"
+    summary_path = data_root / "sdl_property_auctions_collection.json"
+    changed_states: dict[str, dict] = {}
+    for state_path in sorted(state_dir.glob("*.json")):
+        try:
+            state = json.loads(state_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        state, changed = normalise_terminal_state(state)
+        if not changed:
+            continue
+        corpus.save_json(state_path, state)
+        changed_states[state_path.stem] = state
+
+    if summary_path.exists() and changed_states:
+        summary = json.loads(summary_path.read_text())
+        blocked = dict(summary.get("blocked_catalogues") or {})
+        blocked.update(changed_states)
+        blocked_urls = {
+            state.get("source_url") for state in changed_states.values()
+            if state.get("source_url")
+        }
+        summary["blocked_catalogues"] = blocked
+        summary["catalogue_pages_blocked"] = len(blocked)
+        summary["failures"] = [
+            failure for failure in summary.get("failures") or []
+            if failure.get("catalogue_url") not in blocked_urls
+        ]
+        summary["terminal_blocker_reconciliation"] = {
+            "reconciled_at": corpus.now(),
+            "states_changed": len(changed_states),
+            "classification": "source retired; incomplete and denominator unreconciled",
+        }
+        corpus.save_json(summary_path, summary)
+    return {
+        "states_changed": len(changed_states),
+        "state_keys": sorted(changed_states),
+        "appearance_rows_changed": 0,
+    }
+
 def harvest(limit: int = 10) -> None:
     summary_path = corpus.DATA / "sdl_property_auctions_collection.json"
     try:
@@ -361,9 +431,7 @@ def harvest(limit: int = 10) -> None:
                 "error": f"{type(exc).__name__}: {exc}"[:500],
             }
             final_path = urlsplit(response.url).path.rstrip("/") if response else None
-            archive_path = urlsplit(ARCHIVE).path.rstrip("/")
-            terminal_paths = {archive_path, "/buy-property"}
-            if response is not None and final_path in terminal_paths:
+            if response is not None and final_path in TERMINAL_REDIRECT_PATHS:
                 state = {
                     "auctioneer": "SDL Property Auctions",
                     "source_auction_id": None, "auction_date": None,
@@ -379,6 +447,7 @@ def harvest(limit: int = 10) -> None:
                     "source_url": item["url"], "final_url": response.url,
                     "errors": [failure["error"]], "checked_at": corpus.now(),
                 }
+                state, _ = normalise_terminal_state(state)
                 corpus.save_json(state_path, state)
                 blocked[state_key] = state
                 print("SDL terminal unavailable", item["url"], flush=True)
@@ -419,5 +488,12 @@ def harvest(limit: int = 10) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--limit", type=int, default=10)
+    parser.add_argument(
+        "--reconcile-terminal-blockers", action="store_true",
+        help="migrate saved retired-page states without fetching or changing lot rows",
+    )
     args = parser.parse_args()
-    harvest(args.limit)
+    if args.reconcile_terminal_blockers:
+        print(json.dumps(reconcile_saved_terminal_blockers(), indent=2))
+    else:
+        harvest(args.limit)

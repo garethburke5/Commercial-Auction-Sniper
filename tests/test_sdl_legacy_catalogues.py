@@ -2,8 +2,9 @@ import gzip
 import json
 
 from scripts.harvest_sdl_legacy_catalogues import (
-    discover_catalogues, load_saved_archive, parse_catalogue_cards,
-    parse_catalogue_identity,
+    discover_catalogues, load_saved_archive, normalise_terminal_state,
+    parse_catalogue_cards, parse_catalogue_identity,
+    reconcile_saved_terminal_blockers,
 )
 
 
@@ -160,3 +161,55 @@ def test_saved_archive_fallback_validates_immutable_snapshot(tmp_path):
     html, loaded_evidence = load_saved_archive(summary, tmp_path)
     assert html == ARCHIVE
     assert loaded_evidence == evidence
+
+
+def test_terminal_redirect_is_a_source_blocker_not_parser_failure():
+    state = {
+        "terminal_unavailable": True,
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/old/",
+        "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
+        "incomplete_reason": "first-party catalogue page is no longer retained",
+        "errors": ["ValueError: catalogue page has no exact auction date"],
+    }
+    normalised, changed = normalise_terminal_state(state)
+    assert changed
+    assert normalised["errors"] == []
+    assert normalised["source_blocker"]["kind"] == "first_party_catalogue_retired"
+    assert normalised["source_blocker"]["original_errors"] == state["errors"]
+    assert normalised["terminal_unavailable"] is True
+
+
+def test_terminal_reconciliation_updates_states_and_summary_without_rows(tmp_path, monkeypatch):
+    state_dir = tmp_path / "auctions/sdl-property-auctions"
+    state_dir.mkdir(parents=True)
+    state = {
+        "terminal_unavailable": True,
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/old/",
+        "final_url": "https://www.sdlauctions.co.uk/buy-property/",
+        "catalogue_complete": False,
+        "source_rows_captured": 0,
+        "denominator_reconciled": False,
+        "errors": ["ValueError: catalogue page has no exact auction date"],
+    }
+    state_path = state_dir / "catalogues-old.json"
+    state_path.write_text(json.dumps(state))
+    summary_path = tmp_path / "sdl_property_auctions_collection.json"
+    summary_path.write_text(json.dumps({
+        "blocked_catalogues": {"catalogues-old": state},
+        "failures": [{"catalogue_url": state["source_url"], "error": state["errors"][0]}],
+    }))
+    monkeypatch.setattr(
+        "scripts.harvest_sdl_legacy_catalogues.corpus.save_json",
+        lambda path, payload: path.write_text(json.dumps(payload)),
+    )
+
+    result = reconcile_saved_terminal_blockers(tmp_path)
+
+    saved_state = json.loads(state_path.read_text())
+    saved_summary = json.loads(summary_path.read_text())
+    assert result["states_changed"] == 1
+    assert result["appearance_rows_changed"] == 0
+    assert saved_state["errors"] == []
+    assert saved_state["denominator_reconciled"] is False
+    assert saved_summary["failures"] == []
+    assert saved_summary["catalogue_pages_blocked"] == 1
