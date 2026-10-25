@@ -12,7 +12,7 @@
 <script src="{{ url('/static/history.js') }}?v={{ asset_version }}" defer></script>
 <script src="{{ url('/static/navigation.js') }}?v={{ asset_version }}" defer></script>
 </head><body data-prefix="{{ url('') }}" data-page-kind="{{ kind }}">
-{% from 'cards.html' import cards with context %}
+{% from 'cards.html' import cards, view_selector with context %}
 {% from 'share.html' import share_button with context %}
 {% from 'fees.html' import fee_panel with context %}
 <a class="skip" href="#main">Skip to content</a>
@@ -76,4 +76,3 @@
  <form id="save-search-form"><label>Give your search a name<input name="name" maxlength="160" required placeholder="e.g. North West retail, 10%+"></label><p class="small muted">Your applied filters will be saved. New-match email delivery is being activated.</p><button class="button" type="submit">Save search</button></form>
 </dialog>
 </body></html>
-

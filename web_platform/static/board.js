@@ -92,6 +92,31 @@
     houseSearch.addEventListener('input',filterHouses);
     currentOnly.addEventListener('change',filterHouses);
   }
+  // A display preference only: no account, catalogue reload or search-URL change.
+  const viewControls=Array.from(document.querySelectorAll('.property-view-toggle'));
+  if (viewControls.length) {
+    const key='auctiongeek:mobile-property-view';
+    let initialView='list';
+    try { if(sessionStorage.getItem(key)==='grid')initialView='grid'; } catch (_) {}
+    function setPropertyView(view) {
+      document.documentElement.dataset.propertyView=view;
+      viewControls.forEach(group=>group.querySelectorAll('[data-property-view]').forEach(button=>{
+        button.setAttribute('aria-pressed',String(button.dataset.propertyView===view));
+      }));
+    }
+    setPropertyView(initialView);
+    viewControls.forEach(group=>{
+      group.addEventListener('click',event=>{
+        const button=event.target.closest('button[data-property-view]');
+        if(!button||!group.contains(button))return;
+        const view=button.dataset.propertyView;
+        if(view!=='list'&&view!=='grid')return;
+        setPropertyView(view);
+        try { sessionStorage.setItem(key,view); } catch (_) {}
+      });
+      group.hidden=false;
+    });
+  }
   const board=document.querySelector('#property-board');
   if (!board) return;
   const form=document.querySelector('#property-filters'), results=document.querySelector('#board-results');

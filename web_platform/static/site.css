@@ -320,3 +320,30 @@
 .contact-guidance h2{margin-bottom:24px}.contact-guidance dl{margin:0}.contact-guidance dl>div+div{border-top:1px solid var(--line);padding-top:18px;margin-top:18px}.contact-guidance dt{font-size:.86rem;font-weight:700;margin-bottom:6px}.contact-guidance dd{margin:0;color:var(--muted);font-size:.82rem;line-height:1.7;max-width:48ch}
 .contact-privacy{max-width:1080px;margin:18px auto 0;font-size:.74rem;color:var(--muted);line-height:1.8}.contact-privacy a{white-space:nowrap;margin-left:6px}
 @media(max-width:700px){[data-page-kind="contact"] .page-heading{padding:26px 0 22px}.contact-panel{grid-template-columns:minmax(0,1fr)}.contact-email-card,.contact-guidance{padding:26px 24px}.contact-guidance{border-left:0;border-top:1px solid var(--line)}.contact-icon{margin-bottom:20px}.contact-email-link{font-size:clamp(1rem,5.1vw,1.35rem)}.contact-privacy a{display:inline-block;margin-left:0}}
+
+/* Optional compact property grid. The existing one-column mobile view is default. */
+.property-view-toggle{display:none}
+@media(max-width:650px){
+ .property-view-toggle{display:inline-flex;gap:3px;align-items:center;padding:3px;margin:0 0 14px;border:1px solid var(--line);border-radius:9px;background:#fff}
+ .property-view-toggle button{display:inline-flex;gap:7px;align-items:center;justify-content:center;min-height:44px;min-width:76px;padding:9px 12px;border:0;border-radius:6px;background:transparent;color:var(--muted);font-size:.8rem;font-weight:650}
+ .property-view-toggle button[aria-pressed="true"]{background:var(--ink);color:#fff}
+ .property-view-toggle button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+ .board-options{flex-wrap:wrap;align-items:flex-end}
+ .board-options .property-view-toggle{margin:0 0 0 auto}
+ html[data-property-view="grid"] .cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ html[data-property-view="grid"] .cards .card{min-width:0;overflow-wrap:anywhere}
+ html[data-property-view="grid"] .cards .cardbody{padding:9px}
+ html[data-property-view="grid"] .cards .image-label{left:6px;right:6px;bottom:6px;max-width:calc(100% - 12px);font-size:.6rem;padding:3px 5px}
+ html[data-property-view="grid"] .cards .card-meta{gap:4px;align-items:flex-start}
+ html[data-property-view="grid"] .cards .card-save-actions{width:100%;flex-wrap:wrap;gap:2px}
+ html[data-property-view="grid"] .cards .card-save-actions button{min-height:36px;padding:5px 4px;font-size:.68rem}
+ html[data-property-view="grid"] .cards .opportunity{font-size:.62rem}
+ html[data-property-view="grid"] .cards h2{font-size:.86rem;line-height:1.4}
+ html[data-property-view="grid"] .cards .metrics{grid-template-columns:minmax(0,1fr);gap:4px}
+ html[data-property-view="grid"] .cards .metrics>div{min-height:0;padding:6px 7px}
+ html[data-property-view="grid"] .cards .metrics dt{font-size:.65rem}
+ html[data-property-view="grid"] .cards .metrics dd{font-size:.86rem;white-space:normal}
+ html[data-property-view="grid"] .cards .investment>summary{font-size:.72rem}
+ html[data-property-view="grid"] .cards .property-action{font-size:.74rem;padding:8px;gap:5px}
+ html[data-property-view="grid"] .cards .textlink{font-size:.73rem}
+}

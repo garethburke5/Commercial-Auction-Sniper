@@ -1,4 +1,10 @@
 {% from 'share.html' import share_button with context %}
+{% macro view_selector() -%}
+<div class="property-view-toggle" role="group" aria-label="Property display" hidden>
+  <button type="button" data-property-view="list" aria-pressed="true"><svg aria-hidden="true" width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="16" height="5" rx="1"/><rect x="2" y="12" width="16" height="5" rx="1"/></svg>List</button>
+  <button type="button" data-property-view="grid" aria-pressed="false"><svg aria-hidden="true" width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="12" y="2" width="6" height="6" rx="1"/><rect x="2" y="12" width="6" height="6" rx="1"/><rect x="12" y="12" width="6" height="6" rx="1"/></svg>Grid</button>
+</div>
+{%- endmacro %}
 {% macro card(r) -%}
 <article class="card" data-id="{{ r.id }}" data-rent="{{ r.annual_rent or '' }}">
   <a class="previewLink" href="{{ url(r.path) }}" aria-label="View {{ r.address }}">
@@ -31,4 +37,4 @@
 </article>
 {%- endmacro %}
 
-{% macro cards(rows) -%}<div class="cards">{% for r in rows %}{{ card(r) }}{% endfor %}</div>{%- endmacro %}
+{% macro cards(rows) -%}{% if rows and not board %}{{ view_selector() }}{% endif %}<div class="cards">{% for r in rows %}{{ card(r) }}{% endfor %}</div>{%- endmacro %}
