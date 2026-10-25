@@ -170598,8 +170598,8 @@
     "zero_inventory_outage_sources": [
       "Greenslade Taylor Hunt"
     ],
-    "publication_revision": "22f88ff0d0ab1ab8069f05ceb317431b022ed351",
-    "revalidated_at": "2026-10-24T22:09:23.484325+00:00"
+    "publication_revision": "91ec67cbbad5e2a8c1c5fa0a3059c66790cb80ae",
+    "revalidated_at": "2026-10-25T00:06:17.182632+00:00"
   },
   "excluded_properties": [
     {
@@ -173288,9 +173288,99 @@
         "inventory_equivalence_verified": false,
         "assessment": "Corporate grouping is not proof that every legacy catalogue lot is ingested; unique-inventory reconciliation outstanding.",
         "verified_on": "2026-10-22"
+      },
+      {
+        "brand": "Allsop Residential",
+        "source": "Allsop",
+        "source_url": "https://www.allsop.co.uk/auctions",
+        "relationship_evidence": "https://www.allsop.co.uk/auctions",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the retained Allsop residential catalogue corpus",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Bagshaws Residential",
+        "source": "Bagshaws",
+        "source_url": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+        "relationship_evidence": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the same first-party Bagshaws property archive",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Barnard Marcus",
+        "source": "Barnard Marcus Auctions",
+        "source_url": "https://www.barnardmarcusauctions.co.uk/",
+        "relationship_evidence": "https://www.barnardmarcusauctions.co.uk/",
+        "inventory_equivalence_verified": false,
+        "assessment": "short directory label maps to the first-party Barnard Marcus Auctions operator",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Brown & Co",
+        "source": "Brown&Co",
+        "source_url": "https://www.brown-co.com/auctions/property-land/results",
+        "relationship_evidence": "https://www.brown-co.com/auctions/property-land/results",
+        "inventory_equivalence_verified": false,
+        "assessment": "spacing variant maps to the same first-party Brown&Co results source",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Dedman Gray Auctions",
+        "source": "Dedman Gray",
+        "source_url": "https://www.dedmangray.co.uk/auction/?q=1&tid=119",
+        "relationship_evidence": "https://www.dedmangray.co.uk/auction/?q=1&tid=119",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the retained Dedman Gray auction archive",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Edward Mellor Auctions",
+        "source": "Edward Mellor",
+        "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
+        "relationship_evidence": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the retained Edward Mellor archive",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Goldings",
+        "source": "Goldings Auctions",
+        "source_url": "https://www.goldingsauctions.co.uk/auctions/auction-results/",
+        "relationship_evidence": "https://www.goldingsauctions.co.uk/auctions/auction-results/",
+        "inventory_equivalence_verified": false,
+        "assessment": "short directory label maps to the first-party Goldings Auctions archive",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Pattinson Property Auctions",
+        "source": "Pattinson Auctions",
+        "source_url": "https://www.pattinson.co.uk/auction",
+        "relationship_evidence": "https://www.pattinson.co.uk/auction",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the retained Pattinson auction source",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Sharpes Property Auctions",
+        "source": "Sharpes Auctions",
+        "source_url": "https://www.sharpesauctions.co.uk/",
+        "relationship_evidence": "https://www.sharpesauctions.co.uk/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the retained Sharpes auction source",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Sutton Kersh Auctions",
+        "source": "Sutton Kersh",
+        "source_url": "https://www.suttonkersh.co.uk/auctions-property/auction-results/",
+        "relationship_evidence": "https://www.suttonkersh.co.uk/auctions-property/auction-results/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory trading name maps to the retained Sutton Kersh archive",
+        "verified_on": "2026-10-25"
       }
     ],
-    "generated_at": "2026-10-24T22:09:23.482368+00:00",
+    "generated_at": "2026-10-25T00:06:17.180779+00:00",
     "snapshot_generated_at": "2026-10-23T12:11:23.154974+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -177191,7 +177281,17 @@
         "successor": "BidX1",
         "collector_configured": false,
         "failure_reason": "Configured successor mapping; unique inventory reconciliation remains required.",
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Dedman Gray Auctions",
+            "source": "Dedman Gray",
+            "source_url": "https://www.dedmangray.co.uk/auction/?q=1&tid=119",
+            "relationship_evidence": "https://www.dedmangray.co.uk/auction/?q=1&tid=119",
+            "inventory_equivalence_verified": false,
+            "assessment": "directory trading name maps to the retained Dedman Gray auction archive",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
@@ -177235,7 +177335,17 @@
         "last_successful_collection": "2026-10-23T12:11:22.024329+00:00",
         "last_publication": "2026-10-23T12:11:23.154974+00:00",
         "live_checked_at": null,
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Edward Mellor Auctions",
+            "source": "Edward Mellor",
+            "source_url": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
+            "relationship_evidence": "https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/",
+            "inventory_equivalence_verified": false,
+            "assessment": "directory trading name maps to the retained Edward Mellor archive",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
@@ -177436,7 +177546,17 @@
         "last_successful_collection": null,
         "last_publication": "2026-10-23T12:11:23.154974+00:00",
         "live_checked_at": null,
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Goldings",
+            "source": "Goldings Auctions",
+            "source_url": "https://www.goldingsauctions.co.uk/auctions/auction-results/",
+            "relationship_evidence": "https://www.goldingsauctions.co.uk/auctions/auction-results/",
+            "inventory_equivalence_verified": false,
+            "assessment": "short directory label maps to the first-party Goldings Auctions archive",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
@@ -178547,7 +178667,17 @@
         "last_successful_collection": null,
         "last_publication": "2026-10-23T12:11:23.154974+00:00",
         "live_checked_at": null,
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Sutton Kersh Auctions",
+            "source": "Sutton Kersh",
+            "source_url": "https://www.suttonkersh.co.uk/auctions-property/auction-results/",
+            "relationship_evidence": "https://www.suttonkersh.co.uk/auctions-property/auction-results/",
+            "inventory_equivalence_verified": false,
+            "assessment": "directory trading name maps to the retained Sutton Kersh archive",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
