@@ -324,15 +324,17 @@ def harvest(workers: int = 4) -> None:
             "source_auction_id": "town-country:online-results",
             "auction_date": None,
             "catalogue_complete": False,
+            "source_rows_complete": archive_complete,
+            "denominator_reconciled": False,
             "archive_pagination_complete": archive_complete,
             "lots_captured": len(rows),
             "completion_scope": "all retained first-party past-auctions result pages",
-            "errors": failures + [{
-                "error": (
-                    "Rows are individual timed lots; original catalogue "
-                    "denominators are not published"
-                )
-            }],
+            "reconciliation_note": {
+                "kind": "original_event_denominator_unavailable",
+                "retained_scope": "individual timed lots",
+                "retained_rows": len(rows),
+            },
+            "errors": failures,
             "checked_at": corpus.now(),
         },
     )

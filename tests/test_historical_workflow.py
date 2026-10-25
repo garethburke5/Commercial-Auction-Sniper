@@ -74,3 +74,12 @@ def test_focused_symonds_sampson_repair_skips_broad_rotation():
     assert "scripts/harvest_symonds_sampson_canonical.py --reconcile-saved-state" in WORKFLOW[focused:bounded]
     bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
     assert "Run focused Symonds and Sampson repair" in bounded_condition
+
+
+def test_focused_online_result_state_repair_skips_broad_rotation():
+    focused = WORKFLOW.index("- name: Reclassify saved online-result denominator limitations")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    assert "scripts/reconcile_online_result_state_errors.py" in WORKFLOW[focused:bounded]
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused online-result state repair" in bounded_condition

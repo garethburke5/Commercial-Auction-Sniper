@@ -261,14 +261,19 @@ def harvest() -> None:
         "source_auction_id": "auction-house-eastanglia:online-results",
         "auction_date": None,
         "catalogue_complete": False,
+        "source_rows_complete": archive_complete,
+        "denominator_reconciled": False,
         "archive_pagination_complete": archive_complete,
         "lots_captured": len(rows),
         "current_archive_rows": current_count,
         "completion_scope": "all rows across every retained first-party online-results page",
         "source_property_ids": sorted(seen_current),
-        "errors": failures + [{
-            "error": "Rows are individual online lot endings; original catalogue denominators are not published"
-        }],
+        "reconciliation_note": {
+            "kind": "original_event_denominator_unavailable",
+            "retained_scope": "individual online lot endings",
+            "retained_rows": len(rows),
+        },
+        "errors": failures,
         "checked_at": corpus.now(),
     })
     print(json.dumps(summary, indent=2), flush=True)
