@@ -5,6 +5,7 @@ from scripts.harvest_cottons_results import (
     merge_result_row,
     parse_date,
     parse_result_text,
+    reconcile_catalogue_validated_gap,
     result_semantics,
 )
 
@@ -72,6 +73,55 @@ def test_non_contiguous_sheet_is_retained_but_not_marked_complete():
     assert len(rows) == 4
     assert state["catalogue_complete"] is False
     assert state["missing_base_lot_numbers"] == [3, 4]
+
+
+def test_matching_catalogue_gap_reconciles_without_fabricating_a_lot():
+    state = {
+        "catalogue_complete": False,
+        "source_rows_complete": False,
+        "lots_captured": 2,
+        "missing_base_lot_numbers": [2],
+        "errors": [{"error": "non-contiguous result lot sequence", "missing": [2]}],
+    }
+    evidence = {
+        "source_url": "https://www.cottons.co.uk/catalogue.pdf",
+        "sha256": "catalogue-sha",
+        "snapshot_path": "data/auction_history/sources/cottons/catalogue.pdf.gz",
+    }
+    rows = [
+        {"lot_number": "1", "catalogue_guide_checked": {**evidence, "page": 5}},
+        {"lot_number": "3", "catalogue_guide_checked": {**evidence, "page": 7}},
+    ]
+    reconciled = reconcile_catalogue_validated_gap(state, rows)
+    assert reconciled["catalogue_complete"] is True
+    assert reconciled["source_rows_complete"] is True
+    assert reconciled["intentional_unassigned_lot_numbers"] == [2]
+    assert reconciled["catalogue_gap_reconciliation"]["visible_labels"] == ["1", "3"]
+    assert reconciled["errors"] == []
+    assert len(rows) == 2
+
+
+def test_catalogue_gap_reconciliation_requires_every_row_and_one_snapshot():
+    state = {
+        "catalogue_complete": False,
+        "lots_captured": 2,
+        "missing_base_lot_numbers": [2],
+    }
+    evidence = {
+        "source_url": "https://www.cottons.co.uk/catalogue.pdf",
+        "sha256": "catalogue-sha",
+        "snapshot_path": "catalogue.pdf.gz",
+    }
+    unchecked = [
+        {"lot_number": "1", "catalogue_guide_checked": evidence},
+        {"lot_number": "3"},
+    ]
+    assert reconcile_catalogue_validated_gap(state, unchecked) is state
+    mixed = [
+        {"lot_number": "1", "catalogue_guide_checked": evidence},
+        {"lot_number": "3", "catalogue_guide_checked": {**evidence, "sha256": "other"}},
+    ]
+    assert reconcile_catalogue_validated_gap(state, mixed) is state
 
 
 def test_pdf_date_must_match_archive_date():

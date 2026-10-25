@@ -100,6 +100,68 @@ def merge_result_row(previous: dict | None, observed: dict) -> dict:
     return merged
 
 
+def reconcile_catalogue_validated_gap(state: dict | None, rows: list[dict]) -> dict | None:
+    """Promote a finite result table when an independent catalogue has the same gap.
+
+    Cottons occasionally leaves a number unassigned in both publications.  A
+    continuous 1..N requirement then reports a missing property even though
+    every visible result and catalogue row has been retained.  Catalogue guide
+    checks are written only after ``parse_guides`` has proved that its complete
+    visible label set exactly equals the result labels.  Require that evidence
+    on every saved row, from one catalogue snapshot, before clearing the false
+    incomplete state.  No synthetic row is created for the unused number.
+    """
+    if not state or state.get("catalogue_complete"):
+        return state
+    missing = state.get("missing_base_lot_numbers") or []
+    if not missing or not rows or state.get("lots_captured") != len(rows):
+        return state
+    labels = {str(row.get("lot_number") or "") for row in rows}
+    if not labels or not all(label.isdigit() for label in labels):
+        return state
+    terminal = max(map(int, labels))
+    expected = set(map(str, range(1, terminal + 1)))
+    if expected - labels != set(map(str, missing)):
+        return state
+    checks = [row.get("catalogue_guide_checked") for row in rows]
+    if not all(isinstance(check, dict) for check in checks):
+        return state
+    identities = {
+        (check.get("source_url"), check.get("sha256"), check.get("snapshot_path"))
+        for check in checks
+    }
+    if len(identities) != 1 or any(not value for value in next(iter(identities))):
+        return state
+    evidence_url, evidence_sha, snapshot_path = next(iter(identities))
+    reconciled = dict(state)
+    reconciled.update(
+        catalogue_complete=True,
+        source_rows_complete=True,
+        denominator_reconciled=True,
+        published_terminal_lot_number=terminal,
+        intentional_unassigned_lot_numbers=sorted(map(int, missing)),
+        denominator_basis=(
+            "exact lot-identity agreement between the complete first-party "
+            "result table and independently parsed first-party catalogue"
+        ),
+        completion_scope=(
+            "every visible row in both retained first-party result and "
+            "catalogue publications; unused lot numbers are not fabricated"
+        ),
+        catalogue_gap_reconciliation={
+            "kind": "matching_publication_numbering_gap",
+            "catalogue_source_url": evidence_url,
+            "catalogue_sha256": evidence_sha,
+            "catalogue_snapshot_path": snapshot_path,
+            "visible_labels": sorted(labels, key=int),
+            "unassigned_labels": sorted(map(int, missing)),
+        },
+        errors=[],
+        checked_at=corpus.now(),
+    )
+    return reconciled
+
+
 def parse_date(value: str) -> str:
     match = DATE_RE.search(value or "")
     if not match:
@@ -577,6 +639,10 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
         except (OSError, json.JSONDecodeError):
             state = None
         saved_rows = rows_by_auction.get(item["auction_id"], [])
+        reconciled_state = reconcile_catalogue_validated_gap(state, saved_rows)
+        if reconciled_state is not state:
+            state = reconciled_state
+            corpus.save_json(state_path, state)
         if state and state.get("source_blocked"):
             states[item["auction_id"]] = state
             reason = str(state.get("source_blocker", {}).get("reason") or "")
