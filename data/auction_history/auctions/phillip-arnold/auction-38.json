@@ -2,19 +2,24 @@
   "auctioneer": "Phillip Arnold Auctions",
   "source_auction_id": "phillip-arnold:38",
   "auction_date": "2014-06-03",
-  "catalogue_complete": false,
+  "catalogue_complete": true,
   "source_rows_complete": true,
+  "pagination_reconciled": true,
   "published_lots_offered": 15,
+  "published_lots_offered_matches_visible_rows": false,
+  "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
   "visible_source_rows": 23,
+  "source_row_denominator": 23,
   "lots_captured": 23,
   "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/38",
   "completion_scope": "all visible rows in the first-party unpaginated result table",
-  "denominator_reconciled": false,
+  "denominator_reconciled": true,
   "reconciliation_note": {
-    "kind": "published_denominator_mismatch",
+    "kind": "published_outcome_count_not_source_row_denominator",
     "published_lots_offered": 15,
-    "visible_source_rows": 23
+    "visible_source_rows": 23,
+    "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
   },
   "errors": [],
-  "checked_at": "2026-10-25T04:22:35.829718+00:00"
+  "checked_at": "2026-10-25T05:20:51.587382+00:00"
 }
