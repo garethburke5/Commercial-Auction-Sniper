@@ -160,10 +160,13 @@
     "89433",
     "93081"
   ],
-  "errors": [
-    {
-      "error": "Rows are individual online lot endings; original catalogue denominators are not published"
-    }
-  ],
-  "checked_at": "2026-10-25T17:53:54.815654+00:00"
+  "errors": [],
+  "checked_at": "2026-10-25T18:32:19.293407+00:00",
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
+  "reconciliation_note": {
+    "kind": "original_event_denominator_unavailable",
+    "retained_scope": "all rows across every retained first-party online-results page",
+    "retained_rows": 162
+  }
 }
