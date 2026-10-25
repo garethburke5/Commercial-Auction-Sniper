@@ -1078,10 +1078,18 @@
       "incomplete_reason": "first-party catalogue page is no longer retained",
       "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-july-2022/",
       "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
-      "errors": [
-        "ValueError: catalogue page has no exact auction date"
-      ],
-      "checked_at": "2026-10-05T11:30:48.336440+00:00"
+      "errors": [],
+      "checked_at": "2026-10-05T11:30:48.336440+00:00",
+      "source_blocker": {
+        "kind": "first_party_catalogue_retired",
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-july-2022/",
+        "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
+        "detail": "first-party catalogue page is no longer retained",
+        "original_errors": [
+          "ValueError: catalogue page has no exact auction date"
+        ]
+      },
+      "blocker_reconciled_at": "2026-10-25T19:06:55.118616+00:00"
     },
     "catalogues-knight-frank-october-2022": {
       "auctioneer": "SDL Property Auctions",
@@ -1098,10 +1106,18 @@
       "incomplete_reason": "first-party catalogue page is no longer retained",
       "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/",
       "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
-      "errors": [
-        "ValueError: catalogue page has no exact auction date"
-      ],
-      "checked_at": "2026-10-05T11:30:49.057623+00:00"
+      "errors": [],
+      "checked_at": "2026-10-05T11:30:49.057623+00:00",
+      "source_blocker": {
+        "kind": "first_party_catalogue_retired",
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/",
+        "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
+        "detail": "first-party catalogue page is no longer retained",
+        "original_errors": [
+          "ValueError: catalogue page has no exact auction date"
+        ]
+      },
+      "blocker_reconciled_at": "2026-10-25T19:06:55.119112+00:00"
     },
     "catalogues-knight-frank-catalogue-29th-march-2023": {
       "auctioneer": "SDL Property Auctions",
@@ -1118,10 +1134,18 @@
       "incomplete_reason": "first-party catalogue page is no longer retained",
       "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-29th-march-2023/",
       "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
-      "errors": [
-        "ValueError: catalogue page has no exact auction date"
-      ],
-      "checked_at": "2026-10-05T11:30:52.729242+00:00"
+      "errors": [],
+      "checked_at": "2026-10-05T11:30:52.729242+00:00",
+      "source_blocker": {
+        "kind": "first_party_catalogue_retired",
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-29th-march-2023/",
+        "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
+        "detail": "first-party catalogue page is no longer retained",
+        "original_errors": [
+          "ValueError: catalogue page has no exact auction date"
+        ]
+      },
+      "blocker_reconciled_at": "2026-10-25T19:06:55.117704+00:00"
     },
     "catalogues-knight-frank-catalogue-march-2023": {
       "auctioneer": "SDL Property Auctions",
@@ -1138,10 +1162,18 @@
       "incomplete_reason": "first-party catalogue page is no longer retained",
       "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-march-2023/",
       "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
-      "errors": [
-        "ValueError: catalogue page has no exact auction date"
-      ],
-      "checked_at": "2026-10-05T11:30:53.229330+00:00"
+      "errors": [],
+      "checked_at": "2026-10-05T11:30:53.229330+00:00",
+      "source_blocker": {
+        "kind": "first_party_catalogue_retired",
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-march-2023/",
+        "final_url": "https://www.sdlauctions.co.uk/catalogues/archive/",
+        "detail": "first-party catalogue page is no longer retained",
+        "original_errors": [
+          "ValueError: catalogue page has no exact auction date"
+        ]
+      },
+      "blocker_reconciled_at": "2026-10-25T19:06:55.118132+00:00"
     },
     "catalogues-april-2024-national-property-auction-catalogue": {
       "auctioneer": "SDL Property Auctions",
@@ -1158,12 +1190,25 @@
       "incomplete_reason": "first-party catalogue page is no longer retained",
       "source_url": "https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/",
       "final_url": "https://www.sdlauctions.co.uk/buy-property/",
-      "errors": [
-        "ValueError: catalogue page has no exact auction date"
-      ],
-      "checked_at": "2026-10-05T11:35:57.544779+00:00"
+      "errors": [],
+      "checked_at": "2026-10-05T11:35:57.544779+00:00",
+      "source_blocker": {
+        "kind": "first_party_catalogue_retired",
+        "source_url": "https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/",
+        "final_url": "https://www.sdlauctions.co.uk/buy-property/",
+        "detail": "first-party catalogue page is no longer retained",
+        "original_errors": [
+          "ValueError: catalogue page has no exact auction date"
+        ]
+      },
+      "blocker_reconciled_at": "2026-10-25T19:06:55.116133+00:00"
     }
   },
   "failures": [],
-  "scope_warning": "featured retained rows only; no catalogue is counted complete"
+  "scope_warning": "featured retained rows only; no catalogue is counted complete",
+  "terminal_blocker_reconciliation": {
+    "reconciled_at": "2026-10-25T19:06:55.120478+00:00",
+    "states_changed": 5,
+    "classification": "source retired; incomplete and denominator unreconciled"
+  }
 }

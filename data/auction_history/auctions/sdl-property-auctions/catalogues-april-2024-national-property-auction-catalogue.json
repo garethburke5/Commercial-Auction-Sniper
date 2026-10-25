@@ -13,8 +13,16 @@
   "incomplete_reason": "first-party catalogue page is no longer retained",
   "source_url": "https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/",
   "final_url": "https://www.sdlauctions.co.uk/buy-property/",
-  "errors": [
-    "ValueError: catalogue page has no exact auction date"
-  ],
-  "checked_at": "2026-10-05T11:35:57.544779+00:00"
+  "errors": [],
+  "checked_at": "2026-10-05T11:35:57.544779+00:00",
+  "source_blocker": {
+    "kind": "first_party_catalogue_retired",
+    "source_url": "https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/",
+    "final_url": "https://www.sdlauctions.co.uk/buy-property/",
+    "detail": "first-party catalogue page is no longer retained",
+    "original_errors": [
+      "ValueError: catalogue page has no exact auction date"
+    ]
+  },
+  "blocker_reconciled_at": "2026-10-25T19:06:55.116133+00:00"
 }
