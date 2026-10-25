@@ -31,7 +31,7 @@ import historical_corpus as corpus
 BASE = "https://edwardmellor.co.uk"
 ARCHIVE = BASE + "/auctions/catalogue-and-results-archive/"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-PDF_PARSER_VERSION = 3
+PDF_PARSER_VERSION = 4
 ROW_RE = re.compile(r"^LOT\s+(\d+[A-Za-z]?)(?:\s+(.*))?$", re.I)
 DATE_RE = re.compile(
     r"\b(\d{1,2})\s*(?:ST|ND|RD|TH)?\s+"
@@ -251,6 +251,46 @@ def repair_empty_raw_rows(raw_text: str, layout_text: str) -> str:
     return "".join(repaired)
 
 
+
+def section_reserved_numbering_gaps(
+    text: str, base_numbers: set[int],
+) -> list[int]:
+    """Return labels deliberately reserved at a printed section boundary.
+
+    Edward Mellor's 2013/14 sheets number commercial lots up to 33-36, print a
+    standalone RESIDENTIAL heading, and restart that section at lot 40.  Those
+    unprinted labels are a first-party numbering convention, not missing rows.
+    Only the exact interval immediately around that heading is classified.
+    """
+    lines = text.replace("\u00a0", " ").splitlines()
+    reserved: set[int] = set()
+    for index, original in enumerate(lines):
+        if (clean(original) or "").upper() != "RESIDENTIAL":
+            continue
+        previous = None
+        for candidate in reversed(lines[:index]):
+            match = ROW_RE.match(clean(candidate) or "")
+            if match:
+                number = _base_lot_number(match.group(1))
+                if number in base_numbers:
+                    previous = number
+                    break
+        following = None
+        for candidate in lines[index + 1:]:
+            match = ROW_RE.match(clean(candidate) or "")
+            if match:
+                number = _base_lot_number(match.group(1))
+                if number in base_numbers:
+                    following = number
+                    break
+        if previous is None or following != 40 or previous >= following:
+            continue
+        reserved.update(
+            number for number in range(previous + 1, following)
+            if number not in base_numbers
+        )
+    return sorted(reserved)
+
 def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict, list[dict]]:
     auction_date = parse_auction_date(text)
     raw_rows, discarded_revision_runs = select_page_revision_rows(text)
@@ -280,7 +320,9 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
     labels = [lot.upper() for lot, _ in raw_rows]
     base_numbers = {int(re.match(r"\d+", label).group()) for label in labels}
     max_lot = max(base_numbers)
-    missing = sorted(set(range(1, max_lot + 1)) - base_numbers)
+    all_gaps = sorted(set(range(1, max_lot + 1)) - base_numbers)
+    section_reserved = section_reserved_numbering_gaps(text, base_numbers)
+    missing = sorted(set(all_gaps) - set(section_reserved))
     source_key = hashlib.sha256(source_url.encode()).hexdigest()[:12]
     source_auction_id = f"edward-mellor-pdf:{auction_date}:{source_key}"
     rows = []
@@ -314,6 +356,9 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
         rows.append(row)
 
     complete = not missing and not duplicate_source_rows
+    published_rows = (
+        max_lot - len(section_reserved) + (len(rows) - len(base_numbers))
+    )
     errors = []
     if missing:
         errors.append({"error": "non-contiguous result lot sequence", "missing": missing})
@@ -331,15 +376,23 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
         "source_rows_complete": complete,
         "visible_result_rows": source_row_count,
         "lots_captured": len(rows),
-        "published_lots_offered": max_lot,
+        "published_lots_offered": published_rows,
+        "published_max_lot_label": max_lot,
         "lettered_additional_rows": len(rows) - len(base_numbers),
+        "section_reserved_base_lot_numbers": section_reserved,
+        "numbering_scheme_reconciled": not missing,
         "identical_duplicate_source_rows": len(duplicate_source_rows),
         "duplicate_source_lot_numbers": duplicate_source_rows,
         "discarded_overlaid_revision_runs": discarded_revision_runs,
         "missing_base_lot_numbers": missing,
         "pagination_reconciled": True,
         "denominator_reconciled": complete,
-        "denominator_basis": "continuous published base lot sequence in complete first-party result sheet",
+        "denominator_basis": (
+            "published rows plus the explicit commercial-to-residential reserved "
+            "numbering interval before lot 40"
+            if section_reserved else
+            "continuous published base lot sequence in complete first-party result sheet"
+        ),
         "completion_scope": "every numbered row in the retained first-party result PDF",
         "source_url": source_url,
         "errors": errors,
