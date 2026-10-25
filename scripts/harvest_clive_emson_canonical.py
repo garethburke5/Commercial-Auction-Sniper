@@ -39,6 +39,18 @@ MONTHS = "January February March April May June July August September October No
 DATE_RE = re.compile(rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+({MONTHS.replace(' ', '|')})\s+(20\d{{2}})\b", re.I)
 LOT_PATH_RE = re.compile(r"^/properties/(\d+)/(\d+[A-Za-z]?)/?$", re.I)
 
+# The live results index currently starts at auction 245 (June 2023), but four
+# older first-party catalogue routes still expose complete result-card
+# inventories.  Keep this evidence-backed allow-list separate from numeric
+# probing: arbitrary /properties/<id>/ routes can redirect to region/current
+# pages and must never be treated as historical auctions.
+RETAINED_LEGACY_AUCTIONS = (
+    ("231", "9 February 2022"),
+    ("233", "5 May 2022"),
+    ("239", "8 February 2023"),
+    ("240", "22 March 2023"),
+)
+
 
 def session():
     value = requests.Session()
@@ -83,6 +95,21 @@ def discover(index_html):
             "published_first_lot": int(extent.group(1)) if extent else None,
             "published_last_lot": int(extent.group(2)) if extent else None,
         }
+    return sorted(auctions.values(), key=lambda row: int(row["auction_id"]), reverse=True)
+
+
+def catalogue_inventory(index_html):
+    """Combine the current index with individually verified retained routes."""
+    auctions = {row["auction_id"]: row for row in discover(index_html)}
+    for auction_id, label in RETAINED_LEGACY_AUCTIONS:
+        auctions.setdefault(auction_id, {
+            "auction_id": auction_id,
+            "url": f"{BASE}/properties/{auction_id}/",
+            "archive_label": label,
+            "published_first_lot": None,
+            "published_last_lot": None,
+            "discovery_basis": "verified retained first-party legacy catalogue route",
+        })
     return sorted(auctions.values(), key=lambda row: int(row["auction_id"]), reverse=True)
 
 
@@ -398,7 +425,7 @@ def enrich_auction(auction_id, workers=4, fail_on_failures=True):
     })
     corpus.save_json(state_file, state)
     index_url, index_raw = get(session(), INDEX)
-    auctions = discover(index_raw)
+    auctions = catalogue_inventory(index_raw)
     synchronize_detail_states(auctions)
     summary = collection_summary(auctions)
     summary.update({"run_detail_rows_enriched": enriched, "run_detail_failures": failures})
@@ -477,7 +504,7 @@ def enrich_batch(limit, workers=4):
 def harvest(selected_id=None, all_incomplete=False):
     client = session()
     index_url, index_raw = get(client, INDEX)
-    auctions = discover(index_raw)
+    auctions = catalogue_inventory(index_raw)
     if not auctions:
         raise SystemExit("Clive Emson results index exposed zero auctions")
     index_snapshot = corpus.DATA / "sources/clive-emson" / f"index-{corpus.digest(index_raw)[:16]}.json.gz"
@@ -503,13 +530,18 @@ def harvest(selected_id=None, all_incomplete=False):
             snapshot = corpus.DATA / "sources/clive-emson" / f"{auction['auction_id']}-{corpus.digest(raw)[:16]}.json.gz"
             evidence = {
                 "source_url": final_url,
-                "source_index_url": index_url,
                 "snapshot_path": str(snapshot.relative_to(ROOT)),
-                "index_snapshot_path": str(index_snapshot.relative_to(ROOT)),
                 "sha256": corpus.digest(raw),
                 "retrieved_at": corpus.now(),
                 "basis": "all distinct lot cards in the surviving unpaginated official result catalogue",
             }
+            if auction.get("discovery_basis"):
+                evidence["discovery_basis"] = auction["discovery_basis"]
+            else:
+                evidence.update({
+                    "source_index_url": index_url,
+                    "index_snapshot_path": str(index_snapshot.relative_to(ROOT)),
+                })
             corpus.save_gzip(snapshot, {"evidence": evidence, "html": raw.decode("utf-8", "replace")})
             rows, reconciliation = parse_catalogue(raw, auction, evidence)
             path = corpus.DATA / "appearances/clive-emson" / f"{auction['auction_id']}.jsonl.gz"

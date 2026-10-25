@@ -1,7 +1,12 @@
 import pytest
 
 import scripts.harvest_clive_emson_canonical as clive
-from scripts.harvest_clive_emson_canonical import detail_fields, discover, parse_catalogue
+from scripts.harvest_clive_emson_canonical import (
+    catalogue_inventory,
+    detail_fields,
+    discover,
+    parse_catalogue,
+)
 
 
 INDEX = b"""
@@ -36,6 +41,15 @@ def test_discover_preserves_numbering_extent():
         "published_first_lot": 1,
         "published_last_lot": 3,
     }]
+
+
+def test_inventory_adds_only_verified_retained_legacy_catalogues():
+    auctions = catalogue_inventory(INDEX)
+    legacy = {row["auction_id"]: row for row in auctions if int(row["auction_id"]) < 245}
+    assert set(legacy) == {"231", "233", "239", "240"}
+    assert legacy["231"]["archive_label"] == "9 February 2022"
+    assert legacy["240"]["url"] == "https://www.cliveemson.co.uk/properties/240/"
+    assert all(row["discovery_basis"].startswith("verified retained") for row in legacy.values())
 
 
 def test_parse_catalogue_banks_all_visible_rows_without_guessing_addresses():
