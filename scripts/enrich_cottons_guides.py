@@ -76,7 +76,7 @@ def parse_guides(text, auction_date):
             # layout line. Search for the marker instead of requiring column
             # zero, while the exact 1..N sequence and duplicate checks below
             # continue to reject accidental prose matches.
-            match = re.search(r"\bLOT\s+(\d+[A-Z]?)\b(.*)", line, re.I)
+            match = re.search(r"\bLOT\s+(\d+[A-Z]?)\b(.*)", line)
             if not match:
                 continue
             inline_title = norm(line[: match.start()])

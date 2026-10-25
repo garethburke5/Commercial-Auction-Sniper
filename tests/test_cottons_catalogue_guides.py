@@ -29,3 +29,14 @@ def test_layout_parser_accepts_inline_lot_markers_and_preserves_unpublished_guid
     assert rows['2']['guide_price'] is None
     assert rows['2']['guide_price_text'] is None
     assert rows['2']['tenure']=='Leasehold'
+
+
+def test_lowercase_legal_prose_lot_reference_is_not_a_catalogue_marker():
+    text = (
+        'Wednesday 22 April 2026: 1pm\fA Collective Auction Sale of 1 Lots\f'
+        'Freehold Vacant House LOT 1 *Guide Price: £92,000 - £98,000 (+Fees)\n'
+        'The buyer of lot 1 must complete within 28 days.\n'
+    )
+    rows = parse_guides(text, '2026-04-22')
+    assert set(rows) == {'1'}
+    assert rows['1']['guide_price'] == 92000
