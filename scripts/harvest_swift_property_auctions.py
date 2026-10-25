@@ -285,6 +285,26 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
     all_ids = {row["appearance_id"] for row in all_rows}
     added = [row for row in all_rows if row["appearance_id"] not in before_ids]
     complete_states = [state for state in states if state.get("catalogue_complete")]
+    known_discrepancy_ids = {item["source_id"] for item in reconciliation_discrepancies}
+    for state in states:
+        source_id = str(state.get("source_auction_id") or "").removeprefix("swift:")
+        if (
+            source_id not in known_discrepancy_ids
+            and state.get("incomplete_reason")
+                == "published_archive_denominator_differs_from_visible_unique_rows"
+        ):
+            reconciliation_discrepancies.append({
+                "source_id": source_id,
+                "auction_date": state.get("auction_date"),
+                "issue": "Published archive total differs from visible, uniquely identified lot cards",
+                "reconciliation": {
+                    key: state.get(key) for key in (
+                        "published_lot_denominator", "visible_source_rows",
+                        "distinct_appearance_identities", "heading_auction_date",
+                        "heading_date_matches_archive", "catalogue_complete",
+                    )
+                },
+            })
     summary = {
         "checked_at": corpus.now(), "source_url": archive_resolved,
         "catalogues_discovered": len(catalogues), "catalogues_captured": len(states),

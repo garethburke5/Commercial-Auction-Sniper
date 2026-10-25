@@ -77,4 +77,5 @@ def test_harvest_banks_valid_lots_but_does_not_clear_count_discrepancy(tmp_path,
     second = swift.harvest(workers=1)
     assert second['run_new_appearances'] == 0
     assert second['failures'] == []
+    assert len(second['reconciliation_discrepancies']) == 1
     assert calls.count('https://www.swiftpropertyauctions.co.uk/previous-auctions/99') == 1

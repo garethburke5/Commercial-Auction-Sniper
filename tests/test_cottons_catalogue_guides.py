@@ -15,3 +15,17 @@ def test_discovery_pairs_catalogue_and_results_from_the_same_archive_row():
     rows=catalogue_links('<table><tr><td>21 Oct 26</td><td><a href="/catalogue.pdf">Download</a></td><td><a href="/results.pdf">Download</a></td></tr></table>')
     assert rows[0]['auction_date']=='2026-10-21'
     assert rows[0]['url'].endswith('/catalogue.pdf') and rows[0]['result_url'].endswith('/results.pdf')
+
+
+def test_layout_parser_accepts_inline_lot_markers_and_preserves_unpublished_guides_as_null():
+    text=(
+        'Wednesday 22 April 2026: 1pm\fA Collective Auction Sale of 2 Lots\f'
+        'Freehold Vacant House          LOT 1 *Guide Price: £92,000 - £98,000 (+Fees)\n'
+        'Leasehold Lock Up Garage       LOT 2\n'
+    )
+    rows=parse_guides(text,'2026-04-22')
+    assert set(rows)=={'1','2'}
+    assert rows['1']['guide_price']==92000 and rows['1']['tenure']=='Freehold'
+    assert rows['2']['guide_price'] is None
+    assert rows['2']['guide_price_text'] is None
+    assert rows['2']['tenure']=='Leasehold'
