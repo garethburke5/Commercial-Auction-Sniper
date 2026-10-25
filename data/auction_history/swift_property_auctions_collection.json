@@ -1,11 +1,11 @@
 {
-  "checked_at": "2026-10-25T06:09:22.402243+00:00",
+  "checked_at": "2026-10-25T07:10:51.248316+00:00",
   "source_url": "https://www.swiftpropertyauctions.co.uk/previous-auctions",
   "catalogues_discovered": 16,
   "catalogues_captured": 16,
-  "catalogues_complete": 15,
-  "appearances_captured": 144,
-  "address_records": 144,
+  "catalogues_complete": 16,
+  "appearances_captured": 146,
+  "address_records": 146,
   "partial_lots": 0,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
@@ -15,35 +15,21 @@
     "2026-10-14"
   ],
   "by_sector": {
-    "residential": 95,
+    "residential": 97,
     "mixed-use": 15,
     "unknown": 13,
     "commercial": 14,
     "land": 7
   },
   "by_status": {
-    "postponed": 33,
+    "postponed": 35,
     "withdrawn": 45,
     "unsold": 15,
     "sold": 22,
     "sold_prior": 25,
     "sold_after": 4
   },
-  "reconciliation_discrepancies": [
-    {
-      "source_id": "85367",
-      "auction_date": "2026-10-14",
-      "issue": "Published archive total differs from visible, uniquely identified lot cards",
-      "reconciliation": {
-        "published_lot_denominator": 6,
-        "visible_source_rows": 7,
-        "distinct_appearance_identities": 7,
-        "heading_auction_date": "2026-10-14",
-        "heading_date_matches_archive": true,
-        "catalogue_complete": false
-      }
-    }
-  ],
+  "reconciliation_discrepancies": [],
   "failures": [],
-  "complete": false
+  "complete": true
 }

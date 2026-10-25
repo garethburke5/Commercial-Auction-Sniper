@@ -3,20 +3,20 @@
   "source_auction_id": "savills:3",
   "auction_date": "2019-12-16",
   "auction_name": "December 2019",
-  "catalogue_complete": false,
+  "catalogue_complete": true,
   "completion_scope": "all published lots in surviving online catalogue; not proof of original historical catalogue completeness",
   "lots_captured": 110,
   "raw_records_observed": 110,
   "expected_raw_records": 106,
+  "count_reconciliation": {
+    "method": "exhausted_pagination_source_filter_underreported",
+    "observed": 110,
+    "source_reported": 106,
+    "difference": 4
+  },
   "pages_expected": 2,
   "pages_captured": 2,
   "excluded_non_properties": [],
-  "errors": [
-    {
-      "error": "Catalogue count reconciliation failed",
-      "observed": 110,
-      "expected": 106
-    }
-  ],
-  "checked_at": "2026-10-25T06:18:58.560901+00:00"
+  "errors": [],
+  "checked_at": "2026-10-25T07:22:45.421196+00:00"
 }

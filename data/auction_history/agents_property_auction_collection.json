@@ -1,0 +1,290 @@
+{
+  "checked_at": "2026-10-25T07:28:58.905109+00:00",
+  "source_url": "https://www.agentspropertyauction.com/auctions/auction-results/",
+  "archive_evidence": {
+    "source_url": "https://www.agentspropertyauction.com/auctions/auction-results/",
+    "retrieved_at": "2026-10-25T07:28:48.728462+00:00",
+    "sha256": "6d5b6fc735b2288e788614debfbcf61f5d6fd1b2be0b21d399640fb1003fae25",
+    "snapshot_path": "data/auction_history/sources/agents-property-auction/result-filter-6d5b6fc735b2288e.json.gz",
+    "basis": "first-party result archive filter"
+  },
+  "venues": [
+    "Cumbria",
+    "Newcastle"
+  ],
+  "years_exposed": [
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "checked_month_keys": [],
+  "month_filters_checked": 0,
+  "month_filters_expected_through_current_month": 404,
+  "filter_inventory_complete_through_current_month": false,
+  "result_tables_captured_this_run": 0,
+  "appearances_captured": 0,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
+  "run_new_undated_records": 0,
+  "with_sale_price": 0,
+  "by_sector": {},
+  "catalogue_completion_claimed": false,
+  "completion_limit": "sold-result tables do not expose the original catalogue denominator or exact auction day",
+  "failures": [
+    {
+      "key": "Cumbria|2010-02",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=02&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=02&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-04",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=04&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=04&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-03",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=03&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=03&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-01",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=01&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=01&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-07",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=07&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=07&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-05",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=05&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=05&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-06",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=06&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=06&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-08",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=08&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=08&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-10",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=10&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=10&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-12",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=12&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=12&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-09",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=09&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=09&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2010-11",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=11&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2010&a_month=11&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-01",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=01&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=01&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-04",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=04&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=04&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-03",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=03&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=03&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-02",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=02&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=02&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-05",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=05&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=05&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-07",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=07&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=07&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-08",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=08&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=08&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-06",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=06&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=06&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-09",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=09&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=09&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-11",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=11&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=11&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-12",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=12&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=12&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2010-10",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=10&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2010&a_month=10&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-01",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=01&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=01&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-02",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=02&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=02&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-04",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=04&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=04&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-03",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=03&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=03&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-05",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=05&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=05&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-07",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=07&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=07&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-06",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=06&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=06&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-08",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=08&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=08&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-09",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=09&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=09&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-10",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=10&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=10&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-11",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=11&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=11&a_sub=1"
+    },
+    {
+      "key": "Cumbria|2011-12",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=12&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2011&a_month=12&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-01",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=01&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=01&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-02",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=02&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=02&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-03",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=03&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=03&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-04",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=04&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=04&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-05",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=05&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=05&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-06",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=06&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=06&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-07",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=07&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=07&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-08",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=08&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=08&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-09",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=09&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=09&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-10",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=10&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=10&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-11",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=11&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=11&a_sub=1"
+    },
+    {
+      "key": "Newcastle|2011-12",
+      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=12&a_sub=1",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2011&a_month=12&a_sub=1"
+    }
+  ]
+}
