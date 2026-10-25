@@ -265,3 +265,16 @@ National completeness remains unverified: 484 incomplete catalogue states, 50 cu
 
 National completeness remains unverified: 484 incomplete catalogue states, 50 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
 
+
+
+## Checkpoint: Symonds & Sampson retained-state classification
+
+- The retained first-party corpus remains **227 property appearances**: **139 address records** and **88 partial lots**. Of these, **89 rows** carry exact auction dates across 31 dated event groups and **138 remain undated**; no values were inferred and no lot totals changed.
+- All 208 URLs currently exposed by the saved official sitemap are banked, with 19 additional retained property pages no longer present in that sitemap. This proves completeness only for the saved/current sitemap inventory, not for the original event denominators or twenty-year history.
+- The 31 dated event states previously stored the unavailable original-event denominator as an item in `errors`. The collector now records `source_rows_complete: true`, `denominator_reconciled: false`, a structured `original_event_denominator_unavailable` note, and an empty error list. Every one of the 31 events remains explicitly incomplete; none was promoted to catalogue-complete.
+- The official sitemap returned zero property URLs during the first focused retry. A saved-row reconciliation mode now updates these state files without relying on the live sitemap or rewriting canonical appearances. The ordinary collector retains the same classification for future successful source refreshes.
+- Repairs `0aa965f9654030a841a7705a74123d882ae22a5e` and `96c9e652492f168f22d13dda232e7d421db9ef43`, followed by generated checkpoint `73a61441ef9d74bf2f632f2088c6982e7a8c9f9c`, passed the focused Symonds & Sampson step, collector/workflow tests, banking, database rebuild, packaging, source-register reconciliation and checkpoint publication in workflow run `40220867932`.
+- The published corpus remains **279,944 individual appearances**: **269,575 address records**, **10,369 partial lots**, and **4,202 undated appearances**. Catalogue states remain **2,014 complete** and **484 incomplete or unreconciled**. Genuine current fetch/parse failures fall from 50 to **19** after removing the 31 denominator-availability limitations from that failure metric.
+- Artifact `12609695088` is 301,081,647 bytes with SHA-256 `8af507b55489f682e6f6241467b227fc9d6f985638b8a6f3071ce3e3f3a60ed8`.
+
+National completeness remains unverified: 484 incomplete catalogue states, 19 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
