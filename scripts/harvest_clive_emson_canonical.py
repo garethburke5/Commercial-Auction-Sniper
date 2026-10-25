@@ -155,7 +155,7 @@ def roundup_article_rows(html, article_url, auction_month, evidence):
         if not title or not description:
             continue
         lower = description.casefold()
-        sold = bool(re.search(r"\b(?:sold|selling|purchased)\b", lower))
+        sold = bool(re.search(r"\b(?:sold|selling|purchased|settled)\b", lower))
         price = None
         if sold:
             match = re.search(

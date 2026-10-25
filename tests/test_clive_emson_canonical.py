@@ -75,6 +75,9 @@ def test_roundup_article_rows_bank_only_explicit_partial_evidence():
     <h2><span>Development land near Southampton</span></h2>
     <span>The freehold site attracted strong interest from a potential buyer.</span>
     <a href='/properties/231/102/'><span>View Lot 102</span></a>
+    <h2><span>Former grain store</span></h2>
+    <span>The buyer settled on a price of &pound;177,600 for the barn.</span>
+    <a href='/properties/231/103/'><span>View Lot 103</span></a>
     <a href='https://example.com/properties/231/103/'>Foreign lot</a>
     </p></div>
     """
@@ -87,7 +90,7 @@ def test_roundup_article_rows_bank_only_explicit_partial_evidence():
         "2022-02", evidence,
     )
 
-    assert set(rows) == {("231", "101"), ("231", "102")}
+    assert set(rows) == {("231", "101"), ("231", "102"), ("231", "103")}
     sold = rows[("231", "101")]
     assert sold["auction_date"] is None
     assert sold["auction_month"] == "2022-02"
@@ -103,6 +106,10 @@ def test_roundup_article_rows_bank_only_explicit_partial_evidence():
     assert unknown["sale_price"] is None
     assert unknown["status"] == "unknown"
     assert unknown["sector"] == "land"
+
+    settled = rows[("231", "103")]
+    assert settled["sale_price"] == 177600
+    assert settled["status"] == "sold"
 
 
 def test_legacy_heading_date_allows_separate_ordinal_element():
