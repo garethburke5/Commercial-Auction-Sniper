@@ -61,6 +61,9 @@ def test_withdrawn_and_postponed_cards_are_banked_outside_offered_denominator():
     )
     assert [row["status"] for row in rows] == ["sold", "withdrawn", "postponed"]
     assert reconciliation["visible_source_rows"] == 3
+    assert reconciliation["published_denominator_basis"] == (
+        "visible lots excluding withdrawn and postponed outcomes"
+    )
     assert reconciliation["visible_rows_in_published_denominator"] == 1
     assert reconciliation["visible_rows_outside_published_denominator"] == 2
     assert reconciliation["catalogue_complete"] is True
