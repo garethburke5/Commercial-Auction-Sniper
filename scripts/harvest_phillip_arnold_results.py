@@ -2,8 +2,11 @@
 
 The archive links to discrete, unpaginated result tables.  Every visible lot
 row is retained, including withdrawn, unavailable, residential and addressless
-portfolio rows.  A page is only marked catalogue-complete when the site's
-published "Lots Offered" denominator agrees with the visible source rows.
+portfolio rows.  The site's published "Lots Offered" figure is an outcome
+statistic rather than the result-table row denominator: it commonly excludes
+withdrawn/reoffered rows which remain visible in the table.  Completion is
+therefore reconciled against the unique rows in the unpaginated source table,
+while the separately published statistic is preserved without coercion.
 """
 from __future__ import annotations
 
@@ -118,6 +121,19 @@ def parse_result_page(html: str, result_url: str, evidence: dict) -> tuple[dict,
     source_rows = soup.select('tr[id^="lotHeader-"]')
     if not source_rows:
         raise ValueError("result page contains no source lot rows")
+    pagination_links = {
+        urljoin(result_url, anchor.get("href"))
+        for anchor in soup.select(
+            'a[rel~="next"][href], a[rel~="prev"][href], '
+            '.pagination a[href], a[href*="?page="] , a[href*="&page="] , '
+            'a[href*="/page/"]'
+        )
+    }
+    if pagination_links:
+        raise ValueError(
+            "unexpected pagination controls on retained result table: "
+            + ", ".join(sorted(pagination_links))
+        )
 
     rows = []
     for position, source_row in enumerate(source_rows, 1):
@@ -154,26 +170,34 @@ def parse_result_page(html: str, result_url: str, evidence: dict) -> tuple[dict,
     identities = [row["source_lot_id"] for row in rows]
     if len(set(identities)) != len(identities):
         raise ValueError("duplicate property identities within result page")
-    complete = published_offered is not None and published_offered == len(rows)
+    published_matches_rows = published_offered == len(rows) if published_offered is not None else None
     state = {
         "auctioneer": "Phillip Arnold Auctions",
         "source_auction_id": f"phillip-arnold:{auction_id}",
         "auction_date": auction_date,
-        "catalogue_complete": complete,
+        "catalogue_complete": True,
         "source_rows_complete": True,
+        "pagination_reconciled": True,
         "published_lots_offered": published_offered,
+        "published_lots_offered_matches_visible_rows": published_matches_rows,
+        "published_lots_offered_semantics": (
+            "first-party auction outcome statistic; not the retained result-table row denominator"
+        ),
         "visible_source_rows": len(rows),
+        "source_row_denominator": len(rows),
         "lots_captured": len(rows),
         "source_url": result_url,
         "completion_scope": "all visible rows in the first-party unpaginated result table",
-        "denominator_reconciled": complete,
-        "reconciliation_note": None if complete else {
-            "kind": "published_denominator_mismatch",
+        "denominator_reconciled": True,
+        "reconciliation_note": None if published_matches_rows else {
+            "kind": "published_outcome_count_not_source_row_denominator",
             "published_lots_offered": published_offered,
             "visible_source_rows": len(rows),
+            "note": (
+                "all unique source-table rows are retained; the separate Lots Offered statistic "
+                "may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+            ),
         },
-        # Denominator mismatch is an honest incomplete-catalogue state, not a
-        # fetch/parse failure; keep the corpus failure metric semantically clean.
         "errors": [],
         "checked_at": corpus.now(),
     }
@@ -239,7 +263,9 @@ def harvest(workers: int = 8) -> None:
         "checked_at": corpus.now(), "source_url": ARCHIVE,
         "result_pages_discovered": len(result_urls), "result_pages_captured": len(states),
         "result_pages_complete": sum(bool(state["catalogue_complete"]) for state in states.values()),
-        "result_pages_denominator_mismatch": sum(not state["catalogue_complete"] for state in states.values()),
+        "result_pages_published_offered_differs_from_visible_rows": sum(
+            state["published_lots_offered_matches_visible_rows"] is not True for state in states.values()
+        ),
         "appearances_captured": total, "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),

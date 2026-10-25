@@ -12,6 +12,7 @@ on:
           - bounded
           - all
           - retained-legacy
+          - phillip-arnold
           - rebuild
   push:
     paths:
@@ -424,7 +425,7 @@ jobs:
         continue-on-error: true
         run: python -u historical_corpus.py harvest-paul-fosh --workers 3
       - name: Verify retained legacy auctioneer collectors
-        if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'retained-legacy' || inputs.focus == 'phillip-arnold' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh') || startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh')
         run: python -m pytest -q tests/test_eddisons_insights.py tests/test_mchugh_catalogue.py tests/test_mchugh_current_route.py tests/test_mchugh_legacy.py tests/test_mchugh_results.py tests/test_phillip_arnold_results.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_edward_mellor_pdfs.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py tests/test_seel_catalogues.py
 
       - name: Refresh the retained Harman Healy past-auctions grid
@@ -524,7 +525,7 @@ jobs:
         run: python -u scripts/harvest_mchugh_legacy.py 8
 
       - name: Refresh retained Phillip Arnold result tables
-        if: inputs.focus == 'retained-legacy' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'retained-legacy' || inputs.focus == 'phillip-arnold' || startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh') || startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh')
         timeout-minutes: 20
         continue-on-error: true
         run: python -u scripts/harvest_phillip_arnold_results.py 8

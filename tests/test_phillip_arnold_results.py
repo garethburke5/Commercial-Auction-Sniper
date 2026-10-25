@@ -41,6 +41,11 @@ def test_result_page_banks_every_visible_row_and_preserves_partial_lot():
     )
     assert state["auction_date"] == "2015-09-10"
     assert state["catalogue_complete"] is True
+    assert state["source_rows_complete"] is True
+    assert state["pagination_reconciled"] is True
+    assert state["denominator_reconciled"] is True
+    assert state["source_row_denominator"] == 2
+    assert state["published_lots_offered_matches_visible_rows"] is True
     assert state["published_lots_offered"] == state["visible_source_rows"] == 2
     assert len(rows) == 2
     assert rows[0]["address"].endswith("UB6 9RE")
@@ -51,6 +56,32 @@ def test_result_page_banks_every_visible_row_and_preserves_partial_lot():
     assert rows[1]["record_quality"] == "partial_lot"
     assert rows[1]["locality"] == "Portfolio Of 6 Freehold Investment Houses"
     assert rows[1]["status"] == "withdrawn"
+
+
+def test_lots_offered_is_preserved_but_not_misused_as_table_denominator():
+    html = PAGE.replace("Lots Offered: 2", "Lots Offered: 1")
+    state, rows = parse_result_page(
+        html, "https://www.philliparnoldauctions.co.uk/auction-results/47", {"sha256": "x"}
+    )
+    assert len(rows) == 2
+    assert state["published_lots_offered"] == 1
+    assert state["published_lots_offered_matches_visible_rows"] is False
+    assert state["source_row_denominator"] == 2
+    assert state["denominator_reconciled"] is True
+    assert state["catalogue_complete"] is True
+    assert state["reconciliation_note"]["kind"] == "published_outcome_count_not_source_row_denominator"
+
+
+def test_unexpected_pagination_prevents_false_completion():
+    html = PAGE.replace("</body>", '<nav class="pagination"><a href="?page=2">Next</a></nav></body>')
+    try:
+        parse_result_page(
+            html, "https://www.philliparnoldauctions.co.uk/auction-results/47", {"sha256": "x"}
+        )
+    except ValueError as exc:
+        assert "unexpected pagination controls" in str(exc)
+    else:
+        raise AssertionError("paginated table was incorrectly marked complete")
 
 
 def test_statuses_and_available_price_are_not_conflated_with_sale_price():
