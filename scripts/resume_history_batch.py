@@ -66,7 +66,43 @@ TASKS=(
     ('eddisons_insights', ['scripts/harvest_eddisons_insights.py']),
     ('mchugh_legacy', ['scripts/harvest_mchugh_legacy.py', '8']),
     ('barnard_marcus', ['scripts/resume_barnard_marcus_history.py', '--limit', '4']),
+    ('dawsons_results', ['scripts/harvest_dawsons_history.py']),
 )
+
+# These rolling archives have explicitly reconciled pagination. Re-fetching
+# hundreds of unchanged result pages every rotation consumes the recovery
+# budget without extending historical coverage. Still refresh every six hours;
+# missing summaries, positive gains, incomplete runs and failures never defer.
+RECONCILED_REFRESHES = {
+    'auction_house_northeast': 'auction_house_northeast_collection.json',
+    'auction_house_south_yorkshire': 'auction_house_southyorkshire_collection.json',
+    'auction_house_north_west': 'auction_house_northwest_collection.json',
+    'auction_house_south_west': 'auction_house_southwest_collection.json',
+    'auction_house_east_anglia': 'auction_house_eastanglia_collection.json',
+    'auction_house_national': 'auction_house_national_collection.json',
+    'town_country_results': 'town_country_collection.json',
+    'pugh_canonical': 'pugh_collection.json',
+}
+
+
+def refresh_deferral(root, name, last, now=None):
+    filename = RECONCILED_REFRESHES.get(name)
+    if not filename or not last or last.get('outcome') != 'completed':
+        return None
+    try:
+        summary = json.loads((Path(root)/'data/auction_history'/filename).read_text())
+        checked = datetime.fromisoformat(summary['checked_at'])
+        age = ((now or datetime.now(timezone.utc))-checked).total_seconds()
+    except (OSError, ValueError, KeyError, TypeError):
+        return None
+    if (summary.get('archive_pagination_complete') is True
+            and summary.get('run_new_appearances') == 0
+            and not summary.get('failures') and not summary.get('blocked_pages')
+            and not summary.get('detail_recovery_failures') and 0 <= age < 21600):
+        return {'outcome':'deferred_unchanged_archive',
+                'reason':'explicitly reconciled archive produced no new appearances; six-hour refresh',
+                'retry_after_seconds':round(21600-age)}
+    return None
 
 
 def execute(command, root, timeout):
@@ -97,12 +133,16 @@ def run(root=ROOT,runner=execute,count=2,timeout=600,budget=None,clock=time.mono
         if remaining is not None and remaining<1:break
         index=state['next_task']%len(TASKS);name,command=TASKS[index]
         task_started=clock()
-        outcome=runner(command,root,timeout if remaining is None else min(timeout,remaining))
+        deferred=refresh_deferral(root,name,state.get('latest_by_source',{}).get(name))
+        outcome=deferred or runner(command,root,timeout if remaining is None else min(timeout,remaining))
         result={'outcome':outcome} if isinstance(outcome,str) else outcome
         entry={'source':name,**result,'duration_seconds':round(clock()-task_started,2),
                'checked_at':datetime.now(timezone.utc).isoformat()}
         state['runs'].append(entry)
-        state.setdefault('latest_by_source',{})[name]=entry
+        # A skipped check is not a fresh successful capture and must not reset
+        # either the evidence timestamp or the six-hour refresh clock.
+        if not deferred:
+            state.setdefault('latest_by_source',{})[name]=entry
         state['runs']=state['runs'][-500:];state['next_task']=(index+1)%len(TASKS)
         path.parent.mkdir(parents=True,exist_ok=True)
         temp=path.with_suffix('.tmp');temp.write_text(json.dumps(state,indent=2)+'\n');temp.replace(path)

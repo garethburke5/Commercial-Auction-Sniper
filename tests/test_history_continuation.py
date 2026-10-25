@@ -1,6 +1,51 @@
 from scripts.resume_history_batch import run,TASKS
 
 
+def test_only_explicitly_reconciled_zero_growth_archive_is_deferred(tmp_path):
+    import json
+    from datetime import datetime, timezone, timedelta
+    from scripts.resume_history_batch import refresh_deferral
+    now = datetime(2026, 10, 25, 20, tzinfo=timezone.utc)
+    path = tmp_path/'data/auction_history/auction_house_northeast_collection.json'
+    path.parent.mkdir(parents=True)
+    summary = {'checked_at':(now-timedelta(hours=1)).isoformat(),
+               'archive_pagination_complete':True,'run_new_appearances':0,'failures':[]}
+    def check():
+        path.write_text(json.dumps(summary))
+        return refresh_deferral(tmp_path,'auction_house_northeast',{'outcome':'completed'},now)
+    assert check()['retry_after_seconds'] == 18000
+    summary['run_new_appearances'] = 5
+    assert check() is None
+    summary['run_new_appearances'] = 0
+    summary['archive_pagination_complete'] = False
+    assert check() is None
+    summary['archive_pagination_complete'] = True
+    summary['failures'] = ['page 2 unavailable']
+    assert check() is None
+    summary['failures'] = []
+    summary['checked_at'] = (now-timedelta(hours=6)).isoformat()
+    assert check() is None
+    assert refresh_deferral(tmp_path,'auction_house_northeast',{'outcome':'timed_out'},now) is None
+
+
+def test_skipping_unchanged_archive_preserves_last_capture_and_advances(tmp_path):
+    import json
+    from datetime import datetime, timezone
+    path = tmp_path/'data/auction_history/continuation_collection.json'
+    path.parent.mkdir(parents=True)
+    checked = datetime.now(timezone.utc).isoformat()
+    previous = {'outcome':'completed','checked_at':checked}
+    index = next(i for i, (name, _) in enumerate(TASKS) if name == 'auction_house_northeast')
+    path.write_text(json.dumps({'next_task':index,'runs':[], 'latest_by_source':{'auction_house_northeast':previous}}))
+    (path.parent/'auction_house_northeast_collection.json').write_text(json.dumps({
+        'checked_at':checked,'archive_pagination_complete':True,'run_new_appearances':0,'failures':[]}))
+    calls=[]
+    result=run(tmp_path,lambda *args:calls.append(args) or 'completed',count=2)
+    assert len(calls)==1 and result['next_task']==index+2
+    assert result['latest_by_source']['auction_house_northeast']==previous
+    assert result['runs'][0]['outcome']=='deferred_unchanged_archive'
+
+
 def test_timeout_advances_rotation_without_claiming_capture(tmp_path):
     commands=[]
     def runner(command,root,timeout):

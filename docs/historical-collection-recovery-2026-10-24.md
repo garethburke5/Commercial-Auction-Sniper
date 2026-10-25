@@ -314,3 +314,66 @@ National completeness remains unverified: 484 incomplete catalogue states, 8 cur
 - Artifact `12611687799` is 301,371,970 bytes with SHA-256 `f9cd366fdbbcdf01ccaf9f964e64fc55e688eff908ab0f01fb801dc2818b6aa0`.
 
 National completeness remains unverified: 480 incomplete catalogue states, four current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
+
+
+## 25 October — prioritise actual growth over repeated reconciliation
+
+The owner explicitly rejected the recent rate of growth. The hourly research
+automation has been updated to prioritise unbanked lots, accessible missing
+source-years and uncovered genuine auctioneers. Reclassification of unavailable
+archives is maintenance, not newly captured property evidence. Zero-growth runs
+must leave a different concrete growth target rather than retry the same route.
+
+The continuation runner now defers eight explicitly reconciled, zero-growth
+rolling archives for six hours. Positive gains, missing summaries, incomplete
+pagination, failed attempts and reported failures do not trigger this deferral.
+This changes historical refresh frequency only; current-listing collectors are
+unaffected. New collectors remain in the regular rotation.
+
+### Dawsons — a previously unlinked operator now captured
+
+- Official source: https://dawsonsproperty.co.uk/past-auctions.php
+- Fourteen pages reconcile to the published 138 past auction properties.
+- 138 separate addressed source listings retained; 53 carry explicit closing or
+  auction dates between 9 November 2023 and 12 August 2026. 85 remain undated.
+- This pass started with no Dawsons shard on main. The final continuation summary
+  reports 128 newly added records because an earlier local page checkpoint had
+  already saved ten; the net new source total is 138, not 148.
+- Source labels all 138 Sold. Displayed prices are unlabelled: preserved as
+  source_display_price, never silently promoted to guide or achieved prices.
+- 135 source-typed residential records, one land record and two garages left
+  unclassified. This is nationwide all-sector expansion, not an increase of
+  138 in the commercial/mixed-use headline.
+- HTML snapshots, original links, source hashes, modal descriptions and dates
+  are retained. Source paging completeness is distinct from complete original
+  auction catalogues; national completeness remains false.
+- Collector is reusable, checkpoints every successful page, preserves older
+  records, distinguishes repeat dates and only refreshes a reconciled rolling
+  archive daily. Tests cover price ambiguity, date scope, carousel pagination,
+  partial failure preservation, idempotency and refresh behaviour.
+
+### Recovery opportunities and bounded probes
+
+Hollis Morgan's current collector stops at 2015. Official annual pages link
+2016–July 2022 to hosted FlippingBook catalogues (47 links across seven years).
+The sampled hosted routes currently return upstream 502 in the collector
+environment; a separate retrieval returned 404. No later catalogue lots have
+been admitted. Later 2022–2026 archive links point to a shared rolling sold page,
+so that page must not be assigned repeatedly to each historical month. Stop
+repeating the failed hosted URLs until a materially different recovery route is
+available. The original 2010–2015 collector is unchanged.
+
+Venmore advertises eleven pages of historical auctions. The direct past-auctions
+route returned 403 in this environment; no rows have been claimed. Do not spend
+successive runs retrying that same route.
+
+Next high-volume research priorities: accessible older Barnard Marcus catalogues
+before the retained 2024–2026 sitemap; Clive Emson before the retained 2023–2026
+archive; Pattinson beyond its limited 2026 holdings. For each, first establish a
+working source route and a measured uncaptured-lot opportunity. If blocked, move
+to another uncovered operator from the source register. Claims of thousands of
+recoverable lots must wait for actual source evidence.
+
+Validation before publication: 47 targeted continuation, collector, workflow and
+corpus tests pass. Final database totals must be read from the generated workflow
+checkpoint after this source batch is rebuilt, not inferred from catalogue counts.
