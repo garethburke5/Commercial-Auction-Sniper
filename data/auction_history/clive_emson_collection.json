@@ -1,44 +1,762 @@
 {
-  "checked_at": "2026-10-25T21:26:21.661324+00:00",
-  "auctions_discovered": 27,
+  "checked_at": "2026-10-25T21:56:10.940479+00:00",
+  "auctions_discovered": 23,
   "catalogue_states_present": 23,
   "catalogues_complete": 23,
   "surviving_lot_rows": 3796,
-  "incomplete_auction_ids": [
-    "240",
-    "239",
-    "233",
-    "231"
-  ],
+  "incomplete_auction_ids": [],
   "first_auction_date": "2023-12-13",
   "last_auction_date": "2026-09-24",
-  "complete": false,
+  "complete": true,
   "detail_rows_enriched": 3794,
   "detail_rows_remaining": 2,
-  "run_new_appearances": 0,
+  "roundup_articles": [
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-02",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+          "auction_id": "231",
+          "lot_number": "101",
+          "url": "https://www.cliveemson.co.uk/properties/231/101/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+          "auction_id": "231",
+          "lot_number": "4",
+          "url": "https://www.cliveemson.co.uk/properties/231/4/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+          "auction_id": "231",
+          "lot_number": "5",
+          "url": "https://www.cliveemson.co.uk/properties/231/5/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+          "auction_id": "231",
+          "lot_number": "51",
+          "url": "https://www.cliveemson.co.uk/properties/231/51/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+          "auction_id": "231",
+          "lot_number": "58",
+          "url": "https://www.cliveemson.co.uk/properties/231/58/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:55:45.497888+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-03",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+          "auction_id": "232",
+          "lot_number": "17",
+          "url": "https://www.cliveemson.co.uk/properties/232/17/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+          "auction_id": "232",
+          "lot_number": "22",
+          "url": "https://www.cliveemson.co.uk/properties/232/22/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+          "auction_id": "232",
+          "lot_number": "31",
+          "url": "https://www.cliveemson.co.uk/properties/232/31/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+          "auction_id": "232",
+          "lot_number": "43",
+          "url": "https://www.cliveemson.co.uk/properties/232/43/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+          "auction_id": "232",
+          "lot_number": "84",
+          "url": "https://www.cliveemson.co.uk/properties/232/84/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:55:49.124544+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-05",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+          "auction_id": "233",
+          "lot_number": "112",
+          "url": "https://www.cliveemson.co.uk/properties/233/112/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+          "auction_id": "233",
+          "lot_number": "5",
+          "url": "https://www.cliveemson.co.uk/properties/233/5/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+          "auction_id": "233",
+          "lot_number": "6",
+          "url": "https://www.cliveemson.co.uk/properties/233/6/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+          "auction_id": "233",
+          "lot_number": "7",
+          "url": "https://www.cliveemson.co.uk/properties/233/7/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+          "auction_id": "233",
+          "lot_number": "8",
+          "url": "https://www.cliveemson.co.uk/properties/233/8/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:55:52.287692+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 1,
+      "auction_month": "2022-06",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+          "auction_id": "234",
+          "lot_number": "25",
+          "url": "https://www.cliveemson.co.uk/properties/234/25/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+          "auction_id": "234",
+          "lot_number": "31",
+          "url": "https://www.cliveemson.co.uk/properties/234/31/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+          "auction_id": "234",
+          "lot_number": "39",
+          "url": "https://www.cliveemson.co.uk/properties/234/39/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+          "auction_id": "234",
+          "lot_number": "53",
+          "url": "https://www.cliveemson.co.uk/properties/234/53/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+          "auction_id": "234",
+          "lot_number": "9",
+          "url": "https://www.cliveemson.co.uk/properties/234/9/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:55:55.879424+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-07",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+          "auction_id": "235",
+          "lot_number": "1",
+          "url": "https://www.cliveemson.co.uk/properties/235/1/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+          "auction_id": "235",
+          "lot_number": "24",
+          "url": "https://www.cliveemson.co.uk/properties/235/24/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+          "auction_id": "235",
+          "lot_number": "25",
+          "url": "https://www.cliveemson.co.uk/properties/235/25/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+          "auction_id": "235",
+          "lot_number": "44",
+          "url": "https://www.cliveemson.co.uk/properties/235/44/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+          "auction_id": "235",
+          "lot_number": "75",
+          "url": "https://www.cliveemson.co.uk/properties/235/75/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:55:59.462387+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "links_discovered": 6,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-09",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+          "auction_id": "236",
+          "lot_number": "15",
+          "url": "https://www.cliveemson.co.uk/properties/236/15/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+          "auction_id": "236",
+          "lot_number": "25",
+          "url": "https://www.cliveemson.co.uk/properties/236/25/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+          "auction_id": "236",
+          "lot_number": "32",
+          "url": "https://www.cliveemson.co.uk/properties/236/32/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+          "auction_id": "236",
+          "lot_number": "35",
+          "url": "https://www.cliveemson.co.uk/properties/236/35/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+          "auction_id": "236",
+          "lot_number": "89",
+          "url": "https://www.cliveemson.co.uk/properties/236/89/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+          "auction_id": "236",
+          "lot_number": "90",
+          "url": "https://www.cliveemson.co.uk/properties/236/90/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:56:03.621351+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-11",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+          "auction_id": "237",
+          "lot_number": "12",
+          "url": "https://www.cliveemson.co.uk/properties/237/12/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+          "auction_id": "237",
+          "lot_number": "127",
+          "url": "https://www.cliveemson.co.uk/properties/237/127/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+          "auction_id": "237",
+          "lot_number": "144",
+          "url": "https://www.cliveemson.co.uk/properties/237/144/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+          "auction_id": "237",
+          "lot_number": "94",
+          "url": "https://www.cliveemson.co.uk/properties/237/94/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+          "auction_id": "237",
+          "lot_number": "97",
+          "url": "https://www.cliveemson.co.uk/properties/237/97/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:56:07.184213+00:00"
+    },
+    {
+      "source_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+      "links_discovered": 5,
+      "detail_rows_captured": 0,
+      "partial_article_rows_captured": 0,
+      "auction_month": "2022-12",
+      "failures": [
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+          "auction_id": "238",
+          "lot_number": "16",
+          "url": "https://www.cliveemson.co.uk/properties/238/16/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+          "auction_id": "238",
+          "lot_number": "50",
+          "url": "https://www.cliveemson.co.uk/properties/238/50/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+          "auction_id": "238",
+          "lot_number": "89",
+          "url": "https://www.cliveemson.co.uk/properties/238/89/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+          "auction_id": "238",
+          "lot_number": "93",
+          "url": "https://www.cliveemson.co.uk/properties/238/93/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+        },
+        {
+          "kind": "lot_detail",
+          "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+          "auction_id": "238",
+          "lot_number": "94",
+          "url": "https://www.cliveemson.co.uk/properties/238/94/",
+          "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+        }
+      ],
+      "checked_at": "2026-10-25T21:56:10.665339+00:00"
+    }
+  ],
+  "roundup_rows_captured": 1,
+  "roundup_detail_rows_captured": 0,
+  "roundup_partial_rows_captured": 1,
+  "run_new_appearances": 1,
   "run_new_address_records": 0,
-  "run_new_partial_lots": 0,
-  "run_by_sector": {},
-  "failures": [
+  "run_new_partial_lots": 1,
+  "run_by_sector": {
+    "residential": 1
+  },
+  "roundup_failures": [
     {
-      "auction_id": "240",
-      "url": "https://www.cliveemson.co.uk/properties/240/",
-      "error": "ValueError: catalogue page has no evidenced auction date"
-    },
-    {
-      "auction_id": "239",
-      "url": "https://www.cliveemson.co.uk/properties/239/",
-      "error": "ValueError: catalogue page has no evidenced auction date"
-    },
-    {
-      "auction_id": "233",
-      "url": "https://www.cliveemson.co.uk/properties/233/",
-      "error": "ValueError: catalogue page has no evidenced auction date"
-    },
-    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
       "auction_id": "231",
-      "url": "https://www.cliveemson.co.uk/properties/231/",
-      "error": "ValueError: catalogue page has no evidenced auction date"
+      "lot_number": "101",
+      "url": "https://www.cliveemson.co.uk/properties/231/101/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+      "auction_id": "231",
+      "lot_number": "4",
+      "url": "https://www.cliveemson.co.uk/properties/231/4/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+      "auction_id": "231",
+      "lot_number": "5",
+      "url": "https://www.cliveemson.co.uk/properties/231/5/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+      "auction_id": "231",
+      "lot_number": "51",
+      "url": "https://www.cliveemson.co.uk/properties/231/51/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+      "auction_id": "231",
+      "lot_number": "58",
+      "url": "https://www.cliveemson.co.uk/properties/231/58/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+      "auction_id": "232",
+      "lot_number": "17",
+      "url": "https://www.cliveemson.co.uk/properties/232/17/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+      "auction_id": "232",
+      "lot_number": "22",
+      "url": "https://www.cliveemson.co.uk/properties/232/22/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+      "auction_id": "232",
+      "lot_number": "31",
+      "url": "https://www.cliveemson.co.uk/properties/232/31/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+      "auction_id": "232",
+      "lot_number": "43",
+      "url": "https://www.cliveemson.co.uk/properties/232/43/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
+      "auction_id": "232",
+      "lot_number": "84",
+      "url": "https://www.cliveemson.co.uk/properties/232/84/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+      "auction_id": "233",
+      "lot_number": "112",
+      "url": "https://www.cliveemson.co.uk/properties/233/112/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+      "auction_id": "233",
+      "lot_number": "5",
+      "url": "https://www.cliveemson.co.uk/properties/233/5/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+      "auction_id": "233",
+      "lot_number": "6",
+      "url": "https://www.cliveemson.co.uk/properties/233/6/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+      "auction_id": "233",
+      "lot_number": "7",
+      "url": "https://www.cliveemson.co.uk/properties/233/7/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
+      "auction_id": "233",
+      "lot_number": "8",
+      "url": "https://www.cliveemson.co.uk/properties/233/8/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+      "auction_id": "234",
+      "lot_number": "25",
+      "url": "https://www.cliveemson.co.uk/properties/234/25/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+      "auction_id": "234",
+      "lot_number": "31",
+      "url": "https://www.cliveemson.co.uk/properties/234/31/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+      "auction_id": "234",
+      "lot_number": "39",
+      "url": "https://www.cliveemson.co.uk/properties/234/39/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+      "auction_id": "234",
+      "lot_number": "53",
+      "url": "https://www.cliveemson.co.uk/properties/234/53/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
+      "auction_id": "234",
+      "lot_number": "9",
+      "url": "https://www.cliveemson.co.uk/properties/234/9/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+      "auction_id": "235",
+      "lot_number": "1",
+      "url": "https://www.cliveemson.co.uk/properties/235/1/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+      "auction_id": "235",
+      "lot_number": "24",
+      "url": "https://www.cliveemson.co.uk/properties/235/24/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+      "auction_id": "235",
+      "lot_number": "25",
+      "url": "https://www.cliveemson.co.uk/properties/235/25/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+      "auction_id": "235",
+      "lot_number": "44",
+      "url": "https://www.cliveemson.co.uk/properties/235/44/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
+      "auction_id": "235",
+      "lot_number": "75",
+      "url": "https://www.cliveemson.co.uk/properties/235/75/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "auction_id": "236",
+      "lot_number": "15",
+      "url": "https://www.cliveemson.co.uk/properties/236/15/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "auction_id": "236",
+      "lot_number": "25",
+      "url": "https://www.cliveemson.co.uk/properties/236/25/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "auction_id": "236",
+      "lot_number": "32",
+      "url": "https://www.cliveemson.co.uk/properties/236/32/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "auction_id": "236",
+      "lot_number": "35",
+      "url": "https://www.cliveemson.co.uk/properties/236/35/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "auction_id": "236",
+      "lot_number": "89",
+      "url": "https://www.cliveemson.co.uk/properties/236/89/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
+      "auction_id": "236",
+      "lot_number": "90",
+      "url": "https://www.cliveemson.co.uk/properties/236/90/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+      "auction_id": "237",
+      "lot_number": "12",
+      "url": "https://www.cliveemson.co.uk/properties/237/12/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+      "auction_id": "237",
+      "lot_number": "127",
+      "url": "https://www.cliveemson.co.uk/properties/237/127/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+      "auction_id": "237",
+      "lot_number": "144",
+      "url": "https://www.cliveemson.co.uk/properties/237/144/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+      "auction_id": "237",
+      "lot_number": "94",
+      "url": "https://www.cliveemson.co.uk/properties/237/94/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
+      "auction_id": "237",
+      "lot_number": "97",
+      "url": "https://www.cliveemson.co.uk/properties/237/97/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+      "auction_id": "238",
+      "lot_number": "16",
+      "url": "https://www.cliveemson.co.uk/properties/238/16/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+      "auction_id": "238",
+      "lot_number": "50",
+      "url": "https://www.cliveemson.co.uk/properties/238/50/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+      "auction_id": "238",
+      "lot_number": "89",
+      "url": "https://www.cliveemson.co.uk/properties/238/89/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+      "auction_id": "238",
+      "lot_number": "93",
+      "url": "https://www.cliveemson.co.uk/properties/238/93/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
+    },
+    {
+      "kind": "lot_detail",
+      "article_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
+      "auction_id": "238",
+      "lot_number": "94",
+      "url": "https://www.cliveemson.co.uk/properties/238/94/",
+      "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
     }
   ]
 }

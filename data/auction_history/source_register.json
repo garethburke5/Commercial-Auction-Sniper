@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-25T21:33:18.661268+00:00",
-  "corpus_checkpoint": "2026-10-25T21:32:57.323934+00:00",
+  "generated_at": "2026-10-25T21:58:39.726916+00:00",
+  "corpus_checkpoint": "2026-10-25T21:58:18.414210+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1588,7 +1588,7 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Clive Emson",
       "match_basis": "existing evidenced source registry",
-      "retained_appearances": 3931,
+      "retained_appearances": 3932,
       "years_with_retained_evidence": [
         2023,
         2024,
@@ -7977,7 +7977,7 @@
     "Bond Wolfe": 9582,
     "Brown&Co": 28,
     "Cheffins": 740,
-    "Clive Emson": 3931,
+    "Clive Emson": 3932,
     "Cottons": 7435,
     "Dawsons": 138,
     "Dedman Gray": 2851,
@@ -13812,7 +13812,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4287,
+    "undated_appearances": 4288,
     "future_dated_appearances": 28,
     "national_completeness_verified": false,
     "limits": [
@@ -15665,6 +15665,19 @@
       "lots_captured": 475,
       "errors": [],
       "checked_at": "2026-10-25T21:18:42.318618+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/clive-emson/234.json",
+      "auctioneer": "Clive Emson",
+      "auction_date": null,
+      "source_url": null,
+      "lots_captured": 1,
+      "errors": [
+        "Some article-linked lot detail pages no longer survive",
+        "Some article-linked lot identities could not be banked",
+        "Full historical catalogue inventory is not available"
+      ],
+      "checked_at": "2026-10-25T21:56:10.665959+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-northantsbedsbucks/regional-online-results.json",
@@ -18624,7 +18637,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-25T21:33:18.454181+00:00",
+    "checked_at": "2026-10-25T21:58:39.509352+00:00",
     "sha256": "8b0d9287a916c99b2923a2abeb52be1ac42580b99503d992fa62ba29f51ce4b6",
     "status": "retrieved"
   }
