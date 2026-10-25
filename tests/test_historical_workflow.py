@@ -68,12 +68,12 @@ def test_focused_pugh_repair_skips_broad_rotation():
 
 
 def test_focused_clive_emson_legacy_expansion_skips_broad_rotation():
-    focused = WORKFLOW.index("- name: Run focused Clive Emson retained legacy expansion")
+    focused = WORKFLOW.index("- name: Run focused Clive Emson article-linked legacy expansion")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
     assert focused < bounded
     block = WORKFLOW[focused:bounded]
-    assert "scripts/harvest_clive_emson_canonical.py --all-incomplete" in block
-    assert "scripts/harvest_clive_emson_canonical.py --enrich-batch 4 --workers 6" in block
+    assert "scripts/harvest_clive_emson_canonical.py --roundups" in block
+    assert "scripts/harvest_clive_emson_canonical.py --all-incomplete" not in block
     bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
     assert "Run focused Clive Emson legacy expansion" in bounded_condition
 
