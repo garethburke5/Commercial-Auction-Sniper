@@ -240,3 +240,15 @@ National completeness remains unverified: 495 incomplete catalogue states, 62 cu
 - The hard blockers remain the archive's HTTP 404 for 13 September 2023, the 14 February 2018 image-only sheet with no recoverable table header, and conflicting duplicate OCR evidence in the 28 February 2017 sheet.
 - A rebuilt database verifies **279,826 individual appearances**: **269,457 address records**, **10,369 partial lots**, and **4,202 undated appearances**. This is a net gain of eight dated address appearances. Complete catalogue states increased from 2,003 to **2,007**, incomplete states fell from 495 to **491**, and current fetch/parse failures fell from 62 to **58**.
 - The focused Cottons suite passes 35 tests. National completeness remains unverified; source-by-source auctioneer/year inventories, the remaining 491 incomplete states, 58 current failures and directory reconciliation still require work.
+
+
+## Checkpoint: Edward Mellor overlaid PDF revision recovery
+
+- Seven retained 2016/17 Edward Mellor result PDFs contained two text revisions overlaid on individual pages. Layout extraction had fused adjacent labels into false identities such as `2425`, `3739` and `4443`. Raw reading order now separates monotonic revision runs, and a page-boundary sequence check selects the one revision that continues through the surrounding pages without inventing an absent lot.
+- A versioned parser refresh replaced the same source shard explicitly. The normal preservation default remains unchanged; eleven obsolete fused-label artifacts were removed instead of being silently restored by additive banking.
+- The seven repaired result sheets now reconcile to 521 evidenced rows, up from 392. This recovered 129 dated address rows while removing eleven false address rows: a net gain of **118 dated address appearances**. There were no partial or undated additions.
+- Edward Mellor's retained PDF corpus now contains **4,051 appearances**. Forty-eight of 55 discovered result PDFs are complete; five remain incomplete on explicit numbering gaps (11 December 2013, 4 February 2014, 19 March 2014, 30 April 2014 and 27 April 2016), and two retained links remain terminal source blockers. No missing row was synthesised.
+- The published database verifies **279,944 individual appearances**: **269,575 address records**, **10,369 partial lots** and **4,202 undated appearances**. Complete catalogue states increased from 2,007 to **2,014**; incomplete states fell from 491 to **484**; current fetch/parse failures fell from 58 to **50**.
+- The focused and corpus tests pass. Workflow run `40210956286` passed collection, banking, database rebuild, packaging, source-register reconciliation, checkpoint publication and artifact upload. Artifact `12605741293` is 301,365,642 bytes with SHA-256 `f83176c32be5083b78537303fb5a334be4b6355ca2fdb05454aa8782b217f347`.
+
+National completeness remains unverified: 484 incomplete catalogue states, 50 current source failures, 505 unlinked directory entries and uncovered operator/year inventories remain.
