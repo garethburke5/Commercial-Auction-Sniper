@@ -1,18 +1,44 @@
 {
-  "checked_at": "2026-10-25T18:03:42.231225+00:00",
-  "auctions_discovered": 23,
+  "checked_at": "2026-10-25T21:26:21.661324+00:00",
+  "auctions_discovered": 27,
   "catalogue_states_present": 23,
   "catalogues_complete": 23,
   "surviving_lot_rows": 3796,
-  "incomplete_auction_ids": [],
+  "incomplete_auction_ids": [
+    "240",
+    "239",
+    "233",
+    "231"
+  ],
   "first_auction_date": "2023-12-13",
   "last_auction_date": "2026-09-24",
-  "complete": true,
+  "complete": false,
   "detail_rows_enriched": 3794,
   "detail_rows_remaining": 2,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": []
+  "failures": [
+    {
+      "auction_id": "240",
+      "url": "https://www.cliveemson.co.uk/properties/240/",
+      "error": "ValueError: catalogue page has no evidenced auction date"
+    },
+    {
+      "auction_id": "239",
+      "url": "https://www.cliveemson.co.uk/properties/239/",
+      "error": "ValueError: catalogue page has no evidenced auction date"
+    },
+    {
+      "auction_id": "233",
+      "url": "https://www.cliveemson.co.uk/properties/233/",
+      "error": "ValueError: catalogue page has no evidenced auction date"
+    },
+    {
+      "auction_id": "231",
+      "url": "https://www.cliveemson.co.uk/properties/231/",
+      "error": "ValueError: catalogue page has no evidenced auction date"
+    }
+  ]
 }
