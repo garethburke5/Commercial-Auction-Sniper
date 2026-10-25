@@ -290,3 +290,14 @@ National completeness remains unverified: 484 incomplete catalogue states, 19 cu
 - Artifact `12609995762` is 268,161,395 bytes with SHA-256 `717ee11675ad8e6bbb17573c6684c0dd3cfadd4d5f5f6a5cf15a71288dd75fe0`.
 
 National completeness remains unverified: 484 incomplete catalogue states, 13 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
+
+
+## Checkpoint: SDL retired-catalogue blocker reconciliation
+
+- Five retained SDL catalogue links had already been proved terminal: four now redirect to the first-party archive index and the April 2024 link redirects to SDL's current buy-property page. All five remain **incomplete**, with zero captured rows, unknown original denominators and no inferred auction date.
+- Their saved states incorrectly retained the identity parser exception in `errors` even though the HTTP requests succeeded and the terminal redirect was the material condition. An idempotent collector migration now preserves each original exception inside structured `source_blocker` provenance while clearing the generic fetch/parse error field. Future terminal redirects use the same classification.
+- No lot rows changed. The published corpus remains **279,944 individual appearances**: **269,575 address records**, **10,369 partial lots**, and **4,202 undated appearances**. Catalogue states remain **2,014 complete** and **484 incomplete or unreconciled**. Genuine current fetch/parse failures fall from 13 to **8**; the remaining failures are three Cottons numbering gaps and five Edward Mellor numbering gaps.
+- Repair `fc0b8a3b506fcb28c9a68ae32fa9922f310e550c`, followed by generated checkpoint `7f8d4caa7a6d003d965108038406309d6d13729f`, passed the focused SDL migration, full collector/workflow tests, source banking, database rebuild, packaging, source-register reconciliation, publication and artifact retention in workflow run `40224011749`.
+- Artifact `12610309740` is 301,025,656 bytes with SHA-256 `c39eb8d36fa0834c9fbd5d95c54a71dccb1c2a48a3bd96684f1ae18e7d0de54d`.
+
+National completeness remains unverified: 484 incomplete catalogue states, 8 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
