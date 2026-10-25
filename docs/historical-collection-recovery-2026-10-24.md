@@ -252,3 +252,16 @@ National completeness remains unverified: 495 incomplete catalogue states, 62 cu
 - The focused and corpus tests pass. Workflow run `40210956286` passed collection, banking, database rebuild, packaging, source-register reconciliation, checkpoint publication and artifact upload. Artifact `12605741293` is 301,365,642 bytes with SHA-256 `f83176c32be5083b78537303fb5a334be4b6355ca2fdb05454aa8782b217f347`.
 
 National completeness remains unverified: 484 incomplete catalogue states, 50 current source failures, 505 unlinked directory entries and uncovered operator/year inventories remain.
+
+## Checkpoint: Pugh hybrid list/grid archive reconciliation
+
+- Pugh's retained public property-search archive publishes **7,161 source rows**. The primary list endpoint supplied 6,940 rows before its historical boundary became unreliable; the saved fallback grid supplies **221 rows** covering normal pages 348–359.
+- The previous checkpoint added the fallback grid total to every successfully fetched list page, including page 355, and therefore reported 7,181 reconciled rows. The collector now excludes any list page proved to fall inside the grid-covered interval. The exact equation is **6,940 non-overlapping list rows + 221 grid rows = 7,161 published rows**.
+- The source checkpoint now records `published_rows_reconciled: 7161`, `source_rows_reconciled_complete: true`, `archive_pagination_complete: true`, no pagination failures, and **6,891 canonical source-shard rows**. The corpus retains **6,893 Pugh appearances** after existing separately evidenced records are included.
+- **57 undated Pugh appearances** remain explicit partial evidence because their current detail URLs no longer expose an exact auction date; 56 return pages without the required identity/date evidence and one redirects to a 404. These are detail-enrichment blockers, not missing archive rows, and their dates remain null.
+- This repair changes reconciliation state only. Corpus totals remain **279,944 individual appearances**: **269,575 address records**, **10,369 partial lots**, and **4,202 undated appearances**. Catalogue metrics remain 2,014 complete, 484 incomplete or unreconciled, and 50 current fetch/parse failures.
+- Repairs `b3a954ce2c029a5ee965ee532b0a75a6b4001a76` and `02969b3cf7d67dbce83f2d0a55a10696a1f9299f`, followed by generated checkpoint `e7b6f1dbfa7d78564619b1509ec1a1c6e5ef8993`, passed focused Pugh regression tests, corpus tests, source banking, database rebuilding, packaging, register reconciliation, checkpoint publication and artifact retention in workflow run `40216671321`.
+- Artifact `12608286589` is 270,368,605 bytes with SHA-256 `fd1fe0072805dd6fec01ea2a811c58ec19d34ac666688d3c653fc6d9edebbd76`.
+
+National completeness remains unverified: 484 incomplete catalogue states, 50 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
+
