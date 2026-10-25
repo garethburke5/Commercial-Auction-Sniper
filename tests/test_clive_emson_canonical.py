@@ -3,10 +3,12 @@ import pytest
 import scripts.harvest_clive_emson_canonical as clive
 from scripts.harvest_clive_emson_canonical import (
     catalogue_inventory,
+    detail_identity,
     detail_fields,
     discover,
     parse_date,
     parse_catalogue,
+    roundup_lot_links,
 )
 
 
@@ -44,13 +46,23 @@ def test_discover_preserves_numbering_extent():
     }]
 
 
-def test_inventory_adds_only_verified_retained_legacy_catalogues():
-    auctions = catalogue_inventory(INDEX)
-    legacy = {row["auction_id"]: row for row in auctions if int(row["auction_id"]) < 245}
-    assert set(legacy) == {"231", "233", "239", "240"}
-    assert legacy["231"]["archive_label"] == "9 February 2022"
-    assert legacy["240"]["url"] == "https://www.cliveemson.co.uk/properties/240/"
-    assert all(row["discovery_basis"].startswith("verified retained") for row in legacy.values())
+def test_inventory_does_not_guess_redirected_legacy_catalogues():
+    assert catalogue_inventory(INDEX) == discover(INDEX)
+
+
+def test_roundup_links_admit_only_exact_first_party_lot_routes():
+    html = b"""
+    <a href='/properties/231/101/'>Lot 101</a>
+    <a href='https://www.cliveemson.co.uk/properties/231/5/'>Lot 5</a>
+    <a href='/properties/231/'>Old catalogue</a>
+    <a href='https://example.com/properties/231/7/'>Foreign</a>
+    """
+    assert roundup_lot_links(html, "https://www.cliveemson.co.uk/news/example/") == [
+        {"auction_id": "231", "lot_number": "101",
+         "url": "https://www.cliveemson.co.uk/properties/231/101/"},
+        {"auction_id": "231", "lot_number": "5",
+         "url": "https://www.cliveemson.co.uk/properties/231/5/"},
+    ]
 
 
 def test_legacy_heading_date_allows_separate_ordinal_element():
@@ -87,6 +99,7 @@ def test_detail_parser_requires_matching_lot_and_date_and_recovers_address():
     </body></html>
     """
     fields = detail_fields(raw, "267", "3", "2026-07-23")
+    assert detail_identity(raw) == ("3", "2026-07-23")
     assert fields["source_property_id"] == "45631"
     assert fields["address"] == "8-14 Copenhagen Road, Gillingham, Kent, ME7 4RY"
     assert fields["postcode"] == "ME7 4RY"

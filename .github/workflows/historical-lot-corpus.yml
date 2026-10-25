@@ -212,12 +212,11 @@ jobs:
         if: inputs.focus == 'pugh' || startsWith(github.event.head_commit.message, 'Run focused Pugh repair')
         timeout-minutes: 12
         run: python -u scripts/harvest_pugh_canonical.py
-      - name: Run focused Clive Emson retained legacy expansion
+      - name: Run focused Clive Emson article-linked legacy expansion
         if: inputs.focus == 'clive-emson-legacy' || startsWith(github.event.head_commit.message, 'Run focused Clive Emson legacy expansion')
         timeout-minutes: 25
         run: |
-          python -u scripts/harvest_clive_emson_canonical.py --all-incomplete
-          python -u scripts/harvest_clive_emson_canonical.py --enrich-batch 4 --workers 6
+          python -u scripts/harvest_clive_emson_canonical.py --roundups
       - name: Run focused Symonds and Sampson reconciliation repair
         if: inputs.focus == 'symonds-sampson' || startsWith(github.event.head_commit.message, 'Run focused Symonds and Sampson repair')
         timeout-minutes: 12

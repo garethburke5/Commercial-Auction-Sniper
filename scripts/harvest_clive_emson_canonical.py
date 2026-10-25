@@ -18,7 +18,7 @@ from pathlib import Path
 import re
 import sys
 import time
-from urllib.parse import quote, urljoin
+from urllib.parse import quote, urljoin, urlparse
 
 import requests
 from bs4 import BeautifulSoup
@@ -39,16 +39,20 @@ MONTHS = "January February March April May June July August September October No
 DATE_RE = re.compile(rf"\b(\d{{1,2}})\s*(?:st|nd|rd|th)?\s+({MONTHS.replace(' ', '|')})\s+(20\d{{2}})\b", re.I)
 LOT_PATH_RE = re.compile(r"^/properties/(\d+)/(\d+[A-Za-z]?)/?$", re.I)
 
-# The live results index currently starts at auction 245 (June 2023), but four
-# older first-party catalogue routes still expose complete result-card
-# inventories.  Keep this evidence-backed allow-list separate from numeric
-# probing: arbitrary /properties/<id>/ routes can redirect to region/current
-# pages and must never be treated as historical auctions.
-RETAINED_LEGACY_AUCTIONS = (
-    ("231", "9 February 2022"),
-    ("233", "5 May 2022"),
-    ("239", "8 February 2023"),
-    ("240", "22 March 2023"),
+# The old catalogue containers now redirect to current/region pages.  Several
+# first-party auction-roundup articles still link to surviving individual lot
+# pages, however.  Those detail pages retain exact auction dates, addresses and
+# achieved prices.  Harvest the article-linked identities only; never infer the
+# missing remainder of an old catalogue from its numeric auction ID.
+ROUNDUP_ARTICLES = (
+    BASE + "/news/february-2022-auction-roundup/",
+    BASE + "/news/march-auction-roundup/",
+    BASE + "/news/may-auction-roundup-2022/",
+    BASE + "/news/june-auction-roundup-2022/",
+    BASE + "/news/july-auction-roundup-2022/",
+    BASE + "/news/auction-roundup-september-2022/",
+    BASE + "/news/auction-roundup-november-2022/",
+    BASE + "/news/auction-roundup-december-2022/",
 )
 
 
@@ -99,18 +103,26 @@ def discover(index_html):
 
 
 def catalogue_inventory(index_html):
-    """Combine the current index with individually verified retained routes."""
-    auctions = {row["auction_id"]: row for row in discover(index_html)}
-    for auction_id, label in RETAINED_LEGACY_AUCTIONS:
-        auctions.setdefault(auction_id, {
-            "auction_id": auction_id,
-            "url": f"{BASE}/properties/{auction_id}/",
-            "archive_label": label,
-            "published_first_lot": None,
-            "published_last_lot": None,
-            "discovery_basis": "verified retained first-party legacy catalogue route",
-        })
-    return sorted(auctions.values(), key=lambda row: int(row["auction_id"]), reverse=True)
+    """Return only catalogues still evidenced by the live result index."""
+    return discover(index_html)
+
+
+def roundup_lot_links(html, article_url):
+    """Return exact first-party lot identities linked by one roundup article."""
+    soup = BeautifulSoup(html, "html.parser")
+    found = {}
+    for link in soup.find_all("a", href=True):
+        url = urljoin(article_url, link["href"]).split("#", 1)[0]
+        parsed = urlparse(url)
+        if parsed.netloc.lower() not in {"cliveemson.co.uk", "www.cliveemson.co.uk"}:
+            continue
+        match = LOT_PATH_RE.fullmatch(parsed.path)
+        if not match:
+            continue
+        key = (match.group(1), match.group(2).upper())
+        found[key] = f"{BASE}/properties/{key[0]}/{key[1]}/"
+    return [{"auction_id": key[0], "lot_number": key[1], "url": found[key]}
+            for key in sorted(found, key=lambda item: (int(item[0]), item[1]))]
 
 
 def normalize_status(value):
@@ -358,6 +370,185 @@ def detail_fields(raw, expected_auction_id, expected_lot, expected_date):
     }
 
 
+def detail_identity(raw):
+    """Return the exact lot/date printed by an official lot-detail page."""
+    soup = BeautifulSoup(raw, "html.parser")
+    header = soup.select_one(".lotDetailsHeader")
+    h1 = header.find("h1") if header else None
+    if not h1:
+        raise ValueError("detail page has no lot header")
+    text = h1.get_text(" ", strip=True)
+    lot_match = re.search(r"\bLot\s+(\d+[A-Za-z]?)\b", text, re.I)
+    lot = lot_match.group(1).upper() if lot_match else None
+    date = parse_date(text)
+    if not lot or not date:
+        raise ValueError("detail page has no evidenced lot/date identity")
+    return lot, date
+
+
+def harvest_roundups():
+    """Bank exact old lot pages retained by first-party roundup articles.
+
+    This deliberately does not call an old numeric catalogue container: those
+    routes now redirect.  Each admitted appearance needs both an article link
+    and a non-redirecting lot page whose printed lot/date identity agrees with
+    its URL.  Broken links remain explicit failures without discarding rows
+    recovered from the same article.
+    """
+    client = session()
+    before = json.loads((corpus.DATA / "progress.json").read_text())
+    rows_by_auction = {}
+    article_states = []
+    failures = []
+    added = []
+
+    for article_url in ROUNDUP_ARTICLES:
+        state = {"source_url": article_url, "links_discovered": 0,
+                 "detail_rows_captured": 0, "failures": []}
+        try:
+            final_article_url, article_raw = get(client, article_url)
+            article_sha = corpus.digest(article_raw)
+            slug = urlparse(article_url).path.rstrip("/").rsplit("/", 1)[-1]
+            article_snapshot = (corpus.DATA / "sources/clive-emson/roundups" /
+                                f"{slug}-{article_sha[:16]}.json.gz")
+            article_evidence = {
+                "source_url": final_article_url,
+                "snapshot_path": str(article_snapshot.relative_to(ROOT)),
+                "sha256": article_sha,
+                "retrieved_at": corpus.now(),
+                "basis": "official Clive Emson auction-roundup article linking selected result lots",
+            }
+            corpus.save_gzip(article_snapshot, {
+                "evidence": article_evidence,
+                "html": article_raw.decode("utf-8", "replace"),
+            })
+            links = roundup_lot_links(article_raw, final_article_url)
+            state["links_discovered"] = len(links)
+            if not links:
+                raise ValueError("roundup article exposes zero exact lot links")
+
+            for link in links:
+                try:
+                    final_url, raw = get(client, link["url"])
+                    expected_path = urlparse(link["url"]).path.rstrip("/")
+                    if urlparse(final_url).path.rstrip("/") != expected_path:
+                        raise ValueError(f"lot route redirected to {final_url}")
+                    lot, date = detail_identity(raw)
+                    if lot != link["lot_number"]:
+                        raise ValueError(f"detail lot {lot!r} does not match linked lot {link['lot_number']!r}")
+                    fields = detail_fields(raw, link["auction_id"], lot, date)
+                    sha = corpus.digest(raw)
+                    snapshot = (corpus.DATA / "sources/clive-emson/details" /
+                                link["auction_id"] / f"{lot}-{sha[:16]}.json.gz")
+                    evidence = {
+                        "source_url": final_url,
+                        "snapshot_path": str(snapshot.relative_to(ROOT)),
+                        "sha256": sha,
+                        "retrieved_at": corpus.now(),
+                        "basis": "official Clive Emson lot detail retained from an official roundup link",
+                    }
+                    corpus.save_gzip(snapshot, {
+                        "evidence": evidence,
+                        "html": raw.decode("utf-8", "replace"),
+                    })
+                    row = corpus.base_row(
+                        "Clive Emson", f"clive-emson:{link['auction_id']}", date,
+                        lot, lot, final_url,
+                    )
+                    row.update(fields)
+                    row.update(
+                        record_quality="address_record",
+                        identity_method="source_auction_and_lot_number",
+                        source_evidence=evidence,
+                        additional_source_evidence=[article_evidence],
+                        roundup_article_url=final_article_url,
+                    )
+                    rows_by_auction.setdefault(link["auction_id"], []).append(row)
+                    state["detail_rows_captured"] += 1
+                except Exception as exc:
+                    failure = {
+                        "kind": "lot_detail", "article_url": final_article_url,
+                        "auction_id": link["auction_id"], "lot_number": link["lot_number"],
+                        "url": link["url"], "error": f"{type(exc).__name__}: {exc}"[:500],
+                    }
+                    failures.append(failure)
+                    state["failures"].append(failure)
+                time.sleep(0.1)
+        except Exception as exc:
+            failure = {"kind": "roundup_article", "url": article_url,
+                       "error": f"{type(exc).__name__}: {exc}"[:500]}
+            failures.append(failure)
+            state["failures"].append(failure)
+        state["checked_at"] = corpus.now()
+        article_states.append(state)
+
+    for auction_id, recovered in rows_by_auction.items():
+        shard = corpus.DATA / "appearances/clive-emson" / f"{auction_id}.jsonl.gz"
+        existing_rows = list(corpus.iter_rows(shard)) if shard.exists() else []
+        merged = {row["appearance_id"]: row for row in existing_rows}
+        prior_ids = set(merged)
+        for row in recovered:
+            merged[row["appearance_id"]] = row
+        added.extend(merged[key] for key in set(merged) - prior_ids)
+        corpus.write_rows(f"clive-emson/{auction_id}", list(merged.values()))
+
+        path = state_path(auction_id)
+        try:
+            old_state = json.loads(path.read_text())
+        except (OSError, ValueError, TypeError):
+            old_state = {}
+        dates = {row["auction_date"] for row in merged.values()}
+        if len(dates) != 1:
+            raise ValueError(f"auction {auction_id} has conflicting exact dates: {sorted(dates)}")
+        linked_failures = [item for item in failures if item.get("auction_id") == auction_id]
+        state = {
+            **old_state,
+            "auctioneer": "Clive Emson",
+            "source_auction_id": f"clive-emson:{auction_id}",
+            "auction_id": auction_id,
+            "auction_date": next(iter(dates)),
+            "lots_captured": len(merged),
+            "catalogue_complete": bool(old_state.get("catalogue_complete")),
+            "article_linked_rows_complete": not linked_failures,
+            "completion_scope": (old_state.get("completion_scope") or
+                                 "surviving detail pages linked by first-party roundup articles; not the full catalogue"),
+            "appearance_ids": sorted(merged),
+            "errors": list(dict.fromkeys(
+                (old_state.get("errors") or []) +
+                (["Some article-linked lot pages no longer survive"] if linked_failures else []) +
+                ["Full historical catalogue inventory is not available"]
+            )),
+            "checked_at": corpus.now(),
+        }
+        corpus.save_json(path, state)
+
+    if not rows_by_auction:
+        raise SystemExit("Clive Emson roundup articles yielded zero surviving exact lot pages")
+
+    index_url, index_raw = get(client, INDEX)
+    auctions = catalogue_inventory(index_raw)
+    summary = collection_summary(auctions)
+    summary.update({
+        "roundup_articles": article_states,
+        "roundup_detail_rows_captured": sum(
+            len({row["appearance_id"] for row in rows}) for rows in rows_by_auction.values()
+        ),
+        "run_new_appearances": len(added),
+        "run_new_address_records": sum(bool(row.get("address")) for row in added),
+        "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "run_by_sector": dict(Counter(row.get("sector") for row in added)),
+        "roundup_failures": failures,
+    })
+    corpus.save_json(corpus.DATA / "clive_emson_collection.json", summary)
+    report = corpus.build_database()
+    print(json.dumps({
+        "baseline_appearances": before["individual_lot_records_captured"],
+        "persisted_appearances": report["individual_lot_records_captured"],
+        **summary,
+    }, indent=2), flush=True)
+    return summary
+
+
 def enrich_one(row):
     response = requests.get(row["original_url"], headers=HEADERS, timeout=45)
     response.raise_for_status()
@@ -596,9 +787,12 @@ if __name__ == "__main__":
     mode.add_argument("--enrich-auction")
     mode.add_argument("--enrich-next", action="store_true")
     mode.add_argument("--enrich-batch", type=int)
+    mode.add_argument("--roundups", action="store_true")
     parser.add_argument("--workers", type=int, default=4)
     args = parser.parse_args()
-    if args.enrich_auction:
+    if args.roundups:
+        harvest_roundups()
+    elif args.enrich_auction:
         enrich_auction(args.enrich_auction, args.workers)
     elif args.enrich_next:
         target = next_enrichment_auction()
