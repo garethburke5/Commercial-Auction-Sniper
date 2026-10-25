@@ -285,6 +285,7 @@ def harvest() -> None:
     session = requests.Session()
     session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
     all_rows, auction_summaries, failures = [], {}, []
+    reused_detail_pages = 0
     for auction_id, metadata in AUCTIONS.items():
         index_url = search_url(auction_id)
         try:
@@ -323,6 +324,7 @@ def harvest() -> None:
                 corpus.save_json(state_path, state)
                 auction_summaries[auction_id] = state
                 all_rows.extend(reused_rows)
+                reused_detail_pages += len(reused_rows)
                 continue
 
             rows, detail_failures, undated = [], [], []
@@ -397,6 +399,7 @@ def harvest() -> None:
         "catalogues_complete": sum(bool(v["catalogue_complete"]) for v in auction_summaries.values()),
         "property_appearances_captured": total, "run_new_appearances": added,
         "run_new_address_records": added, "run_new_partial_lots": 0,
+        "detail_pages_reused_after_live_index_reconciliation": reused_detail_pages,
         "by_sector": dict(Counter(row["sector"] for row in merged.values())),
         "auctions": {key: {"published_result_count": value["published_result_count"],
                             "lots_captured": value["lots_captured"],
