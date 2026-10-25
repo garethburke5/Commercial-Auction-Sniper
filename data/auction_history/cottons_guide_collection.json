@@ -1,19 +1,23 @@
 {
-  "checked_at": "2026-10-25T02:24:02.489122+00:00",
+  "checked_at": "2026-10-25T02:30:32.951598+00:00",
   "catalogues_attempted": 2,
-  "catalogues_enriched": [],
-  "records_checked_against_catalogue": 0,
-  "records_with_catalogue_guides": 122,
-  "failures": [
+  "catalogues_enriched": [
     {
       "auction_date": "2026-10-21",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/10/OCT-Catalogue_WEB.pdf",
-      "error": "Repeated catalogue lot label"
+      "lots_checked": 39,
+      "lots_with_published_guide": 39,
+      "lots_without_published_guide": 0,
+      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2026/10/OCT-Catalogue_WEB.pdf"
     },
     {
       "auction_date": "2026-09-09",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2026/09/WEB-COPY-Catalogue_SEPT26_WEB.pdf",
-      "error": "Repeated catalogue lot label"
+      "lots_checked": 44,
+      "lots_with_published_guide": 44,
+      "lots_without_published_guide": 0,
+      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2026/09/WEB-COPY-Catalogue_SEPT26_WEB.pdf"
     }
-  ]
+  ],
+  "records_checked_against_catalogue": 83,
+  "records_with_catalogue_guides": 122,
+  "failures": []
 }
