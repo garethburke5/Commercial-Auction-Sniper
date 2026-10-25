@@ -157,7 +157,7 @@ National completeness remains unverified; these repairs reconcile two source sem
 
 ## Checkpoint: Swift retained-snapshot recovery and reproducible storage validation
 
-Published Swift data checkpoint `d2ce21036bc998ee173458f6a63154f67a328b8f`, deterministic storage-test repair `cd6c6eab3b8773531d1ca8f87784c0a2955bd625`, and generated checkpoint `8b9fedad3d9e3a339d135061c053cb90372308e6`:
+Published Swift data checkpoint `d2ce21036bc998ee173458f6a63154f67a328b8f`, deterministic storage-test repair `cd6c6eab3b8773531d1ca8f87784c0a2955bd625`, and generated checkpoint `8b9fedad7d6cb0c235142e8dd4b4f2e4355a4b97`:
 
 - The retained earlier first-party Swift snapshot contributed two dated address appearances that had disappeared from the current result page: source ID `365218`, lot 3, 5 Roman Way, Liverpool, L33 9TA; and source ID `368877`, lot 4, 35 Tavistock Crescent, Westbourne Park, London, W11 1AZ. Both preserve 14 October 2026, their original lot URLs, guides, postponed outcomes and exact snapshot provenance.
 - Swift auction `swift:85367` now contains **9** appearances: 2 sold, 2 sold prior, 2 unsold, 2 postponed and 1 withdrawn. Its separate published statistic of four sold from six offered lots is reconciled without discarding the withdrawn or snapshot-only rows.
