@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T21:56:10.940479+00:00",
+  "checked_at": "2026-10-25T22:04:27.688307+00:00",
   "auctions_discovered": 23,
   "catalogue_states_present": 23,
   "catalogues_complete": 23,
@@ -15,7 +15,7 @@
       "source_url": "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 5,
       "auction_month": "2022-02",
       "failures": [
         {
@@ -59,13 +59,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
         }
       ],
-      "checked_at": "2026-10-25T21:55:45.497888+00:00"
+      "checked_at": "2026-10-25T22:03:58.341957+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/march-auction-roundup/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 5,
       "auction_month": "2022-03",
       "failures": [
         {
@@ -109,13 +109,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/west-country/"
         }
       ],
-      "checked_at": "2026-10-25T21:55:49.124544+00:00"
+      "checked_at": "2026-10-25T22:04:02.369222+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/may-auction-roundup-2022/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 5,
       "auction_month": "2022-05",
       "failures": [
         {
@@ -159,13 +159,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/"
         }
       ],
-      "checked_at": "2026-10-25T21:55:52.287692+00:00"
+      "checked_at": "2026-10-25T22:04:06.083464+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/june-auction-roundup-2022/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 1,
+      "partial_article_rows_captured": 5,
       "auction_month": "2022-06",
       "failures": [
         {
@@ -209,13 +209,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/hampshire-isle-of-wight/"
         }
       ],
-      "checked_at": "2026-10-25T21:55:55.879424+00:00"
+      "checked_at": "2026-10-25T22:04:10.172174+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/july-auction-roundup-2022/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 4,
       "auction_month": "2022-07",
       "failures": [
         {
@@ -259,13 +259,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
         }
       ],
-      "checked_at": "2026-10-25T21:55:59.462387+00:00"
+      "checked_at": "2026-10-25T22:04:14.337764+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/auction-roundup-september-2022/",
       "links_discovered": 6,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 6,
       "auction_month": "2022-09",
       "failures": [
         {
@@ -317,13 +317,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/london/"
         }
       ],
-      "checked_at": "2026-10-25T21:56:03.621351+00:00"
+      "checked_at": "2026-10-25T22:04:19.141061+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/auction-roundup-november-2022/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 5,
       "auction_month": "2022-11",
       "failures": [
         {
@@ -367,13 +367,13 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/kent/"
         }
       ],
-      "checked_at": "2026-10-25T21:56:07.184213+00:00"
+      "checked_at": "2026-10-25T22:04:23.194960+00:00"
     },
     {
       "source_url": "https://www.cliveemson.co.uk/news/auction-roundup-december-2022/",
       "links_discovered": 5,
       "detail_rows_captured": 0,
-      "partial_article_rows_captured": 0,
+      "partial_article_rows_captured": 5,
       "auction_month": "2022-12",
       "failures": [
         {
@@ -417,17 +417,21 @@
           "error": "ValueError: lot route redirected to https://www.cliveemson.co.uk/properties/essex/"
         }
       ],
-      "checked_at": "2026-10-25T21:56:10.665339+00:00"
+      "checked_at": "2026-10-25T22:04:27.366134+00:00"
     }
   ],
-  "roundup_rows_captured": 1,
+  "roundup_rows_captured": 40,
   "roundup_detail_rows_captured": 0,
-  "roundup_partial_rows_captured": 1,
-  "run_new_appearances": 1,
+  "roundup_partial_rows_captured": 40,
+  "run_new_appearances": 39,
   "run_new_address_records": 0,
-  "run_new_partial_lots": 1,
+  "run_new_partial_lots": 39,
   "run_by_sector": {
-    "residential": 1
+    "mixed-use": 6,
+    "residential": 16,
+    "unknown": 8,
+    "land": 5,
+    "commercial": 4
   },
   "roundup_failures": [
     {
