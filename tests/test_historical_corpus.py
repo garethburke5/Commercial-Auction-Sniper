@@ -82,6 +82,20 @@ def test_failed_pagination_never_marks_auction_complete(tmp_path, monkeypatch):
     assert state["errors"]
 
 
+def test_modern_count_accepts_only_exhausted_underreported_filter():
+    complete, detail = h.reconcile_modern_catalogue_count(110, 106, [100, 10], 2, 2)
+    assert complete is True
+    assert detail == {
+        "method": "exhausted_pagination_source_filter_underreported",
+        "observed": 110,
+        "source_reported": 106,
+        "difference": 4,
+    }
+    assert h.reconcile_modern_catalogue_count(105, 106, [100, 5], 2, 2)[0] is False
+    assert h.reconcile_modern_catalogue_count(110, 106, [100, 10], 1, 2)[0] is False
+    assert h.reconcile_modern_catalogue_count(200, 106, [100, 100], 2, 2)[0] is False
+
+
 def test_financial_and_sector_edge_cases():
     assert h.money("£1.31M") == 1310000
     assert h.money("Available at £450,000") is None

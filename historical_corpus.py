@@ -286,6 +286,53 @@ def modern_page(aid, page):
     return BASE + "index.php?" + urlencode(params)
 
 
+def reconcile_modern_catalogue_count(raw_count, expected, page_record_counts, pages_captured, pages_expected, page_size=100):
+    """Reconcile Savills' filter denominator against the traversed page stream.
+
+    Some older modern catalogues expose lots whose property-type IDs are absent
+    from ``property_types``.  The sum of that filter therefore under-reports the
+    catalogue even though pagination still exposes every row.  Accept an
+    overage only when every advertised page was captured, all preceding pages
+    were full, and the final page is non-empty and terminal.  Shortfalls and a
+    full final page remain incomplete.
+    """
+    observed = int(raw_count or 0)
+    expected = int(expected or 0)
+    pages_expected = int(pages_expected or 0)
+    exact = bool(expected and observed == expected and pages_captured == pages_expected)
+    if exact:
+        return True, {
+            "method": "exact_property_type_filter_count",
+            "observed": observed,
+            "source_reported": expected,
+            "difference": 0,
+        }
+    exhausted = bool(
+        expected
+        and observed > expected
+        and pages_expected
+        and pages_captured == pages_expected
+        and len(page_record_counts) == pages_expected
+        and page_record_counts[-1] > 0
+        and page_record_counts[-1] < page_size
+        and all(count == page_size for count in page_record_counts[:-1])
+        and sum(page_record_counts) == observed
+    )
+    if exhausted:
+        return True, {
+            "method": "exhausted_pagination_source_filter_underreported",
+            "observed": observed,
+            "source_reported": expected,
+            "difference": observed - expected,
+        }
+    return False, {
+        "method": "unreconciled",
+        "observed": observed,
+        "source_reported": expected or None,
+        "difference": observed - expected if expected else None,
+    }
+
+
 def harvest_modern(aid, refresh=False):
     key = "savills/modern-" + str(aid)
     state_path = DATA / "auctions" / (key + ".json")
@@ -293,7 +340,7 @@ def harvest_modern(aid, refresh=False):
         state = json.loads(state_path.read_text())
         if state.get("catalogue_complete") and state.get("auction_date", "9999") < datetime.now().date().isoformat():
             return state
-    rows, raw_ids, excluded, errors, evidence_pages = {}, set(), [], [], []
+    rows, raw_ids, excluded, errors, evidence_pages, page_record_counts = {}, set(), [], [], [], []
     expected = pages = None
     auction = None
     for page in range(1, 101):
@@ -324,6 +371,7 @@ def harvest_modern(aid, refresh=False):
                       "page": page, "total_pages": pages, "expected_raw_records": expected,
                       "property_types": types_data, "lots": public_lots}
             save_gzip(raw_path, source)
+            page_record_counts.append(len(public_lots))
             ev = {k: source[k] for k in ("source_url", "retrieved_at", "response_sha256")}
             ev["snapshot_path"] = str(raw_path.relative_to(ROOT))
             evidence_pages.append(ev)
@@ -342,7 +390,10 @@ def harvest_modern(aid, refresh=False):
         except Exception as e:
             errors.append({"url": url, "page": page, "error": f"{type(e).__name__}: {e}"[:500]})
             break
-    complete = bool(not errors and expected and len(raw_ids) == expected and len(evidence_pages) == pages)
+    count_complete, count_reconciliation = reconcile_modern_catalogue_count(
+        len(raw_ids), expected, page_record_counts, len(evidence_pages), pages
+    )
+    complete = bool(not errors and count_complete)
     if not errors and not complete:
         errors.append({"error": "Catalogue count reconciliation failed", "observed": len(raw_ids), "expected": expected})
     state = {"auctioneer": "Savills Auctions", "source_auction_id": "savills:" + str(aid),
@@ -350,6 +401,7 @@ def harvest_modern(aid, refresh=False):
              "auction_name": auction.get("name") if auction else None,
              "catalogue_complete": complete, "completion_scope": "all published lots in surviving online catalogue; not proof of original historical catalogue completeness",
              "lots_captured": len(rows), "raw_records_observed": len(raw_ids), "expected_raw_records": expected,
+             "count_reconciliation": count_reconciliation,
              "pages_expected": pages, "pages_captured": len(evidence_pages), "excluded_non_properties": excluded,
              "errors": errors, "checked_at": now()}
     save_json(state_path, state)
