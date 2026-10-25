@@ -75,6 +75,7 @@ on:
       - scripts/harvest_bond_wolfe_history.py
       - scripts/harvest_savills_legacy_result_grid.py
       - tests/test_historical_corpus.py
+      - tests/test_historical_workflow.py
       - tests/test_clive_emson_canonical.py
       - tests/test_barnett_ross_history.py
       - tests/test_pugh_history.py
@@ -154,6 +155,11 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
+      - name: Move queued schedule to current main
+        if: github.event_name == 'schedule'
+        run: |
+          git fetch origin main
+          git checkout --detach origin/main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -170,7 +176,7 @@ jobs:
         if: inputs.focus != 'retained-legacy' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_edward_mellor_pdfs.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sharpes_results.py tests/test_seel_catalogues.py tests/test_harvest_bond_wolfe_history.py tests/test_harvest_savills_legacy_result_grid.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
       - name: Check bounded continuation and database storage
-        run: python -m pytest -q tests/test_history_continuation.py tests/test_barnard_history_continuation.py tests/test_harvest_barnard_marcus.py tests/test_history_source_register.py tests/test_history_storage.py tests/test_historical_corpus.py tests/test_historical_price_coverage.py tests/test_cottons_catalogue_guides.py
+        run: python -m pytest -q tests/test_history_continuation.py tests/test_historical_workflow.py tests/test_barnard_history_continuation.py tests/test_harvest_barnard_marcus.py tests/test_history_source_register.py tests/test_history_storage.py tests/test_historical_corpus.py tests/test_historical_price_coverage.py tests/test_cottons_catalogue_guides.py
       - name: Enrich banked Cottons appearances with exact catalogue guides
         if: inputs.focus != 'retained-legacy' && inputs.focus != 'rebuild' && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh')
         timeout-minutes: 5
@@ -625,10 +631,21 @@ jobs:
           build_base=$(git rev-parse HEAD)
           git commit -m 'Bank historical auction lot records and source evidence'
           checkpoint_branch="history-checkpoints/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          checkpoint_bundle="$RUNNER_TEMP/historical-source-checkpoint-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}.bundle"
+          # A bundle is the lossless fallback when an old queued run cannot
+          # publish a recovery branch (for example after a workflow-file change).
+          git bundle create "$checkpoint_bundle" HEAD "^$build_base"
+          git bundle verify "$checkpoint_bundle"
           # Preserve the entire collection before attempting to merge moving main.
-          # Fetch before pushing a new branch from a shallow checkout so Git
-          # can negotiate against current remote history rather than resend it.
+          # First move the data-only commit onto current main. This prevents a
+          # stale queued run from appearing to remove or modify a workflow file,
+          # which GitHub correctly rejects for the contents-only Actions token.
           git fetch origin main
+          if ! git rebase --autostash origin/main; then
+            git rebase --abort
+            echo "::error::Publication needs reconciliation. Full source checkpoint retained in artifact bundle $checkpoint_bundle."
+            exit 1
+          fi
           checkpoint_saved=false
           checkpoint_sha=$(git rev-parse HEAD)
           for backup_attempt in 1 2 3 4; do
@@ -644,7 +661,9 @@ jobs:
             fi
             sleep 5
           done
-          test "$checkpoint_saved" = true
+          if test "$checkpoint_saved" != true; then
+            echo "::warning::Remote checkpoint branch could not be saved; the full data commit remains in $checkpoint_bundle."
+          fi
           pushed=false
           for attempt in 1 2 3 4; do
             git fetch origin main
@@ -684,7 +703,9 @@ jobs:
           done
           if test -n "$database_backup"; then cp "$database_backup" data/auction_history/auction_history.sqlite.gz; fi
           test "$pushed" = true
-          git push origin --delete "$checkpoint_branch"
+          if test "$checkpoint_saved" = true; then
+            git push origin --delete "$checkpoint_branch"
+          fi
       - name: Restore the newly built database for artifact retention
         if: always()
         run: |
@@ -700,4 +721,5 @@ jobs:
             data/auction_history/auction_history.sqlite.gz
             data/auction_history/progress.json
             data/auction_history/source_register.json
+            ${{ runner.temp }}/historical-source-checkpoint-*.bundle
           retention-days: 30
