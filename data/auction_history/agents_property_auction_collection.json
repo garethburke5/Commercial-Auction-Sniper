@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-25T08:37:28.537990+00:00",
+  "checked_at": "2026-10-25T10:06:32.721943+00:00",
   "transport_version": 3,
   "source_url": "https://www.agentspropertyauction.com/auctions/auction-results/",
   "archive_evidence": {
@@ -867,5 +867,13 @@
       "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=12&a_sub=1",
       "error": "ValueError: reader snapshot has no venue/month/year heading"
     }
-  ]
+  ],
+  "source_blocker": {
+    "kind": "filtered_archive_blocked_from_free_collector_infrastructure",
+    "direct_route": "HTTP 500 for every attempted filter",
+    "free_reader_route": "response contained no requested auction heading or result rows",
+    "scope": "2010-2013, both advertised venues and all months",
+    "retry_policy": "terminal until a materially different free retrieval route is available",
+    "note": "the browser-verifiable February 2012 table is not treated as empty or captured"
+  }
 }
