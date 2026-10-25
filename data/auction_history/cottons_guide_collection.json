@@ -1,23 +1,22 @@
 {
-  "checked_at": "2026-10-25T03:13:12.522117+00:00",
+  "checked_at": "2026-10-25T03:39:08.094072+00:00",
   "catalogues_attempted": 2,
   "catalogues_enriched": [
     {
-      "auction_date": "2026-02-25",
-      "lots_checked": 33,
-      "lots_with_published_guide": 33,
-      "lots_without_published_guide": 0,
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2026/02/Catalogue-LowRes-20260225-20260212121053.pdf"
-    },
-    {
-      "auction_date": "2025-12-10",
-      "lots_checked": 42,
-      "lots_with_published_guide": 41,
-      "lots_without_published_guide": 1,
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2025/12/PROOF-2-Catalogue-LowRes-20251210-20251128133827.pdf"
+      "auction_date": "2025-07-09",
+      "lots_checked": 41,
+      "lots_with_published_guide": 39,
+      "lots_without_published_guide": 2,
+      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2025/07/July-25-catalogue.pdf"
     }
   ],
-  "records_checked_against_catalogue": 245,
-  "records_with_catalogue_guides": 280,
-  "failures": []
+  "records_checked_against_catalogue": 387,
+  "records_with_catalogue_guides": 416,
+  "failures": [
+    {
+      "auction_date": "2025-05-21",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2025/05/Catalogue-LowRes-20250521-20250512134405.pdf",
+      "error": "Results and catalogue lot sequences differ"
+    }
+  ]
 }

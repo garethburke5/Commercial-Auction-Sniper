@@ -16,13 +16,10 @@
   "reconciliation_errors": [
     "page 3 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 4 reports 345 lots / 22 pages; first page reports 346 / 22",
-    "page 5 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 6 reports 345 lots / 22 pages; first page reports 346 / 22",
-    "page 7 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 8 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 9 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 10 reports 345 lots / 22 pages; first page reports 346 / 22",
-    "page 11 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 12 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 13 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 14 reports 345 lots / 22 pages; first page reports 346 / 22",
@@ -31,9 +28,9 @@
     "page 17 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 18 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 19 reports 345 lots / 22 pages; first page reports 346 / 22",
-    "page 20 reports 345 lots / 22 pages; first page reports 346 / 22",
     "page 21 reports 345 lots / 22 pages; first page reports 346 / 22",
-    "page 22 reports 345 lots / 22 pages; first page reports 346 / 22"
+    "page 22 reports 345 lots / 22 pages; first page reports 346 / 22",
+    "duplicate source ID 688428 across source pages"
   ],
   "source_reported_totals": [
     345,
@@ -5495,23 +5492,6 @@
       "status": null
     },
     {
-      "address": "52, Cuthbert Cooper Place, SHEFFIELD, South Yorkshire, S9 4JS",
-      "auction_date": "2026-05-19",
-      "description": "Good size two bedroomed first floor apartment. Ideal cash only investment opportunity.",
-      "guide_price_gbp": 55000,
-      "image_url": "https://www.barnardmarcusauctions.co.uk/media/447559/75415937-5ad6-40d5-9136-1a816de3cee9.jpg?mode=pad&width=320&upscale=false",
-      "lot_number": "311",
-      "property_type": null,
-      "raw_card_text": "LOT 311\n52, Cuthbert Cooper Place\nSHEFFIELD, South Yorkshire, S9 4JS\nguide price*\n£55,000",
-      "result_price_gbp": null,
-      "result_status": "guide price* £55,000",
-      "source": "Barnard Marcus Auctions",
-      "source_auction_id": "barnard-marcus:2026-05-19",
-      "source_record_id": "barnard-marcus-property:688459",
-      "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/688459/",
-      "status": null
-    },
-    {
       "address": "Flat 23, Queens Court, Warren Road, HARTLEPOOL, Cleveland, TS24 9DP",
       "auction_date": "2026-05-19",
       "description": "Two-bedroom top floor apartment, conveniently located to commute onto the A19. Ideal investment opportunity.",
@@ -5937,6 +5917,23 @@
       "status": null
     },
     {
+      "address": "52, Cuthbert Cooper Place, SHEFFIELD, South Yorkshire, S9 4JS",
+      "auction_date": "2026-05-19",
+      "description": "Good size two bedroomed first floor apartment. Ideal cash only investment opportunity.",
+      "guide_price_gbp": 55000,
+      "image_url": "https://www.barnardmarcusauctions.co.uk/media/447559/75415937-5ad6-40d5-9136-1a816de3cee9.jpg?mode=pad&width=320&upscale=false",
+      "lot_number": "311",
+      "property_type": null,
+      "raw_card_text": "LOT 311\n52, Cuthbert Cooper Place\nSHEFFIELD, South Yorkshire, S9 4JS\nguide price*\n£55,000",
+      "result_price_gbp": null,
+      "result_status": "guide price* £55,000",
+      "source": "Barnard Marcus Auctions",
+      "source_auction_id": "barnard-marcus:2026-05-19",
+      "source_record_id": "barnard-marcus-property:688459",
+      "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/688459/",
+      "status": null
+    },
+    {
       "address": "8, Arrowsmith Square, NEWTON AYCLIFFE, County Durham, DL5 5RB",
       "auction_date": "2026-05-19",
       "description": "Freehold end of terrace house",
@@ -5956,12 +5953,13 @@
   ],
   "sitemap_recovery": {
     "expected_urls": 346,
-    "missing_before_recovery": 1,
-    "rows_recovered": 1,
+    "missing_before_recovery": 2,
+    "rows_recovered": 2,
     "recovered_urls": [
+      "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/688459/",
       "https://www.barnardmarcusauctions.co.uk/auctions/19-may-2026/694377/"
     ]
   },
-  "captured_at": "2026-10-25T03:14:22.970190+00:00",
+  "captured_at": "2026-10-25T03:41:25.436211+00:00",
   "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-e1949fb710a0d49e.json.gz"
 }
