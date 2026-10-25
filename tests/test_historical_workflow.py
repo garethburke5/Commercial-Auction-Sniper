@@ -28,6 +28,12 @@ def test_focused_cottons_repair_skips_broad_rotation():
     assert "Run focused Cottons repair" in bounded_condition
 
 
+def test_normal_cottons_guide_window_clears_bounded_retry_backlog():
+    start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")
+    end = WORKFLOW.index("- name: Run focused Cottons split-row recovery", start)
+    assert "scripts/enrich_cottons_guides.py 16" in WORKFLOW[start:end]
+
+
 def test_source_checkpoint_bundle_precedes_rebase_and_is_artifacted():
     bundle = WORKFLOW.index('git bundle create "$checkpoint_bundle"')
     rebase = WORKFLOW.index("git rebase --autostash origin/main", bundle)

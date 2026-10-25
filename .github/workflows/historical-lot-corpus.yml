@@ -181,7 +181,10 @@ jobs:
         if: inputs.focus != 'retained-legacy' && inputs.focus != 'rebuild' && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh')
         timeout-minutes: 5
         continue-on-error: true
-        run: python -u scripts/enrich_cottons_guides.py 2
+        # Reconciliation is idempotent and already skips checked rows.  A
+        # 16-catalogue window clears publication-defect retries without
+        # repeatedly re-fetching the completed archive.
+        run: python -u scripts/enrich_cottons_guides.py 16
       - name: Run focused Cottons split-row recovery
         if: startsWith(github.event.head_commit.message, 'Run focused Cottons repair')
         timeout-minutes: 20
