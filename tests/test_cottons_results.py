@@ -240,15 +240,16 @@ AQ | 32 HUMBER ROAD, COVENTRY CV3 1BA £106,000
     assert rows[4]["sale_price"] == 106000
 
 
-def test_ocr_legacy_scan_artifacts_recover_lots_41_52_and_53():
-    text = """
+@pytest.mark.parametrize("lot_52_artifact", ["§2", "$2"])
+def test_ocr_legacy_scan_artifacts_recover_lots_41_52_and_53(lot_52_artifact):
+    text = f"""
 Auction : 03 June 2015 Results Sheet as at 05 June 2015
 Lot Address Result
 40 | THE MOON & SIXPENCE, TINTERN NP16 6SG £180,000
 Al __| RED LION COTTAGE, WEOBLEY HR4 8SE AVAILABLE @ £80,000
 42 | 9 HARROWBY DRIVE, TIPTON DY4 8SZ AVAILABLE @ £34,000
 51 | 60 SOUTHFIELD ROAD, BIRMINGHAM B16 0JL NOT OFFERED
-§2 | 3 ORCHARD ROAD, BIRMINGHAM B24 9JL £166,000
+{lot_52_artifact} | 3 ORCHARD ROAD, BIRMINGHAM B24 9JL £166,000
 §3 | 5 DOVEDALE AVENUE, WILLENHALL WV12 4NA NOT OFFERED
 54 | 422 PORTLAND ROAD, BIRMINGHAM B17 8LT £80,000
 """
