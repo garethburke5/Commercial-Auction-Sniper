@@ -1,4 +1,6 @@
-from scripts.harvest_bidx1_canonical import (\n    AUCTIONS, parse_detail, parse_index, reusable_complete_rows, search_url,\n)
+from scripts.harvest_bidx1_canonical import (
+    AUCTIONS, parse_detail, parse_index, reusable_complete_rows, search_url,
+)
 
 
 def test_only_individually_verified_first_party_auction_ids_are_seeded():
