@@ -71,6 +71,6 @@ def test_focused_symonds_sampson_repair_skips_broad_rotation():
     focused = WORKFLOW.index("- name: Run focused Symonds and Sampson reconciliation repair")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
     assert focused < bounded
-    assert "scripts/harvest_symonds_sampson_canonical.py" in WORKFLOW[focused:bounded]
+    assert "scripts/harvest_symonds_sampson_canonical.py --reconcile-saved-state" in WORKFLOW[focused:bounded]
     bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
     assert "Run focused Symonds and Sampson repair" in bounded_condition

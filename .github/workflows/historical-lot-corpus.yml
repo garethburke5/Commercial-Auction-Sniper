@@ -208,7 +208,7 @@ jobs:
       - name: Run focused Symonds and Sampson reconciliation repair
         if: inputs.focus == 'symonds-sampson' || startsWith(github.event.head_commit.message, 'Run focused Symonds and Sampson repair')
         timeout-minutes: 12
-        run: python -u scripts/harvest_symonds_sampson_canonical.py
+        run: python -u scripts/harvest_symonds_sampson_canonical.py --reconcile-saved-state
       - name: Run focused Edward Mellor overlaid-PDF repair
         if: inputs.focus == 'edward-mellor-pdfs' || startsWith(github.event.head_commit.message, 'Run focused Edward Mellor PDF repair')
         timeout-minutes: 12

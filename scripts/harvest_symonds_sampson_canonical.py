@@ -221,6 +221,23 @@ def retained_event_state(date: str, date_rows: list[dict]) -> dict:
     }
 
 
+def reconcile_retained_states(rows: list[dict] | None = None) -> Counter:
+    """Rewrite reconciliation state from already banked canonical rows only."""
+    if rows is None:
+        path = corpus.DATA / "appearances/symonds-sampson/retained-property-pages.jsonl.gz"
+        rows = list(corpus.iter_rows(path)) if path.exists() else []
+    if not rows:
+        raise SystemExit("Symonds & Sampson has no retained canonical rows to reconcile")
+    by_date = Counter(row.get("auction_date") for row in rows)
+    for date in by_date:
+        if not date:
+            continue
+        date_rows = [row for row in rows if row.get("auction_date") == date]
+        state = retained_event_state(date, date_rows)
+        corpus.save_json(corpus.DATA / "auctions/symonds-sampson" / f"{date}.json", state)
+    return by_date
+
+
 def harvest(workers: int = 2) -> None:
     sitemap_transport, sitemap_raw = fetch_sitemap()
     sitemap_text = sitemap_raw.decode("utf-8", "replace")
@@ -265,13 +282,7 @@ def harvest(workers: int = 2) -> None:
     if len({row["source_lot_id"] for row in rows}) != len(rows):
         raise SystemExit("duplicate source IDs in parsed property pages")
     corpus.write_rows("symonds-sampson/retained-property-pages", rows)
-    by_date = Counter(row.get("auction_date") for row in rows)
-    for date, count in by_date.items():
-        if not date:
-            continue
-        date_rows = [row for row in rows if row.get("auction_date") == date]
-        state = retained_event_state(date, date_rows)
-        corpus.save_json(corpus.DATA / "auctions/symonds-sampson" / f"{date}.json", state)
+    by_date = reconcile_retained_states(rows)
     summary = {"checked_at": corpus.now(), "sitemap_property_urls": len(urls),
                "property_pages_captured": len(rows), "pages_already_banked": len(existing_ids),
                "pages_attempted_this_run": len(pending_urls), "run_new_appearances": len(added),
@@ -292,4 +303,18 @@ def harvest(workers: int = 2) -> None:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workers", type=int, default=2)
-    harvest(parser.parse_args().workers)
+    parser.add_argument(
+        "--reconcile-saved-state",
+        action="store_true",
+        help="rewrite state from banked rows without fetching the live sitemap",
+    )
+    args = parser.parse_args()
+    if args.reconcile_saved_state:
+        by_date = reconcile_retained_states()
+        print(json.dumps({
+            "retained_rows": sum(by_date.values()),
+            "dated_events_reconciled": sum(bool(date) for date in by_date),
+            "undated_rows": by_date.get(None, 0),
+        }, indent=2))
+    else:
+        harvest(args.workers)
