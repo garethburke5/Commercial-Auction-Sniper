@@ -490,15 +490,75 @@ def bank_source_corpus():
     )
     source_paths = sorted(p for root in roots if root.exists() for p in root.rglob("*.json"))
     source_paths.extend(path for path in diagnostic_sources if path.exists())
-    array_names = ("lot_records", "lots", "properties", "property_records", "accepted_rows")
+    array_names = ("lot_records", "lots", "properties", "property_records", "accepted_rows", "records")
     total = 0
     enriched = 0
+    # Generic legacy ``records`` files overlap later canonical captures.  Keep
+    # counted inventories so a source can be re-banked idempotently after its
+    # own prior output is removed from the comparison set.
+    existing_signatures = None
+    existing_urls = None
+
+    def appearance_signature(row):
+        address = re.sub(r"[^a-z0-9]+", " ", str(row.get("address") or "").lower()).strip()
+        if not address:
+            return None
+        lot = re.sub(r"[^a-z0-9]+", " ", str(row.get("lot_number") or "").lower()).strip()
+        return clean(row.get("auction_date")) or None, address, lot
+
+    def canonical_url(value):
+        if not value:
+            return None
+        parsed = urlsplit(str(value))
+        if not parsed.scheme or not parsed.netloc:
+            return str(value).rstrip("/")
+        return parsed._replace(scheme=parsed.scheme.lower(), netloc=parsed.netloc.lower(),
+                               path=parsed.path.rstrip("/"), query="", fragment="").geturl()
+
+    def load_existing_inventory():
+        signatures, urls = Counter(), Counter()
+        appearances = DATA / "appearances"
+        if appearances.exists():
+            for shard in appearances.rglob("*.jsonl.gz"):
+                for saved in iter_rows(shard):
+                    signature = appearance_signature(saved)
+                    url = canonical_url(saved.get("original_url"))
+                    if signature:
+                        signatures[signature] += 1
+                    if url:
+                        urls[url] += 1
+        return signatures, urls
+
+    def update_inventory(rows, delta):
+        for saved in rows:
+            signature = appearance_signature(saved)
+            url = canonical_url(saved.get("original_url"))
+            if signature:
+                existing_signatures[signature] += delta
+                if existing_signatures[signature] <= 0:
+                    del existing_signatures[signature]
+            if url:
+                existing_urls[url] += delta
+                if existing_urls[url] <= 0:
+                    del existing_urls[url]
+
     for source_path in source_paths:
         try:
             payload = json.loads(source_path.read_text())
         except (OSError, json.JSONDecodeError):
             continue
         lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None) or []
+        legacy_records = isinstance(payload.get("records"), list) and lot_rows is payload.get("records")
+        # Early breadth captures used a generic ``records`` array for both
+        # individual lots and auction-level discovery evidence.  Admit the
+        # former without turning catalogue/date manifests into phantom
+        # property appearances.  Untyped rows are accepted only when they
+        # carry the minimum property identity used by those captures.
+        if legacy_records:
+            lot_rows = [raw for raw in lot_rows if isinstance(raw, dict) and (
+                raw.get("record_type") in {"lot", "lot_partial", "property", "property_partial"}
+                or (raw.get("record_type") is None and raw.get("address") and raw.get("lot_number"))
+            )]
         enrichment_rows = payload.get("appearance_enrichments")
         enrichment_rows = enrichment_rows if isinstance(enrichment_rows, list) else []
         if not lot_rows and not enrichment_rows:
@@ -525,6 +585,13 @@ def bank_source_corpus():
         if not snapshot.exists():
             save_gzip(snapshot, {"imported_at": now(), "origin_file": str(source_path.relative_to(ROOT)),
                                  "origin_sha256": digest(original), "payload": payload})
+        target_key = "source-corpus/" + source_path.stem
+        target_shard = DATA / "appearances" / (target_key + ".jsonl.gz")
+        if legacy_records:
+            if existing_signatures is None:
+                existing_signatures, existing_urls = load_existing_inventory()
+            if target_shard.exists():
+                update_inventory(list(iter_rows(target_shard)), -1)
         rows = []
         for raw in lot_rows:
             if not isinstance(raw, dict):
@@ -560,8 +627,8 @@ def bank_source_corpus():
                 guide_price_high=money(raw.get("guide_price_high_gbp")),
                 available_price=money(raw.get("available_price_gbp") or raw.get("available_price")),
                 sale_price=money(raw.get("result_price_gbp") or raw.get("hammer_gbp") or
-                                 raw.get("result_gbp") or raw.get("sale_price")),
-                annual_rent=money(raw.get("rent_pa_gbp") or raw.get("annual_rent")),
+                                 raw.get("result_gbp") or raw.get("sale_price") or raw.get("result_price")),
+                annual_rent=money(raw.get("rent_pa_gbp") or raw.get("annual_rent") or raw.get("rent_pa")),
                 rent_text=plain(raw.get("rent_text")), tenant=plain(raw.get("tenant")),
                 lease_information=plain(raw.get("lease_details") or raw.get("lease_information")),
                 floor_area=plain(raw.get("size") or raw.get("floor_area")),
@@ -597,10 +664,14 @@ def bank_source_corpus():
                 "snapshot_path": str(snapshot.relative_to(ROOT)),
                 "origin_file": str(source_path.relative_to(ROOT)),
                 "origin_sha256": digest(original)}
+            if legacy_records:
+                signature = appearance_signature(row)
+                saved_url = canonical_url(row.get("original_url"))
+                if ((signature and existing_signatures.get(signature, 0)) or
+                        (saved_url and existing_urls.get(saved_url, 0))):
+                    continue
             rows.append(row)
         if rows:
-            target_key = "source-corpus/" + source_path.stem
-            target_shard = DATA / "appearances" / (target_key + ".jsonl.gz")
             # A later source file can regenerate the same base shard after an
             # earlier enrichment file has updated it.  Carry those additive
             # address fields forward so source ordering cannot erase evidence.
@@ -616,6 +687,8 @@ def bank_source_corpus():
                             if old.get(field) is not None:
                                 row[field] = old[field]
             total += write_rows(target_key, rows)
+            if legacy_records:
+                update_inventory(rows, 1)
             if payload.get("catalogue_complete") is True:
                 expected = payload.get("catalogue_lot_count") or payload.get("expected_lot_count")
                 try:
@@ -653,6 +726,11 @@ def bank_source_corpus():
                         "errors": payload.get("reconciliation_errors") or ["Source catalogue remains unreconciled"],
                         "checked_at": payload.get("captured_at") or now(),
                     })
+        elif legacy_records and target_shard.exists():
+            # All rows are now represented by exact canonical evidence.
+            # Persist the empty derived shard so synced worktrees cannot
+            # resurrect duplicates on a later rebuild.
+            atomic(target_shard, gzip.compress(b"", mtime=0))
         for enrichment in enrichment_rows:
             if not isinstance(enrichment, dict):
                 continue

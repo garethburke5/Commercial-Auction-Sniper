@@ -20,6 +20,55 @@ def test_source_banking_preserves_prior_after_and_unsold_outcomes(tmp_path,monke
     assert [r['sale_price'] for r in saved]==[100000,100000,None,None]
 
 
+def test_source_banking_accepts_legacy_records_lots_but_not_auction_manifests(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    folder = tmp_path / "data/historical_source_corpus"
+    folder.mkdir(parents=True)
+    existing = h.base_row("Example Auctions", "canonical:2014-07-09", "2014-07-09", "2", "canonical:2",
+                          "https://example.test/property/2")
+    existing["address"] = "2 High Street, London SW1A 1AA"
+    h.write_rows("example/canonical", [existing])
+    (folder / "legacy_records.json").write_text(json.dumps({
+        "auctioneer": "Example Auctions",
+        "records": [
+            {
+                "record_type": "auction",
+                "auction_date": "2014-07-09",
+                "source_urls": ["https://example.test/archive"],
+            },
+            {
+                "record_type": "lot",
+                "source_record_id": "example:2014-07-09:1",
+                "auction_date": "2014-07-09",
+                "lot_number": "1",
+                "address": "1 High Street, London SW1A 1AA",
+                "source_urls": ["https://example.test/property/1"],
+                "result_price": 125000,
+                "rent_pa": 9000,
+                "result_status": "Sold",
+            },
+            {
+                "record_type": "lot",
+                "source_record_id": "example:2014-07-09:2",
+                "auction_date": "2014-07-09",
+                "lot_number": "2",
+                "address": "2 High Street, London SW1A 1AA",
+                "source_urls": ["https://example.test/property/2?legacy=1"],
+            },
+        ],
+    }))
+
+    assert h.bank_source_corpus() == 1
+    rows = list(h.iter_rows(h.DATA / "appearances/source-corpus/legacy_records.jsonl.gz"))
+    assert len(rows) == 1
+    assert rows[0]["source_lot_id"] == "example:2014-07-09:1"
+    assert rows[0]["sale_price"] == 125000
+    assert rows[0]["annual_rent"] == 9000
+    assert h.bank_source_corpus() == 1
+    assert len(list(h.iter_rows(h.DATA / "appearances/source-corpus/legacy_records.jsonl.gz"))) == 1
+
+
 def test_js_json_is_parsed_as_data_and_preserves_unicode():
     body = r'''lots: JSON.parse('[{"name":"O\'Brien – café","id":"3"}]')'''
     assert h.embedded(body, "lots", True) == [{"name": "O'Brien – café", "id": "3"}]

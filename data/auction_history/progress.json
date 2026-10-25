@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-10-25T22:14:03.917854+00:00",
-  "individual_lot_records_captured": 280122,
-  "records_with_address": 269713,
-  "partial_lot_records": 10409,
-  "exact_address_groups": 153639,
-  "groups_with_repeat_appearances": 38319,
+  "generated_at": "2026-10-25T23:08:52.132421+00:00",
+  "individual_lot_records_captured": 280158,
+  "records_with_address": 269747,
+  "partial_lot_records": 10411,
+  "exact_address_groups": 153642,
+  "groups_with_repeat_appearances": 38339,
   "by_auctioneer": {
     "Acuitus": 5697,
-    "Allsop": 44927,
-    "Allsop Commercial": 66,
+    "Allsop": 44946,
+    "Allsop Commercial": 71,
     "Anderson & Garland": 29,
     "Auction Estates": 2072,
     "Auction House Beds & Bucks": 14,
@@ -45,7 +45,7 @@
     "Bond Wolfe": 9582,
     "Brown&Co": 28,
     "Cheffins": 740,
-    "Clive Emson": 3971,
+    "Clive Emson": 3978,
     "Cottons": 7435,
     "Dawsons": 138,
     "Dedman Gray": 2851,
@@ -65,8 +65,8 @@
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6893,
     "SDL Property Auctions": 443,
-    "Savills (London - National)": 1,
-    "Savills Auctions": 30926,
+    "Savills (London - National)": 3,
+    "Savills Auctions": 30929,
     "Savills Auctions (London & National)": 4,
     "Savills Commercial": 2,
     "Seel & Co": 460,
@@ -80,7 +80,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4327,
+    "null": 4333,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -89,15 +89,15 @@
     "2007": 1884,
     "2008": 1503,
     "2009": 1302,
-    "2010": 2294,
+    "2010": 2317,
     "2011": 3310,
     "2012": 3628,
-    "2013": 6300,
-    "2014": 8542,
+    "2013": 6302,
+    "2014": 8544,
     "2015": 7928,
     "2016": 8671,
     "2017": 8888,
-    "2018": 8229,
+    "2018": 8232,
     "2019": 7397,
     "2020": 10222,
     "2021": 14158,
@@ -108,11 +108,11 @@
     "2026": 41807
   },
   "by_sector": {
-    "commercial": 38974,
-    "land": 17150,
-    "mixed-use": 42116,
-    "residential": 136123,
-    "unknown": 45759
+    "commercial": 38992,
+    "land": 17155,
+    "mixed-use": 42125,
+    "residential": 136124,
+    "unknown": 45762
   },
   "date_range": [
     "2002-10-31",
@@ -132,13 +132,13 @@
     "through_date": "2026-10-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 272724,
-      "auction_ids_observed": 7008,
-      "with_guide_price": 96231,
-      "with_sale_price": 104966,
-      "with_both_prices": 45690,
-      "marked_sold": 142431,
-      "marked_sold_without_sale_price": 38205
+      "lot_appearances": 272754,
+      "auction_ids_observed": 7015,
+      "with_guide_price": 96256,
+      "with_sale_price": 104984,
+      "with_both_prices": 45708,
+      "marked_sold": 142450,
+      "marked_sold_without_sale_price": 38206
     },
     "by_auctioneer_and_year": [
       {
@@ -331,13 +331,13 @@
       {
         "auctioneer": "Allsop",
         "year": 2010,
-        "lot_appearances": 121,
-        "auction_ids_observed": 1,
-        "with_guide_price": 121,
-        "with_sale_price": 75,
-        "with_both_prices": 75,
-        "marked_sold": 89,
-        "marked_sold_without_sale_price": 14
+        "lot_appearances": 139,
+        "auction_ids_observed": 2,
+        "with_guide_price": 139,
+        "with_sale_price": 89,
+        "with_both_prices": 89,
+        "marked_sold": 104,
+        "marked_sold_without_sale_price": 15
       },
       {
         "auctioneer": "Allsop",
@@ -514,6 +514,17 @@
         "with_both_prices": 1673,
         "marked_sold": 2142,
         "marked_sold_without_sale_price": 460
+      },
+      {
+        "auctioneer": "Allsop Commercial",
+        "year": 2010,
+        "lot_appearances": 5,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Allsop Commercial",
@@ -2981,6 +2992,17 @@
       },
       {
         "auctioneer": "Clive Emson",
+        "year": 2013,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Clive Emson",
         "year": 2023,
         "lot_appearances": 285,
         "auction_ids_observed": 2,
@@ -5072,12 +5094,12 @@
       {
         "auctioneer": "Savills (London - National)",
         "year": 2014,
-        "lot_appearances": 1,
-        "auction_ids_observed": 1,
-        "with_guide_price": 0,
-        "with_sale_price": 0,
-        "with_both_prices": 0,
-        "marked_sold": 0,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -5215,8 +5237,8 @@
       {
         "auctioneer": "Savills Auctions",
         "year": 2018,
-        "lot_appearances": 1455,
-        "auction_ids_observed": 18,
+        "lot_appearances": 1458,
+        "auction_ids_observed": 20,
         "with_guide_price": 8,
         "with_sale_price": 771,
         "with_both_prices": 0,
@@ -5928,7 +5950,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4327,
+    "undated_appearances": 4333,
     "future_dated_appearances": 28,
     "national_completeness_verified": false,
     "limits": [

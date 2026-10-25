@@ -400,3 +400,33 @@ guide or sale prices were claimed from the unlabelled Dawsons amounts.
 - National completeness remains false. The next concrete growth target is Barnard Marcus pre-2024 official/saved source-corpus lot recovery, beginning with unbanked exact detail identities rather than another Clive Emson redirect probe.
 
 Implementation: [article fallback](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/cf612c88c09bcb0b60c8e830e0125e95aed94c0d), [malformed-markup repair](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/61334ebdd6907ba06d357940771aadab9a91650b), [settled-price repair](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/d293d7c9ff521b1592b645cae211f68690c878ac), [published checkpoint](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/4cfbc7a6f08833c2327f0bc9822ab2472107aeb0), and [verification workflow](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/40238907788).
+
+
+## 25 October 2026 — saved `records` lot recovery
+
+- The saved-source audit found 94 evidence-bearing property rows under the legacy
+  generic `records` array, which the permanent banker did not read. Exact
+  canonical URL and date/address/lot reconciliation excluded 58 overlaps before
+  growth was claimed.
+- Banked 36 net new appearances: 34 address records and two partial lots. Thirty
+  have exact dates and 28 are dated address records inside the preceding
+  20-year window; six remain undated and none are future-dated.
+- Sector split: 18 commercial, nine mixed-use, five land, one residential and
+  three unknown. The commercial/mixed-use subset is 27.
+- Price evidence: 25 new dated guide prices and 18 new dated sale prices. Two
+  previously banked undated Acuitus rows also gained explicit sale prices from
+  the saved legacy field. No new auctioneer/year pair was claimed: the recovery
+  deepens already represented Allsop, Clive Emson and Savills years.
+- The reusable importer now admits only explicit lot/property record types (or
+  untyped rows with an address and lot number), excludes auction manifests,
+  strips tracking queries for URL comparison, and preserves legacy
+  `result_price` and `rent_pa` fields. Focused corpus tests pass 24/24.
+- Rebuilt database totals are 280,158 appearances, 269,747 address records and
+  10,411 partial lots. The exact-date 20-year window contains 272,754
+  appearances, 96,256 guide prices and 104,984 sale prices. Undated appearances
+  are 4,333; future-dated appearances remain 28. National completeness remains
+  false.
+- The removed Barnard Marcus September 2023 route remains a terminal 404 with no
+  retained first-party lot identities. Do not retry it without a new source.
+  Next growth target: audit other saved JSON array shapes and failed checkpoint
+  artifacts for property rows, then move to a different accessible older source.
