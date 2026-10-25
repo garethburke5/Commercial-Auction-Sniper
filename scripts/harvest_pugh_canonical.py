@@ -504,6 +504,29 @@ def bankable(row: dict, today=None) -> bool:
     return date <= today or row.get("status") in COMPLETE_STATUSES
 
 
+def reconciled_source_row_count(
+    page_counts: dict[str, int],
+    last_page: int,
+    grid_covered_pages: set[int],
+    grid_tail_source_rows: int,
+) -> int:
+    """Count list rows and hybrid-grid tail rows exactly once.
+
+    A boundary list page can be captured successfully before the later deep
+    pages fail.  Once the grid fallback proves and covers that same boundary,
+    its row count must be excluded from the list subtotal; otherwise the
+    archive appears larger than Pugh's published denominator.
+    """
+    return (
+        sum(
+            int(page_counts.get(str(page), 0) or 0)
+            for page in range(1, last_page + 1)
+            if page not in grid_covered_pages
+        )
+        + int(grid_tail_source_rows or 0)
+    )
+
+
 def address_key(value: str | None) -> str | None:
     value = re.sub(r"[^a-z0-9]+", " ", (value or "").lower()).strip()
     return value or None
@@ -721,8 +744,9 @@ def harvest() -> None:
             "published_property_rows": result_count, "observed_property_ids": len(observed),
             "observed_source_ids": sorted(observed), "pages_expected": last_page,
             "pages_captured_this_run": sorted(pages_captured), "page_counts": page_counts,
-            "published_rows_reconciled": (sum(page_counts.get(str(page), 0)
-                                                for page in range(1, last_page + 1)) + unresolved_rows),
+            "published_rows_reconciled": reconciled_source_row_count(
+                page_counts, last_page, grid_covered_pages, grid_tail_source_rows
+            ),
             "source_rows_reconciled_complete": source_rows_complete,
             "grid_covered_normal_pages": sorted(grid_covered_pages),
             "unresolved_source_rows": unresolved_rows,
@@ -1079,11 +1103,16 @@ def harvest() -> None:
         key = str(path.relative_to(corpus.DATA / "appearances")).removesuffix(".jsonl.gz")
         corpus.write_rows(key, rows)
     saved = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
-    published_rows_reconciled = (sum(page_counts.get(str(page), 0)
-                                     for page in range(1, last_page + 1)) + grid_tail_source_rows)
-    complete = bool(result_count and not failures and
-                    len(set(pages_captured) | grid_covered_pages) == last_page and
-                    published_rows_reconciled == result_count)
+    published_rows_reconciled = reconciled_source_row_count(
+        page_counts, last_page, grid_covered_pages, grid_tail_source_rows
+    )
+    covered_pages = set(pages_captured) | grid_covered_pages
+    complete = bool(
+        result_count
+        and not failures
+        and set(range(1, last_page + 1)).issubset(covered_pages)
+        and published_rows_reconciled == result_count
+    )
     summary = {"checked_at": corpus.now(), "source_url": INDEX,
                "published_property_rows": result_count, "observed_property_ids": len(observed),
                "observed_source_ids": sorted(observed), "pages_expected": last_page,

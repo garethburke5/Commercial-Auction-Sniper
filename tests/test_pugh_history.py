@@ -10,6 +10,7 @@ from scripts.harvest_pugh_canonical import (
     parse_grid_page,
     parse_page,
     promote_undated_tail_rows,
+    reconciled_source_row_count,
     strict_legacy_match,
     tail_grid_plan,
 )
@@ -238,3 +239,13 @@ def test_enriches_one_strict_dated_match_with_final_grid_result():
     assert rows[0]["guide_price"] == 60000
     observation = rows[0]["source_evidence"]["undated_tail_observation"]
     assert observation["source_positions"] == [7011]
+
+
+def test_reconciled_source_rows_do_not_double_count_grid_boundary_page():
+    page_counts = {str(page): 20 for page in range(1, 349)}
+    assert reconciled_source_row_count(
+        page_counts,
+        last_page=359,
+        grid_covered_pages=set(range(348, 360)),
+        grid_tail_source_rows=221,
+    ) == 7161
