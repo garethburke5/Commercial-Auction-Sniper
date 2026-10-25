@@ -240,6 +240,31 @@ AQ | 32 HUMBER ROAD, COVENTRY CV3 1BA £106,000
     assert rows[4]["sale_price"] == 106000
 
 
+def test_ocr_legacy_scan_artifacts_recover_lots_41_52_and_53():
+    text = """
+Auction : 03 June 2015 Results Sheet as at 05 June 2015
+Lot Address Result
+40 | THE MOON & SIXPENCE, TINTERN NP16 6SG £180,000
+Al __| RED LION COTTAGE, WEOBLEY HR4 8SE AVAILABLE @ £80,000
+42 | 9 HARROWBY DRIVE, TIPTON DY4 8SZ AVAILABLE @ £34,000
+51 | 60 SOUTHFIELD ROAD, BIRMINGHAM B16 0JL NOT OFFERED
+§2 | 3 ORCHARD ROAD, BIRMINGHAM B24 9JL £166,000
+§3 | 5 DOVEDALE AVENUE, WILLENHALL WV12 4NA NOT OFFERED
+54 | 422 PORTLAND ROAD, BIRMINGHAM B17 8LT £80,000
+"""
+    ocr_expected = {
+        **expected("2015-06-03"),
+        "result_url": "https://www.cottons.co.uk/uploads/Results-3rd-June-2015.pdf",
+    }
+    state, rows = parse_result_text(text, ocr_expected, {"basis": "OCR"})
+    assert [row["lot_number"] for row in rows] == ["40", "41", "42", "51", "52", "53", "54"]
+    assert 41 not in state["missing_base_lot_numbers"]
+    assert 52 not in state["missing_base_lot_numbers"]
+    assert 53 not in state["missing_base_lot_numbers"]
+    assert rows[1]["available_price"] == 80000
+    assert rows[4]["sale_price"] == 166000
+
+
 @pytest.mark.parametrize(
     ("previous", "misread", "repaired"),
     [("50", "31", "51"), ("57", "38", "58"), ("58", "39", "59")],

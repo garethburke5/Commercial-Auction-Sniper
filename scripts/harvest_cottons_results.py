@@ -44,7 +44,7 @@ DATE_RE = re.compile(
 # a trailing full stop. Accept those layout artefacts without relaxing the
 # requirement for a numbered row at the beginning of the line.
 ROW_RE = re.compile(
-    r"^(\d+[A-Za-z]?|I|LI|L1|I1|AQ)[.)}\]]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
+    r"^(\d+[A-Za-z]?|I|LI|L1|I1|AQ|AL|§2|§3)[.)}\]]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
     re.I,
 )
 OCR_VERSION = 3
@@ -437,6 +437,9 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
                 "l1": "11",
                 "i1": "11",
                 "aq": "40",
+                "al": "41",
+                "§2": "52",
+                "§3": "53",
             }.get(current_lot.casefold(), current_lot)
             current_parts = [first]
         elif current_lot is not None:
