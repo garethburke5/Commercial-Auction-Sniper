@@ -2,44 +2,33 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2014-02-25:58579d52923f",
   "auction_date": "2014-02-25",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "visible_result_rows": 75,
-  "source_table_rows": 75,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 77,
+  "source_table_rows": 77,
   "identical_duplicate_rows": 0,
-  "lots_captured": 75,
+  "lots_captured": 77,
   "published_lots_offered": 77,
   "lettered_additional_rows": 0,
-  "missing_base_lot_numbers": [
-    5,
-    7
-  ],
+  "missing_base_lot_numbers": [],
   "pagination_reconciled": true,
-  "denominator_reconciled": false,
+  "denominator_reconciled": true,
   "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
   "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
   "result_parser_version": 2,
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-25th-Feb-as-of-14th-March.pdf",
-  "errors": [
-    {
-      "error": "non-contiguous result lot sequence",
-      "missing": [
-        5,
-        7
-      ]
-    }
-  ],
-  "checked_at": "2026-10-25T14:40:58.478845+00:00",
+  "errors": [],
+  "checked_at": "2026-10-25T15:08:33.095880+00:00",
   "ocr_recovered": true,
-  "ocr_version": 3,
+  "ocr_version": 6,
   "source_evidence": {
     "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-25th-Feb-as-of-14th-March.pdf",
-    "retrieved_at": "2026-10-25T14:40:51.435829+00:00",
+    "retrieved_at": "2026-10-25T15:08:24.765740+00:00",
     "sha256": "62b240d92fe1897023bc3d0bb579b8a68face324a5e6b398b5cc169ab342ab81",
     "snapshot_path": "data/auction_history/sources/cottons/results/2014-02-25-62b240d92fe18970.pdf.gz",
-    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-328eaa4f35aa46c0.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-61820231ad3ef6c8.json.gz",
     "basis": "OCR of retained first-party complete auction result PDF",
     "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
-    "ocr_version": 3
+    "ocr_version": 6
   }
 }
