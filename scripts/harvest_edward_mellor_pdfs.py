@@ -31,7 +31,8 @@ import historical_corpus as corpus
 BASE = "https://edwardmellor.co.uk"
 ARCHIVE = BASE + "/auctions/catalogue-and-results-archive/"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-ROW_RE = re.compile(r"^LOT\s+(\d+[A-Za-z]?)\s+(.+)$", re.I)
+PDF_PARSER_VERSION = 2
+ROW_RE = re.compile(r"^LOT\s+(\d+[A-Za-z]?)(?:\s+(.*))?$", re.I)
 DATE_RE = re.compile(
     r"\b(\d{1,2})\s*(?:ST|ND|RD|TH)?\s+"
     r"(JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|JULY|AUGUST|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER)"
@@ -116,25 +117,143 @@ def result_semantics(value: str) -> tuple[str, int | None, int | None]:
     return "unknown", None, None
 
 
-def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict, list[dict]]:
-    auction_date = parse_auction_date(text)
-    raw_rows = []
+def _base_lot_number(label: str) -> int:
+    return int(re.match(r"\d+", label).group())
+
+
+def _page_rows(page: str) -> list[tuple[str, str]]:
+    """Return the numbered rows from one extracted PDF page.
+
+    Retained result PDFs occasionally wrap an address, so continuation text is
+    kept with the preceding row.  Page chrome is excluded just as it was in the
+    original whole-document parser.
+    """
+    rows = []
     current_lot = None
     current_parts = []
-    for original in text.replace("\u00a0", " ").splitlines():
+    for original in page.replace("\u00a0", " ").splitlines():
         line = clean(original)
         if not line:
             continue
         match = ROW_RE.match(line)
         if match:
             if current_lot is not None:
-                raw_rows.append((current_lot, " ".join(current_parts)))
+                rows.append((current_lot, " ".join(current_parts)))
             current_lot, body = match.groups()
-            current_parts = [body]
-        elif current_lot is not None and not re.match(r"^(?:RESULTS|TEL:|WWW\.)", line, re.I):
+            current_parts = [body or ""]
+        elif current_lot is not None and not re.match(
+            r"^(?:RESULTS|AUCTION RESULTS|ISSUE|PAGE\s+\d+|TEL:|WWW\.|EDWARDMELLOR|0161\s)",
+            line,
+            re.I,
+        ):
             current_parts.append(line)
     if current_lot is not None:
-        raw_rows.append((current_lot, " ".join(current_parts)))
+        rows.append((current_lot, " ".join(current_parts)))
+    return rows
+
+
+def _monotonic_page_runs(rows: list[tuple[str, str]]) -> list[list[tuple[str, str]]]:
+    """Split overlaid PDF revisions at each backwards base-lot jump."""
+    if not rows:
+        return []
+    runs = [[rows[0]]]
+    previous = _base_lot_number(rows[0][0])
+    for row in rows[1:]:
+        current = _base_lot_number(row[0])
+        if current < previous:
+            runs.append([])
+        runs[-1].append(row)
+        previous = current
+    return runs
+
+
+def select_page_revision_rows(text: str) -> tuple[list[tuple[str, str]], int]:
+    """Select one sequence-consistent revision from every PDF page.
+
+    Several 2016/17 result PDFs retain two text layers on a page: an obsolete
+    revision and the final revision.  Layout extraction interleaves those
+    layers into false labels such as ``3739``.  Raw extraction preserves each
+    layer as a monotonic run.  Dynamic programming chooses the run whose base
+    lot boundaries continue across the surrounding pages, without filling or
+    inventing any absent lot number.
+    """
+    page_candidates = []
+    for page in text.split("\f"):
+        runs = _monotonic_page_runs(_page_rows(page))
+        if runs:
+            page_candidates.append(runs)
+    if not page_candidates:
+        return [], 0
+
+    # Each entry is (penalty, negative row count, chosen candidate indices).
+    states = []
+    for index, run in enumerate(page_candidates[0]):
+        start = _base_lot_number(run[0][0])
+        states.append((abs(start - 1) * 20, -len(run), [index]))
+    for page_index in range(1, len(page_candidates)):
+        next_states = []
+        for current_index, current_run in enumerate(page_candidates[page_index]):
+            current_start = _base_lot_number(current_run[0][0])
+            best = None
+            for penalty, negative_rows, choices in states:
+                previous_run = page_candidates[page_index - 1][choices[-1]]
+                previous_end = _base_lot_number(previous_run[-1][0])
+                delta = current_start - previous_end
+                transition = 0 if delta == 1 else abs(delta - 1) * 20
+                candidate = (
+                    penalty + transition,
+                    negative_rows - len(current_run),
+                    choices + [current_index],
+                )
+                if best is None or candidate[:2] < best[:2]:
+                    best = candidate
+            next_states.append(best)
+        states = next_states
+    _, _, choices = min(states, key=lambda state: state[:2])
+    selected = [
+        row
+        for page_index, candidate_index in enumerate(choices)
+        for row in page_candidates[page_index][candidate_index]
+    ]
+    discarded_runs = sum(len(candidates) - 1 for candidates in page_candidates)
+    return selected, discarded_runs
+
+
+def repair_empty_raw_rows(raw_text: str, layout_text: str) -> str:
+    """Fill only body-less raw rows from the same PDF's aligned extraction.
+
+    Poppler raw mode very occasionally emits a bare ``LOT 26`` and places its
+    outcome elsewhere in reading order. Layout mode retains that row's result
+    columns. It is used only when the label has one unambiguous aligned row;
+    all other raw rows remain untouched.
+    """
+    aligned = {}
+    ambiguous = set()
+    for original in layout_text.splitlines():
+        match = ROW_RE.match(clean(original) or "")
+        if not match or not clean(match.group(2)):
+            continue
+        label, body = match.groups()
+        label = label.upper()
+        if label in aligned and aligned[label] != body:
+            ambiguous.add(label)
+        else:
+            aligned[label] = body
+    repaired = []
+    for original in raw_text.splitlines(keepends=True):
+        ending = "\n" if original.endswith("\n") else ""
+        match = ROW_RE.match(clean(original) or "")
+        if match and not clean(match.group(2)):
+            label = match.group(1).upper()
+            if label in aligned and label not in ambiguous:
+                original = f"LOT {label} {aligned[label]}{ending}"
+        repaired.append(original)
+    return "".join(repaired)
+
+
+def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict, list[dict]]:
+    auction_date = parse_auction_date(text)
+    raw_rows, discarded_revision_runs = select_page_revision_rows(text)
     if not raw_rows:
         raise ValueError("result sheet contains no numbered lot rows")
 
@@ -207,6 +326,7 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
         "auctioneer": "Edward Mellor",
         "source_auction_id": source_auction_id,
         "auction_date": auction_date,
+        "parser_version": PDF_PARSER_VERSION,
         "catalogue_complete": complete,
         "source_rows_complete": complete,
         "visible_result_rows": source_row_count,
@@ -215,6 +335,7 @@ def parse_result_text(text: str, source_url: str, evidence: dict) -> tuple[dict,
         "lettered_additional_rows": len(rows) - len(base_numbers),
         "identical_duplicate_source_rows": len(duplicate_source_rows),
         "duplicate_source_lot_numbers": duplicate_source_rows,
+        "discarded_overlaid_revision_runs": discarded_revision_runs,
         "missing_base_lot_numbers": missing,
         "pagination_reconciled": True,
         "denominator_reconciled": complete,
@@ -232,12 +353,23 @@ def extract_pdf_text(raw: bytes) -> str:
         with tempfile.TemporaryDirectory(prefix="edward-mellor-pdf-") as directory:
             source = Path(directory) / "result.pdf"
             output = Path(directory) / "result.txt"
+            layout_output = Path(directory) / "result-layout.txt"
             source.write_bytes(raw)
             subprocess.run(
-                ["pdftotext", "-layout", str(source), str(output)],
+                # Raw reading order keeps separately overlaid PDF revisions in
+                # distinct monotonic runs. Layout mode horizontally fused the
+                # layers and manufactured labels such as 2425 and 3739.
+                ["pdftotext", "-raw", str(source), str(output)],
                 check=True, capture_output=True, timeout=90,
             )
-            text = output.read_text(errors="replace")
+            subprocess.run(
+                ["pdftotext", "-layout", str(source), str(layout_output)],
+                check=True, capture_output=True, timeout=90,
+            )
+            text = repair_empty_raw_rows(
+                output.read_text(errors="replace"),
+                layout_output.read_text(errors="replace"),
+            )
     else:
         # GitHub's base runner does not provide Poppler until the later
         # Cottons OCR step. pypdf is already a project dependency and retains
@@ -302,7 +434,10 @@ def harvest(limit: int = 8) -> None:
 
     summary_path = corpus.DATA / "edward_mellor_pdf_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
-    completed_urls = set(previous.get("completed_source_urls") or [])
+    parser_refresh = previous.get("parser_version") != PDF_PARSER_VERSION
+    completed_urls = (
+        set() if parser_refresh else set(previous.get("completed_source_urls") or [])
+    )
     terminal_failures = {
         failure["url"]: failure
         for failure in previous.get("terminal_source_failures") or []
@@ -316,7 +451,11 @@ def harvest(limit: int = 8) -> None:
     existing = list(corpus.iter_rows(appearances_path)) if appearances_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
-    processed_urls = set(previous.get("processed_source_urls") or []) | completed_urls
+    processed_urls = (
+        set()
+        if parser_refresh
+        else set(previous.get("processed_source_urls") or []) | completed_urls
+    )
     # Older summaries recorded only complete URLs. Recover the exact successful
     # fetches from the URL-derived suffix already embedded in every appearance
     # ID, including banked sheets whose published numbering has gaps.
@@ -324,10 +463,11 @@ def harvest(limit: int = 8) -> None:
         str(row.get("source_auction_id") or "").rsplit(":", 1)[-1]
         for row in existing
     }
-    for item in discovered:
-        prepared_url = requests.utils.requote_uri(item["url"])
-        if hashlib.sha256(prepared_url.encode()).hexdigest()[:12] in existing_source_keys:
-            processed_urls.add(item["url"])
+    if not parser_refresh:
+        for item in discovered:
+            prepared_url = requests.utils.requote_uri(item["url"])
+            if hashlib.sha256(prepared_url.encode()).hexdigest()[:12] in existing_source_keys:
+                processed_urls.add(item["url"])
     pending = [
         item for item in discovered
         if item["url"] not in processed_urls and item["url"] not in terminal_failures
@@ -343,11 +483,20 @@ def harvest(limit: int = 8) -> None:
     used_snapshots = {
         row.get("source_evidence", {}).get("snapshot_path") for row in existing
     }
+    cached_by_url = {}
+    for row in existing:
+        source_evidence = row.get("source_evidence") or {}
+        snapshot_path = source_evidence.get("snapshot_path")
+        evidence_url = source_evidence.get("source_url")
+        if snapshot_path and evidence_url:
+            cached_by_url[requests.utils.requote_uri(evidence_url)] = (
+                corpus.ROOT / snapshot_path
+            )
     cached_by_month = {}
     results_dir = corpus.DATA / "sources/edward-mellor-pdfs/results"
     for snapshot in sorted(results_dir.glob("*.pdf.gz")) if results_dir.exists() else []:
         relative = str(snapshot.relative_to(corpus.ROOT))
-        if relative in used_snapshots:
+        if not parser_refresh and relative in used_snapshots:
             continue
         try:
             raw = gzip.decompress(snapshot.read_bytes())
@@ -361,7 +510,13 @@ def harvest(limit: int = 8) -> None:
             url_month_match = re.search(r"/(20\d{2})(\d{2})\d{2}[_-]", item["url"])
             url_month = (f"{url_month_match.group(1)}-{url_month_match.group(2)}"
                          if url_month_match else None)
-            cached = cached_by_month.pop(url_month, None)
+            prepared_url = requests.utils.requote_uri(item["url"])
+            exact_snapshot = cached_by_url.get(prepared_url)
+            if exact_snapshot and exact_snapshot.exists():
+                raw = gzip.decompress(exact_snapshot.read_bytes())
+                cached = (exact_snapshot, raw, extract_pdf_text(raw))
+            else:
+                cached = cached_by_month.pop(url_month, None)
             if cached:
                 snapshot, raw, pdf_text = cached
                 resolved_url = item["url"]
@@ -387,6 +542,13 @@ def harvest(limit: int = 8) -> None:
             state, rows = parse_result_text(pdf_text, resolved_url, evidence)
             state_name = state["source_auction_id"].replace(":", "-") + ".json"
             corpus.save_json(corpus.DATA / "auctions/edward-mellor-pdfs" / state_name, state)
+            # Parser refreshes replace, rather than append to, the same source
+            # sheet. This removes any labels manufactured by the old layout
+            # extractor while retaining every independently evidenced row.
+            if parser_refresh:
+                for appearance_id, old_row in list(merged.items()):
+                    if old_row.get("source_auction_id") == state["source_auction_id"]:
+                        del merged[appearance_id]
             for row in rows:
                 merged[row["appearance_id"]] = row
             states.append(state)
@@ -410,6 +572,7 @@ def harvest(limit: int = 8) -> None:
     added = [row for key, row in merged.items() if key not in before_ids]
     summary = {
         "checked_at": corpus.now(),
+        "parser_version": PDF_PARSER_VERSION,
         "source_url": ARCHIVE,
         "result_pdfs_discovered": len(discovered),
         "result_pdfs_complete": len(completed_urls),

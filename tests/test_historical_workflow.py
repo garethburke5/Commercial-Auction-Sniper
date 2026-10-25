@@ -34,6 +34,15 @@ def test_normal_cottons_guide_window_clears_bounded_retry_backlog():
     assert "scripts/enrich_cottons_guides.py 16" in WORKFLOW[start:end]
 
 
+def test_focused_edward_mellor_pdf_repair_refreshes_all_saved_sheets():
+    focused = WORKFLOW.index("- name: Run focused Edward Mellor overlaid-PDF repair")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    assert "scripts/harvest_edward_mellor_pdfs.py 64" in WORKFLOW[focused:bounded]
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Edward Mellor PDF repair" in bounded_condition
+
+
 def test_source_checkpoint_bundle_precedes_rebase_and_is_artifacted():
     bundle = WORKFLOW.index('git bundle create "$checkpoint_bundle"')
     rebase = WORKFLOW.index("git rebase --autostash origin/main", bundle)

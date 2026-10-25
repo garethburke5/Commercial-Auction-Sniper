@@ -13,6 +13,7 @@ on:
           - all
           - retained-legacy
           - phillip-arnold
+          - edward-mellor-pdfs
           - rebuild
   push:
     paths:
@@ -198,8 +199,12 @@ jobs:
             python -u scripts/harvest_cottons_results.py 16 16 || true
           done
           python -u scripts/enrich_cottons_guides.py 16 || true
+      - name: Run focused Edward Mellor overlaid-PDF repair
+        if: inputs.focus == 'edward-mellor-pdfs' || startsWith(github.event.head_commit.message, 'Run focused Edward Mellor PDF repair')
+        timeout-minutes: 12
+        run: python -u scripts/harvest_edward_mellor_pdfs.py 64
       - name: Resume bounded archive batch
-        if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused Cottons repair')
+        if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused Cottons repair') && !startsWith(github.event.head_commit.message, 'Run focused Edward Mellor PDF repair')
         timeout-minutes: 22
         # Attempt the full rotation while retaining the same 20-minute budget.
         run: python -u scripts/resume_history_batch.py --budget 1200

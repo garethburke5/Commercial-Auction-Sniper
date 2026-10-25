@@ -6,7 +6,8 @@ import requests
 
 from scripts.harvest_edward_mellor_pdfs import (
     discover_result_pdfs, extract_pdf_text, parse_auction_date, parse_result_text,
-    result_semantics, terminal_source_failure
+    repair_empty_raw_rows, result_semantics, select_page_revision_rows,
+    terminal_source_failure
 )
 
 
@@ -53,6 +54,65 @@ def test_missing_base_lot_keeps_sheet_incomplete():
     assert result_semantics("AVAILABLE IN DECEMBER") == ("available", None, None)
     assert result_semantics("MAKE US AN OFFER!") == ("available", None, None)
     assert result_semantics("WTHDRAWN") == ("withdrawn", None, None)
+
+
+def test_selects_sequence_consistent_final_revision_from_overlaid_page():
+    text = """
+    RESULTS - AUCTION 26TH OCTOBER 2016
+    LOT 1 ONE ROAD SOLD
+    LOT 2 TWO ROAD SOLD
+    \f
+    LOT 4 STALE FOUR ROAD SOLD
+    LOT 5 STALE FIVE ROAD SOLD
+    LOT 3 THREE ROAD SOLD
+    LOT 4 FOUR ROAD SOLD
+    \f
+    LOT 5 FIVE ROAD SOLD
+    LOT 6 SIX ROAD SOLD
+    """
+    selected, discarded = select_page_revision_rows(text)
+    assert [label for label, _ in selected] == ["1", "2", "3", "4", "5", "6"]
+    assert discarded == 1
+    state, rows = parse_result_text(text, "https://example.test/results.pdf", {})
+    assert state["catalogue_complete"] is True
+    assert state["discarded_overlaid_revision_runs"] == 1
+    assert [row["address"] for row in rows] == [
+        "ONE ROAD", "TWO ROAD", "THREE ROAD", "FOUR ROAD", "FIVE ROAD", "SIX ROAD",
+    ]
+
+
+def test_uses_following_page_to_choose_between_same_start_revision_runs():
+    text = """
+    RESULTS - AUCTION 26TH OCTOBER 2016
+    LOT 1 ONE ROAD SOLD
+    LOT 2 TWO ROAD SOLD
+    \f
+    LOT 3 OLD THREE ROAD SOLD
+    LOT 4 OLD FOUR ROAD SOLD
+    LOT 3 THREE ROAD SOLD
+    LOT 4 FOUR ROAD SOLD
+    LOT 5 FIVE ROAD SOLD
+    \f
+    LOT 6 SIX ROAD SOLD
+    """
+    selected, discarded = select_page_revision_rows(text)
+    assert [label for label, _ in selected] == ["1", "2", "3", "4", "5", "6"]
+    assert dict(selected)["3"] == "THREE ROAD SOLD"
+    assert discarded == 1
+
+
+def test_repairs_only_unambiguous_bodyless_raw_row_from_layout():
+    raw = "LOT 25 25 ROAD SOLD\nLOT 26\nLOT 27 27 ROAD SOLD\n"
+    layout = "LOT 25 25 ROAD SOLD\nLOT 26      SOLD POST   SOLD\nLOT 27 27 ROAD SOLD\n"
+    repaired = repair_empty_raw_rows(raw, layout)
+    assert "LOT 26 SOLD POST SOLD" in repaired
+    state, rows = parse_result_text(
+        "RESULTS - AUCTION 26TH OCTOBER 2016\n" + repaired,
+        "https://example.test/results.pdf",
+        {},
+    )
+    assert [row["lot_number"] for row in rows] == ["25", "26", "27"]
+    assert rows[1]["status"] == "sold_after"
 
 
 def test_exact_duplicate_source_row_is_banked_once_but_not_complete():
