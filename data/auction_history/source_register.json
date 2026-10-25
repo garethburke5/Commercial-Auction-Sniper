@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-25T20:01:38.779334+00:00",
-  "corpus_checkpoint": "2026-10-25T20:01:16.650411+00:00",
+  "generated_at": "2026-10-25T20:23:11.732091+00:00",
+  "corpus_checkpoint": "2026-10-25T20:22:49.276267+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1990,13 +1990,18 @@
       "name": "Dawsons",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/dawsons",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
+      "matched_corpus_label": "Dawsons",
+      "match_basis": "exact label",
+      "retained_appearances": 138,
+      "years_with_retained_evidence": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
       "with_guide_price": 0,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -7931,7 +7936,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 505,
+  "directory_entries_not_linked": 504,
   "corpus_labels": {
     "Acuitus": 5697,
     "Allsop": 44927,
@@ -7974,6 +7979,7 @@
     "Cheffins": 740,
     "Clive Emson": 3931,
     "Cottons": 7435,
+    "Dawsons": 138,
     "Dedman Gray": 2851,
     "Edward Mellor": 10268,
     "Future Property Auctions": 64584,
@@ -8010,13 +8016,13 @@
     "through_date": "2026-10-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 272671,
-      "auction_ids_observed": 6976,
+      "lot_appearances": 272724,
+      "auction_ids_observed": 7008,
       "with_guide_price": 96231,
       "with_sale_price": 104966,
       "with_both_prices": 45690,
-      "marked_sold": 142378,
-      "marked_sold_without_sale_price": 38152
+      "marked_sold": 142431,
+      "marked_sold_without_sale_price": 38205
     },
     "by_auctioneer_and_year": [
       {
@@ -11133,6 +11139,50 @@
         "marked_sold_without_sale_price": 50
       },
       {
+        "auctioneer": "Dawsons",
+        "year": 2023,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Dawsons",
+        "year": 2024,
+        "lot_appearances": 16,
+        "auction_ids_observed": 14,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 16,
+        "marked_sold_without_sale_price": 16
+      },
+      {
+        "auctioneer": "Dawsons",
+        "year": 2025,
+        "lot_appearances": 28,
+        "auction_ids_observed": 9,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 28,
+        "marked_sold_without_sale_price": 28
+      },
+      {
+        "auctioneer": "Dawsons",
+        "year": 2026,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 8
+      },
+      {
         "auctioneer": "Dedman Gray",
         "year": 2013,
         "lot_appearances": 96,
@@ -13762,7 +13812,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4202,
+    "undated_appearances": 4287,
     "future_dated_appearances": 28,
     "national_completeness_verified": false,
     "limits": [
@@ -15517,6 +15567,15 @@
       "lots_captured": 16,
       "errors": [],
       "checked_at": "2026-10-07T04:12:13.308684+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/dawsons/retained-archive.json",
+      "auctioneer": "Dawsons",
+      "auction_date": null,
+      "source_url": "https://dawsonsproperty.co.uk/past-auctions.php",
+      "lots_captured": 138,
+      "errors": [],
+      "checked_at": "2026-10-25T20:16:50.347068+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-essex/regional-online-results.json",
@@ -18557,7 +18616,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-25T20:01:38.455291+00:00",
+    "checked_at": "2026-10-25T20:23:11.402720+00:00",
     "sha256": "8b0d9287a916c99b2923a2abeb52be1ac42580b99503d992fa62ba29f51ce4b6",
     "status": "retrieved"
   }

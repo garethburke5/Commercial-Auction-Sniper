@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-25T20:01:16.650411+00:00",
-  "individual_lot_records_captured": 279944,
-  "records_with_address": 269575,
+  "generated_at": "2026-10-25T20:22:49.276267+00:00",
+  "individual_lot_records_captured": 280082,
+  "records_with_address": 269713,
   "partial_lot_records": 10369,
-  "exact_address_groups": 153507,
-  "groups_with_repeat_appearances": 38315,
+  "exact_address_groups": 153639,
+  "groups_with_repeat_appearances": 38319,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 44927,
@@ -47,6 +47,7 @@
     "Cheffins": 740,
     "Clive Emson": 3931,
     "Cottons": 7435,
+    "Dawsons": 138,
     "Dedman Gray": 2851,
     "Edward Mellor": 10268,
     "Future Property Auctions": 64584,
@@ -79,7 +80,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4202,
+    "null": 4287,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -101,24 +102,24 @@
     "2020": 10222,
     "2021": 14158,
     "2022": 24189,
-    "2023": 29620,
-    "2024": 38519,
-    "2025": 44042,
-    "2026": 41799
+    "2023": 29621,
+    "2024": 38535,
+    "2025": 44070,
+    "2026": 41807
   },
   "by_sector": {
     "commercial": 38970,
-    "land": 17144,
+    "land": 17145,
     "mixed-use": 42110,
-    "residential": 135971,
-    "unknown": 45749
+    "residential": 136106,
+    "unknown": 45751
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
   "surviving_catalogues_completely_harvested": 2018,
-  "catalogues_incomplete_or_unreconciled": 480,
+  "catalogues_incomplete_or_unreconciled": 481,
   "catalogue_fetch_or_parse_failures": 4,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -131,13 +132,13 @@
     "through_date": "2026-10-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 272671,
-      "auction_ids_observed": 6976,
+      "lot_appearances": 272724,
+      "auction_ids_observed": 7008,
       "with_guide_price": 96231,
       "with_sale_price": 104966,
       "with_both_prices": 45690,
-      "marked_sold": 142378,
-      "marked_sold_without_sale_price": 38152
+      "marked_sold": 142431,
+      "marked_sold_without_sale_price": 38205
     },
     "by_auctioneer_and_year": [
       {
@@ -3254,6 +3255,50 @@
         "marked_sold_without_sale_price": 50
       },
       {
+        "auctioneer": "Dawsons",
+        "year": 2023,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Dawsons",
+        "year": 2024,
+        "lot_appearances": 16,
+        "auction_ids_observed": 14,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 16,
+        "marked_sold_without_sale_price": 16
+      },
+      {
+        "auctioneer": "Dawsons",
+        "year": 2025,
+        "lot_appearances": 28,
+        "auction_ids_observed": 9,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 28,
+        "marked_sold_without_sale_price": 28
+      },
+      {
+        "auctioneer": "Dawsons",
+        "year": 2026,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 8
+      },
+      {
         "auctioneer": "Dedman Gray",
         "year": 2013,
         "lot_appearances": 96,
@@ -5883,7 +5928,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4202,
+    "undated_appearances": 4287,
     "future_dated_appearances": 28,
     "national_completeness_verified": false,
     "limits": [
