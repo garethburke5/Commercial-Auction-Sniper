@@ -56,3 +56,12 @@ def test_bundle_fallback_does_not_block_main_publication():
     assert '\n          test "$checkpoint_saved" = true\n' not in WORKFLOW
     assert 'if test "$checkpoint_saved" = true; then' in WORKFLOW
     assert "the full data commit remains in $checkpoint_bundle" in WORKFLOW
+
+
+def test_focused_pugh_repair_skips_broad_rotation():
+    focused = WORKFLOW.index("- name: Run focused Pugh hybrid archive repair")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    assert "scripts/harvest_pugh_canonical.py" in WORKFLOW[focused:bounded]
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Pugh repair" in bounded_condition

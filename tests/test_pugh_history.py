@@ -249,3 +249,20 @@ def test_reconciled_source_rows_do_not_double_count_grid_boundary_page():
         grid_covered_pages=set(range(348, 360)),
         grid_tail_source_rows=221,
     ) == 7161
+
+
+def test_dynamic_grid_tail_coverage_prevents_newly_reachable_page_double_count():
+    page_counts = {str(page): 20 for page in range(1, 348)}
+    page_counts["355"] = 20
+    grid_covered_pages = set(range(348, 355))
+
+    # The refreshed tail starts at page 348 and proves source positions through
+    # the current final page, including a list page that has become reachable.
+    grid_covered_pages.update(range(min(grid_covered_pages), 359 + 1))
+
+    assert reconciled_source_row_count(
+        page_counts,
+        last_page=359,
+        grid_covered_pages=grid_covered_pages,
+        grid_tail_source_rows=221,
+    ) == 7161

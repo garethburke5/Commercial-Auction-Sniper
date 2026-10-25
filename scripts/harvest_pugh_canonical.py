@@ -954,6 +954,11 @@ def harvest() -> None:
             })
             unresolved_rows = len(tail_rows)
             grid_tail_source_rows = len(tail_rows)
+            # The refreshed grid tail proves every normal-page position from
+            # the original boundary through the current final page.  Persist
+            # that entire interval so a newly reachable deep list page is not
+            # counted again alongside the same grid rows.
+            grid_covered_pages.update(range(first_failed_page, last_page + 1))
             failures = [{
                 "kind": "unresolved_source_rows_without_auction_date",
                 "source_rows": unresolved_rows,
