@@ -200,6 +200,26 @@ def parse_result_page(
 
 
 def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
+    collection_path = corpus.DATA / "agents_property_auction_collection.json"
+    previous = json.loads(collection_path.read_text()) if collection_path.exists() else {}
+    if (
+        previous.get("transport_version") == TRANSPORT_VERSION
+        and previous.get("month_filters_checked") == 0
+        and len(previous.get("failures", [])) >= 96
+    ):
+        previous["source_blocker"] = {
+            "kind": "filtered_archive_blocked_from_free_collector_infrastructure",
+            "direct_route": "HTTP 500 for every attempted filter",
+            "free_reader_route": "response contained no requested auction heading or result rows",
+            "scope": "2010-2013, both advertised venues and all months",
+            "retry_policy": "terminal until a materially different free retrieval route is available",
+            "note": "the browser-verifiable February 2012 table is not treated as empty or captured",
+        }
+        previous["checked_at"] = corpus.now()
+        corpus.save_json(collection_path, previous)
+        print(json.dumps(previous, indent=2), flush=True)
+        return previous
+
     resolved, archive_raw = fetch(BASE)
     archive_html = archive_raw.decode("utf-8", "replace")
     venues, years = discover_filters(archive_html)
@@ -214,8 +234,6 @@ def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
     }
     corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
 
-    collection_path = corpus.DATA / "agents_property_auction_collection.json"
-    previous = json.loads(collection_path.read_text()) if collection_path.exists() else {}
     checked = set(previous.get("checked_month_keys", []))
     # Do not hammer combinations which the source itself rejected on the
     # preceding pass.  Retain them as unresolved and advance to usable years;

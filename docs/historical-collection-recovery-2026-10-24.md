@@ -168,3 +168,13 @@ Published Swift data checkpoint `d2ce21036bc998ee173458f6a63154f67a328b8f`, dete
 - The earlier attempt rebuilt the correct 279,796-row database but publication was blocked by a nondeterministic storage regression fixture: default gzip output embeds the current timestamp. The test fixture now fixes `mtime=0`, matching the production database writer and making repeated archive hashes reproducible.
 
 National completeness remains unverified: 500 catalogue states, 68 current source errors and 511 unlinked directory candidates remain, in addition to uncovered auctioneer/year inventories.
+
+
+## Continuation: Agents Property Auction archive blocker and Savills refresh
+
+- A new source-specific collector and regression coverage were added for Agents Property Auction's first-party Newcastle/Cumbria result archive. The public filter advertises 2010–2026 and publishes address-level sold results with achieved prices; it does not publish exact auction days or original catalogue denominators. The collector therefore keeps dates null (`month_only_unresolved`) and never marks these result tables as complete catalogues.
+- The February 2012 Newcastle result page was independently verified in a public browser with 65 address rows, including achieved prices and one undisclosed result. The archive is not empty.
+- Free GitHub collection is materially blocked. Ninety-six venue/month combinations across 2010–2013 were attempted: direct requests returned HTTP 500 even through a persistent serialized browser-like session, while the free reader fallback returned no requested auction heading or result rows. Zero records were admitted. Every attempted URL and error remains checkpointed.
+- The collector now treats that unchanged combination as terminal until a materially different free retrieval route exists. This prevents repeated zero-result probes while usable sources elsewhere remain. The directory entry stays unlinked and no national-coverage claim is made.
+- The same verified workflow refreshed Savills `savills:3`: complete retained catalogue states increased from 1,998 to 1,999, incomplete states fell from 500 to 499, and current source errors fell from 68 to 67. This is a reconciliation improvement, not a new appearance.
+- Published corpus totals remain **279,796 individual appearances**: **269,427 address records**, **10,369 partial lots**, and **4,202 undated appearances**.
