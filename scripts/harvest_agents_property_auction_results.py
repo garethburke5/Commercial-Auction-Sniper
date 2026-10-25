@@ -26,7 +26,14 @@ import historical_corpus as corpus
 
 
 BASE = "https://www.agentspropertyauction.com/auctions/auction-results/"
-HEADERS = {"User-Agent": "AuctionGeek/1.0 (+historical lot research)"}
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "en-GB,en;q=0.9",
+}
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
+TRANSPORT_VERSION = 2
 HEADING_RE = re.compile(
     r"Results\s+from\s+our(?:\s+latest)?\s+auction\s+at\s+(.+?)\s+in\s+([A-Za-z]+)\s+(20\d{2})",
     re.I,
@@ -40,7 +47,9 @@ def clean(value: str | None) -> str | None:
 
 
 def fetch(url: str, params=None) -> tuple[str, bytes]:
-    response = requests.get(url, params=params, headers=HEADERS, timeout=60)
+    # The legacy filter route returns HTTP 500 to stateless/non-browser
+    # requests.  Reuse the archive-index session and issue requests serially.
+    response = SESSION.get(url, params=params, timeout=60)
     response.raise_for_status()
     if len(response.content) < 500:
         raise ValueError("source response is unexpectedly short")
@@ -164,7 +173,7 @@ def parse_result_page(
     return state, parsed
 
 
-def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
+def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
     resolved, archive_raw = fetch(BASE)
     archive_html = archive_raw.decode("utf-8", "replace")
     venues, years = discover_filters(archive_html)
@@ -185,7 +194,19 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
     # Do not hammer combinations which the source itself rejected on the
     # preceding pass.  Retain them as unresolved and advance to usable years;
     # they can be explicitly retried after the surviving archive is banked.
-    prior_failed = {item.get("key") for item in previous.get("failures", []) if item.get("key")}
+    previous_failures = {
+        item.get("key"): item for item in previous.get("failures", []) if item.get("key")
+    }
+    if previous.get("transport_version") == TRANSPORT_VERSION:
+        prior_failed = set(previous_failures)
+    else:
+        # The v1 transport failed every filtered request.  Avoid repeating the
+        # already exhausted 2010-11 probe, but retry 2012+ once with the fixed
+        # browser session (February 2012 is independently known to be live).
+        prior_failed = {
+            key for key in previous_failures
+            if int(key.rsplit("-", 1)[0].rsplit("|", 1)[1]) < 2012
+        }
     attempted = checked | prior_failed
     now = datetime.now(timezone.utc)
     candidates = []
@@ -198,8 +219,7 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
                     candidates.append((key, venue, year, month))
     limit = max(1, years_per_run) * max(1, len(venues)) * 12
     selected = candidates[:limit]
-    states, rows = {}, []
-    failures = list(previous.get("failures", []))
+    states, rows, run_failures = {}, [], []
 
     def capture(item):
         key, venue, year, month = item
@@ -228,6 +248,7 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
             try:
                 key, state, page_rows = future.result()
                 checked.add(key)
+                previous_failures.pop(key, None)
                 if state:
                     states[state["source_auction_id"]] = state
                     rows.extend(page_rows)
@@ -235,11 +256,13 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
                     month = state["published_auction_month"]
                     corpus.save_json(corpus.DATA / f"auctions/agents-property-auction/{venue_slug}-{month}.json", state)
             except Exception as exc:
-                failures.append({
+                failure = {
                     "key": item[0],
                     "url": BASE + "?" + urlencode({"a_venue": item[1], "a_year": item[2], "a_month": f"{item[3]:02d}", "a_sub": 1}),
                     "error": f"{type(exc).__name__}: {exc}"[:500],
-                })
+                }
+                previous_failures[item[0]] = failure
+                run_failures.append(failure)
 
     shard = corpus.DATA / "appearances/agents-property-auction/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(shard)) if shard.exists() else []
@@ -251,6 +274,7 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
     all_possible = sum((now.month if year == now.year else 12) * len(venues) for year in years)
     summary = {
         "checked_at": corpus.now(),
+        "transport_version": TRANSPORT_VERSION,
         "source_url": BASE,
         "archive_evidence": archive_evidence,
         "venues": venues,
@@ -259,7 +283,7 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
         "attempted_month_keys": sorted(attempted | {item[0] for item in selected}),
         "month_filters_checked": len(checked),
         "month_filters_expected_through_current_month": all_possible,
-        "filter_inventory_complete_through_current_month": len(checked) == all_possible and not failures,
+        "filter_inventory_complete_through_current_month": len(checked) == all_possible and not previous_failures,
         "result_tables_captured_this_run": len(states),
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
@@ -270,11 +294,12 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
         "by_sector": dict(Counter(row.get("sector") for row in merged.values())),
         "catalogue_completion_claimed": False,
         "completion_limit": "sold-result tables do not expose the original catalogue denominator or exact auction day",
-        "failures": failures,
+        "failures": [previous_failures[key] for key in sorted(previous_failures)],
+        "run_failures": run_failures,
     }
     corpus.save_json(collection_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if failures:
+    if run_failures:
         raise SystemExit(1)
     return summary
 
@@ -282,6 +307,6 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("years_per_run", nargs="?", type=int, default=2)
-    parser.add_argument("--workers", type=int, default=4)
+    parser.add_argument("--workers", type=int, default=1)
     args = parser.parse_args()
     harvest(args.years_per_run, args.workers)

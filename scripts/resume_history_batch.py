@@ -23,7 +23,7 @@ TASKS=(
     ('mchugh', ['scripts/harvest_mchugh_results.py','2']),
     ('phillip_arnold', ['scripts/harvest_phillip_arnold_results.py','2']),
     ('harman_healy_results', ['scripts/harvest_harman_healy_results.py']),
-    ('agents_property_auction', ['scripts/harvest_agents_property_auction_results.py','2','--workers','4']),
+    ('agents_property_auction', ['scripts/harvest_agents_property_auction_results.py','2','--workers','1']),
     ('lsh_results', ['scripts/harvest_lsh_results.py']),
     ('goldings_results', ['scripts/harvest_goldings_results.py']),
     ('maggs_allen_results', ['scripts/harvest_maggs_allen_results.py']),
