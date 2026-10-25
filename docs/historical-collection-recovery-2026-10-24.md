@@ -301,3 +301,16 @@ National completeness remains unverified: 484 incomplete catalogue states, 13 cu
 - Artifact `12610309740` is 301,025,656 bytes with SHA-256 `c39eb8d36fa0834c9fbd5d95c54a71dccb1c2a48a3bd96684f1ae18e7d0de54d`.
 
 National completeness remains unverified: 484 incomplete catalogue states, 8 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
+
+
+## Checkpoint: Edward Mellor section-number reconciliation
+
+- Four complete first-party result PDFs were falsely failing the contiguous-lot check because their printed commercial section ends at lot 33–36, followed by a standalone `RESIDENTIAL` heading and the first residential result at lot 40. The collector now recognises only the exact reserved interval immediately around that evidenced heading; it never creates rows for the unused labels.
+- Reconciled sheets are 11 December 2013 (**86 address appearances; reserved 36–39**), 4 February 2014 (**87; reserved 34–39**), 19 March 2014 (**95; reserved 36–39**) and 30 April 2014 (**124; reserved 37–39**). All remain exact-dated, source-snapshotted appearances with published outcomes and prices preserved.
+- The 27 April 2016 PDF contains lots 69 and 71 with no printed lot 70 or section boundary. It therefore remains incomplete with lot 70 as a genuine unresolved numbering gap. No row, address, outcome or price was inferred.
+- Edward Mellor PDF holdings remain **4,051 appearances**. Complete retained result PDFs increase from 48 to **52 of 55**; one numbering-gap sheet and two terminal source blockers remain explicit.
+- No lot rows changed. The published corpus remains **279,944 individual appearances**: **269,575 address records**, **10,369 partial lots**, and **4,202 undated appearances**. Catalogue states improve from 2,014 complete / 484 incomplete to **2,018 complete / 480 incomplete**; current fetch/parse failures fall from 8 to **4**.
+- Repair `a37f9f0fdfc646ede86202399492b22f0398b85e`, followed by generated checkpoint `5c2b7f09d37e8e33bafb4f05fa3c72ead1e51eac`, passed parser tests, the focused PDF refresh, source banking, database rebuild, packaging, source-register reconciliation, publication and artifact retention in workflow run `40228539835`.
+- Artifact `12611687799` is 301,371,970 bytes with SHA-256 `f9cd366fdbbcdf01ccaf9f964e64fc55e688eff908ab0f01fb801dc2818b6aa0`.
+
+National completeness remains unverified: 480 incomplete catalogue states, four current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.

@@ -184,7 +184,7 @@ jobs:
       - name: Check bounded continuation and database storage
         run: python -m pytest -q tests/test_history_continuation.py tests/test_historical_workflow.py tests/test_barnard_history_continuation.py tests/test_harvest_barnard_marcus.py tests/test_history_source_register.py tests/test_history_storage.py tests/test_historical_corpus.py tests/test_historical_price_coverage.py tests/test_cottons_catalogue_guides.py
       - name: Enrich banked Cottons appearances with exact catalogue guides
-        if: inputs.focus != 'retained-legacy' && inputs.focus != 'rebuild' && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused SDL terminal repair')
+        if: inputs.focus != 'retained-legacy' && inputs.focus != 'rebuild' && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused SDL terminal repair') && !startsWith(github.event.head_commit.message, 'Run focused Edward Mellor PDF repair')
         timeout-minutes: 5
         continue-on-error: true
         # Reconciliation is idempotent and already skips checked rows.  A
