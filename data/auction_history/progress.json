@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-25T23:20:07.081638+00:00",
-  "individual_lot_records_captured": 280158,
-  "records_with_address": 269747,
+  "generated_at": "2026-10-25T23:48:36.013421+00:00",
+  "individual_lot_records_captured": 285659,
+  "records_with_address": 275248,
   "partial_lot_records": 10411,
   "exact_address_groups": 153642,
-  "groups_with_repeat_appearances": 38339,
+  "groups_with_repeat_appearances": 39003,
   "by_auctioneer": {
     "Acuitus": 5697,
     "Allsop": 44946,
@@ -50,7 +50,7 @@
     "Dawsons": 138,
     "Dedman Gray": 2851,
     "Edward Mellor": 10268,
-    "Future Property Auctions": 64584,
+    "Future Property Auctions": 70085,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
     "Hollis Morgan": 813,
@@ -100,25 +100,25 @@
     "2018": 8232,
     "2019": 7397,
     "2020": 10222,
-    "2021": 14158,
-    "2022": 24189,
-    "2023": 29621,
+    "2021": 17537,
+    "2022": 24846,
+    "2023": 30561,
     "2024": 38535,
     "2025": 44070,
-    "2026": 41807
+    "2026": 42332
   },
   "by_sector": {
-    "commercial": 38992,
-    "land": 17155,
-    "mixed-use": 42125,
-    "residential": 136124,
+    "commercial": 40212,
+    "land": 17435,
+    "mixed-use": 44307,
+    "residential": 137943,
     "unknown": 45762
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2018,
+  "surviving_catalogues_completely_harvested": 2036,
   "catalogues_incomplete_or_unreconciled": 489,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -132,12 +132,12 @@
     "through_date": "2026-10-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 272754,
-      "auction_ids_observed": 7015,
+      "lot_appearances": 278255,
+      "auction_ids_observed": 7033,
       "with_guide_price": 96256,
-      "with_sale_price": 104984,
+      "with_sale_price": 105377,
       "with_both_prices": 45708,
-      "marked_sold": 142450,
+      "marked_sold": 142843,
       "marked_sold_without_sale_price": 38206
     },
     "by_auctioneer_and_year": [
@@ -3641,24 +3641,35 @@
       },
       {
         "auctioneer": "Future Property Auctions",
-        "year": 2022,
-        "lot_appearances": 8874,
-        "auction_ids_observed": 31,
+        "year": 2021,
+        "lot_appearances": 3379,
+        "auction_ids_observed": 13,
         "with_guide_price": 0,
-        "with_sale_price": 478,
+        "with_sale_price": 293,
         "with_both_prices": 0,
-        "marked_sold": 478,
+        "marked_sold": 293,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Future Property Auctions",
+        "year": 2022,
+        "lot_appearances": 9531,
+        "auction_ids_observed": 33,
+        "with_guide_price": 0,
+        "with_sale_price": 527,
+        "with_both_prices": 0,
+        "marked_sold": 527,
         "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Future Property Auctions",
         "year": 2023,
-        "lot_appearances": 10677,
-        "auction_ids_observed": 26,
+        "lot_appearances": 11617,
+        "auction_ids_observed": 28,
         "with_guide_price": 0,
-        "with_sale_price": 377,
+        "with_sale_price": 418,
         "with_both_prices": 0,
-        "marked_sold": 377,
+        "marked_sold": 418,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -3686,12 +3697,12 @@
       {
         "auctioneer": "Future Property Auctions",
         "year": 2026,
-        "lot_appearances": 14197,
-        "auction_ids_observed": 39,
+        "lot_appearances": 14722,
+        "auction_ids_observed": 40,
         "with_guide_price": 0,
-        "with_sale_price": 921,
+        "with_sale_price": 931,
         "with_both_prices": 0,
-        "marked_sold": 921,
+        "marked_sold": 931,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -5962,7 +5973,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-25T21:23:06.156613+00:00",
+    "checked_at": "2026-10-25T23:40:23.648091+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
