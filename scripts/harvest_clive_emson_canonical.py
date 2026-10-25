@@ -44,16 +44,16 @@ LOT_PATH_RE = re.compile(r"^/properties/(\d+)/(\d+[A-Za-z]?)/?$", re.I)
 # pages, however.  Those detail pages retain exact auction dates, addresses and
 # achieved prices.  Harvest the article-linked identities only; never infer the
 # missing remainder of an old catalogue from its numeric auction ID.
-ROUNDUP_ARTICLES = (
-    BASE + "/news/february-2022-auction-roundup/",
-    BASE + "/news/march-auction-roundup/",
-    BASE + "/news/may-auction-roundup-2022/",
-    BASE + "/news/june-auction-roundup-2022/",
-    BASE + "/news/july-auction-roundup-2022/",
-    BASE + "/news/auction-roundup-september-2022/",
-    BASE + "/news/auction-roundup-november-2022/",
-    BASE + "/news/auction-roundup-december-2022/",
-)
+ROUNDUP_ARTICLES = {
+    BASE + "/news/february-2022-auction-roundup/": "2022-02",
+    BASE + "/news/march-auction-roundup/": "2022-03",
+    BASE + "/news/may-auction-roundup-2022/": "2022-05",
+    BASE + "/news/june-auction-roundup-2022/": "2022-06",
+    BASE + "/news/july-auction-roundup-2022/": "2022-07",
+    BASE + "/news/auction-roundup-september-2022/": "2022-09",
+    BASE + "/news/auction-roundup-november-2022/": "2022-11",
+    BASE + "/news/auction-roundup-december-2022/": "2022-12",
+}
 
 
 def session():
@@ -123,6 +123,64 @@ def roundup_lot_links(html, article_url):
         found[key] = f"{BASE}/properties/{key[0]}/{key[1]}/"
     return [{"auction_id": key[0], "lot_number": key[1], "url": found[key]}
             for key in sorted(found, key=lambda item: (int(item[0]), item[1]))]
+
+
+def roundup_article_rows(html, article_url, auction_month, evidence):
+    """Bank article-selected lots without promoting prose to street addresses."""
+    soup = BeautifulSoup(html, "html.parser")
+    rows = {}
+    for link in roundup_lot_links(html, article_url):
+        anchor = next((node for node in soup.find_all("a", href=True)
+                       if urlparse(urljoin(article_url, node["href"])).path.rstrip("/") ==
+                       urlparse(link["url"]).path.rstrip("/")), None)
+        heading = anchor.find_previous("h2") if anchor else None
+        if not heading:
+            continue
+        title = clean(heading.get_text(" ", strip=True))
+        parts = []
+        for node in heading.find_all_next(["h2", "p", "li"]):
+            if node is heading:
+                continue
+            if node.name == "h2":
+                break
+            value = clean(node.get_text(" ", strip=True))
+            if value and value not in parts:
+                parts.append(value)
+        description = clean(" ".join(parts))
+        if not title or not description:
+            continue
+        lower = description.casefold()
+        sold = bool(re.search(r"\b(?:sold|selling|purchased)\b", lower))
+        price = None
+        if sold:
+            match = re.search(
+                r"(?:sold|selling|purchased|settled|buyer)[^£]{0,140}£\s*([\d,]+(?:\.\d+)?)",
+                description, re.I,
+            )
+            if match:
+                price = corpus.money(match.group(1))
+        row = corpus.base_row(
+            "Clive Emson", f"clive-emson:{link['auction_id']}", None,
+            link["lot_number"], link["lot_number"], link["url"],
+        )
+        row.update(
+            address=None,
+            postcode=None,
+            locality=None,
+            property_type=title,
+            description=description,
+            sector=corpus.sector(" ".join([title, description])),
+            status="sold" if sold else "unknown",
+            sale_price=price,
+            record_quality="partial_lot",
+            identity_method="source_roundup_article_auction_and_lot_number",
+            source_evidence=evidence,
+            roundup_article_url=article_url,
+            auction_month=auction_month,
+            auction_date_basis="source article identifies the sale month but not an exact auction day",
+        )
+        rows[(link["auction_id"], link["lot_number"])] = row
+    return rows
 
 
 def normalize_status(value):
@@ -387,24 +445,27 @@ def detail_identity(raw):
 
 
 def harvest_roundups():
-    """Bank exact old lot pages retained by first-party roundup articles.
+    """Bank exact old lot identities retained by first-party roundup articles.
 
     This deliberately does not call an old numeric catalogue container: those
-    routes now redirect.  Each admitted appearance needs both an article link
-    and a non-redirecting lot page whose printed lot/date identity agrees with
-    its URL.  Broken links remain explicit failures without discarding rows
-    recovered from the same article.
+    routes now redirect.  A surviving detail page supplies the exact date and
+    address; otherwise the article itself supplies a deliberately undated,
+    address-null partial record.  Broken links remain explicit failures without
+    discarding article evidence recovered for the same lot identity.
     """
     client = session()
     before = json.loads((corpus.DATA / "progress.json").read_text())
     rows_by_auction = {}
+    linked_ids_by_auction = {}
+    captured_ids_by_auction = {}
     article_states = []
     failures = []
     added = []
 
-    for article_url in ROUNDUP_ARTICLES:
+    for article_url, auction_month in ROUNDUP_ARTICLES.items():
         state = {"source_url": article_url, "links_discovered": 0,
-                 "detail_rows_captured": 0, "failures": []}
+                 "detail_rows_captured": 0, "partial_article_rows_captured": 0,
+                 "auction_month": auction_month, "failures": []}
         try:
             final_article_url, article_raw = get(client, article_url)
             article_sha = corpus.digest(article_raw)
@@ -423,11 +484,15 @@ def harvest_roundups():
                 "html": article_raw.decode("utf-8", "replace"),
             })
             links = roundup_lot_links(article_raw, final_article_url)
+            fallbacks = roundup_article_rows(
+                article_raw, final_article_url, auction_month, article_evidence,
+            )
             state["links_discovered"] = len(links)
             if not links:
                 raise ValueError("roundup article exposes zero exact lot links")
 
             for link in links:
+                linked_ids_by_auction.setdefault(link["auction_id"], set()).add(link["lot_number"])
                 try:
                     final_url, raw = get(client, link["url"])
                     expected_path = urlparse(link["url"]).path.rstrip("/")
@@ -464,6 +529,7 @@ def harvest_roundups():
                         roundup_article_url=final_article_url,
                     )
                     rows_by_auction.setdefault(link["auction_id"], []).append(row)
+                    captured_ids_by_auction.setdefault(link["auction_id"], set()).add(lot)
                     state["detail_rows_captured"] += 1
                 except Exception as exc:
                     failure = {
@@ -473,6 +539,11 @@ def harvest_roundups():
                     }
                     failures.append(failure)
                     state["failures"].append(failure)
+                    fallback = fallbacks.get((link["auction_id"], link["lot_number"]))
+                    if fallback:
+                        rows_by_auction.setdefault(link["auction_id"], []).append(fallback)
+                        captured_ids_by_auction.setdefault(link["auction_id"], set()).add(link["lot_number"])
+                        state["partial_article_rows_captured"] += 1
                 time.sleep(0.1)
         except Exception as exc:
             failure = {"kind": "roundup_article", "url": article_url,
@@ -497,25 +568,28 @@ def harvest_roundups():
             old_state = json.loads(path.read_text())
         except (OSError, ValueError, TypeError):
             old_state = {}
-        dates = {row["auction_date"] for row in merged.values()}
-        if len(dates) != 1:
+        dates = {row["auction_date"] for row in merged.values() if row.get("auction_date")}
+        if len(dates) > 1:
             raise ValueError(f"auction {auction_id} has conflicting exact dates: {sorted(dates)}")
         linked_failures = [item for item in failures if item.get("auction_id") == auction_id]
+        linked_complete = (captured_ids_by_auction.get(auction_id, set()) ==
+                           linked_ids_by_auction.get(auction_id, set()))
         state = {
             **old_state,
             "auctioneer": "Clive Emson",
             "source_auction_id": f"clive-emson:{auction_id}",
             "auction_id": auction_id,
-            "auction_date": next(iter(dates)),
+            "auction_date": next(iter(dates)) if dates else None,
             "lots_captured": len(merged),
             "catalogue_complete": bool(old_state.get("catalogue_complete")),
-            "article_linked_rows_complete": not linked_failures,
+            "article_linked_rows_complete": linked_complete,
             "completion_scope": (old_state.get("completion_scope") or
                                  "surviving detail pages linked by first-party roundup articles; not the full catalogue"),
             "appearance_ids": sorted(merged),
             "errors": list(dict.fromkeys(
                 (old_state.get("errors") or []) +
-                (["Some article-linked lot pages no longer survive"] if linked_failures else []) +
+                (["Some article-linked lot detail pages no longer survive"] if linked_failures else []) +
+                (["Some article-linked lot identities could not be banked"] if not linked_complete else []) +
                 ["Full historical catalogue inventory is not available"]
             )),
             "checked_at": corpus.now(),
@@ -530,9 +604,11 @@ def harvest_roundups():
     summary = collection_summary(auctions)
     summary.update({
         "roundup_articles": article_states,
-        "roundup_detail_rows_captured": sum(
+        "roundup_rows_captured": sum(
             len({row["appearance_id"] for row in rows}) for rows in rows_by_auction.values()
         ),
+        "roundup_detail_rows_captured": sum(item["detail_rows_captured"] for item in article_states),
+        "roundup_partial_rows_captured": sum(item["partial_article_rows_captured"] for item in article_states),
         "run_new_appearances": len(added),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),

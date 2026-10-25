@@ -8,6 +8,7 @@ from scripts.harvest_clive_emson_canonical import (
     discover,
     parse_date,
     parse_catalogue,
+    roundup_article_rows,
     roundup_lot_links,
 )
 
@@ -63,6 +64,43 @@ def test_roundup_links_admit_only_exact_first_party_lot_routes():
         {"auction_id": "231", "lot_number": "5",
          "url": "https://www.cliveemson.co.uk/properties/231/5/"},
     ]
+
+
+def test_roundup_article_rows_bank_only_explicit_partial_evidence():
+    html = b"""
+    <h2>Mixed-use investment in Kent</h2>
+    <p>A shop with a self-contained flat above was sold for &pound;337,750.</p>
+    <p><a href='/properties/231/101/'>View Lot 101</a></p>
+    <h2>Development land near Southampton</h2>
+    <p>The freehold site attracted strong interest from a potential buyer.</p>
+    <p><a href='/properties/231/102/'>View Lot 102</a></p>
+    <p><a href='https://example.com/properties/231/103/'>Foreign lot</a></p>
+    """
+    evidence = {
+        "snapshot_path": "data/auction_history/sources/clive-emson/roundups/example.json.gz",
+        "sha256": "abc",
+    }
+    rows = roundup_article_rows(
+        html, "https://www.cliveemson.co.uk/news/february-2022-auction-roundup/",
+        "2022-02", evidence,
+    )
+
+    assert set(rows) == {("231", "101"), ("231", "102")}
+    sold = rows[("231", "101")]
+    assert sold["auction_date"] is None
+    assert sold["auction_month"] == "2022-02"
+    assert sold["address"] is None
+    assert sold["postcode"] is None
+    assert sold["record_quality"] == "partial_lot"
+    assert sold["source_auction_id"] == "clive-emson:231"
+    assert sold["sale_price"] == 337750
+    assert sold["status"] == "sold"
+    assert sold["sector"] == "mixed-use"
+
+    unknown = rows[("231", "102")]
+    assert unknown["sale_price"] is None
+    assert unknown["status"] == "unknown"
+    assert unknown["sector"] == "land"
 
 
 def test_legacy_heading_date_allows_separate_ordinal_element():
