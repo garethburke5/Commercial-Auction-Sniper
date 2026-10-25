@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-24T23:11:00.002319+00:00",
+  "checked_at": "2026-10-25T00:11:36.847430+00:00",
   "source_url": "https://www.swiftpropertyauctions.co.uk/previous-auctions",
   "catalogues_discovered": 16,
   "catalogues_captured": 16,
@@ -29,11 +29,11 @@
     "sold_prior": 25,
     "sold_after": 4
   },
-  "failures": [
+  "reconciliation_discrepancies": [
     {
       "source_id": "85367",
       "auction_date": "2026-10-14",
-      "error": "Published archive total differs from visible, uniquely identified lot cards",
+      "issue": "Published archive total differs from visible, uniquely identified lot cards",
       "reconciliation": {
         "published_lot_denominator": 6,
         "visible_source_rows": 7,
@@ -45,5 +45,6 @@
       }
     }
   ],
+  "failures": [],
   "complete": false
 }

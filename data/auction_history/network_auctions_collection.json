@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-08T19:45:49.147809+00:00",
+  "checked_at": "2026-10-25T00:19:35.642320+00:00",
   "source_url": "https://www.networkauctions.co.uk/auctions/previous-auctions/",
-  "legacy_auctions_discovered": 35,
+  "legacy_auctions_discovered": 0,
   "auctions_captured": 34,
   "auctions_complete": 34,
   "auctions_reused": 34,
@@ -26,10 +26,10 @@
     "land": 213
   },
   "archive_evidence": {
-    "source_url": "https://www.networkauctions.co.uk/auctions/previous-auctions/",
-    "retrieved_at": "2026-10-08T19:45:48.273275+00:00",
-    "sha256": "9f8c14b583cdc08178400ac3b6c3ebc0a37863362175efadae4ca56baefd6b72",
-    "snapshot_path": "data/auction_history/sources/network-auctions/archive-9f8c14b583cdc081.json.gz",
+    "source_url": "https://www.btgeddisonspropertyauctions.com/our-acquisitions/network-auctions",
+    "retrieved_at": "2026-10-25T00:19:35.411585+00:00",
+    "sha256": "4355c1072ef798649923a2bb8f25b5b818d286957ec1c67708d4760df6bb19cb",
+    "snapshot_path": "data/auction_history/sources/network-auctions/archive-4355c1072ef79864.json.gz",
     "basis": "first-party previous-auctions index"
   },
   "auctions": {
@@ -612,13 +612,14 @@
       "checked_at": "2026-10-03T19:47:55.556596+00:00"
     }
   },
-  "failures": [
-    {
-      "auction_id": "1858",
-      "auction_date": "2021-03-09",
-      "url": "https://www.networkauctions.co.uk/auctions/next-auction/?auction_id=1858",
-      "error": "ValueError: legacy catalogue contains no lot cards"
-    }
-  ],
-  "deferred_scope": "online_auction_id shells expose no visible source lot rows"
+  "failures": [],
+  "deferred_scope": "online_auction_id shells expose no visible source lot rows",
+  "archive_terminal_migration": {
+    "status": "acquired_and_legacy_archive_removed",
+    "successor": "BTG Eddisons Property Auctions",
+    "acquired_in": 2025,
+    "basis": "first-party replacement page",
+    "preserved_complete_legacy_catalogues": 34,
+    "preserved_appearances": 1202
+  }
 }
