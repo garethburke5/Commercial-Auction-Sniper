@@ -2,40 +2,31 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2015-06-03:1f896c6a852b",
   "auction_date": "2015-06-03",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "visible_result_rows": 55,
-  "source_table_rows": 55,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 56,
+  "source_table_rows": 56,
   "identical_duplicate_rows": 0,
-  "lots_captured": 55,
+  "lots_captured": 56,
   "published_lots_offered": 56,
   "lettered_additional_rows": 0,
-  "missing_base_lot_numbers": [
-    41
-  ],
+  "missing_base_lot_numbers": [],
   "pagination_reconciled": true,
-  "denominator_reconciled": false,
+  "denominator_reconciled": true,
   "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
   "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
   "result_parser_version": 2,
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-3rd-June-as-of-5th-June.pdf",
-  "errors": [
-    {
-      "error": "non-contiguous result lot sequence",
-      "missing": [
-        41
-      ]
-    }
-  ],
-  "checked_at": "2026-10-25T13:13:47.445621+00:00",
+  "errors": [],
+  "checked_at": "2026-10-25T13:20:26.744825+00:00",
   "ocr_recovered": true,
   "ocr_version": 3,
   "source_evidence": {
     "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-3rd-June-as-of-5th-June.pdf",
-    "retrieved_at": "2026-10-25T13:13:40.640850+00:00",
+    "retrieved_at": "2026-10-25T13:20:19.902750+00:00",
     "sha256": "397423541fed3082734e93b4dcd86b1aad84b815fff84bbf53b00d7704349d1e",
     "snapshot_path": "data/auction_history/sources/cottons/results/2015-06-03-397423541fed3082.pdf.gz",
-    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-4ee30d545e8572b3.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-a175b0b81600e64b.json.gz",
     "basis": "OCR of retained first-party complete auction result PDF",
     "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
     "ocr_version": 3
