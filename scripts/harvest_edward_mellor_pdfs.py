@@ -31,7 +31,7 @@ import historical_corpus as corpus
 BASE = "https://edwardmellor.co.uk"
 ARCHIVE = BASE + "/auctions/catalogue-and-results-archive/"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-PDF_PARSER_VERSION = 2
+PDF_PARSER_VERSION = 3
 ROW_RE = re.compile(r"^LOT\s+(\d+[A-Za-z]?)(?:\s+(.*))?$", re.I)
 DATE_RE = re.compile(
     r"\b(\d{1,2})\s*(?:ST|ND|RD|TH)?\s+"
@@ -568,7 +568,11 @@ def harvest(limit: int = 8) -> None:
             else:
                 failures.append(failure)
 
-    total = corpus.write_rows("edward-mellor-pdfs/canonical", list(merged.values()))
+    total = corpus.write_rows(
+        "edward-mellor-pdfs/canonical",
+        list(merged.values()),
+        preserve_existing=not parser_refresh,
+    )
     added = [row for key, row in merged.items() if key not in before_ids]
     summary = {
         "checked_at": corpus.now(),

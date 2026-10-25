@@ -89,7 +89,7 @@ def read_gzip(path):
         return json.load(f)
 
 
-def write_rows(key, rows):
+def write_rows(key, rows, preserve_existing=True):
     unique = {}
     for row in rows:
         eid = row["appearance_id"]
@@ -98,7 +98,10 @@ def write_rows(key, rows):
         unique[eid] = row
     path = DATA / "appearances" / (key + ".jsonl.gz")
     # No silent loss on a later collection: retain earlier observed lots.
-    if path.exists():
+    # A versioned parser repair may explicitly replace one source shard after
+    # it has independently proved that earlier identities were extraction
+    # artefacts. Callers must opt in; preservation remains the default.
+    if preserve_existing and path.exists():
         for old in iter_rows(path):
             if old["appearance_id"] not in unique:
                 unique[old["appearance_id"]] = old

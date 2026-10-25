@@ -62,6 +62,16 @@ def test_repeat_appearances_survive_and_neighbouring_units_do_not_merge(tmp_path
     assert not list(tmp_path.glob(".auction-history-*.sqlite"))
 
 
+def test_versioned_source_reparse_can_explicitly_replace_extraction_artifacts(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "DATA", tmp_path)
+    valid = h.base_row("Test", "auction", "2018-01-01", "1", "1", "https://example.com/results")
+    artifact = h.base_row("Test", "auction", "2018-01-01", "12", "12", "https://example.com/results")
+    h.write_rows("test", [valid, artifact])
+    h.write_rows("test", [valid], preserve_existing=False)
+    saved = list(h.iter_rows(tmp_path / "appearances/test.jsonl.gz"))
+    assert [row["appearance_id"] for row in saved] == [valid["appearance_id"]]
+
+
 def test_partial_lots_do_not_create_fictitious_properties(tmp_path, monkeypatch):
     monkeypatch.setattr(h, "DATA", tmp_path)
     row = h.base_row("Test", "a", "2018-01-01", "1", None, "https://example.com/results")
