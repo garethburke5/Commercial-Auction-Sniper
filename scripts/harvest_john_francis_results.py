@@ -211,6 +211,7 @@ def fetch_catalogue(item: dict) -> tuple[dict, bytes, str]:
 
 def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -> dict:
     failures = []
+    refresh_blockers = []
     archive_available = True
     discovery_basis = "first_party_retained_past_auctions_table"
     try:
@@ -233,7 +234,10 @@ def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -
         archive_resolved = ARCHIVE_URL
         catalogues = retained_catalogues()
         discovery_basis = "saved_first_party_catalogue_states_after_archive_failure"
-        failures.append({"source_id": "archive", "source_url": ARCHIVE_URL, "error": str(exc)})
+        blocker = {"source_id": "archive", "source_url": ARCHIVE_URL, "error": str(exc)}
+        # A blocked current index is a refresh limitation, not a failed harvest,
+        # when every saved catalogue remains complete and source-snapshotted.
+        (refresh_blockers if catalogues else failures).append(blocker)
         archive_evidence = {
             "source_url": ARCHIVE_URL,
             "retrieved_at": corpus.now(),
@@ -326,8 +330,9 @@ def harvest(limit: int | None = None, workers: int = 8, refresh: bool = False) -
         "date_range": [catalogues[0]["auction_date"], catalogues[-1]["auction_date"]] if catalogues else [None, None],
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in all_rows)),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in all_rows)),
+        "refresh_blockers": refresh_blockers,
         "failures": failures,
-        "complete": len(complete_states) == len(catalogues) and not failures,
+        "complete": bool(catalogues) and len(complete_states) == len(catalogues) and not failures,
     }
     corpus.save_json(corpus.DATA / "john_francis_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)

@@ -95,9 +95,13 @@ def test_archive_failure_uses_retained_states_and_resets_run_gains(tmp_path, mon
     assert summary["appearances_captured"] == 1
     assert summary["run_new_appearances"] == 0
     assert summary["run_new_address_records"] == 0
-    assert summary["failures"] == [{
+    assert summary["failures"] == []
+    assert summary["complete"] is True
+    assert summary["refresh_blockers"] == [{
         "source_id": "archive",
         "source_url": john.ARCHIVE_URL,
         "error": "403 Forbidden",
     }]
-    assert json.loads((tmp_path / "john_francis_collection.json").read_text())["run_new_appearances"] == 0
+    persisted = json.loads((tmp_path / "john_francis_collection.json").read_text())
+    assert persisted["run_new_appearances"] == 0
+    assert persisted["refresh_blockers"] == summary["refresh_blockers"]

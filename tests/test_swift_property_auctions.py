@@ -57,10 +57,24 @@ def test_harvest_banks_valid_lots_but_does_not_clear_count_discrepancy(tmp_path,
     def card(i):
         return f'<article class="auction-lot x-result-lot" data-result="sold"><span class="auction-lot-badge">Lot {i}</span><h3><a href="/lots/{i}">{i} High Street</a></h3><p class="auction-lot-location">York YO1 1AA</p><div class="auction-guide">£100,000</div><div class="auction-guide x-result-price">£110,000</div></article>'
     detail='<h1>16th July 2024</h1>'+card(1)+card(2)
-    monkeypatch.setattr(swift,'get',lambda u:((archive if u==swift.ARCHIVE_URL else detail).encode(),u))
-    result=swift.harvest(workers=1)
-    assert result['run_new_appearances']==2 and not result['complete']
-    state=json.loads(swift.state_path('99').read_text())
-    assert state['lots_captured']==2 and not state['denominator_reconciled']
+    calls = []
+    def fake_get(url):
+        calls.append(url)
+        return (archive if url == swift.ARCHIVE_URL else detail).encode(), url
+    monkeypatch.setattr(swift, 'get', fake_get)
+
+    result = swift.harvest(workers=1)
+    assert result['run_new_appearances'] == 2 and not result['complete']
+    assert result['failures'] == []
+    assert len(result['reconciliation_discrepancies']) == 1
+    state = json.loads(swift.state_path('99').read_text())
+    assert state['lots_captured'] == 2 and not state['denominator_reconciled']
     assert not state['catalogue_complete'] and state['errors']
-    assert swift.harvest(workers=1)['run_new_appearances']==0
+    assert state['incomplete_reason'] == 'published_archive_denominator_differs_from_visible_unique_rows'
+    assert state['retry_policy'].startswith('retry only when')
+    assert calls.count('https://www.swiftpropertyauctions.co.uk/previous-auctions/99') == 1
+
+    second = swift.harvest(workers=1)
+    assert second['run_new_appearances'] == 0
+    assert second['failures'] == []
+    assert calls.count('https://www.swiftpropertyauctions.co.uk/previous-auctions/99') == 1

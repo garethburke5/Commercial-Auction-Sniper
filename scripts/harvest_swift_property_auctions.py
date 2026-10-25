@@ -197,7 +197,19 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
     for item in catalogues:
         path = state_path(item["source_id"])
         state = json.loads(path.read_text()) if path.exists() else {}
-        if refresh or not state.get("catalogue_complete") or state.get("published_lot_denominator") != item["expected_lots"]:
+        stable_discrepancy = bool(
+            not refresh
+            and state.get("source_rows_complete")
+            and state.get("incomplete_reason")
+                == "published_archive_denominator_differs_from_visible_unique_rows"
+            and state.get("published_lot_denominator") == item["expected_lots"]
+            and state.get("archive_sha256") == archive_sha
+        )
+        if (
+            refresh
+            or state.get("published_lot_denominator") != item["expected_lots"]
+            or not (state.get("catalogue_complete") or stable_discrepancy)
+        ):
             pending.append(item)
     before_ids = {
         row["appearance_id"]
@@ -205,6 +217,7 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
         for row in corpus.iter_rows(path)
     }
     failures = []
+    reconciliation_discrepancies = []
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as pool:
         futures = {pool.submit(get, item["source_url"]): item for item in pending}
         for future in as_completed(futures):
@@ -226,8 +239,16 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
                 # dated lot cards. Keep catalogue completeness false and retry it.
                 if not reconciliation['heading_date_matches_archive'] or reconciliation['malformed_source_rows']:
                     raise ValueError(f"unsafe catalogue identity/date: {reconciliation}")
-                errors=[] if reconciliation['catalogue_complete'] else ['Published archive total differs from visible, uniquely identified lot cards']
-                if errors:failures.append({'source_id':item['source_id'],'auction_date':item['auction_date'],'error':errors[0],'reconciliation':reconciliation})
+                errors = [] if reconciliation["catalogue_complete"] else [
+                    "Published archive total differs from visible, uniquely identified lot cards"
+                ]
+                if errors:
+                    reconciliation_discrepancies.append({
+                        "source_id": item["source_id"],
+                        "auction_date": item["auction_date"],
+                        "issue": errors[0],
+                        "reconciliation": reconciliation,
+                    })
                 total = corpus.write_rows(f"swift-property-auctions/{item['source_id']}", rows)
                 state = {
                     "auctioneer": "Swift Property Auctions",
@@ -236,6 +257,15 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
                     "lots_captured": total, "source_rows_complete": True,
                     "pagination_reconciled": True, "denominator_reconciled": reconciliation['catalogue_complete'],
                     "completion_scope": "every property card in the first-party unpaginated result page",
+                    "archive_sha256": archive_sha,
+                    "incomplete_reason": (
+                        None if reconciliation["catalogue_complete"]
+                        else "published_archive_denominator_differs_from_visible_unique_rows"
+                    ),
+                    "retry_policy": (
+                        None if reconciliation["catalogue_complete"]
+                        else "retry only when the first-party archive snapshot or denominator changes"
+                    ),
                     **reconciliation, "source_evidence": evidence, "errors": errors, "checked_at": corpus.now(),
                 }
                 corpus.save_json(state_path(item["source_id"]), state)
@@ -267,6 +297,7 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
         "date_range": [catalogues[0]["auction_date"], catalogues[-1]["auction_date"]],
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in all_rows)),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in all_rows)),
+        "reconciliation_discrepancies": reconciliation_discrepancies,
         "failures": failures,
         "complete": len(complete_states) == len(catalogues) and not failures,
     }
