@@ -377,3 +377,11 @@ recoverable lots must wait for actual source evidence.
 Validation before publication: 47 targeted continuation, collector, workflow and
 corpus tests pass. Final database totals must be read from the generated workflow
 checkpoint after this source batch is rebuilt, not inferred from catalogue counts.
+
+Publication verified: workflow 40230267106 completed successfully. The generated
+25 October 20:22:49 UTC checkpoint now contains 280,082 appearances (+138),
+269,713 address records (+138), and 272,724 dated appearances in the preceding
+20-year window (+53). Undated appearances are 4,287 (+85). The 20:23:11 source
+register links Dawsons and reduces unlinked directory candidates from 505 to
+504; this is not a verified national auctioneer denominator. No new verified
+guide or sale prices were claimed from the unlabelled Dawsons amounts.
