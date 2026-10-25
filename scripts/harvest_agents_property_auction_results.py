@@ -16,7 +16,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 
 import requests
 from bs4 import BeautifulSoup
@@ -33,7 +33,8 @@ HEADERS = {
 }
 SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
-TRANSPORT_VERSION = 2
+TRANSPORT_VERSION = 3
+READER = "https://r.jina.ai/http://www.agentspropertyauction.com"
 HEADING_RE = re.compile(
     r"Results\s+from\s+our(?:\s+latest)?\s+auction\s+at\s+(.+?)\s+in\s+([A-Za-z]+)\s+(20\d{2})",
     re.I,
@@ -76,6 +77,47 @@ def parse_price(value: str | None) -> int | None:
     return int(round(float(match.group(1).replace(",", "")))) if match else None
 
 
+def result_pairs(document: str, document_format: str) -> tuple[re.Match, list[tuple[str, str | None]]]:
+    if document_format == "markdown":
+        heading = HEADING_RE.search(document)
+        if not heading:
+            raise ValueError("reader snapshot has no venue/month/year heading")
+        pairs = []
+        for line in document.splitlines():
+            if "|" not in line:
+                continue
+            cells = [clean(re.sub(r"[*_`]", "", value)) for value in line.strip().strip("|").split("|")]
+            if len(cells) != 2 or not cells[0] or cells[0].casefold() == "address":
+                continue
+            if re.fullmatch(r"[-: ]+", cells[0]) or re.fullmatch(r"[-: ]+", cells[1] or ""):
+                continue
+            if MONEY_RE.search(cells[1] or "") or (cells[1] or "").casefold() == "undisclosed":
+                pairs.append((cells[0], cells[1]))
+        if not pairs:
+            raise ValueError("reader snapshot contains no sold-result rows")
+        return heading, pairs
+
+    soup = BeautifulSoup(document, "lxml")
+    headings = [clean(node.get_text(" ", strip=True)) for node in soup.select("h1, h2")]
+    heading = next((HEADING_RE.search(value or "") for value in headings if HEADING_RE.search(value or "")), None)
+    if not heading:
+        raise ValueError("result page has no venue/month/year heading")
+    source_rows = soup.select("table.table--results tbody tr") or soup.select("table.table--results tr")
+    pairs = []
+    for position, source_row in enumerate(source_rows, 1):
+        cells = source_row.find_all("td", recursive=False)
+        if not cells:
+            continue
+        if len(cells) != 2:
+            raise ValueError(f"malformed sold-result row at source position {position}")
+        address = clean(cells[0].get_text(" ", strip=True))
+        result_text = clean(cells[1].get_text(" ", strip=True))
+        if not address:
+            raise ValueError(f"sold-result row has no address at source position {position}")
+        pairs.append((address, result_text))
+    return heading, pairs
+
+
 def parse_result_page(
     html: str,
     source_url: str,
@@ -84,11 +126,7 @@ def parse_result_page(
     month: int,
     evidence: dict,
 ) -> tuple[dict | None, list[dict]]:
-    soup = BeautifulSoup(html, "lxml")
-    headings = [clean(node.get_text(" ", strip=True)) for node in soup.select("h1, h2")]
-    match = next((HEADING_RE.search(value or "") for value in headings if HEADING_RE.search(value or "")), None)
-    if not match:
-        raise ValueError("result page has no venue/month/year heading")
+    match, source_pairs = result_pairs(html, evidence.get("document_format", "html"))
     expected_month = datetime(year, month, 1).strftime("%B")
     if (
         clean(match.group(1)).casefold() != venue.casefold()
@@ -100,21 +138,9 @@ def parse_result_page(
             f"not {venue} {expected_month} {year}"
         )
 
-    source_rows = soup.select("table.table--results tbody tr")
-    if not source_rows:
-        source_rows = soup.select("table.table--results tr")
     parsed = []
     occurrences: defaultdict[str, int] = defaultdict(int)
-    for position, source_row in enumerate(source_rows, 1):
-        cells = source_row.find_all("td", recursive=False)
-        if not cells:
-            continue
-        if len(cells) != 2:
-            raise ValueError(f"malformed sold-result row at source position {position}")
-        address = clean(cells[0].get_text(" ", strip=True))
-        result_text = clean(cells[1].get_text(" ", strip=True))
-        if not address:
-            raise ValueError(f"sold-result row has no address at source position {position}")
+    for position, (address, result_text) in enumerate(source_pairs, 1):
         normalized = normalize_exact_address(address)
         occurrences[normalized] += 1
         digest = hashlib.sha256(normalized.encode()).hexdigest()[:24]
@@ -226,15 +252,30 @@ def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
         # Match the first-party form/search URL ordering.  Some legacy result
         # routes return HTTP 500 for unsupported combinations.
         params = [("a_month", f"{month:02d}"), ("a_sub", "1"), ("a_venue", venue), ("a_year", str(year))]
-        page_url, raw = fetch(BASE, params)
+        page_url = BASE + "?" + urlencode(params)
+        document_format = "html"
+        retrieval_url = page_url
+        try:
+            page_url, raw = fetch(BASE, params)
+        except requests.HTTPError as direct_error:
+            target = urlsplit(page_url)
+            retrieval_url = READER + target.path + ("?" + target.query if target.query else "")
+            response = requests.get(retrieval_url, headers=HEADERS, timeout=75)
+            response.raise_for_status()
+            raw = response.content
+            if len(raw) < 500:
+                raise ValueError("reader response is unexpectedly short") from direct_error
+            document_format = "markdown"
         sha = corpus.digest(raw)
         snapshot = corpus.DATA / "sources/agents-property-auction" / f"{venue.casefold().replace(' ', '-')}-{year:04d}-{month:02d}-{sha[:16]}.json.gz"
         evidence = {
             "source_url": page_url,
+            "retrieval_url": retrieval_url,
             "retrieved_at": corpus.now(),
             "sha256": sha,
             "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
-            "basis": "first-party venue/month sold-result table",
+            "basis": "first-party venue/month sold-result table" if document_format == "html" else "public text rendering of first-party venue/month sold-result table",
+            "document_format": document_format,
         }
         page_html = raw.decode("utf-8", "replace")
         state, page_rows = parse_result_page(page_html, page_url, venue, year, month, evidence)

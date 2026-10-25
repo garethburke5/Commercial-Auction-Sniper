@@ -72,3 +72,23 @@ def test_agents_property_auction_rejects_filter_fallback():
     html='<h1>Results from our latest auction at Cumbria in March 2026</h1>'
     with pytest.raises(ValueError,match='not Newcastle February 2012'):
         parse_result_page(html,'https://example.test/results','Newcastle',2012,2,{})
+
+
+def test_agents_property_auction_reader_markdown_is_admitted_with_original_url():
+    from scripts.harvest_agents_property_auction_results import parse_result_page
+    markdown='''
+    # Auction Results
+    Results from our auction at Newcastle in February 2012
+    Address | Sold Price
+    --- | ---
+    28a Norbury Grove, Walker, Newcastle upon Tyne | £35,000
+    5 Grievestead Farm Cottages, Berwick upon Tweed | undisclosed
+    #### Navigation
+    '''
+    url='https://www.agentspropertyauction.com/auctions/auction-results/?a_month=02&a_sub=1&a_venue=Newcastle&a_year=2012'
+    state,rows=parse_result_page(markdown,url,'Newcastle',2012,2,{
+        'document_format':'markdown','retrieval_url':'https://r.jina.ai/http://example.test'
+    })
+    assert len(rows)==2 and rows[0]['sale_price']==35000 and rows[1]['sale_price'] is None
+    assert all(row['original_url']==url for row in rows)
+    assert state['catalogue_complete'] is False
