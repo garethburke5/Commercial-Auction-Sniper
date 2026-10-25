@@ -278,3 +278,15 @@ National completeness remains unverified: 484 incomplete catalogue states, 50 cu
 - Artifact `12609695088` is 301,081,647 bytes with SHA-256 `8af507b55489f682e6f6241467b227fc9d6f985638b8a6f3071ce3e3f3a60ed8`.
 
 National completeness remains unverified: 484 incomplete catalogue states, 19 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
+
+
+## Checkpoint: retained online-result denominator classification
+
+- Five Auction House regional collectors and Town & Country were complete for every retained paginated first-party result row, but their saved states treated the unavailable original event denominator as a fetch/parse error. The six collectors now preserve that distinction on future runs, and an idempotent saved-state migration repaired the existing checkpoints without refetching or rewriting appearances.
+- The repaired inventories contain **5,993 appearances**: **5,992 address records** and **1 partial lot**. Pagination is complete with no fetch failures. Every aggregate state remains `catalogue_complete: false`, `denominator_reconciled: false`; no original auction denominator was inferred.
+- The covered retained ranges are Auction House East Anglia from 2 March 2018, South Yorkshire from 15 November 2018, North East from 18 October 2018, North West and South West from 24 January 2019, and Town & Country from 21 February 2022. These are retained row ranges, not claims of complete twenty-year operator coverage.
+- Repair `e3e299fe9d378aa6bfc98ca43641894e06593201`, followed by generated checkpoint `80a39311551ce1be969f95458bf0538289ca430d`, passed focused migration tests, collector/workflow tests, banking, database rebuild, packaging, source-register reconciliation, publication and artifact retention in workflow run `40221610811`.
+- Corpus totals remain **279,944 individual appearances**: **269,575 address records**, **10,369 partial lots**, and **4,202 undated appearances**. Catalogue states remain **2,014 complete** and **484 incomplete or unreconciled**. Current fetch/parse failures fall from 19 to **13**; the remaining failures are three Cottons numbering gaps, five SDL pages without exact dates and five Edward Mellor numbering gaps.
+- Artifact `12609995762` is 268,161,395 bytes with SHA-256 `717ee11675ad8e6bbb17573c6684c0dd3cfadd4d5f5f6a5cf15a71288dd75fe0`.
+
+National completeness remains unverified: 484 incomplete catalogue states, 13 current source failures, 505 unlinked directory entries and uncovered source/operator/year inventories remain.
