@@ -155,8 +155,8 @@ jobs:
         with:
           ref: main
           fetch-depth: 1
-      - name: Move queued schedule to current main
-        if: github.event_name == 'schedule'
+      - name: Move queued collection to current main
+        if: github.event_name == 'schedule' || github.event_name == 'push'
         run: |
           git fetch origin main
           git checkout --detach origin/main
@@ -182,8 +182,14 @@ jobs:
         timeout-minutes: 5
         continue-on-error: true
         run: python -u scripts/enrich_cottons_guides.py 2
+      - name: Run focused Cottons split-row recovery
+        if: startsWith(github.event.head_commit.message, 'Run focused Cottons repair')
+        timeout-minutes: 20
+        run: |
+          python -u scripts/harvest_cottons_results.py 16 16
+          python -u scripts/enrich_cottons_guides.py 2
       - name: Resume bounded archive batch
-        if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh')
+        if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused Cottons repair')
         timeout-minutes: 22
         # Attempt the full rotation while retaining the same 20-minute budget.
         run: python -u scripts/resume_history_batch.py --budget 1200
