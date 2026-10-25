@@ -36,7 +36,7 @@ HEADERS = {
     "Accept": "text/html,application/xhtml+xml",
 }
 MONTHS = "January February March April May June July August September October November December"
-DATE_RE = re.compile(rf"\b(\d{{1,2}})(?:st|nd|rd|th)?\s+({MONTHS.replace(' ', '|')})\s+(20\d{{2}})\b", re.I)
+DATE_RE = re.compile(rf"\b(\d{{1,2}})\s*(?:st|nd|rd|th)?\s+({MONTHS.replace(' ', '|')})\s+(20\d{{2}})\b", re.I)
 LOT_PATH_RE = re.compile(r"^/properties/(\d+)/(\d+[A-Za-z]?)/?$", re.I)
 
 # The live results index currently starts at auction 245 (June 2023), but four

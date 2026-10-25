@@ -5,6 +5,7 @@ from scripts.harvest_clive_emson_canonical import (
     catalogue_inventory,
     detail_fields,
     discover,
+    parse_date,
     parse_catalogue,
 )
 
@@ -50,6 +51,10 @@ def test_inventory_adds_only_verified_retained_legacy_catalogues():
     assert legacy["231"]["archive_label"] == "9 February 2022"
     assert legacy["240"]["url"] == "https://www.cliveemson.co.uk/properties/240/"
     assert all(row["discovery_basis"].startswith("verified retained") for row in legacy.values())
+
+
+def test_legacy_heading_date_allows_separate_ordinal_element():
+    assert parse_date("Wednesday 9 th February 2022, 11:00 AM") == "2022-02-09"
 
 
 def test_parse_catalogue_banks_all_visible_rows_without_guessing_addresses():
