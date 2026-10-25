@@ -3,6 +3,8 @@
   "source_auction_id": "symonds-sampson:2024-02-22",
   "auction_date": "2024-02-22",
   "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
   "lots_captured": 3,
   "completion_scope": "retained official property pages carrying this exact date; no claim that deleted original lots survive",
   "source_property_ids": [
@@ -10,8 +12,10 @@
     "dwr0004bb",
     "dwr0004c2"
   ],
-  "errors": [
-    "Original event denominator is not published in the sitemap; auction remains unreconciled"
-  ],
-  "checked_at": "2026-10-25T17:52:04.483193+00:00"
+  "reconciliation_note": {
+    "kind": "original_event_denominator_unavailable",
+    "retained_property_pages": 3
+  },
+  "errors": [],
+  "checked_at": "2026-10-25T18:23:22.193430+00:00"
 }
