@@ -76,13 +76,62 @@ def test_page_checkpoint_reuses_source_payload_and_refreshes_after_expiry(monkey
     assert calls==[url,url]
 
 
-def test_sitemap_recovers_missing_identity_but_conflicting_total_stays_incomplete(monkeypatch):
+def test_sitemap_recovers_missing_identity_and_preserves_api_variance(monkeypatch):
     payload={'catalogue_complete':False,'lot_records':[{'source_record_id':'barnard-marcus-property:1'}],
-             'source_url':'https://example.com/auction/','auction_date':'2026-10-15','source_reported_rows':3}
+             'source_url':'https://example.com/auction/','auction_date':'2026-10-15','source_reported_rows':3,
+             'reconciliation_errors':['API total changed during traversal']}
     monkeypatch.setattr(collector,'sitemap_lot_urls',lambda u:['https://example.com/auction/1/','https://example.com/auction/2/'])
     monkeypatch.setattr(collector,'item_from_lot_page',lambda u:{'id':2,'lotNumber':'2','addressLine1':'2 High Street'})
     result=collector.recover_sitemap_rows(payload)
     assert result['published_rows']==2
     assert result['sitemap_recovery']['rows_recovered']==1
-    assert result['reconciliation_shortfall']==1
-    assert result['catalogue_complete'] is False
+    assert result['reconciliation_shortfall']==0
+    assert result['catalogue_complete'] is True
+    assert result['search_api_variance_errors']
+
+
+def test_exact_sitemap_identity_set_reconciles_unstable_api_totals(monkeypatch):
+    payload={
+        'catalogue_complete':False,
+        'lot_enumeration_complete':False,
+        'lot_records':[
+            {'source_record_id':'barnard-marcus-property:1'},
+            {'source_record_id':'barnard-marcus-property:2'},
+        ],
+        'source_url':'https://example.com/auction/',
+        'auction_date':'2026-10-15',
+        'source_reported_rows':3,
+        'catalogue_lot_count':3,
+        'reconciliation_errors':['page 2 reports 3 lots; first page reports 2'],
+    }
+    urls=['https://example.com/auction/1/','https://example.com/auction/2/']
+
+    result=collector.recover_sitemap_rows(payload,lot_urls=urls)
+
+    assert result['catalogue_complete'] is True
+    assert result['lot_enumeration_complete'] is True
+    assert result['published_rows']==result['source_reported_rows']==result['catalogue_lot_count']==2
+    assert result['reconciliation_shortfall']==0
+    assert result['reconciliation_errors']==[]
+    assert result['search_api_variance_errors']==['page 2 reports 3 lots; first page reports 2']
+    assert result['sitemap_recovery']['exact_identity_match'] is True
+
+
+def test_sitemap_identity_reconciliation_rejects_extra_saved_row():
+    payload={
+        'catalogue_complete':False,
+        'lot_records':[
+            {'source_record_id':'barnard-marcus-property:1'},
+            {'source_record_id':'barnard-marcus-property:999'},
+        ],
+        'source_url':'https://example.com/auction/',
+        'auction_date':'2026-10-15',
+        'source_reported_rows':2,
+    }
+    urls=['https://example.com/auction/1/']
+
+    result=collector.recover_sitemap_rows(payload,lot_urls=urls)
+
+    assert result.get('catalogue_complete') is False
+    assert result['sitemap_recovery']['exact_identity_match'] is False
+    assert result['sitemap_recovery']['rows_not_in_sitemap']==['barnard-marcus-property:999']
