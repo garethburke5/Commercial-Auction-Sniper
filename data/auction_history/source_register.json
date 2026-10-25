@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-25T14:53:11.216271+00:00",
-  "corpus_checkpoint": "2026-10-25T14:52:52.094182+00:00",
+  "generated_at": "2026-10-25T15:04:21.760114+00:00",
+  "corpus_checkpoint": "2026-10-25T15:03:59.389702+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8015,8 +8015,8 @@
       "with_guide_price": 96231,
       "with_sale_price": 104906,
       "with_both_prices": 45690,
-      "marked_sold": 142272,
-      "marked_sold_without_sale_price": 38106
+      "marked_sold": 142275,
+      "marked_sold_without_sale_price": 38109
     },
     "by_auctioneer_and_year": [
       {
@@ -11008,8 +11008,8 @@
         "with_guide_price": 0,
         "with_sale_price": 200,
         "with_both_prices": 0,
-        "marked_sold": 258,
-        "marked_sold_without_sale_price": 58
+        "marked_sold": 259,
+        "marked_sold_without_sale_price": 59
       },
       {
         "auctioneer": "Cottons",
@@ -11019,8 +11019,8 @@
         "with_guide_price": 0,
         "with_sale_price": 181,
         "with_both_prices": 0,
-        "marked_sold": 202,
-        "marked_sold_without_sale_price": 21
+        "marked_sold": 204,
+        "marked_sold_without_sale_price": 23
       },
       {
         "auctioneer": "Cottons",
@@ -14214,18 +14214,9 @@
       "auctioneer": "Cottons",
       "auction_date": "2014-12-04",
       "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-4th-Dec-as-of-20th-Jan15.pdf",
-      "lots_captured": 53,
-      "errors": [
-        {
-          "error": "non-contiguous result lot sequence",
-          "missing": [
-            7,
-            10,
-            51
-          ]
-        }
-      ],
-      "checked_at": "2026-10-25T14:40:51.343198+00:00"
+      "lots_captured": 0,
+      "errors": [],
+      "checked_at": "2026-10-25T15:02:19.407395+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2013-03-26-c24517133695.json",
@@ -14278,6 +14269,15 @@
       "checked_at": "2026-10-25T14:40:58.478845+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/cottons/cottons-2015-02-24-efd51909d955.json",
+      "auctioneer": "Cottons",
+      "auction_date": "2015-02-24",
+      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-24th-Feb-as-of-20th-March.pdf",
+      "lots_captured": 0,
+      "errors": [],
+      "checked_at": "2026-10-25T15:02:19.311188+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/cottons/cottons-2023-09-13-a01ba76011e3.json",
       "auctioneer": "Cottons",
       "auction_date": "2023-09-13",
@@ -14300,7 +14300,7 @@
           ]
         }
       ],
-      "checked_at": "2026-10-25T14:40:45.848940+00:00"
+      "checked_at": "2026-10-25T15:01:58.302591+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2017-02-28-4614c568ee5f.json",
@@ -14335,7 +14335,7 @@
           ]
         }
       ],
-      "checked_at": "2026-10-25T14:40:39.711766+00:00"
+      "checked_at": "2026-10-25T15:01:18.276992+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2012-10-23-7f022475008e.json",
@@ -28098,7 +28098,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-25T14:53:11.032021+00:00",
+    "checked_at": "2026-10-25T15:04:21.431110+00:00",
     "sha256": "8b0d9287a916c99b2923a2abeb52be1ac42580b99503d992fa62ba29f51ce4b6",
     "status": "retrieved"
   }
