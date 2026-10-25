@@ -68,13 +68,15 @@ def test_roundup_links_admit_only_exact_first_party_lot_routes():
 
 def test_roundup_article_rows_bank_only_explicit_partial_evidence():
     html = b"""
-    <h2>Mixed-use investment in Kent</h2>
-    <p>A shop with a self-contained flat above was sold for &pound;337,750.</p>
-    <p><a href='/properties/231/101/'>View Lot 101</a></p>
-    <h2>Development land near Southampton</h2>
-    <p>The freehold site attracted strong interest from a potential buyer.</p>
-    <p><a href='/properties/231/102/'>View Lot 102</a></p>
-    <p><a href='https://example.com/properties/231/103/'>Foreign lot</a></p>
+    <div class='CEoldArticle'><p>
+    <h2><span>Mixed-use investment in Kent</span></h2>
+    <span>A shop with a self-contained flat above was sold for &pound;337,750.</span>
+    <a href='/properties/231/101/'><span>View Lot 101</span></a>
+    <h2><span>Development land near Southampton</span></h2>
+    <span>The freehold site attracted strong interest from a potential buyer.</span>
+    <a href='/properties/231/102/'><span>View Lot 102</span></a>
+    <a href='https://example.com/properties/231/103/'>Foreign lot</a>
+    </p></div>
     """
     evidence = {
         "snapshot_path": "data/auction_history/sources/clive-emson/roundups/example.json.gz",

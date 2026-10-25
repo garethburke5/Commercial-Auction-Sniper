@@ -21,7 +21,7 @@ import time
 from urllib.parse import quote, urljoin, urlparse
 
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, NavigableString, Tag
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
@@ -137,13 +137,18 @@ def roundup_article_rows(html, article_url, auction_month, evidence):
         if not heading:
             continue
         title = clean(heading.get_text(" ", strip=True))
+        # Legacy articles often contain invalid HTML: h2, span and a elements
+        # are nested inside one giant p.  Iterate text nodes in document order
+        # rather than relying on paragraph tags, stopping at the next heading.
         parts = []
-        for node in heading.find_all_next(["h2", "p", "li"]):
-            if node is heading:
-                continue
-            if node.name == "h2":
+        for node in heading.next_elements:
+            if isinstance(node, Tag) and node.name == "h2":
                 break
-            value = clean(node.get_text(" ", strip=True))
+            if not isinstance(node, NavigableString):
+                continue
+            value = clean(str(node))
+            if value == title and not parts:
+                continue
             if value and value not in parts:
                 parts.append(value)
         description = clean(" ".join(parts))
