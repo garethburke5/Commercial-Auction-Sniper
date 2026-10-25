@@ -1,4 +1,9 @@
-from scripts.harvest_symonds_sampson_canonical import discover, parse_property, strict_address
+from scripts.harvest_symonds_sampson_canonical import (
+    discover,
+    parse_property,
+    retained_event_state,
+    strict_address,
+)
 
 
 def test_sitemap_discovery_is_exact_and_deduplicated():
@@ -56,3 +61,20 @@ def test_saved_html_recovers_partial_address_without_network(tmp_path,monkeypatc
     assert c.recover_saved_html(rows)==1
     assert rows[0]['address']=='17 High Street, Dorchester DT1'
     assert c.recover_saved_html(rows)==0
+
+
+def test_retained_event_state_is_incomplete_without_reporting_a_fetch_failure(monkeypatch):
+    monkeypatch.setattr(
+        "scripts.harvest_symonds_sampson_canonical.corpus.now",
+        lambda: "2026-10-25T18:00:00Z",
+    )
+    rows = [{"source_lot_id": "abc"}, {"source_lot_id": "def"}]
+    state = retained_event_state("2023-12-13", rows)
+    assert state["catalogue_complete"] is False
+    assert state["source_rows_complete"] is True
+    assert state["denominator_reconciled"] is False
+    assert state["errors"] == []
+    assert state["reconciliation_note"] == {
+        "kind": "original_event_denominator_unavailable",
+        "retained_property_pages": 2,
+    }

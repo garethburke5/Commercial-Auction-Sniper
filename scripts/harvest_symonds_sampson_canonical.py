@@ -197,6 +197,30 @@ def recover_saved_html(rows):
     return repaired
 
 
+def retained_event_state(date: str, date_rows: list[dict]) -> dict:
+    """Describe a retained subset without treating absent denominator data as a fetch error."""
+    return {
+        "auctioneer": "Symonds & Sampson",
+        "source_auction_id": "symonds-sampson:" + date,
+        "auction_date": date,
+        "catalogue_complete": False,
+        "source_rows_complete": True,
+        "denominator_reconciled": False,
+        "lots_captured": len(date_rows),
+        "completion_scope": (
+            "retained official property pages carrying this exact date; "
+            "no claim that deleted original lots survive"
+        ),
+        "source_property_ids": [row["source_lot_id"] for row in date_rows],
+        "reconciliation_note": {
+            "kind": "original_event_denominator_unavailable",
+            "retained_property_pages": len(date_rows),
+        },
+        "errors": [],
+        "checked_at": corpus.now(),
+    }
+
+
 def harvest(workers: int = 2) -> None:
     sitemap_transport, sitemap_raw = fetch_sitemap()
     sitemap_text = sitemap_raw.decode("utf-8", "replace")
@@ -246,12 +270,7 @@ def harvest(workers: int = 2) -> None:
         if not date:
             continue
         date_rows = [row for row in rows if row.get("auction_date") == date]
-        state = {"auctioneer": "Symonds & Sampson", "source_auction_id": "symonds-sampson:" + date,
-                 "auction_date": date, "catalogue_complete": False, "lots_captured": len(date_rows),
-                 "completion_scope": "retained official property pages carrying this exact date; no claim that deleted original lots survive",
-                 "source_property_ids": [row["source_lot_id"] for row in date_rows],
-                 "errors": ["Original event denominator is not published in the sitemap; auction remains unreconciled"],
-                 "checked_at": corpus.now()}
+        state = retained_event_state(date, date_rows)
         corpus.save_json(corpus.DATA / "auctions/symonds-sampson" / f"{date}.json", state)
     summary = {"checked_at": corpus.now(), "sitemap_property_urls": len(urls),
                "property_pages_captured": len(rows), "pages_already_banked": len(existing_ids),
