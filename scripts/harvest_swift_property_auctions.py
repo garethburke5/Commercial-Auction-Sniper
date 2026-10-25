@@ -160,13 +160,23 @@ def parse_catalogue(html: str, item: dict, evidence: dict) -> tuple[list[dict], 
         )
         rows.append(row)
     identities = [row["appearance_id"] for row in rows]
+    # Swift labels the archive statistic "Lots sold X of Y".  Y is the
+    # offered-lot denominator and excludes withdrawn/postponed cards, while the
+    # result page intentionally retains those cards as separate appearances.
+    # Bank every card, but compare the published denominator only with rows
+    # that remained offered.
+    denominator_rows = [row for row in rows if row["status"] not in {"withdrawn", "postponed"}]
     complete = bool(
         not malformed
         and heading_date == item["auction_date"]
-        and len(cards) == len(rows) == len(set(identities)) == item["expected_lots"]
+        and len(cards) == len(rows) == len(set(identities))
+        and len(denominator_rows) == item["expected_lots"]
     )
     return rows, {
         "published_lot_denominator": item["expected_lots"],
+        "published_denominator_basis": "visible lots excluding withdrawn and postponed outcomes",
+        "visible_rows_in_published_denominator": len(denominator_rows),
+        "visible_rows_outside_published_denominator": len(rows) - len(denominator_rows),
         "visible_source_rows": len(cards),
         "distinct_appearance_identities": len(set(identities)),
         "heading_auction_date": heading_date,
@@ -178,6 +188,36 @@ def parse_catalogue(html: str, item: dict, evidence: dict) -> tuple[list[dict], 
 
 def state_path(source_id: str) -> Path:
     return corpus.DATA / "auctions/swift-property-auctions" / f"{source_id}.json"
+
+
+def retained_snapshot_only_rows(item: dict, current_rows: list[dict]) -> list[dict]:
+    """Recover stable-ID cards removed from a later first-party result page."""
+    current_ids = {row["appearance_id"] for row in current_rows}
+    retained = {}
+    pattern = corpus.DATA / "sources/swift-property-auctions" / f"auction-{item['source_id']}-*.json.gz"
+    for snapshot in pattern.parent.glob(pattern.name):
+        try:
+            payload = next(corpus.iter_rows(snapshot))
+            evidence = dict(payload.get("evidence") or {})
+            earlier_rows, reconciliation = parse_catalogue(payload.get("html") or "", item, evidence)
+            if not reconciliation["heading_date_matches_archive"] or reconciliation["malformed_source_rows"]:
+                continue
+            for row in earlier_rows:
+                if row["appearance_id"] in current_ids:
+                    continue
+                row["source_visibility_basis"] = (
+                    "retained earlier first-party result-page snapshot; absent from latest snapshot"
+                )
+                prior = retained.get(row["appearance_id"])
+                if not prior or (row["source_evidence"].get("retrieved_at") or "") > (
+                    prior["source_evidence"].get("retrieved_at") or ""
+                ):
+                    retained[row["appearance_id"]] = row
+        except (OSError, ValueError, KeyError, json.JSONDecodeError):
+            # A malformed retained snapshot must not weaken current-page
+            # reconciliation; it remains preserved for later forensic repair.
+            continue
+    return [retained[key] for key in sorted(retained)]
 
 
 def harvest(workers: int = 8, refresh: bool = False) -> dict:
@@ -249,12 +289,15 @@ def harvest(workers: int = 8, refresh: bool = False) -> dict:
                         "issue": errors[0],
                         "reconciliation": reconciliation,
                     })
+                retained_only = retained_snapshot_only_rows(item, rows)
+                rows.extend(retained_only)
                 total = corpus.write_rows(f"swift-property-auctions/{item['source_id']}", rows)
                 state = {
                     "auctioneer": "Swift Property Auctions",
                     "source_auction_id": f"swift:{item['source_id']}",
                     "auction_date": item["auction_date"], "source_url": resolved,
                     "lots_captured": total, "source_rows_complete": True,
+                    "retained_snapshot_only_rows": len(retained_only),
                     "pagination_reconciled": True, "denominator_reconciled": reconciliation['catalogue_complete'],
                     "completion_scope": "every property card in the first-party unpaginated result page",
                     "archive_sha256": archive_sha,
