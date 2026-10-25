@@ -60,7 +60,7 @@ def catalogue_links(html):
     return sorted(links, key=lambda a: a["auction_date"], reverse=True)
 
 
-def parse_guides(text, auction_date):
+def parse_guides(text, auction_date, expected_labels=None):
     pages = text.split("\f")
     # The first page's sale date, not a later "next auction" banner.
     if parse_date(pages[0]) != auction_date:
@@ -107,7 +107,20 @@ def parse_guides(text, auction_date):
                 raise ValueError("Repeated catalogue lot label")
             guides[match[1]] = record
     expected = set(map(str, range(1, int(total[1]) + 1)))
-    if set(guides) != expected:
+    actual = set(guides)
+    expected_labels = set(expected_labels) if expected_labels is not None else None
+    # Revised catalogues can deliberately omit a withdrawn/not-offered label
+    # while retaining the original headline total. Permit that only when the
+    # independently parsed result sheet has the exact same label set and the
+    # catalogue still reaches the published terminal lot. This enriches the
+    # evidenced rows but does not promote the result sheet to complete.
+    exact_source_gap = bool(
+        expected_labels
+        and actual == expected_labels
+        and all(label.isdigit() and 1 <= int(label) <= int(total[1]) for label in actual)
+        and max(map(int, actual)) == int(total[1])
+    )
+    if actual != expected and not exact_source_gap:
         raise ValueError(f"Catalogue lot sequence incomplete: {len(guides)}/{total[1]}")
     return guides
 
@@ -136,7 +149,10 @@ def enrich(limit=2):
         try:
             response = get(item["url"])
             raw = response.content
-            guides = parse_guides(extract_layout(raw), item["auction_date"])
+            result_labels = {row["lot_number"] for row in matching}
+            guides = parse_guides(
+                extract_layout(raw), item["auction_date"], expected_labels=result_labels
+            )
             if {row["lot_number"] for row in matching} != set(guides):
                 raise ValueError("Results and catalogue lot sequences differ")
             digest = corpus.digest(raw)
@@ -179,6 +195,10 @@ def enrich(limit=2):
                     "lots_checked": len(matching),
                     "lots_with_published_guide": len(matching) - without_guide,
                     "lots_without_published_guide": without_guide,
+                    "catalogue_labels_absent": sorted(
+                        set(map(str, range(1, max(map(int, guides)) + 1))) - set(guides),
+                        key=int,
+                    ),
                     "source_url": item["url"],
                 }
             )

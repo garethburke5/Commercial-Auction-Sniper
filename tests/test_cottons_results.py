@@ -264,3 +264,37 @@ def test_blank_address_cell_is_retained_as_a_partial_lot():
     assert rows[-1]["address"] is None
     assert rows[-1]["record_quality"] == "partial_lot"
     assert rows[-1]["status"] == "not_offered"
+
+
+def test_standalone_lot_cells_recover_one_and_two_line_result_rows():
+    text = """
+21st May 2025 Results
+Lot Address Result
+36 LAND AT CANNOCK ROAD, HEDNESFORD WS12 4AE NOT OFFERED
+37
+GRANGE FARM, ASHFLATS LANE, STAFFORD ST18 9BP AVAILABLE @ £650,000
+38 THE OLD CHAPEL, STATION ROAD, COALVILLE LE67 2GB SOLD PRIOR
+39 22 BROMPTON DRIVE, BRIERLEY HILL DY5 3NZ SOLD AFTER
+40 50 BEAUCHAMP ROAD, BIRMINGHAM B13 0NP £183,000
+41 72 PRINCESS STREET, BURNTWOOD WS7 1JN UNDER OFFER
+42 PLOT 5 GARDENS COTTAGE, PENKRIDGE ROAD WS11 1HN NOT OFFERED
+43
+PLOT 6 GOAT PADDOCK AT ROKHOLT, PENKRIDGE ROAD,
+CANNOCK WS11 1HN NOT OFFERED
+Entries will be closing shortly for our next Auction
+21st May 2025 Results
+Lot Address Result
+44 FGRS 8, 42 & 53 BLAGDON ROAD, HALESOWEN B63 3PT SOLD PRIOR
+"""
+    sheet = {
+        **expected("2025-05-21"),
+        "result_url": "https://www.cottons.co.uk/wp-content/uploads/2025/06/21st-May-2025-Results-.pdf",
+    }
+    state, rows = parse_result_text(text, sheet, {})
+    assert [row["lot_number"] for row in rows] == [str(i) for i in range(36, 45)]
+    assert rows[1]["address"] == "GRANGE FARM, ASHFLATS LANE, STAFFORD ST18 9BP"
+    assert rows[1]["status"] == "available" and rows[1]["available_price"] == 650000
+    assert rows[-2]["address"].endswith("CANNOCK WS11 1HN")
+    assert rows[-2]["status"] == "not_offered"
+    assert rows[-1]["status"] == "sold_prior"
+    assert state["missing_base_lot_numbers"] == list(range(1, 36))

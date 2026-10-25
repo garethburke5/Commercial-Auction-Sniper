@@ -263,18 +263,70 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
     raw_rows: list[tuple[str, str]] = []
     current_lot = None
     current_parts: list[str] = []
-    for line in lines[header + 1:]:
+    table_lines = lines[header + 1:]
+    line_index = 0
+    while line_index < len(table_lines):
+        line = table_lines[line_index]
         if FOOTER_RE.search(line):
+            # Each PDF page repeats the promotional footer before the next
+            # page's table heading. Skip that furniture when another genuine
+            # Lot/Address/Result header remains; stop only at the final footer.
+            next_header = next(
+                (
+                    candidate
+                    for candidate in range(line_index + 1, len(table_lines))
+                    if re.search(r"\bLot\b", table_lines[candidate], re.I)
+                    and re.search(r"\bAddress\b", table_lines[candidate], re.I)
+                    and re.search(r"\bResult\b", table_lines[candidate], re.I)
+                ),
+                None,
+            )
+            if next_header is not None:
+                line_index = next_header + 1
+                continue
             break
         # Multi-page result sheets repeat their title and table heading. They
         # are page furniture, not continuation text for the preceding address.
         if (re.search(r"\bLot\b", line, re.I)
                 and re.search(r"\bAddress\b", line, re.I)
                 and re.search(r"\bResult\b", line, re.I)):
+            line_index += 1
             continue
         if re.fullmatch(r"(?:Auction\s+)?\d{1,2}\s*(?:st|nd|rd|th)?\s+"
                         r"[A-Za-z]+\s+20\d{2}\s+Results", line, re.I):
+            line_index += 1
             continue
+        # Native PDF extraction can place a lot number in its own table cell,
+        # followed by the address/result on one or two lines. Accept that
+        # shape only when it is the exact next numeric lot and the bounded
+        # continuation contains a recognised result suffix. This recovers
+        # genuine split rows without treating page numbers as property lots.
+        standalone = re.fullmatch(r"(\d+)[.)}\]]?", line)
+        if standalone and current_lot and str(current_lot).isdigit():
+            candidate = int(standalone.group(1))
+            if candidate == int(current_lot) + 1:
+                continuation = []
+                consumed_to = line_index
+                for lookahead in range(line_index + 1, min(len(table_lines), line_index + 4)):
+                    next_line = table_lines[lookahead]
+                    if (FOOTER_RE.search(next_line)
+                            or ROW_RE.match(next_line)
+                            or (re.search(r"\bLot\b", next_line, re.I)
+                                and re.search(r"\bAddress\b", next_line, re.I)
+                                and re.search(r"\bResult\b", next_line, re.I))):
+                        break
+                    continuation.append(next_line)
+                    consumed_to = lookahead
+                    if RESULT_SUFFIX_RE.search(" ".join(continuation)):
+                        raw_rows.append((current_lot, " ".join(current_parts)))
+                        current_lot = standalone.group(1)
+                        current_parts = continuation
+                        line_index = consumed_to + 1
+                        break
+                else:
+                    continuation = []
+                if continuation and line_index == consumed_to + 1:
+                    continue
         match = ROW_RE.match(line)
         # The first printed 1 is occasionally recognised as a capital I. It
         # is safe to repair only before any numbered row has been admitted;
@@ -301,6 +353,7 @@ def parse_result_text(text: str, expected: dict, evidence: dict) -> tuple[dict, 
             current_parts = [first]
         elif current_lot is not None:
             current_parts.append(line)
+        line_index += 1
     if current_lot is not None:
         raw_rows.append((current_lot, " ".join(current_parts)))
     if not raw_rows:

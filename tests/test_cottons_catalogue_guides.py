@@ -40,3 +40,17 @@ def test_lowercase_legal_prose_lot_reference_is_not_a_catalogue_marker():
     rows = parse_guides(text, '2026-04-22')
     assert set(rows) == {'1'}
     assert rows['1']['guide_price'] == 92000
+
+
+def test_revised_catalogue_gap_is_allowed_only_when_result_labels_match_exactly():
+    text = (
+        'Wednesday 10 July 2024: 1pm\fA Collective Auction Sale of 3 Lots\f'
+        'Freehold House LOT 1 *Guide Price: £90,000 (+Fees)\n'
+        'Freehold House LOT 3 *Guide Price: £120,000 (+Fees)\n'
+    )
+    with pytest.raises(ValueError, match='incomplete'):
+        parse_guides(text, '2024-07-10')
+    rows = parse_guides(text, '2024-07-10', expected_labels={'1', '3'})
+    assert set(rows) == {'1', '3'}
+    with pytest.raises(ValueError, match='incomplete'):
+        parse_guides(text, '2024-07-10', expected_labels={'1', '2', '3'})
