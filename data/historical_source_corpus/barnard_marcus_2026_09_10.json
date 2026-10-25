@@ -6,30 +6,14 @@
   "archive_url": "https://www.barnardmarcusauctions.co.uk/auctions/previous/",
   "auction_date": "2026-09-10",
   "source_auction_id": "barnard-marcus:2026-09-10",
-  "lot_enumeration_complete": false,
-  "catalogue_complete": false,
-  "catalogue_lot_count": 368,
-  "completion_scope": "all 368 first-party lot identities captured exactly once from 23 reconciled search pages",
+  "lot_enumeration_complete": true,
+  "catalogue_complete": true,
+  "catalogue_lot_count": 366,
+  "completion_scope": "all 366 retained first-party sitemap lot identities captured exactly once; SearchApi pagination variance retained separately as diagnostic evidence",
   "published_rows": 366,
-  "source_reported_rows": 368,
-  "reconciliation_shortfall": 2,
-  "reconciliation_errors": [
-    "page 3 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 7 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 8 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 12 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 15 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 17 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 19 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 20 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 21 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "page 22 reports 368 lots / 23 pages; first page reports 367 / 23",
-    "duplicate source ID 716511 across source pages",
-    "duplicate source ID 714906 across source pages",
-    "duplicate source ID 716839 across source pages",
-    "duplicate source ID 716672 across source pages",
-    "duplicate source ID 716643 across source pages"
-  ],
+  "source_reported_rows": 366,
+  "reconciliation_shortfall": 0,
+  "reconciliation_errors": [],
   "source_reported_totals": [
     367,
     368
@@ -62,10 +46,10 @@
     23
   ],
   "pagination_pages_expected": 23,
-  "inventory_method": "search_api",
+  "inventory_method": "search_api_plus_sitemap_identity_reconciliation",
   "sitemap_lot_urls_expected": null,
   "sitemap_lot_urls_captured": null,
-  "capture_method": "official source pages traversed; source counts or identities remain unreconciled",
+  "capture_method": "official SearchApi result cards reconciled to the complete retained first-party sitemap lot-page identity inventory",
   "lot_records": [
     {
       "address": "50b, Manor Park, LEWISHAM, London, SE13 5RL",
@@ -6292,16 +6276,31 @@
   ],
   "sitemap_recovery": {
     "expected_urls": 366,
-    "missing_before_recovery": 5,
-    "rows_recovered": 5,
-    "recovered_urls": [
-      "https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/714717/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/715384/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/715664/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716620/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/10-september-2026/716670/"
-    ]
+    "missing_before_recovery": 0,
+    "rows_recovered": 0,
+    "recovered_urls": [],
+    "missing_after_recovery": [],
+    "rows_not_in_sitemap": [],
+    "identity_sha256": "20c394d755e15c9260d6ed5240a5e63802d15f69bf5f03b7c496c3a6c958dfea",
+    "exact_identity_match": true
   },
-  "captured_at": "2026-10-25T03:45:11.908183+00:00",
-  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-e1949fb710a0d49e.json.gz"
+  "captured_at": "2026-10-25T04:16:25.197384+00:00",
+  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-bad093c6902d98f9.json.gz",
+  "search_api_variance_errors": [
+    "page 3 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 7 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 8 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 12 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 15 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 17 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 19 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 20 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 21 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "page 22 reports 368 lots / 23 pages; first page reports 367 / 23",
+    "duplicate source ID 716511 across source pages",
+    "duplicate source ID 714906 across source pages",
+    "duplicate source ID 716839 across source pages",
+    "duplicate source ID 716672 across source pages",
+    "duplicate source ID 716643 across source pages"
+  ]
 }

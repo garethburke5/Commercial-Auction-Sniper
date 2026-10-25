@@ -6,29 +6,14 @@
   "archive_url": "https://www.barnardmarcusauctions.co.uk/auctions/previous/",
   "auction_date": "2026-10-15",
   "source_auction_id": "barnard-marcus:2026-10-15",
-  "lot_enumeration_complete": false,
-  "catalogue_complete": false,
-  "catalogue_lot_count": 347,
-  "completion_scope": "all 347 first-party lot identities captured exactly once from 22 reconciled search pages",
+  "lot_enumeration_complete": true,
+  "catalogue_complete": true,
+  "catalogue_lot_count": 345,
+  "completion_scope": "all 345 retained first-party sitemap lot identities captured exactly once; SearchApi pagination variance retained separately as diagnostic evidence",
   "published_rows": 345,
-  "source_reported_rows": 347,
-  "reconciliation_shortfall": 2,
-  "reconciliation_errors": [
-    "page 2 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 5 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 7 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 8 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 9 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 13 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 18 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 20 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 21 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "duplicate source ID 724503 across source pages",
-    "duplicate source ID 723549 across source pages",
-    "duplicate source ID 724768 across source pages",
-    "duplicate source ID 724869 across source pages",
-    "duplicate source ID 724482 across source pages"
-  ],
+  "source_reported_rows": 345,
+  "reconciliation_shortfall": 0,
+  "reconciliation_errors": [],
   "source_reported_totals": [
     345,
     347
@@ -60,10 +45,10 @@
     22
   ],
   "pagination_pages_expected": 22,
-  "inventory_method": "search_api",
+  "inventory_method": "search_api_plus_sitemap_identity_reconciliation",
   "sitemap_lot_urls_expected": null,
   "sitemap_lot_urls_captured": null,
-  "capture_method": "official source pages traversed; source counts or identities remain unreconciled",
+  "capture_method": "official SearchApi result cards reconciled to the complete retained first-party sitemap lot-page identity inventory",
   "lot_records": [
     {
       "address": "1, Fairthorn Road (Flats A and B), London, SE7 7RL",
@@ -5933,18 +5918,30 @@
   ],
   "sitemap_recovery": {
     "expected_urls": 345,
-    "missing_before_recovery": 7,
-    "rows_recovered": 7,
-    "recovered_urls": [
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/723765/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/723824/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/724816/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/724817/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/725152/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/726125/",
-      "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/727001/"
-    ]
+    "missing_before_recovery": 0,
+    "rows_recovered": 0,
+    "recovered_urls": [],
+    "missing_after_recovery": [],
+    "rows_not_in_sitemap": [],
+    "identity_sha256": "c7ee1e1aa001d2728f34bc979632c88f75b551192f86cd5ce9027d38f4be53ca",
+    "exact_identity_match": true
   },
-  "captured_at": "2026-10-25T03:18:51.315423+00:00",
-  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-e1949fb710a0d49e.json.gz"
+  "captured_at": "2026-10-25T04:16:56.263436+00:00",
+  "discovery_evidence": "data/auction_history/sources/barnard-marcus/sitemap-bad093c6902d98f9.json.gz",
+  "search_api_variance_errors": [
+    "page 2 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 5 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 7 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 8 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 9 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 13 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 18 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 20 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "page 21 reports 347 lots / 22 pages; first page reports 345 / 22",
+    "duplicate source ID 724503 across source pages",
+    "duplicate source ID 723549 across source pages",
+    "duplicate source ID 724768 across source pages",
+    "duplicate source ID 724869 across source pages",
+    "duplicate source ID 724482 across source pages"
+  ]
 }

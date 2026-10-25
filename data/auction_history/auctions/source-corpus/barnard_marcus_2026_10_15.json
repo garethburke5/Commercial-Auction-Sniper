@@ -2,25 +2,11 @@
   "auctioneer": "Barnard Marcus Auctions",
   "source_auction_id": "source-corpus:barnard-marcus:2026-10-15",
   "auction_date": "2026-10-15",
-  "source_url": "https://www.barnardmarcusauctions.co.uk/auctions/15-october-2026/",
-  "catalogue_complete": false,
+  "catalogue_complete": true,
+  "completion_scope": "all 345 retained first-party sitemap lot identities captured exactly once; SearchApi pagination variance retained separately as diagnostic evidence",
   "lots_captured": 345,
-  "expected_raw_records": 347,
-  "errors": [
-    "page 2 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 5 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 7 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 8 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 9 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 13 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 18 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 20 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "page 21 reports 347 lots / 22 pages; first page reports 345 / 22",
-    "duplicate source ID 724503 across source pages",
-    "duplicate source ID 723549 across source pages",
-    "duplicate source ID 724768 across source pages",
-    "duplicate source ID 724869 across source pages",
-    "duplicate source ID 724482 across source pages"
-  ],
-  "checked_at": "2026-10-25T03:18:51.315423+00:00"
+  "raw_records_observed": 345,
+  "expected_raw_records": 345,
+  "errors": [],
+  "checked_at": "2026-10-25T04:25:13.882180+00:00"
 }
