@@ -250,7 +250,38 @@ def fetch(session: requests.Session, url: str, required: bytes) -> bytes:
     return raw
 
 
+def reusable_complete_rows(auction_id: str, expected: int, index_rows: list[dict],
+                           saved_state: dict | None,
+                           existing_by_id: dict[str, dict]) -> list[dict] | None:
+    """Reuse detail evidence only after the live auction index still reconciles.
+
+    Completed historical auctions are immutable in practice, but the collector
+    still refreshes every first-party auction-ID index.  Detail snapshots are
+    reused only when the published denominator, exact property-ID set and every
+    banked appearance all agree with the saved complete state.
+    """
+    if not saved_state or not saved_state.get("catalogue_complete"):
+        return None
+    index_ids = sorted({str(row["source_id"]) for row in index_rows}, key=int)
+    saved_ids = sorted({str(value) for value in saved_state.get("source_property_ids", [])},
+                       key=int)
+    if (saved_state.get("published_result_count") != expected or
+            expected != len(index_rows) or index_ids != saved_ids):
+        return None
+    rows = []
+    for source_id in index_ids:
+        appearance_id = f"BidX1|auction:{auction_id}|property:{source_id}"
+        row = existing_by_id.get(appearance_id)
+        if row is None:
+            return None
+        rows.append(row)
+    return rows
+
+
 def harvest() -> None:
+    existing_path = corpus.DATA / "appearances/bidx1/canonical.jsonl.gz"
+    existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
+    existing_by_id = {row["appearance_id"]: row for row in existing}
     session = requests.Session()
     session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
     all_rows, auction_summaries, failures = [], {}, []
@@ -266,6 +297,33 @@ def harvest() -> None:
             expected, index_rows = parse_index(index_html, index_url)
             if expected != len(index_rows):
                 raise ValueError(f"published result count {expected} != {len(index_rows)} stable property links")
+
+            state_path = corpus.DATA / f"auctions/bidx1/{auction_id}.json"
+            saved_state = None
+            if state_path.exists():
+                try:
+                    saved_state = json.loads(state_path.read_text(encoding="utf-8"))
+                except (OSError, ValueError, TypeError):
+                    saved_state = None
+            reused_rows = reusable_complete_rows(
+                auction_id, expected, index_rows, saved_state, existing_by_id)
+            if reused_rows is not None:
+                state = dict(saved_state)
+                state.update(
+                    checked_at=corpus.now(),
+                    published_result_count=expected,
+                    lots_captured=len(reused_rows),
+                    source_property_ids=sorted(
+                        {row["source_id"] for row in index_rows}, key=int),
+                    errors=[],
+                    refresh_mode=(
+                        "live auction-ID index revalidated; retained complete "
+                        "detail snapshots and appearances reused"),
+                )
+                corpus.save_json(state_path, state)
+                auction_summaries[auction_id] = state
+                all_rows.extend(reused_rows)
+                continue
 
             rows, detail_failures, undated = [], [], []
             for index_row in index_rows:
@@ -329,8 +387,6 @@ def harvest() -> None:
             failures.append({"auction_id": auction_id, "url": index_url,
                              "error": f"{type(exc).__name__}: {exc}"[:500]})
 
-    existing_path = corpus.DATA / "appearances/bidx1/canonical.jsonl.gz"
-    existing = list(corpus.iter_rows(existing_path)) if existing_path.exists() else []
     merged = {row["appearance_id"]: row for row in existing}
     before = len(merged)
     for row in all_rows:

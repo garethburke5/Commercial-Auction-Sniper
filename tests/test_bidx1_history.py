@@ -1,4 +1,4 @@
-from scripts.harvest_bidx1_canonical import AUCTIONS, parse_detail, parse_index, search_url
+from scripts.harvest_bidx1_canonical import (\n    AUCTIONS, parse_detail, parse_index, reusable_complete_rows, search_url,\n)
 
 
 def test_only_individually_verified_first_party_auction_ids_are_seeded():
@@ -80,3 +80,50 @@ def test_withdrawn_prior_recovers_exact_date_from_public_closing_countdown():
     assert row["status"] == "withdrawn_prior"
     assert row["record_quality"] == "address_record"
     assert "seconds-to-closing" in row["auction_date_basis"]
+
+
+
+def test_complete_catalogue_reuses_details_only_after_exact_live_index_match():
+    index_rows = [
+        {"source_id": "82484"},
+        {"source_id": "82485"},
+    ]
+    state = {
+        "catalogue_complete": True,
+        "published_result_count": 2,
+        "source_property_ids": ["82484", "82485"],
+    }
+    existing = {
+        "BidX1|auction:4561|property:82484": {
+            "appearance_id": "BidX1|auction:4561|property:82484"},
+        "BidX1|auction:4561|property:82485": {
+            "appearance_id": "BidX1|auction:4561|property:82485"},
+    }
+
+    rows = reusable_complete_rows("4561", 2, index_rows, state, existing)
+
+    assert [row["appearance_id"] for row in rows] == [
+        "BidX1|auction:4561|property:82484",
+        "BidX1|auction:4561|property:82485",
+    ]
+
+
+def test_complete_catalogue_reuse_rejects_changed_or_missing_evidence():
+    index_rows = [{"source_id": "82484"}, {"source_id": "82485"}]
+    state = {
+        "catalogue_complete": True,
+        "published_result_count": 2,
+        "source_property_ids": ["82484", "82485"],
+    }
+    one_existing = {
+        "BidX1|auction:4561|property:82484": {
+            "appearance_id": "BidX1|auction:4561|property:82484"},
+    }
+
+    assert reusable_complete_rows(
+        "4561", 2, index_rows, state, one_existing) is None
+    assert reusable_complete_rows(
+        "4561", 3, index_rows, state, one_existing) is None
+    assert reusable_complete_rows(
+        "4561", 2, index_rows, {**state, "catalogue_complete": False},
+        one_existing) is None
