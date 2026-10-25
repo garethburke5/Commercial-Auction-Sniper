@@ -601,13 +601,13 @@ jobs:
         timeout-minutes: 12
         run: python -u historical_corpus.py build
       - name: Package the complete database below the single-file limit
-        if: steps.rebuild.outcome == 'success'
+        if: always() && steps.rebuild.outcome == 'success'
         run: python -c "from web_platform.history_storage import publish_parts; publish_parts('data/auction_history/auction_history.sqlite.gz', 'data/auction_history/database_parts')"
       - name: Reconcile the historical source register and remaining gaps
-        if: steps.rebuild.outcome == 'success'
+        if: always() && steps.rebuild.outcome == 'success'
         run: python scripts/history_source_register.py
       - name: Publish checkpoint without changing the live board
-        if: success() && steps.rebuild.outcome == 'success'
+        if: always() && steps.rebuild.outcome == 'success'
         run: |
           set -euo pipefail
           test -s data/auction_history/progress.json

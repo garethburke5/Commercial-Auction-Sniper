@@ -361,6 +361,7 @@ def test_later_base_source_does_not_erase_earlier_address_enrichment(tmp_path, m
 def test_historical_workflow_stages_every_collection_summary():
     workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/historical-lot-corpus.yml").read_text()
     assert "git add data/auction_history/*_collection.json" in workflow
+    assert workflow.count("if: always() && steps.rebuild.outcome == 'success'") == 3
 
 
 def test_database_builder_retries_disk_staging_error_in_memory(tmp_path, monkeypatch):
