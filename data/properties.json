@@ -170598,8 +170598,8 @@
     "zero_inventory_outage_sources": [
       "Greenslade Taylor Hunt"
     ],
-    "publication_revision": "91ec67cbbad5e2a8c1c5fa0a3059c66790cb80ae",
-    "revalidated_at": "2026-10-25T00:06:17.182632+00:00"
+    "publication_revision": "d301bba1a629ecff41f62e3f3b6bafefe303f863",
+    "revalidated_at": "2026-10-25T02:34:06.747774+00:00"
   },
   "excluded_properties": [
     {
@@ -173378,9 +173378,27 @@
         "inventory_equivalence_verified": false,
         "assessment": "directory trading name maps to the retained Sutton Kersh archive",
         "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Pughs",
+        "source": "Pugh Auctioneers",
+        "source_url": "https://www.pugh-auctions.com/",
+        "relationship_evidence": "https://www.pugh-auctions.com/auction-diary",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory pluralisation maps to the retained first-party Pugh auction brand; legacy catalogue completeness remains separately unreconciled",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Symonds & Sampson LLP",
+        "source": "Symonds & Sampson",
+        "source_url": "https://www.symondsandsampson.co.uk/property-auctions",
+        "relationship_evidence": "https://www.symondsandsampson.co.uk/property-auctions/past-results",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory legal-name suffix maps to the same first-party Symonds & Sampson property-auction archive",
+        "verified_on": "2026-10-25"
       }
     ],
-    "generated_at": "2026-10-25T00:06:17.180779+00:00",
+    "generated_at": "2026-10-25T02:34:06.745395+00:00",
     "snapshot_generated_at": "2026-10-23T12:11:23.154974+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -178715,7 +178733,17 @@
         "last_successful_collection": "2026-10-23T12:11:21.666277+00:00",
         "last_publication": "2026-10-23T12:11:23.154974+00:00",
         "live_checked_at": null,
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Symonds & Sampson LLP",
+            "source": "Symonds & Sampson",
+            "source_url": "https://www.symondsandsampson.co.uk/property-auctions",
+            "relationship_evidence": "https://www.symondsandsampson.co.uk/property-auctions/past-results",
+            "inventory_equivalence_verified": false,
+            "assessment": "directory legal-name suffix maps to the same first-party Symonds & Sampson property-auction archive",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
