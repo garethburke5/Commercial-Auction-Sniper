@@ -385,3 +385,18 @@ Publication verified: workflow 40230267106 completed successfully. The generated
 register links Dawsons and reduces unlinked directory candidates from 505 to
 504; this is not a verified national auctioneer denominator. No new verified
 guide or sale prices were claimed from the unlabelled Dawsons amounts.
+
+
+## 25 October 2026 — Clive Emson 2022 roundup-result recovery
+
+- Specific growth opportunity: eight saved first-party Clive Emson roundup articles for February, March, May, June, July, September, November and December 2022 linked selected historical result lots that were absent from the banked corpus.
+- Added a reusable article collector and repaired its handling of malformed legacy markup (whole articles nested inside one paragraph). Focused tests pass 20/20.
+- Published 40 net new individual appearances across source auctions 231–238. All 40 retain exact auction/lot identities, article month, property description, sold outcome, achieved price, original lot URL and immutable article snapshot.
+- Quality split: 0 newly dated address records; 40 partial lots; 40 undated at exact-day level; 0 future-dated records; 0 duplicate-derived gains. Unknown street addresses and exact auction days remain null.
+- Sector split: 4 commercial, 6 mixed-use, 16 residential, 5 land and 9 unknown. The commercial/mixed-use subset is 10.
+- Price evidence: 40 new achieved prices; 0 new guide prices. Because the exact auction day is not published in these articles, the rows remain excluded from exact-date twenty-year totals even though all eight source articles evidence 2022 auction months.
+- Current corpus after publication: 280,122 appearances, 269,713 address records and 10,409 partial lots; 4,327 appearances are undated.
+- Terminal route evidence: the old catalogue containers and every article-linked lot-detail URL now redirect to generic region/current pages. Those redirects are recorded; do not repeat this route unless a materially different recovery source appears. Article snapshots remain the admissible evidence.
+- National completeness remains false. The next concrete growth target is Barnard Marcus pre-2024 official/saved source-corpus lot recovery, beginning with unbanked exact detail identities rather than another Clive Emson redirect probe.
+
+Implementation: [article fallback](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/cf612c88c09bcb0b60c8e830e0125e95aed94c0d), [malformed-markup repair](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/61334ebdd6907ba06d357940771aadab9a91650b), [published checkpoint](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/7dcea057a9a9a7c2cc648eda2932c27e2245faf7), and [verification workflow](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/40238298895).
