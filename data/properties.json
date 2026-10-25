@@ -170598,8 +170598,8 @@
     "zero_inventory_outage_sources": [
       "Greenslade Taylor Hunt"
     ],
-    "publication_revision": "5ffebae40423ce0816017ae98d1541f3b57b4f7d",
-    "revalidated_at": "2026-10-25T12:17:00.088475+00:00"
+    "publication_revision": "a1829759633fdfa17160049de39ad26e7ff52ed1",
+    "revalidated_at": "2026-10-25T13:15:41.843292+00:00"
   },
   "excluded_properties": [
     {
@@ -173396,9 +173396,63 @@
         "inventory_equivalence_verified": false,
         "assessment": "directory legal-name suffix maps to the same first-party Symonds & Sampson property-auction archive",
         "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "BTG Eddisons Property Auctions",
+        "source": "BTG Eddisons",
+        "source_url": "https://www.eddisons.com/agency-and-auctions/property-auctions",
+        "relationship_evidence": "https://www.eddisons.com/agency-and-auctions/property-auctions",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory service name maps to the retained BTG Eddisons corpus label; Pugh, SDL and Mark Jenkinson histories remain separately attributed",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Clive Emson Land and Property Auctioneers",
+        "source": "Clive Emson",
+        "source_url": "https://www.cliveemson.co.uk/",
+        "relationship_evidence": "https://www.cliveemson.co.uk/about-us/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory long-form trading name maps to the retained Clive Emson auction corpus",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Lambert Smith Hampton (National)",
+        "source": "LSH Auctions",
+        "source_url": "https://propertyauctions.lsh.co.uk/",
+        "relationship_evidence": "https://propertyauctions.lsh.co.uk/about",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory legal name maps to the first-party LSH Property Auctions platform powered by Lambert Smith Hampton",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Bagshaws Ashbourne",
+        "source": "Bagshaws",
+        "source_url": "https://www.bagshaws.com/bagshaws-property/auctions/",
+        "relationship_evidence": "https://www.bagshaws.com/bagshaws-property/auctions/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory office/branch label maps to the shared first-party Bagshaws land and property auction archive; branch-specific completeness is unverified",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Bagshaws Bakewell",
+        "source": "Bagshaws",
+        "source_url": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+        "relationship_evidence": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory office/venue label maps to the shared first-party Bagshaws land and property auction archive; branch-specific completeness is unverified",
+        "verified_on": "2026-10-25"
+      },
+      {
+        "brand": "Bagshaws Uttoxeter",
+        "source": "Bagshaws",
+        "source_url": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+        "relationship_evidence": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+        "inventory_equivalence_verified": false,
+        "assessment": "directory office/venue label maps to the shared first-party Bagshaws land and property auction archive; branch-specific completeness is unverified",
+        "verified_on": "2026-10-25"
       }
     ],
-    "generated_at": "2026-10-25T12:17:00.085970+00:00",
+    "generated_at": "2026-10-25T13:15:41.840939+00:00",
     "snapshot_generated_at": "2026-10-23T12:11:23.154974+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -177133,7 +177187,17 @@
         "last_successful_collection": "2026-10-23T12:11:16.671460+00:00",
         "last_publication": "2026-10-23T12:11:23.154974+00:00",
         "live_checked_at": null,
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Clive Emson Land and Property Auctioneers",
+            "source": "Clive Emson",
+            "source_url": "https://www.cliveemson.co.uk/",
+            "relationship_evidence": "https://www.cliveemson.co.uk/about-us/",
+            "inventory_equivalence_verified": false,
+            "assessment": "directory long-form trading name maps to the retained Clive Emson auction corpus",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
@@ -177865,7 +177929,17 @@
         "last_successful_collection": "2026-10-23T12:11:13.840396+00:00",
         "last_publication": "2026-10-23T12:11:23.154974+00:00",
         "live_checked_at": null,
-        "source_registry": [],
+        "source_registry": [
+          {
+            "brand": "Lambert Smith Hampton (National)",
+            "source": "LSH Auctions",
+            "source_url": "https://propertyauctions.lsh.co.uk/",
+            "relationship_evidence": "https://propertyauctions.lsh.co.uk/about",
+            "inventory_equivalence_verified": false,
+            "assessment": "directory legal name maps to the first-party LSH Property Auctions platform powered by Lambert Smith Hampton",
+            "verified_on": "2026-10-25"
+          }
+        ],
         "last_successful_discovery": null,
         "last_successful_harvest": null,
         "records_banked": null,
