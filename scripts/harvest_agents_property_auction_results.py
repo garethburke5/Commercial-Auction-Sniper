@@ -39,7 +39,7 @@ def clean(value: str | None) -> str | None:
     return value or None
 
 
-def fetch(url: str, params: dict | None = None) -> tuple[str, bytes]:
+def fetch(url: str, params=None) -> tuple[str, bytes]:
     response = requests.get(url, params=params, headers=HEADERS, timeout=60)
     response.raise_for_status()
     if len(response.content) < 500:
@@ -182,6 +182,11 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
     collection_path = corpus.DATA / "agents_property_auction_collection.json"
     previous = json.loads(collection_path.read_text()) if collection_path.exists() else {}
     checked = set(previous.get("checked_month_keys", []))
+    # Do not hammer combinations which the source itself rejected on the
+    # preceding pass.  Retain them as unresolved and advance to usable years;
+    # they can be explicitly retried after the surviving archive is banked.
+    prior_failed = {item.get("key") for item in previous.get("failures", []) if item.get("key")}
+    attempted = checked | prior_failed
     now = datetime.now(timezone.utc)
     candidates = []
     for year in years:
@@ -189,15 +194,18 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
             final_month = now.month if year == now.year else 12
             for month in range(1, final_month + 1):
                 key = f"{venue}|{year:04d}-{month:02d}"
-                if key not in checked:
+                if key not in attempted:
                     candidates.append((key, venue, year, month))
     limit = max(1, years_per_run) * max(1, len(venues)) * 12
     selected = candidates[:limit]
-    states, rows, failures = {}, [], []
+    states, rows = {}, []
+    failures = list(previous.get("failures", []))
 
     def capture(item):
         key, venue, year, month = item
-        params = {"a_venue": venue, "a_year": str(year), "a_month": f"{month:02d}", "a_sub": "1"}
+        # Match the first-party form/search URL ordering.  Some legacy result
+        # routes return HTTP 500 for unsupported combinations.
+        params = [("a_month", f"{month:02d}"), ("a_sub", "1"), ("a_venue", venue), ("a_year", str(year))]
         page_url, raw = fetch(BASE, params)
         sha = corpus.digest(raw)
         snapshot = corpus.DATA / "sources/agents-property-auction" / f"{venue.casefold().replace(' ', '-')}-{year:04d}-{month:02d}-{sha[:16]}.json.gz"
@@ -248,6 +256,7 @@ def harvest(years_per_run: int = 2, workers: int = 4) -> dict:
         "venues": venues,
         "years_exposed": years,
         "checked_month_keys": sorted(checked),
+        "attempted_month_keys": sorted(attempted | {item[0] for item in selected}),
         "month_filters_checked": len(checked),
         "month_filters_expected_through_current_month": all_possible,
         "filter_inventory_complete_through_current_month": len(checked) == all_possible and not failures,
