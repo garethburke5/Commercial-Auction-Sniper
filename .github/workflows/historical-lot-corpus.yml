@@ -191,7 +191,12 @@ jobs:
         run: |
           # Source-specific failures stay checkpointed in the JSON summaries;
           # they must not suppress banking successful rows from the same pass.
-          python -u scripts/harvest_cottons_results.py 16 16 || true
+          # A parser-version change can queue more than one 16-sheet OCR
+          # window. Drain at most three finite windows inside the existing
+          # timeout; complete states and canonical rows remain idempotent.
+          for pass in 1 2 3; do
+            python -u scripts/harvest_cottons_results.py 16 16 || true
+          done
           python -u scripts/enrich_cottons_guides.py 16 || true
       - name: Resume bounded archive batch
         if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused Cottons repair')
