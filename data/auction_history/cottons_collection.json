@@ -1,26 +1,26 @@
 {
-  "checked_at": "2026-10-25T12:39:22.273894+00:00",
+  "checked_at": "2026-10-25T13:14:03.157390+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 135,
-  "result_sheets_complete": 61,
-  "result_sheets_blocked": 2,
-  "result_sheets_reused": 46,
+  "result_sheets_complete": 73,
+  "result_sheets_blocked": 3,
+  "result_sheets_reused": 62,
   "result_sheets_attempted_this_run": 16,
-  "result_sheets_pending": 71,
-  "ocr_sheets_attempted_this_run": 1,
-  "ocr_appearances_recovered_this_run": 36,
+  "result_sheets_pending": 55,
+  "ocr_sheets_attempted_this_run": 15,
+  "ocr_appearances_recovered_this_run": 685,
   "appearances_captured": 7422,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "by_status": {
     "sold": 3897,
-    "available": 1800,
+    "available": 1801,
     "not_offered": 613,
     "sold_prior": 615,
     "not_available": 57,
     "sold_after": 268,
-    "unknown": 124,
+    "unknown": 123,
     "withdrawn": 37,
     "under_offer": 10,
     "unsold": 1
@@ -34,9 +34,9 @@
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-25T12:39:10.045379+00:00",
-    "sha256": "9549161264b8a103c2a26f9aeffec2a7b0d310cef0c0c3952cf14625d224a8c7",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-9549161264b8a103.json.gz",
+    "retrieved_at": "2026-10-25T13:12:29.441437+00:00",
+    "sha256": "4ee30d545e8572b37f18b1d879753c7a23cff735f557884894916e8af6b7a8f2",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-4ee30d545e8572b3.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -55,6 +55,14 @@
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained image-only result PDF failed bounded OCR recovery",
       "ocr_error": "ValueError: result table header is absent"
+    },
+    {
+      "auction_id": "cottons:2017-02-28:4614c568ee5f",
+      "auction_date": "2017-02-28",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-28th-Feb-2017.pdf",
+      "error": "ValueError: result PDF contains no usable text",
+      "reason": "retained image-only result PDF failed bounded OCR recovery",
+      "ocr_error": "ValueError: duplicate lot labels in result PDF with conflicting evidence"
     }
   ],
   "failures": []

@@ -2,8 +2,8 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2024-07-10:9485a0a460c3",
   "auction_date": "2024-07-10",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
   "visible_result_rows": 50,
   "source_table_rows": 50,
   "identical_duplicate_rows": 0,
@@ -14,18 +14,76 @@
     31
   ],
   "pagination_reconciled": true,
-  "denominator_reconciled": false,
-  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
-  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
+  "denominator_reconciled": true,
+  "denominator_basis": "exact lot-identity agreement between the complete first-party result table and independently parsed first-party catalogue",
+  "completion_scope": "every visible row in both retained first-party result and catalogue publications; unused lot numbers are not fabricated",
   "result_parser_version": 2,
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2024/07/10th-July-2024-Results.pdf",
-  "errors": [
-    {
-      "error": "non-contiguous result lot sequence",
-      "missing": [
-        31
-      ]
-    }
+  "errors": [],
+  "checked_at": "2026-10-25T13:12:29.655734+00:00",
+  "published_terminal_lot_number": 51,
+  "intentional_unassigned_lot_numbers": [
+    31
   ],
-  "checked_at": "2026-10-25T12:39:10.545730+00:00"
+  "catalogue_gap_reconciliation": {
+    "kind": "matching_publication_numbering_gap",
+    "catalogue_source_url": "https://www.cottons.co.uk/wp-content/uploads/2024/07/Revised-Catalogue-LowRes-20240710-20240702102209-compressed.pdf",
+    "catalogue_sha256": "5c2fd26c031892bb2916550963631102a82dcb6dd1bf88313380ac77f21abcbe",
+    "catalogue_snapshot_path": "data/auction_history/sources/cottons/catalogues/2024-07-10-5c2fd26c031892bb.pdf.gz",
+    "visible_labels": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+      "24",
+      "25",
+      "26",
+      "27",
+      "28",
+      "29",
+      "30",
+      "32",
+      "33",
+      "34",
+      "35",
+      "36",
+      "37",
+      "38",
+      "39",
+      "40",
+      "41",
+      "42",
+      "43",
+      "44",
+      "45",
+      "46",
+      "47",
+      "48",
+      "49",
+      "50",
+      "51"
+    ],
+    "unassigned_labels": [
+      31
+    ]
+  }
 }
