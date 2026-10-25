@@ -194,3 +194,18 @@ Published parser repair `54e3a0777ac05d09a93511e17d0e130c5389a66f`, queued-head/
 - The Cottons regression suite, workflow/storage tests, source banking, database rebuild, source-register reconciliation, checkpoint publication and artifact retention passed in workflow run `40187420567`.
 
 National completeness remains unverified: **499** catalogue states remain incomplete or unreconciled, **67** current fetch/parse failures remain and operator/branch/shared-platform directory reconciliation is unfinished.
+
+## Checkpoint: Cottons publication-defect repair and evidenced operator aliases
+
+Published parser repair `5ffebae40423ce0816017ae98d1541f3b57b4f7d`, focused workflow/alias repair `11dd156dd280edb85d80f67f0a3367bd4cd9b6d3`, and generated checkpoint `1d93a88f6905635e24f6c327f10bfba25b2bbf9f`:
+
+- Three Cottons catalogue discrepancies were resolved from first-party PDFs without inventing rows. The 22 May 2024 catalogue genuinely omits result-sheet lot 12, so 46 catalogue rows are checked and lot 12 remains null/unchecked. The 13 December 2023 repeated parenthesised “(LOT 1)” is promotional footer text, not another lot. The 12 July 2023 catalogue contains late-entry lot 35 despite a stale cover headline of 34 lots.
+- The reusable catalogue parser now ignores parenthesised promotional cross-references, accepts an evidence-bounded omitted catalogue row only against an independently parsed complete result sequence, and accepts late entries beyond a stale cover count only when catalogue and result labels exactly reconcile to a contiguous sequence. Regression tests cover all three cases.
+- A 16-catalogue focused guide pass increased Cottons records checked against catalogue evidence from 896 to **1,087** and appearances carrying catalogue guides from 917 to **1,100**. Fourteen older catalogues remain explicitly unresolved, primarily because no independent offered-lot total survives; no speculative guide or lot was admitted.
+- A 16-sheet result refresh increased complete retained Cottons result states from 46 to **61**. The archive now reports 135 discovered sheets, 71 pending and 2 blocked. One OCR attempt reconstructed 36 already-banked appearances; deduplication correctly produced no net new appearance.
+- Six directory trading-name/branch entries now reconcile to evidenced corpus operators: BTG Eddisons Property Auctions, Clive Emson Land and Property Auctioneers, Lambert Smith Hampton (National), and Bagshaws Ashbourne, Bakewell and Uttoxeter. Directory entries not linked to a corpus operator fell from 511 to **505**; this is reconciliation evidence, not six new auctioneers or lots.
+- The verified database artifact from workflow run `40193863006` is retained as `historical-auction-lot-database` (341,331,166 bytes; SHA-256 `bf7a209f23bf4160b3f62b8326bd5f2cf7a32c51f016b78ed2a18b0f3a3af186`). Build, source banking, database rebuild, register generation, checkpoint publication and artifact upload all completed successfully.
+- Corpus totals remain **279,813 individual appearances**: **269,444 address records**, **10,369 partial lots** and **4,202 undated appearances**. Exact address groups are 153,498 and remain grouping keys, not a verified count of unique physical buildings. Catalogue states remain 1,999 complete, 499 incomplete or unreconciled, with 67 current fetch/parse failures.
+
+National completeness remains unverified. The remaining incomplete catalogue states, current source failures, 505 unlinked directory entries and source-by-source inventory gaps must be reconciled before a national-coverage claim.
+
