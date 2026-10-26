@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T13:22:08.044372+00:00",
-  "corpus_checkpoint": "2026-10-26T13:21:46.088553+00:00",
+  "generated_at": "2026-10-26T14:29:27.004032+00:00",
+  "corpus_checkpoint": "2026-10-26T14:29:06.252678+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -6285,13 +6285,17 @@
       "name": "Robinson & Hall",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/robinson-hall",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
+      "matched_corpus_label": "Robinson & Hall",
+      "match_basis": "exact label",
+      "retained_appearances": 415,
+      "years_with_retained_evidence": [
+        2024,
+        2025,
+        2026
+      ],
       "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "with_sale_price": 247,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -7986,7 +7990,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 494,
+  "directory_entries_not_linked": 493,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8053,6 +8057,7 @@
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6893,
+    "Robinson & Hall": 415,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
     "Savills": 2,
@@ -8076,13 +8081,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 289834,
-      "auction_ids_observed": 8377,
+      "lot_appearances": 290249,
+      "auction_ids_observed": 8389,
       "with_guide_price": 97715,
-      "with_sale_price": 109075,
+      "with_sale_price": 109322,
       "with_both_prices": 46680,
-      "marked_sold": 147803,
-      "marked_sold_without_sale_price": 39468
+      "marked_sold": 148118,
+      "marked_sold_without_sale_price": 39536
     },
     "by_auctioneer_and_year": [
       {
@@ -13388,6 +13393,39 @@
         "marked_sold_without_sale_price": 1477
       },
       {
+        "auctioneer": "Robinson & Hall",
+        "year": 2024,
+        "lot_appearances": 17,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 11,
+        "with_both_prices": 0,
+        "marked_sold": 15,
+        "marked_sold_without_sale_price": 4
+      },
+      {
+        "auctioneer": "Robinson & Hall",
+        "year": 2025,
+        "lot_appearances": 213,
+        "auction_ids_observed": 6,
+        "with_guide_price": 0,
+        "with_sale_price": 124,
+        "with_both_prices": 0,
+        "marked_sold": 165,
+        "marked_sold_without_sale_price": 41
+      },
+      {
+        "auctioneer": "Robinson & Hall",
+        "year": 2026,
+        "lot_appearances": 185,
+        "auction_ids_observed": 5,
+        "with_guide_price": 0,
+        "with_sale_price": 112,
+        "with_both_prices": 0,
+        "marked_sold": 135,
+        "marked_sold_without_sale_price": 23
+      },
+      {
         "auctioneer": "SDL Property Auctions",
         "year": 2022,
         "lot_appearances": 99,
@@ -15621,6 +15659,114 @@
       "lots_captured": 48,
       "errors": [],
       "checked_at": "2026-09-21T22:28:20.459049+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2025-06-25-117453.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2025-06-25",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=117453",
+      "lots_captured": 37,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.592234+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2024-12-04-92155.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2024-12-04",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=92155",
+      "lots_captured": 17,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.592543+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2026-10-14-135951.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2026-10-14",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135951",
+      "lots_captured": 37,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591168+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2026-02-25-135947.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2026-02-25",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135947",
+      "lots_captured": 34,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591769+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2026-06-17-135949.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2026-06-17",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135949",
+      "lots_captured": 36,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591495+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2025-08-13-117454.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2025-08-13",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=117454",
+      "lots_captured": 21,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.592085+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2026-08-05-135950.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2026-08-05",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135950",
+      "lots_captured": 38,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591361+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2025-04-23-117452.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2025-04-23",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=117452",
+      "lots_captured": 39,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.592340+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2025-10-22-117455.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2025-10-22",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=117455",
+      "lots_captured": 52,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591979+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2025-12-10-117456.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2025-12-10",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=117456",
+      "lots_captured": 31,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591875+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2025-02-26-117451.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2025-02-26",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=117451",
+      "lots_captured": 33,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.592440+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2026-04-22-135948.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2026-04-22",
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135948",
+      "lots_captured": 40,
+      "errors": [],
+      "checked_at": "2026-10-26T14:27:43.591652+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/mchugh/auction-42570.json",
@@ -19407,7 +19553,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-26T13:22:07.770163+00:00",
+    "checked_at": "2026-10-26T14:29:26.774149+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

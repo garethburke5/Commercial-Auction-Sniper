@@ -1,0 +1,34 @@
+{
+  "auctioneer": "Robinson & Hall",
+  "source_auction_id": "robinson-hall:135949",
+  "auction_date": "2026-06-17",
+  "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135949",
+  "published_lots_offered": 31,
+  "result_rows_captured": 36,
+  "lots_captured": 36,
+  "additional_non_offered_rows": 5,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "result_sheet_reconciled": true,
+  "completion_scope": "all rows in the surviving first-party result sheet; per-lot catalogue/detail enrichment remains outstanding",
+  "source_evidence": [
+    {
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/pastauctions.aspx?a=384&c=rbh",
+      "retrieved_at": "2026-10-26T14:27:36.846361+00:00",
+      "sha256": "86f3ac0644c862b03fc81e8ddb17ca0d3c931915900af9aa3a36755ddb4f9da8",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/past-auctions-86f3ac0644c862b0.json.gz",
+      "basis": "first-party embedded EIG past-auction inventory"
+    },
+    {
+      "source_url": "https://auctioneertemplates.eigroup.co.uk/results.aspx?a=384&c=rbh&au=135949",
+      "retrieved_at": "2026-10-26T14:27:38.079891+00:00",
+      "sha256": "903388e6e77485b33d31af0900e1431b90e73f7049946fcbde8d05041e422abc",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/event-135949-903388e6e77485b3.json.gz",
+      "basis": "first-party EIG auction result sheet",
+      "event_id": "135949",
+      "auction_date": "2026-06-17"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T14:27:43.591495+00:00"
+}
