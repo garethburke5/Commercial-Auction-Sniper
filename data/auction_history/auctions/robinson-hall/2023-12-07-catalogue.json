@@ -1,0 +1,26 @@
+{
+  "auctioneer": "Robinson & Hall",
+  "source_auction_id": "robinson-hall:catalogue-2023-12-07",
+  "auction_date": "2023-12-07",
+  "source_url": "https://interactive.property-world.co.uk/robinsonandhall_nov23/Catalogue.pdf",
+  "published_lots_offered": 26,
+  "catalogue_rows_observed": 26,
+  "lots_captured": 26,
+  "lots_captured_or_enriched": 26,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "completion_scope": "all contiguous lots in the first-party ORDER OF SALE inventory",
+  "source_evidence": [
+    {
+      "source_url": "https://interactive.property-world.co.uk/robinsonandhall_nov23/Catalogue.pdf",
+      "retrieved_at": "2026-10-26T17:16:01.278989+00:00",
+      "sha256": "6f102eebe89b3aa4b459abdde74ce8a0542254116b8de5282304c8add7821a91",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/legacy-2023-12-07-catalogue-6f102eebe89b3aa4.pdf.gz",
+      "basis": "immutable first-party catalogue with reconciled ORDER OF SALE inventory",
+      "auction_date": "2023-12-07",
+      "expected_lots": 26
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T17:16:10.564344+00:00"
+}
