@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Boultons Harrisons Ltd",
+  "source_auction_id": "boultons-harrisons:2026-08-14",
+  "auction_date": "2026-08-14",
+  "source_url": "https://www.boultonsauctions.co.uk/past-auctions?lotResultType=All",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://www.boultonsauctions.co.uk/past-auctions?lotResultType=All",
+      "retrieved_at": "2026-10-26T10:15:24.106215+00:00",
+      "sha256": "72c4e6682c8feb96fcdd0914a630bc8d1fea59f49ca8f0e2e7ff96536472418b",
+      "snapshot_path": "data/auction_history/sources/boultons-harrisons/past-auctions-page-1-72c4e6682c8feb96.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 2
+    },
+    {
+      "source_url": "https://www.boultonsauctions.co.uk/past-auctions?lotResultType=All&page=2",
+      "retrieved_at": "2026-10-26T10:15:24.165447+00:00",
+      "sha256": "74e167454b364b33cf56fce6b659f306f5824f09b621692f636233bebe969e11",
+      "snapshot_path": "data/auction_history/sources/boultons-harrisons/past-auctions-page-2-74e167454b364b33.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 2
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T10:15:52.002499+00:00"
+}

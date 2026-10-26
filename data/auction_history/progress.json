@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T09:00:51.214884+00:00",
-  "individual_lot_records_captured": 296962,
-  "records_with_address": 286192,
+  "generated_at": "2026-10-26T10:19:14.093313+00:00",
+  "individual_lot_records_captured": 297075,
+  "records_with_address": 286305,
   "partial_lot_records": 10770,
-  "exact_address_groups": 157182,
-  "groups_with_repeat_appearances": 40806,
+  "exact_address_groups": 157284,
+  "groups_with_repeat_appearances": 40815,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -45,6 +45,7 @@
     "Barnett Ross": 7601,
     "BidX1": 294,
     "Bond Wolfe": 9582,
+    "Boultons Harrisons Ltd": 62,
     "Brown&Co": 28,
     "Cheffins": 740,
     "Clive Emson": 3978,
@@ -64,6 +65,7 @@
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
     "Network Auctions": 1202,
+    "Online Property Auction Group": 51,
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
@@ -108,23 +110,23 @@
     "2020": 13747,
     "2021": 20398,
     "2022": 25266,
-    "2023": 31342,
-    "2024": 39539,
-    "2025": 45214,
-    "2026": 43317
+    "2023": 31343,
+    "2024": 39549,
+    "2025": 45266,
+    "2026": 43367
   },
   "by_sector": {
-    "commercial": 41902,
-    "land": 18018,
-    "mixed-use": 46793,
-    "residential": 144098,
-    "unknown": 46151
+    "commercial": 41924,
+    "land": 18033,
+    "mixed-use": 46801,
+    "residential": 144165,
+    "unknown": 46152
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2145,
+  "surviving_catalogues_completely_harvested": 2223,
   "catalogues_incomplete_or_unreconciled": 490,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -138,13 +140,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 289492,
-      "auction_ids_observed": 8215,
-      "with_guide_price": 97373,
-      "with_sale_price": 108905,
-      "with_both_prices": 46510,
-      "marked_sold": 147514,
-      "marked_sold_without_sale_price": 39349
+      "lot_appearances": 289604,
+      "auction_ids_observed": 8292,
+      "with_guide_price": 97485,
+      "with_sale_price": 108983,
+      "with_both_prices": 46588,
+      "marked_sold": 147593,
+      "marked_sold_without_sale_price": 39350
     },
     "by_auctioneer_and_year": [
       {
@@ -2920,6 +2922,28 @@
         "marked_sold_without_sale_price": 125
       },
       {
+        "auctioneer": "Boultons Harrisons Ltd",
+        "year": 2025,
+        "lot_appearances": 37,
+        "auction_ids_observed": 34,
+        "with_guide_price": 37,
+        "with_sale_price": 24,
+        "with_both_prices": 24,
+        "marked_sold": 24,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Boultons Harrisons Ltd",
+        "year": 2026,
+        "lot_appearances": 25,
+        "auction_ids_observed": 22,
+        "with_guide_price": 25,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 1
+      },
+      {
         "auctioneer": "Brown&Co",
         "year": 2026,
         "lot_appearances": 28,
@@ -4900,6 +4924,50 @@
         "marked_sold_without_sale_price": 17
       },
       {
+        "auctioneer": "Online Property Auction Group",
+        "year": 2023,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Online Property Auction Group",
+        "year": 2024,
+        "lot_appearances": 10,
+        "auction_ids_observed": 4,
+        "with_guide_price": 10,
+        "with_sale_price": 10,
+        "with_both_prices": 10,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Online Property Auction Group",
+        "year": 2025,
+        "lot_appearances": 15,
+        "auction_ids_observed": 7,
+        "with_guide_price": 15,
+        "with_sale_price": 15,
+        "with_both_prices": 15,
+        "marked_sold": 15,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Online Property Auction Group",
+        "year": 2026,
+        "lot_appearances": 24,
+        "auction_ids_observed": 9,
+        "with_guide_price": 24,
+        "with_sale_price": 22,
+        "with_both_prices": 22,
+        "marked_sold": 22,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Pattinson Auctions",
         "year": 2026,
         "lot_appearances": 6,
@@ -6287,7 +6355,7 @@
       }
     ],
     "undated_appearances": 4371,
-    "future_dated_appearances": 56,
+    "future_dated_appearances": 57,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

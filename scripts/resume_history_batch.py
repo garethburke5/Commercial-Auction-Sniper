@@ -26,6 +26,7 @@ TASKS=(
     ('first_for_auctions', ['scripts/harvest_first_for_auctions.py']),
     ('landwood_property_auctions', ['scripts/harvest_landwood_property_auctions.py']),
     ('sw_property_auctions', ['scripts/harvest_sw_property_auctions.py']),
+    ('eig_retained_grids', ['scripts/harvest_eig_retained_grids.py']),
     # Serial browser-session/read-through recovery for a legacy filter route.
     ('agents_property_auction', ['scripts/harvest_agents_property_auction_results.py','2','--workers','1']),
     ('lsh_results', ['scripts/harvest_lsh_results.py']),

@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Online Property Auction Group",
+  "source_auction_id": "online-property-auction-group:2026-08-26",
+  "auction_date": "2026-08-26",
+  "source_url": "https://www.opagroup.co.uk/past-auctions?lotResultType=All",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://www.opagroup.co.uk/past-auctions?lotResultType=All",
+      "retrieved_at": "2026-10-26T10:16:00.149097+00:00",
+      "sha256": "a9794fe69285e06c165bb27862e0abebedb074cf616324fa5812d74dc25bc4a8",
+      "snapshot_path": "data/auction_history/sources/online-property-auction-group/past-auctions-page-1-a9794fe69285e06c.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 2
+    },
+    {
+      "source_url": "https://www.opagroup.co.uk/past-auctions?lotResultType=All&page=2",
+      "retrieved_at": "2026-10-26T10:16:00.276470+00:00",
+      "sha256": "6868139cb0d5dbb42461bea9426816f3165310e6592226f13123796bf937d7d4",
+      "snapshot_path": "data/auction_history/sources/online-property-auction-group/past-auctions-page-2-6868139cb0d5dbb4.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 2
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T10:16:28.269584+00:00"
+}

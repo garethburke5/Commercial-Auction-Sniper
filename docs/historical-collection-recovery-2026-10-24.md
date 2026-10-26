@@ -680,3 +680,30 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   first-party EIG grid (currently 62 retained property rows), then OPA Group's
   51-row grid. If either denominator fails to reconcile, record the specific
   gap and move to the other source rather than repeating a zero-growth probe.
+
+## 26 October 2026 — Boultons Harrisons and OPA retained-grid recovery
+
+- Added a reusable collector for flat, paginated EIG white-label result grids
+  and applied it to both outstanding targets. Boultons Harrisons reconciles as
+  50 + 12 rows; Online Property Auction Group reconciles as 50 + 1. All 113
+  rows have distinct stable EIG lot UUIDs and first-party detail snapshots.
+- Net growth is **113 address appearances** with no partial, undated or
+  duplicate-derived records. Of these, 112 are dated within the preceding
+  20-year window and one OPA withdrawal remains correctly future-dated to its
+  published scheduled auction date of 28 October 2026.
+- The retained set contains 22 commercial and eight mixed-use appearances
+  (30 combined), 67 residential, 15 land and one unknown. Asset-sector rules
+  prefer the property being sold over speculative alternative-use wording in
+  descriptions.
+- First-party detail pages add **113 guide prices**, while the result grids add
+  **78 achieved prices**; 16 explicit annual rents are also retained. Sold,
+  sold-prior, sold-after, unsold, withdrawn and postponed outcomes remain
+  distinct, and non-sale amounts never become achieved prices.
+- Six operator-year pairs are newly represented: Boultons Harrisons in 2025
+  and 2026, plus OPA in 2023, 2024, 2025 and 2026. The completion claim covers
+  every row in the surviving first-party grids, not deleted earlier material.
+- Next concrete growth target: use this tested collector against another
+  genuine uncovered EIG white-label operator only after resolving its
+  first-party host and displayed trading name; otherwise recover an older
+  property-level Boultons/OPA source rather than refreshing these complete
+  grids. National completeness remains false.
