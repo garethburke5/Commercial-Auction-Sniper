@@ -1,5 +1,6 @@
 """Publish only rendered public pages, never databases, code or account state."""
 import argparse
+import json
 import shutil
 from pathlib import Path
 from .site import Site, HERE
@@ -11,6 +12,11 @@ def export(destination, origin):
     from .social_images import build_social_images
     site.social_images=build_social_images(site.catalogue.all_properties,dest)
     routes=dict(site.routes())
+    from .search_audit import audit
+    search_audit = audit(site, routes)
+    dest.with_name(dest.name + '-search-audit.json').write_text(json.dumps(search_audit, indent=2))
+    if search_audit['failures']:
+        raise ValueError('Property search checks failed: ' + str(search_audit['failures'][:5]))
     for path,html in routes.items():
         target=dest/path.strip('/')/'index.html'
         target.parent.mkdir(parents=True,exist_ok=True)

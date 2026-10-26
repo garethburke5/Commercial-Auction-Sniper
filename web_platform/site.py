@@ -21,6 +21,7 @@ from .enrichment import ordered_images
 from .glossary import GROUPS, SOURCES, REVIEWED
 from .workspace import observation
 from .plans import CATALOGUE as PLAN_CATALOGUE
+from .seo import property_description, property_subject
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
@@ -101,19 +102,24 @@ class Site:
         schema = {'@context':'https://schema.org','@type':'WebPage','name':title,'url':self.origin+path,'description':description}
         if kind == 'property':
             schema.update(isAccessibleForFree=False, hasPart={'@type':'WebPageElement', 'isAccessibleForFree':False, 'cssSelector':'.premium-history'})
+            schema['about'] = property_subject(ctx['row'])
         if kind == 'glossary':
             schema.update({'@type':'DefinedTermSet','hasDefinedTerm':[
                 {'@type':'DefinedTerm','name':name,'description':definition,
                  'url':self.origin+path+'#'+term_id,'inDefinedTermSet':self.origin+path}
                 for _,_,terms in GROUPS for term_id,name,definition in terms]})
         crumbs = [('Home','/')]
+        if kind == 'property':
+            row = ctx['row']
+            crumbs.extend([('Auction properties', '/properties/'),
+                           (row['source'], '/auctioneers/' + row['source_slug'] + '/')])
         if path != '/': crumbs.append((title,path))
         structured = [schema, {'@context':'https://schema.org','@type':'BreadcrumbList','itemListElement':[
             {'@type':'ListItem','position':i+1,'name':label,'item':self.origin+p} for i,(label,p) in enumerate(crumbs)]}]
         if path == '/':
             structured.append({'@context':'https://schema.org','@type':'WebSite',
                 'name':'Auction Geek','url':self.origin+'/'})
-        return self.env.get_template('page.html').render(title=title, kind=kind, description=description,
+        return self.env.get_template('page.html').render(title=title, search_title=title + (' — Auction details' if kind == 'property' else ''), kind=kind, description=description,
             social=self.social_details(ctx['row']) if kind == 'property' else {'title':title+' | Auction Geek','text':description,'image':''},
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)
@@ -167,7 +173,7 @@ class Site:
             from .history_access import preview
             history_preview=preview(self.market.for_property(row))
             yield row['path'], self.page(row['path'],row['address'],'property',
-                f"{row['source']} · {row.get('property_type') or 'Auction property'} · Guide {row['guide']}.",
+                property_description(row),
                 row=row, history_preview=history_preview, noindex=not row['indexable'],
                 particulars=structured_particulars(detail_row), gallery=gallery,
                 fee=estimate_fee(row,fee_profile(row['source_slug'],self.fees),evidence))

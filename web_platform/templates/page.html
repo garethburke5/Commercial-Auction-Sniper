@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en-GB"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{{ title }} | Auction Geek</title><meta name="description" content="{{ description }}">
+<title>{{ search_title }} | Auction Geek</title><meta name="description" content="{{ description }}">
 <meta name="theme-color" content="#182e48"><meta name="application-name" content="Auction Geek">
 <link rel="icon" type="image/svg+xml" href="{{ url('/static/favicon.svg') }}">
 {% include 'social.html' %}
-<link rel="canonical" href="{{ canonical }}">{% if noindex %}<meta name="robots" content="noindex,follow">{% endif %}
+<link rel="canonical" href="{{ canonical }}"><meta name="robots" content="{{ 'noindex,follow' if noindex else 'index,follow,max-image-preview:large' }}">
 <link rel="stylesheet" href="{{ url('/static/share.css') }}?v={{ share_version }}"><script defer src="{{ url('/static/share.js') }}?v={{ share_version }}"></script>
 <link rel="stylesheet" href="{{ url('/static/site.css') }}?v={{ asset_version }}"><script type="application/ld+json">{{ structured|safe }}</script><script src="{{ url('/static/search.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/board.js') }}?v={{ asset_version }}" defer></script>
 <script src="{{ url('/static/identity.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/reviews.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/report-evidence.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/deals.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/workspace.js') }}?v={{ asset_version }}" defer></script>
@@ -76,3 +76,4 @@
  <form id="save-search-form"><label>Give your search a name<input name="name" maxlength="160" required placeholder="e.g. North West retail, 10%+"></label><p class="small muted">Your applied filters will be saved. New-match email delivery is being activated.</p><button class="button" type="submit">Save search</button></form>
 </dialog>
 </body></html>
+

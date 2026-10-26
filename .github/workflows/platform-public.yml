@@ -70,6 +70,13 @@ jobs:
         with:
           name: ${{ env.PAGES_ARTIFACT_NAME }}
           path: public-dist
+      - name: Preserve property search checks
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: property-search-audit
+          path: public-dist-search-audit.json
+          if-no-files-found: ignore
       - name: Wait for this attempt's Pages artifact
         uses: actions/github-script@v8
         env:

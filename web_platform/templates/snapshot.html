@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>{{ s.address }} — Free Property Snapshot | Auction Geek</title>
   <meta name="description" content="Property facts, rental yield and purchase-cost calculations for {{ s.address }}. Read Auction Geek’s free snapshot and save it as a PDF.">
-  <meta name="robots" content="{{ 'index,follow' if s.indexable else 'noindex,follow' }}">
+  <meta name="robots" content="{{ 'index,follow,max-image-preview:large' if s.indexable else 'noindex,follow' }}">
   <link rel="canonical" href="{{ canonical }}">
   {% include 'social.html' %}
   <link rel="stylesheet" href="{{ url('/static/share.css') }}?v={{ share_version }}"><script defer src="{{ url('/static/share.js') }}?v={{ share_version }}"></script>
@@ -32,3 +32,4 @@
   <noscript><p class="print-help">Use your browser’s Print menu to save this snapshot as a PDF.</p></noscript>
 </body>
 </html>
+

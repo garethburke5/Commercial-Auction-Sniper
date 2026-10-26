@@ -12,6 +12,7 @@ from board_presentation import searchable_catalogue_row
 from collectors.publication_quality import lot_identity, publication_exclusion
 from .board import enrich_board_row
 from .free_snapshot import eligible
+from .seo import index_exclusions
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit
 
@@ -60,8 +61,8 @@ class Catalogue:
             if not row.get('guide_price_text') and row.get('guide_price_upper'):
                 row['guide'] += '–' + money(row['guide_price_upper'])
             row['description'] = re.sub(r'<[^>]+>', ' ', row.get('description') or '').strip()
-            row['indexable'] = bool(row.get('auction_date') and len(row['description']) >= 180 and
-                                    any(row.get(k) for k in ('tenure','annual_rent','area_sqft','lease_term')))
+            row['index_exclusions'] = index_exclusions(row)
+            row['indexable'] = not row['index_exclusions']
             enrich_board_row(row,summaries=summaries)
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
