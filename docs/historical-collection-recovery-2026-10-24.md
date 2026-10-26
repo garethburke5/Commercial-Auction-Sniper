@@ -918,3 +918,58 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   contains no missing lots, preserve the guide enrichment and move to a
   different uncovered operator rather than re-probing the unavailable April
   and October URL patterns. National completeness remains false.
+
+## 26 October 2026 — saved source-corpus reconciliation and duplicate repair
+
+- The confirmed Robinson & Hall August 2023 interactive catalogue contains 23
+  order-of-sale lots. All 23 reconcile to the already banked 3 August result
+  appearances (the result image also contains Blue Barn, sold prior, which the
+  catalogue omits), so no catalogue row is claimed as a new appearance. Its 23
+  catalogue guides remain a separate enrichment target.
+- Added a reusable importer for the previously unbanked
+  `data/source_corpus/` root, including inheritance of auction-level dates and
+  URLs, preservation of guide, achieved price and rent fields, immutable source
+  snapshots, and explicit enrichment support. The focused suite passes all 27
+  tests.
+- Reconciled all 59 saved property-evidence rows without inflating the corpus.
+  Thirty-three 2015 Allsop address rows collapse to 31 unique source rows and
+  all 31 now match later canonical exact-date/address appearances. Of 25 AID986
+  partials, two uniquely enrich existing 5 December 2016 appearances and the
+  other 23 overlap the retained AID986 source. The one Savills row also overlaps
+  retained evidence. The derived staging shards are now replaced, including
+  empty tombstones, so a synced worktree cannot resurrect those duplicates.
+- The AID986 reconciliation adds lot numbers 1 and 5 to their exact canonical
+  appearances and adds one newly evidenced achieved price: **£260,000** for
+  9 & 9A High Street, Princes Risborough. It does not create a second
+  appearance or merge the related North Finchley legal interest.
+- The concurrent bounded collector banked **7 genuine new address
+  appearances**: one Auction House East Anglia, three First for Auctions, one
+  The Auction Company and two Town & Country Property Auctions. Three are
+  dated 26 October 2026 inside the current twenty-year window; four are
+  explicitly future-dated (29 October or 10 November) and remain outside that
+  coverage count. Outcomes are six sold-prior and one postponed. Four rows are
+  residential and three remain unknown; the commercial/mixed-use subset is
+  zero. No new operator-year is claimed.
+- Those seven appearances add **two guide prices** (£220,000 current-date and
+  £260,000 future-dated) and no achieved sale prices. Together with the AID986
+  enrichment, this run therefore adds two genuine guide observations and one
+  genuine achieved-price observation.
+- The integrity repair also removed **23 pre-existing overlapping appearances**
+  (21 Allsop/Allsop Commercial 2010 rows and two Savills 2018 rows), in addition
+  to removing the 31 newly staged Allsop duplicates. Consequently the database
+  row total is honestly 16 lower than the pre-run baseline despite seven newly
+  banked appearances: **297,861 appearances**, comprising **287,091 address
+  records** and **10,770 partial lots**. Exact address groups rise by six to
+  158,040. Exact-date twenty-year coverage is 290,346 appearances, with 97,746
+  guide prices and 109,358 sale prices; undated appearances remain 4,388 and
+  future-dated appearances rise by four to 84.
+- Next concrete growth target: build a first-party Auction Works collector over
+  `https://www.auctionworks.co.uk/search`, whose currently exposed search
+  denominator is 644 individual results. Reconcile the operator and pagination,
+  capture stable property URLs, dates, guides, published outcomes and achieved
+  prices, and compare every exact identity against the corpus before claiming
+  growth. Auction Works currently has no linked retained appearances, so this
+  is a materially different, potentially high-yield route. The 23 Robinson &
+  Hall August guide enrichments are secondary and must not be counted as new
+  appearances. National completeness remains false.
+
