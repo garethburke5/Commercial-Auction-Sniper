@@ -70,7 +70,7 @@ GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re
 RENT_RE = re.compile(
     r"£\s*([\d,]+(?:\.\d+)?)\s*(per\s+annum|annually|p\.?\s*a\.?)\b", re.I
 )
-PARSER_VERSION = 2
+PARSER_VERSION = 3
 
 
 def clean(value: str | None) -> str | None:
@@ -176,17 +176,26 @@ def published_denominator(html: str) -> int | None:
     return int(match.group(1).replace(",", "")) if match else None
 
 
-def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], list[dict]]:
+def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], list[dict], list[dict]]:
     soup = BeautifulSoup(html, "lxml")
-    rows, malformed = [], []
+    rows, malformed, excluded_non_auction = [], [], []
     for position, card in enumerate(soup.select(".lot-panel"), 1):
         detail = card.select_one('a[href*="/lot/details/"]')
+        property_detail = card.select_one('a[href*="/property/details/"]')
         identity = LOT_ID_RE.search(detail.get("href") or "") if detail else None
         address_node = card.select_one(".list-address")
         time_node = card.select_one("time[datetime]")
         scheduled_end = card.get("data-end-date-utc")
         auction_date = exact_date(scheduled_end) or exact_date(time_node.get("datetime") if time_node else None)
         address = clean(address_node.get_text(" ", strip=True)) if address_node else None
+        if not detail and property_detail:
+            excluded_non_auction.append({
+                "position": position,
+                "address": address,
+                "detail_url": urljoin(source["base"], property_detail.get("href") or ""),
+                "reason": "first-party property/committed-offer card, not an auction lot",
+            })
+            continue
         if not all((identity, address, auction_date)):
             malformed.append({"position": position, "address": address, "detail_url": detail.get("href") if detail else None})
             continue
@@ -244,7 +253,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         if bid_match:
             row["bid_count"] = int(bid_match.group(1))
         rows.append(row)
-    return rows, malformed
+    return rows, malformed, excluded_non_auction
 
 
 def description_after_heading(soup: BeautifulSoup) -> str | None:
@@ -341,7 +350,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         for future in as_completed(futures):
             fetched[futures[future]] = future.result()
 
-    archive_evidence, page_rows, malformed = [], [], []
+    archive_evidence, page_rows, malformed, excluded_non_auction = [], [], [], []
     for page in range(1, pages + 1):
         raw, resolved = fetched[page]
         evidence = snapshot(
@@ -349,24 +358,30 @@ def harvest(slug: str, workers: int = 10) -> dict:
             "first-party retained EIG white-label past-auction grid", page=page, page_count=pages,
         )
         archive_evidence.append(evidence)
-        rows, bad = parse_grid(raw.decode("utf-8", "replace"), source, evidence)
+        rows, bad, excluded = parse_grid(raw.decode("utf-8", "replace"), source, evidence)
         page_rows.append(rows)
         malformed.extend({"page": page, **value} for value in bad)
+        excluded_non_auction.extend({"page": page, **value} for value in excluded)
 
     rows = [row for page in page_rows for row in page]
     ids = [row["source_lot_id"] for row in rows]
     denominator = published_denominator(first_html)
+    page_visible_counts = [
+        len(page_rows[page - 1])
+        + sum(value["page"] == page for value in excluded_non_auction)
+        for page in range(1, pages + 1)
+    ]
     pagination_complete = bool(
         pages >= 1 and all(page_rows) and not malformed and len(ids) == len(set(ids))
-        and all(len(page_rows[page - 1]) == 50 for page in range(1, pages))
-        and len(page_rows[-1]) <= 50
-        and (denominator is None or len(ids) == denominator)
+        and all(page_visible_counts[page - 1] == 50 for page in range(1, pages))
+        and page_visible_counts[-1] <= 50
+        and (denominator is None or len(ids) + len(excluded_non_auction) == denominator)
     )
     if not pagination_complete:
         raise RuntimeError(
             f"{slug} retained pagination did not reconcile: pages={list(map(len, page_rows))}, "
             f"malformed={len(malformed)}, distinct={len(set(ids))}/{len(ids)}, "
-            f"published_denominator={denominator}"
+            f"excluded_non_auction={len(excluded_non_auction)}, published_denominator={denominator}"
         )
 
     summary_path = corpus.DATA / f"{slug.replace('-', '_')}_collection.json"
@@ -448,9 +463,12 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "archive_sha256": archive_sha,
         "archive_page_count": pages,
         "archive_page_rows": [len(value) for value in page_rows],
+        "archive_page_visible_cards": page_visible_counts,
         "visible_source_rows": len(rows),
         "published_result_count": denominator,
         "distinct_source_identities": len(set(ids)),
+        "non_auction_property_cards_excluded": len(excluded_non_auction),
+        "non_auction_exclusions": excluded_non_auction,
         "archive_pagination_complete": True,
         "appearances_captured": len(merged),
         "run_new_appearances": len(added),
@@ -470,7 +488,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "detail_pages_captured": len(rows) - len(detail_failures),
         "detail_recovery_failures": detail_failures,
-        "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
+        "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
         "failures": [],
     }
     corpus.save_json(summary_path, summary)

@@ -49,7 +49,8 @@ DETAIL = """
 def test_pagination_and_scheduled_date_precede_early_withdrawal_time():
     assert grids.page_count(GRID) == 2
     assert grids.published_denominator(GRID) == 2
-    rows, malformed = grids.parse_grid(GRID, SOURCE, {"source_url": "https://example.test/past-auctions"})
+    rows, malformed, excluded = grids.parse_grid(GRID, SOURCE, {"source_url": "https://example.test/past-auctions"})
+    assert excluded == []
     assert malformed == [] and len(rows) == 2
     first = rows[0]
     assert first["appearance_id"] == "Example Auctions|eig-lot:85c11d6d-40f5-4b78-80c1-f360ee721c0b"
@@ -117,8 +118,9 @@ def test_numeric_eig_lot_ids_are_preserved_as_stable_identities():
     numeric = GRID.replace(
         "85c11d6d-40f5-4b78-80c1-f360ee721c0b", "193314"
     )
-    rows, malformed = grids.parse_grid(numeric, SOURCE, {})
+    rows, malformed, excluded = grids.parse_grid(numeric, SOURCE, {})
     assert malformed == []
+    assert excluded == []
     assert rows[0]["source_lot_id"] == "193314"
     assert rows[0]["appearance_id"] == "Example Auctions|eig-lot:193314"
 
@@ -137,3 +139,35 @@ def test_higgins_drysdale_uses_full_first_party_search_archive():
         "base": "https://higginsdrysdale.eigonlineauctions.com",
         "archive_path": "/search",
     }
+
+
+def test_non_auction_property_card_is_reconciled_but_not_banked():
+    property_card = """
+    <div class="lot-panel">
+      <a href="/property/details/cherry-tree-cottage">
+        <h3 class="list-address">Cherry Tree Cottage, Durham, DH1 1AA</h3>
+      </a>
+      <div class="list-guideprice"><h4>Property For Sale via Committed Offer</h4></div>
+    </div>
+    """
+    rows, malformed, excluded = grids.parse_grid(GRID + property_card, SOURCE, {})
+    assert len(rows) == 2
+    assert malformed == []
+    assert excluded == [{
+        "position": 3,
+        "address": "Cherry Tree Cottage, Durham, DH1 1AA",
+        "detail_url": "https://example.test/property/details/cherry-tree-cottage",
+        "reason": "first-party property/committed-offer card, not an auction lot",
+    }]
+
+
+def test_missing_lot_identity_is_still_fatal_malformed_evidence():
+    unknown = """
+    <div class="lot-panel">
+      <h3 class="list-address">Unknown Card, Durham, DH1 1AA</h3>
+      <time datetime="2024-01-10T12:00:00Z"></time>
+    </div>
+    """
+    rows, malformed, excluded = grids.parse_grid(unknown, SOURCE, {})
+    assert rows == [] and excluded == []
+    assert malformed == [{"position": 1, "address": "Unknown Card, Durham, DH1 1AA", "detail_url": None}]
