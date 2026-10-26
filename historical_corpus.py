@@ -508,6 +508,7 @@ def bank_source_corpus():
     # own prior output is removed from the comparison set.
     existing_signatures = None
     existing_urls = None
+    existing_address_dates = None
 
     def appearance_signature(row):
         address = re.sub(r"[^a-z0-9]+", " ", str(row.get("address") or "").lower()).strip()
@@ -515,6 +516,20 @@ def bank_source_corpus():
             return None
         lot = re.sub(r"[^a-z0-9]+", " ", str(row.get("lot_number") or "").lower()).strip()
         return clean(row.get("auction_date")) or None, address, lot
+
+    def operator_key(value):
+        value = re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+        for canonical in ("allsop", "savills"):
+            if value.startswith(canonical):
+                return canonical
+        return value
+
+    def address_date_signature(row):
+        address = re.sub(r"[^a-z0-9]+", " ", str(row.get("address") or "").lower()).strip()
+        date = clean(row.get("auction_date")) or None
+        if not address or not date:
+            return None
+        return operator_key(row.get("auctioneer")), date, address
 
     def canonical_url(value):
         if not value:
@@ -526,23 +541,27 @@ def bank_source_corpus():
                                path=parsed.path.rstrip("/"), query="", fragment="").geturl()
 
     def load_existing_inventory():
-        signatures, urls = Counter(), Counter()
+        signatures, urls, address_dates = Counter(), Counter(), Counter()
         appearances = DATA / "appearances"
         if appearances.exists():
             for shard in appearances.rglob("*.jsonl.gz"):
                 for saved in iter_rows(shard):
                     signature = appearance_signature(saved)
                     url = canonical_url(saved.get("original_url"))
+                    address_date = address_date_signature(saved)
                     if signature:
                         signatures[signature] += 1
                     if url:
                         urls[url] += 1
-        return signatures, urls
+                    if address_date:
+                        address_dates[address_date] += 1
+        return signatures, urls, address_dates
 
     def update_inventory(rows, delta):
         for saved in rows:
             signature = appearance_signature(saved)
             url = canonical_url(saved.get("original_url"))
+            address_date = address_date_signature(saved)
             if signature:
                 existing_signatures[signature] += delta
                 if existing_signatures[signature] <= 0:
@@ -551,6 +570,10 @@ def bank_source_corpus():
                 existing_urls[url] += delta
                 if existing_urls[url] <= 0:
                     del existing_urls[url]
+            if address_date:
+                existing_address_dates[address_date] += delta
+                if existing_address_dates[address_date] <= 0:
+                    del existing_address_dates[address_date]
 
     def conditional_marketing_only(raw):
         """Reject property marketing that promises a future auction conditionally.
@@ -618,7 +641,7 @@ def bank_source_corpus():
         target_shard = DATA / "appearances" / (target_key + ".jsonl.gz")
         if legacy_records or legacy_unbanked_source:
             if existing_signatures is None:
-                existing_signatures, existing_urls = load_existing_inventory()
+                existing_signatures, existing_urls, existing_address_dates = load_existing_inventory()
             if target_shard.exists():
                 update_inventory(list(iter_rows(target_shard)), -1)
         rows = []
@@ -707,7 +730,9 @@ def bank_source_corpus():
             if legacy_records or legacy_unbanked_source:
                 signature = appearance_signature(row)
                 saved_url = canonical_url(row.get("original_url"))
+                address_date = address_date_signature(row)
                 if ((signature and existing_signatures.get(signature, 0)) or
+                        (not lot and address_date and existing_address_dates.get(address_date, 0)) or
                         (saved_url and existing_urls.get(saved_url, 0))):
                     continue
             rows.append(row)

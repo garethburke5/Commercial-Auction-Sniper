@@ -89,6 +89,9 @@ def test_source_banking_recovers_old_root_inherits_auction_fields_and_reconciles
         "lots": [
             {"source_record_id": "saved:known", "lot_number": "1", "locality": "York",
              "property_type": "Bank", "result": "£125,000"},
+            {"source_record_id": "saved:address-overlap", "lot_number": None,
+             "address": "1 Bank Street, York YO1 1AA", "property_type": "Bank",
+             "result": "Sold", "source_url": "https://legacy.example.test/property/known"},
             {"source_record_id": "saved:new", "lot_number": "2", "address": "2 High Street, York YO1 2BB",
              "property_type": "Shop", "guide_price": 90000, "hammer_or_sold_price": 110000,
              "rent_pa": 8000, "result": "Sold", "source_url": "https://example.test/property/new"},
