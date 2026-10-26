@@ -522,3 +522,29 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   March 2010 artifacts against existing shards, banking only non-overlaps and
   keeping unavailable exact dates and lot numbers null. National completeness
   remains false.
+
+## 26 October 2026 — older Allsop/Savills `source_records` reconciliation
+
+- Reconciled all eight saved `lot_partial` rows in the Allsop July 2011 and
+  Savills May 2008, May 2009 and March 2010 artifacts against the permanent
+  appearance shards.
+- Six rows were already banked from overlapping source captures and were not
+  counted again: three Allsop July 2011 investments, Savills' West Fareham
+  office lot, the Eastbourne Reef 'n' Beef lot and the Fulham 2010 investment.
+- Banked two genuinely absent Savills appearances: the mixed-use former surgery
+  in Hurlingham Road reported sold in May 2008, and the 56/58 Dale Street and
+  3 China Lane commercial/development site reported sold in May 2009.
+- Net growth is **two appearances**: one address record and one partial lot.
+  Both retain published auction months but have null exact days and lot numbers,
+  so exact-date twenty-year coverage and newly dated address counts do not
+  change. Both are commercial/mixed-use.
+- The new rows add one guide price and two achieved sale prices. No rent value,
+  future-dated row, duplicate appearance or new source-year pair is claimed.
+- The unrelated live-board publication after the prior checkpoint had replaced
+  `continuation_collection.json` with invalid binary content. The last valid
+  historical continuation state is restored and advanced here so subsequent
+  scheduled banking is not blocked.
+- Next concrete growth target: inspect remaining saved non-standard arrays and
+  checkpoint artifacts for unbanked property rows, beginning with evidence that
+  has stable property descriptions plus source URLs rather than another probe
+  of these six reconciled overlaps. National completeness remains false.

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "capture_mode": "reconciled_saved_source_records",
+  "captured_at_utc": "2026-10-26T03:18:00Z",
+  "catalogue_complete": false,
+  "lot_records": [
+    {
+      "record_type": "lot_partial",
+      "source": "Savills",
+      "source_record_id": "savills-press:2008-05:hurlingham-road-former-surgery",
+      "source_auction_id": "savills-press-period:2008-05",
+      "auction_date": null,
+      "auction_period": "2008-05",
+      "lot_number": null,
+      "address": null,
+      "locality": "Hurlingham Road, Fulham, London",
+      "property_type": "Former surgery with residential upper parts; mixed-use",
+      "tenure": null,
+      "guide_price_gbp": 240000,
+      "result_price_gbp": 318000,
+      "result_status": "Sold",
+      "source_url": "https://www.estatesgazette.co.uk/news/gp-fails-to-save-health-of-savills-results/",
+      "source_urls": [
+        "https://www.estatesgazette.co.uk/news/gp-fails-to-save-health-of-savills-results/"
+      ],
+      "notes": "Contemporary reporting identifies this mixed-use former surgery as sold by Savills in May 2008. The exact street number, lot number and auction day are not exposed; those values remain null."
+    },
+    {
+      "record_type": "lot_partial",
+      "source": "Savills",
+      "source_record_id": "savills-press:2009-05:dale-street-china-lane",
+      "source_auction_id": "savills-press-period:2009-05",
+      "auction_date": null,
+      "auction_period": "2009-05",
+      "lot_number": null,
+      "address": "56/58 Dale Street and 3 China Lane, Manchester",
+      "locality": "Manchester",
+      "property_type": "Commercial/development site comprising inter-linking warehouse buildings with redevelopment permissions",
+      "tenure": "Freehold",
+      "guide_price_gbp": null,
+      "result_price_gbp": 1200000,
+      "result_status": "Sold",
+      "size": "57,000 sq ft",
+      "source_url": "https://www.placenorthwest.co.uk/piccadilly-development-site-sold-at-auction/",
+      "source_urls": [
+        "https://www.placenorthwest.co.uk/piccadilly-development-site-sold-at-auction/"
+      ],
+      "notes": "Contemporary reporting identifies the freehold site as sold by Savills at its latest Claridge's auction in May 2009. The exact lot number and auction day are not exposed and remain null."
+    }
+  ],
+  "reconciliation": {
+    "saved_candidate_rows": 8,
+    "new_appearances": 2,
+    "overlapping_rows_excluded": 6,
+    "overlap_evidence": [
+      {
+        "saved_description": "Freehold convenience store investment, Gatley, Cheshire",
+        "existing_appearance_id": "source-corpus|da4904f39790df9cc8d7fd9f"
+      },
+      {
+        "saved_description": "48 Goodge Street, London",
+        "existing_appearance_id": "source-corpus|50efd1cdb8d316280984ba65"
+      },
+      {
+        "saved_description": "Grade II Listed freehold bank investment, Tunbridge Wells",
+        "existing_appearance_id": "source-corpus|fadb6de8218cfba90aa4996d"
+      },
+      {
+        "saved_description": "Short-term leasehold office investment near West Fareham",
+        "existing_appearance_id": "source-corpus|savills-commercial-auc554-pos12"
+      },
+      {
+        "saved_description": "Reef 'n' Beef building, Eastbourne",
+        "existing_appearance_id": "source-corpus|b785f58d369d6dfff2c2e198"
+      },
+      {
+        "saved_description": "Freehold investment, Fulham, south-west London",
+        "existing_appearance_id": "source-corpus|ae0abda991f01d1b96f71722"
+      }
+    ],
+    "notes": "All eight saved lot_partial source_records were checked against the permanent appearance shards by source, property description/locality and published financial evidence. Six are already banked and are not duplicated."
+  }
+}
