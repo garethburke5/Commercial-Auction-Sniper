@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T20:29:11.456586+00:00",
-  "corpus_checkpoint": "2026-10-26T20:28:51.165852+00:00",
+  "generated_at": "2026-10-26T20:35:20.568348+00:00",
+  "corpus_checkpoint": "2026-10-26T20:34:56.371159+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -924,13 +924,21 @@
       "name": "Auction Works",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/auction-works",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Auction Works",
+      "match_basis": "exact label",
+      "retained_appearances": 644,
+      "years_with_retained_evidence": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 1,
+      "with_sale_price": 496,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -7992,7 +8000,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 493,
+  "directory_entries_not_linked": 492,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8028,6 +8036,7 @@
     "Auction House Sussex & Hampshire": 39,
     "Auction House Wales": 476,
     "Auction House West Yorkshire": 117,
+    "Auction Works": 644,
     "BTG Eddisons": 2697,
     "Bagshaws": 84,
     "Barnard Marcus Auctions": 6701,
@@ -8083,13 +8092,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 290346,
-      "auction_ids_observed": 8398,
-      "with_guide_price": 97746,
-      "with_sale_price": 109358,
+      "lot_appearances": 290973,
+      "auction_ids_observed": 8922,
+      "with_guide_price": 97747,
+      "with_sale_price": 109854,
       "with_both_prices": 46664,
-      "marked_sold": 148167,
-      "marked_sold_without_sale_price": 39549
+      "marked_sold": 148692,
+      "marked_sold_without_sale_price": 39578
     },
     "by_auctioneer_and_year": [
       {
@@ -10445,6 +10454,83 @@
         "with_both_prices": 19,
         "marked_sold": 20,
         "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2020,
+        "lot_appearances": 24,
+        "auction_ids_observed": 21,
+        "with_guide_price": 0,
+        "with_sale_price": 24,
+        "with_both_prices": 0,
+        "marked_sold": 24,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2021,
+        "lot_appearances": 111,
+        "auction_ids_observed": 96,
+        "with_guide_price": 0,
+        "with_sale_price": 89,
+        "with_both_prices": 0,
+        "marked_sold": 89,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2022,
+        "lot_appearances": 157,
+        "auction_ids_observed": 128,
+        "with_guide_price": 0,
+        "with_sale_price": 118,
+        "with_both_prices": 0,
+        "marked_sold": 123,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2023,
+        "lot_appearances": 102,
+        "auction_ids_observed": 92,
+        "with_guide_price": 0,
+        "with_sale_price": 75,
+        "with_both_prices": 0,
+        "marked_sold": 80,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2024,
+        "lot_appearances": 100,
+        "auction_ids_observed": 73,
+        "with_guide_price": 0,
+        "with_sale_price": 79,
+        "with_both_prices": 0,
+        "marked_sold": 87,
+        "marked_sold_without_sale_price": 8
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2025,
+        "lot_appearances": 86,
+        "auction_ids_observed": 75,
+        "with_guide_price": 0,
+        "with_sale_price": 77,
+        "with_both_prices": 0,
+        "marked_sold": 83,
+        "marked_sold_without_sale_price": 6
+      },
+      {
+        "auctioneer": "Auction Works",
+        "year": 2026,
+        "lot_appearances": 47,
+        "auction_ids_observed": 39,
+        "with_guide_price": 1,
+        "with_sale_price": 34,
+        "with_both_prices": 0,
+        "marked_sold": 39,
+        "marked_sold_without_sale_price": 5
       },
       {
         "auctioneer": "BTG Eddisons",
@@ -14430,7 +14516,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 84,
+    "future_dated_appearances": 101,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -19613,7 +19699,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-26T20:29:11.255611+00:00",
+    "checked_at": "2026-10-26T20:35:20.124259+00:00",
     "sha256": "bb3d0a68d0b833b340cab8c2185c03f9217633aad9249a062baae1a1602b0121",
     "status": "retrieved"
   }
