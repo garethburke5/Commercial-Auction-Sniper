@@ -1,0 +1,51 @@
+{
+  "auctioneer": "Clarke & Simpson",
+  "source_auction_id": "clarke-simpson:2023-01-31",
+  "auction_date": "2023-01-31",
+  "source_url": "https://clarke-simpson.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://clarke-simpson.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-26T22:05:15.388593+00:00",
+      "sha256": "1abfe23a9c74c843c41b3be5c45be361913bf3153fe95e858e2e4d2f7178447d",
+      "snapshot_path": "data/auction_history/sources/clarke-simpson/past-auctions-page-1-1abfe23a9c74c843.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://clarke-simpson.eigonlineauctions.com/search?page=2",
+      "retrieved_at": "2026-10-26T22:05:15.488911+00:00",
+      "sha256": "6b08f9e7e48f189e5b3e8cbfc2ddf6b41fa70116c2aed3bd5100844b0eae0d90",
+      "snapshot_path": "data/auction_history/sources/clarke-simpson/past-auctions-page-2-6b08f9e7e48f189e.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://clarke-simpson.eigonlineauctions.com/search?page=3",
+      "retrieved_at": "2026-10-26T22:05:15.586913+00:00",
+      "sha256": "cde15a099c755e23d921dcbde53ab80bfff8b072c5a107b650a620e2dd65f7b1",
+      "snapshot_path": "data/auction_history/sources/clarke-simpson/past-auctions-page-3-cde15a099c755e23.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://clarke-simpson.eigonlineauctions.com/search?page=4",
+      "retrieved_at": "2026-10-26T22:05:15.696115+00:00",
+      "sha256": "69f4daf17a1f93a052ce27eb2bdec53dd4d26ea08cfd74154955bad6858ce2e1",
+      "snapshot_path": "data/auction_history/sources/clarke-simpson/past-auctions-page-4-69f4daf17a1f93a0.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 4,
+      "page_count": 4
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T22:05:32.971078+00:00"
+}

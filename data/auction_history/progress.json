@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T21:06:03.857976+00:00",
-  "individual_lot_records_captured": 298580,
-  "records_with_address": 287810,
+  "generated_at": "2026-10-26T22:07:18.337162+00:00",
+  "individual_lot_records_captured": 298747,
+  "records_with_address": 287977,
   "partial_lot_records": 10770,
-  "exact_address_groups": 158733,
-  "groups_with_repeat_appearances": 40864,
+  "exact_address_groups": 158886,
+  "groups_with_repeat_appearances": 40878,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -51,6 +51,7 @@
     "Bradley Hall": 75,
     "Brown&Co": 28,
     "Cheffins": 740,
+    "Clarke & Simpson": 167,
     "Clive Emson": 3978,
     "Cottons": 7435,
     "Dawsons": 138,
@@ -113,25 +114,25 @@
     "2018": 8280,
     "2019": 7889,
     "2020": 13771,
-    "2021": 20529,
-    "2022": 25431,
-    "2023": 31638,
-    "2024": 39696,
-    "2025": 45636,
-    "2026": 43746
+    "2021": 20551,
+    "2022": 25447,
+    "2023": 31660,
+    "2024": 39726,
+    "2025": 45670,
+    "2026": 43789
   },
   "by_sector": {
-    "commercial": 41935,
-    "land": 18188,
-    "mixed-use": 46816,
-    "residential": 144760,
+    "commercial": 41948,
+    "land": 18210,
+    "mixed-use": 46821,
+    "residential": 144887,
     "unknown": 46881
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2907,
+  "surviving_catalogues_completely_harvested": 3009,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -145,13 +146,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291027,
-      "auction_ids_observed": 8973,
-      "with_guide_price": 97801,
-      "with_sale_price": 109904,
-      "with_both_prices": 46714,
-      "marked_sold": 148745,
-      "marked_sold_without_sale_price": 39581
+      "lot_appearances": 291187,
+      "auction_ids_observed": 9073,
+      "with_guide_price": 97961,
+      "with_sale_price": 109996,
+      "with_both_prices": 46806,
+      "marked_sold": 148860,
+      "marked_sold_without_sale_price": 39604
     },
     "by_auctioneer_and_year": [
       {
@@ -3222,6 +3223,72 @@
         "with_both_prices": 0,
         "marked_sold": 37,
         "marked_sold_without_sale_price": 10
+      },
+      {
+        "auctioneer": "Clarke & Simpson",
+        "year": 2021,
+        "lot_appearances": 22,
+        "auction_ids_observed": 7,
+        "with_guide_price": 22,
+        "with_sale_price": 16,
+        "with_both_prices": 16,
+        "marked_sold": 18,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Clarke & Simpson",
+        "year": 2022,
+        "lot_appearances": 16,
+        "auction_ids_observed": 15,
+        "with_guide_price": 16,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "Clarke & Simpson",
+        "year": 2023,
+        "lot_appearances": 22,
+        "auction_ids_observed": 20,
+        "with_guide_price": 22,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 14,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Clarke & Simpson",
+        "year": 2024,
+        "lot_appearances": 30,
+        "auction_ids_observed": 19,
+        "with_guide_price": 30,
+        "with_sale_price": 16,
+        "with_both_prices": 16,
+        "marked_sold": 22,
+        "marked_sold_without_sale_price": 6
+      },
+      {
+        "auctioneer": "Clarke & Simpson",
+        "year": 2025,
+        "lot_appearances": 34,
+        "auction_ids_observed": 22,
+        "with_guide_price": 34,
+        "with_sale_price": 16,
+        "with_both_prices": 16,
+        "marked_sold": 22,
+        "marked_sold_without_sale_price": 6
+      },
+      {
+        "auctioneer": "Clarke & Simpson",
+        "year": 2026,
+        "lot_appearances": 36,
+        "auction_ids_observed": 17,
+        "with_guide_price": 36,
+        "with_sale_price": 26,
+        "with_both_prices": 26,
+        "marked_sold": 27,
+        "marked_sold_without_sale_price": 1
       },
       {
         "auctioneer": "Clive Emson",
@@ -6591,7 +6658,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 122,
+    "future_dated_appearances": 129,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
