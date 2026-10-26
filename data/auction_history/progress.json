@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T10:48:08.975973+00:00",
-  "individual_lot_records_captured": 297075,
-  "records_with_address": 286305,
+  "generated_at": "2026-10-26T12:13:34.865691+00:00",
+  "individual_lot_records_captured": 297205,
+  "records_with_address": 286435,
   "partial_lot_records": 10770,
-  "exact_address_groups": 157284,
-  "groups_with_repeat_appearances": 40815,
+  "exact_address_groups": 157410,
+  "groups_with_repeat_appearances": 40814,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -13,6 +13,7 @@
     "Allsop Commercial": 71,
     "Anderson & Garland": 29,
     "Auction Estates": 2072,
+    "Auction Hammer Midlands": 128,
     "Auction House Beds & Bucks": 14,
     "Auction House Birmingham & Black Country": 111,
     "Auction House Cheshire, Staffordshire & Shropshire": 159,
@@ -37,7 +38,7 @@
     "Auction House South West": 232,
     "Auction House South Yorkshire": 1798,
     "Auction House Sussex & Hampshire": 39,
-    "Auction House Wales": 475,
+    "Auction House Wales": 476,
     "Auction House West Yorkshire": 117,
     "BTG Eddisons": 2697,
     "Bagshaws": 84,
@@ -53,7 +54,7 @@
     "Dawsons": 138,
     "Dedman Gray": 2851,
     "Edward Mellor": 10268,
-    "First for Auctions": 1377,
+    "First for Auctions": 1378,
     "Future Property Auctions": 75881,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
@@ -109,25 +110,25 @@
     "2019": 7889,
     "2020": 13747,
     "2021": 20398,
-    "2022": 25266,
-    "2023": 31343,
-    "2024": 39549,
+    "2022": 25274,
+    "2023": 31440,
+    "2024": 39552,
     "2025": 45266,
-    "2026": 43367
+    "2026": 43389
   },
   "by_sector": {
-    "commercial": 41924,
-    "land": 18033,
-    "mixed-use": 46801,
-    "residential": 144165,
-    "unknown": 46152
+    "commercial": 41926,
+    "land": 18037,
+    "mixed-use": 46803,
+    "residential": 144278,
+    "unknown": 46161
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
   "surviving_catalogues_completely_harvested": 2223,
-  "catalogues_incomplete_or_unreconciled": 490,
+  "catalogues_incomplete_or_unreconciled": 499,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -140,13 +141,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 289604,
-      "auction_ids_observed": 8292,
-      "with_guide_price": 97485,
+      "lot_appearances": 289712,
+      "auction_ids_observed": 8300,
+      "with_guide_price": 97593,
       "with_sale_price": 108983,
       "with_both_prices": 46588,
-      "marked_sold": 147593,
-      "marked_sold_without_sale_price": 39350
+      "marked_sold": 147682,
+      "marked_sold_without_sale_price": 39439
     },
     "by_auctioneer_and_year": [
       {
@@ -786,6 +787,39 @@
         "with_both_prices": 82,
         "marked_sold": 171,
         "marked_sold_without_sale_price": 89
+      },
+      {
+        "auctioneer": "Auction Hammer Midlands",
+        "year": 2022,
+        "lot_appearances": 8,
+        "auction_ids_observed": 1,
+        "with_guide_price": 8,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 4
+      },
+      {
+        "auctioneer": "Auction Hammer Midlands",
+        "year": 2023,
+        "lot_appearances": 97,
+        "auction_ids_observed": 6,
+        "with_guide_price": 97,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 82,
+        "marked_sold_without_sale_price": 82
+      },
+      {
+        "auctioneer": "Auction Hammer Midlands",
+        "year": 2024,
+        "lot_appearances": 3,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
       },
       {
         "auctioneer": "Auction House Beds & Bucks",
@@ -6355,7 +6389,7 @@
       }
     ],
     "undated_appearances": 4371,
-    "future_dated_appearances": 57,
+    "future_dated_appearances": 79,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -6366,7 +6400,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-26T08:52:08.953197+00:00",
+    "checked_at": "2026-10-26T12:02:17.857626+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
