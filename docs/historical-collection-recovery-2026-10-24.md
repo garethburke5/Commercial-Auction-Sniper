@@ -973,3 +973,33 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   Hall August guide enrichments are secondary and must not be counted as new
   appearances. National completeness remains false.
 
+## 26 October 2026 — Auction Works complete retained-grid expansion
+
+- Reconciled the first-party Auction Works search archive exactly: **644**
+  published results, **644** distinct stable lot UUIDs and page inventories of
+  50 rows on each of the first 12 pages plus 44 on page 13. All 644 detail
+  pages and immutable source snapshots were captured without recovery errors.
+- Banked **644 net new address appearances**. Of these, **627** have exact dates
+  inside the current 20-year window and **17** are explicitly future-dated.
+  There are no partial, undated or duplicate-derived additions.
+- Preserved outcomes separately: 525 sold, 92 unsold, 9 withdrawn, 1 postponed
+  and 17 still unknown/open. The batch adds **496 achieved sale prices**, **6
+  guide prices**, no rents, and 7 commercial/mixed-use appearances. Minimum
+  opening bids and a current bid remain distinct evidence and are not promoted
+  to guide or achieved prices.
+- Auction Works now has source-year coverage for **2020 through 2026**. The
+  rebuilt corpus contains **298,505 appearances**: 287,735 address records and
+  10,770 partial lots. Exact-date twenty-year coverage is 290,973 appearances,
+  with 97,747 guide prices and 109,854 sale prices. Database rebuild, packaging,
+  source-register reconciliation and publication all completed successfully.
+- Next concrete growth target: run the same denominator-reconciled collector
+  against Bradley Hall's first-party archive at
+  `https://auction.bradleyhall.co.uk/search`. A non-persisting validation run
+  reconciled **75** UUIDs across pages of 50 and 25, with all 75 detail pages
+  available. It projects 54 dated non-future address appearances, 21
+  commercial/mixed-use records, 75 guides, 50 achieved prices, 11 rents and 21
+  explicitly future-dated listings. The Bradley Hall source configuration and
+  focused tests are prepared; do not count these records until the collector
+  banks them and the rebuilt database verifies them. National completeness
+  remains false.
+

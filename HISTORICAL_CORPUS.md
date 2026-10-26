@@ -45,6 +45,7 @@ python scripts/harvest_landwood_property_auctions.py
 python scripts/harvest_sw_property_auctions.py
 python scripts/harvest_eig_retained_grids.py
 python scripts/harvest_eig_retained_grids.py auction-works --workers 12
+python scripts/harvest_eig_retained_grids.py bradley-hall --workers 12
 python scripts/harvest_propertyauctions_allsop_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py

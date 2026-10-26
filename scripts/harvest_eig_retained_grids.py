@@ -32,6 +32,11 @@ SOURCES = {
         "base": "https://www.auctionworks.co.uk",
         "archive_path": "/search",
     },
+    "bradley-hall": {
+        "auctioneer": "Bradley Hall",
+        "base": "https://auction.bradleyhall.co.uk",
+        "archive_path": "/search",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",

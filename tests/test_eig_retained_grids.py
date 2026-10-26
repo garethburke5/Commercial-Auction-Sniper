@@ -103,3 +103,11 @@ def test_auction_works_uses_full_first_party_search_archive():
         "base": "https://www.auctionworks.co.uk",
         "archive_path": "/search",
     }
+
+
+def test_bradley_hall_uses_full_first_party_search_archive():
+    assert grids.SOURCES["bradley-hall"] == {
+        "auctioneer": "Bradley Hall",
+        "base": "https://auction.bradleyhall.co.uk",
+        "archive_path": "/search",
+    }
