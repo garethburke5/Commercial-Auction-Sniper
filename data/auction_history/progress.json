@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T15:23:01.143010+00:00",
-  "individual_lot_records_captured": 297783,
-  "records_with_address": 287013,
+  "generated_at": "2026-10-26T16:18:07.958644+00:00",
+  "individual_lot_records_captured": 297826,
+  "records_with_address": 287056,
   "partial_lot_records": 10770,
-  "exact_address_groups": 157944,
-  "groups_with_repeat_appearances": 40855,
+  "exact_address_groups": 157985,
+  "groups_with_repeat_appearances": 40857,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -71,7 +71,7 @@
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6893,
-    "Robinson & Hall": 452,
+    "Robinson & Hall": 495,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
     "Savills": 2,
@@ -113,24 +113,24 @@
     "2020": 13747,
     "2021": 20418,
     "2022": 25274,
-    "2023": 31442,
+    "2023": 31485,
     "2024": 39596,
     "2025": 45527,
     "2026": 43623
   },
   "by_sector": {
     "commercial": 41933,
-    "land": 18151,
+    "land": 18161,
     "mixed-use": 46805,
-    "residential": 144435,
-    "unknown": 46459
+    "residential": 144439,
+    "unknown": 46488
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
   "surviving_catalogues_completely_harvested": 2300,
-  "catalogues_incomplete_or_unreconciled": 513,
+  "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -143,13 +143,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 290272,
-      "auction_ids_observed": 8393,
+      "lot_appearances": 290315,
+      "auction_ids_observed": 8395,
       "with_guide_price": 97715,
-      "with_sale_price": 109328,
+      "with_sale_price": 109359,
       "with_both_prices": 46680,
-      "marked_sold": 148131,
-      "marked_sold_without_sale_price": 39543
+      "marked_sold": 148167,
+      "marked_sold_without_sale_price": 39548
     },
     "by_auctioneer_and_year": [
       {
@@ -5464,6 +5464,17 @@
         "with_both_prices": 0,
         "marked_sold": 10,
         "marked_sold_without_sale_price": 4
+      },
+      {
+        "auctioneer": "Robinson & Hall",
+        "year": 2023,
+        "lot_appearances": 43,
+        "auction_ids_observed": 2,
+        "with_guide_price": 0,
+        "with_sale_price": 31,
+        "with_both_prices": 0,
+        "marked_sold": 36,
+        "marked_sold_without_sale_price": 5
       },
       {
         "auctioneer": "Robinson & Hall",

@@ -1,0 +1,42 @@
+{
+  "auctioneer": "Robinson & Hall",
+  "source_auction_id": "robinson-hall:wordpress-image-2023-06-15",
+  "auction_date": "2023-06-15",
+  "date_precision": "day",
+  "source_url": "https://robinsonandhall.co.uk/89-sold-in-our-june-auction/",
+  "published_lots_offered": 17,
+  "result_rows_observed": 19,
+  "lots_captured": 19,
+  "additional_non_offered_rows": 2,
+  "duplicate_source_evidence_excluded": 0,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "completion_scope": "all rows in the immutable first-party results image; exact date corroborated by first-party catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://robinsonandhall.co.uk/89-sold-in-our-june-auction/",
+      "retrieved_at": "2026-10-26T16:16:21.992067+00:00",
+      "sha256": "2da538626deb44c1e7c227cb382789d53a1dc69b83f249a7045840eca2893108",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/legacy-2023-06-15-article-2da538626deb44c1.json.gz",
+      "basis": "first-party WordPress article publishing a complete results image",
+      "auction_date": "2023-06-15"
+    },
+    {
+      "source_url": "https://robinsonandhall.co.uk/wp-content/uploads/2023/07/Auction-June-2023-Results.jpg",
+      "retrieved_at": "2026-10-26T16:16:23.086469+00:00",
+      "sha256": "95fd70e9cf8d62984c263b362f5e863048c4e1edb9ec61ad5ca833f27b8a82ff",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/legacy-2023-06-15-results-95fd70e9cf8d6298.jpg.gz",
+      "basis": "immutable first-party results image with checked row transcription",
+      "auction_date": "2023-06-15"
+    },
+    {
+      "source_url": "https://interactive.property-world.co.uk/robinsonandhall_feb23/Catalogue.pdf",
+      "retrieved_at": "2026-10-26T16:16:21.050878+00:00",
+      "sha256": "2a593fcc8cbda5a71ce720451c3761825d468007be216ef899cd6a2d75c9293d",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/legacy-2023-auction-schedule-2a593fcc8cbda5a7.pdf.gz",
+      "basis": "first-party catalogue publishing the exact 2023 auction dates"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T16:16:43.028657+00:00"
+}

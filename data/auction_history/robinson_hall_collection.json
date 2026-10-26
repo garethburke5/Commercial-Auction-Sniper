@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-26T15:21:33.147511+00:00",
+  "checked_at": "2026-10-26T16:16:43.029571+00:00",
   "auctioneer": "Robinson & Hall",
-  "parser_version": 2,
+  "parser_version": 3,
   "source_url": "https://auctioneertemplates.eigroup.co.uk/pastauctions.aspx?a=384&c=rbh",
   "archive_event_count": 12,
   "published_lots_offered": 375,
@@ -22,42 +22,42 @@
     "2024-12-04": 17
   },
   "result_sheets_reconciled": 12,
-  "appearances_captured": 452,
-  "run_new_appearances": 37,
-  "run_new_address_records": 37,
+  "appearances_captured": 495,
+  "run_new_appearances": 43,
+  "run_new_address_records": 43,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 20,
+  "run_new_dated_twenty_year_address_records": 43,
   "run_new_commercial_mixed": 0,
   "run_new_guide_prices": 0,
-  "run_new_sale_prices": 20,
+  "run_new_sale_prices": 31,
   "run_new_rents": 0,
-  "run_new_undated": 17,
+  "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
   "new_source_years": [
-    2021
+    2023
   ],
   "date_range": [
     "2021-06-17",
     "2026-10-14"
   ],
   "by_status": {
-    "sold": 267,
-    "sold_after": 40,
-    "withdrawn_prior": 50,
-    "unsold": 61,
-    "sold_prior": 34
+    "sold": 296,
+    "sold_after": 44,
+    "withdrawn_prior": 53,
+    "unsold": 65,
+    "sold_prior": 37
   },
   "by_sector": {
-    "unknown": 291,
-    "residential": 44,
-    "land": 113,
+    "unknown": 320,
+    "residential": 48,
+    "land": 123,
     "commercial": 4
   },
   "detail_pages_captured": 0,
   "catalogue_entries_captured": 0,
   "catalogue_detail_enrichment_complete": false,
-  "completion_scope": "2024-2026 EIG result sheets plus all surviving rows in two first-party 2021 article sources; other pre-2024 event inventories remain unreconciled",
+  "completion_scope": "2024-2026 EIG result sheets plus all surviving rows in four first-party 2021/2023 article sources; other pre-2024 event inventories remain unreconciled",
   "events": [
     {
       "event_id": "135951",
@@ -301,16 +301,21 @@
     }
   ],
   "failures": [],
-  "legacy_article_events_reconciled": 2,
-  "legacy_visible_result_rows": 37,
-  "legacy_exact_dated_rows": 20,
+  "legacy_article_events_reconciled": 4,
+  "legacy_visible_result_rows": 80,
+  "legacy_exact_dated_rows": 63,
   "legacy_month_only_rows": 17,
-  "legacy_published_lots_offered": 10,
-  "legacy_additional_non_offered_rows": 10,
+  "legacy_published_lots_offered": 27,
+  "legacy_additional_non_offered_rows": 12,
   "legacy_source_urls": [
     "https://robinsonandhall.co.uk/96-sold-so-far-this-year-at-our-land-and-property-auctions/",
     "https://robinsonandhall.co.uk/95-sold-so-far-this-year/",
-    "https://robinsonandhall.co.uk/wp-content/uploads/2021/04/Auction-April-2021-Results.jpg"
+    "https://robinsonandhall.co.uk/wp-content/uploads/2021/04/Auction-April-2021-Results.jpg",
+    "https://interactive.property-world.co.uk/robinsonandhall_feb23/Catalogue.pdf",
+    "https://robinsonandhall.co.uk/89-sold-in-our-june-auction/",
+    "https://robinsonandhall.co.uk/wp-content/uploads/2023/07/Auction-June-2023-Results.jpg",
+    "https://robinsonandhall.co.uk/83-sold-in-our-august-auction/",
+    "https://robinsonandhall.co.uk/wp-content/uploads/2023/08/Auction-August-2023-Results-scaled.jpg"
   ],
   "legacy_failures": []
 }
