@@ -304,6 +304,55 @@ def test_retired_source_corpus_replaces_prior_shard_with_empty_tombstone(tmp_pat
     assert list(h.iter_rows(shard)) == []
 
 
+def test_source_corpus_rejects_conditional_future_marketing_and_retires_old_row(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    source = corpus / "conditional.json"
+    source.write_text(json.dumps({
+        "auctioneer": "Savills Auctions",
+        "lots": [{
+            "auction_date": "2016-09-19",
+            "address": "42 High Street, Ewell, Epsom, Surrey KT17 1RQ",
+            "source_url": "https://example.test/ewell",
+            "source_note": "The property would be placed in the auction if not sold prior.",
+        }],
+    }))
+    old = h.base_row("Savills Auctions", "source-corpus:2016-09-19", "2016-09-19",
+                     "unknown", "old-conditional", "https://example.test/ewell")
+    old["address"] = "42 High Street, Ewell, Epsom, Surrey KT17 1RQ"
+    h.write_rows("source-corpus/conditional", [old])
+
+    assert h.bank_source_corpus() == 0
+    shard = h.DATA / "appearances/source-corpus/conditional.jsonl.gz"
+    assert shard.exists()
+    assert list(h.iter_rows(shard)) == []
+
+
+def test_source_corpus_preserves_explicit_sold_prior_outcome_despite_conditional_words(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    corpus = tmp_path / "data/historical_source_corpus"
+    corpus.mkdir(parents=True)
+    (corpus / "sold_prior.json").write_text(json.dumps({
+        "auctioneer": "Example Auctions",
+        "lots": [{
+            "source_record_id": "example:sold-prior",
+            "auction_date": "2016-09-19",
+            "address": "1 High Street, London SW1A 1AA",
+            "source_url": "https://example.test/sold-prior",
+            "source_note": "It would be placed in the auction if not sold prior.",
+            "result_status": "Sold prior",
+        }],
+    }))
+
+    assert h.bank_source_corpus() == 1
+    rows = list(h.iter_rows(h.DATA / "appearances/source-corpus/sold_prior.jsonl.gz"))
+    assert len(rows) == 1
+    assert rows[0]["status"] == "sold_prior"
+
+
 def test_source_corpus_refuses_false_complete_catalogue_claim(tmp_path, monkeypatch):
     monkeypatch.setattr(h, "ROOT", tmp_path)
     monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")

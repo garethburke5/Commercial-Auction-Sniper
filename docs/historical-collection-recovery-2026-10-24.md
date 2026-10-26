@@ -491,3 +491,34 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   excluding the conditional Edbrooke listing unless a confirming result source
   is found. If identities remain insufficient, move to a different accessible
   older catalogue route rather than weakening admission rules.
+
+## 26 October 2026 — Savills 2016–2017 saved-clue reconciliation
+
+- Reconciled four previously saved property-level clues to actual dated Savills
+  appearances: the sold Fulham Palace Road garage/development site on 9 May
+  2016 and three development properties offered on 29 March 2017. Exact lot
+  numbers remain unknown and are null.
+- Gross additions are four dated address records. One earlier 42 High Street,
+  Ewell row was removed because its source said only that it *would* be placed
+  in the auction if not sold prior; there is no surviving confirmation that it
+  appeared. Net growth is therefore **three appearances and three address
+  records**, all inside the preceding 20-year window.
+- The four admitted rows add four distinct guide prices and one achieved sale
+  price. One new row is mixed-use; removing the unconfirmed Ewell commercial
+  row makes the net commercial/mixed-use change zero. No rent evidence or new
+  auctioneer/year pair was added.
+- Two conditional leads (Edbrooke Road and Ewell) remain source clues rather
+  than appearances. The Chelsea garage clue also remains excluded because the
+  saved artifact lacks an exact address and original URL. No speculative lot
+  identity was created.
+- Added a reusable admission guard for conditional pre-auction marketing while
+  preserving explicit sold-prior outcomes. The historical corpus suite passes
+  26/26 tests and the rebuilt SQLite integrity check passes at 291,458 retained
+  appearances: 281,047 address records and 10,411 partial lots. The exact-date
+  20-year window contains 284,054 appearances, 96,260 guide prices and 105,992
+  sale prices; 4,333 records remain undated and 28 future-dated.
+- Next concrete target: reconcile the eight older saved `lot_partial`
+  `source_records` in the Allsop July 2011 and Savills May 2008, May 2009 and
+  March 2010 artifacts against existing shards, banking only non-overlaps and
+  keeping unavailable exact dates and lot numbers null. National completeness
+  remains false.

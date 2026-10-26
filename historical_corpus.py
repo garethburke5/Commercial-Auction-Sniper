@@ -542,6 +542,24 @@ def bank_source_corpus():
                 if existing_urls[url] <= 0:
                     del existing_urls[url]
 
+    def conditional_marketing_only(raw):
+        """Reject property marketing that promises a future auction conditionally.
+
+        These pages are useful discovery evidence, but ``would be placed ... if
+        not sold prior`` does not establish that the property ever appeared in
+        the auction.  An explicit outcome/price still wins over that wording.
+        """
+        explicit_result = clean(raw.get("result_status") or raw.get("result") or raw.get("status"))
+        explicit_price = (raw.get("result_price_gbp") or raw.get("hammer_gbp") or
+                          raw.get("result_gbp") or raw.get("sale_price") or
+                          raw.get("result_price"))
+        if explicit_result or explicit_price not in (None, ""):
+            return False
+        evidence = " ".join(str(raw.get(key) or "") for key in
+                            ("source_note", "evidence", "notes", "description")).lower()
+        return "if not sold prior" in evidence and bool(re.search(
+            r"\b(?:would|was due to|due to)\s+(?:be\s+)?(?:placed|offered|auctioned|go)", evidence))
+
     for source_path in source_paths:
         try:
             payload = json.loads(source_path.read_text())
@@ -593,8 +611,12 @@ def bank_source_corpus():
             if target_shard.exists():
                 update_inventory(list(iter_rows(target_shard)), -1)
         rows = []
+        conditional_rejections = 0
         for raw in lot_rows:
             if not isinstance(raw, dict):
+                continue
+            if conditional_marketing_only(raw):
+                conditional_rejections += 1
                 continue
             auctioneer = clean(raw.get("source")) or payload_auctioneer or "Unknown auctioneer"
             address = plain(raw.get("address") or raw.get("locality_address") or raw.get("property_address"))
@@ -726,10 +748,12 @@ def bank_source_corpus():
                         "errors": payload.get("reconciliation_errors") or ["Source catalogue remains unreconciled"],
                         "checked_at": payload.get("captured_at") or now(),
                     })
-        elif legacy_records and target_shard.exists():
+        elif target_shard.exists() and (legacy_records or
+                                        conditional_rejections == len(lot_rows)):
             # All rows are now represented by exact canonical evidence.
-            # Persist the empty derived shard so synced worktrees cannot
-            # resurrect duplicates on a later rebuild.
+            # Or every row is only conditional pre-auction marketing. Persist
+            # the empty derived shard so synced worktrees cannot resurrect
+            # duplicates (or unconfirmed participation) on a later rebuild.
             atomic(target_shard, gzip.compress(b"", mtime=0))
         for enrichment in enrichment_rows:
             if not isinstance(enrichment, dict):

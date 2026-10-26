@@ -1,0 +1,90 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Savills Auctions",
+  "capture_mode": "reconciled_saved_source_clues",
+  "captured_at_utc": "2026-10-26T02:05:00Z",
+  "catalogue_complete": false,
+  "lots": [
+    {
+      "record_type": "lot",
+      "source_record_id": "savills-clue:2016-05-09:fulham-palace-road-garage",
+      "source_auction_id": "savills-london:2016-05-09",
+      "auction_date": "2016-05-09",
+      "lot_number": null,
+      "address": "Former garage/storage site off Fulham Palace Road, Hammersmith, London",
+      "property_type": "Freehold former garage/storage site with residential development permission",
+      "tenure": "Freehold",
+      "guide_price_gbp": 250000,
+      "result_price_gbp": 466000,
+      "result_status": "Sold",
+      "size": "Approximately 18 ft x 35 ft; contemporary reporting also gives approximately 570 sq ft site area",
+      "source_url": "https://www.theguardian.com/money/2016/may/09/freehold-garage-south-west-london-fetches-auction-hammersmith-fulham",
+      "source_urls": [
+        "https://auctions.savills.co.uk/past-auctions/archive/page-13",
+        "https://www.theguardian.com/money/2016/may/09/freehold-garage-south-west-london-fetches-auction-hammersmith-fulham",
+        "https://www.standard.co.uk/news/london/tiny-garage-just-18ft-wide-sells-at-auction-for-ps466-000-a3244211.html"
+      ],
+      "notes": "Contemporaneous reporting identifies this as a Savills auction sale on 9 May 2016. Exact lot number is not exposed and remains null."
+    },
+    {
+      "record_type": "lot",
+      "source_record_id": "savills-clue:2017-03-29:denleigh-gardens",
+      "source_auction_id": "savills-london:2017-03-29",
+      "auction_date": "2017-03-29",
+      "lot_number": null,
+      "address": "Land between St Paul's Vicarage and 6 Denleigh Gardens, Winchmore Hill, London N21 1JA",
+      "property_type": "Land/development site with planning for a detached house",
+      "guide_price_gbp": 775000,
+      "source_url": "https://londondevelopmentsites.com/tag/n21/",
+      "source_urls": [
+        "https://londondevelopmentsites.com/tag/n21/",
+        "https://auction-link.org.uk/savills-london-auction-29th-march-2017/"
+      ],
+      "notes": "Contemporary development-auction index identifies this site in the Savills 29 March 2017 auction. Exact lot number and outcome remain unknown."
+    },
+    {
+      "record_type": "lot",
+      "source_record_id": "savills-clue:2017-03-29:2-chadwick-street",
+      "source_auction_id": "savills-london:2017-03-29",
+      "auction_date": "2017-03-29",
+      "lot_number": null,
+      "address": "2 Chadwick Street, Westminster, London SW1P 2EP",
+      "property_type": "Freehold building/development opportunity",
+      "guide_price_gbp": 1100000,
+      "source_url": "https://londondevelopmentsites.com/tag/n21/",
+      "source_urls": [
+        "https://londondevelopmentsites.com/tag/n21/",
+        "https://auction-link.org.uk/savills-london-auction-29th-march-2017/"
+      ],
+      "notes": "Contemporary development-auction index identifies this freehold building in the Savills 29 March 2017 auction. Exact lot number and outcome remain unknown."
+    },
+    {
+      "record_type": "lot",
+      "source_record_id": "savills-clue:2017-03-29:26-wadham-road",
+      "source_auction_id": "savills-london:2017-03-29",
+      "auction_date": "2017-03-29",
+      "lot_number": null,
+      "address": "26 Wadham Road, Putney, London SW15 2LR",
+      "property_type": "Freehold office building with planning for three flats",
+      "guide_price_gbp": 1100000,
+      "source_url": "https://londondevelopmentsites.com/tag/n21/",
+      "source_urls": [
+        "https://londondevelopmentsites.com/tag/n21/",
+        "https://auction-link.org.uk/savills-london-auction-29th-march-2017/"
+      ],
+      "notes": "Contemporary development-auction index identifies this office/development property in the Savills 29 March 2017 auction. Exact lot number and outcome remain unknown."
+    }
+  ],
+  "reconciliation": {
+    "admitted_appearances": 4,
+    "auction_dates": ["2016-05-09", "2017-03-29"],
+    "excluded_conditional_leads": [
+      "Land adjacent to 57 Edbrooke Road, London W9",
+      "42 High Street, Ewell, Epsom, Surrey KT17 1RQ"
+    ],
+    "excluded_partial_clues": [
+      "Freehold single-storey garage off Brompton Road / Crescent Place, Chelsea SW3"
+    ],
+    "notes": "The two conditional leads only said they would be offered if not sold prior and therefore do not prove auction appearance. The Chelsea clue lacks an exact address and original URL in the saved artifact, so it remains discovery evidence rather than an appearance."
+  }
+}
