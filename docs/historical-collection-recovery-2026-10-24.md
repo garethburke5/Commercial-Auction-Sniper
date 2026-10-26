@@ -1061,3 +1061,32 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   164 rows. Its reusable collector configuration and focused tests are
   prepared for the next isolated run. National completeness remains false.
 
+## 26 October 2026 — Higgins Drysdale retained-grid expansion
+
+- Reconciled the first-party grid's **164** published cards across pages of
+  50, 50, 50 and 14. Of these, 163 are distinct dated auction-lot identities;
+  the remaining card is explicitly headed “Property For Sale via Committed
+  Offer” and is retained in the exclusion audit with its address, UUID and URL
+  rather than misrepresented as an auction appearance.
+- Banked **163 net new address appearances**. **162** are exact-dated inside
+  the current 20-year window and one is explicitly future-dated (30 October
+  2026). There are no partial, undated, overlapping or duplicate-derived
+  additions.
+- Added **163 guide prices** and **59 achieved prices**; no rent was published.
+  The batch contains nine commercial and seven mixed-use appearances (16
+  combined), 138 residential, six land and three evidence-limited unknowns.
+  Higgins Drysdale source-years 2021 through 2026 are newly represented.
+- Published outcomes remain distinct: 55 sold, 14 sold-prior, nine sold-after,
+  38 unsold, 34 withdrawn, 11 postponed and two unknown. All 163 detail pages
+  and immutable source snapshots were captured with no recovery failures.
+- The rebuilt corpus contains **298,910 appearances**: 288,140 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 291,349
+  appearances, with 98,123 guide-price records and 110,055 sale-price records.
+  Collection, database rebuild, packaging, source-register reconciliation and
+  protected publication completed successfully.
+- Next concrete growth target: Brown&Co's independent first-party EIG archive
+  at `https://brownandco.eigonlineauctions.com/search`, currently exposing 454
+  rows. The corpus already holds 28 Brown&Co appearances from its rolling
+  first-party result page, so the archive collector must exclude exact stable-ID
+  overlaps before reporting net growth. National completeness remains false.
+
