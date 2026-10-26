@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from difflib import SequenceMatcher
 from pathlib import Path
 
+HISTORY_FILE_LIMIT_BYTES = 95 * 1024 * 1024
+
 POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b", re.I)
 UNIT_WORDS = {"unit", "units", "flat", "flats", "suite", "shop", "shops", "floor", "floors", "ground", "first", "second", "third"}
 NOISE_WORDS = {
@@ -162,6 +164,43 @@ def _material_observation_changed(previous, current):
     return any(previous.get(k) != current.get(k) for k in keys)
 
 
+def consolidate_property_index(properties):
+    """Merge repeated rows with the same existing ID, never different assets.
+
+    Auction events are untouched. All known address variants, event references
+    and first/last observation bounds survive the index consolidation.
+    """
+    by_id = {}
+    result = []
+    for raw in properties:
+        pid = raw.get("property_id")
+        if not pid:
+            raise ValueError("Permanent history property is missing its ID")
+        if pid not in by_id:
+            prop = dict(raw)
+            prop["address_variants"] = list(dict.fromkeys(raw.get("address_variants") or [raw.get("canonical_address")]))
+            prop["auction_event_ids"] = list(dict.fromkeys(raw.get("auction_event_ids") or []))
+            by_id[pid] = prop
+            result.append(prop)
+            continue
+        prop = by_id[pid]
+        for key in ("address_variants", "auction_event_ids"):
+            values = list(raw.get(key) or [])
+            if key == "address_variants" and raw.get("canonical_address"):
+                values.append(raw["canonical_address"])
+            prop[key] = list(dict.fromkeys(prop[key] + values))
+        for key, choose in (("first_seen", min), ("last_seen", max)):
+            values = [v for v in (prop.get(key), raw.get(key)) if v]
+            if values:
+                prop[key] = choose(values)
+        for key, value in raw.items():
+            if key not in prop or prop[key] is None:
+                prop[key] = value
+            elif key not in {"property_id", "canonical_address", "postcode", "address_variants", "auction_event_ids", "first_seen", "last_seen"} and prop[key] != value:
+                raise ValueError("Conflicting duplicate property metadata: " + key)
+    return result
+
+
 def update_history_database(items, path="data/property_history.json", observed_at=None):
     """Append current/archive auction facts into the permanent historical database.
 
@@ -170,7 +209,10 @@ def update_history_database(items, path="data/property_history.json", observed_a
     """
     observed_at = observed_at or _now()
     db = load_database(path)
-    properties = db["properties"]
+    previous_property_rows = len(db["properties"])
+    properties = consolidate_property_index(db["properties"])
+    db["properties"] = properties
+    properties_by_id = {p["property_id"]: p for p in properties}
     events = db["auction_events"]
     events_by_id = {e.get("event_id"): e for e in events if e.get("event_id")}
     # At the existing 0.78 threshold, a match requires the same postcode:
@@ -196,12 +238,26 @@ def update_history_database(items, path="data/property_history.json", observed_a
         if not address or not _text(item.get("source")) or not _text(item.get("url")):
             continue
 
-        candidates = by_postcode.get(postcode(address), {})
-        prop, confidence = _find_property((candidates[k] for k in sorted(candidates)), address)
+        eid = _event_id(item)
+        event = events_by_id.get(eid)
+        # A known source lot already owns a property identity. Re-matching it
+        # created a new index row on every run when a postcode was missing.
+        if event is not None:
+            prop = properties_by_id.get(event.get("property_id"))
+            if prop is None:
+                raise ValueError("Existing auction event has no property: " + eid)
+            confidence = event.get("match_confidence", 1.0)
+        else:
+            # Exact normalized addresses can recur without a full postcode.
+            prop = properties_by_id.get(_property_id(address))
+            confidence = 1.0 if prop is not None else 0.0
+            if prop is None:
+                candidates = by_postcode.get(postcode(address), {})
+                prop, confidence = _find_property((candidates[k] for k in sorted(candidates)), address)
         if prop is None:
             pid = _property_id(address)
             if pid in existing_ids:
-                pid = hashlib.sha1(f"{pid}|{address}".encode()).hexdigest()[:20]
+                raise ValueError("Conflicting permanent property ID: " + pid)
             prop = {
                 "property_id": pid,
                 "canonical_address": address,
@@ -212,6 +268,7 @@ def update_history_database(items, path="data/property_history.json", observed_a
                 "auction_event_ids": [],
             }
             properties.append(prop)
+            properties_by_id[pid] = prop
             property_order[id(prop)] = len(properties) - 1
             existing_ids.add(pid)
             added_properties += 1
@@ -223,8 +280,6 @@ def update_history_database(items, path="data/property_history.json", observed_a
                 variants.append(address)
         index_variant(prop, address)
 
-        eid = _event_id(item)
-        event = events_by_id.get(eid)
         evidence = {
             "listing_url": _text(item.get("url")) or None,
             "legal_pack_url": _text(item.get("legal_pack_url")) or None,
@@ -289,6 +344,7 @@ def update_history_database(items, path="data/property_history.json", observed_a
     db["generated_at"] = observed_at
     db["stats"] = {
         "property_count": len(properties),
+        "duplicate_property_rows_consolidated": previous_property_rows - (len(properties) - added_properties),
         "auction_event_count": len(events),
         "sold_prior_count": sum(1 for e in events if _text(e.get("status")).upper() == "SOLD PRIOR"),
         "events_with_guide": sum(1 for e in events if e.get("guide_price") is not None),
@@ -305,8 +361,10 @@ def update_history_database(items, path="data/property_history.json", observed_a
         with tempfile.NamedTemporaryFile(mode='w',encoding='utf-8',dir=target.parent,
                 prefix=target.name+'.',suffix='.tmp',delete=False) as output:
             temporary=Path(output.name)
-            json.dump(db,output,indent=2,ensure_ascii=False)
+            json.dump(db,output,separators=(",", ":"),ensure_ascii=False)
             output.flush()
+            if os.fstat(output.fileno()).st_size >= HISTORY_FILE_LIMIT_BYTES:
+                raise ValueError("Permanent history exceeds its 95 MiB publication budget; retain the last good file")
             os.fsync(output.fileno())
         temporary.replace(target)
     finally:

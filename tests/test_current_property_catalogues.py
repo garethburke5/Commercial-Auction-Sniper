@@ -38,3 +38,19 @@ def test_failed_detail_is_explicitly_degraded(monkeypatch):
  r=c.finish('Sutton Kersh',{'https://example.com/lot/1':{'address':'1 High Street','lot_number':'1','card':'Commercial property','image':None}},'2099-01-01','event',1)
  assert r.status=='DEGRADED' and not r.authoritative_snapshot
  assert r.reconciliation['detail_failures']==1 and not r.lots
+
+
+
+def test_joint_agent_credit_after_addendum_does_not_make_a_house_commercial():
+ from collectors.publication_quality import commercial_decision
+ for prefix in ['', 'Addendum To Printed Catalogue Please note the guide price has been reduced to £90,000 plus. ']:
+  for credit in ['Joint Agent: Logic Estate Agents', 'JOINT AGENTS: Logic Estate Agents']:
+   row={'description':prefix+credit+' A 2/3 bedroomed middle-terraced house with potential rental income of £10,200 per annum.', 'address':'75 Binns Road, Liverpool L7 9NF'}
+   assert commercial_decision(row) is False
+
+
+def test_real_estate_agent_premises_remain_commercial():
+ from collectors.publication_quality import commercial_decision
+ for text in ['A shop let to Logic Estate Agents at £12,000 per annum.',
+              'Addendum To Printed Catalogue Guide reduced. Joint Agent: Logic Estate Agents A freehold office building formerly occupied as an estate agents with offices above.']:
+  assert commercial_decision({'description':text}) is True

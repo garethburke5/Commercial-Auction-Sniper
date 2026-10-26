@@ -17,7 +17,9 @@ def asset_text(description):
     """Exclude vicinity and agency prose from evidence about the asset itself."""
     text = clean_description(str(description or ''))
     # A marketing credit is not an occupational estate-agency tenancy.
-    text = re.sub(r'^Joint Agents?\s*:\s*.*?(?=\s(?:A|An|The|This)\s|[.;]|$)', ' ', text)
+    # Credits can follow a catalogue addendum. Anchoring this at the start
+    # misclassified ordinary houses advertised by "Logic Estate Agents".
+    text = re.sub(r'\bJoint Agents?\s*:\s*.*?(?=\s(?:A|An|The|This)\s|[.;]|$)', ' ', text, flags=re.I)
     text = re.split(r'\b(?:Our Nearest Office|Important notices?|For more property information|Popular Searches)\b|\b(?:Viewings?|To view)\s*:', text, flags=re.I)[0]
     text = re.sub(r'\b(?:It is a (?:small )?village|The village)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     # Unheaded location prose can name the village rather than say "the village".

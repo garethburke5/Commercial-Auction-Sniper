@@ -73,7 +73,7 @@ class HistoryDatabaseTests(unittest.TestCase):
             first=history.update_history_database(items,path=path,observed_at='2026-10-10')
             with patch.object(history,'match_score',wraps=history.match_score) as score:
                 second=history.update_history_database(items,path=path,observed_at='2026-10-11')
-            self.assertEqual(score.call_count,100)
+            self.assertLessEqual(score.call_count,100)
             self.assertEqual(len(first['auction_events']),len(second['auction_events']))
             self.assertEqual(second['stats']['added_events_last_run'],0)
 
@@ -144,3 +144,61 @@ class HistoryDatabaseTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_missing_postcode_rebanking_never_grows_property_index(tmp_path):
+    from history_database import update_history_database
+    path=tmp_path/'history.json'
+    row={'source':'Example','url':'https://example.test/lot/1','address':'Land at the rear of High Street',
+         'auction_date':'2026-10-10','lot_number':'1','guide_price':10000}
+    first=update_history_database([row],path=path,observed_at='2026-10-10')
+    for day in range(11,25):
+        result=update_history_database([row],path=path,observed_at=f'2026-10-{day}')
+    assert len(result['properties']) == len(result['auction_events']) == 1
+    assert result['auction_events'][0]['property_id'] == first['auction_events'][0]['property_id']
+    assert len(result['auction_events'][0]['observations']) == 1
+
+
+def test_known_event_keeps_identity_when_published_address_changes(tmp_path):
+    from history_database import update_history_database
+    path=tmp_path/'history.json'
+    row={'source':'Example','url':'https://example.test/lot/1','address':'1 High Street',
+         'auction_date':'2026-10-10','lot_number':'1','guide_price':10000}
+    first=update_history_database([row],path=path,observed_at='2026-10-10')
+    second=update_history_database([dict(row,address='1 High Street, AB1 2CD',guide_price=9000)],path=path,observed_at='2026-10-11')
+    assert len(second['properties']) == 1
+    assert second['auction_events'][0]['property_id'] == first['auction_events'][0]['property_id']
+    assert len(second['properties'][0]['address_variants']) == 2
+    assert [o['guide_price'] for o in second['auction_events'][0]['observations']] == [10000,9000]
+
+
+def test_duplicate_ids_are_consolidated_without_losing_evidence(tmp_path):
+    from history_database import update_history_database, empty_database
+    path=tmp_path/'history.json'
+    props=[dict(property_id='a',canonical_address='1 High St',postcode=None,address_variants=['1 High St'],
+                first_seen='2026-01-01',last_seen='2026-02-01',auction_event_ids=['one']),
+           dict(property_id='a',canonical_address='1 High Street',postcode='AB12CD',address_variants=['1 High Street'],
+                first_seen='2025-01-01',last_seen='2026-03-01',auction_event_ids=['two']),
+           dict(property_id='b',canonical_address='1 High St',auction_event_ids=['three'])]
+    events=[dict(event_id=e,property_id=p,source_evidence={'listing_url':'https://example.test/'+e},observations=[{'rent':100}]) for e,p in [('one','a'),('two','a'),('three','b')]]
+    path.write_text(json.dumps(dict(empty_database(),properties=props,auction_events=events)))
+    result=update_history_database([],path=path,observed_at='2026-04-01')
+    assert result['auction_events'] == events
+    assert len(result['properties']) == 2  # Different IDs remain separate even at the same address.
+    a=result['properties'][0]
+    assert a['address_variants'] == ['1 High St','1 High Street']
+    assert a['auction_event_ids'] == ['one','two']
+    assert a['first_seen'] == '2025-01-01' and a['last_seen'] == '2026-03-01'
+    assert result['stats']['duplicate_property_rows_consolidated'] == 1
+
+
+def test_oversized_write_preserves_last_good_history(tmp_path):
+    import history_database as history
+    path=tmp_path/'history.json'
+    history.update_history_database([],path=path)
+    before=path.read_bytes()
+    with patch.object(history,'HISTORY_FILE_LIMIT_BYTES',1):
+        with __import__('pytest').raises(ValueError,match='publication budget'):
+            history.update_history_database([],path=path)
+    assert path.read_bytes() == before
+    assert not list(tmp_path.glob('*.tmp'))

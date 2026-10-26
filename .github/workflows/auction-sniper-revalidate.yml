@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: auction-sniper-live-snapshot-revalidation
@@ -27,13 +28,27 @@ jobs:
       - run: pip install -r requirements.txt pytest
       - name: Run regression tests
         run: python -m pytest tests -q
+      - name: Recover a newer production candidate
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -m scripts.recover_publication_candidate
       - name: Revalidate and publish existing source facts
         run: |
           git config user.name 'Auction Sniper Bot'
           git config user.email 'actions@users.noreply.github.com'
+          cp data/properties.json /tmp/revalidated-source-candidate.json
+          git restore data/properties.json
           git pull --rebase origin main
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          from scripts.recover_publication_candidate import eligible
+          p=Path('data/properties.json');candidate=json.loads(Path('/tmp/revalidated-source-candidate.json').read_text())
+          if eligible(candidate,json.loads(p.read_text())): p.write_text(json.dumps(candidate,indent=2))
+          PY
           python -m scripts.revalidate_snapshot
           python -m scripts.validate_publication
+          python -m scripts.check_collection_freshness --max-age-hours 14
           git add data/properties.json
           if ! git diff --cached --quiet; then
             git commit -m 'Apply validated live-board publication repairs'

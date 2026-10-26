@@ -18,6 +18,7 @@ on:
       - 'scripts/revalidate_snapshot.py'
       - 'scripts/repair_legacy_ahl_particulars.py'
       - 'scripts/validate_publication.py'
+      - 'scripts/recover_publication_candidate.py'
       - '.github/workflows/auction-sniper-revalidate.yml'
       - 'collectors/**'
       - 'tests/**'
@@ -27,6 +28,7 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 jobs:
   collection_scope:
