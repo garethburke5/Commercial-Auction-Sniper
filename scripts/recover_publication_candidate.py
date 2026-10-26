@@ -57,6 +57,11 @@ def recover(path=Path('data/properties.json'), repository=None):
             if len(matches)!=1 or matches[0].file_size>MAX_BYTES:
                 raise ValueError('Invalid candidate snapshot archive')
             candidate=json.loads(z.read(matches[0]))
+        # Match the snapshot's collector audit fields to the artifact producer.
+        integrity=candidate.get('integrity') or {}
+        if (str(integrity.get('publication_run_id')) != str(run['id'])
+                or integrity.get('collector_revision') != run['head_sha']):
+            continue
         if eligible(candidate,current):
             path.write_text(json.dumps(candidate,indent=2),encoding='utf-8')
             print('RECOVERED CANDIDATE',run['id'],candidate['generated_at'],'for normal quality validation')

@@ -25,7 +25,7 @@ def test_only_newer_fresh_complete_candidates_are_eligible():
 
 def test_recovery_keeps_original_collection_time_and_ignores_forks(tmp_path,monkeypatch):
     path=tmp_path/'properties.json';path.write_text(json.dumps(snapshot(10)))
-    candidate=snapshot(1);buffer=io.BytesIO()
+    candidate=snapshot(1);candidate["integrity"]={"publication_run_id":"2","collector_revision":"trusted"};buffer=io.BytesIO()
     with zipfile.ZipFile(buffer,'w') as z:z.writestr('properties.json',json.dumps(candidate))
     calls=[]
     def api(url):
