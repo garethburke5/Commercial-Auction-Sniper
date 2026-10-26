@@ -595,6 +595,60 @@
       "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/78cdbd2069f0380c6a4bc02c.jpg",
       "buffer_id": "6adfcbb7ade6626d9314bca7",
       "due_at": null
+    },
+    "instagram:7fe0131224fe9bd30e0f": {
+      "service": "instagram",
+      "channel_id": "6adb7e1c778b240e2f9ee041",
+      "kind": "property",
+      "property_id": "7fe0131224fe9bd30e0f",
+      "caption_hash": "a761a0d4c75157ef2a77160912efb9ece32e6064ba5450ff2e4c443f83d8f534",
+      "fingerprint": "6814771dd4623e342e0686c4e998bb37c1821b60130d82dad14233495aa5dcaf",
+      "asset_key": "6-7 high street 1-4 bank passage and 5a culver street west colchester essex co1 1da|freehold",
+      "status": "pending",
+      "created_at": "2026-10-26T21:52:37.558262+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "https://www.allsop.co.uk/lot-overview/freehold-retail-and-residential-ground-rent-investment-in-colchester/c261111-042",
+        "observed_at": "2026-10-26T15:19:43.126256+00:00",
+        "facts": {
+          "address": "6-7 High Street, 1-4 Bank Passage, and 5A Culver Street West, Colchester, Essex, CO1 1DA",
+          "auction_date": "2026-11-11",
+          "guide_price": 1100000.0,
+          "guide_price_upper": null,
+          "annual_rent": 136400.0,
+          "tenure": "Freehold",
+          "status": "CURRENT",
+          "source_availability": "AVAILABLE"
+        },
+        "history": [],
+        "source_text_sha256": "aad44155454c8f423614140c4eebff0f496bd141f4f68513dc5dc775f6bc1e2b",
+        "calculation": "136400.0 / 1100000.0 * 100",
+        "additional_source": {
+          "url": "https://www.allsop.co.uk/api/lot/reference/c261111-042",
+          "checked_at": "2026-10-26T21:51:07.659064+00:00",
+          "rent_reconciliation": [
+            80000,
+            14000,
+            24000,
+            18400
+          ],
+          "tenancy_footnote_3": "3–4 Bank Passage: lease rent £28,500; personal concession £24,000 via side letter; reverts on assignment or subletting. Advertised £136,400 total uses £24,000.",
+          "tenant_identity": "EH (Colchester) Limited trading as Emson Haig; Rolex is a brand stocked, not the contractual tenant."
+        }
+      },
+      "editorial_interest": {
+        "eligible": false,
+        "score": 14.133333333333333,
+        "reasons": [
+          "high gross yield at guide"
+        ],
+        "question": null,
+        "details": [],
+        "owner_selected": true,
+        "selection_note": "Owner requested review drafts on 26 October 2026; publication remains unapproved."
+      },
+      "caption": "Four city-centre shops in Colchester, with a £1.1m guide and £136,400 advertised annual rent.\n\nThe freehold at 6–7 High Street, 1–4 Bank Passage and 5A Culver Street West includes a jewellery shop let to EH (Colchester) Limited, trading as Emson Haig, at £80,000 a year. The other three commercial lettings contribute £56,400. Together, that produces a 12.40% gross yield at guide, before purchase and running costs.\n\nThe jeweller's lease runs to 2036, with a tenant break in 2031; its 2026 break was not exercised. The total rent already reflects a concession for one of the other tenants. The residential upper parts at 1 Bank Passage are sold off on a 999-year lease at a peppercorn rent.\n\nAllsop auction: 11 November 2026. VAT applies.\n\nWould you favour several smaller investments, or a city-centre holding with four commercial tenants?\n\nSee the property on Auction Geek through the website link in our profile. Search for 6–7 High Street, Colchester. #AuctionGeek #CommercialProperty #PropertyAuctions",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/78cdbd2069f0380c6a4bc02c.jpg"
     }
   },
   "attempts": [
@@ -738,6 +792,12 @@
       "at": "2026-10-26T21:52:37.558262+00:00",
       "action": "draft",
       "result": "draft"
+    },
+    {
+      "key": "instagram:7fe0131224fe9bd30e0f",
+      "at": "2026-10-26T21:52:37.558262+00:00",
+      "action": "draft",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-10-26T20:16:19.432455+00:00"
