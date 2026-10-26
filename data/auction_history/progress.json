@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-26T12:13:34.865691+00:00",
-  "individual_lot_records_captured": 297205,
-  "records_with_address": 286435,
+  "generated_at": "2026-10-26T13:21:46.088553+00:00",
+  "individual_lot_records_captured": 297327,
+  "records_with_address": 286557,
   "partial_lot_records": 10770,
-  "exact_address_groups": 157410,
+  "exact_address_groups": 157532,
   "groups_with_repeat_appearances": 40814,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -85,6 +85,7 @@
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1129,
+    "The Auction Company": 122,
     "Town & Country Property Auctions": 2832,
     "Unknown auctioneer": 14
   },
@@ -111,23 +112,23 @@
     "2020": 13747,
     "2021": 20398,
     "2022": 25274,
-    "2023": 31440,
-    "2024": 39552,
-    "2025": 45266,
-    "2026": 43389
+    "2023": 31442,
+    "2024": 39579,
+    "2025": 45314,
+    "2026": 43434
   },
   "by_sector": {
-    "commercial": 41926,
-    "land": 18037,
-    "mixed-use": 46803,
-    "residential": 144278,
-    "unknown": 46161
+    "commercial": 41929,
+    "land": 18038,
+    "mixed-use": 46805,
+    "residential": 144390,
+    "unknown": 46165
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2223,
+  "surviving_catalogues_completely_harvested": 2300,
   "catalogues_incomplete_or_unreconciled": 499,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -141,13 +142,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 289712,
-      "auction_ids_observed": 8300,
-      "with_guide_price": 97593,
-      "with_sale_price": 108983,
-      "with_both_prices": 46588,
-      "marked_sold": 147682,
-      "marked_sold_without_sale_price": 39439
+      "lot_appearances": 289834,
+      "auction_ids_observed": 8377,
+      "with_guide_price": 97715,
+      "with_sale_price": 109075,
+      "with_both_prices": 46680,
+      "marked_sold": 147803,
+      "marked_sold_without_sale_price": 39468
     },
     "by_auctioneer_and_year": [
       {
@@ -6309,6 +6310,50 @@
         "with_both_prices": 116,
         "marked_sold": 155,
         "marked_sold_without_sale_price": 39
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2023,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2024,
+        "lot_appearances": 27,
+        "auction_ids_observed": 22,
+        "with_guide_price": 27,
+        "with_sale_price": 23,
+        "with_both_prices": 23,
+        "marked_sold": 26,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2025,
+        "lot_appearances": 48,
+        "auction_ids_observed": 23,
+        "with_guide_price": 48,
+        "with_sale_price": 43,
+        "with_both_prices": 43,
+        "marked_sold": 48,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2026,
+        "lot_appearances": 45,
+        "auction_ids_observed": 30,
+        "with_guide_price": 45,
+        "with_sale_price": 24,
+        "with_both_prices": 24,
+        "marked_sold": 45,
+        "marked_sold_without_sale_price": 21
       },
       {
         "auctioneer": "Town & Country Property Auctions",

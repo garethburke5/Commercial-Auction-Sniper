@@ -1,0 +1,55 @@
+{
+  "checked_at": "2026-10-26T13:20:14.688051+00:00",
+  "auctioneer": "The Auction Company",
+  "parser_version": 2,
+  "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All",
+  "archive_sha256": "d1e5e81b36c620aab99a7346fedb6d86b85fbcf687af289edc8e0a9251d79513",
+  "archive_page_count": 3,
+  "archive_page_rows": [
+    50,
+    50,
+    22
+  ],
+  "visible_source_rows": 122,
+  "distinct_source_identities": 122,
+  "archive_pagination_complete": true,
+  "appearances_captured": 122,
+  "run_new_appearances": 122,
+  "run_new_address_records": 122,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 122,
+  "run_new_commercial_mixed": 5,
+  "run_new_guide_prices": 122,
+  "run_new_sale_prices": 92,
+  "run_new_rents": 17,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 0,
+  "new_source_years": [
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "date_range": [
+    "2023-11-25",
+    "2026-10-13"
+  ],
+  "by_status": {
+    "sold_prior": 40,
+    "sold": 79,
+    "sold_after": 2,
+    "unknown": 1
+  },
+  "by_sector": {
+    "residential": 112,
+    "commercial": 3,
+    "unknown": 4,
+    "mixed-use": 2,
+    "land": 1
+  },
+  "detail_pages_captured": 122,
+  "detail_recovery_failures": [],
+  "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
+  "failures": []
+}

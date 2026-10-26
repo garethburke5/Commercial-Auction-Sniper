@@ -1,0 +1,42 @@
+{
+  "auctioneer": "The Auction Company",
+  "source_auction_id": "the-auction-company:2026-09-04",
+  "auction_date": "2026-09-04",
+  "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All",
+      "retrieved_at": "2026-10-26T13:19:58.889047+00:00",
+      "sha256": "a7a8298d79675eb42122e59b25d8f28ce04dd0b69bc4c7b02f1c2069116d58bc",
+      "snapshot_path": "data/auction_history/sources/the-auction-company/past-auctions-page-1-a7a8298d79675eb4.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 3
+    },
+    {
+      "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All&page=2",
+      "retrieved_at": "2026-10-26T13:19:58.972998+00:00",
+      "sha256": "baa808090618a988d89d5ebaf9d742af0cd0d2e93837466d9541466ff0d06675",
+      "snapshot_path": "data/auction_history/sources/the-auction-company/past-auctions-page-2-baa808090618a988.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 3
+    },
+    {
+      "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All&page=3",
+      "retrieved_at": "2026-10-26T13:19:59.051856+00:00",
+      "sha256": "9006d534fab99a0b5cc5a288cd65bb96b47df0104cda0580ddea2e8d75c7bd6d",
+      "snapshot_path": "data/auction_history/sources/the-auction-company/past-auctions-page-3-9006d534fab99a0b.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 3
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T13:20:14.674502+00:00"
+}

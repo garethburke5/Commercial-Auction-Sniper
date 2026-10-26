@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T12:13:59.948825+00:00",
-  "corpus_checkpoint": "2026-10-26T12:13:34.865691+00:00",
+  "generated_at": "2026-10-26T13:22:08.044372+00:00",
+  "corpus_checkpoint": "2026-10-26T13:21:46.088553+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7242,13 +7242,18 @@
       "name": "The Auction Company",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/the-auction-company",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "The Auction Company",
+      "match_basis": "exact label",
+      "retained_appearances": 122,
+      "years_with_retained_evidence": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 122,
+      "with_sale_price": 92,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -7981,7 +7986,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 495,
+  "directory_entries_not_linked": 494,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8062,6 +8067,7 @@
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1129,
+    "The Auction Company": 122,
     "Town & Country Property Auctions": 2832,
     "Unknown auctioneer": 14
   },
@@ -8070,13 +8076,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 289712,
-      "auction_ids_observed": 8300,
-      "with_guide_price": 97593,
-      "with_sale_price": 108983,
-      "with_both_prices": 46588,
-      "marked_sold": 147682,
-      "marked_sold_without_sale_price": 39439
+      "lot_appearances": 289834,
+      "auction_ids_observed": 8377,
+      "with_guide_price": 97715,
+      "with_sale_price": 109075,
+      "with_both_prices": 46680,
+      "marked_sold": 147803,
+      "marked_sold_without_sale_price": 39468
     },
     "by_auctioneer_and_year": [
       {
@@ -14240,6 +14246,50 @@
         "marked_sold_without_sale_price": 39
       },
       {
+        "auctioneer": "The Auction Company",
+        "year": 2023,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2024,
+        "lot_appearances": 27,
+        "auction_ids_observed": 22,
+        "with_guide_price": 27,
+        "with_sale_price": 23,
+        "with_both_prices": 23,
+        "marked_sold": 26,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2025,
+        "lot_appearances": 48,
+        "auction_ids_observed": 23,
+        "with_guide_price": 48,
+        "with_sale_price": 43,
+        "with_both_prices": 43,
+        "marked_sold": 48,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "The Auction Company",
+        "year": 2026,
+        "lot_appearances": 45,
+        "auction_ids_observed": 30,
+        "with_guide_price": 45,
+        "with_sale_price": 24,
+        "with_both_prices": 24,
+        "marked_sold": 45,
+        "marked_sold_without_sale_price": 21
+      },
+      {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2022,
         "lot_appearances": 99,
@@ -19357,7 +19407,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-26T12:13:59.661287+00:00",
+    "checked_at": "2026-10-26T13:22:07.770163+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
