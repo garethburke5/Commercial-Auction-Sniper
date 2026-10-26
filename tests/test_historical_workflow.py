@@ -9,6 +9,11 @@ WORKFLOW = (
 ).read_text()
 
 
+def test_canonical_appearance_repairs_trigger_a_checkpoint_rebuild():
+    push_paths = WORKFLOW[WORKFLOW.index("  push:"):WORKFLOW.index("concurrency:")]
+    assert "- data/auction_history/appearances/**" in push_paths
+
+
 def test_queued_collection_moves_to_current_main_before_collection():
     checkout = WORKFLOW.index("- uses: actions/checkout@v4")
     refresh = WORKFLOW.index("- name: Move queued collection to current main")

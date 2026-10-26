@@ -23,6 +23,7 @@ on:
           - dawsons
   push:
     paths:
+      - data/auction_history/appearances/**
       - scripts/resume_history_batch.py
       - scripts/harvest_dawsons_history.py
       - tests/test_dawsons_history.py
