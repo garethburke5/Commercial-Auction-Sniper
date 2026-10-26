@@ -42,6 +42,11 @@ SOURCES = {
         "base": "https://clarke-simpson.eigonlineauctions.com",
         "archive_path": "/search",
     },
+    "higgins-drysdale": {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "base": "https://higginsdrysdale.eigonlineauctions.com",
+        "archive_path": "/search",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",

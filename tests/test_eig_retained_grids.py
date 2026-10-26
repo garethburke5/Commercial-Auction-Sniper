@@ -129,3 +129,11 @@ def test_clarke_simpson_uses_full_first_party_search_archive():
         "base": "https://clarke-simpson.eigonlineauctions.com",
         "archive_path": "/search",
     }
+
+
+def test_higgins_drysdale_uses_full_first_party_search_archive():
+    assert grids.SOURCES["higgins-drysdale"] == {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "base": "https://higginsdrysdale.eigonlineauctions.com",
+        "archive_path": "/search",
+    }

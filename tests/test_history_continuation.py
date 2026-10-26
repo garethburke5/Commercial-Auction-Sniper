@@ -1,4 +1,14 @@
+import json
+from pathlib import Path
+
 from scripts.resume_history_batch import run,TASKS
+
+
+def test_banked_continuation_checkpoint_is_valid_json():
+    path = Path(__file__).resolve().parents[1] / "data/auction_history/continuation_collection.json"
+    state = json.loads(path.read_text())
+    assert isinstance(state.get("runs"), list)
+    assert isinstance(state.get("next_task"), int)
 
 
 def test_only_explicitly_reconciled_zero_growth_archive_is_deferred(tmp_path):

@@ -1030,3 +1030,34 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   UUIDs; it must reconcile the live denominator and exclude shared-EIG identity
   overlaps before claiming growth. National completeness remains false.
 
+## 26 October 2026 — Clarke & Simpson retained-grid expansion
+
+- Reconciled the complete surviving first-party archive: **167** published
+  rows, **167** distinct stable EIG identities and four pages containing 50,
+  50, 50 and 17 rows. All 167 detail pages and immutable snapshots were
+  captured without recovery failures.
+- Banked **167 net new address appearances**. Of these, **160** have exact
+  dates inside the current 20-year window and seven are explicitly
+  future-dated through 18 November 2026. There are no partial, undated,
+  overlapping or duplicate-derived additions.
+- The batch contains 13 commercial and five mixed-use appearances (18
+  combined), 127 residential and 22 land records. Published outcomes remain
+  distinct: 92 sold, 15 sold-prior, eight sold-after, 40 unsold, two
+  withdrawn, three postponed and seven current/unknown listings.
+- Added **167 guide prices**, **92 achieved prices** and **17 annual rents**.
+  Clarke & Simpson source-years 2021 through 2026 are newly represented.
+- The rebuilt corpus contains **298,747 appearances**: 287,977 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 291,187
+  appearances, with 97,961 guide-price records and 109,996 sale-price records.
+  Collection, database rebuild, packaging and source publication succeeded.
+- Repaired `continuation_collection.json` from its last valid Git object after
+  a prior API write had committed a truncated display excerpt. That corruption
+  caused this run's source-register reconciliation step to fail after the
+  rebuilt records were already safe; the register is regenerated from the
+  current progress and repaired continuation state in the follow-up checkpoint.
+- Next concrete growth target: Higgins Drysdale National Property Auctions'
+  independent first-party archive at
+  `https://higginsdrysdale.eigonlineauctions.com/search`, currently exposing
+  164 rows. Its reusable collector configuration and focused tests are
+  prepared for the next isolated run. National completeness remains false.
+
