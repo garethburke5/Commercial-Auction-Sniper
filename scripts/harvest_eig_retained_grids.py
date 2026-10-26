@@ -27,6 +27,11 @@ import historical_corpus as corpus
 
 
 SOURCES = {
+    "auction-works": {
+        "auctioneer": "Auction Works",
+        "base": "https://www.auctionworks.co.uk",
+        "archive_path": "/search",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -102,7 +107,11 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
         status = "available"
     else:
         status = "unknown"
-    price_match = re.search(r"(?:for|price)\s+£\s*([\d,]+(?:\.\d+)?)\s*([MK])?", value or "", re.I)
+    price_match = re.search(
+        r"(?:sold(?:\s+(?:prior|post|after))?(?:\s+for)?|for|price)\s+£\s*"
+        r"([\d,]+(?:\.\d+)?)\s*([MK])?",
+        value or "", re.I,
+    )
     price = amount(price_match) if status in {"sold", "sold_prior", "sold_after"} else None
     return status, price
 
@@ -142,6 +151,12 @@ def page_count(html: str) -> int:
             if value.isdigit():
                 pages.add(int(value))
     return max(pages)
+
+
+def published_denominator(html: str) -> int | None:
+    text = BeautifulSoup(html, "lxml").get_text(" ", strip=True)
+    match = re.search(r"Showing results\s+\d+\s*-\s*\d+\s+of\s+([\d,]+)", text, re.I)
+    return int(match.group(1).replace(",", "")) if match else None
 
 
 def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], list[dict]]:
@@ -198,6 +213,16 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
             ),
             source_evidence=evidence,
         )
+        opening_match = re.search(
+            r"Minimum Opening Bid:\s*£\s*([\d,]+(?:\.\d+)?)\s*([MK])?",
+            result_text or "", re.I,
+        )
+        current_match = re.search(
+            r"Current Bid:\s*£\s*([\d,]+(?:\.\d+)?)\s*([MK])?",
+            result_text or "", re.I,
+        )
+        row["minimum_opening_bid"] = amount(opening_match)
+        row["current_bid"] = amount(current_match)
         bid_match = re.search(r"\b(\d+)\s+bids?\b", result_text or "", re.I)
         if bid_match:
             row["bid_count"] = int(bid_match.group(1))
@@ -286,14 +311,14 @@ def harvest(slug: str, workers: int = 10) -> dict:
     if slug not in SOURCES:
         raise ValueError(f"unknown retained grid: {slug}")
     source = {"slug": slug, **SOURCES[slug]}
-    archive_url = source["base"] + "/past-auctions?lotResultType=All"
+    archive_url = source["base"] + source.get("archive_path", "/past-auctions?lotResultType=All")
     first_raw, first_resolved = get(archive_url)
     first_html = first_raw.decode("utf-8", "replace")
     pages = page_count(first_html)
     fetched = {1: (first_raw, first_resolved)}
     with ThreadPoolExecutor(max_workers=min(workers, pages)) as pool:
         futures = {
-            pool.submit(get, archive_url + f"&page={page}"): page
+            pool.submit(get, archive_url + ("&" if "?" in archive_url else "?") + f"page={page}"): page
             for page in range(2, pages + 1)
         }
         for future in as_completed(futures):
@@ -313,15 +338,18 @@ def harvest(slug: str, workers: int = 10) -> dict:
 
     rows = [row for page in page_rows for row in page]
     ids = [row["source_lot_id"] for row in rows]
+    denominator = published_denominator(first_html)
     pagination_complete = bool(
         pages >= 1 and all(page_rows) and not malformed and len(ids) == len(set(ids))
         and all(len(page_rows[page - 1]) == 50 for page in range(1, pages))
         and len(page_rows[-1]) <= 50
+        and (denominator is None or len(ids) == denominator)
     )
     if not pagination_complete:
         raise RuntimeError(
             f"{slug} retained pagination did not reconcile: pages={list(map(len, page_rows))}, "
-            f"malformed={len(malformed)}, distinct={len(set(ids))}/{len(ids)}"
+            f"malformed={len(malformed)}, distinct={len(set(ids))}/{len(ids)}, "
+            f"published_denominator={denominator}"
         )
 
     summary_path = corpus.DATA / f"{slug.replace('-', '_')}_collection.json"
@@ -404,6 +432,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "archive_page_count": pages,
         "archive_page_rows": [len(value) for value in page_rows],
         "visible_source_rows": len(rows),
+        "published_result_count": denominator,
         "distinct_source_identities": len(set(ids)),
         "archive_pagination_complete": True,
         "appearances_captured": len(merged),

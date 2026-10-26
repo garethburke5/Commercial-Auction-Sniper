@@ -33,6 +33,7 @@ GRID = """
  <time datetime="2025-09-16T12:00:00.0000000+00:00"></time>
 </div>
 <ul><li><a href="/past-auctions?page=2&amp;lotResultType=All">2</a></li></ul>
+<div>Showing results 1 - 2 of 2</div>
 """
 
 DETAIL = """
@@ -47,6 +48,7 @@ DETAIL = """
 
 def test_pagination_and_scheduled_date_precede_early_withdrawal_time():
     assert grids.page_count(GRID) == 2
+    assert grids.published_denominator(GRID) == 2
     rows, malformed = grids.parse_grid(GRID, SOURCE, {"source_url": "https://example.test/past-auctions"})
     assert malformed == [] and len(rows) == 2
     first = rows[0]
@@ -73,6 +75,18 @@ def test_only_sold_outcomes_receive_achieved_prices():
     assert grids.status_and_price("Result: Withdrawn at £80,000") == ("withdrawn", None)
     assert grids.status_and_price("Result: Unsold £70,000") == ("unsold", None)
     assert grids.status_and_price("Result: Sold Post for £90,000") == ("sold_after", 90000)
+    assert grids.status_and_price("Result: Sold £157,000 2 bids") == ("sold", 157000)
+
+
+def test_opening_and_current_bids_are_not_treated_as_guides_or_sale_prices():
+    opening = GRID.replace("Result: Sold Prior for £420,000 3 bids", "Minimum Opening Bid: £85,000")
+    current = GRID.replace("Result: Sold Prior for £420,000 3 bids", "Current Bid: £39,999 1 bid")
+    opening_row = grids.parse_grid(opening, SOURCE, {})[0][0]
+    current_row = grids.parse_grid(current, SOURCE, {})[0][0]
+    assert opening_row["minimum_opening_bid"] == 85000
+    assert opening_row["guide_price"] is None and opening_row["sale_price"] is None
+    assert current_row["current_bid"] == 39999
+    assert current_row["guide_price"] is None and current_row["sale_price"] is None
 
 
 def test_the_auction_company_uses_its_first_party_eig_host():
@@ -80,4 +94,12 @@ def test_the_auction_company_uses_its_first_party_eig_host():
     assert source == {
         "auctioneer": "The Auction Company",
         "base": "https://auctions.theauctioncompany.co.uk",
+    }
+
+
+def test_auction_works_uses_full_first_party_search_archive():
+    assert grids.SOURCES["auction-works"] == {
+        "auctioneer": "Auction Works",
+        "base": "https://www.auctionworks.co.uk",
+        "archive_path": "/search",
     }
