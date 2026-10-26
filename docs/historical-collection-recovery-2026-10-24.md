@@ -468,3 +468,26 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
 - Next target: retry only the remaining transient 2019 endpoint after cooldown, then
   resume the saved-source array/checkpoint inventory. National completeness
   remains false.
+
+## 26 October 2026 — Future Property Auctions archive completion
+
+- The previously transient October 2019 endpoint recovered after cooldown. Its
+  complete first-party BidJS payload reconciles 36 distinct listing UUIDs to 36
+  banked appearance rows and an immutable sanitised snapshot.
+- All 36 additions are address records dated 10 October 2019, inside the
+  preceding 20-year window. No partial, undated, future-dated or duplicate
+  records were added.
+- Sector split: five commercial, nine mixed-use, 18 residential and four land.
+  The commercial/mixed-use subset is 14.
+- Three sold rows contribute actual achieved-price evidence. No guide or rent
+  values were inferred from the payload.
+- Future Property Auctions now retains 75,881 appearances and all 229 genuine
+  archived catalogues reconcile. The five explicit test catalogues remain
+  excluded.
+- No new source-year pair is claimed because Future Property Auctions 2019 was
+  already represented. National completeness remains false.
+- Next concrete target: validate four saved Savills 2016-2017 lot clues that
+  evidence actual dated auction appearances but lack lot numbers, while
+  excluding the conditional Edbrooke listing unless a confirming result source
+  is found. If identities remain insufficient, move to a different accessible
+  older catalogue route rather than weakening admission rules.

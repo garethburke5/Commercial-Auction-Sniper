@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Future Property Auctions",
+  "capture_mode": "first_party_bidjs_complete_catalogue_recovery",
+  "auction_date": "2019-10-10",
+  "source_auction_id": "future-property:73ca7563-9350-11ea-9b07-0aad12b14bdc",
+  "catalogue_complete": true,
+  "catalogue_lot_count": 36,
+  "banked_appearance_shard": "data/auction_history/appearances/future_property_auctions/catalogues/386.jsonl.gz",
+  "immutable_source_snapshot": "data/auction_history/sources/future_property_auctions/386/auction-548c5df2380f3b36.json.gz",
+  "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca7563-9350-11ea-9b07-0aad12b14bdc",
+  "captured_at_utc": "2026-10-26T01:05:34.532047+00:00",
+  "note": "All 36 listing UUIDs reconcile to the first-party payload; this metadata file triggers generated database publication and is not itself an additional lot source."
+}
