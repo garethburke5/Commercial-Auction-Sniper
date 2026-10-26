@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T08:07:03.275409+00:00",
-  "individual_lot_records_captured": 296758,
-  "records_with_address": 285988,
+  "generated_at": "2026-10-26T09:00:51.214884+00:00",
+  "individual_lot_records_captured": 296962,
+  "records_with_address": 286192,
   "partial_lot_records": 10770,
-  "exact_address_groups": 157040,
-  "groups_with_repeat_appearances": 40773,
+  "exact_address_groups": 157182,
+  "groups_with_repeat_appearances": 40806,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -69,6 +69,7 @@
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6893,
     "SDL Property Auctions": 443,
+    "SW Property Auctions": 204,
     "Savills": 2,
     "Savills (London - National)": 3,
     "Savills Auctions": 30932,
@@ -108,22 +109,22 @@
     "2021": 20398,
     "2022": 25266,
     "2023": 31342,
-    "2024": 39530,
-    "2025": 45109,
-    "2026": 43227
+    "2024": 39539,
+    "2025": 45214,
+    "2026": 43317
   },
   "by_sector": {
-    "commercial": 41868,
-    "land": 18017,
-    "mixed-use": 46763,
-    "residential": 143959,
+    "commercial": 41902,
+    "land": 18018,
+    "mixed-use": 46793,
+    "residential": 144098,
     "unknown": 46151
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2124,
+  "surviving_catalogues_completely_harvested": 2145,
   "catalogues_incomplete_or_unreconciled": 490,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -137,13 +138,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 289288,
-      "auction_ids_observed": 8194,
-      "with_guide_price": 97170,
-      "with_sale_price": 108829,
-      "with_both_prices": 46434,
-      "marked_sold": 147419,
-      "marked_sold_without_sale_price": 39330
+      "lot_appearances": 289492,
+      "auction_ids_observed": 8215,
+      "with_guide_price": 97373,
+      "with_sale_price": 108905,
+      "with_both_prices": 46510,
+      "marked_sold": 147514,
+      "marked_sold_without_sale_price": 39349
     },
     "by_auctioneer_and_year": [
       {
@@ -5394,6 +5395,39 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "SW Property Auctions",
+        "year": 2024,
+        "lot_appearances": 9,
+        "auction_ids_observed": 2,
+        "with_guide_price": 8,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "SW Property Auctions",
+        "year": 2025,
+        "lot_appearances": 105,
+        "auction_ids_observed": 11,
+        "with_guide_price": 105,
+        "with_sale_price": 31,
+        "with_both_prices": 31,
+        "marked_sold": 44,
+        "marked_sold_without_sale_price": 13
+      },
+      {
+        "auctioneer": "SW Property Auctions",
+        "year": 2026,
+        "lot_appearances": 90,
+        "auction_ids_observed": 8,
+        "with_guide_price": 90,
+        "with_sale_price": 43,
+        "with_both_prices": 43,
+        "marked_sold": 48,
+        "marked_sold_without_sale_price": 5
+      },
+      {
         "auctioneer": "Savills (London - National)",
         "year": 2014,
         "lot_appearances": 3,
@@ -6264,7 +6298,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-26T07:55:44.634515+00:00",
+    "checked_at": "2026-10-26T08:52:08.953197+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
