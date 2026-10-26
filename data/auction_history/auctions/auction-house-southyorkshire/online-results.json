@@ -3,6 +3,8 @@
   "source_auction_id": "auction-house-southyorkshire:online-results",
   "auction_date": null,
   "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
   "archive_pagination_complete": true,
   "lots_captured": 1798,
   "current_archive_rows": 1780,
@@ -1789,13 +1791,11 @@
     "93851",
     "98175"
   ],
-  "errors": [],
-  "checked_at": "2026-10-25T18:32:19.295922+00:00",
-  "source_rows_complete": true,
-  "denominator_reconciled": false,
   "reconciliation_note": {
     "kind": "original_event_denominator_unavailable",
-    "retained_scope": "all rows across every retained first-party online-results page",
+    "retained_scope": "individual online lot endings",
     "retained_rows": 1798
-  }
+  },
+  "errors": [],
+  "checked_at": "2026-10-26T01:20:03.415271+00:00"
 }

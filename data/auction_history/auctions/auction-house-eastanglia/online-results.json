@@ -3,6 +3,8 @@
   "source_auction_id": "auction-house-eastanglia:online-results",
   "auction_date": null,
   "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
   "archive_pagination_complete": true,
   "lots_captured": 162,
   "current_archive_rows": 151,
@@ -160,13 +162,11 @@
     "89433",
     "93081"
   ],
-  "errors": [],
-  "checked_at": "2026-10-25T18:32:19.293407+00:00",
-  "source_rows_complete": true,
-  "denominator_reconciled": false,
   "reconciliation_note": {
     "kind": "original_event_denominator_unavailable",
-    "retained_scope": "all rows across every retained first-party online-results page",
+    "retained_scope": "individual online lot endings",
     "retained_rows": 162
-  }
+  },
+  "errors": [],
+  "checked_at": "2026-10-26T01:20:20.913471+00:00"
 }

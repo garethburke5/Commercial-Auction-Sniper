@@ -3,6 +3,8 @@
   "source_auction_id": "auction-house-northwest:online-results",
   "auction_date": null,
   "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
   "archive_pagination_complete": true,
   "lots_captured": 403,
   "current_archive_rows": 388,
@@ -397,13 +399,11 @@
     "99727",
     "99982"
   ],
-  "errors": [],
-  "checked_at": "2026-10-25T18:32:19.294133+00:00",
-  "source_rows_complete": true,
-  "denominator_reconciled": false,
   "reconciliation_note": {
     "kind": "original_event_denominator_unavailable",
-    "retained_scope": "all rows across every retained first-party online-results page",
+    "retained_scope": "individual online lot endings",
     "retained_rows": 403
-  }
+  },
+  "errors": [],
+  "checked_at": "2026-10-26T01:20:11.390792+00:00"
 }
