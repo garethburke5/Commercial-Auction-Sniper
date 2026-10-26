@@ -7,7 +7,10 @@ from pathlib import Path
 import re
 import shutil
 
-PART_BYTES = 32 * 1024 * 1024
+# Keep generated parts below conservative API/request limits as well as
+# GitHub's single-blob ceiling.  The manifest and PartsReader make part size
+# an implementation detail, so older 32 MiB publications remain readable.
+PART_BYTES = 8 * 1024 * 1024
 
 
 def publish_parts(packed, destination, *, part_bytes=PART_BYTES):

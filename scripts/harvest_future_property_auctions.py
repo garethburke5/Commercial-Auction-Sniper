@@ -45,6 +45,29 @@ def epoch_date(value: int | float | None) -> str | None:
     return datetime.fromtimestamp(float(value) / 1000, tz=timezone.utc).date().isoformat()
 
 
+def is_test_auction_title(value: object) -> bool:
+    """Identify explicit platform test catalogues without fuzzy name matching."""
+    title = corpus.plain(value)
+    return bool(title and re.match(r"^test\b", title, flags=re.I))
+
+
+def without_test_appearances(rows: list[dict], excluded_source_ids: set[str]) -> list[dict]:
+    """Drop only appearances tied to explicit test catalogue UUIDs."""
+    return [row for row in rows if row.get("source_auction_id") not in excluded_source_ids]
+
+
+def load_stored_appearances() -> list[dict]:
+    """Read the legacy aggregate plus independently publishable catalogue shards."""
+    root = corpus.DATA / "appearances/future_property_auctions"
+    rows: dict[str, dict] = {}
+    if not root.exists():
+        return []
+    for path in sorted(root.rglob("*.jsonl.gz")):
+        for row in corpus.iter_rows(path):
+            rows[row["appearance_id"]] = row
+    return list(rows.values())
+
+
 def fetch_json(url: str) -> tuple[bytes, dict]:
     response = None
     for attempt in range(4):
@@ -155,7 +178,13 @@ def fetch_manifest() -> tuple[dict, dict, str | None]:
         "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
         "basis": "first-party public BidJS archived-auction manifest",
     }
-    corpus.save_gzip(snapshot, {"evidence": evidence, "payload": payload})
+    if snapshot.exists():
+        saved = corpus.read_gzip(snapshot)
+        if saved.get("payload") != payload or (saved.get("evidence") or {}).get("sha256") != manifest_sha:
+            raise ValueError("existing archive snapshot conflicts with its content-addressed path")
+        evidence = saved["evidence"]
+    else:
+        corpus.save_gzip(snapshot, {"evidence": evidence, "payload": payload})
     return payload, evidence, None
 
 
@@ -172,7 +201,7 @@ def manifest_rows(payload: dict) -> list[dict]:
             raise ValueError("archive manifest contains a missing or duplicate identity")
         seen.add(uuid)
         title = corpus.plain(row.get("auctionTitle"))
-        if title and title.casefold() == "test auction":
+        if is_test_auction_title(title):
             continue
         normalized.append({
             "auction_uuid": uuid,
@@ -352,9 +381,22 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
 
     manifest_payload, manifest_evidence, manifest_refresh_error = fetch_manifest()
     manifest = manifest_rows(manifest_payload)
+    raw_manifest = manifest_payload.get("basicAuctionBidJSModelList") or []
+    excluded_tests = [row for row in raw_manifest if is_test_auction_title(row.get("auctionTitle"))]
+    excluded_test_source_ids = {
+        f"future-property:{row.get('auctionUuid')}"
+        for row in excluded_tests if row.get("auctionUuid")
+    }
 
-    appearance_path = corpus.DATA / "appearances/future_property_auctions/archive.jsonl.gz"
-    existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
+    stored = load_stored_appearances()
+    existing = without_test_appearances(stored, excluded_test_source_ids)
+    excluded_test_appearances = len(stored) - len(existing)
+    for item in excluded_tests:
+        auction_id = item.get("auctionId")
+        if auction_id is not None:
+            (corpus.DATA / "auctions/future_property_auctions" / f"{auction_id}.json").unlink(
+                missing_ok=True
+            )
     before_ids = {row["appearance_id"] for row in existing}
     existing_by_auction: dict[str, list[dict]] = {}
     for row in existing:
@@ -392,8 +434,15 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
             "archive_snapshot_path": manifest_evidence["snapshot_path"],
             "basis": "complete first-party public BidJS archived-auction payload",
         }
+        if snapshot.exists():
+            saved = corpus.read_gzip(snapshot)
+            saved_evidence = saved.get("evidence") or {}
+            if saved_evidence.get("sha256") != sha or saved_evidence.get("source_url") != url:
+                raise ValueError("existing auction snapshot conflicts with its content-addressed path")
+            evidence = saved_evidence
         rows, state = parse_auction(payload, item, evidence)
-        corpus.save_gzip(snapshot, sanitized_snapshot(payload, evidence))
+        if not snapshot.exists():
+            corpus.save_gzip(snapshot, sanitized_snapshot(payload, evidence))
         return item, rows, state
 
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 4))) as pool:
@@ -402,6 +451,14 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
             item = jobs[future]
             try:
                 item, rows, state = future.result()
+                # Bank normalized rows before declaring this catalogue complete.  One
+                # shard per catalogue keeps each immutable batch small enough to
+                # publish independently and avoids rewriting a monolithic archive.
+                corpus.write_rows(
+                    f"future_property_auctions/catalogues/{item['auction_id']}",
+                    rows,
+                    preserve_existing=False,
+                )
                 corpus.save_json(
                     corpus.DATA / "auctions/future_property_auctions" / f"{item['auction_id']}.json", state)
                 states[item["auction_id"]] = state
@@ -418,7 +475,7 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
     merged = {row["appearance_id"]: row for row in existing}
     for row in run_rows:
         merged[row["appearance_id"]] = row
-    total = corpus.write_rows("future_property_auctions/archive", list(merged.values()))
+    total = len(merged)
     added = [row for key, row in merged.items() if key not in before_ids]
     summary = {
         "checked_at": corpus.now(), "source_url": ARCHIVE_URL,
@@ -435,6 +492,12 @@ def harvest(limit: int = 12, workers: int = 3) -> None:
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "excluded_test_auctions": [{
+            "auction_id": str(row.get("auctionId")),
+            "auction_uuid": row.get("auctionUuid"),
+            "title": corpus.plain(row.get("auctionTitle")),
+        } for row in excluded_tests],
+        "excluded_test_appearances": excluded_test_appearances,
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "privacy_note": "source snapshots exclude registrants, bidder/user UUIDs, full bid histories and reserve values",

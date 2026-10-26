@@ -430,3 +430,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   retained first-party lot identities. Do not retry it without a new source.
   Next growth target: audit other saved JSON array shapes and failed checkpoint
   artifacts for property rows, then move to a different accessible older source.
+
+
+## 26 October 2026 — Future Property Auctions archive expansion
+
+- Continued the productive first-party BidJS archive rather than repeating a
+  blocked source. Banked **5,760 net new distinct appearances** across 2019,
+  2020 and 2021, all with exact closing dates, addresses, original property
+  links and immutable sanitised source snapshots.
+- Quality split: 5,760 dated address records inside the preceding 20-year
+  window; zero partial, undated or future-dated additions; zero duplicate
+  appearance IDs. No new auctioneer/year pair was claimed because all three
+  years were already represented.
+- Sector split: 1,545 commercial, 2,203 mixed-use, 1,862 residential, 148 land
+  and two unknown. The commercial/mixed-use subset is **3,748**.
+- Price evidence: 611 new achieved prices and no new guide or rent values. The
+  source does not publish a distinct guide field in these archived payloads, so
+  bid values were not promoted to guides.
+- Repaired the collector's too-narrow test-title filter. Five explicit test
+  catalogues are now excluded, including three `Test Webcast Auction` payloads
+  containing 55 non-production rows. The newly retrieved test payloads and
+  states were removed before publication; they are not counted as properties
+  or catalogues.
+- The 42 newly recovered catalogues are stored as independently publishable
+  normalized shards alongside their immutable source snapshots. The collector
+  now reads the legacy aggregate plus catalogue shards and banks rows before
+  marking a catalogue complete, avoiding repeated rewrites of a monolithic
+  source file. Rebuildable database publications now use verified 8 MiB parts;
+  older 32 MiB manifests remain readable.
+- Future Property Auctions now retains **75,845** appearances and reconciles
+  **228 of 229** genuine archived catalogues. One October 2019 catalogue
+  endpoint returned transient HTTP 503 after bounded retries and remains pending.
+- Rebuilt SQLite passed integrity checking at **291,419 appearances**:
+  281,008 address records and 10,411 partial lots. The exact-date 20-year
+  window contains 284,015 appearances, 96,256 guide prices and 105,988 sale
+  prices. Undated appearances remain 4,333 and future-dated appearances 28.
+- Next target: retry only the remaining transient 2019 endpoint after cooldown, then
+  resume the saved-source array/checkpoint inventory. National completeness
+  remains false.

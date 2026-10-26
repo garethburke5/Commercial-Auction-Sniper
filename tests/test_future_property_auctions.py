@@ -10,6 +10,9 @@ from scripts.harvest_future_property_auctions import (
     failure_cooldown_seconds,
     full_failure_cooldown,
     recent_403_failures,
+    is_test_auction_title,
+    load_stored_appearances,
+    without_test_appearances,
 )
 
 
@@ -72,12 +75,41 @@ def test_manifest_excludes_explicit_test_auction_rows():
             "auctionUuid": "test-uuid", "auctionId": 124,
             "auctionTitle": "  TEST AUCTION  ", "auctionEndTime": 1790863200000,
         },
+        {
+            "auctionUuid": "webcast-test-uuid", "auctionId": 125,
+            "auctionTitle": "Test Webcast Auction", "auctionEndTime": 1790863200000,
+        },
     ]}
     rows = manifest_rows(payload)
     assert [row["auction_uuid"] for row in rows] == [UUID]
 
     with pytest.raises(ValueError, match="no non-test auctions"):
         manifest_rows({"basicAuctionBidJSModelList": [payload["basicAuctionBidJSModelList"][1]]})
+
+    assert is_test_auction_title("Test Webcast Auction") is True
+    assert is_test_auction_title("Timed Online Auction") is False
+
+
+def test_explicit_test_appearances_are_removed_from_canonical_rows():
+    rows = [
+        {"appearance_id": "real", "source_auction_id": "future-property:real"},
+        {"appearance_id": "test", "source_auction_id": "future-property:test"},
+    ]
+    assert without_test_appearances(rows, {"future-property:test"}) == [rows[0]]
+
+
+def test_stored_appearances_include_legacy_and_catalogue_shards(monkeypatch, tmp_path):
+    import scripts.harvest_future_property_auctions as future
+
+    monkeypatch.setattr(future.corpus, "DATA", tmp_path)
+    future.corpus.write_rows("future_property_auctions/archive", [
+        {"appearance_id": "legacy", "source_auction_id": "future-property:one"},
+    ])
+    future.corpus.write_rows("future_property_auctions/catalogues/2", [
+        {"appearance_id": "new", "source_auction_id": "future-property:two"},
+    ])
+
+    assert {row["appearance_id"] for row in load_stored_appearances()} == {"legacy", "new"}
 
 
 def test_complete_payload_banks_address_outcome_price_and_provenance():
@@ -125,6 +157,7 @@ def test_manifest_refresh_can_reuse_saved_first_party_snapshot(monkeypatch, tmp_
         "evidence": {"retrieved_at": "2026-10-01T00:00:00+00:00", "snapshot_path": "saved"},
         "payload": saved_payload,
     })
+    monkeypatch.setattr(future.corpus, "ROOT", tmp_path.parent)
     monkeypatch.setattr(future.corpus, "DATA", tmp_path)
     monkeypatch.setattr(future, "fetch_json", lambda _url: (_ for _ in ()).throw(
         future.requests.HTTPError("403 Client Error")
@@ -134,6 +167,27 @@ def test_manifest_refresh_can_reuse_saved_first_party_snapshot(monkeypatch, tmp_
     assert payload == saved_payload
     assert evidence["snapshot_path"] == "saved"
     assert "403 Client Error" in error
+
+
+def test_manifest_refresh_does_not_rewrite_identical_content_addressed_snapshot(monkeypatch, tmp_path):
+    import scripts.harvest_future_property_auctions as future
+
+    payload = {"basicAuctionBidJSModelList": [{
+        "auctionUuid": UUID, "auctionId": 123, "auctionTitle": "Auction",
+        "auctionEndTime": 1790863200000,
+    }]}
+    raw = b'{"basicAuctionBidJSModelList":[{"auctionUuid":"auction-uuid"}]}'
+    monkeypatch.setattr(future.corpus, "ROOT", tmp_path.parent)
+    monkeypatch.setattr(future.corpus, "DATA", tmp_path)
+    monkeypatch.setattr(future, "fetch_json", lambda _url: (raw, payload))
+
+    _payload, first_evidence, _error = fetch_manifest()
+    snapshot = tmp_path.parent / first_evidence["snapshot_path"]
+    first_bytes = snapshot.read_bytes()
+    _payload, second_evidence, _error = fetch_manifest()
+
+    assert snapshot.read_bytes() == first_bytes
+    assert second_evidence == first_evidence
 
 
 def test_fetch_json_retries_transient_source_responses(monkeypatch):
