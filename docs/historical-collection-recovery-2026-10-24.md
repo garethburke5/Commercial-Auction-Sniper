@@ -737,3 +737,38 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   host and trading-name relationship and collect its property-level archive
   only if a public denominator reconciles. Do not refresh this completed
   129-page WordPress set. National completeness remains false.
+
+## 26 October 2026 — The Auction Company retained-grid recovery
+
+- Resolved the prior Auction Local target without inflating coverage. Its
+  official `auctionlocal.co.uk` site is the auction arm of Property Local
+  (company number 15308570), but the first-party `/past-auctions` grid exposes
+  zero property rows. That route is recorded as a current source blocker and
+  was not treated as an empty auction history or collection gain.
+- Pivoted to The Auction Company, whose official site links directly to its
+  EIG-hosted `auctions.theauctioncompany.co.uk` platform. The public past-
+  properties denominator reconciles exactly as 50 + 50 + 22 rows across three
+  pages, with 122 distinct stable EIG lot UUIDs and 122 captured detail pages.
+- Net growth is **122 appearances and 122 address records**, all exact-dated
+  inside the preceding 20-year window. There are no partial, undated,
+  future-dated or duplicate-derived additions. The source date range is
+  25 November 2023 to 13 October 2026, adding four operator-years (2023–2026).
+- The retained set contains 112 residential, three commercial, two mixed-use,
+  one land and four unknown appearances; the commercial/mixed-use subset is
+  five. Unknown sectors remain unknown rather than inferred.
+- First-party details add **122 guide prices**, while published results add
+  **92 achieved sale prices** and 17 explicit annual rents. Forty sold-prior,
+  79 sold and two sold-after outcomes remain distinct; the one unclassified
+  published outcome remains unknown. All original URLs and 125 immutable grid
+  and detail snapshots are retained.
+- The rebuilt SQLite database passes `PRAGMA integrity_check` with `ok` at
+  **297,327 appearances**: 286,557 address records and 10,770 partial lots.
+  Exact-date twenty-year coverage is 289,834 appearances, with 97,715 guide
+  prices and 109,075 sale prices. Undated appearances remain 4,371 and
+  future-dated appearances remain 79.
+- Next concrete growth target: recover Robinson & Hall Auctions from its
+  first-party past-auction/results and catalogue pages, beginning with the
+  explicit 2024–2026 auction denominators exposed by its results articles.
+  Reconcile each event before banking it; do not re-probe Auction Local unless
+  its first-party archive exposes property rows. National completeness remains
+  false.

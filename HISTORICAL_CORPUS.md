@@ -535,6 +535,15 @@ second auctioneer. Property-page dates must reconcile to a dated first-party
 auction post, and the surviving-property set is not claimed as an original
 catalogue denominator.
 
+The shared EIG retained-grid collector also covers The Auction Company's
+official auction platform. It reconciles the complete visible pagination,
+requires distinct stable EIG lot UUIDs, snapshots every grid and detail page,
+and preserves individual dates, guides, achieved prices, rents and outcomes.
+The completion scope is the surviving first-party grid only; it does not imply
+that deleted earlier lots have been recovered. Auction Local's related official
+site currently exposes zero rows in its past-properties grid, so that route is
+recorded as blocked rather than counted as a zero-lot collection.
+
 Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
 terminal source blockers in its collection summary. A missing source is never
 counted complete, but it no longer consumes a harvest slot on every run while
