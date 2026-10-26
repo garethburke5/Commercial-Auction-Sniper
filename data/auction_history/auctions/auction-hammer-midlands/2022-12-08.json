@@ -1,0 +1,37 @@
+{
+  "auctioneer": "Auction Hammer Midlands",
+  "source_auction_id": "auction-hammer-midlands:2022-12-08",
+  "auction_date": "2022-12-08",
+  "source_url": "https://auctionhammermidlands.co.uk",
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "lots_captured": 8,
+  "completion_scope": "all surviving WordPress property posts assigned to this date; not an original event-catalogue denominator",
+  "source_evidence": [
+    {
+      "source_url": "https://auctionhammermidlands.co.uk/wp-json/wp/v2/auction?per_page=100&_fields=id,link,title",
+      "retrieved_at": "2026-10-26T11:41:46.823035+00:00",
+      "sha256": "937004acbccf36573a4f2ccd800628860f750f6ae54b69c98541ed8de5e5c161",
+      "snapshot_path": "data/auction_history/sources/auction-hammer-midlands/auction-index-937004acbccf3657.json.gz",
+      "basis": "first-party WordPress auction index"
+    },
+    {
+      "source_url": "https://auctionhammermidlands.co.uk/wp-json/wp/v2/property?per_page=100&page=1&_fields=id,date,link,title",
+      "retrieved_at": "2026-10-26T11:41:50.483976+00:00",
+      "sha256": "8747fe7cc5f231847880ae75319a43de67d7f5005f1006f2c633488b6302712c",
+      "snapshot_path": "data/auction_history/sources/auction-hammer-midlands/property-index-1-8747fe7cc5f23184.json.gz",
+      "basis": "first-party WordPress property index page",
+      "page": 1
+    },
+    {
+      "source_url": "https://auctionhammermidlands.co.uk/wp-json/wp/v2/property?per_page=100&page=2&_fields=id,date,link,title",
+      "retrieved_at": "2026-10-26T11:41:54.240801+00:00",
+      "sha256": "6513455fb3f794ee6275b4c17500376afc9a8f70746a9cdadd6ab9ab45133646",
+      "snapshot_path": "data/auction_history/sources/auction-hammer-midlands/property-index-2-6513455fb3f794ee.json.gz",
+      "basis": "first-party WordPress property index page",
+      "page": 2
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T11:42:59.999067+00:00"
+}

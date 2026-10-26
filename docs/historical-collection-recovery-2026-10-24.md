@@ -707,3 +707,33 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   first-party host and displayed trading name; otherwise recover an older
   property-level Boultons/OPA source rather than refreshing these complete
   grids. National completeness remains false.
+
+## 26 October 2026 — Auction Hammer Midlands WordPress recovery
+
+- Recovered all **129** property posts exposed by the operator's first-party
+  WordPress API and captured every corresponding first-party property page.
+  One exact 7 March 2023 address/date appearance already banked under Auction
+  House Cheshire, Staffordshire & Shropshire was excluded, leaving **128 net
+  new appearances and 128 address records**.
+- Of the net additions, **108** are exact-dated address records inside the
+  preceding 20-year window and **20** are explicitly future-dated to 4
+  November 2026. There are no partial or undated additions. Four rows are
+  commercial or mixed-use; 112 are residential, four land and eight remain
+  unknown rather than being inferred.
+- All 128 rows retain published guides. No achieved amount is published, so
+  sale prices remain null even for the 89 sold/sold-prior/sold-after outcomes.
+  Seven explicit current annual or annualised rents are retained. Withdrawn,
+  postponed and unknown outcomes remain distinct.
+- Fifty-eight surviving pages identify the predecessor trading name Auction
+  House Staffordshire. They remain attributed to one reconciled operator with
+  the historical name preserved, rather than inflating auctioneer coverage.
+  Four operator years are newly represented: 2022, 2023, 2024 and 2026.
+- The reusable collector reconciles all WordPress identities, preserves API
+  and page snapshots, rejects ambiguous dates, and records one source-page
+  year conflict while using the contemporaneous dated auction post. Event
+  manifests remain incomplete because surviving posts are not proof of each
+  original catalogue denominator.
+- Next concrete growth target: resolve Auction Local's official first-party
+  host and trading-name relationship and collect its property-level archive
+  only if a public denominator reconciles. Do not refresh this completed
+  129-page WordPress set. National completeness remains false.

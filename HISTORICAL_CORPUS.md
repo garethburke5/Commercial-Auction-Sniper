@@ -527,6 +527,14 @@ legacy street addresses, revisit missing years/sources, import and validate othe
 auctioneers' existing raw lots, and add adapters for all recoverable UK sources.
 The operation is not complete merely because currently known URLs are exhausted.
 
+Auction Hammer Midlands is collected from its first-party WordPress property
+archive with stable WordPress property identities. Older pages explicitly
+branded Auction House Staffordshire remain under the reconciled operator label
+and carry `historical_trading_name`; that predecessor name is not counted as a
+second auctioneer. Property-page dates must reconcile to a dated first-party
+auction post, and the surviving-property set is not claimed as an original
+catalogue denominator.
+
 Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
 terminal source blockers in its collection summary. A missing source is never
 counted complete, but it no longer consumes a harvest slot on every run while
