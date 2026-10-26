@@ -621,3 +621,31 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   with the uncovered Abode Auctions/AffordaBid/Agents Property Auction entries,
   accepting only a host whose displayed trading name matches the directory
   operator. National completeness remains false.
+
+## 26 October 2026 — Landwood Property Auctions EIG archive
+
+- Moved directly from the completed First for Auctions grid to the largest
+  uncovered compatible EIG white-label found in the source register. Landwood
+  Property Auctions had zero linked corpus records but publishes a first-party
+  retained archive with an explicit 2,721-lot denominator.
+- All 55 pages reconcile exactly to 2,721 distinct stable EIG lot identities.
+  Every row has an address and exact individual lot end date between 22 March
+  2018 and 21 October 2026; there are no partial, undated, future-dated or
+  duplicate-derived additions.
+- Net growth is **2,721 appearances and 2,721 dated address records** inside the
+  preceding 20-year window. The sector split is 2,360 residential, 155
+  mixed-use, 81 commercial, 37 land and 88 unknown; the evidenced
+  commercial/mixed-use subset is 236.
+- The archive adds 1,029 achieved sale prices and no index guide or rent
+  values. Published sold, sold-prior, sold-after, unsold, withdrawn and
+  postponed outcomes remain distinct. Nine operator-years, 2018–2026, are
+  newly represented.
+- The shared EIG parser now recognises an explicit `Sale price` as achieved
+  evidence even when the page omits the separate word `sold`, and preserves
+  `Sale Agreed Prior` as sold-prior. These rules are regression tested and do
+  not turn unsold asking amounts into sale prices.
+- Next concrete growth target: SW Property Auctions' separate first-party
+  retained grid, currently advertising 204 property rows while remaining
+  unlinked to the corpus. If that denominator reconciles, continue through the
+  smaller uncovered Boultons Harrisons and OPA Group EIG grids rather than
+  refreshing Landwood. National completeness remains false.

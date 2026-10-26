@@ -1,0 +1,568 @@
+{
+  "auctioneer": "Landwood Property Auctions",
+  "source_auction_id": "landwood-property-auctions:retained-past-auctions",
+  "auction_date": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 2721,
+  "visible_source_rows": 2721,
+  "lots_captured": 2721,
+  "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+  "source_evidence": [
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.027553+00:00",
+      "sha256": "1def0767dac7fc5db3129f6a6076ad753df97ca0c13a2d54f669fe0d4c3ef8b9",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-1-1def0767dac7fc5d.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 1,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=2&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.224360+00:00",
+      "sha256": "2f94d5aa9aab98624155d20442ff76ec70e4dee83d389af8c8b2f01fcfebd2b8",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-2-2f94d5aa9aab9862.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 2,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=3&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.296152+00:00",
+      "sha256": "a6b19070a203c9554f7fc1b7daa00a6d5d5948eea93f4e411e51ae203ec52959",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-3-a6b19070a203c955.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 3,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=4&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.370450+00:00",
+      "sha256": "222efcccf8e98b9d3b2e237f2afb0558c32b3cf9347c3e8dfc5aeffe8d5b14ea",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-4-222efcccf8e98b9d.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 4,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=5&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.443856+00:00",
+      "sha256": "a9331c68a4b370b87ece3d7ac95bd87cb8c58c2354581fa4279a8b885e74353c",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-5-a9331c68a4b370b8.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 5,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=6&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.555178+00:00",
+      "sha256": "151b503ecd793d6a9b3b6dae73b693bb8ff1bd56413bb2c5b11bce6c12150d75",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-6-151b503ecd793d6a.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 6,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=7&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.626453+00:00",
+      "sha256": "7e6753c905540f8465f820006cf38fd67fc278b9c435dd462548317c761d0c5a",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-7-7e6753c905540f84.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 7,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=8&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.718329+00:00",
+      "sha256": "fe07fe7269139ce048ac9e1f00f2cd6cf981cd1e558bbf92586461c6aff4bb19",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-8-fe07fe7269139ce0.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 8,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=9&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.798082+00:00",
+      "sha256": "e31b3cbc0f2566c7617a3e01dac35d9a7b80c9a74640bf2f7c0362ba4fd7112b",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-9-e31b3cbc0f2566c7.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 9,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=10&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:58.925000+00:00",
+      "sha256": "7c91ac1911058b49d26d04e79d9bb5d3eafff9a79012f416a55aa1ed20f1a1ab",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-10-7c91ac1911058b49.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 10,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=11&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.007991+00:00",
+      "sha256": "efd5f6bd3c694364d79aa64e13d41d9d517630113ee1d971078aaea1144f2cfd",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-11-efd5f6bd3c694364.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 11,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=12&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.090882+00:00",
+      "sha256": "2b908b44cff9951ac9f496004225e1794e79f8618bce0071d17949b2c4f79f6f",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-12-2b908b44cff9951a.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 12,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=13&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.167166+00:00",
+      "sha256": "9e47c91b8363755b1d28d116d0f368fbfe2141c2feba3c7a38f77ad2cb6f134e",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-13-9e47c91b8363755b.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 13,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=14&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.297495+00:00",
+      "sha256": "f3e0e08747fe221f97f297c474fa38e806b6b3cb4d96c131f46e2f1d770dc5c6",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-14-f3e0e08747fe221f.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 14,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=15&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.376146+00:00",
+      "sha256": "629ea3584d12e86841a87fbd128a30decbbf9f1a519c9d59a2e82afe3693d35b",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-15-629ea3584d12e868.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 15,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=16&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.453259+00:00",
+      "sha256": "a8e4d175c89bd2b1989d4244fe0bf4c840afdec6524b4ffd76490151038ca8b0",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-16-a8e4d175c89bd2b1.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 16,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=17&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.563929+00:00",
+      "sha256": "1f5459558a0a542942041088d9da0db1135080d89955abca22e1603a6e90a7e9",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-17-1f5459558a0a5429.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 17,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=18&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.637833+00:00",
+      "sha256": "723a9f0086f531b573f893a9fdb92969026045fccd31bc9601c861e0ecbcb012",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-18-723a9f0086f531b5.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 18,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=19&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.710639+00:00",
+      "sha256": "43aa911b787e03c0b56a30abc94a50bbf23dcf9beabada7be40f4f40521bbe05",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-19-43aa911b787e03c0.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 19,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=20&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.782757+00:00",
+      "sha256": "52ca0e5f0733f455fb0a8caf3d1ba7edffd1ef96771c5ffc5f5d434d01ec84ff",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-20-52ca0e5f0733f455.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 20,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=21&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.893024+00:00",
+      "sha256": "2105c9e618162ae0a3fe1a4c566349072fe6d688d8b379961a2fe186e3c86494",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-21-2105c9e618162ae0.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 21,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=22&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:17:59.967775+00:00",
+      "sha256": "b8d3ce12b682bb657cfba294fa32096e0bd3cb4b9819ef5eb0fde3696b636a6b",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-22-b8d3ce12b682bb65.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 22,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=23&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.039199+00:00",
+      "sha256": "4a2d336ad0072be32698168c44a11fa9f07b1141d9716362fa8825d72ef3029f",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-23-4a2d336ad0072be3.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 23,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=24&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.110232+00:00",
+      "sha256": "5f49569d401568594ccee4f02d5dd742e0f55a701541f3c9cace956af6d3829b",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-24-5f49569d40156859.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 24,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=25&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.239618+00:00",
+      "sha256": "9cc1ae70bbf14933e199d1775acbce9eb8eb0f1f02a7c8278a8083718da8cf86",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-25-9cc1ae70bbf14933.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 25,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=26&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.351570+00:00",
+      "sha256": "b4216f65f0b1f5868c24f68022280ed79a50a1bb5c3fe779916dfebaed0dfab8",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-26-b4216f65f0b1f586.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 26,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=27&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.452787+00:00",
+      "sha256": "b48357e8777d9a6d877837a0e52fd356cd9953e8f7447329a0dda589fd195d28",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-27-b48357e8777d9a6d.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 27,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=28&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.579329+00:00",
+      "sha256": "32a078cf453c6dacfe937efb492e5ea8e823f5f062743794fc560a15feae0447",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-28-32a078cf453c6dac.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 28,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=29&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.664612+00:00",
+      "sha256": "6ac3b7d420ae47f26d6c9f8e77acf1fe7e89186e7e1a349e6ed7370fb2fffce2",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-29-6ac3b7d420ae47f2.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 29,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=30&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.763947+00:00",
+      "sha256": "015acfeff054160160819ed9d8b96f3a330a06240a3a9a7d4967a5b84a28fcf3",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-30-015acfeff0541601.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 30,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=31&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:00.855289+00:00",
+      "sha256": "560d7380c2c98863457c5dbe76cf0160fde5451eb3d0144909c141336af471b6",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-31-560d7380c2c98863.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 31,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=32&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.000235+00:00",
+      "sha256": "8e13901370cb604917d95a4667930493bf57d8033902244b3402de69c6e11586",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-32-8e13901370cb6049.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 32,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=33&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.081659+00:00",
+      "sha256": "fc0700c7b1299c9d2293aa027f41088ecfe89362e66995f8613fb6c618a24eb5",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-33-fc0700c7b1299c9d.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 33,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=34&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.167958+00:00",
+      "sha256": "de19eb104d4404d966ef09093dcc58d72a2c5d923062b453a437965f7bd54405",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-34-de19eb104d4404d9.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 34,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=35&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.269531+00:00",
+      "sha256": "391da010366e4855c5cbdb064c45b637837e7e1b6b795f997964390e7b1698ec",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-35-391da010366e4855.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 35,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=36&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.434594+00:00",
+      "sha256": "80b7b9da21270af1159529a1f21437882aade3b1ede5eff7f3a0a3ed949dd68a",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-36-80b7b9da21270af1.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 36,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=37&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.514336+00:00",
+      "sha256": "2b6cf0fb187ba595378ab46ebced1302d3c4ac5b5465cee1e66783599519e158",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-37-2b6cf0fb187ba595.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 37,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=38&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.590550+00:00",
+      "sha256": "2672012a0630363d2b816db783d284ae2d036b22a614b27c199c2cf33d03c19d",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-38-2672012a0630363d.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 38,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=39&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.780623+00:00",
+      "sha256": "ae60d02b52995ff597a04660fe2d7dfcf61d87325541a1e59f2ec88191bcfd34",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-39-ae60d02b52995ff5.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 39,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=40&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.876495+00:00",
+      "sha256": "56b3330e034bff158af4065813d1de08cc27ea90f702c8be352f87f3b8c7aeac",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-40-56b3330e034bff15.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 40,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=41&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:01.965377+00:00",
+      "sha256": "8f1297cf32995cd5d9f4bcdda77a665b542f1f016acfa6e9ef4337c39bc21b12",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-41-8f1297cf32995cd5.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 41,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=42&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.049607+00:00",
+      "sha256": "2a2982244b9b1130b2d027ca58d8c4cb23332746ef5483f7ca16478474b43ac3",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-42-2a2982244b9b1130.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 42,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=43&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.191420+00:00",
+      "sha256": "ad3b20c851eae5514457598236ec1c4b35b0cb77b6fc670a569711cf0a7f7d64",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-43-ad3b20c851eae551.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 43,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=44&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.279667+00:00",
+      "sha256": "7e55700c305fb2502475f83ec6315f3584bd367b1ebb00cd83e1d5b82bf852f8",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-44-7e55700c305fb250.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 44,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=45&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.364409+00:00",
+      "sha256": "7363033cb54999bc55d7c2d6cd4c666fe44fc401d99ac2595de9ebe55a179af6",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-45-7363033cb54999bc.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 45,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=46&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.442193+00:00",
+      "sha256": "66bf0e8689780329644e00a34a16fd4b0541aecd080c5bd080be1f84737a4925",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-46-66bf0e8689780329.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 46,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=47&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.590862+00:00",
+      "sha256": "2c2b9b6a1ea165d6b625bfce0447d5f726e6f1973b85fce07a841ef69c9a4a56",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-47-2c2b9b6a1ea165d6.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 47,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=48&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.676826+00:00",
+      "sha256": "b01176bfa6aa8a3039c61147732e327a8fb8015e049ef2f8b3b6c29efdbdd23e",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-48-b01176bfa6aa8a30.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 48,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=49&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.763923+00:00",
+      "sha256": "6e50678756403305fa5a98f4de183309b88fc4b7e2fdffe6eca9b458520cba38",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-49-6e50678756403305.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 49,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=50&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.892794+00:00",
+      "sha256": "ac7e600ff8c34b9a9017645caf5683c6e39baa1b51d4e713b957026681f3943b",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-50-ac7e600ff8c34b9a.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 50,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=51&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:02.974517+00:00",
+      "sha256": "fd290764ae562b0d0d34bafd17216fe274eebb36b8e4d30eb2d7bbff7905dfc1",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-51-fd290764ae562b0d.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 51,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=52&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:03.055895+00:00",
+      "sha256": "7513bc80864a497c15b2181fcf78a967a56b51521097d608af53ca1abcac0240",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-52-7513bc80864a497c.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 52,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=53&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:03.137808+00:00",
+      "sha256": "4016db82d96085dcc4e2100adfbcdeadb170b6c26e5ac66314a910ad89ac87cc",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-53-4016db82d96085dc.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 53,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=54&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:03.313527+00:00",
+      "sha256": "7482cc6fd6f8c3cfe272d89be084a2791d3a70ac4a3740be020ec469f4fbd01c",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-54-7482cc6fd6f8c3cf.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 54,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    },
+    {
+      "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=55&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-10-26T07:18:03.394960+00:00",
+      "sha256": "c81e6841bdf0f85c0a67c045788229f9660fb47b93ed5fd03826547e8a0d3eee",
+      "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-55-c81e6841bdf0f85c.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 55,
+      "total_pages": 55,
+      "published_archive_lots": 2721
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T07:18:03.598100+00:00"
+}

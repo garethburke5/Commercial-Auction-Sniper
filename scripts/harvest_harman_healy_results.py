@@ -62,10 +62,15 @@ def pounds(value: str | None) -> int | None:
 
 def status_and_price(value: str | None) -> tuple[str, int | None]:
     text = (clean(value) or "").casefold()
-    if "sold prior" in text:
+    if "sold prior" in text or "sale agreed prior" in text:
         status = "sold_prior"
-    elif "sold post" in text or "sold after" in text:
+    elif any(value in text for value in ("sold post", "sold after", "sale agreed post", "sale agreed after")):
         status = "sold_after"
+    elif "sale price" in text:
+        # Several EIG white labels publish achieved amounts as ``Sale price``
+        # without also rendering the word ``sold``.  The label is explicit
+        # achieved-price evidence, not a guide or last bid.
+        status = "sold"
     elif re.search(r"\bsold\b", text):
         status = "sold"
     elif "withdrawn" in text:

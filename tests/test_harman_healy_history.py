@@ -51,6 +51,14 @@ def test_unsold_asking_amount_is_not_a_sale():
     assert hh.status_and_price('Unsold £175,000')==('unsold',None)
 
 
+def test_explicit_sale_price_without_sold_word_is_achieved_price():
+    assert hh.status_and_price('Sale price: £332,500 41 bids') == ('sold', 332500)
+
+
+def test_sale_agreed_prior_outcome_is_preserved():
+    assert hh.status_and_price('Result: Sale Agreed Prior') == ('sold_prior', None)
+
+
 def test_growing_archive_refetches_old_pages_before_reconciliation(monkeypatch,tmp_path):
     import json
     monkeypatch.setattr(hh.corpus,'ROOT',tmp_path)
