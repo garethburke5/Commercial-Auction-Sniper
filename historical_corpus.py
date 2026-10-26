@@ -480,7 +480,8 @@ def bank_legacy():
 
 def bank_source_corpus():
     """Bank actual lots from earlier immutable source-corpus JSON shards."""
-    roots = (ROOT / "data/source_corpus_shards", ROOT / "data/historical_source_corpus")
+    roots = (ROOT / "data/source_corpus_shards", ROOT / "data/historical_source_corpus",
+             ROOT / "data/source_corpus")
     # This diagnostic contains 53 item-level RSS matches that were accepted only
     # after unique auction/date/lot reconciliation.  They were written to the
     # old property history, but were never admitted to the permanent appearance
@@ -490,6 +491,15 @@ def bank_source_corpus():
     )
     source_paths = sorted(p for root in roots if root.exists() for p in root.rglob("*.json"))
     source_paths.extend(path for path in diagnostic_sources if path.exists())
+    reconciled_source_record_ids = set()
+    for path in source_paths:
+        try:
+            saved = json.loads(path.read_text())
+        except (OSError, json.JSONDecodeError):
+            continue
+        reconciled = saved.get("reconciled_source_record_ids")
+        if isinstance(reconciled, list):
+            reconciled_source_record_ids.update(clean(value) for value in reconciled if clean(value))
     array_names = ("lot_records", "lots", "properties", "property_records", "accepted_rows", "records")
     total = 0
     enriched = 0
@@ -567,6 +577,7 @@ def bank_source_corpus():
             continue
         lot_rows = next((payload.get(k) for k in array_names if isinstance(payload.get(k), list)), None) or []
         legacy_records = isinstance(payload.get("records"), list) and lot_rows is payload.get("records")
+        legacy_unbanked_source = source_path.is_relative_to(ROOT / "data/source_corpus")
         # Early breadth captures used a generic ``records`` array for both
         # individual lots and auction-level discovery evidence.  Admit the
         # former without turning catalogue/date manifests into phantom
@@ -605,7 +616,7 @@ def bank_source_corpus():
                                  "origin_sha256": digest(original), "payload": payload})
         target_key = "source-corpus/" + source_path.stem
         target_shard = DATA / "appearances" / (target_key + ".jsonl.gz")
-        if legacy_records:
+        if legacy_records or legacy_unbanked_source:
             if existing_signatures is None:
                 existing_signatures, existing_urls = load_existing_inventory()
             if target_shard.exists():
@@ -621,15 +632,20 @@ def bank_source_corpus():
             auctioneer = clean(raw.get("source")) or payload_auctioneer or "Unknown auctioneer"
             address = plain(raw.get("address") or raw.get("locality_address") or raw.get("property_address"))
             lot = clean(raw.get("lot_number")) or None
-            date = clean(raw.get("auction_date")) or None
+            auction = payload.get("auction") if isinstance(payload.get("auction"), dict) else {}
+            date = clean(raw.get("auction_date") or auction.get("auction_date")) or None
             period = clean(raw.get("auction_period") or raw.get("auction_month")) or None
             urls = raw.get("source_urls") if isinstance(raw.get("source_urls"), list) else []
+            auction_urls = auction.get("source_urls") if isinstance(auction.get("source_urls"), list) else []
             url = clean(raw.get("source_url") or raw.get("original_url") or raw.get("url") or
-                        (urls[0] if urls else "") or payload.get("archive_url"))
+                        (urls[0] if urls else "") or payload.get("archive_url") or
+                        auction.get("archive_url") or (auction_urls[0] if auction_urls else ""))
             if not url:
                 continue
             source_id = clean(raw.get("source_record_id") or raw.get("source_lot_id") or
                               raw.get("source_id")) or None
+            if source_id in reconciled_source_record_ids:
+                continue
             identity = source_id or digest(json.dumps(
                 [auctioneer, date, period, lot, address, url], ensure_ascii=False,
                 separators=(",", ":")).encode())[:24]
@@ -649,7 +665,9 @@ def bank_source_corpus():
                 guide_price_high=money(raw.get("guide_price_high_gbp")),
                 available_price=money(raw.get("available_price_gbp") or raw.get("available_price")),
                 sale_price=money(raw.get("result_price_gbp") or raw.get("hammer_gbp") or
-                                 raw.get("result_gbp") or raw.get("sale_price") or raw.get("result_price")),
+                                 raw.get("result_gbp") or raw.get("sale_price") or
+                                 raw.get("result_price") or raw.get("hammer_or_sold_price") or
+                                 raw.get("result")),
                 annual_rent=money(raw.get("rent_pa_gbp") or raw.get("annual_rent") or raw.get("rent_pa")),
                 rent_text=plain(raw.get("rent_text")), tenant=plain(raw.get("tenant")),
                 lease_information=plain(raw.get("lease_details") or raw.get("lease_information")),
@@ -686,7 +704,7 @@ def bank_source_corpus():
                 "snapshot_path": str(snapshot.relative_to(ROOT)),
                 "origin_file": str(source_path.relative_to(ROOT)),
                 "origin_sha256": digest(original)}
-            if legacy_records:
+            if legacy_records or legacy_unbanked_source:
                 signature = appearance_signature(row)
                 saved_url = canonical_url(row.get("original_url"))
                 if ((signature and existing_signatures.get(signature, 0)) or
@@ -709,7 +727,7 @@ def bank_source_corpus():
                             if old.get(field) is not None:
                                 row[field] = old[field]
             total += write_rows(target_key, rows)
-            if legacy_records:
+            if legacy_records or legacy_unbanked_source:
                 update_inventory(rows, 1)
             if payload.get("catalogue_complete") is True:
                 expected = payload.get("catalogue_lot_count") or payload.get("expected_lot_count")
@@ -748,7 +766,7 @@ def bank_source_corpus():
                         "errors": payload.get("reconciliation_errors") or ["Source catalogue remains unreconciled"],
                         "checked_at": payload.get("captured_at") or now(),
                     })
-        elif target_shard.exists() and (legacy_records or
+        elif target_shard.exists() and (legacy_records or legacy_unbanked_source or
                                         conditional_rejections == len(lot_rows)):
             # All rows are now represented by exact canonical evidence.
             # Or every row is only conditional pre-auction marketing. Persist
@@ -761,9 +779,16 @@ def bank_source_corpus():
             target = clean(enrichment.get("target_appearance_id"))
             target_shard = clean(enrichment.get("target_shard"))
             address = plain(enrichment.get("address"))
+            lot_number = clean(enrichment.get("lot_number")) or None
+            guide_price = money(enrichment.get("guide_price"))
+            sale_price = money(enrichment.get("sale_price"))
+            annual_rent = money(enrichment.get("annual_rent"))
+            status = clean(enrichment.get("status")) or None
             target_path = Path(target_shard)
             if (not target or not re.fullmatch(r"[A-Za-z0-9_./-]+", target_shard) or
-                    target_path.is_absolute() or ".." in target_path.parts or not address):
+                    target_path.is_absolute() or ".." in target_path.parts or
+                    not any(value is not None for value in
+                            (address, lot_number, guide_price, sale_price, annual_rent, status))):
                 raise ValueError(f"Invalid appearance enrichment in {source_path}")
             shard = DATA / "appearances" / (target_shard + ".jsonl.gz")
             if not shard.exists():
@@ -774,9 +799,9 @@ def bank_source_corpus():
                 raise ValueError(f"Appearance enrichment target count {len(matches)} for {target}")
             row = matches[0]
             existing = plain(row.get("address"))
-            if existing and existing.casefold() != address.casefold():
+            if address and existing and existing.casefold() != address.casefold():
                 raise ValueError(f"Conflicting address enrichment for {target}: {existing!r} vs {address!r}")
-            if not existing:
+            if address and not existing:
                 row["address"] = address
                 row["record_quality"] = "address_record"
                 row["address_basis"] = clean(enrichment.get("address_basis")) or "explicit_numbered_premise_in_saved_source"
@@ -788,6 +813,18 @@ def bank_source_corpus():
                         raise ValueError(f"Invalid postcode enrichment for {target}: {postcode}")
                     row["postcode"] = postcode.upper()
                 enriched += 1
+            for field, value in (("lot_number", lot_number), ("guide_price", guide_price),
+                                 ("sale_price", sale_price), ("annual_rent", annual_rent),
+                                 ("status", status)):
+                if value is None:
+                    continue
+                prior = row.get(field)
+                if prior not in (None, "unknown", value):
+                    raise ValueError(
+                        f"Conflicting {field} enrichment for {target}: {prior!r} vs {value!r}")
+                if prior != value:
+                    row[field] = value
+                    enriched += 1
             urls = enrichment.get("source_urls") if isinstance(enrichment.get("source_urls"), list) else []
             evidence = {
                 "source_url": clean(enrichment.get("source_url") or (urls[0] if urls else "")),
@@ -798,10 +835,11 @@ def bank_source_corpus():
                 "evidence_note": plain(enrichment.get("evidence_note")),
             }
             evidence = {key: value for key, value in evidence.items() if value not in (None, "", [])}
-            previous = row.get("address_enrichment_evidence")
+            evidence_field = "address_enrichment_evidence" if address else "enrichment_evidence"
+            previous = row.get(evidence_field)
             previous = previous if isinstance(previous, list) else []
             if evidence not in previous:
-                row["address_enrichment_evidence"] = previous + [evidence]
+                row[evidence_field] = previous + [evidence]
             write_rows(target_shard, target_rows)
     print("SOURCE_CORPUS_LOTS_BANKED", total, flush=True)
     print("SOURCE_CORPUS_APPEARANCES_ENRICHED", enriched, flush=True)

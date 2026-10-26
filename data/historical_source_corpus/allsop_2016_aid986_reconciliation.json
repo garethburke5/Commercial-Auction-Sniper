@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Allsop Commercial",
+  "reconciliation_basis": "Two locality/type/outcome combinations in the saved AID986 partial lot tranche uniquely match address-level appearances already banked for the same 5 December 2016 Allsop auction.",
+  "reconciled_source_record_ids": [
+    "allsop|AID986|lot1",
+    "allsop|AID986|lot5"
+  ],
+  "appearance_enrichments": [
+    {
+      "target_shard": "commercial-expansion/allsop-2016-12-05",
+      "target_appearance_id": "Allsop Commercial|allsop:2016-12-05|f66ea730a37c2d4f355c79c7",
+      "lot_number": "1",
+      "sale_price": 260000,
+      "status": "sold",
+      "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=986",
+      "evidence_note": "Saved AID986 result row lot 1 identifies Princes Risborough, an investment freehold bank and a £260,000 result; this uniquely reconciles to the existing same-date Princes Risborough bank appearance."
+    },
+    {
+      "target_shard": "commercial-expansion/allsop-2016-12-05",
+      "target_appearance_id": "Allsop Commercial|allsop:2016-12-05|48d0443974f4217832c73516",
+      "lot_number": "5",
+      "status": "withdrawn",
+      "source_url": "https://www.propertyauctions.com/Results/LotList.aspx?AID=986",
+      "evidence_note": "Saved AID986 result row lot 5 identifies London N12, an investment freehold bank and Withdrawn; this uniquely reconciles to the existing same-date North Finchley N12 bank appearance."
+    }
+  ]
+}

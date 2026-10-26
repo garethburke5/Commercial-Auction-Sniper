@@ -69,6 +69,52 @@ def test_source_banking_accepts_legacy_records_lots_but_not_auction_manifests(tm
     assert len(list(h.iter_rows(h.DATA / "appearances/source-corpus/legacy_records.jsonl.gz"))) == 1
 
 
+def test_source_banking_recovers_old_root_inherits_auction_fields_and_reconciles_overlap(tmp_path, monkeypatch):
+    monkeypatch.setattr(h, "ROOT", tmp_path)
+    monkeypatch.setattr(h, "DATA", tmp_path / "data/auction_history")
+    folder = tmp_path / "data/source_corpus"
+    reconciliation_folder = tmp_path / "data/historical_source_corpus"
+    folder.mkdir(parents=True)
+    reconciliation_folder.mkdir(parents=True)
+
+    existing = h.base_row("Example Auctions", "example:2016-12-05", "2016-12-05", "unknown",
+                          "canonical:1", "https://example.test/property/known")
+    existing.update(address="1 Bank Street, York YO1 1AA", status="sold",
+                    guide_price=120000, record_quality="address_record")
+    h.write_rows("example/canonical", [existing])
+
+    (folder / "saved.json").write_text(json.dumps({
+        "auctioneer": "Example Auctions",
+        "auction": {"auction_date": "2016-12-05", "source_urls": ["https://example.test/archive"]},
+        "lots": [
+            {"source_record_id": "saved:known", "lot_number": "1", "locality": "York",
+             "property_type": "Bank", "result": "£125,000"},
+            {"source_record_id": "saved:new", "lot_number": "2", "address": "2 High Street, York YO1 2BB",
+             "property_type": "Shop", "guide_price": 90000, "hammer_or_sold_price": 110000,
+             "rent_pa": 8000, "result": "Sold", "source_url": "https://example.test/property/new"},
+        ],
+    }))
+    (reconciliation_folder / "reconciliation.json").write_text(json.dumps({
+        "reconciled_source_record_ids": ["saved:known"],
+        "appearance_enrichments": [{
+            "target_shard": "example/canonical", "target_appearance_id": existing["appearance_id"],
+            "lot_number": "1", "sale_price": 125000, "status": "sold",
+            "source_url": "https://example.test/archive",
+        }],
+    }))
+
+    assert h.bank_source_corpus() == 1
+    recovered = list(h.iter_rows(h.DATA / "appearances/source-corpus/saved.jsonl.gz"))
+    assert len(recovered) == 1
+    assert recovered[0]["auction_date"] == "2016-12-05"
+    assert recovered[0]["sale_price"] == 110000
+    assert recovered[0]["annual_rent"] == 8000
+    enriched = list(h.iter_rows(h.DATA / "appearances/example/canonical.jsonl.gz"))[0]
+    assert enriched["lot_number"] == "1"
+    assert enriched["sale_price"] == 125000
+    assert enriched["enrichment_evidence"][0]["source_url"] == "https://example.test/archive"
+
+
 def test_js_json_is_parsed_as_data_and_preserves_unicode():
     body = r'''lots: JSON.parse('[{"name":"O\'Brien – café","id":"3"}]')'''
     assert h.embedded(body, "lots", True) == [{"name": "O'Brien – café", "id": "3"}]
