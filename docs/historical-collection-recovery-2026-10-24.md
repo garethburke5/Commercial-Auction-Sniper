@@ -548,3 +548,32 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   checkpoint artifacts for unbanked property rows, beginning with evidence that
   has stable property descriptions plus source URLs rather than another probe
   of these six reconciled overlaps. National completeness remains false.
+
+## 26 October 2026 — Symonds & Sampson event-archive recovery
+
+- The sitemap-only collector retained 227 current property pages, but the
+  first-party past-events index still exposed four pages and 42 dated event
+  pages from 21 April 2023 through 23 October 2026. Those pages contain 967
+  individual property cards.
+- A new event-aware collector banks exact event/listing identities and retains
+  the same listing again when it was genuinely reoffered on a different date.
+  It excluded 65 exact listing/date overlaps with the canonical sitemap shard
+  and found no duplicate event/listing/date pair.
+- Net growth is **902 appearances**: 544 dated address records and 358 dated
+  partial lots, all inside the preceding 20-year window. There are no undated
+  or future-dated additions.
+- Sector split: 379 residential, 361 land, 160 unknown and two commercial; the
+  commercial/mixed-use subset is two. The saved cards add 670 guide prices and
+  517 achieved sale prices. No rent evidence or new auctioneer/year pair is
+  claimed because Symonds & Sampson 2023-2026 was already represented.
+- All 42 event pages reconcile to their visible source rows, with immutable
+  first-party index/event snapshots. Focused tests pass and the rebuilt SQLite
+  integrity check is `ok` at 292,362 appearances: 281,592 address records and
+  10,770 partial lots. The exact-date 20-year window contains 284,956
+  appearances, 96,930 guide prices and 106,509 sale prices; 4,335 records
+  remain undated and 28 future-dated.
+- Next concrete growth target: recover Symonds & Sampson events before April
+  2023 from surviving first-party result pages, article-linked catalogues or
+  PDF snapshots. If no property-level route survives, move to an uncovered
+  operator instead of refreshing this reconciled event archive. National
+  completeness remains false.

@@ -40,6 +40,7 @@ TASKS=(
     ('barnett_ross_canonical', ['scripts/harvest_barnett_ross_canonical.py', '--all-incomplete']),
     ('pugh_canonical', ['scripts/harvest_pugh_canonical.py']),
     ('symonds_sampson_canonical', ['scripts/harvest_symonds_sampson_canonical.py', '--workers', '2']),
+    ('symonds_sampson_events', ['scripts/harvest_symonds_sampson_events.py', '--workers', '4']),
     ('bidx1_canonical', ['scripts/harvest_bidx1_canonical.py']),
     ('strettons_results', ['scripts/harvest_strettons_results.py', '4']),
     ('cheffins_history', ['scripts/harvest_cheffins_history.py', '6']),
@@ -82,6 +83,7 @@ RECONCILED_REFRESHES = {
     'auction_house_national': 'auction_house_national_collection.json',
     'town_country_results': 'town_country_collection.json',
     'pugh_canonical': 'pugh_collection.json',
+    'symonds_sampson_events': 'symonds_sampson_event_collection.json',
 }
 
 
