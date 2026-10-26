@@ -603,6 +603,7 @@ def harvest_catalogues() -> dict:
                 "source_url": evidence["source_url"],
                 "published_lots_offered": event["expected_lots"],
                 "catalogue_rows_observed": len(rows),
+                "lots_captured": len(rows),
                 "lots_captured_or_enriched": len(rows),
                 "catalogue_complete": True,
                 "source_rows_complete": True,
