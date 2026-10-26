@@ -250,8 +250,12 @@ jobs:
         if: inputs.focus == 'dawsons' || startsWith(github.event.head_commit.message, 'Run focused Dawsons archive expansion')
         timeout-minutes: 12
         run: python -u scripts/harvest_dawsons_history.py
+      - name: Collect The Auction Company retained property archive
+        if: startsWith(github.event.head_commit.message, 'Run focused The Auction Company archive expansion')
+        timeout-minutes: 12
+        run: python -u scripts/harvest_eig_retained_grids.py the-auction-company --workers 12
       - name: Resume bounded archive batch
-        if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused Cottons repair') && !startsWith(github.event.head_commit.message, 'Run focused Pugh repair') && !startsWith(github.event.head_commit.message, 'Run focused Symonds and Sampson repair') && !startsWith(github.event.head_commit.message, 'Run focused online-result state repair') && !startsWith(github.event.head_commit.message, 'Run focused Edward Mellor PDF repair') && !startsWith(github.event.head_commit.message, 'Run focused SDL terminal repair') && !startsWith(github.event.head_commit.message, 'Run focused Dawsons archive expansion') && !startsWith(github.event.head_commit.message, 'Run focused Clive Emson legacy expansion')
+        if: (inputs.focus == '' || inputs.focus == 'bounded') && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Phillip Arnold refresh') && !startsWith(github.event.head_commit.message, 'Run focused Cottons repair') && !startsWith(github.event.head_commit.message, 'Run focused Pugh repair') && !startsWith(github.event.head_commit.message, 'Run focused Symonds and Sampson repair') && !startsWith(github.event.head_commit.message, 'Run focused online-result state repair') && !startsWith(github.event.head_commit.message, 'Run focused Edward Mellor PDF repair') && !startsWith(github.event.head_commit.message, 'Run focused SDL terminal repair') && !startsWith(github.event.head_commit.message, 'Run focused Dawsons archive expansion') && !startsWith(github.event.head_commit.message, 'Run focused Clive Emson legacy expansion') && !startsWith(github.event.head_commit.message, 'Run focused The Auction Company archive expansion')
         timeout-minutes: 22
         # Attempt the full rotation while retaining the same 20-minute budget.
         run: python -u scripts/resume_history_batch.py --budget 1200

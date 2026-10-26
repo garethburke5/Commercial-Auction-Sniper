@@ -73,3 +73,11 @@ def test_only_sold_outcomes_receive_achieved_prices():
     assert grids.status_and_price("Result: Withdrawn at £80,000") == ("withdrawn", None)
     assert grids.status_and_price("Result: Unsold £70,000") == ("unsold", None)
     assert grids.status_and_price("Result: Sold Post for £90,000") == ("sold_after", 90000)
+
+
+def test_the_auction_company_uses_its_first_party_eig_host():
+    source = grids.SOURCES["the-auction-company"]
+    assert source == {
+        "auctioneer": "The Auction Company",
+        "base": "https://auctions.theauctioncompany.co.uk",
+    }

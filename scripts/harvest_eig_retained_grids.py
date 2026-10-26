@@ -1,10 +1,10 @@
 """Bank complete retained EIG white-label past-auction grids.
 
-Boultons Harrisons and Online Property Auction Group publish flat, paginated
-past-auction grids rather than event catalogues.  Every card carries a stable
-EIG lot UUID and an individual outcome date; the detail page adds the guide
-price and richer property text.  This collector reconciles every pagination
-page and card before claiming the retained grid complete.
+Several independent auctioneers publish flat, paginated past-auction grids
+rather than event catalogues.  Every card carries a stable EIG lot UUID and an
+individual outcome date; the detail page adds the guide price and richer
+property text.  This collector reconciles every pagination page and card
+before claiming the retained grid complete.
 """
 from __future__ import annotations
 
@@ -34,6 +34,10 @@ SOURCES = {
     "online-property-auction-group": {
         "auctioneer": "Online Property Auction Group",
         "base": "https://www.opagroup.co.uk",
+    },
+    "the-auction-company": {
+        "auctioneer": "The Auction Company",
+        "base": "https://auctions.theauctioncompany.co.uk",
     },
 }
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
