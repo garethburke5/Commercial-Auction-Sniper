@@ -71,3 +71,25 @@ Tests reject stale code, wrong canonicals, noindex headers/meta, missing sitemap
 advertisement and mismatched public configuration.
 Workflow YAML parsed and tested-revision dependency checked locally.
 Remote full tests, dry run and live deployment status must be checked separately.
+
+## Live recovery verified — 26 October 2026, 17:10 GMT
+
+The owner created a scoped Cloudflare token and saved the repository secret.
+Run 40358749135, retry deployment job 121721357241, completed successfully.
+The pipeline's public/browser suite passed 498 tests plus 3 subtests (14 skipped).
+The production export passed Wrangler's dry run and uploaded 4,877 changed files
+(1,614 unchanged), deploying the existing custom domain.
+Cloudflare version: 13ff62fc-d65c-465e-9828-8f9f80ada28d.
+Verified live code commit: f9904fc39240822ddda8437eb9929e48b270d4ae.
+
+Both production checks passed:
+- 1,075 expected searchable properties matched 1,075 live entries and checked facts.
+- Exact code revision, production canonical URL, absence of homepage noindex,
+  sitemap advertisement and public account/billing configuration matched the build.
+
+The 37 degraded collection sources remain a separate coverage issue; deployment
+success is not nationwide completeness or paid-report acceptance.
+
+Disabling the old automatic Cloudflare Git builds is still unverified. The owner
+has been instructed to turn those off so they do not restart when the allowance
+resets. No credentials were printed or saved in source.
