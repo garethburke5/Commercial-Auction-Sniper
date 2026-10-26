@@ -28,6 +28,28 @@ def test_only_explicitly_reconciled_zero_growth_archive_is_deferred(tmp_path):
     assert refresh_deferral(tmp_path,'auction_house_northeast',{'outcome':'timed_out'},now) is None
 
 
+def test_unchanged_agents_latest_table_is_deferred_without_retrying_terminal_filters(tmp_path):
+    import json
+    from datetime import datetime, timezone, timedelta
+    from scripts.resume_history_batch import refresh_deferral
+    now = datetime(2026, 10, 26, 7, tzinfo=timezone.utc)
+    path = tmp_path/'data/auction_history/agents_property_auction_collection.json'
+    path.parent.mkdir(parents=True)
+    summary = {
+        'checked_at': (now-timedelta(hours=1)).isoformat(),
+        'appearances_captured': 35,
+        'run_new_appearances': 0,
+        'run_failures': [],
+        'source_blocker': {'kind': 'filtered_archive_http_500'},
+    }
+    path.write_text(json.dumps(summary))
+    deferred = refresh_deferral(tmp_path, 'agents_property_auction', {'outcome':'completed'}, now)
+    assert deferred['retry_after_seconds'] == 18000
+    summary['run_new_appearances'] = 1
+    path.write_text(json.dumps(summary))
+    assert refresh_deferral(tmp_path, 'agents_property_auction', {'outcome':'completed'}, now) is None
+
+
 def test_skipping_unchanged_archive_preserves_last_capture_and_advances(tmp_path):
     import json
     from datetime import datetime, timezone

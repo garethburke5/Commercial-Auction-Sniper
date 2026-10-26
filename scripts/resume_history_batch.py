@@ -23,6 +23,7 @@ TASKS=(
     ('mchugh', ['scripts/harvest_mchugh_results.py','2']),
     ('phillip_arnold', ['scripts/harvest_phillip_arnold_results.py','2']),
     ('harman_healy_results', ['scripts/harvest_harman_healy_results.py']),
+    ('first_for_auctions', ['scripts/harvest_first_for_auctions.py']),
     # Serial browser-session/read-through recovery for a legacy filter route.
     ('agents_property_auction', ['scripts/harvest_agents_property_auction_results.py','2','--workers','1']),
     ('lsh_results', ['scripts/harvest_lsh_results.py']),
@@ -84,6 +85,8 @@ RECONCILED_REFRESHES = {
     'town_country_results': 'town_country_collection.json',
     'pugh_canonical': 'pugh_collection.json',
     'symonds_sampson_events': 'symonds_sampson_event_collection.json',
+    'first_for_auctions': 'first_for_auctions_collection.json',
+    'agents_property_auction': 'agents_property_auction_collection.json',
 }
 
 
@@ -97,6 +100,15 @@ def refresh_deferral(root, name, last, now=None):
         age = ((now or datetime.now(timezone.utc))-checked).total_seconds()
     except (OSError, ValueError, KeyError, TypeError):
         return None
+    if name == 'agents_property_auction':
+        blocker = summary.get('source_blocker') or {}
+        if (blocker.get('kind') == 'filtered_archive_http_500'
+                and summary.get('appearances_captured', 0) > 0
+                and summary.get('run_new_appearances') == 0
+                and not summary.get('run_failures') and 0 <= age < 21600):
+            return {'outcome':'deferred_unchanged_archive',
+                    'reason':'latest unfiltered sold table is unchanged; historical filters remain terminal',
+                    'retry_after_seconds':round(21600-age)}
     if (summary.get('archive_pagination_complete') is True
             and summary.get('run_new_appearances') == 0
             and not summary.get('failures') and not summary.get('blocked_pages')

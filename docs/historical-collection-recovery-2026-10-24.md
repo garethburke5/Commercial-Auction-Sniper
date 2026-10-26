@@ -38,6 +38,12 @@ The official Barnard Marcus October API returned conflicting totals of 345 and 3
 
 Do not mark the national programme complete until auctioneer coverage and available source-by-source catalogue inventories reconcile. No completion date has been established for inaccessible or undiscovered historical sources.
 
+## Continuation: Agents current table and First for Auctions archive
+
+- The usable unfiltered Agents Property Auction page banks all 35 visible Newcastle September 2026 sold-result rows. They are 35 address records with 35 achieved prices and no guides. The source publishes only a month, so all 35 retain null auction dates; no record is counted as a newly dated 20-year appearance. One row explicitly names a commercial use and 34 remain sector-unknown rather than being inferred residential from postal-address wording. The historical Newcastle/Cumbria filters remain terminal because submitting `a_sub` returns HTTP 500; they are not retried by default.
+- First for Auctions exposes a separate complete EIG past-lots grid. All 28 pages reconcile exactly to the published 1,377-row denominator and 1,377 distinct stable lot IDs. The banked records comprise 1,377 addresses, 1,371 exact-dated appearances through 26 October 2026, six future-dated appearances, 1,078 achieved prices and no published index guide prices. The evidenced commercial/mixed-use subset is 28; residential 1,229, land 24 and unknown 96. Nine operator-years, 2018–2026, are newly represented. Five postponed, ten unsold and four withdrawn results remain distinct from sold outcomes.
+- Combined net growth from these sources is 1,412 address appearances. There are no partial or duplicate-derived additions. The next concrete growth target is another uncovered EIG white-label with a reconciled public past-lots denominator, prioritising the largest accessible retained grid rather than refreshing these completed captures.
+
 ## Consolidated recovery checkpoint
 
 The 21:49 UTC local rebuild contained 279,698 records, 555 above the 16:14 production checkpoint. Individually checked additions: Barnard Marcus 345, Bond Wolfe 175, Harman Healy 13, Swift 7, Symonds & Sampson 12 and Anderson & Garland 3. These are lot/result records, not unique buildings or a claim that every added record is dated historical evidence. Symonds includes future/undated listings; Anderson selected results can lack dates.

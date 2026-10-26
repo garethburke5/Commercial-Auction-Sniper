@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-26T05:34:23.972461+00:00",
+  "checked_at": "2026-10-26T06:15:13.779959+00:00",
   "transport_version": 3,
   "source_url": "https://www.agentspropertyauction.com/auctions/auction-results/",
   "archive_evidence": {
@@ -134,14 +134,17 @@
   "month_filters_checked": 0,
   "month_filters_expected_through_current_month": 404,
   "filter_inventory_complete_through_current_month": false,
-  "result_tables_captured_this_run": 0,
-  "appearances_captured": 0,
+  "result_tables_captured_this_run": 1,
+  "appearances_captured": 35,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_new_undated_records": 0,
-  "with_sale_price": 0,
-  "by_sector": {},
+  "with_sale_price": 35,
+  "by_sector": {
+    "unknown": 34,
+    "commercial": 1
+  },
   "catalogue_completion_claimed": false,
   "completion_limit": "sold-result tables do not expose the original catalogue denominator or exact auction day",
   "failures": [
@@ -626,254 +629,12 @@
       "error": "ValueError: reader snapshot has no venue/month/year heading"
     }
   ],
-  "run_failures": [
-    {
-      "key": "Cumbria|2012-01",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=01&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-02",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=02&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-03",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=03&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-04",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=04&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-05",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=05&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-06",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=06&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-07",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=07&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-08",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=08&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-09",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=09&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-10",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=10&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-11",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=11&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2012-12",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2012&a_month=12&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-01",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=01&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-02",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=02&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-03",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=03&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-04",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=04&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-05",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=05&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-06",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=06&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-07",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=07&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-08",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=08&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-09",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=09&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-10",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=10&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-11",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=11&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2012-12",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2012&a_month=12&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-01",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=01&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-02",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=02&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-03",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=03&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-04",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=04&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-05",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=05&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-06",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=06&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-07",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=07&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-08",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=08&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-09",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=09&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-10",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=10&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-11",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=11&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Cumbria|2013-12",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Cumbria&a_year=2013&a_month=12&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-01",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=01&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-02",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=02&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-03",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=03&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-04",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=04&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-05",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=05&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-06",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=06&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-07",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=07&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-08",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=08&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-09",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=09&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-10",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=10&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-11",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=11&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    },
-    {
-      "key": "Newcastle|2013-12",
-      "url": "https://www.agentspropertyauction.com/auctions/auction-results/?a_venue=Newcastle&a_year=2013&a_month=12&a_sub=1",
-      "error": "ValueError: reader snapshot has no venue/month/year heading"
-    }
-  ],
+  "run_failures": [],
   "source_blocker": {
-    "kind": "filtered_archive_blocked_from_free_collector_infrastructure",
-    "direct_route": "HTTP 500 for every attempted filter",
-    "free_reader_route": "response contained no requested auction heading or result rows",
-    "scope": "2010-2013, both advertised venues and all months",
-    "retry_policy": "terminal until a materially different free retrieval route is available",
-    "note": "the browser-verifiable February 2012 table is not treated as empty or captured"
+    "kind": "filtered_archive_http_500",
+    "direct_route": "HTTP 500 whenever the first-party a_sub filter is submitted",
+    "scope": "historical Newcastle/Cumbria venue-month filters",
+    "retry_policy": "terminal unless a materially different free retrieval route appears",
+    "usable_route": "unfiltered first-party page retained 35 visible sold rows for Newcastle September 2026"
   }
 }

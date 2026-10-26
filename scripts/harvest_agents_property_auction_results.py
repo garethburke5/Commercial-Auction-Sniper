@@ -77,6 +77,28 @@ def parse_price(value: str | None) -> int | None:
     return int(round(float(match.group(1).replace(",", "")))) if match else None
 
 
+def result_sector(address: str) -> str:
+    """Classify only property uses evidenced by the result-table address.
+
+    Most rows are postal addresses with no property-type statement.  Passing
+    them through the general text classifier can turn business names ending in
+    ``House`` into speculative residential records.  Keep those rows unknown
+    and recognise only explicit use words retained in the source address.
+    """
+    text = address.casefold()
+    if re.search(r"\b(?:mixed[- ]use|shop\s+(?:and|with)\s+(?:flat|residential))\b", text):
+        return "mixed-use"
+    if re.search(r"\b(?:land|plot|site|paddock|grazing|woodland)\b", text):
+        return "land"
+    if re.search(
+        r"\b(?:bistro|restaurant|cafe|pub|hotel|shop|retail|office|warehouse|industrial|"
+        r"garage|workshop|business|commercial|public house)\b",
+        text,
+    ):
+        return "commercial"
+    return "unknown"
+
+
 def result_pairs(document: str, document_format: str) -> tuple[re.Match, list[tuple[str, str | None]]]:
     if document_format == "markdown":
         heading = HEADING_RE.search(document)
@@ -98,7 +120,7 @@ def result_pairs(document: str, document_format: str) -> tuple[re.Match, list[tu
         return heading, pairs
 
     soup = BeautifulSoup(document, "lxml")
-    headings = [clean(node.get_text(" ", strip=True)) for node in soup.select("h1, h2")]
+    headings = [clean(node.get_text(" ", strip=True)) for node in soup.select(".page_intro, h1, h2")]
     heading = next((HEADING_RE.search(value or "") for value in headings if HEADING_RE.search(value or "")), None)
     if not heading:
         raise ValueError("result page has no venue/month/year heading")
@@ -153,7 +175,7 @@ def parse_result_page(
             address=address,
             postcode=postcode,
             locality=venue,
-            sector=corpus.sector(address),
+            sector=result_sector(address),
             status="sold",
             sale_price=parse_price(result_text),
             property_id="agents-property-auction|exact-address:" + hashlib.sha256(normalized.encode()).hexdigest(),
@@ -199,26 +221,13 @@ def parse_result_page(
     return state, parsed
 
 
-def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
+def harvest(
+    years_per_run: int = 2,
+    workers: int = 1,
+    retry_filtered_archive: bool = False,
+) -> dict:
     collection_path = corpus.DATA / "agents_property_auction_collection.json"
     previous = json.loads(collection_path.read_text()) if collection_path.exists() else {}
-    if (
-        previous.get("transport_version") == TRANSPORT_VERSION
-        and previous.get("month_filters_checked") == 0
-        and len(previous.get("failures", [])) >= 96
-    ):
-        previous["source_blocker"] = {
-            "kind": "filtered_archive_blocked_from_free_collector_infrastructure",
-            "direct_route": "HTTP 500 for every attempted filter",
-            "free_reader_route": "response contained no requested auction heading or result rows",
-            "scope": "2010-2013, both advertised venues and all months",
-            "retry_policy": "terminal until a materially different free retrieval route is available",
-            "note": "the browser-verifiable February 2012 table is not treated as empty or captured",
-        }
-        previous["checked_at"] = corpus.now()
-        corpus.save_json(collection_path, previous)
-        print(json.dumps(previous, indent=2), flush=True)
-        return previous
 
     resolved, archive_raw = fetch(BASE)
     archive_html = archive_raw.decode("utf-8", "replace")
@@ -230,9 +239,42 @@ def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
         "retrieved_at": corpus.now(),
         "sha256": archive_sha,
         "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party result archive filter",
+        "basis": "first-party current sold-result table and archive filter",
     }
-    corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+    if archive_snapshot.exists():
+        saved_snapshot = corpus.read_gzip(archive_snapshot)
+        if saved_snapshot.get("html", "").encode("utf-8") != archive_raw:
+            raise ValueError("content-addressed result snapshot does not match its source bytes")
+        archive_evidence = saved_snapshot["evidence"]
+    else:
+        corpus.save_gzip(archive_snapshot, {"evidence": archive_evidence, "html": archive_html})
+
+    # The filter handler currently returns a WordPress HTTP 500 whenever
+    # ``a_sub`` is present, but the unfiltered route still publishes the full
+    # latest sold-results table.  Bank that usable evidence independently and
+    # leave the older filter grid terminal unless an operator explicitly opts
+    # into a materially new retry route.
+    latest_match, _ = result_pairs(archive_html, "html")
+    latest_venue = clean(latest_match.group(1))
+    latest_year = int(latest_match.group(3))
+    latest_month = datetime.strptime(latest_match.group(2), "%B").month
+    if not latest_venue:
+        raise ValueError("current result table has no venue")
+    latest_state, latest_rows = parse_result_page(
+        archive_html,
+        resolved,
+        latest_venue,
+        latest_year,
+        latest_month,
+        archive_evidence,
+    )
+    if not latest_state or not latest_rows:
+        raise ValueError("current result table contains no sold-result rows")
+    latest_slug = latest_venue.casefold().replace(" ", "-")
+    corpus.save_json(
+        corpus.DATA / f"auctions/agents-property-auction/{latest_slug}-{latest_year:04d}-{latest_month:02d}.json",
+        latest_state,
+    )
 
     checked = set(previous.get("checked_month_keys", []))
     # Do not hammer combinations which the source itself rejected on the
@@ -262,8 +304,8 @@ def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
                 if key not in attempted:
                     candidates.append((key, venue, year, month))
     limit = max(1, years_per_run) * max(1, len(venues)) * 12
-    selected = candidates[:limit]
-    states, rows, run_failures = {}, [], []
+    selected = candidates[:limit] if retry_filtered_archive else []
+    states, rows, run_failures = {latest_state["source_auction_id"]: latest_state}, list(latest_rows), []
 
     def capture(item):
         key, venue, year, month = item
@@ -356,6 +398,17 @@ def harvest(years_per_run: int = 2, workers: int = 1) -> dict:
         "failures": [previous_failures[key] for key in sorted(previous_failures)],
         "run_failures": run_failures,
     }
+    if not retry_filtered_archive:
+        summary["source_blocker"] = {
+            "kind": "filtered_archive_http_500",
+            "direct_route": "HTTP 500 whenever the first-party a_sub filter is submitted",
+            "scope": "historical Newcastle/Cumbria venue-month filters",
+            "retry_policy": "terminal unless a materially different free retrieval route appears",
+            "usable_route": (
+                f"unfiltered first-party page retained {len(latest_rows)} visible sold rows for "
+                f"{latest_venue} {latest_match.group(2)} {latest_year}"
+            ),
+        }
     corpus.save_json(collection_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
     if run_failures:
@@ -367,5 +420,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("years_per_run", nargs="?", type=int, default=2)
     parser.add_argument("--workers", type=int, default=1)
+    parser.add_argument(
+        "--retry-filtered-archive",
+        action="store_true",
+        help="retry the terminal historical filters only after a materially new route is confirmed",
+    )
     args = parser.parse_args()
-    harvest(args.years_per_run, args.workers)
+    harvest(args.years_per_run, args.workers, args.retry_filtered_archive)

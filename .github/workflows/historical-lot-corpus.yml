@@ -41,6 +41,8 @@ on:
       - scripts/harvest_pugh_canonical.py
       - scripts/harvest_symonds_sampson_canonical.py
       - scripts/harvest_bamboo_auctioneer.py
+      - scripts/harvest_agents_property_auction_results.py
+      - scripts/harvest_first_for_auctions.py
       - scripts/reconcile_online_result_state_errors.py
       - scripts/harvest_bidx1_canonical.py
       - scripts/harvest_strettons_results.py
@@ -92,6 +94,7 @@ on:
       - tests/test_pugh_history.py
       - tests/test_symonds_sampson_history.py
       - tests/test_bamboo_auctioneer.py
+      - tests/test_agents_property_auction_results.py
       - tests/test_bidx1_history.py
       - tests/test_strettons_results.py
       - tests/test_cheffins_history.py

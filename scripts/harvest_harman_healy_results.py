@@ -26,10 +26,12 @@ import historical_corpus as corpus
 
 BASE = "https://harman-healy.co.uk"
 ARCHIVE_URL = BASE + "/past-auctions"
+AUCTIONEER = "Harman Healy"
+SLUG = "harman-healy"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 PAGE_SIZE = 50
 COUNT_RE = re.compile(r"Showing\s+results\s+[\d,]+\s*-\s*[\d,]+\s+of\s+([\d,]+)", re.I)
-LOT_RE = re.compile(r"\bLot\s+([^|]+?)\s*\|", re.I)
+LOT_RE = re.compile(r"\bLot\s+([^|]+?)(?:\s*\||$)", re.I)
 DETAIL_RE = re.compile(r"/lot/details/([0-9a-f-]+|\d+)", re.I)
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)")
 
@@ -68,6 +70,8 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
         status = "sold"
     elif "withdrawn" in text:
         status = "withdrawn"
+    elif "postponed" in text:
+        status = "postponed"
     elif "unsold" in text or "no bids" in text:
         status = "unsold"
     else:
@@ -82,21 +86,21 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         raise ValueError(f"archive page {page} contains no lot cards")
     rows = []
     for page_position, card in enumerate(cards, 1):
-        heading = card.select_one(".panel-title")
+        heading = card.select_one(".panel-title, .lot-number")
         time_node = card.select_one("time[datetime]")
         address_node = card.select_one(".list-address")
         detail_node = card.select_one('a[href*="/lot/details/"]')
         lot_match = LOT_RE.search(clean(heading.get_text(" ", strip=True)) or "") if heading else None
         detail_url = urljoin(BASE, detail_node.get("href") or "") if detail_node else None
         id_match = DETAIL_RE.search(detail_url or "")
-        if not all((heading, time_node, address_node, lot_match, detail_url, id_match)):
-            raise ValueError(f"archive page {page} card {page_position} lacks identity, date, lot or address")
+        if not all((time_node, address_node, detail_url, id_match)):
+            raise ValueError(f"archive page {page} card {page_position} lacks identity, date or address")
         source_id = id_match.group(1).lower()
         auction_date = datetime.fromisoformat(time_node["datetime"]).date().isoformat()
-        lot_number = clean(lot_match.group(1))
+        lot_number = clean(lot_match.group(1)) if lot_match else None
         address = clean(address_node.get_text(" ", strip=True))
-        if not lot_number or not address:
-            raise ValueError(f"archive page {page} card {page_position} has an empty lot or address")
+        if not address:
+            raise ValueError(f"archive page {page} card {page_position} has an empty address")
         type_node = card.select_one(".lot-data-heading")
         property_type = clean(type_node.get_text(" ", strip=True)) if type_node else None
         description_node = card.select_one(".list-info p")
@@ -108,11 +112,11 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         image_url = urljoin(BASE, image_node["src"]) if image_node else None
         postcode_match = corpus.PC.search(address)
         row = corpus.base_row(
-            "Harman Healy", f"harman-healy:{auction_date}", auction_date,
+            AUCTIONEER, f"{SLUG}:{auction_date}", auction_date,
             lot_number, source_id, detail_url,
         )
         row.update(
-            appearance_id=f"Harman Healy|eig-lot:{source_id}",
+            appearance_id=f"{AUCTIONEER}|eig-lot:{source_id}",
             address=address,
             postcode=postcode_match.group().upper() if postcode_match else None,
             locality=address,
@@ -146,13 +150,21 @@ def fetch(page: int) -> tuple[int, bytes, str]:
     return page, response.content, response.url
 
 
+def configure(base: str, auctioneer: str, slug: str) -> None:
+    global BASE, ARCHIVE_URL, AUCTIONEER, SLUG
+    BASE = base.rstrip("/")
+    ARCHIVE_URL = BASE + "/past-auctions"
+    AUCTIONEER = auctioneer
+    SLUG = slug
+
+
 def harvest() -> None:
     first_page, first_raw, first_resolved = fetch(1)
     first_html = first_raw.decode("utf-8", "replace")
     expected = published_total(first_html)
     total_pages = math.ceil(expected / PAGE_SIZE)
     fetched = {first_page: (first_raw, first_resolved, None)}
-    state_path = corpus.DATA / "auctions/harman-healy/retained-past-auctions.json"
+    state_path = corpus.DATA / f"auctions/{SLUG}/retained-past-auctions.json"
     cached_state = json.loads(state_path.read_text()) if state_path.exists() else None
     cached_pages = {}
     if cached_state and cached_state.get("catalogue_complete"):
@@ -190,7 +202,7 @@ def harvest() -> None:
             evidence = saved_evidence
         else:
             sha = corpus.digest(raw)
-            snapshot = corpus.DATA / "sources/harman-healy" / f"past-auctions-page-{page}-{sha[:16]}.json.gz"
+            snapshot = corpus.DATA / f"sources/{SLUG}" / f"past-auctions-page-{page}-{sha[:16]}.json.gz"
             evidence = {
                 "source_url": resolved,
                 "retrieved_at": corpus.now(),
@@ -213,17 +225,17 @@ def harvest() -> None:
     if len(observed) != expected or len(identities) != len(set(identities)):
         raise ValueError(f"archive reconciled {len(observed)} rows and {len(set(identities))} identities of {expected}")
 
-    appearance_path = corpus.DATA / "appearances/harman-healy/canonical.jsonl.gz"
+    appearance_path = corpus.DATA / f"appearances/{SLUG}/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
     merged.update({row["appearance_id"]: row for row in observed})
-    total = corpus.write_rows("harman-healy/canonical", list(merged.values()))
+    total = corpus.write_rows(f"{SLUG}/canonical", list(merged.values()))
     added = [row for key, row in merged.items() if key not in before_ids]
 
     state = {
-        "auctioneer": "Harman Healy",
-        "source_auction_id": "harman-healy:retained-past-auctions",
+        "auctioneer": AUCTIONEER,
+        "source_auction_id": f"{SLUG}:retained-past-auctions",
         "auction_date": None,
         "catalogue_complete": True,
         "source_rows_complete": True,
@@ -256,7 +268,7 @@ def harvest() -> None:
         "completion_scope": state["completion_scope"],
         "failures": [],
     }
-    corpus.save_json(corpus.DATA / "harman_healy_collection.json", summary)
+    corpus.save_json(corpus.DATA / f"{SLUG.replace('-', '_')}_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
 
 
