@@ -1,4 +1,4 @@
-"""Bank Robinson & Hall's surviving first-party EIG result-sheet archive.
+"""Bank Robinson & Hall's surviving first-party result and catalogue archive.
 
 The auctioneer's WordPress results page embeds an EIG ``pastauctions.aspx``
 table.  Each date links to a flat result sheet containing stable EIG lot IDs,
@@ -6,9 +6,11 @@ addresses and published outcomes.  The published ``Lots Offered`` figure
 excludes some withdrawn/postponed entries, so completeness is reconciled as
 unique result rows >= lots offered; those extra appearances are retained.
 
-This first pass intentionally does not infer guide prices or rents.  Those are
-available only in per-lot catalogue/detail material and can be added without
-changing the event/lot appearance identities established here.
+The surviving February and December 2023 catalogues are also parsed from their
+complete ``ORDER OF SALE`` inventories. Their exact event dates, addresses,
+property types and guide prices are admitted as separate appearances; a later
+result source for the same event/date/address enriches the existing identity
+rather than creating another property appearance.
 """
 from __future__ import annotations
 
@@ -66,11 +68,28 @@ LEGACY_AUGUST_2023_IMAGE_URL = (
     "Auction-August-2023-Results-scaled.jpg"
 )
 LEGACY_AUGUST_2023_IMAGE_SHA256 = "772c9b892c8a744b9f1436831c5693a727cb4013332861bc26f80ec817285b02"
+LEGACY_2023_CATALOGUES = [
+    {
+        "auction_date": "2023-02-23",
+        "url": "https://interactive.property-world.co.uk/robinsonandhall_feb23/Catalogue.pdf",
+        "sha256": "2a593fcc8cbda5a71ce720451c3761825d468007be216ef899cd6a2d75c9293d",
+        "expected_lots": 25,
+    },
+    {
+        "auction_date": "2023-12-07",
+        "url": "https://interactive.property-world.co.uk/robinsonandhall_nov23/Catalogue.pdf",
+        "sha256": "6f102eebe89b3aa4b459abdde74ce8a0542254116b8de5282304c8add7821a91",
+        "expected_lots": 26,
+    },
+]
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 RESULT_RE = re.compile(r"results\.aspx", re.I)
 LOT_RE = re.compile(r"LotDetails\.aspx", re.I)
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)", re.I)
-PARSER_VERSION = 3
+PARSER_VERSION = 4
+CATALOGUE_ORDER_RE = re.compile(
+    r"(\d+)\s+(.*?)\s+£([\d,]+)\+\s+([A-Za-z/& -]+?)(?=\s+\d+\s+|$)"
+)
 
 
 # The April article publishes its results only as this first-party image. The
@@ -443,6 +462,195 @@ def dated_image_rows(
 
 def address_key(value: str | None) -> str:
     return re.sub(r"[^a-z0-9]+", "", (value or "").casefold())
+
+
+def parse_catalogue_order(order_text: str) -> list[tuple[str, str, int, str]]:
+    """Parse the publisher's one-row-per-lot ORDER OF SALE inventory."""
+    text = re.sub(r"\s+", " ", order_text).strip()
+    match = re.search(r"ORDER OF SALE\s+(.*?)\s+LOT ADDRESS", text, re.I)
+    if not match:
+        raise ValueError("catalogue has no ORDER OF SALE inventory")
+    rows = []
+    for lot, address, price, property_type in CATALOGUE_ORDER_RE.findall(match.group(1)):
+        rows.append((
+            lot, clean(address) or "", int(price.replace(",", "")),
+            clean(property_type) or "",
+        ))
+    return rows
+
+
+def catalogue_rows(raw: bytes, event: dict, evidence: dict) -> list[dict]:
+    reader = PdfReader(BytesIO(raw))
+    pages = [page.extract_text() or "" for page in reader.pages]
+    cover = re.sub(r"\s+", " ", pages[0])
+    expected_date = datetime.strptime(event["auction_date"], "%Y-%m-%d")
+    suffix = (
+        "th" if 10 < expected_date.day < 20
+        else {1: "st", 2: "nd", 3: "rd"}.get(expected_date.day % 10, "th")
+    )
+    cover_date = f"{expected_date.day}{suffix} {expected_date.strftime('%B %Y')}"
+    if cover_date not in cover:
+        raise RuntimeError(f"catalogue cover no longer publishes {cover_date}")
+    order_page = next((page for page in pages if "ORDER OF SALE" in page), None)
+    if not order_page:
+        raise RuntimeError("catalogue ORDER OF SALE page is missing")
+    parsed = parse_catalogue_order(order_page)
+    lot_numbers = [int(row[0]) for row in parsed]
+    expected_lots = event["expected_lots"]
+    if len(parsed) != expected_lots or lot_numbers != list(range(1, expected_lots + 1)):
+        raise RuntimeError(
+            f"catalogue inventory did not reconcile: rows={len(parsed)}, "
+            f"lots={lot_numbers}, expected={expected_lots}"
+        )
+
+    auction_id = f"{SLUG}:catalogue-{event['auction_date']}"
+    rows = []
+    for position, (lot, address, guide_price, property_type) in enumerate(parsed, 1):
+        source_lot_id = f"catalogue-{event['auction_date']}-lot-{lot}"
+        row = corpus.base_row(
+            SOURCE, auction_id, event["auction_date"], lot, source_lot_id,
+            evidence["source_url"],
+        )
+        postcode = corpus.PC.search(address)
+        row.update(
+            appearance_id=f"{SOURCE}|{auction_id}|{source_lot_id}",
+            address=address,
+            postcode=postcode.group().upper() if postcode else None,
+            locality=address,
+            sector=corpus.sector(f"{property_type} {address}"),
+            property_type=property_type,
+            guide_price=guide_price,
+            status="unknown",
+            property_id=source_lot_id,
+            identity_method="first_party_catalogue_event_date_and_lot_number",
+            record_quality="address_record",
+            source_position=position,
+            source_platform="Robinson & Hall interactive catalogue",
+            guide_price_text=f"£{guide_price:,}+",
+            date_precision="day",
+            catalogue_source_evidence=evidence,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+    return rows
+
+
+def harvest_catalogues() -> dict:
+    """Bank all lots in the two surviving complete 2023 catalogue PDFs."""
+    event_rows = []
+    event_evidence = []
+    for event in LEGACY_2023_CATALOGUES:
+        raw, resolved = fetch(event["url"])
+        if corpus.digest(raw) != event["sha256"]:
+            raise RuntimeError(
+                f"{event['auction_date']} catalogue changed; refusing unchecked extraction"
+            )
+        evidence = binary_snapshot(
+            raw, resolved, f"legacy-{event['auction_date']}-catalogue", "pdf",
+            "immutable first-party catalogue with reconciled ORDER OF SALE inventory",
+            auction_date=event["auction_date"], expected_lots=event["expected_lots"],
+        )
+        rows = catalogue_rows(raw, event, evidence)
+        event_rows.extend(rows)
+        event_evidence.append((event, evidence, rows))
+
+    appearance_path = corpus.DATA / "appearances" / SLUG / "canonical.jsonl.gz"
+    existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
+    existing_by_fingerprint = {
+        (row.get("auction_date"), address_key(row.get("address"))): row
+        for row in existing if row.get("auction_date") and row.get("address")
+    }
+    global_fingerprints = set()
+    for path in (corpus.DATA / "appearances").glob("*/*.jsonl.gz"):
+        if path.parent.name == SLUG:
+            continue
+        for row in corpus.iter_rows(path):
+            if row.get("auction_date") and row.get("address"):
+                global_fingerprints.add((row["auction_date"], address_key(row["address"])))
+
+    enriched = 0
+    overlaps = 0
+    admissible = []
+    for row in event_rows:
+        fingerprint = (row["auction_date"], address_key(row["address"]))
+        prior = existing_by_fingerprint.get(fingerprint)
+        if prior:
+            prior["guide_price"] = prior.get("guide_price") or row["guide_price"]
+            prior["property_type"] = prior.get("property_type") or row["property_type"]
+            if prior.get("sector") in (None, "unknown"):
+                prior["sector"] = row["sector"]
+            prior["catalogue_source_evidence"] = row["catalogue_source_evidence"]
+            prior["catalogue_original_url"] = row["original_url"]
+            enriched += 1
+        elif fingerprint in global_fingerprints:
+            overlaps += 1
+        else:
+            admissible.append(row)
+
+    before = {row["appearance_id"] for row in existing}
+    merged = {row["appearance_id"]: row for row in existing}
+    merged.update({row["appearance_id"]: row for row in admissible})
+    corpus.write_rows(f"{SLUG}/canonical", list(merged.values()))
+    added = [row for key, row in merged.items() if key not in before]
+
+    for event, evidence, rows in event_evidence:
+        corpus.save_json(
+            corpus.DATA / "auctions" / SLUG / f"{event['auction_date']}-catalogue.json",
+            {
+                "auctioneer": SOURCE,
+                "source_auction_id": f"{SLUG}:catalogue-{event['auction_date']}",
+                "auction_date": event["auction_date"],
+                "source_url": evidence["source_url"],
+                "published_lots_offered": event["expected_lots"],
+                "catalogue_rows_observed": len(rows),
+                "lots_captured_or_enriched": len(rows),
+                "catalogue_complete": True,
+                "source_rows_complete": True,
+                "completion_scope": "all contiguous lots in the first-party ORDER OF SALE inventory",
+                "source_evidence": [evidence],
+                "errors": [],
+                "checked_at": corpus.now(),
+            },
+        )
+
+    today_value = date.today()
+    today = today_value.isoformat()
+    cutoff = date(today_value.year - 20, today_value.month, today_value.day).isoformat()
+    historical = [row for row in added if cutoff <= row["auction_date"] <= today]
+    summary_path = corpus.DATA / "robinson_hall_collection.json"
+    summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+    summary.update({
+        "checked_at": corpus.now(),
+        "parser_version": PARSER_VERSION,
+        "appearances_captured": len(merged),
+        "run_new_appearances": len(added),
+        "run_new_address_records": sum(bool(row.get("address")) for row in added),
+        "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "run_new_dated_twenty_year_address_records": sum(bool(row.get("address")) for row in historical),
+        "run_new_commercial_mixed": sum(row.get("sector") in {"commercial", "mixed-use"} for row in added),
+        "run_new_guide_prices": sum(row.get("guide_price") is not None for row in added) + enriched,
+        "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
+        "run_new_rents": sum(row.get("annual_rent") is not None for row in added),
+        "run_new_undated": sum(not row.get("auction_date") for row in added),
+        "run_new_future_dated": sum(row["auction_date"] > today for row in added),
+        "run_duplicate_source_evidence_excluded": overlaps,
+        "run_existing_appearances_enriched": enriched,
+        "run_new_catalogue_event_dates": sorted({row["auction_date"] for row in added}),
+        "new_source_years": [],
+        "date_range": [
+            min(row["auction_date"] for row in merged.values() if row.get("auction_date")),
+            max(row["auction_date"] for row in merged.values() if row.get("auction_date")),
+        ],
+        "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
+        "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
+        "catalogue_entries_captured": 51,
+        "catalogue_events_reconciled": 2,
+        "catalogue_detail_enrichment_complete": False,
+        "completion_scope": "2024-2026 EIG results, surviving 2021/2023 result articles, and complete February/December 2023 catalogue inventories; other pre-2024 catalogues remain unreconciled",
+    })
+    corpus.save_json(summary_path, summary)
+    print(json.dumps(summary, indent=2), flush=True)
+    return summary
 
 
 def existing_april_fingerprints(exclude_slug: str) -> set[tuple[str, str, int | None]]:
@@ -900,8 +1108,11 @@ def main() -> None:
     parser.add_argument("--workers", type=int, default=8)
     parser.add_argument("--legacy-only", action="store_true")
     parser.add_argument("--legacy-2023-only", action="store_true")
+    parser.add_argument("--catalogues-only", action="store_true")
     args = parser.parse_args()
-    if args.legacy_only or args.legacy_2023_only:
+    if args.catalogues_only:
+        harvest_catalogues()
+    elif args.legacy_only or args.legacy_2023_only:
         harvest_legacy(include_2021=not args.legacy_2023_only)
     else:
         harvest(args.workers)

@@ -139,3 +139,16 @@ def test_2023_image_transcriptions_keep_exact_catalogue_dates_and_prices():
     assert all(row["auction_date_source_evidence"] == schedule for row in june + august)
     assert august[3]["reported_bid_reached"] == 120000
     assert august[3]["sale_price"] is None
+
+
+def test_catalogue_order_inventory_preserves_lots_addresses_guides_and_types():
+    text = """
+    ORDER OF SALE
+    1 7 Dunster Gardens, Bedford, Bedfordshire MK41 8BE £250,000+ Residential for Improvement
+    2 Building Plot Adjacent to 7 Devereux Court, Milton Keynes MK17 8FS £150,000+ Plots/Building Land
+    LOT ADDRESS *GUIDE PRICE LOT TYPE
+    """
+    assert rh.parse_catalogue_order(text) == [
+        ("1", "7 Dunster Gardens, Bedford, Bedfordshire MK41 8BE", 250000, "Residential for Improvement"),
+        ("2", "Building Plot Adjacent to 7 Devereux Court, Milton Keynes MK17 8FS", 150000, "Plots/Building Land"),
+    ]
