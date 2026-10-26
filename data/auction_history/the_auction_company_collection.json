@@ -1,25 +1,25 @@
 {
-  "checked_at": "2026-10-26T14:34:09.891669+00:00",
+  "checked_at": "2026-10-26T18:18:35.785692+00:00",
   "auctioneer": "The Auction Company",
   "parser_version": 2,
   "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All",
-  "archive_sha256": "18da631d5873cf1adde04ddb9b20b70fc4453121b1848e9c83512adfaf9fe2ae",
+  "archive_sha256": "61cace2144a9c7650577df5b9e7db71c57cd71a80f19c62c4506792f99fbccaa",
   "archive_page_count": 3,
   "archive_page_rows": [
     50,
     50,
-    22
+    23
   ],
-  "visible_source_rows": 122,
-  "distinct_source_identities": 122,
+  "visible_source_rows": 123,
+  "distinct_source_identities": 123,
   "archive_pagination_complete": true,
-  "appearances_captured": 122,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 123,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_dated_twenty_year_address_records": 1,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
@@ -28,22 +28,22 @@
   "new_source_years": [],
   "date_range": [
     "2023-11-25",
-    "2026-10-13"
+    "2026-10-26"
   ],
   "by_status": {
     "sold": 79,
-    "sold_prior": 40,
+    "sold_prior": 41,
     "sold_after": 2,
     "unknown": 1
   },
   "by_sector": {
-    "residential": 112,
+    "residential": 113,
     "unknown": 4,
     "commercial": 3,
     "land": 1,
     "mixed-use": 2
   },
-  "detail_pages_captured": 122,
+  "detail_pages_captured": 123,
   "detail_recovery_failures": [],
   "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
   "failures": []
