@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'scripts/verify_live_platform.py', 'packages.txt', 'tests/test_legal_pack*.py', 'tests/test_acquisition*.py', 'tests/test_registry_scan_coverage.py', '.github/workflows/platform-public.yml']
+    paths: ['web_platform/**', 'investment_details.py', 'property_summary.py', 'board_presentation.py', 'buyer_due_diligence.py', 'legal_pack_*.py', 'acquisition_*.py', 'source_reconciliation.py', 'scripts/verify_live_platform.py', 'scripts/verify_cloudflare_release.py', 'packages.txt', 'wrangler.jsonc', 'tests/test_legal_pack*.py', 'tests/test_acquisition*.py', 'tests/test_registry_scan_coverage.py', '.github/workflows/platform-public.yml']
   workflow_run:
     workflows: ['Auction Sniper Publish Now', 'Auction Sniper Scan', 'Historical lot corpus collection', 'Commercial history expansion', 'Property gallery and fee evidence']
     types: [completed]
@@ -22,6 +22,8 @@ jobs:
     timeout-minutes: 15
     env:
       PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
+    outputs:
+      tested_commit: ${{ steps.source.outputs.commit }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -29,6 +31,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+      - name: Record tested source revision
+        id: source
+        run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -110,3 +115,64 @@ jobs:
         with:
           name: source-to-live-reconciliation
           path: data/source_live_verification.json
+
+  cloudflare:
+    name: Deploy auctiongeek.co.uk
+    needs: publish
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    env:
+      SITE_ORIGIN: https://auctiongeek.co.uk
+      CLOUDFLARE_ACCOUNT_ID: e4fd30472d40a92c31392a986f9e71d3
+      WRANGLER_SEND_METRICS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.publish.outputs.tested_commit }}
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: pip install -r web_platform/requirements-cloudflare.txt
+      - name: Build production domain with public configuration
+        run: |
+          python -m web_platform.cloudflare
+          python -c 'import json,os,pathlib; pathlib.Path("public-dist/deployment.json").write_text(json.dumps({"commit":os.environ["TESTED_COMMIT"],"run_id":os.environ["GITHUB_RUN_ID"]}))'
+        env:
+          TESTED_COMMIT: ${{ needs.publish.outputs.tested_commit }}
+          SUPABASE_URL: ${{ vars.SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ vars.SUPABASE_PUBLISHABLE_KEY }}
+          PRIVATE_API_ORIGIN: ${{ vars.PRIVATE_API_ORIGIN }}
+          BILLING_LIVE: ${{ vars.BILLING_LIVE }}
+      - name: Validate Cloudflare upload without credentials
+        run: npx --yes wrangler@4.153.0 deploy --dry-run
+      - name: Deploy existing Cloudflare Worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ]; then
+            echo "::error::Production build is ready. Add the repository Actions secret CLOUDFLARE_API_TOKEN, then rerun this failed job."
+            exit 1
+          fi
+          npx --yes wrangler@4.153.0 deploy
+      - name: Verify live production property data
+        run: python scripts/verify_live_platform.py --origin "$SITE_ORIGIN" --output data/cloudflare_live_verification.json
+      - name: Verify live production code and indexing
+        run: python scripts/verify_cloudflare_release.py --commit "$TESTED_COMMIT"
+        env:
+          TESTED_COMMIT: ${{ needs.publish.outputs.tested_commit }}
+      - name: Preserve production build and verification evidence
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cloudflare-production-evidence
+          path: |
+            public-dist-search-audit.json
+            public-dist/deployment.json
+            data/cloudflare_live_verification.json
+          if-no-files-found: ignore
