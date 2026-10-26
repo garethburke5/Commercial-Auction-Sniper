@@ -5,7 +5,7 @@
 <meta name="theme-color" content="#182e48"><meta name="application-name" content="Auction Geek">
 <link rel="icon" type="image/svg+xml" href="{{ url('/static/favicon.svg') }}">
 {% include 'social.html' %}
-<link rel="canonical" href="{{ canonical }}"><meta name="robots" content="{{ 'noindex,follow' if noindex else 'index,follow,max-image-preview:large' }}">
+<link rel="canonical" href="{{ canonical }}">{% if noindex %}<meta name="robots" content="noindex,follow">{% elif kind == 'property' %}<meta name="robots" content="index,follow,max-image-preview:large">{% endif %}
 <link rel="stylesheet" href="{{ url('/static/share.css') }}?v={{ share_version }}"><script defer src="{{ url('/static/share.js') }}?v={{ share_version }}"></script>
 <link rel="stylesheet" href="{{ url('/static/site.css') }}?v={{ asset_version }}"><script type="application/ld+json">{{ structured|safe }}</script><script src="{{ url('/static/search.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/board.js') }}?v={{ asset_version }}" defer></script>
 <script src="{{ url('/static/identity.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/reviews.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/report-evidence.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/deals.js') }}?v={{ asset_version }}" defer></script><script src="{{ url('/static/workspace.js') }}?v={{ asset_version }}" defer></script>
