@@ -111,3 +111,21 @@ def test_bradley_hall_uses_full_first_party_search_archive():
         "base": "https://auction.bradleyhall.co.uk",
         "archive_path": "/search",
     }
+
+
+def test_numeric_eig_lot_ids_are_preserved_as_stable_identities():
+    numeric = GRID.replace(
+        "85c11d6d-40f5-4b78-80c1-f360ee721c0b", "193314"
+    )
+    rows, malformed = grids.parse_grid(numeric, SOURCE, {})
+    assert malformed == []
+    assert rows[0]["source_lot_id"] == "193314"
+    assert rows[0]["appearance_id"] == "Example Auctions|eig-lot:193314"
+
+
+def test_clarke_simpson_uses_full_first_party_search_archive():
+    assert grids.SOURCES["clarke-simpson"] == {
+        "auctioneer": "Clarke & Simpson",
+        "base": "https://clarke-simpson.eigonlineauctions.com",
+        "archive_path": "/search",
+    }

@@ -1003,3 +1003,30 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   banks them and the rebuilt database verifies them. National completeness
   remains false.
 
+## 26 October 2026 — Bradley Hall retained-grid expansion
+
+- Reconciled Bradley Hall's complete surviving first-party search archive:
+  **75** published rows, **75** distinct stable UUIDs and two pages containing
+  50 and 25 rows. All 75 detail pages and immutable snapshots were captured
+  without recovery failures.
+- Banked **75 net new address appearances**. Fifty-four are exact-dated inside
+  the current 20-year window and 21 are explicitly future-dated through 23
+  November 2026. There are no partial, undated or duplicate-derived additions.
+- The batch contains 17 mixed-use and four commercial appearances (21
+  combined), 46 residential, seven land and one evidence-limited unknown.
+  Published outcomes remain distinct: 32 sold, 21 sold-prior, one postponed
+  and 21 current/unknown listings.
+- Added **75 guide prices**, **50 achieved prices** and **11 annual rents**.
+  The 2025 and 2026 Bradley Hall operator-years are newly represented.
+- The rebuilt corpus contains **298,580 appearances**: 287,810 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 291,027
+  appearances, with 97,801 guide-price records and 109,904 sale-price records.
+  Rebuild, packaging, source reconciliation and checkpoint publication all
+  completed successfully.
+- Next concrete growth target: Clarke & Simpson's genuine first-party EIG
+  archive at `https://clarke-simpson.eigonlineauctions.com/search`, currently
+  exposing 167 rows and no counted Clarke & Simpson appearances. The reusable
+  collector now accepts the platform's stable numeric identities as well as
+  UUIDs; it must reconcile the live denominator and exclude shared-EIG identity
+  overlaps before claiming growth. National completeness remains false.
+

@@ -37,6 +37,11 @@ SOURCES = {
         "base": "https://auction.bradleyhall.co.uk",
         "archive_path": "/search",
     },
+    "clarke-simpson": {
+        "auctioneer": "Clarke & Simpson",
+        "base": "https://clarke-simpson.eigonlineauctions.com",
+        "archive_path": "/search",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -51,7 +56,9 @@ SOURCES = {
     },
 }
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-UUID_RE = re.compile(r"/lot/details/([0-9a-f-]{36})", re.I)
+# EIG's newer white labels expose UUIDs while surviving older grids retain
+# platform-wide numeric lot IDs.  Both are stable first-party identities.
+LOT_ID_RE = re.compile(r"/lot/details/([0-9a-f-]{36}|\d+)(?:[/?#]|$)", re.I)
 ISO_DATE_RE = re.compile(r"^(20\d{2}-\d{2}-\d{2})")
 MONEY_RE = re.compile(r"£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
 GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
@@ -169,7 +176,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
     rows, malformed = [], []
     for position, card in enumerate(soup.select(".lot-panel"), 1):
         detail = card.select_one('a[href*="/lot/details/"]')
-        identity = UUID_RE.search(detail.get("href") or "") if detail else None
+        identity = LOT_ID_RE.search(detail.get("href") or "") if detail else None
         address_node = card.select_one(".list-address")
         time_node = card.select_one("time[datetime]")
         scheduled_end = card.get("data-end-date-utc")
@@ -307,7 +314,7 @@ def existing_global_ids(exclude_slug: str) -> set[str]:
             continue
         for row in corpus.iter_rows(path):
             value = clean(str(row.get("source_lot_id") or row.get("property_id") or ""))
-            if value and UUID_RE.fullmatch("/lot/details/" + value):
+            if value and LOT_ID_RE.fullmatch("/lot/details/" + value):
                 values.add(value.casefold())
     return values
 
