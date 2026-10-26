@@ -42,6 +42,7 @@ python scripts/harvest_harman_healy_results.py
 python scripts/harvest_agents_property_auction_results.py
 python scripts/harvest_first_for_auctions.py
 python scripts/harvest_landwood_property_auctions.py
+python scripts/harvest_sw_property_auctions.py
 python scripts/harvest_propertyauctions_allsop_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py

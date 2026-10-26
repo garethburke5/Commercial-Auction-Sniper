@@ -25,6 +25,7 @@ TASKS=(
     ('harman_healy_results', ['scripts/harvest_harman_healy_results.py']),
     ('first_for_auctions', ['scripts/harvest_first_for_auctions.py']),
     ('landwood_property_auctions', ['scripts/harvest_landwood_property_auctions.py']),
+    ('sw_property_auctions', ['scripts/harvest_sw_property_auctions.py']),
     # Serial browser-session/read-through recovery for a legacy filter route.
     ('agents_property_auction', ['scripts/harvest_agents_property_auction_results.py','2','--workers','1']),
     ('lsh_results', ['scripts/harvest_lsh_results.py']),
@@ -88,6 +89,7 @@ RECONCILED_REFRESHES = {
     'symonds_sampson_events': 'symonds_sampson_event_collection.json',
     'first_for_auctions': 'first_for_auctions_collection.json',
     'landwood_property_auctions': 'landwood_property_auctions_collection.json',
+    'sw_property_auctions': 'sw_property_auctions_collection.json',
     'agents_property_auction': 'agents_property_auction_collection.json',
 }
 

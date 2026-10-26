@@ -649,3 +649,34 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   unlinked to the corpus. If that denominator reconciles, continue through the
   smaller uncovered Boultons Harrisons and OPA Group EIG grids rather than
   refreshing Landwood. National completeness remains false.
+
+## 26 October 2026 — SW Property Auctions retained catalogue recovery
+
+- Recovered every retained property card from 21 first-party past-auction
+  pages. The pages reconcile to **204 distinct stable EIG lot identities**.
+  The archive's separate `lots offered` statistic totals 159; it is preserved
+  as an outcome statistic and is not misused to discard the 45 additional
+  retained available, withdrawn or postponed rows.
+- Net growth is **204 appearances and 204 address records**, all individually
+  dated inside the preceding 20-year window: nine in 2024, 105 in 2025 and 90
+  in 2026. There are no partial, undated, future-dated or duplicate-derived
+  additions.
+- The retained set comprises 139 residential, 34 commercial, 30 mixed-use and
+  one land appearance. The commercial/mixed-use subset is 64.
+- First-party detail pages add 203 guide prices, 76 achieved sale prices and
+  113 explicit annual rents. Sold, sold-prior, sold-after, available,
+  postponed and withdrawn outcomes remain distinct; undisclosed results stay
+  null. Original catalogue/detail URLs and immutable snapshots are retained.
+- The reusable collector records the displayed property-row denominator
+  separately from archive outcome statistics, reconciles all 21 catalogues,
+  and defers unchanged completed refreshes for 24 hours. Focused and workflow
+  regression suites pass 57/57 tests.
+- The rebuilt SQLite integrity check is `ok` at **296,962 appearances**:
+  286,192 address records and 10,770 partial lots. Exact-date twenty-year
+  coverage is 289,492 appearances, with 97,373 guide prices and 108,905 sale
+  prices. Undated appearances remain 4,371 and future-dated appearances remain
+  56. National completeness remains false.
+- Next concrete growth target: collect the uncovered Boultons Harrisons
+  first-party EIG grid (currently 62 retained property rows), then OPA Group's
+  51-row grid. If either denominator fails to reconcile, record the specific
+  gap and move to the other source rather than repeating a zero-growth probe.
