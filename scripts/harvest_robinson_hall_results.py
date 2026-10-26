@@ -293,6 +293,7 @@ def harvest(workers: int = 8) -> dict:
             "source_url": event["result_url"],
             "published_lots_offered": event["lots_offered"],
             "result_rows_captured": len(date_rows),
+            "lots_captured": len(date_rows),
             "additional_non_offered_rows": event["additional_non_offered_rows"],
             "catalogue_complete": False,
             "source_rows_complete": True,
