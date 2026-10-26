@@ -1,11 +1,12 @@
 {
-  "generated_at": "2026-10-26T04:52:15.770373+00:00",
-  "individual_lot_records_captured": 292362,
-  "records_with_address": 281592,
+  "generated_at": "2026-10-26T05:52:16.569669+00:00",
+  "individual_lot_records_captured": 292625,
+  "records_with_address": 281855,
   "partial_lot_records": 10770,
-  "exact_address_groups": 153647,
+  "exact_address_groups": 153910,
   "groups_with_repeat_appearances": 40132,
   "by_auctioneer": {
+    "247 Property Auctions": 263,
     "Acuitus": 5697,
     "Allsop": 44946,
     "Allsop Commercial": 71,
@@ -81,7 +82,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4335,
+    "null": 4336,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -101,25 +102,25 @@
     "2018": 8232,
     "2019": 7578,
     "2020": 13303,
-    "2021": 20071,
-    "2022": 24846,
-    "2023": 30730,
-    "2024": 38781,
-    "2025": 44351,
-    "2026": 42538
+    "2021": 20102,
+    "2022": 24873,
+    "2023": 30770,
+    "2024": 38822,
+    "2025": 44398,
+    "2026": 42614
   },
   "by_sector": {
-    "commercial": 41765,
-    "land": 17948,
-    "mixed-use": 46520,
-    "residential": 140204,
-    "unknown": 45925
+    "commercial": 41776,
+    "land": 17956,
+    "mixed-use": 46590,
+    "residential": 140370,
+    "unknown": 45933
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2121,
+  "surviving_catalogues_completely_harvested": 2122,
   "catalogues_incomplete_or_unreconciled": 489,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -133,15 +134,81 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 284956,
-      "auction_ids_observed": 7119,
-      "with_guide_price": 96930,
-      "with_sale_price": 106509,
-      "with_both_prices": 46226,
-      "marked_sold": 144195,
+      "lot_appearances": 285196,
+      "auction_ids_observed": 7359,
+      "with_guide_price": 97170,
+      "with_sale_price": 106717,
+      "with_both_prices": 46434,
+      "marked_sold": 144403,
       "marked_sold_without_sale_price": 38426
     },
     "by_auctioneer_and_year": [
+      {
+        "auctioneer": "247 Property Auctions",
+        "year": 2021,
+        "lot_appearances": 31,
+        "auction_ids_observed": 31,
+        "with_guide_price": 31,
+        "with_sale_price": 31,
+        "with_both_prices": 31,
+        "marked_sold": 31,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "247 Property Auctions",
+        "year": 2022,
+        "lot_appearances": 27,
+        "auction_ids_observed": 27,
+        "with_guide_price": 27,
+        "with_sale_price": 27,
+        "with_both_prices": 27,
+        "marked_sold": 27,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "247 Property Auctions",
+        "year": 2023,
+        "lot_appearances": 40,
+        "auction_ids_observed": 40,
+        "with_guide_price": 40,
+        "with_sale_price": 40,
+        "with_both_prices": 40,
+        "marked_sold": 40,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "247 Property Auctions",
+        "year": 2024,
+        "lot_appearances": 41,
+        "auction_ids_observed": 41,
+        "with_guide_price": 41,
+        "with_sale_price": 41,
+        "with_both_prices": 41,
+        "marked_sold": 41,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "247 Property Auctions",
+        "year": 2025,
+        "lot_appearances": 47,
+        "auction_ids_observed": 47,
+        "with_guide_price": 47,
+        "with_sale_price": 32,
+        "with_both_prices": 32,
+        "marked_sold": 32,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "247 Property Auctions",
+        "year": 2026,
+        "lot_appearances": 54,
+        "auction_ids_observed": 54,
+        "with_guide_price": 54,
+        "with_sale_price": 37,
+        "with_both_prices": 37,
+        "marked_sold": 37,
+        "marked_sold_without_sale_price": 0
+      },
       {
         "auctioneer": "Acuitus",
         "year": 2010,
@@ -5984,8 +6051,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4335,
-    "future_dated_appearances": 28,
+    "undated_appearances": 4336,
+    "future_dated_appearances": 50,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -5996,7 +6063,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-26T04:43:18.411325+00:00",
+    "checked_at": "2026-10-26T05:40:56.599929+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
