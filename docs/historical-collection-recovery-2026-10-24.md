@@ -772,3 +772,38 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   Reconcile each event before banking it; do not re-probe Auction Local unless
   its first-party archive exposes property rows. National completeness remains
   false.
+
+## 26 October 2026 — Robinson & Hall first-party EIG result-sheet recovery
+
+- Restored the invalid binary `continuation_collection.json` checkpoint to the
+  last known-good JSON before collection, preserving the 500-run rotation
+  history and its next-task position rather than discarding collector state.
+- Recovered all 12 result sheets in Robinson & Hall's first-party EIG past-
+  auction archive, covering 4 December 2024 to 14 October 2026. The published
+  `lots offered` total is 375, while the sheets retain 415 property rows;
+  the additional 40 withdrawn/non-offered appearances are preserved and
+  reported separately instead of being silently dropped.
+- Net growth is **415 appearances and 415 address records**, all exact-dated
+  inside the preceding 20-year window. The 415 event/LotID identities and 415
+  appearance IDs are unique, with no partial, undated, future-dated or
+  duplicate-derived additions. Three operator-years, 2024–2026, are newly
+  represented.
+- The retained outcomes are 247 sold, 39 sold-after, 29 sold-prior, 60 unsold
+  and 40 withdrawn-prior. Published results add **247 achieved sale prices**.
+  Result sheets publish no guides or rents, so those fields remain null.
+- First-pass sector evidence identifies four commercial appearances, 41
+  residential and 102 land rows; 268 remain unknown rather than being inferred.
+  Per-lot detail and catalogue enrichment is explicitly incomplete.
+- The rebuilt and packaged corpus contains **297,742 appearances**: 286,972
+  address records and 10,770 partial lots. Exact-date twenty-year coverage is
+  290,249 appearances, with 97,715 guide prices and 109,322 sale prices.
+  Undated appearances remain 4,371 and future-dated appearances remain 79.
+- Next concrete growth target: recover Robinson & Hall's pre-December-2024
+  individual result tables from its first-party WordPress auction-article
+  archive, beginning with the older result pages under
+  `robinsonandhall.co.uk/tag/auction/page/2/`. Reconcile each article's
+  property rows and event date before banking them; do not refresh the completed
+  2024–2026 EIG sheets. Per-lot EIG detail/catalogue enrichment is a secondary
+  guide/rent/sector target and must not be counted as new appearances.
+  National completeness remains false.
+
