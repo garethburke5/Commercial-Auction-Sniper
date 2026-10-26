@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T14:52:40.733018+00:00",
-  "corpus_checkpoint": "2026-10-26T14:52:16.534442+00:00",
+  "generated_at": "2026-10-26T15:23:21.567449+00:00",
+  "corpus_checkpoint": "2026-10-26T15:23:01.143010+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -6287,14 +6287,15 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Robinson & Hall",
       "match_basis": "exact label",
-      "retained_appearances": 415,
+      "retained_appearances": 452,
       "years_with_retained_evidence": [
+        2021,
         2024,
         2025,
         2026
       ],
       "with_guide_price": 0,
-      "with_sale_price": 247,
+      "with_sale_price": 253,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8057,7 +8058,7 @@
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
     "Pugh Auctioneers": 6893,
-    "Robinson & Hall": 415,
+    "Robinson & Hall": 452,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
     "Savills": 2,
@@ -8081,13 +8082,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 290252,
-      "auction_ids_observed": 8392,
+      "lot_appearances": 290272,
+      "auction_ids_observed": 8393,
       "with_guide_price": 97715,
-      "with_sale_price": 109322,
+      "with_sale_price": 109328,
       "with_both_prices": 46680,
-      "marked_sold": 148121,
-      "marked_sold_without_sale_price": 39539
+      "marked_sold": 148131,
+      "marked_sold_without_sale_price": 39543
     },
     "by_auctioneer_and_year": [
       {
@@ -13394,6 +13395,17 @@
       },
       {
         "auctioneer": "Robinson & Hall",
+        "year": 2021,
+        "lot_appearances": 20,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 6,
+        "with_both_prices": 0,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 4
+      },
+      {
+        "auctioneer": "Robinson & Hall",
         "year": 2024,
         "lot_appearances": 17,
         "auction_ids_observed": 1,
@@ -14405,7 +14417,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4371,
+    "undated_appearances": 4388,
     "future_dated_appearances": 80,
     "national_completeness_verified": false,
     "limits": [
@@ -15697,6 +15709,15 @@
       "checked_at": "2026-10-26T14:27:43.591769+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/robinson-hall/2021-04-undated-wordpress-image.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": null,
+      "source_url": "https://robinsonandhall.co.uk/95-sold-so-far-this-year/",
+      "lots_captured": 17,
+      "errors": [],
+      "checked_at": "2026-10-26T15:21:33.146904+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/robinson-hall/2026-06-17-135949.json",
       "auctioneer": "Robinson & Hall",
       "auction_date": "2026-06-17",
@@ -15713,6 +15734,15 @@
       "lots_captured": 21,
       "errors": [],
       "checked_at": "2026-10-26T14:27:43.592085+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/robinson-hall/2021-06-17-wordpress.json",
+      "auctioneer": "Robinson & Hall",
+      "auction_date": "2021-06-17",
+      "source_url": "https://robinsonandhall.co.uk/96-sold-so-far-this-year-at-our-land-and-property-auctions/",
+      "lots_captured": 20,
+      "errors": [],
+      "checked_at": "2026-10-26T15:21:33.146702+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/robinson-hall/2026-08-05-135950.json",
@@ -19553,7 +19583,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-26T14:52:40.362667+00:00",
+    "checked_at": "2026-10-26T15:23:21.336747+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

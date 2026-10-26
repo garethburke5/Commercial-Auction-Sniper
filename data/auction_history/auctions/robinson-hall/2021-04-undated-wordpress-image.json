@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Robinson & Hall",
+  "source_auction_id": "robinson-hall:wordpress-image-2021-04",
+  "auction_date": null,
+  "source_month": "2021-04",
+  "date_precision": "month",
+  "source_url": "https://robinsonandhall.co.uk/95-sold-so-far-this-year/",
+  "published_lots_offered": null,
+  "result_rows_observed": 17,
+  "lots_captured": 17,
+  "duplicate_source_evidence_excluded": 0,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "completion_scope": "all 17 rows in the immutable first-party April 2021 results image; exact auction day not published",
+  "source_evidence": [
+    {
+      "source_url": "https://robinsonandhall.co.uk/95-sold-so-far-this-year/",
+      "retrieved_at": "2026-10-26T15:21:20.694959+00:00",
+      "sha256": "1c36a65df1a5ef0ea796528382f42c2b88c4f8d0ec093760d06fb36135fcb454",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/legacy-2021-04-article-1c36a65df1a5ef0e.json.gz",
+      "basis": "first-party WordPress article publishing the April results image",
+      "source_month": "2021-04"
+    },
+    {
+      "source_url": "https://robinsonandhall.co.uk/wp-content/uploads/2021/04/Auction-April-2021-Results.jpg",
+      "retrieved_at": "2026-10-26T15:21:22.445867+00:00",
+      "sha256": "c9a3de874f1fcae2f6b0d170e1cb8e6d9b039b5d57d72801a64f756cde6215bd",
+      "snapshot_path": "data/auction_history/sources/robinson-hall/legacy-2021-04-results-c9a3de874f1fcae2.jpg.gz",
+      "basis": "immutable first-party results image with checked row transcription",
+      "source_month": "2021-04"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-26T15:21:33.146904+00:00"
+}

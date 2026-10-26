@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-26T14:27:43.592858+00:00",
+  "checked_at": "2026-10-26T15:21:33.147511+00:00",
   "auctioneer": "Robinson & Hall",
-  "parser_version": 1,
+  "parser_version": 2,
   "source_url": "https://auctioneertemplates.eigroup.co.uk/pastauctions.aspx?a=384&c=rbh",
   "archive_event_count": 12,
   "published_lots_offered": 375,
@@ -22,44 +22,42 @@
     "2024-12-04": 17
   },
   "result_sheets_reconciled": 12,
-  "appearances_captured": 415,
-  "run_new_appearances": 415,
-  "run_new_address_records": 415,
+  "appearances_captured": 452,
+  "run_new_appearances": 37,
+  "run_new_address_records": 37,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 415,
-  "run_new_commercial_mixed": 4,
+  "run_new_dated_twenty_year_address_records": 20,
+  "run_new_commercial_mixed": 0,
   "run_new_guide_prices": 0,
-  "run_new_sale_prices": 247,
+  "run_new_sale_prices": 20,
   "run_new_rents": 0,
-  "run_new_undated": 0,
+  "run_new_undated": 17,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
   "new_source_years": [
-    2024,
-    2025,
-    2026
+    2021
   ],
   "date_range": [
-    "2024-12-04",
+    "2021-06-17",
     "2026-10-14"
   ],
   "by_status": {
-    "sold": 247,
-    "withdrawn_prior": 40,
-    "unsold": 60,
-    "sold_after": 39,
-    "sold_prior": 29
+    "sold": 267,
+    "sold_after": 40,
+    "withdrawn_prior": 50,
+    "unsold": 61,
+    "sold_prior": 34
   },
   "by_sector": {
-    "commercial": 4,
-    "residential": 41,
-    "unknown": 268,
-    "land": 102
+    "unknown": 291,
+    "residential": 44,
+    "land": 113,
+    "commercial": 4
   },
   "detail_pages_captured": 0,
   "catalogue_entries_captured": 0,
   "catalogue_detail_enrichment_complete": false,
-  "completion_scope": "all rows in every event shown by the surviving first-party EIG archive; catalogue/detail guides, rents and richer sectors remain outstanding",
+  "completion_scope": "2024-2026 EIG result sheets plus all surviving rows in two first-party 2021 article sources; other pre-2024 event inventories remain unreconciled",
   "events": [
     {
       "event_id": "135951",
@@ -302,5 +300,17 @@
       }
     }
   ],
-  "failures": []
+  "failures": [],
+  "legacy_article_events_reconciled": 2,
+  "legacy_visible_result_rows": 37,
+  "legacy_exact_dated_rows": 20,
+  "legacy_month_only_rows": 17,
+  "legacy_published_lots_offered": 10,
+  "legacy_additional_non_offered_rows": 10,
+  "legacy_source_urls": [
+    "https://robinsonandhall.co.uk/96-sold-so-far-this-year-at-our-land-and-property-auctions/",
+    "https://robinsonandhall.co.uk/95-sold-so-far-this-year/",
+    "https://robinsonandhall.co.uk/wp-content/uploads/2021/04/Auction-April-2021-Results.jpg"
+  ],
+  "legacy_failures": []
 }
