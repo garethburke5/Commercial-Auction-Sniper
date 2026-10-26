@@ -106,6 +106,7 @@ def income_facts(text):
             # a cost, or an amount already covered by an explicit total.
             if (re.search(r'\b(?:also|additional|in addition)\b', before, re.I)
                     and re.search(r'\b(?:advertising hoarding|billboard)\b', before, re.I)
+                    and not re.search(r'\b(?:neighbouring|neighboring|nearby|adjoining|adjacent)\b', before, re.I)
                     and re.search(r'\bcurrently (?:paying|producing|generating)\b', before, re.I)):
                 additional_advertising.append(value)
             if re.search(r'\b(?:entire|whole)\s+(?:property|lot|building)\s+(?:is\s+)?(?:currently\s+)?(?:producing|generating|yielding)\b[^£]{0,75}$',before,re.I):

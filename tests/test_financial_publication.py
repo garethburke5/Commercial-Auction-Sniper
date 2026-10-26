@@ -57,7 +57,7 @@ def test_advertising_is_not_added_to_an_explicit_total_or_whole_property_income(
 
 @pytest.mark.parametrize('extra', [
     'An advertising hoarding could achieve £750 per annum.',
-    'A neighbouring advertising hoarding currently paying £750 per annum.',
+    'There is also a neighbouring advertising hoarding currently paying £750 per annum.',
     'Also, historic rent from an advertising hoarding was £750 per annum.',
     'An additional insurance premium is £750 per annum.',
 ])
