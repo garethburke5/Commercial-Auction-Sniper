@@ -883,3 +883,38 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   claiming growth. If those catalogues cannot yield property rows, move to a
   different uncovered operator rather than refreshing completed Robinson &
   Hall sources. National completeness remains false.
+
+
+## 26 October 2026 — Robinson & Hall 2023 catalogue inventory recovery
+
+- Banked **51 additional individual address appearances** from two complete,
+  surviving first-party catalogue PDFs: 25 contiguous lots from 23 February
+  2023 and 26 contiguous lots from 7 December 2023. Both PDFs are admitted
+  only when their SHA-256 values match the checked source bytes, and immutable
+  compressed source snapshots are stored with the rows.
+- Net growth is **51 appearances and 51 address records**, all exact-dated in
+  the preceding 20-year window. There are no partial, undated, future-dated or
+  duplicate-derived additions. Robinson & Hall 2023 was already represented
+  by June/August results, so no new operator-year is claimed; the newly
+  reconciled source-date inventories are 2023-02-23 and 2023-12-07.
+- The order-of-sale evidence adds **51 exact guide prices**, distinct from sale
+  prices. It adds no achieved prices or rent values. Evidence-based catalogue
+  types identify four commercial/mixed-use appearances; ambiguous
+  redevelopment descriptions are not promoted to commercial.
+- The initial publication checkpoint preserved the batch but failed database
+  rebuild because the new auction metadata omitted the required
+  `lots_captured` field. The field was added and the focused workflow then
+  completed successfully; no captured record was discarded.
+- The rebuilt corpus contains **297,877 appearances**: 287,107 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 290,366
+  appearances, with 97,766 guide prices and 109,359 sale prices. Robinson &
+  Hall now contributes 546 appearances.
+- Next concrete growth target: traverse the confirmed first-party August 2023
+  interactive catalogue at
+  `https://interactive.property-world.co.uk/robinsonandhall_Aug23/catalogue.html`,
+  reconcile its full lot inventory against the 24 already banked 3 August
+  result rows, bank only catalogue lots absent from those results, and enrich
+  exact matches with guides without creating new appearances. If the inventory
+  contains no missing lots, preserve the guide enrichment and move to a
+  different uncovered operator rather than re-probing the unavailable April
+  and October URL patterns. National completeness remains false.
