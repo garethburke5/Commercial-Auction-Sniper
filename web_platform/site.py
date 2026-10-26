@@ -8,7 +8,7 @@ from functools import cached_property
 from pathlib import Path
 from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
-from urllib.parse import quote
+from urllib.parse import quote, urlsplit
 from xml.sax.saxutils import escape
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from .catalogue import Catalogue, money
@@ -57,6 +57,9 @@ class Site:
     def __init__(self, catalogue=None, origin=None):
         self.catalogue = catalogue or Catalogue()
         self.origin = (origin or os.environ.get('PUBLIC_ORIGIN') or 'http://localhost:8000').rstrip('/')
+        # GitHub Pages is the public build-verification mirror, not the search
+        # destination. Keep it crawlable so bots can read its noindex tags.
+        self.search_indexing_enabled = not (urlsplit(self.origin).hostname or '').endswith('.github.io')
         self.base = self.origin.split('://', 1)[-1].partition('/')[2]
         self.prefix = '/' + self.base if self.base else ''
         self.env = Environment(loader=FileSystemLoader(HERE/'templates'), autoescape=select_autoescape())
@@ -119,6 +122,7 @@ class Site:
         if path == '/':
             structured.append({'@context':'https://schema.org','@type':'WebSite',
                 'name':'Auction Geek','url':self.origin+'/'})
+        ctx['noindex'] = bool(ctx.get('noindex') or not self.search_indexing_enabled)
         return self.env.get_template('page.html').render(title=title, search_title=title + (' — Auction details' if kind == 'property' else ''), kind=kind, description=description,
             social=self.social_details(ctx['row']) if kind == 'property' else {'title':title+' | Auction Geek','text':description,'image':''},
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
@@ -139,8 +143,11 @@ class Site:
                               published_sections=evidence.get('sections') or [])
 
     def snapshot_page(self, row):
+        snapshot = self.snapshot(row)
+        if not self.search_indexing_enabled:
+            snapshot = dict(snapshot, indexable=False)
         return self.env.get_template('snapshot.html').render(
-            s=self.snapshot(row), row=row, social=self.social_details(row),
+            s=snapshot, row=row, social=self.social_details(row),
             canonical=self.origin + row['snapshot_path'])
 
     def routes(self):
@@ -239,9 +246,12 @@ class Site:
     def robots(self):
         # Public sign-in HTML carries noindex. Crawlers must be able to read
         # that tag; private customer data remains behind authenticated APIs.
-        return 'User-agent: *\nDisallow: '+self.prefix+'/api/\nSitemap: '+self.origin+'/sitemap.xml\n'
+        rules = 'User-agent: *\nDisallow: '+self.prefix+'/api/\n'
+        return rules + ('Sitemap: '+self.origin+'/sitemap.xml\n' if self.search_indexing_enabled else '')
 
     def sitemap(self, routes):
+        if not self.search_indexing_enabled:
+            return '<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"></urlset>'
         good = {r['path'] for r in self.catalogue.all_properties if r['indexable']}
         good.update(r['snapshot_path'] for r in self.catalogue.all_properties if r.get('snapshot_path') and self.snapshot(r)['indexable'])
         paths = [p for p in routes if p not in ('/due-diligence/','/account/','/admin/deals/','/coverage/') and (not p.startswith('/property/') or p in good)]

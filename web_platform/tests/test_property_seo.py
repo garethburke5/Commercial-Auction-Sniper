@@ -77,3 +77,30 @@ def test_description_labels_unavailable_lot_and_does_not_invent_dates_or_income(
     assert 'Withdrawn.' in text and 'Recorded guide £100,000.' in text
     assert 'Auction listing from Example Auctions.' in text
     assert 'yield' not in text and 'rent' not in text and 'snapshot' not in text
+
+
+def test_github_mirror_is_crawlable_but_not_indexable_including_snapshots(site):
+    from web_platform.site import Site
+    from urllib.robotparser import RobotFileParser
+    mirror = Site(site.catalogue, 'https://example.github.io/auction-geek')
+    pages = dict(mirror.routes())
+    for html in pages.values():
+        assert 'noindex' in BeautifulSoup(html, 'html.parser').select_one('meta[name=robots]')['content']
+    assert '<loc>' not in mirror.sitemap(pages)
+    assert 'Sitemap:' not in mirror.robots()
+    robots = RobotFileParser(); robots.parse(mirror.robots().splitlines())
+    assert robots.can_fetch('Googlebot', mirror.origin + site.catalogue.properties[0]['path'])
+    report = audit(mirror, pages)
+    assert report['failures'] == []
+    assert report['indexable_property_pages'] == 0
+    assert report['content_eligible_property_pages'] == 1
+
+
+def test_main_domain_retains_search_indexing(site):
+    from web_platform.site import Site
+    main = Site(site.catalogue, 'https://auctiongeek.co.uk')
+    row = main.catalogue.properties[0]
+    pages = dict(main.routes())
+    assert 'noindex' not in BeautifulSoup(pages[row['path']], 'html.parser').select_one('meta[name=robots]')['content']
+    assert main.origin + row['path'] in main.sitemap(pages)
+    assert audit(main, pages)['failures'] == []

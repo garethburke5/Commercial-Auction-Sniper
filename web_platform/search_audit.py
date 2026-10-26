@@ -57,12 +57,13 @@ def audit(site, routes):
         if page is None:
             failures.append({'path': path, 'problem': 'missing_page'})
             continue
+        indexable = row['indexable'] and site.search_indexing_enabled
         checks = {
             'incorrect_canonical': page.canonical != expected,
             'address_missing_from_title': row['address'] not in page.title,
             'address_missing_from_description': row['address'] not in page.description,
-            'indexing_directive_mismatch': ('noindex' not in page.robots) != row['indexable'],
-            'sitemap_mismatch': (expected in sitemap) != row['indexable'],
+            'indexing_directive_mismatch': ('noindex' not in page.robots) != indexable,
+            'sitemap_mismatch': (expected in sitemap) != indexable,
             'no_crawlable_path_from_home': row['indexable'] and path not in reached,
         }
         failures.extend({'path': path, 'problem': problem} for problem, failed in checks.items() if failed)
@@ -71,6 +72,8 @@ def audit(site, routes):
     return {'scope': 'Rendered website checks; not Google indexing or ranking verification',
             'snapshot_generated_at': site.catalogue.generated_at,
             'property_pages': len(site.catalogue.all_properties),
-            'indexable_property_pages': sum(r['indexable'] for r in site.catalogue.all_properties),
+            'search_indexing_enabled': site.search_indexing_enabled,
+            'content_eligible_property_pages': sum(r['indexable'] for r in site.catalogue.all_properties),
+            'indexable_property_pages': sum(r['indexable'] and site.search_indexing_enabled for r in site.catalogue.all_properties),
             'exclusion_counts': dict(Counter(reason for row in excluded for reason in row['reasons'])),
             'excluded_properties': excluded, 'failures': failures}
