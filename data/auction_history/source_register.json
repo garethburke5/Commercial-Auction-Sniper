@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-26T23:15:55.016963+00:00",
-  "corpus_checkpoint": "2026-10-26T23:15:30.571542+00:00",
+  "generated_at": "2026-10-26T23:23:05.024449+00:00",
+  "corpus_checkpoint": "2026-10-26T23:22:48.554388+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -3557,13 +3557,20 @@
       "name": "Higgins Drysdale National Property Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/higgins-drysdale-national-property-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Higgins Drysdale National Property Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 163,
+      "years_with_retained_evidence": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 162,
+      "with_sale_price": 59,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8007,7 +8014,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 491,
+  "directory_entries_not_linked": 490,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8064,6 +8071,7 @@
     "Future Property Auctions": 75881,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
+    "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Knight Frank Auctions": 290,
@@ -8101,13 +8109,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291187,
-      "auction_ids_observed": 9073,
-      "with_guide_price": 97961,
-      "with_sale_price": 109996,
-      "with_both_prices": 46806,
-      "marked_sold": 148860,
-      "marked_sold_without_sale_price": 39604
+      "lot_appearances": 291349,
+      "auction_ids_observed": 9181,
+      "with_guide_price": 98123,
+      "with_sale_price": 110055,
+      "with_both_prices": 46865,
+      "marked_sold": 148938,
+      "marked_sold_without_sale_price": 39623
     },
     "by_auctioneer_and_year": [
       {
@@ -12291,6 +12299,72 @@
         "marked_sold_without_sale_price": 13
       },
       {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2021,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2022,
+        "lot_appearances": 43,
+        "auction_ids_observed": 30,
+        "with_guide_price": 43,
+        "with_sale_price": 14,
+        "with_both_prices": 14,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2023,
+        "lot_appearances": 67,
+        "auction_ids_observed": 38,
+        "with_guide_price": 67,
+        "with_sale_price": 27,
+        "with_both_prices": 27,
+        "marked_sold": 35,
+        "marked_sold_without_sale_price": 8
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2024,
+        "lot_appearances": 24,
+        "auction_ids_observed": 18,
+        "with_guide_price": 24,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2025,
+        "lot_appearances": 15,
+        "auction_ids_observed": 11,
+        "with_guide_price": 15,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 9,
+        "with_guide_price": 10,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 4
+      },
+      {
         "auctioneer": "Hollis Morgan",
         "year": 2010,
         "lot_appearances": 28,
@@ -14613,7 +14687,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 129,
+    "future_dated_appearances": 130,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -19796,7 +19870,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-26T23:15:54.533284+00:00",
+    "checked_at": "2026-10-26T23:23:04.808725+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

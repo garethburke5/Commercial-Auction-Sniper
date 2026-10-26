@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T23:15:30.571542+00:00",
-  "individual_lot_records_captured": 298747,
-  "records_with_address": 287977,
+  "generated_at": "2026-10-26T23:22:48.554388+00:00",
+  "individual_lot_records_captured": 298910,
+  "records_with_address": 288140,
   "partial_lot_records": 10770,
-  "exact_address_groups": 158886,
-  "groups_with_repeat_appearances": 40878,
+  "exact_address_groups": 159014,
+  "groups_with_repeat_appearances": 40905,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -61,6 +61,7 @@
     "Future Property Auctions": 75881,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
+    "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Knight Frank Auctions": 290,
@@ -114,25 +115,25 @@
     "2018": 8280,
     "2019": 7889,
     "2020": 13771,
-    "2021": 20551,
-    "2022": 25447,
-    "2023": 31660,
-    "2024": 39726,
-    "2025": 45670,
-    "2026": 43789
+    "2021": 20554,
+    "2022": 25490,
+    "2023": 31727,
+    "2024": 39750,
+    "2025": 45685,
+    "2026": 43800
   },
   "by_sector": {
-    "commercial": 41948,
-    "land": 18210,
-    "mixed-use": 46821,
-    "residential": 144887,
-    "unknown": 46881
+    "commercial": 41957,
+    "land": 18216,
+    "mixed-use": 46828,
+    "residential": 145025,
+    "unknown": 46884
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 3009,
+  "surviving_catalogues_completely_harvested": 3118,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -146,13 +147,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291187,
-      "auction_ids_observed": 9073,
-      "with_guide_price": 97961,
-      "with_sale_price": 109996,
-      "with_both_prices": 46806,
-      "marked_sold": 148860,
-      "marked_sold_without_sale_price": 39604
+      "lot_appearances": 291349,
+      "auction_ids_observed": 9181,
+      "with_guide_price": 98123,
+      "with_sale_price": 110055,
+      "with_both_prices": 46865,
+      "marked_sold": 148938,
+      "marked_sold_without_sale_price": 39623
     },
     "by_auctioneer_and_year": [
       {
@@ -4336,6 +4337,72 @@
         "marked_sold_without_sale_price": 13
       },
       {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2021,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2022,
+        "lot_appearances": 43,
+        "auction_ids_observed": 30,
+        "with_guide_price": 43,
+        "with_sale_price": 14,
+        "with_both_prices": 14,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2023,
+        "lot_appearances": 67,
+        "auction_ids_observed": 38,
+        "with_guide_price": 67,
+        "with_sale_price": 27,
+        "with_both_prices": 27,
+        "marked_sold": 35,
+        "marked_sold_without_sale_price": 8
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2024,
+        "lot_appearances": 24,
+        "auction_ids_observed": 18,
+        "with_guide_price": 24,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2025,
+        "lot_appearances": 15,
+        "auction_ids_observed": 11,
+        "with_guide_price": 15,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Higgins Drysdale National Property Auctions",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 9,
+        "with_guide_price": 10,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 4
+      },
+      {
         "auctioneer": "Hollis Morgan",
         "year": 2010,
         "lot_appearances": 28,
@@ -6658,7 +6725,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 129,
+    "future_dated_appearances": 130,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
