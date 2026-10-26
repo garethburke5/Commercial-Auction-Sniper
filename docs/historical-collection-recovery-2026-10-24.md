@@ -845,3 +845,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   property-level source is unavailable, move to Robinson & Hall's 2022/2023
   result articles or a different uncovered operator rather than re-probing the
   completed 2024–2026 sheets. National completeness remains false.
+
+## 26 October 2026 — Robinson & Hall 2023 results-image recovery
+
+- The persisted February 2021 target did not expose a complete first-party
+  result sheet through a new route. Rather than re-probing it, collection moved
+  to two substantial uncaptured first-party result images found through the
+  same WordPress/API archive: **19 rows from 15 June 2023** and **24 rows from
+  3 August 2023**.
+- Both event dates are independently published in Robinson & Hall's first-party
+  February 2023 catalogue. The collector verifies the catalogue PDF, both
+  result images and their article references by SHA-256 before admitting the
+  checked transcriptions. Completed 2021 article sources and the 2024–2026 EIG
+  sheets are not refreshed by this focused route.
+- Net growth is **43 appearances and 43 address records**, all exact-dated in
+  the preceding 20-year window. There are no partial, undated, future-dated or
+  duplicate-derived additions. The newly covered Robinson & Hall source-year is
+  2023; the strict address-wording classifier adds no commercial/mixed-use
+  rows rather than inferring sectors from ambiguous addresses.
+- Published evidence adds **31 achieved sale prices**. Unsold bids of £120,000,
+  £320,000, £396,000 and £420,000 are retained as `reported_bid_reached`, not
+  achieved prices. No guide-price or rent evidence is present in these result
+  images.
+- The June article explicitly reports 17 offered lots while its image preserves
+  19 rows, including two withdrawn-prior appearances. The August image
+  preserves 24 rows, but its article does not publish an offered-lot
+  denominator; that value remains null rather than being inferred from the 83%
+  headline.
+- The rebuilt and packaged corpus contains **297,826 appearances**: 287,056
+  address records and 10,770 partial lots. Exact-date twenty-year coverage is
+  290,315 appearances, with 97,715 guide prices and 109,359 sale prices.
+  Robinson & Hall now contributes 495 appearances.
+- Next concrete growth target: parse and bank individual lots from Robinson &
+  Hall's surviving **2023 first-party catalogue PDFs**, beginning with February
+  and April and then October/December. Preserve their event dates and guides,
+  and exclude the already banked June/August result-image identities before
+  claiming growth. If those catalogues cannot yield property rows, move to a
+  different uncovered operator rather than refreshing completed Robinson &
+  Hall sources. National completeness remains false.
