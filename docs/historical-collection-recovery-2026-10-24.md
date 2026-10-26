@@ -807,3 +807,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   guide/rent/sector target and must not be counted as new appearances.
   National completeness remains false.
 
+
+## 26 October 2026 — Robinson & Hall 2021 article and results-image recovery
+
+- Recovered **37 additional individual address appearances** from two surviving
+  first-party Robinson & Hall sources without refreshing the completed
+  2024–2026 EIG sheets. The 17 June 2021 article retains 20 linked rows with
+  stable EIG LotIDs; although its headline auction denominator is ten offered
+  lots, the additional withdrawn/non-offered rows remain distinct appearances
+  and are reported separately rather than discarded.
+- The April 2021 article publishes a first-party results image containing 17
+  address rows. Because neither the article nor image publishes an exact event
+  day, all 17 retain `auction_date: null`, `source_month: 2021-04` and
+  `date_precision: month`; no date was inferred. The immutable source image
+  snapshot is admitted only when its SHA-256 matches
+  `c9a3de874f1fcae2f6b0d170e1cb8e6d9b039b5d57d72801a64f756cde6215bd`.
+- Net growth is **37 appearances and 37 address records**: 20 newly exact-dated
+  records inside the preceding 20-year window and 17 month-only/undated
+  records. There are no partial, future-dated or duplicate-derived additions.
+  The newly covered operator-year is 2021; the commercial/mixed-use subset is
+  zero under the evidence-based sector classifier.
+- Published evidence adds **20 achieved sale prices**: six from the June table
+  and 14 from the April image. Two April sold-prior rows have undisclosed
+  prices and remain null; the April unsold row's £159,000 last bid is preserved
+  as `reported_bid_reached`, never as an achieved price. No guide-price or
+  rent evidence was published.
+- The rebuilt and packaged corpus contains **297,783 appearances**: 287,013
+  address records and 10,770 partial lots. Exact-date twenty-year coverage is
+  290,272 appearances, with 97,715 guide prices and 109,328 sale prices. The
+  Robinson & Hall retained set now totals 452 appearances across 2021 and
+  2024–2026.
+- Next concrete growth target: find and recover the **February 2021 Robinson &
+  Hall property-level results** implied by the April article's combined
+  February/April 38-lot statement (the April image accounts for 17 rows, leaving
+  a potential February component). Admit rows only from first-party article,
+  table or results-image evidence with an explicit date or month. If that
+  property-level source is unavailable, move to Robinson & Hall's 2022/2023
+  result articles or a different uncovered operator rather than re-probing the
+  completed 2024–2026 sheets. National completeness remains false.
