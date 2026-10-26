@@ -751,7 +751,12 @@ def bank_source_corpus():
                         for field in ("address", "postcode", "record_quality", "address_basis"):
                             if old.get(field) is not None:
                                 row[field] = old[field]
-            total += write_rows(target_key, rows)
+            # Legacy staging files are a derived view over immutable evidence.
+            # Replace their prior shard after reconciliation so rows now proved
+            # to overlap canonical captures cannot survive via merge-preserve.
+            total += write_rows(
+                target_key, rows,
+                preserve_existing=not (legacy_records or legacy_unbanked_source))
             if legacy_records or legacy_unbanked_source:
                 update_inventory(rows, 1)
             if payload.get("catalogue_complete") is True:

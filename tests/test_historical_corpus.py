@@ -29,6 +29,10 @@ def test_source_banking_accepts_legacy_records_lots_but_not_auction_manifests(tm
                           "https://example.test/property/2")
     existing["address"] = "2 High Street, London SW1A 1AA"
     h.write_rows("example/canonical", [existing])
+    stale = h.base_row("Example Auctions", "source-corpus:2016-12-05", "2016-12-05", "unknown",
+                       "saved:address-overlap", "https://legacy.example.test/property/known")
+    stale.update(address="1 Bank Street, York YO1 1AA", record_quality="address_record")
+    h.write_rows("source-corpus/saved", [stale])
     (folder / "legacy_records.json").write_text(json.dumps({
         "auctioneer": "Example Auctions",
         "records": [
@@ -109,6 +113,7 @@ def test_source_banking_recovers_old_root_inherits_auction_fields_and_reconciles
     assert h.bank_source_corpus() == 1
     recovered = list(h.iter_rows(h.DATA / "appearances/source-corpus/saved.jsonl.gz"))
     assert len(recovered) == 1
+    assert recovered[0]["source_lot_id"] == "saved:new"
     assert recovered[0]["auction_date"] == "2016-12-05"
     assert recovered[0]["sale_price"] == 110000
     assert recovered[0]["annual_rent"] == 8000
