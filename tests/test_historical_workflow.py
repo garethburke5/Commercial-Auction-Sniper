@@ -93,6 +93,16 @@ def test_focused_clarke_simpson_expansion_skips_broad_rotation():
     assert "Run focused Clarke and Simpson archive expansion" in bounded_condition
 
 
+def test_focused_higgins_drysdale_expansion_skips_broad_rotation():
+    focused = WORKFLOW.index("- name: Collect Higgins Drysdale complete property archive")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py higgins-drysdale --workers 16" in block
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Higgins Drysdale archive expansion" in bounded_condition
+
+
 def test_focused_symonds_sampson_repair_skips_broad_rotation():
     focused = WORKFLOW.index("- name: Run focused Symonds and Sampson reconciliation repair")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
