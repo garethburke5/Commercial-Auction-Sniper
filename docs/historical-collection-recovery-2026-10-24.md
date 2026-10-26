@@ -577,3 +577,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   PDF snapshots. If no property-level route survives, move to an uncovered
   operator instead of refreshing this reconciled event archive. National
   completeness remains false.
+
+## 26 October 2026 — 247 Property Auctions Bamboo archive
+
+- The bounded pre-April 2023 Symonds & Sampson recovery found the first-party
+  annual-results index and its four 2019–2022 PDF targets. All four current CDN
+  targets return HTTP 404, exact-URL archive lookups expose no saved PDF
+  binary, and exact UUID searches found no alternate copy. This route is now a
+  recorded blocker and was not probed again after the bounded check.
+- Moved to the previously uncovered genuine operator 247 Property Auctions.
+  Its public Bamboo white-label archive advertises 263 listings across 14
+  pages. All 263 index rows and all 263 stable-ID detail payloads reconcile,
+  and immutable source snapshots retain both the page arrays and detail JSON.
+- Net growth is **263 appearances and 263 address records**. Of these, 240 are
+  exact-dated historical rows inside the preceding 20-year window, 22 are
+  explicitly future-dated and one has no published close date and remains
+  null/undated. No partial lot or duplicate stable ID was admitted.
+- The 240 historical rows cover six newly represented operator/source-years,
+  2021–2026. The full retained set comprises 166 residential, 70 mixed-use,
+  11 commercial, eight land and eight unknown rows; the commercial/mixed-use
+  subset is 81.
+- All 263 rows retain published guide prices. Exactly 208 ended listings expose
+  a positive highest bid together with an explicit `isReserveMet: true` flag,
+  so 208 achieved sale prices are banked. Unmet-reserve bids remain unknown
+  outcomes with null sale prices rather than being inferred as sales.
+- Added a reusable Bamboo white-label collector plus tests for structured
+  payload extraction, stable identity, exact close dates, reserve-aware sale
+  evidence and null preservation for undated rows. The focused suite passes
+  4/4 tests.
+- The rebuilt SQLite integrity check is `ok` at **292,625 appearances**:
+  281,855 address records and 10,770 partial lots. Exact-date twenty-year
+  coverage is 285,196 appearances, 97,170 guide prices and 106,717 sale prices.
+  Undated appearances are 4,336 and future-dated appearances are 50.
+- Next concrete growth target: reconcile another genuinely uncovered UK
+  Bamboo white-label operator, identify its first-party host, and apply this
+  denominator/detail collector before returning to any blocked archive. Start
+  with the uncovered Abode Auctions/AffordaBid/Agents Property Auction entries,
+  accepting only a host whose displayed trading name matches the directory
+  operator. National completeness remains false.
