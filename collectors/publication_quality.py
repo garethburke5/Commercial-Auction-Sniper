@@ -41,6 +41,8 @@ def asset_text(description):
     # repeats the entire scan and makes API cold starts grow quadratically.
     text = re.sub(r'(?<![^.;])[^.;]*(?:are all within easy reach|renowned Rows)[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\bmixed[ -]use\s+(?:road|street|area|neighbourhood)\b','',text,flags=re.I)
+    text = re.sub(r'\b(?:The\s+)?(?:immediate\s+)?surrounding\s+(?:area|neighbourhood)\b[^.;]*(?:[.;]|$)',
+                  ' ', text, flags=re.I)
     # Brochure SITUATION sections describe nearby shops/cafes and cannot turn a
     # flat or house into a commercial asset. Later factual sections remain.
     text = re.sub(r'\b(?:SITUATION|STIUATION|LOCATION)\b.*?(?=\b(?:DIRECTIONS|SERVICES|LOCAL AUTHORITY|TENURE|ENERGY PERFORMANCE|EPC|SOLICITORS?)\b|$)', ' ', text)

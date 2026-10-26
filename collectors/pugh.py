@@ -142,7 +142,7 @@ def _floor_area_sqft(text):
 
 
 def _pugh_property_type(text):
-    low = " " + norm(text).lower() + " "; commercial = any(x in low for x in ("retail", "shop", "commercial unit", "commercial units", "office", "warehouse", "workshop", "industrial")); residential = bool(re.search(r"\b(?:apartment|apartments|flat|flats|bedsit|bedsits|residential accommodation)\b", low))
+    low = " " + norm(asset_text(text)).lower() + " "; commercial = any(x in low for x in ("retail", "shop", "commercial unit", "commercial units", "office", "warehouse", "workshop", "industrial")); residential = bool(re.search(r"\b(?:apartment|apartments|flat|flats|bedsit|bedsits|residential accommodation)\b", low))
     if "mixed use" in low or "mixed-use" in low or (commercial and residential): return "Mixed Use"
     if any(x in low for x in ("industrial", "warehouse", "workshop")): return "Industrial"
     if any(x in low for x in ("retail premises", "retail units", "retail unit", "retail property", " shop ")): return "Retail"

@@ -46,6 +46,7 @@ def income_facts(text):
     explicit_totals = []
     explicit_current = []
     whole_property_current = []
+    additional_advertising = []
     for match in MONEY.finditer(text):
         before = text[max(0, match.start()-150):match.start()]
         # Keep sentence boundaries: a historic rent in the previous sentence
@@ -63,9 +64,10 @@ def income_facts(text):
             continue
         # All rent fields represent annual amounts. Only annualise when the
         # source explicitly supplies a monthly/weekly period; never infer one.
-        if MONTHLY.search(after):
+        period = re.sub(r'^\s*(?:plus|\+|excluding|exclusive of|excl\.?)\s+VAT\b\s*', '', after, flags=re.I)
+        if MONTHLY.search(period):
             value *= 12
-        elif WEEKLY.search(after):
+        elif WEEKLY.search(period):
             value *= 52
         labels = [(m.start(), key) for key, pattern in LABELS.items() for m in pattern.finditer(before)]
         current_labels = list(CURRENT.finditer(before))
@@ -93,12 +95,19 @@ def income_facts(text):
         if re.search(r'\b(?:after|following|on|upon)\s+(?:a |the )?(?:conversion|redevelopment|completion of works)|\b(?:potential|estimated|projected)\s+(?:rent|income)',after,re.I):
             facts['potential_income']=value
             continue
-        if not ANNUAL.search(after) and not current_labels:
+        if not ANNUAL.search(period) and not current_labels:
             continue
         if re.search(r'\b(?:rising to|will rise to|increasing to|due to increase to|bringing the new total rent to|estimated|potential|anticipated|could achieve)\b[^£]{0,60}$', before, re.I):
             continue
         if 0 < value <= 100000000:
             current.append(value)
+            # A separately described current hoarding payment can supplement
+            # one passing rent. Never add an unlabelled second amount, an ERV,
+            # a cost, or an amount already covered by an explicit total.
+            if (re.search(r'\b(?:also|additional|in addition)\b', before, re.I)
+                    and re.search(r'\b(?:advertising hoarding|billboard)\b', before, re.I)
+                    and re.search(r'\bcurrently (?:paying|producing|generating)\b', before, re.I)):
+                additional_advertising.append(value)
             if re.search(r'\b(?:entire|whole)\s+(?:property|lot|building)\s+(?:is\s+)?(?:currently\s+)?(?:producing|generating|yielding)\b[^£]{0,75}$',before,re.I):
                 whole_property_current.append(value)
             if re.search(r'\b(?:total current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|current (?:gross )?(?:(?:restaurant|commercial|shop|office) )?(?:rent|income)|currently producing|passing rent)\b[^£]{0,70}$',before,re.I):
@@ -109,6 +118,10 @@ def income_facts(text):
         facts['annual_rent'] = whole_property_current[0]
     elif len(set(explicit_current)) == 1:
         facts['annual_rent'] = explicit_current[0]
+        extras = set(additional_advertising)
+        if (not explicit_totals and len(extras) == 1 and explicit_current[0] not in extras
+                and set(current) == extras | {explicit_current[0]}):
+            facts['annual_rent'] += next(iter(extras))
     elif explicit_totals:
         facts['annual_rent'] = explicit_totals[0]
     elif len(set(current)) == 1:

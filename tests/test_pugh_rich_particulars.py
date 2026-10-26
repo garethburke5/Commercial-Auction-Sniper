@@ -4,6 +4,22 @@ from collectors.core import Lot
 from collectors.pugh import _apply_pugh_particulars
 
 
+def test_office_building_is_not_classified_from_surrounding_warehouses():
+    html = '''<main><p>A modern office building with two floors and parking.</p>
+    <p>The immediate surrounding area contains industrial warehouses and residential housing.</p>
+    <p>The property includes offices with kitchen and toilet facilities.</p></main>'''
+    lot = Lot(source='Pugh / BTG Eddisons', url='https://example.test/office', address='1 Business Park')
+    out = _apply_pugh_particulars(lot, BeautifulSoup(html, 'lxml'))
+    assert out.property_type == 'Office'
+
+
+def test_warehouse_with_offices_keeps_its_actual_industrial_use():
+    html = '<main>A warehouse with ancillary office accommodation. The surrounding area is residential.</main>'
+    lot = Lot(source='Pugh / BTG Eddisons', url='https://example.test/warehouse', address='2 Business Park')
+    out = _apply_pugh_particulars(lot, BeautifulSoup(html, 'lxml'))
+    assert out.property_type == 'Industrial'
+
+
 def test_st_helens_combined_rent_and_part_vacant_upper_floors():
     html = '''<main><h1>54-58 Bridge Street, St. Helens, Merseyside WA10 1NW</h1>
     <p>A town centre investment and development opportunity comprising two adjoining ground floor retail units,

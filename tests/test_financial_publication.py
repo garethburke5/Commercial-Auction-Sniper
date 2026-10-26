@@ -30,6 +30,41 @@ def test_monthly_ground_rent_does_not_become_occupational_income():
     assert income_facts('Ground rent £100 pcm.') == {'ground_rent':1200}
 
 
+@pytest.mark.parametrize('period,expected', [('per calendar month', 3000), ('per week', 13000), ('per annum', 250)])
+def test_vat_qualifier_does_not_hide_the_rental_period(period, expected):
+    assert income_facts('Current rent £250 plus VAT ' + period)['annual_rent'] == expected
+
+
+def test_monthly_passing_rent_and_explicit_additional_hoarding_income():
+    text = ('Current rent passing £250 plus VAT per calendar month. '
+            'There is also an advertising hoarding currently paying around £750 per annum.')
+    assert income_facts(text)['annual_rent'] == 3750
+    from bs4 import BeautifulSoup
+    from collectors.pugh import _parse_detail
+    page = BeautifulSoup('<main><header><div><h1>1 Example Road</h1></div></header>'
+        '<section><a>Guide Price</a><span>£25,000</span></section>'
+        '<div class="cms-content">A freehold commercial building used as storage. ' + text + '</div></main>', 'lxml')
+    lot = _parse_detail(page, 'https://example.test/storage', auction_date='2026-10-28')
+    assert lot.annual_rent == 3750
+    assert lot.gross_yield == 15
+
+
+def test_advertising_is_not_added_to_an_explicit_total_or_whole_property_income():
+    extra = ' There is also an advertising hoarding currently paying £750 per annum.'
+    assert income_facts('Total current rent £3,750 per annum.' + extra)['annual_rent'] == 3750
+    assert income_facts('The whole property is currently producing £3,750 per annum.' + extra)['annual_rent'] == 3750
+
+
+@pytest.mark.parametrize('extra', [
+    'An advertising hoarding could achieve £750 per annum.',
+    'A neighbouring advertising hoarding currently paying £750 per annum.',
+    'Also, historic rent from an advertising hoarding was £750 per annum.',
+    'An additional insurance premium is £750 per annum.',
+])
+def test_unverified_or_nonincome_ancillary_amount_is_not_added(extra):
+    assert income_facts('Current rent £250 plus VAT per calendar month. ' + extra)['annual_rent'] == 3000
+
+
 def test_vaults_historic_rent_never_becomes_current_yield():
     lot = Lot('Auction House London', 'https://example.com/vaults', 'The Vaults, Chatham', guide_price=100000,
               annual_rent=25000, occupation='Vacant', description='A vacant public house. Previously let at approximately £25,000 per annum.').finalise()

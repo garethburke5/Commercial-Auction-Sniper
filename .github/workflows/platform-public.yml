@@ -41,7 +41,9 @@ jobs:
         timeout-minutes: 5
         run: |
           npm install --prefix "$RUNNER_TEMP/evidence-browser" playwright@1.51.1 --no-audit --no-fund
-          node "$RUNNER_TEMP/evidence-browser/node_modules/playwright/cli.js" install --with-deps chromium
+          # ubuntu-24.04 supplies Chromium's runtime libraries. Reinstalling
+          # system packages stalls on the Ubuntu mirror before any test runs.
+          node "$RUNNER_TEMP/evidence-browser/node_modules/playwright/cli.js" install chromium
           NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/report_evidence_browser.cjs
           NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/account_auth_browser.cjs
           NODE_PATH="$RUNNER_TEMP/evidence-browser/node_modules" node web_platform/tests/history_browser.cjs
