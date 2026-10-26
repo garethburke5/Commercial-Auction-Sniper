@@ -115,3 +115,27 @@ def test_april_duplicate_fingerprint_requires_address_result_and_price():
         "sold",
         80000,
     )
+
+
+def test_2023_image_transcriptions_keep_exact_catalogue_dates_and_prices():
+    schedule = {"sha256": "schedule"}
+    june = rh.dated_image_rows(
+        rh.JUNE_2023_ROWS, rh.LEGACY_JUNE_2023_DATE,
+        rh.LEGACY_JUNE_2023_ARTICLE_URL, "2023-06-28",
+        {"sha256": "article"}, {"sha256": "image"}, schedule,
+    )
+    august = rh.dated_image_rows(
+        rh.AUGUST_2023_ROWS, rh.LEGACY_AUGUST_2023_DATE,
+        rh.LEGACY_AUGUST_2023_ARTICLE_URL, "2023-08-23",
+        {"sha256": "article"}, {"sha256": "image"}, schedule,
+    )
+    assert len(june) == 19 and len(august) == 24
+    assert {row["auction_date"] for row in june} == {"2023-06-15"}
+    assert {row["auction_date"] for row in august} == {"2023-08-03"}
+    assert sum(row["sale_price"] is not None for row in june) == 15
+    assert sum(row["sale_price"] is not None for row in august) == 16
+    assert sum(row["status"] == "withdrawn_prior" for row in june) == 2
+    assert sum(row["status"] == "unsold" for row in august) == 4
+    assert all(row["auction_date_source_evidence"] == schedule for row in june + august)
+    assert august[3]["reported_bid_reached"] == 120000
+    assert august[3]["sale_price"] is None
