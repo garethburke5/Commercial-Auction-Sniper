@@ -144,10 +144,11 @@ def test_higgins_drysdale_uses_full_first_party_search_archive():
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
-      <a href="/property/details/cherry-tree-cottage">
+      <h3 class="panel-title">Property For Sale via Committed Offer</h3>
+      <a href="/lot/details/11111111-2222-3333-4444-555555555555">
         <h3 class="list-address">Cherry Tree Cottage, Durham, DH1 1AA</h3>
       </a>
-      <div class="list-guideprice"><h4>Property For Sale via Committed Offer</h4></div>
+      <div class="list-guideprice"><h4>Offers in Excess of: £389,000</h4></div>
     </div>
     """
     rows, malformed, excluded = grids.parse_grid(GRID + property_card, SOURCE, {})
@@ -156,7 +157,8 @@ def test_non_auction_property_card_is_reconciled_but_not_banked():
     assert excluded == [{
         "position": 3,
         "address": "Cherry Tree Cottage, Durham, DH1 1AA",
-        "detail_url": "https://example.test/property/details/cherry-tree-cottage",
+        "detail_url": "https://example.test/lot/details/11111111-2222-3333-4444-555555555555",
+        "source_lot_id": "11111111-2222-3333-4444-555555555555",
         "reason": "first-party property/committed-offer card, not an auction lot",
     }]
 

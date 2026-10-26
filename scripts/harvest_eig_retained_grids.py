@@ -188,11 +188,17 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         scheduled_end = card.get("data-end-date-utc")
         auction_date = exact_date(scheduled_end) or exact_date(time_node.get("datetime") if time_node else None)
         address = clean(address_node.get_text(" ", strip=True)) if address_node else None
-        if not detail and property_detail:
+        card_text = clean(card.get_text(" ", strip=True)) or ""
+        committed_offer = bool(re.search(
+            r"\b(?:property\s+)?for sale (?:by|via) committed offer\b", card_text, re.I
+        ))
+        if committed_offer or (not detail and property_detail):
+            non_auction_link = property_detail or detail
             excluded_non_auction.append({
                 "position": position,
                 "address": address,
-                "detail_url": urljoin(source["base"], property_detail.get("href") or ""),
+                "detail_url": urljoin(source["base"], non_auction_link.get("href") or ""),
+                "source_lot_id": identity.group(1).lower() if identity else None,
                 "reason": "first-party property/committed-offer card, not an auction lot",
             })
             continue
