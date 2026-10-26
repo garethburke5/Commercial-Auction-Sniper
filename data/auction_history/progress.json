@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-26T20:34:56.371159+00:00",
-  "individual_lot_records_captured": 298505,
-  "records_with_address": 287735,
+  "generated_at": "2026-10-26T21:06:03.857976+00:00",
+  "individual_lot_records_captured": 298580,
+  "records_with_address": 287810,
   "partial_lot_records": 10770,
-  "exact_address_groups": 158660,
-  "groups_with_repeat_appearances": 40862,
+  "exact_address_groups": 158733,
+  "groups_with_repeat_appearances": 40864,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -48,6 +48,7 @@
     "BidX1": 294,
     "Bond Wolfe": 9582,
     "Boultons Harrisons Ltd": 62,
+    "Bradley Hall": 75,
     "Brown&Co": 28,
     "Cheffins": 740,
     "Clive Emson": 3978,
@@ -116,21 +117,21 @@
     "2022": 25431,
     "2023": 31638,
     "2024": 39696,
-    "2025": 45613,
-    "2026": 43694
+    "2025": 45636,
+    "2026": 43746
   },
   "by_sector": {
-    "commercial": 41931,
-    "land": 18181,
-    "mixed-use": 46799,
-    "residential": 144714,
-    "unknown": 46880
+    "commercial": 41935,
+    "land": 18188,
+    "mixed-use": 46816,
+    "residential": 144760,
+    "unknown": 46881
   },
   "date_range": [
     "2002-10-31",
     "2026-12-01"
   ],
-  "surviving_catalogues_completely_harvested": 2843,
+  "surviving_catalogues_completely_harvested": 2907,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -144,13 +145,13 @@
     "through_date": "2026-10-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 290973,
-      "auction_ids_observed": 8922,
-      "with_guide_price": 97747,
-      "with_sale_price": 109854,
-      "with_both_prices": 46664,
-      "marked_sold": 148692,
-      "marked_sold_without_sale_price": 39578
+      "lot_appearances": 291027,
+      "auction_ids_observed": 8973,
+      "with_guide_price": 97801,
+      "with_sale_price": 109904,
+      "with_both_prices": 46714,
+      "marked_sold": 148745,
+      "marked_sold_without_sale_price": 39581
     },
     "by_auctioneer_and_year": [
       {
@@ -3056,6 +3057,28 @@
         "with_both_prices": 6,
         "marked_sold": 7,
         "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Bradley Hall",
+        "year": 2025,
+        "lot_appearances": 23,
+        "auction_ids_observed": 22,
+        "with_guide_price": 23,
+        "with_sale_price": 22,
+        "with_both_prices": 22,
+        "marked_sold": 23,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Bradley Hall",
+        "year": 2026,
+        "lot_appearances": 31,
+        "auction_ids_observed": 29,
+        "with_guide_price": 31,
+        "with_sale_price": 28,
+        "with_both_prices": 28,
+        "marked_sold": 30,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Brown&Co",
@@ -6568,7 +6591,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 101,
+    "future_dated_appearances": 122,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
