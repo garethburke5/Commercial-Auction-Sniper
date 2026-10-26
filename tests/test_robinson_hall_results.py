@@ -37,6 +37,18 @@ RESULT = """
 </table>
 """
 
+LEGACY_JUNE = """
+<table>
+ <tr><th>Lot</th><th>Address</th><th>Result</th></tr>
+ <tr><td><a href="https://auctioneertemplates.eigroup.co.uk/LotDetails.aspx?LotID=1046743&amp;a=384&amp;c=rbh">1</a></td>
+  <td><a href="https://auctioneertemplates.eigroup.co.uk/LotDetails.aspx?LotID=1046743&amp;a=384&amp;c=rbh">32 Wilson Crescent, Irthlingborough, NN9 5PP</a></td>
+  <td>Sold for £168,000</td></tr>
+ <tr><td><a href="https://auctioneertemplates.eigroup.co.uk/LotDetails.aspx?LotID=1046750&amp;a=384&amp;c=rbh">7</a></td>
+  <td><a href="https://auctioneertemplates.eigroup.co.uk/LotDetails.aspx?LotID=1046750&amp;a=384&amp;c=rbh">Land R/O 22 &amp; 22A Western Avenue, Buckingham, MK18 1LN</a></td>
+  <td>Sold prior to auction, for an undisclosed amount</td></tr>
+</table>
+"""
+
 
 def test_archive_preserves_event_denominators():
     events = rh.parse_archive(ARCHIVE)
@@ -68,3 +80,38 @@ def test_achieved_price_is_never_taken_from_an_unsold_bid():
     assert rh.status_and_price("Sold post auction for an undisclosed amount.") == ("sold_after", None, None)
     assert rh.status_and_price("Unsold. The bidding reached £99,000.") == ("unsold", None, 99000)
     assert rh.status_and_price("Withdrawn Prior.") == ("withdrawn_prior", None, None)
+
+
+def test_legacy_linked_article_preserves_exact_date_and_stable_eig_ids():
+    rows, malformed = rh.parse_legacy_june_article(LEGACY_JUNE, {"sha256": "article"})
+    assert malformed == [] and len(rows) == 2
+    assert rows[0]["appearance_id"] == (
+        "Robinson & Hall|robinson-hall:wordpress-2021-06-17|legacy-lot:1046743"
+    )
+    assert rows[0]["auction_date"] == "2021-06-17"
+    assert rows[0]["sale_price"] == 168000
+    assert rows[1]["status"] == "sold_prior" and rows[1]["sale_price"] is None
+
+
+def test_april_image_transcription_keeps_month_only_evidence_undated():
+    rows = rh.april_image_rows({"sha256": "article"}, {"sha256": "image"})
+    assert len(rows) == 17
+    assert len({row["lot_number"] for row in rows}) == 17
+    assert all(row["auction_date"] is None for row in rows)
+    assert all(row["source_month"] == "2021-04" for row in rows)
+    assert sum(row["sale_price"] is not None for row in rows) == 14
+    assert sum(row["sector"] == "land" for row in rows) == 6
+    water_tower = rows[6]
+    assert water_tower["status"] == "unsold"
+    assert water_tower["sale_price"] is None
+    assert water_tower["reported_bid_reached"] == 159000
+
+
+def test_april_duplicate_fingerprint_requires_address_result_and_price():
+    row = rh.april_image_rows({"sha256": "article"}, {"sha256": "image"})[0]
+    key = (rh.address_key(row["address"]), row["status"], row["sale_price"])
+    assert key == (
+        "landatrookeryhousethelanewybostonbedfordbedfordshiremk443ap",
+        "sold",
+        80000,
+    )
