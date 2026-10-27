@@ -52,6 +52,11 @@ SOURCES = {
         "base": "https://higginsdrysdale.eigonlineauctions.com",
         "archive_path": "/search",
     },
+    "the-property-auction-house": {
+        "auctioneer": "The Property Auction House",
+        "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
+        "archive_path": "/search",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -75,7 +80,7 @@ GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re
 RENT_RE = re.compile(
     r"£\s*([\d,]+(?:\.\d+)?)\s*(per\s+annum|annually|p\.?\s*a\.?)\b", re.I
 )
-PARSER_VERSION = 4
+PARSER_VERSION = 5
 
 
 def clean(value: str | None) -> str | None:
@@ -194,9 +199,17 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         auction_date = exact_date(scheduled_end) or exact_date(time_node.get("datetime") if time_node else None)
         address = clean(address_node.get_text(" ", strip=True)) if address_node else None
         card_text = clean(card.get_text(" ", strip=True)) or ""
-        committed_offer = bool(re.search(
-            r"\b(?:property\s+)?for sale (?:by|via) committed offer\b", card_text, re.I
-        ))
+        committed_offer = bool(
+            re.search(
+                r"\b(?:property\s+)?for sale (?:by|via) committed offer\b",
+                card_text,
+                re.I,
+            )
+            or (
+                re.search(r"\bcommitted offer\b", card_text, re.I)
+                and re.search(r"\bonline sale\b", card_text, re.I)
+            )
+        )
         if committed_offer or (not detail and property_detail):
             non_auction_link = property_detail or detail
             excluded_non_auction.append({

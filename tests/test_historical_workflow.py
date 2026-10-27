@@ -113,6 +113,16 @@ def test_focused_brown_co_expansion_skips_broad_rotation():
     assert "Run focused Brown and Co archive expansion" in bounded_condition
 
 
+def test_focused_property_auction_house_expansion_skips_broad_rotation():
+    focused = WORKFLOW.index("- name: Collect The Property Auction House complete property archive")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py the-property-auction-house --workers 16" in block
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused The Property Auction House archive expansion" in bounded_condition
+
+
 def test_focused_symonds_sampson_repair_skips_broad_rotation():
     focused = WORKFLOW.index("- name: Run focused Symonds and Sampson reconciliation repair")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")

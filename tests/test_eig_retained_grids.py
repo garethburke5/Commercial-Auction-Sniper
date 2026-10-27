@@ -176,6 +176,14 @@ def test_higgins_drysdale_uses_full_first_party_search_archive():
     }
 
 
+def test_the_property_auction_house_uses_full_first_party_search_archive():
+    assert grids.SOURCES["the-property-auction-house"] == {
+        "auctioneer": "The Property Auction House",
+        "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
+        "archive_path": "/search",
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
@@ -194,6 +202,29 @@ def test_non_auction_property_card_is_reconciled_but_not_banked():
         "address": "Cherry Tree Cottage, Durham, DH1 1AA",
         "detail_url": "https://example.test/lot/details/11111111-2222-3333-4444-555555555555",
         "source_lot_id": "11111111-2222-3333-4444-555555555555",
+        "reason": "first-party property/committed-offer card, not an auction lot",
+    }]
+
+
+def test_committed_offer_online_sale_lot_link_is_not_banked_as_an_auction():
+    property_card = """
+    <div class="lot-panel">
+      <h3 class="panel-title">Committed Offer - Sold Prior | Online Sale</h3>
+      <a href="/lot/details/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee">
+        <h3 class="list-address">1 High Street, Cardiff, CF10 1AA</h3>
+      </a>
+      <div class="list-guideprice"><h4>Offers Over: £150,000</h4></div>
+      <time datetime="2025-09-16T12:00:00.0000000+00:00"></time>
+    </div>
+    """
+    rows, malformed, excluded = grids.parse_grid(property_card, SOURCE, {})
+    assert rows == []
+    assert malformed == []
+    assert excluded == [{
+        "position": 1,
+        "address": "1 High Street, Cardiff, CF10 1AA",
+        "detail_url": "https://example.test/lot/details/aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
+        "source_lot_id": "aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee",
         "reason": "first-party property/committed-offer card, not an auction lot",
     }]
 
