@@ -1478,3 +1478,46 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   the branded channel and platform must not be counted as two auctioneers.
   Complete the 56-page inventory before claiming the net appearance count.
   National completeness remains false.
+
+## 27 October 2026 — Purplebricks Online Auctions / GOTO complete archive
+
+- Reconciled the complete retained first-party results grid: **2,778 published
+  cards across 56 pages**. The collection banks **2,451 evidenced individual
+  auction appearances** and retains **327 Committed Offer property cards** as
+  explicit audit exclusions because the source does not evidence an auction
+  appearance for them.
+- The new canonical shard contains **2,451 unique appearance IDs** and **2,451
+  unique source lot IDs**, with no duplicate source-evidence rows. It adds
+  **2,450 address records** and one partial record. Of these, **2,406 are dated
+  address appearances inside the current 20-year window**, seven are undated
+  and 38 are future-dated; none of those categories is used to inflate another.
+- Newly covered Purplebricks/GOTO source-years are **2020, 2021, 2022, 2023,
+  2024, 2025 and 2026**. The evidence-based sector split is 1,647 residential,
+  41 land, 19 mixed-use, 14 commercial and 730 unknown, giving a
+  commercial/mixed-use increment of **33**.
+- Added **79 achieved sale prices**, all attached to appearances inside the
+  current 20-year window. The source supplies no admissible guide-price or rent
+  increment. Published outcomes remain distinct: 2,121 sold-prior, 16
+  sold-after, three sold, 110 unsold, 40 withdrawn and 161 unknown.
+- Reconciled the operator before counting coverage. **Genle Limited (company
+  09790404) trading as GOTO Group** operates the Purplebricks-branded auction
+  channel, so the brand and platform are one operator/platform lineage rather
+  than two auctioneers.
+- Recovery fixes now preserve a stable-ID partial lot when the source omits its
+  address, preserve a stable-ID address record when the source omits its date,
+  and make date-range summaries null-safe. The focused parser, register and
+  workflow suite passes 40 tests. Every admitted row retains its original URL
+  and immutable page evidence, and the rebuilt database was verified before
+  publication.
+- The rebuilt corpus contains **304,199 appearances**: **293,428 address
+  records**, **10,771 partial records**, **296,563 dated address appearances in
+  the current 20-year window**, **100,918 guide-price records** and **111,404
+  achieved-price records**. Undated appearances total 4,395 and future-dated
+  appearances total 198.
+- **Next concrete growth target:** collect Landmark Auctions Limited's
+  first-party past-auctions inventory at
+  `https://landmarkauctions.co.uk/past-auctions/`. On 27 October 2026 the live
+  archive published 54 result cards while the corpus had no Landmark Auctions
+  appearances. Inventory every lot and retain dates, prices, outcomes,
+  original URLs and immutable snapshots; reconcile shared-platform or partner
+  overlap before claiming growth. National completeness remains false.
