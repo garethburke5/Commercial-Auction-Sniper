@@ -104,7 +104,7 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
-PARSER_VERSION = 5
+PARSER_VERSION = 6
 
 
 def clean(value: str | None) -> str | None:
@@ -154,11 +154,14 @@ def get(url: str) -> tuple[bytes, str]:
 
 def status_and_price(value: str | None) -> tuple[str, int | None]:
     text = (clean(value) or "").casefold()
-    if "sold prior" in text:
+    if "sold prior" in text or "sale agreed prior" in text:
         status = "sold_prior"
-    elif "sold post" in text or "sold after" in text:
+    elif (
+        "sold post" in text or "sold after" in text
+        or "sale agreed post" in text or "sale agreed after" in text
+    ):
         status = "sold_after"
-    elif re.search(r"\bsold\b", text):
+    elif re.search(r"\bsold\b|\bsale agreed\b", text):
         status = "sold"
     elif "withdrawn" in text:
         status = "withdrawn"
@@ -171,7 +174,8 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
     else:
         status = "unknown"
     price_match = re.search(
-        r"(?:sold(?:\s+(?:prior|post|after))?(?:\s+for)?|for|price)\s+£\s*"
+        r"(?:sold(?:\s+(?:prior|post|after))?(?:\s+for)?|"
+        r"sale agreed(?:\s+(?:prior|post|after))?(?:\s+for)?|for|price)\s+£\s*"
         r"([\d,]+(?:\.\d+)?)\s*([MK])?",
         value or "", re.I,
     )

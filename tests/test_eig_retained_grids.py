@@ -87,6 +87,12 @@ def test_only_sold_outcomes_receive_achieved_prices():
     assert grids.status_and_price("Result: Sold £157,000 2 bids") == ("sold", 157000)
 
 
+def test_sale_agreed_outcomes_preserve_status_and_achieved_price():
+    assert grids.status_and_price("Result: Sale Agreed for £65,000") == ("sold", 65000)
+    assert grids.status_and_price("Result: Sale Agreed Prior") == ("sold_prior", None)
+    assert grids.status_and_price("Result: Sale Agreed Post") == ("sold_after", None)
+
+
 def test_opening_and_current_bids_are_not_treated_as_guides_or_sale_prices():
     opening = GRID.replace("Result: Sold Prior for £420,000 3 bids", "Minimum Opening Bid: £85,000")
     current = GRID.replace("Result: Sold Prior for £420,000 3 bids", "Current Bid: £39,999 1 bid")
