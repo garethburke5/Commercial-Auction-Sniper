@@ -151,7 +151,7 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
-PARSER_VERSION = 6
+PARSER_VERSION = 7
 
 
 def clean(value: str | None) -> str | None:
@@ -280,7 +280,11 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         detail = card.select_one('a[href*="/lot/details/"]')
         property_detail = card.select_one('a[href*="/property/details/"]')
         identity = LOT_ID_RE.search(detail.get("href") or "") if detail else None
-        address_node = card.select_one(".list-address")
+        # Current EIG white-labels use ``list-*`` classes, while retained
+        # older grids (including Landmark Auctions) use the equally
+        # first-party ``grid-*`` markup.  Preserve both rather than treating
+        # a valid archived card as malformed evidence.
+        address_node = card.select_one(".list-address, .grid-address")
         time_node = card.select_one("time[datetime]")
         scheduled_end = card.get("data-end-date-utc")
         auction_date = exact_date(scheduled_end) or exact_date(time_node.get("datetime") if time_node else None)
@@ -313,6 +317,16 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         source_lot_id = identity.group(1).lower()
         original_url = urljoin(source["base"], detail.get("href") or "")
         result_node = card.select_one(".list-guideprice")
+        if result_node is None:
+            result_node = next(
+                (
+                    node
+                    for node in card.select(".lot-info li")
+                    if clean((node.select_one(".primary-text") or node).get_text(" ", strip=True))
+                    == "Price"
+                ),
+                None,
+            )
         result_text = clean(result_node.get_text(" ", strip=True)) if result_node else None
         status, sale_price = status_and_price(result_text)
         tagline_node = card.select_one(".lot-data-heading strong")
@@ -320,7 +334,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         tagline = clean(tagline_node.get_text(" ", strip=True)) if tagline_node else None
         summary = clean(summary_node.get_text(" ", strip=True)) if summary_node else None
         description = clean(" ".join(dict.fromkeys(filter(None, [tagline, summary]))))
-        image = card.select_one("img.list-image[src]")
+        image = card.select_one("img.list-image[src], img.grid-img[src]")
         postcode = corpus.PC.search(address)
         auction_id = f"{source['slug']}:{auction_date}"
         row = corpus.base_row(

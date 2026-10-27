@@ -45,6 +45,26 @@ DETAIL = """
 <p>Retail and residential property producing £24,000 per annum.</p>
 """
 
+LANDMARK_RETAINED_GRID = """
+<div class="lot-panel">
+ <a href="/lot/details/09702f31-6765-4293-bdd5-7b5742d0f968">
+  <img class="img-responsive grid-img" src="https://cdn.example/landmark.jpg">
+ </a>
+ <div class="grid-info">
+  <h4 class="grid-address">55 Porters Avenue, Dagenham, Essex, RM9 5YT</h4>
+  <div class="lot-info"><ul>
+   <li><span class="primary-text">Status</span> Closed</li>
+   <li><span class="primary-text">Auction Ended</span>
+    <time datetime="2022-05-23T10:26:57.2200000">23 May 2022 10:26</time>
+   </li>
+   <li><span class="primary-text">Price</span> Result:
+    <b>Sold Prior for £330,000</b>
+   </li>
+  </ul></div>
+ </div>
+</div>
+"""
+
 
 def test_pagination_and_scheduled_date_precede_early_withdrawal_time():
     assert grids.page_count(GRID) == 2
@@ -60,6 +80,18 @@ def test_pagination_and_scheduled_date_precede_early_withdrawal_time():
     assert first["bid_count"] == 3
     assert rows[1]["auction_date"] == "2025-09-16"
     assert rows[1]["status"] == "unsold" and rows[1]["sale_price"] is None
+
+
+def test_retained_grid_markup_preserves_landmark_address_result_and_image():
+    rows, malformed, excluded = grids.parse_grid(LANDMARK_RETAINED_GRID, SOURCE, {})
+    assert malformed == [] and excluded == [] and len(rows) == 1
+    row = rows[0]
+    assert row["source_lot_id"] == "09702f31-6765-4293-bdd5-7b5742d0f968"
+    assert row["auction_date"] == "2022-05-23"
+    assert row["address"] == "55 Porters Avenue, Dagenham, Essex, RM9 5YT"
+    assert row["status"] == "sold_prior" and row["sale_price"] == 330000
+    assert row["source_result_text"] == "Price Result: Sold Prior for £330,000"
+    assert row["image_urls"] == ["https://cdn.example/landmark.jpg"]
 
 
 def test_detail_enrichment_preserves_guide_rent_and_mixed_sector():
