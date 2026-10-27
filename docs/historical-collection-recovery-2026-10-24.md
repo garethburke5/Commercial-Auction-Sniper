@@ -1773,3 +1773,35 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   branch-attributing collector, require all 59 detail pages and exclude only
   exact regional-shard date/address overlaps before claiming net growth.
   National completeness remains false.
+
+## 27 October 2026 — Auction House Online 11 November event expansion
+
+- Reconciled first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/75000` to **72 published
+  cards**, 72 distinct stable source identities and all 72 detail pages. The
+  first-party page is unpaginated; no malformed, non-auction or duplicate
+  source identities were admitted.
+- Excluded **44 exact date/address overlaps** already evidenced through
+  regional Auction House shards. The canonical event shard banks **28 net-new
+  address appearances**, all dated within the current 20-year window. Partial,
+  undated and future-dated additions are all zero.
+- Added **28 guide-price records**, no achieved-price records and **one
+  published rent value**. The evidence-based sector split is 21 residential,
+  five unknown, one commercial and one land appearance; commercial/mixed-use
+  growth is **one**. Outcomes remain distinct: 20 unsold, five postponed and
+  three withdrawn.
+- Preserved ten responsible regional branch labels while treating **AUCTION
+  HOUSE UK LIMITED (company 06025583)** as the single shared-platform
+  operator. Branches and the Online channel remain provenance, not additional
+  legal operators.
+- The rebuilt corpus contains **304,561 appearances**: **293,790 address
+  records**, **10,771 partial records** and **296,914 dated appearances inside
+  the current 20-year window**, including **101,259 guide-price records** and
+  **111,446 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 209. Collection, overlap audit, rebuild and protected checkpoint
+  publication completed successfully.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/71414`, dated 29 July
+  2025 and exposing 70 individual result cards. Require the live denominator,
+  every detail page and strict exact-overlap exclusion before claiming growth.
+  National completeness remains false.
