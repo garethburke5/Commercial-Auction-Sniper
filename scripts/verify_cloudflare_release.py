@@ -6,6 +6,9 @@ from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from web_platform.public_config import validate_accounts
 
 
 def verify(commit, origin='https://auctiongeek.co.uk', get=requests.get):
@@ -28,6 +31,7 @@ def verify(commit, origin='https://auctiongeek.co.uk', get=requests.get):
     if origin + '/sitemap.xml' not in fetch('/robots.txt').text:
         raise ValueError('Production sitemap is not advertised')
     expected = json.loads(Path('public-dist/platform-config.json').read_text())
+    validate_accounts(expected)
     if fetch('/platform-config.json').json() != expected:
         raise ValueError('Live public configuration does not match this release')
     return {'verified': True, 'commit': commit, 'origin': origin}

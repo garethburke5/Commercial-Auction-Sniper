@@ -100,7 +100,8 @@ def test_domain_export_has_root_links_canonicals_and_keeps_private_data_out(site
     assert 'example.org/sniper' not in sitemap and '/account/' not in sitemap
     assert 'Sitemap: https://auctiongeek.co.uk/sitemap.xml' in (dest / 'robots.txt').read_text()
     config = json.loads((dest / 'platform-config.json').read_text())
-    assert not config['accounts_enabled'] and not config['billing_enabled']
+    assert config['accounts_enabled'] and not config['billing_enabled']
+    assert config['supabase_key'].startswith('sb_publishable_')
     assert (dest / '404.html').is_file()
     headers = (dest / '_headers').read_text()
     assert 'https://:version.:subdomain.workers.dev/*\n  X-Robots-Tag: noindex' in headers

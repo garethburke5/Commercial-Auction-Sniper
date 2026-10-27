@@ -1,26 +1,32 @@
-"""Read-only Buffer connection check. No tokens or raw errors are logged."""
-import json, os, urllib.request, urllib.error
+"""Read-only Buffer connection and queue check. Never calls a mutation."""
+import json
+import sys
 from pathlib import Path
 
-def query(document):
-    key=os.environ.get('BUFFER_API_KEY','').strip()
-    if not key: raise SystemExit('BUFFER_API_KEY is missing from Actions secrets')
-    request=urllib.request.Request('https://api.buffer.com',data=json.dumps({'query':document}).encode(),headers={'Authorization':'Bearer '+key,'Content-Type':'application/json'})
-    try:
-        with urllib.request.urlopen(request,timeout=30) as response:
-            result=json.load(response)
-            print('HTTP',response.status,'rate limits',response.headers.get('RateLimit','not returned'))
-    except urllib.error.HTTPError as e: raise SystemExit('Buffer HTTP '+str(e.code)) from None
-    if result.get('errors'):
-        # Schema errors contain no request headers; output only error codes, not arbitrary server text.
-        print('GraphQL error codes:',[x.get('extensions',{}).get('code','unspecified') for x in result['errors']])
-        raise SystemExit('Buffer query rejected')
-    return result['data']
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from marketing.buffer import Buffer
 
-if __name__=='__main__':
-    out={'organizations':query('{ account { organizations { id name } } }')['account']['organizations'],'channels':[]}
-    for org in out['organizations']:
-        out['channels']+=query('{ channels(input:{organizationId:'+json.dumps(org['id'])+'}) { id name displayName service isDisconnected isLocked isQueuePaused allowedActions timezone postingSchedule { day paused times } } }')['channels']
+
+def inspect_queue(client, config, state):
+    out = client.connection(config['organization_id'])
+    remote = client.posts(config['organization_id'], list(config['channels'].values()))
+    managed = {p.get('buffer_id'): key for key, p in state.get('posts', {}).items()}
+    out['posts'] = [{key: post.get(key) for key in ('id', 'channelId', 'status', 'dueAt')}
+                    | {'managed_key': managed.get(post['id'])} for post in remote]
+    out['scheduled_post_actions'] = []
+    for post in remote:
+        if post['status'] == 'scheduled' and post['id'] in managed:
+            details = client.request(
+                'query($id:PostId!){ post(input:{id:$id}) { id status dueAt allowedActions } }',
+                {'id': post['id']})
+            out['scheduled_post_actions'].append(details)
+    return out
+
+
+if __name__ == '__main__':
+    config = json.loads(Path('marketing/config.json').read_text())
+    state = json.loads(Path('marketing/state.json').read_text())
+    result = inspect_queue(Buffer(budget=35), config, state)
     Path('social-output').mkdir(exist_ok=True)
-    Path('social-output/connection.json').write_text(json.dumps(out,indent=2))
-    print(json.dumps(out,indent=2))
+    Path('social-output/connection.json').write_text(json.dumps(result, indent=2))
+    print(json.dumps(result, indent=2))

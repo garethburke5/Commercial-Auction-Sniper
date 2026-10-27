@@ -22,6 +22,7 @@ from .glossary import GROUPS, SOURCES, REVIEWED
 from .workspace import observation
 from .plans import CATALOGUE as PLAN_CATALOGUE
 from .seo import property_description, property_subject
+from .public_config import account_config
 
 HERE = Path(__file__).parent
 LIVE = 'https://commercial-auction-sniper-ghihjbov2hgex6ci7zqklg.streamlit.app/'
@@ -226,11 +227,7 @@ class Site:
     def board_assets(self):
         """Small search index; card bundles load only for the selected results."""
         yield '/workspace-index.json',json.dumps({'rows':[observation(r) for r in self.catalogue.all_properties], 'generated_at':self.catalogue.generated_at},ensure_ascii=False)
-        supabase=os.environ.get('SUPABASE_URL','')
-        public_key=os.environ.get('SUPABASE_PUBLISHABLE_KEY','')
-        api_origin=os.environ.get('PRIVATE_API_ORIGIN','')
-        enabled=bool(supabase.startswith('https://') and public_key and api_origin.startswith('https://'))
-        yield '/platform-config.json',json.dumps({'share_analytics_endpoint':api_origin.rstrip('/')+'/api/share-events' if api_origin.startswith('https://') else None,'accounts_enabled':enabled,'supabase_url':supabase if enabled else None,'supabase_key':public_key if enabled else None,'api_origin':api_origin if enabled else None,'billing_enabled':os.environ.get('BILLING_LIVE')=='true' and enabled,'plans':PLAN_CATALOGUE})
+        yield '/platform-config.json',json.dumps({**account_config(self.origin), 'plans':PLAN_CATALOGUE})
         yield '/source-reconciliation.json',json.dumps(self.reconciliation,ensure_ascii=False)
         rows=self.catalogue.properties
         root=f'/board/{self.board_version}/'

@@ -10,12 +10,14 @@ from scripts.verify_cloudflare_release import verify
 def release(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     (tmp_path / 'public-dist').mkdir()
-    (tmp_path / 'public-dist/platform-config.json').write_text('{"accounts_enabled":false}')
+    config = json.dumps({'accounts_enabled':True, 'supabase_url':'https://auth.example',
+                         'api_origin':'https://api.example', 'supabase_key':'sb_publishable_test'})
+    (tmp_path / 'public-dist/platform-config.json').write_text(config)
     pages = {
         '/deployment.json': '{"commit":"tested-revision"}',
         '/': '<link rel="canonical" href="https://auctiongeek.co.uk/">',
         '/robots.txt': 'Sitemap: https://auctiongeek.co.uk/sitemap.xml',
-        '/platform-config.json': '{"accounts_enabled":false}',
+        '/platform-config.json': config,
     }
     headers = {}
 
@@ -28,6 +30,14 @@ def release(tmp_path, monkeypatch):
 
 def test_accepts_matching_live_release(release):
     assert verify('tested-revision', get=release[2])['verified']
+
+
+def test_disabled_accounts_fail_even_when_live_matches_build(release):
+    from pathlib import Path
+    release[0]['/platform-config.json'] = '{"accounts_enabled":false}'
+    Path('public-dist/platform-config.json').write_text('{"accounts_enabled":false}')
+    with pytest.raises(ValueError, match='disabled'):
+        verify('tested-revision', get=release[2])
 
 
 def test_rejects_old_code_even_with_same_property_data(release):
