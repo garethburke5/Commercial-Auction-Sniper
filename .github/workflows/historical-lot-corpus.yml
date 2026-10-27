@@ -195,7 +195,7 @@ jobs:
           python-version: '3.12'
       - run: pip install requests beautifulsoup4 lxml pypdf pdfplumber pytest
       - name: Ensure PDF and OCR extraction is available
-        if: inputs.focus != 'rebuild' && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records')
+        if: inputs.focus != 'rebuild' && !startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records') && !startsWith(github.event.head_commit.message, 'Run focused Landmark Auctions archive expansion')
         timeout-minutes: 5
         run: |
           if ! command -v pdftotext >/dev/null || ! command -v pdftoppm >/dev/null || ! command -v tesseract >/dev/null; then

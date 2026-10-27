@@ -284,3 +284,6 @@ def test_focused_landmark_expansion_is_isolated():
     guide_start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")
     guide_end = WORKFLOW.index("- name:", guide_start + 10)
     assert "Run focused Landmark Auctions archive expansion" in WORKFLOW[guide_start:guide_end]
+    ocr_start = WORKFLOW.index("- name: Ensure PDF and OCR extraction is available")
+    ocr_end = WORKFLOW.index("- name:", ocr_start + 10)
+    assert "Run focused Landmark Auctions archive expansion" in WORKFLOW[ocr_start:ocr_end]
