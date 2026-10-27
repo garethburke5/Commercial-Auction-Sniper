@@ -1642,3 +1642,38 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   branch-attributing collector, require all 55 detail pages and exclude only
   exact regional-shard date/address overlaps before claiming net growth.
   National completeness remains false.
+
+## 27 October 2026 — Auction House Online March event expansion
+
+- Reconciled the complete first-party Auction House Online event
+  `https://online.auctionhouse.co.uk/past-auctions/67455`: **55 published
+  cards**, 55 distinct stable source identities and all 55 detail pages. There
+  are no malformed cards, non-auction exclusions, duplicate source identities
+  or detail-recovery failures.
+- Excluded **24 exact date/address overlaps** already present through regional
+  Auction House evidence. The canonical shard banks **31 net-new address
+  appearances**, all exact-dated inside the current 20-year window. There are
+  zero partial, undated or future-dated additions and no duplicate-derived
+  growth claim.
+- Added **31 guide-price records**, **one achieved-price record** and **one
+  published rent value**. The evidence-based sector split is 11 residential,
+  eight land, one commercial, one mixed-use and ten unknown appearances; the
+  commercial/mixed-use increment is **two**. Published outcomes remain
+  distinct: 20 unsold, six withdrawn, two postponed, and one each sold,
+  sold-prior and sold-after.
+- Preserved 11 responsible regional branch/channel labels from the detail
+  pages while treating **AUCTION HOUSE UK LIMITED (company 06025583)** as the
+  single shared-platform operator. Branches and the Online channel remain
+  provenance, not additional legal operators.
+- The rebuilt corpus contains **304,344 appearances**: **293,573 address
+  records**, **10,771 partial records** and **296,701 dated appearances inside
+  the current 20-year window**, including **101,054 guide-price records** and
+  **111,414 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 205. Collection, strict overlap audit, database rebuild and protected
+  publication completed successfully.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/67663`, which publishes
+  **47 individual result cards**, principally dated in April 2025. Reuse the
+  branch-attributing collector, require all 47 detail pages and exclude only
+  exact regional-shard date/address overlaps before claiming net growth.
+  National completeness remains false.
