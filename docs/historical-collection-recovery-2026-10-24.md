@@ -1189,3 +1189,40 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   live denominator and shared EIG identities, preserve repeated offerings as
   separate appearances, and retain partner-agent wording as provenance rather
   than creating a second auctioneer. National completeness remains false.
+
+## 27 October 2026 — LOT9 Auction House retained-grid expansion
+
+- Reconciled all **34** published auction-lot cards on LOT9 Auction House's
+  surviving first-party EIG archive. The one-page denominator, 34 distinct
+  stable identities and all 34 detail pages reconcile exactly, with no
+  malformed rows, non-auction exclusions, shared-platform overlaps or recovery
+  failures.
+- Banked **34 net new address appearances**, all exact-dated inside the current
+  20-year window. There are no partial, undated, future-dated or
+  duplicate-derived additions. LOT9 source-years 2022 through 2026 are newly
+  represented.
+- Added **27 guide prices** and **11 achieved prices**; no rent value was
+  published. The evidence-based sector split is 31 residential, two mixed-use
+  and one evidence-limited unknown. Outcomes remain distinct: two sold, 12
+  sold-prior, two sold-after, six unsold, six withdrawn and six postponed.
+- Reconciled the operator before counting coverage: **LOT9 AUCTION HOUSE
+  LIMITED** (company 12953855) is the auctioneer. Monopoly Buy Sell Rent is
+  retained as a partner agent in the source provenance and is not counted as a
+  second auctioneer.
+- The rebuilt corpus contains **299,572 appearances**: 288,802 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 291,994
+  appearances, with 98,781 guide-price records and 110,515 sale-price records.
+  The canonical shard contains 34 unique appearance IDs and 34 unique source
+  IDs, every row retaining its original URL and immutable source evidence.
+  Focused tests, database rebuild, packaging, source-register reconciliation
+  and publication completed successfully.
+- Next concrete growth target: **Auction North Limited** (company 10762287), a
+  genuine directory-listed County Durham operator with no retained corpus
+  match. Its first-party archive at
+  `https://auction-north.eigonlineauctions.com/search` currently publishes
+  **37** rows from 2020 through 2026. Reconcile the live denominator and shared
+  EIG identities, retain Dynamic Property Group and other local partners as
+  provenance rather than separate auctioneers, and bank dates, guides, achieved
+  prices, rents, outcomes, original URLs and immutable snapshots. National
+  completeness remains false.
+
