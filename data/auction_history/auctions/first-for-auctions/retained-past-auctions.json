@@ -4,295 +4,298 @@
   "auction_date": null,
   "catalogue_complete": true,
   "source_rows_complete": true,
-  "published_lots_offered": 1382,
-  "visible_source_rows": 1382,
-  "lots_captured": 1382,
+  "published_lots_offered": 1383,
+  "visible_source_rows": 1383,
+  "visible_source_cards": 1383,
+  "lots_captured": 1383,
   "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
   "pagination_reconciled": true,
   "denominator_reconciled": true,
   "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
   "source_evidence": [
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-27T10:30:21.051170+00:00",
-      "sha256": "801a54c218e1aaed30765ca3cb5c017b46f9feb5c3c1a500e98bacdea016a99f",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-1-801a54c218e1aaed.json.gz",
+      "retrieved_at": "2026-10-27T11:38:51.285981+00:00",
+      "sha256": "be754838449c2639584527e6877a03673bbb66feceb1d3a1d34cf8082ff48520",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-1-be754838449c2639.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 1,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=2&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:41.645384+00:00",
-      "sha256": "d421e5c3167cf320e0c2899eea9ef6af89a088de112e24a465360cf532de7466",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-2-d421e5c3167cf320.json.gz",
+      "retrieved_at": "2026-10-27T11:38:51.661331+00:00",
+      "sha256": "b5b5c8b2ce6bb4c11caebbd19e257daf811e1c943db5987c9f0efaec592b36fc",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-2-b5b5c8b2ce6bb4c1.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 2,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=3&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:41.798996+00:00",
-      "sha256": "79e18a6e0bdd2d7a78908cd55ec2ad5d5593b4aaf83a9bf11f6e3da9045d1066",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-3-79e18a6e0bdd2d7a.json.gz",
+      "retrieved_at": "2026-10-27T11:38:51.880610+00:00",
+      "sha256": "4e3122b83656fbe8530a70c9d53e71ecc3dec93b5efaaa90cb5be4e2dde8a7cc",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-3-4e3122b83656fbe8.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 3,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=4&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:41.956847+00:00",
-      "sha256": "b47455ca938edede27de92a14aea0b6d15d42d498aef66c92396c965ddae26a2",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-4-b47455ca938edede.json.gz",
+      "retrieved_at": "2026-10-27T11:38:52.130496+00:00",
+      "sha256": "d23311f812d9015ce160e5044243c140681692e17d861c1921fc3f1a6ff7266a",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-4-d23311f812d9015c.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 4,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=5&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:42.116658+00:00",
-      "sha256": "0cda77686c1e31e0c7a8bd7f04106462f27c50197d70c6412713c0b207446774",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-5-0cda77686c1e31e0.json.gz",
+      "retrieved_at": "2026-10-27T11:38:52.348475+00:00",
+      "sha256": "5c0ac11e86001ef462b59aedef40ac2a746ca3d7fbb8945394bf947e9b0a6ed4",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-5-5c0ac11e86001ef4.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 5,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=6&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:42.306606+00:00",
-      "sha256": "ec2a371d6fa6388d462d59233410263702e7200f989c277e48994c8eacb99b1b",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-6-ec2a371d6fa6388d.json.gz",
+      "retrieved_at": "2026-10-27T11:38:52.568417+00:00",
+      "sha256": "fc1978c3c62b0e4f6a3966f3ed0cfc682411667c815ad59d0fbd5c0d54c2052c",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-6-fc1978c3c62b0e4f.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 6,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=7&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:42.461488+00:00",
-      "sha256": "a9713da493cd005efa89a3e27aa9f78722d99bcc210b3dac98bac4b61df9ee5e",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-7-a9713da493cd005e.json.gz",
+      "retrieved_at": "2026-10-27T11:38:52.809591+00:00",
+      "sha256": "2ddfd351e47c79a32a95b3e617aa2b2553c99c78da24b19567f632611a153e11",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-7-2ddfd351e47c79a3.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 7,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=8&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:42.616736+00:00",
-      "sha256": "8c9870dd0b776e02745daddd8100a5d8c5317c475261d9f1512ee250371e0914",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-8-8c9870dd0b776e02.json.gz",
+      "retrieved_at": "2026-10-27T11:38:53.026211+00:00",
+      "sha256": "ccc179b8c07e1296cf12082ca87ec6a8ccddfc58db7076f629245dd19ecfc745",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-8-ccc179b8c07e1296.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 8,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=9&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:42.808096+00:00",
-      "sha256": "6ce4bb4e1a0e7696f0f8e7d7eca24157228eab4bc5e8f15bdc4ad20188561cb2",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-9-6ce4bb4e1a0e7696.json.gz",
+      "retrieved_at": "2026-10-27T11:38:53.268650+00:00",
+      "sha256": "e4c92a41f8956fe33291029010b83eaa1d644b369e4fce995263abec95143355",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-9-e4c92a41f8956fe3.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 9,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=10&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:42.963199+00:00",
-      "sha256": "d441530e5042553fffe03805f5b8780a2ead5211a006fca98a1367bffd3e3769",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-10-d441530e5042553f.json.gz",
+      "retrieved_at": "2026-10-27T11:38:53.486291+00:00",
+      "sha256": "b728af9f994cf87985e669669806313bb821d426c99553670025934aff23514e",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-10-b728af9f994cf879.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 10,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=11&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:43.117088+00:00",
-      "sha256": "57fb091594e16ec4b2b227743d90446b93342832cae853ab07b9fdd30823c030",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-11-57fb091594e16ec4.json.gz",
+      "retrieved_at": "2026-10-27T11:38:53.727820+00:00",
+      "sha256": "9127067b10a6ff77025ac218ead6b987602f50aafaca6762d7ba0cc696e6e4ba",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-11-9127067b10a6ff77.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 11,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=12&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:43.273632+00:00",
-      "sha256": "f0caece6fd10e88eefd6fc06700286dfe08e4ad282cbb2e169524d52703d11a2",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-12-f0caece6fd10e88e.json.gz",
+      "retrieved_at": "2026-10-27T11:38:53.946447+00:00",
+      "sha256": "1891bfbe16f77a0568aa8e569137619325a1ee886855906fd0465e4b649e9006",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-12-1891bfbe16f77a05.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 12,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=13&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:43.465693+00:00",
-      "sha256": "2cdfd8465e6ac3182a2c58c04dc088070fb23cfdb60ac74ce3bdb8e06ec690e9",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-13-2cdfd8465e6ac318.json.gz",
+      "retrieved_at": "2026-10-27T11:38:54.164158+00:00",
+      "sha256": "34c7c50befa21d5fd0b35841fa39522ded568fabe036e2354b39e879a7572f81",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-13-34c7c50befa21d5f.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 13,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=14&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:43.619535+00:00",
-      "sha256": "e552c4301a67b593622c78e45bc8dcee20fba3fa3bc03c1b37ff27761b848b18",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-14-e552c4301a67b593.json.gz",
+      "retrieved_at": "2026-10-27T11:38:54.409364+00:00",
+      "sha256": "8ab5d3e1791fa8b1714ce1901c04de8d81d919418f00f81948cce48ba04ee418",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-14-8ab5d3e1791fa8b1.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 14,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=15&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:43.773559+00:00",
-      "sha256": "59b0bad9c3fe86a9b2f53b3540cbaa96f7971251bb9e08bf75b1543d15b6fd5d",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-15-59b0bad9c3fe86a9.json.gz",
+      "retrieved_at": "2026-10-27T11:38:54.626890+00:00",
+      "sha256": "918e3074d2c6b79b25966640773df75e9c86853f1260d771e84e474f6fdb0c4f",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-15-918e3074d2c6b79b.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 15,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=16&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:43.964172+00:00",
-      "sha256": "17862e7fffdd48d11f32763a594124feb5aa47998104d4ffbd72911d655e8123",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-16-17862e7fffdd48d1.json.gz",
+      "retrieved_at": "2026-10-27T11:38:54.870944+00:00",
+      "sha256": "be176653af1b8c48f0f800892a50e0ef7ed54009abd10f0986f2fb73ccccdcad",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-16-be176653af1b8c48.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 16,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=17&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:44.121958+00:00",
-      "sha256": "6b32b76c5983b4e4c388488e5d887c4f951a0c72df6f7e54ed2ecec6966ab263",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-17-6b32b76c5983b4e4.json.gz",
+      "retrieved_at": "2026-10-27T11:38:55.088646+00:00",
+      "sha256": "eed1ef80aecb2f7220abc1ab18796478ca7acfe3dc0f96e59e0a6b1e40585c8d",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-17-eed1ef80aecb2f72.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 17,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=18&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:44.278400+00:00",
-      "sha256": "61825253315983d9e85e1c85eef6801da16273a36c568d6cd3b64e9500c47c51",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-18-61825253315983d9.json.gz",
+      "retrieved_at": "2026-10-27T11:38:55.333072+00:00",
+      "sha256": "e01fb4aa9f4af1ac7e67f62f7712ae19dabf2e9a0f288b191839a57781453165",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-18-e01fb4aa9f4af1ac.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 18,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=19&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:44.433907+00:00",
-      "sha256": "33933a7ecc71d4d0c4e060367e256498f5100a7ef46389e8dac778a2efe0d63f",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-19-33933a7ecc71d4d0.json.gz",
+      "retrieved_at": "2026-10-27T11:38:55.551728+00:00",
+      "sha256": "c817a06edd8147fe34512c4a058c2724414cbfa207fdf020c47b386245c87626",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-19-c817a06edd8147fe.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 19,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=20&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:44.630313+00:00",
-      "sha256": "b0555945fac70aff8a6638010f4d3b7d1b7217a9a7e7210689405cac1a9f5d74",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-20-b0555945fac70aff.json.gz",
+      "retrieved_at": "2026-10-27T11:38:55.769813+00:00",
+      "sha256": "09d8a7e9bc0578fc4b3ab37663976355f8595aa94e18aa533e35793d9a55ad5b",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-20-09d8a7e9bc0578fc.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 20,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=21&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:44.785609+00:00",
-      "sha256": "8c2da5a6593936803b49bf1a648bd2afa31e69cd4240b125de858325fc8dd238",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-21-8c2da5a659393680.json.gz",
+      "retrieved_at": "2026-10-27T11:38:56.017110+00:00",
+      "sha256": "8773b25ce2426d734d4879202f36695da89ea9382082b63ba1c901cb0c07ac1d",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-21-8773b25ce2426d73.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 21,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=22&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:44.941055+00:00",
-      "sha256": "163bc0b6a11b41edd9ac4b69f74ca97075cde74b53b1d33b659461534afd6018",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-22-163bc0b6a11b41ed.json.gz",
+      "retrieved_at": "2026-10-27T11:38:56.236380+00:00",
+      "sha256": "89fc2eeefeb977ff144b58071725f10a264c0aa0fd4e7cc99e0ad8fed1dec146",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-22-89fc2eeefeb977ff.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 22,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=23&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:45.140107+00:00",
-      "sha256": "edfd54d242ee089d12636869c7f34bc9c9ad232dd1d371a53c1dfcbed5f7498f",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-23-edfd54d242ee089d.json.gz",
+      "retrieved_at": "2026-10-27T11:38:56.482310+00:00",
+      "sha256": "84807bd4c98fe54626a312832e362d4589faf88b8ec450c86e36c120b2b7e93b",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-23-84807bd4c98fe546.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 23,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=24&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:45.297062+00:00",
-      "sha256": "de0086d87c04fa682c499cfd073d8edae36d9342f2164851910dc1df1062a3d7",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-24-de0086d87c04fa68.json.gz",
+      "retrieved_at": "2026-10-27T11:38:56.699299+00:00",
+      "sha256": "81de49a8503fabee7cdcdce1fcc0f6566a2b71b24bafe014523befedf09b2e37",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-24-81de49a8503fabee.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 24,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=25&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:45.452496+00:00",
-      "sha256": "bfe9bef60b1e9c76d7f919bc6fc265006c5abe0983483167bc70e65f282c9264",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-25-bfe9bef60b1e9c76.json.gz",
+      "retrieved_at": "2026-10-27T11:38:56.947779+00:00",
+      "sha256": "3c121b2436fe8fa451b6985d472c6c1ca5a2847b7ce94f238709f6ae801a7679",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-25-3c121b2436fe8fa4.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 25,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=26&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:45.606989+00:00",
-      "sha256": "1c266e1580511b5de167e38941ec3622241707ed0b58e130096780374a58c204",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-26-1c266e1580511b5d.json.gz",
+      "retrieved_at": "2026-10-27T11:38:57.164709+00:00",
+      "sha256": "fc15cbaf5bfd463afd8bae6fe9d36b3961464e820741aacaeeea5ed40a3888e5",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-26-fc15cbaf5bfd463a.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 26,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=27&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:45.801643+00:00",
-      "sha256": "7df17dd8f8629b6759b11101a19b8e2a16f5cc96680c5df4fe467895002d4a21",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-27-7df17dd8f8629b67.json.gz",
+      "retrieved_at": "2026-10-27T11:38:57.381064+00:00",
+      "sha256": "eb9208eecf203fb36763d6d87a1aeb32fa4cd287bcaeaf54e940294074fd1dbb",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-27-eb9208eecf203fb3.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 27,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     },
     {
       "source_url": "https://online.firstforauctions.co.uk/past-auctions?page=28&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-26T18:17:45.943572+00:00",
-      "sha256": "dc2cd288fff589cb364c4ff904dd5d8fd2cd7e219850cd527e50cbd438502b93",
-      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-28-dc2cd288fff589cb.json.gz",
+      "retrieved_at": "2026-10-27T11:38:57.612708+00:00",
+      "sha256": "2dcb2b13bec52683295078dc797acf17696a4b96d6eca03c76fa55a1637c7b27",
+      "snapshot_path": "data/auction_history/sources/first-for-auctions/past-auctions-page-28-2dcb2b13bec52683.json.gz",
       "basis": "first-party retained past-auctions lot grid",
       "page": 28,
       "total_pages": 28,
-      "published_archive_lots": 1382
+      "published_archive_lots": 1383
     }
   ],
   "errors": [],
-  "checked_at": "2026-10-27T10:30:25.572503+00:00"
+  "checked_at": "2026-10-27T11:38:57.884841+00:00"
 }
