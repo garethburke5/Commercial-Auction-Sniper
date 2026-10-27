@@ -807,6 +807,42 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   guide/rent/sector target and must not be counted as new appearances.
   National completeness remains false.
 
+## 27 October 2026 — Auction House Online August event expansion
+
+- Reconciled event `https://online.auctionhouse.co.uk/past-auctions/70923`:
+  **92 published cards**, 92 stable source identities, one complete unpaginated
+  archive snapshot and all 92 detail pages. No non-auction cards, malformed
+  identities or detail failures were admitted.
+- Excluded **51 exact date/address overlaps** already retained through regional
+  Auction House sources. The canonical event shard banks **41 net-new address
+  appearances**, all dated inside the 20-year window. Individual source dates
+  are preserved and span 28 July to 19 August 2025; none are partial, undated
+  or future-dated, and no duplicate source identity contributes to growth.
+- Added **41 guides**, **one achieved price** and **one rent value**. The net
+  sector split is 17 residential, two commercial, one mixed-use, two land and
+  19 unknown, so the commercial/mixed-use increment is **three**. Outcomes
+  remain distinct: 29 unsold, five postponed, five sold-prior, one withdrawn
+  and one sold.
+- Eleven regional branch labels remain provenance under **AUCTION HOUSE UK
+  LIMITED (company 06025583)**. The event adds one newly covered event
+  source-year (2025), while the legal operator/year was already represented.
+- The rebuilt corpus contains **304,533 appearances**, **293,762 addresses**,
+  **10,771 partial records** and **296,886 dated appearances inside the current
+  20-year window**, including **101,231 guide-price records** and **111,446
+  achieved-price records**. Undated remains 4,395 and future-dated remains 209.
+  Focused collection, overlap reconciliation, database rebuild, packaging,
+  checkpoint publication and artifact retention all succeeded.
+- The preceding continuation-file encoding fault was repaired from the last
+  valid blob before this collector ran; the restored JSON was validated and no
+  captured records or database evidence were discarded.
+- **Next concrete growth target:** event
+  `https://online.auctionhouse.co.uk/past-auctions/75000`, dated 11 November
+  2025. Its first-party page exposes a substantial individual result inventory
+  with numbered lots through Lot 100 and explicit outcomes. Reconcile its exact
+  card denominator before claiming growth, require every detail page and apply
+  the same strict date/address overlap audit. National completeness remains
+  false.
+
 ## 27 October 2026 — Auction House Online May event retrieval blocker
 
 - Event `69595` publishes 59 individual first-party property cards, but five
