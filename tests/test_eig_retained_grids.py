@@ -114,6 +114,14 @@ def test_bradley_hall_uses_full_first_party_search_archive():
     }
 
 
+def test_brown_co_uses_full_first_party_search_archive():
+    assert grids.SOURCES["brown-co"] == {
+        "auctioneer": "Brown&Co",
+        "base": "https://brownandco.eigonlineauctions.com",
+        "archive_path": "/search",
+    }
+
+
 def test_numeric_eig_lot_ids_are_preserved_as_stable_identities():
     numeric = GRID.replace(
         "85c11d6d-40f5-4b78-80c1-f360ee721c0b", "193314"

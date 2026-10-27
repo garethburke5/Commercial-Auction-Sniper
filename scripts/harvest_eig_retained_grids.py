@@ -37,6 +37,11 @@ SOURCES = {
         "base": "https://auction.bradleyhall.co.uk",
         "archive_path": "/search",
     },
+    "brown-co": {
+        "auctioneer": "Brown&Co",
+        "base": "https://brownandco.eigonlineauctions.com",
+        "archive_path": "/search",
+    },
     "clarke-simpson": {
         "auctioneer": "Clarke & Simpson",
         "base": "https://clarke-simpson.eigonlineauctions.com",
