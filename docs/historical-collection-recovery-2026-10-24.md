@@ -1226,3 +1226,47 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   prices, rents, outcomes, original URLs and immutable snapshots. National
   completeness remains false.
 
+## 27 October 2026 — Auction North retained-grid expansion and outcome repair
+
+- Reconciled all **37** published auction-lot cards on Auction North's
+  surviving first-party EIG archive. The one-page denominator, 37 distinct
+  stable identities and all 37 detail pages reconcile exactly, with no
+  malformed rows, non-auction exclusions, shared-platform overlaps or recovery
+  failures.
+- Banked **37 net new address appearances**, all exact-dated inside the current
+  20-year window. There are no partial, undated, future-dated or
+  duplicate-derived additions. Auction North source-years 2019 through 2026
+  are newly represented.
+- Added **28 guide prices**, **24 achieved prices** and **8 rent values**. The
+  evidence-based sector split is 36 residential and one evidence-limited
+  unknown; there are no commercial or mixed-use appearances. Outcomes remain
+  distinct: 23 sold, three sold-prior, one sold-after, eight unsold and two
+  withdrawn.
+- Repaired the reusable EIG result parser after the first pass exposed
+  `Sale Agreed`, `Sale Agreed Prior` and `Sale Agreed Post/After` as
+  previously unmapped result phrases. Reprocessing the same 37 stable
+  identities added 14 achieved-price values without inflating the appearance
+  count. Monthly rent wording is now recognised and annualised while the
+  published text remains preserved. All 39 focused tests pass.
+- Reconciled the operator before counting coverage: **AUCTION NORTH LIMITED**
+  (company 10762287) is the auctioneer. Dynamic Property Group and independent
+  local property experts are retained as partner provenance and are not counted
+  as additional auctioneers.
+- The rebuilt corpus contains **299,609 appearances**: 288,839 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 292,031
+  appearances, with 98,809 guide-price records and 110,539 sale-price records.
+  Every retained row has its original URL and immutable source evidence.
+  Focused collection, outcome repair, database rebuild, packaging,
+  source-register reconciliation and protected publication completed
+  successfully.
+- Next concrete growth target: **Sage & Co Auctions Limited** (company
+  13328873), a genuine Welsh operator with no retained corpus match. Its
+  first-party archive at
+  `https://sageandco.eigonlineauctions.com/search` currently exposes 17
+  cards: 15 completed historical rows and two future-dated November 2026
+  listings that must remain explicitly future-dated rather than being reported
+  as historical growth. Reconcile all stable identities, preserve commercial,
+  mixed-use and land evidence, and bank dates, guides, achieved prices, rents,
+  outcomes, original URLs and immutable snapshots. National completeness
+  remains false.
+
