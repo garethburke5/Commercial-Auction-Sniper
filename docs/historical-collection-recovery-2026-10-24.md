@@ -1155,3 +1155,37 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   If company or trading-name evidence shows an alias, merge attribution without
   claiming an additional operator. National completeness remains false.
 
+## 27 October 2026 — Property Auction Agent retained-grid expansion
+
+- Reconciled all **66** published rows in Property Auction Agent's surviving
+  first-party EIG archive across two pages of 50 and 16. Every row has a
+  distinct stable source identity; all 66 detail pages and immutable source
+  snapshots were captured without recovery failures.
+- The operator was reconciled before collection. **PROPERTY AUCTION AGENT LTD**
+  (company 15163018, active, directed by Gemma Williams) is legally distinct
+  from **THE PROPERTY AUCTION HOUSE LTD** (company 13597386, active, directed
+  by Robert Leach). Julie Lawry's historic/director and current consultancy
+  connections make the businesses related, but not aliases. The shared-EIG
+  stable-ID guard nevertheless excludes any exact platform lot overlap.
+- Banked **66 net new address appearances** with no partial, undated,
+  overlapping or duplicate-derived additions. **61** are exact-dated inside
+  the current 20-year window and five are explicitly future-dated through
+  26 November 2026. Source-years 2023 through 2026 are newly represented.
+- Added **66 guide prices**, **4 achieved prices** and one annual rent. The
+  evidence-based sector split is 56 residential, five commercial, two
+  mixed-use and three land appearances. Outcomes remain distinct: 55
+  sold-prior, two sold, one postponed, three withdrawn and five current or
+  otherwise unknown future listings.
+- The rebuilt corpus contains **299,538 appearances**: 288,768 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 291,960
+  appearances, with 98,754 guide-price records and 110,504 sale-price records.
+  Focused tests, database rebuild, packaging, source-register reconciliation
+  and protected source publication completed successfully.
+- Next concrete growth target: **LOT9 Auction House Limited** (company
+  12953855), a genuine operator rather than a Monopoly Buy Sell Rent alias.
+  Its first-party archive at
+  `https://lot9.eigonlineauctions.com/search` currently publishes **34**
+  rows from 2022 through 2026 and has no retained corpus match. Reconcile the
+  live denominator and shared EIG identities, preserve repeated offerings as
+  separate appearances, and retain partner-agent wording as provenance rather
+  than creating a second auctioneer. National completeness remains false.
