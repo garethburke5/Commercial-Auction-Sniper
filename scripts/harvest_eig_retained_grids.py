@@ -110,7 +110,9 @@ SOURCES = {
     "newlands-property": {
         "auctioneer": "Newlands Property",
         "base": "https://newlands.eigonlineauctions.com",
-        "archive_path": "/",
+        # The site root is only a meta-refresh landing page; request the
+        # retained grid directly so zero rows remain a genuine failure.
+        "archive_path": "/search",
     },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",

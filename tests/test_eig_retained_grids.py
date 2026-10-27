@@ -328,5 +328,5 @@ def test_opal_and_newlands_use_distinct_first_party_archives():
     assert grids.SOURCES["newlands-property"] == {
         "auctioneer": "Newlands Property",
         "base": "https://newlands.eigonlineauctions.com",
-        "archive_path": "/",
+        "archive_path": "/search",
     }
