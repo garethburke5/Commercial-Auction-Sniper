@@ -104,3 +104,28 @@ Dependencies: Python 3.11+, Pillow, requests, beautifulsoup4, pytest and DejaVu 
 - https://developers.buffer.com/guides/api-limits.html
 - https://developers.buffer.com/reference.html
 - https://buffer.com/pricing
+
+## Separately scheduled review posts — 27 October 2026
+
+A draft can be approved and scheduled directly in Buffer while automatic
+publishing remains disabled. Reconciliation records this as `schedule_origin:
+external`. The monitor preserves those schedules and records evidence warnings
+for review; it does not use the global automatic-publishing gate to cancel them.
+Agent-created schedules record `schedule_origin: agent` before the API mutation
+and still return to drafts when the gate closes or property evidence changes.
+An explicit pause continues to stop queued posts created through this integration,
+including its drafts subsequently scheduled in Buffer. Unrelated posts are untouched.
+Draft reruns accept existing scheduled/sending/sent review posts without editing
+or duplicating them; newly created drafts must still read back as drafts.
+
+Read-only verification at 17:29 UTC on 27 October found these existing schedules:
+
+| Property | Facebook (UK time) | Instagram (UK time) |
+| --- | --- | --- |
+| Colchester | 28 October, 09:41 | 28 October, 09:37 |
+| Shipley | 29 October, 09:39 | 30 October, 08:30 |
+| 207 Belsize Road | 30 October, 08:58 | 2 November, 08:30 |
+
+Both channels were connected, unlocked and unpaused. These are queued posts,
+not proof of publication. Automatic publishing remains unapproved. The queue
+check is read-only and does not activate or reschedule anything.

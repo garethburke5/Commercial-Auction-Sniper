@@ -48,6 +48,10 @@ def reconcile(state, remote):
             elif len(matches)>1:raise ValueError('Duplicate remote posts require review')
         p=by_id.get(entry.get('buffer_id'))
         if p:
+            if p['status']=='scheduled' and entry.get('schedule_origin')!='agent':
+                # Drafts can be approved and queued directly in Buffer. The
+                # automatic-publishing gate does not revoke that separate action.
+                entry['schedule_origin']='external'
             entry['status']=p['status'];entry['due_at']=p.get('dueAt')
         # An unresolved intent is deliberately NOT retried. Re-running after an
         # ambiguous timeout cannot manufacture a second post.
@@ -102,6 +106,7 @@ def perform(mode, *, store=None, client=None, now=None):
         if channels[service]['isDisconnected'] or channels[service]['isLocked']:raise ValueError('Buffer channel needs reconnection')
         if 'manageUpdates' not in channels[service]['allowedActions']:raise ValueError('Buffer write permission missing')
     remote=client.posts(config['organization_id'],list(config['channels'].values()))
+    existing_scheduled_or_sent={p['id'] for p in remote if p['status'] in {'scheduled','sending','sent'}}
     reconcile(state,remote)
     if mode=='pause':state['paused']=True;store.write(STATE,state)
     snapshot=json.loads(Path('data/properties.json').read_text())
@@ -110,13 +115,23 @@ def perform(mode, *, store=None, client=None, now=None):
     # withdrawals, disappeared lots, or changes to any advertised fact.
     for key,entry in state['posts'].items():
         if entry.get('status')!='scheduled':continue
-        stop=mode=='pause' or state.get('paused') or config.get('paused') or not publishing_allowed(config,state,os.environ)
+        explicit_pause=mode=='pause' or state.get('paused') or config.get('paused')
+        stop=explicit_pause or not publishing_allowed(config,state,os.environ)
+        evidence_warning=False
         if entry.get('property_id'):
             row=current.get(entry['property_id']);due=stamp(entry['due_at']) if entry.get('due_at') else now
             stop=stop or not row or not fresh(snapshot.get('generated_at'),now,config['max_data_age_hours'])
+            evidence_warning=not row or not fresh(snapshot.get('generated_at'),now,config['max_data_age_hours'])
             if row:
-                stop=stop or bool(reject_reason(row,now,config,due=due))
-                stop=stop or property_post(row,entry['service'],snapshot.get('archive',[]))['fingerprint']!=entry['fingerprint']
+                evidence_warning=evidence_warning or bool(reject_reason(row,now,config,due=due))
+                evidence_warning=evidence_warning or property_post(row,entry['service'],snapshot.get('archive',[]))['fingerprint']!=entry['fingerprint']
+                stop=stop or evidence_warning
+        if entry.get('schedule_origin')=='external' and not explicit_pause:
+            entry.pop('review_warning',None)
+            if evidence_warning:
+                entry['review_warning']='Scheduled outside the agent; current property evidence requires review'
+                print('::warning::'+entry['review_warning']+': '+key)
+            continue
         if stop:
             client.to_draft(entry['buffer_id']);entry['status']='draft';entry['hold_reason']='paused, stale or changed property evidence'
             store.write(STATE,state)
@@ -171,6 +186,8 @@ def perform(mode, *, store=None, client=None, now=None):
                'caption_hash':digest(post['caption']),'fingerprint':post['fingerprint'],'asset_key':post.get('asset_key'),'status':'pending',
                'created_at':now.isoformat(),'topic_key':post.get('topic_key'),'evidence':post['evidence'],
                'editorial_interest':post.get('editorial_interest'),'caption':post['caption'],'image_url':post['image_url']}
+        if not draft:
+            entry.update(schedule_origin='agent',due_at=post.get('due_at'))
         if updating:entry['buffer_id']=existing['buffer_id']
         state['posts'][key]=entry
         state['attempts']=state['attempts'][-499:]
@@ -195,7 +212,10 @@ def perform(mode, *, store=None, client=None, now=None):
         expected=json.loads(Path('marketing/samples.json').read_text())['posts']
         for p in expected:
             entry=state['posts'].get(p['key'],{})
-            if entry.get('buffer_id') not in saved or saved[entry['buffer_id']]['status']!='draft':
+            pid=entry.get('buffer_id')
+            if pid in existing_scheduled_or_sent and pid in saved and saved[pid]['status'] in {'scheduled','sending','sent'}:
+                continue  # Never undo a separately scheduled/released review post.
+            if pid not in saved or saved[pid]['status']!='draft':
                 raise ValueError('Sample draft missing from independent Buffer readback: '+p['key'])
     state['last_checked_at']=now.isoformat();store.write(STATE,state)
     report={'checked_at':now.isoformat(),'publishing_enabled':authorised,'paused':state.get('paused') or config.get('paused'),

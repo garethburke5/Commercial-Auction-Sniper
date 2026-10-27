@@ -105,7 +105,9 @@ class Buffer:
 
     def to_draft(self, post_id):
         response=self.request('mutation($input:EditPostInput!){ editPost(input:$input) { __typename ... on PostActionSuccess { post { id status dueAt } } ... on MutationError { message } } }',{'input':{'id':post_id,'saveToDraft':True}},mutation=True)['editPost']
-        if response.get('post',{}).get('status')!='draft':raise BufferError('Could not confirm post returned to draft')
+        if response.get('post',{}).get('status')!='draft':
+            reason=str(response.get('message','')).replace(self._key,'[redacted]')[:300]
+            raise BufferError('Could not confirm post returned to draft: '+response.get('__typename','unknown')+' '+reason)
         return response['post']
 
     def metrics(self, organization, channels):

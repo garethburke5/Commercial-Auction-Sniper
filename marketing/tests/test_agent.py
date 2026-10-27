@@ -287,7 +287,7 @@ def test_changed_property_is_retracted_even_after_approval(tmp_path,monkeypatch)
     setup_files(tmp_path,monkeypatch,[])
     item=property_post(row(),'facebook')
     (tmp_path/'data/properties.json').write_text(json.dumps({'properties':[row(guide_price=250000)],'generated_at':NOW.isoformat()}))
-    state={'posts':{item['key']:{'buffer_id':'owned','channel_id':CFG['channels']['facebook'],'service':'facebook','status':'scheduled','property_id':item['property_id'],'fingerprint':item['fingerprint']}},'attempts':[]}
+    state={'posts':{item['key']:{'buffer_id':'owned','channel_id':CFG['channels']['facebook'],'service':'facebook','status':'scheduled','schedule_origin':'agent','property_id':item['property_id'],'fingerprint':item['fingerprint']}},'attempts':[]}
     remote=[{'id':'owned','channelId':CFG['channels']['facebook'],'status':'scheduled','dueAt':'2026-10-26T08:30:00Z','text':'example'}]
     monkeypatch.setenv('SOCIAL_PUBLISHING_ENABLED','true');client=FakeBuffer(remote)
     perform('monitor',store=MemoryStore({**CFG,'publishing_approved':True},state),client=client,now=NOW)
@@ -436,3 +436,52 @@ def test_required_photo_does_not_silently_become_a_text_card(tmp_path):
 
 def test_owner_rejected_grimsby_stays_out_of_selection():
     assert 'd142e9af0727c19261ce' in CFG['excluded_property_ids']
+
+
+def test_buffer_scheduled_review_draft_survives_closed_automatic_gate(tmp_path,monkeypatch):
+    from marketing.agent import perform
+    post=education_post('facebook');post['image_url']='https://example.com/owned.jpg'
+    setup_files(tmp_path,monkeypatch,[post])
+    remote=[{'id':'owned','channelId':CFG['channels']['facebook'],'status':'scheduled',
+             'dueAt':'2026-10-30T08:30:00Z','text':post['caption']}]
+    state={'posts':{post['key']:{'buffer_id':'owned','channel_id':CFG['channels']['facebook'],
+           'service':'facebook','status':'draft','caption_hash':digest(post['caption'])}},'attempts':[]}
+    client=FakeBuffer(remote);store=MemoryStore(CFG,state)
+    result=perform('drafts',store=store,client=client,now=NOW)
+    assert not client.retracted and not client.created and not result['publishing_enabled']
+    entry=store.values['marketing/state.json']['posts'][post['key']]
+    assert entry['status']=='scheduled' and entry['schedule_origin']=='external'
+    assert entry['due_at']=='2026-10-30T08:30:00Z'
+    perform('monitor',store=store,client=client,now=NOW)
+    assert not client.retracted
+
+
+def test_external_queue_with_missing_property_warns_without_cancelling(tmp_path,monkeypatch):
+    from marketing.agent import perform
+    setup_files(tmp_path,monkeypatch,[])
+    state={'posts':{'facebook:p':{'buffer_id':'owned','channel_id':CFG['channels']['facebook'],
+           'service':'facebook','status':'draft','property_id':'missing'}},'attempts':[]}
+    client=FakeBuffer([{'id':'owned','channelId':CFG['channels']['facebook'],'status':'scheduled',
+                       'dueAt':'2026-10-30T08:30:00Z','text':'example'}])
+    store=MemoryStore(CFG,state)
+    perform('monitor',store=store,client=client,now=NOW)
+    assert not client.retracted
+    assert store.values['marketing/state.json']['posts']['facebook:p']['review_warning']
+
+
+def test_disabled_automatic_gate_retracts_agent_scheduled_post(tmp_path,monkeypatch):
+    from marketing.agent import perform
+    setup_files(tmp_path,monkeypatch,[])
+    state={'posts':{'facebook:p':{'buffer_id':'owned','channel_id':CFG['channels']['facebook'],
+           'service':'facebook','status':'scheduled','schedule_origin':'agent'}},'attempts':[]}
+    client=FakeBuffer([{'id':'owned','channelId':CFG['channels']['facebook'],'status':'scheduled',
+                       'dueAt':'2026-10-30T08:30:00Z','text':'example'}])
+    perform('monitor',store=MemoryStore(CFG,state),client=client,now=NOW)
+    assert client.retracted==['owned']
+
+
+def test_draft_failure_retains_sanitized_union_diagnostic():
+    op=Opener({'data':{'editPost':{'__typename':'PostValidationError','message':'Failure secret-token'}}})
+    with pytest.raises(BufferError,match='PostValidationError') as error:
+        Buffer('secret-token',opener=op).to_draft('p')
+    assert 'secret-token' not in str(error.value)
