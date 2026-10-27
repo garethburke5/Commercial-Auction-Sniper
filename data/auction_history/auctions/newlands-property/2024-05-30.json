@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Newlands Property",
+  "source_auction_id": "newlands-property:2024-05-30",
+  "auction_date": "2024-05-30",
+  "source_url": "https://newlands.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://newlands.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-27T08:17:26.812723+00:00",
+      "sha256": "11ffb0663cd57a278e3bd050e76b6106e7608f8ff134d1fb92a2aaabcdaeb3e8",
+      "snapshot_path": "data/auction_history/sources/newlands-property/past-auctions-page-1-11ffb0663cd57a27.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T08:17:33.490219+00:00"
+}

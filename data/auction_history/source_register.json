@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T08:09:38.997108+00:00",
-  "corpus_checkpoint": "2026-10-27T08:09:18.291778+00:00",
+  "generated_at": "2026-10-27T08:19:16.076829+00:00",
+  "corpus_checkpoint": "2026-10-27T08:18:55.102323+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4714,13 +4714,18 @@
       "name": "Newlands Property",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/newlands-property",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Newlands Property",
+      "match_basis": "exact label",
+      "retained_appearances": 9,
+      "years_with_retained_evidence": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 9,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8062,7 +8067,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 482,
+  "directory_entries_not_linked": 481,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8132,6 +8137,7 @@
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
     "Network Auctions": 1202,
+    "Newlands Property": 9,
     "Online Property Auction Group": 51,
     "Opal Property": 20,
     "Pattinson Auctions": 449,
@@ -8165,13 +8171,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292114,
-      "auction_ids_observed": 9566,
-      "with_guide_price": 98877,
+      "lot_appearances": 292123,
+      "auction_ids_observed": 9575,
+      "with_guide_price": 98886,
       "with_sale_price": 110576,
       "with_both_prices": 47385,
-      "marked_sold": 149624,
-      "marked_sold_without_sale_price": 39788
+      "marked_sold": 149629,
+      "marked_sold_without_sale_price": 39793
     },
     "by_auctioneer_and_year": [
       {
@@ -13497,6 +13503,50 @@
         "with_both_prices": 0,
         "marked_sold": 42,
         "marked_sold_without_sale_price": 17
+      },
+      {
+        "auctioneer": "Newlands Property",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Newlands Property",
+        "year": 2024,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 4,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Newlands Property",
+        "year": 2025,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Newlands Property",
+        "year": 2026,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Online Property Auction Group",
@@ -20381,7 +20431,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T08:09:38.666861+00:00",
+    "checked_at": "2026-10-27T08:19:15.749254+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
