@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T04:10:17.276749+00:00",
-  "corpus_checkpoint": "2026-10-27T04:10:01.790355+00:00",
+  "generated_at": "2026-10-27T05:01:02.127651+00:00",
+  "corpus_checkpoint": "2026-10-27T05:00:43.813173+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -6390,13 +6390,15 @@
       "name": "Sage & Co Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/sage-co-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Sage & Co Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 17,
+      "years_with_retained_evidence": [
+        2026
+      ],
+      "with_guide_price": 15,
+      "with_sale_price": 4,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8045,7 +8047,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 486,
+  "directory_entries_not_linked": 485,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8122,6 +8124,7 @@
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
+    "Sage & Co Auctions": 17,
     "Savills": 2,
     "Savills (London - National)": 3,
     "Savills Auctions": 30930,
@@ -8144,13 +8147,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292031,
-      "auction_ids_observed": 9505,
-      "with_guide_price": 98809,
-      "with_sale_price": 110539,
-      "with_both_prices": 47359,
-      "marked_sold": 149576,
-      "marked_sold_without_sale_price": 39777
+      "lot_appearances": 292046,
+      "auction_ids_observed": 9511,
+      "with_guide_price": 98824,
+      "with_sale_price": 110543,
+      "with_both_prices": 47363,
+      "marked_sold": 149581,
+      "marked_sold_without_sale_price": 39778
     },
     "by_auctioneer_and_year": [
       {
@@ -14061,6 +14064,17 @@
         "marked_sold_without_sale_price": 5
       },
       {
+        "auctioneer": "Sage & Co Auctions",
+        "year": 2026,
+        "lot_appearances": 15,
+        "auction_ids_observed": 6,
+        "with_guide_price": 15,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 1
+      },
+      {
         "auctioneer": "Savills (London - National)",
         "year": 2014,
         "lot_appearances": 3,
@@ -15019,7 +15033,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 147,
+    "future_dated_appearances": 149,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -20202,7 +20216,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T04:10:17.053376+00:00",
+    "checked_at": "2026-10-27T05:01:01.885768+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

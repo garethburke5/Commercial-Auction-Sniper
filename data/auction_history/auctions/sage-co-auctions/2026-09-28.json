@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Sage & Co Auctions",
+  "source_auction_id": "sage-co-auctions:2026-09-28",
+  "auction_date": "2026-09-28",
+  "source_url": "https://sageandco.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://sageandco.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-27T04:59:23.386901+00:00",
+      "sha256": "7be413a7cef1d16febfc6e1c5a5dadda0ae5ea07200968195be7dd8f9268508d",
+      "snapshot_path": "data/auction_history/sources/sage-co-auctions/past-auctions-page-1-7be413a7cef1d16f.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T04:59:29.917426+00:00"
+}

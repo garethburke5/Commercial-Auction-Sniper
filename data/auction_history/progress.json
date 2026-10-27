@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-27T04:10:01.790355+00:00",
-  "individual_lot_records_captured": 299609,
-  "records_with_address": 288839,
+  "generated_at": "2026-10-27T05:00:43.813173+00:00",
+  "individual_lot_records_captured": 299626,
+  "records_with_address": 288856,
   "partial_lot_records": 10770,
-  "exact_address_groups": 159677,
+  "exact_address_groups": 159694,
   "groups_with_repeat_appearances": 40932,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -81,6 +81,7 @@
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
+    "Sage & Co Auctions": 17,
     "Savills": 2,
     "Savills (London - National)": 3,
     "Savills Auctions": 30930,
@@ -124,20 +125,20 @@
     "2023": 31914,
     "2024": 39914,
     "2025": 45848,
-    "2026": 43940
+    "2026": 43957
   },
   "by_sector": {
-    "commercial": 41984,
-    "land": 18269,
-    "mixed-use": 46836,
-    "residential": 145602,
-    "unknown": 46918
+    "commercial": 41985,
+    "land": 18272,
+    "mixed-use": 46839,
+    "residential": 145610,
+    "unknown": 46920
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3448,
+  "surviving_catalogues_completely_harvested": 3455,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -151,13 +152,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292031,
-      "auction_ids_observed": 9505,
-      "with_guide_price": 98809,
-      "with_sale_price": 110539,
-      "with_both_prices": 47359,
-      "marked_sold": 149576,
-      "marked_sold_without_sale_price": 39777
+      "lot_appearances": 292046,
+      "auction_ids_observed": 9511,
+      "with_guide_price": 98824,
+      "with_sale_price": 110543,
+      "with_both_prices": 47363,
+      "marked_sold": 149581,
+      "marked_sold_without_sale_price": 39778
     },
     "by_auctioneer_and_year": [
       {
@@ -6068,6 +6069,17 @@
         "marked_sold_without_sale_price": 5
       },
       {
+        "auctioneer": "Sage & Co Auctions",
+        "year": 2026,
+        "lot_appearances": 15,
+        "auction_ids_observed": 6,
+        "with_guide_price": 15,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 1
+      },
+      {
         "auctioneer": "Savills (London - National)",
         "year": 2014,
         "lot_appearances": 3,
@@ -7026,7 +7038,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 147,
+    "future_dated_appearances": 149,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
