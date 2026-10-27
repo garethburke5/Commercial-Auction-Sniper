@@ -1344,3 +1344,16 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   price evidence. Reconcile the Astleys trading/operator identity and any
   shared-EIG overlaps before adding it to the reusable retained-grid collector.
   National completeness remains false.
+
+## 27 October 2026 — Astleys retained-grid expansion
+
+- The focused Astleys collector banked **26 net-new individual property appearances** from the complete surviving first-party EIG grid: **26 address records**, **0 partial**, **0 undated**, **0 future-dated**, and **0 duplicate source appearances**.
+- All 26 addresses have exact auction dates inside the current 20-year window, spanning **7 February 2023 to 20 March 2026** and adding source-years **2023, 2024, 2025 and 2026**.
+- Sector evidence comprises 20 residential, 3 commercial, 1 land and 2 unknown appearances; the commercial/mixed-use increment is **3** (3 commercial, 0 mixed-use).
+- Newly banked price evidence is **23 guide prices** and **15 achieved sale prices**; no rent values were published in these retained lots. Outcomes are 15 sold, 5 unsold, 4 withdrawn, 1 sold prior and 1 sold after.
+- Operator reconciliation is explicit: Astleys is one Swansea operator under **ASTLEY SAMUEL LEEDER LTD (company 03129558)**. No branch, alias or shared-platform participant was counted as another auctioneer.
+- The immutable evidence set contains 26 original lot URLs, 26 grid snapshots and 26 detail snapshots. Canonical verification found 26 unique appearance IDs and 26 unique source lot IDs.
+- The rebuilt corpus now contains **299,676 appearances**, including **288,906 address records**, **10,770 partial records**, **292,094 exact-dated address records inside the current 20-year window**, **98,857 guide-price records** and **110,576 achieved-price records**. Undated remains 4,388 and future-dated remains 151.
+- Collector and workflow verification passed **458 tests** (365 collector tests plus 93 workflow tests). National completeness remains false.
+- Sarah Mains was rejected as the next target because its apparent 588-lot subdomain redirects to Auction Works, whose 644 retained appearances already cover the shared platform; treating it as a new operator would inflate growth.
+- **Next growth target:** batch the accessible uncovered Opal Property retained grid (20 visible address cards, 2020-2023) with the Newlands Property retained grid (9 visible address cards), reconcile their legal operators and stable-ID overlaps, then bank only genuine net-new appearances. The former Star Property 16-card route currently returns 404 and is not the next collection route.

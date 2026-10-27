@@ -1,31 +1,31 @@
 {
   "next_task": 4,
   "last_manual_growth": {
-    "checked_at": "2026-10-27T06:11:39+00:00",
-    "opportunity": "Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation",
-    "saved_candidate_rows": 24,
+    "checked_at": "2026-10-27T07:09:27.193507+00:00",
+    "opportunity": "Astleys complete first-party retained EIG archive and operator reconciliation",
+    "saved_candidate_rows": 26,
     "overlapping_rows_excluded": 0,
-    "net_new_appearances": 24,
-    "new_address_records": 24,
+    "net_new_appearances": 26,
+    "new_address_records": 26,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 22,
+    "new_dated_address_records_in_twenty_year_window": 26,
     "new_undated_appearances": 0,
-    "new_future_dated_appearances": 2,
-    "commercial_or_mixed_use": 1,
-    "new_guide_prices": 12,
-    "new_sale_prices": 16,
-    "new_guide_prices_in_twenty_year_window": 10,
-    "new_sale_prices_in_twenty_year_window": 16,
+    "new_future_dated_appearances": 0,
+    "commercial_or_mixed_use": 3,
+    "new_guide_prices": 23,
+    "new_sale_prices": 15,
+    "new_guide_prices_in_twenty_year_window": 23,
+    "new_sale_prices_in_twenty_year_window": 15,
     "new_rent_values": 0,
     "new_source_year_pairs": 4,
     "duplicate_appearance_ids": 0,
     "explicit_test_appearances_excluded": 0,
     "non_auction_property_cards_excluded": 0,
-    "operator_reconciliation": "Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.",
-    "persisted_shard_verification": "24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.",
+    "operator_reconciliation": "Astleys is retained as one genuine Swansea operator under ASTLEY SAMUEL LEEDER LTD (company 03129558); no branch, alias or shared-platform participant is counted as an additional auctioneer.",
+    "persisted_shard_verification": "26 rows, 26 unique appearance IDs, 26 unique source lot IDs, 26 original URLs, 26 grid source-evidence records and 26 detail source-evidence records.",
     "database_rebuild_verified": true
   },
-  "next_growth_target": "Reconcile directory-listed Astleys as a genuine UK operator/trading identity, then collect https://astleys.eigonlineauctions.com/search. The surviving first-party EIG archive currently exposes 26 completed address cards spanning 2023 through 2026 and zero retained corpus appearances, with published guide, outcome and achieved-price evidence. Reconcile any shared-EIG stable-ID overlaps before claiming growth; preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots, and do not count branches or aliases as additional auctioneers.",
+  "next_growth_target": "Batch two accessible uncovered first-party retained EIG archives rather than revisit the exhausted Astleys route: collect Opal Property at https://opal-online.eigonlineauctions.com/search (20 visible address cards, 2020-2023) and Newlands Property at https://newlands.eigonlineauctions.com/search (9 visible address cards in the latest discovery). Reconcile each legal operator and any shared-EIG stable-ID overlap before claiming growth; preserve dates, guide and achieved prices, rents, all published outcomes, original URLs and immutable snapshots. Star Property's former 16-card route now returns 404, so it is not the next collection route.",
   "runs": [
     {
       "source": "cheffins_history",
@@ -4034,6 +4034,13 @@
       "diagnostic_tail": "{\"checked_at\":\"2026-10-27T06:11:39+00:00\",\"opportunity\":\"Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation\",\"saved_candidate_rows\":24,\"overlapping_rows_excluded\":0,\"net_new_appearances\":24,\"new_address_records\":24,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":22,\"new_undated_appearances\":0,\"new_future_dated_appearances\":2,\"commercial_or_mixed_use\":1,\"new_guide_prices\":12,\"new_sale_prices\":16,\"new_guide_prices_in_twenty_year_window\":10,\"new_sale_prices_in_twenty_year_window\":16,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.\",\"persisted_shard_verification\":\"24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.\",\"database_rebuild_verified\":true}",
       "duration_seconds": 10.57,
       "checked_at": "2026-10-27T06:09:19.746375+00:00"
+    },
+    {
+      "source": "astleys",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"checked_at\":\"2026-10-27T07:09:27.193507+00:00\",\"opportunity\":\"Astleys complete first-party retained EIG archive and operator reconciliation\",\"saved_candidate_rows\":26,\"overlapping_rows_excluded\":0,\"net_new_appearances\":26,\"new_address_records\":26,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":26,\"new_undated_appearances\":0,\"new_future_dated_appearances\":0,\"commercial_or_mixed_use\":3,\"new_guide_prices\":23,\"new_sale_prices\":15,\"new_guide_prices_in_twenty_year_window\":23,\"new_sale_prices_in_twenty_year_window\":15,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Astleys is retained as one genuine Swansea operator under ASTLEY SAMUEL LEEDER LTD (company 03129558); no branch, alias or shared-platform participant is counted as an additional auctioneer.\",\"persisted_shard_verification\":\"26 rows, 26 unique appearance IDs, 26 unique source lot IDs, 26 original URLs, 26 grid source-evidence records and 26 detail source-evidence records.\",\"database_rebuild_verified\":true}",
+      "checked_at": "2026-10-27T07:09:27.193507+00:00"
     }
   ],
   "latest_by_source": {
@@ -4516,6 +4523,13 @@
       "diagnostic_tail": "{\"checked_at\":\"2026-10-27T06:11:39+00:00\",\"opportunity\":\"Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation\",\"saved_candidate_rows\":24,\"overlapping_rows_excluded\":0,\"net_new_appearances\":24,\"new_address_records\":24,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":22,\"new_undated_appearances\":0,\"new_future_dated_appearances\":2,\"commercial_or_mixed_use\":1,\"new_guide_prices\":12,\"new_sale_prices\":16,\"new_guide_prices_in_twenty_year_window\":10,\"new_sale_prices_in_twenty_year_window\":16,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.\",\"persisted_shard_verification\":\"24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.\",\"database_rebuild_verified\":true}",
       "duration_seconds": 10.57,
       "checked_at": "2026-10-27T06:09:19.746375+00:00"
+    },
+    "astleys": {
+      "source": "astleys",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"checked_at\":\"2026-10-27T07:09:27.193507+00:00\",\"opportunity\":\"Astleys complete first-party retained EIG archive and operator reconciliation\",\"saved_candidate_rows\":26,\"overlapping_rows_excluded\":0,\"net_new_appearances\":26,\"new_address_records\":26,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":26,\"new_undated_appearances\":0,\"new_future_dated_appearances\":0,\"commercial_or_mixed_use\":3,\"new_guide_prices\":23,\"new_sale_prices\":15,\"new_guide_prices_in_twenty_year_window\":23,\"new_sale_prices_in_twenty_year_window\":15,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Astleys is retained as one genuine Swansea operator under ASTLEY SAMUEL LEEDER LTD (company 03129558); no branch, alias or shared-platform participant is counted as an additional auctioneer.\",\"persisted_shard_verification\":\"26 rows, 26 unique appearance IDs, 26 unique source lot IDs, 26 original URLs, 26 grid source-evidence records and 26 detail source-evidence records.\",\"database_rebuild_verified\":true}",
+      "checked_at": "2026-10-27T07:09:27.193507+00:00"
     }
   }
 }
