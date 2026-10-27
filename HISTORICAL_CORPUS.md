@@ -53,6 +53,7 @@ python scripts/harvest_eig_retained_grids.py property-auction-agent --workers 16
 python scripts/harvest_eig_retained_grids.py lot9-auction-house --workers 16
 python scripts/harvest_eig_retained_grids.py auction-north --workers 16
 python scripts/harvest_eig_retained_grids.py sage-co-auctions --workers 16
+python scripts/harvest_eig_retained_grids.py bowen --workers 16
 python scripts/harvest_propertyauctions_allsop_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py

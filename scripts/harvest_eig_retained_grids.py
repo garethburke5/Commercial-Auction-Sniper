@@ -85,6 +85,16 @@ SOURCES = {
         "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
         "operator_company_number": "13328873",
     },
+    "bowen": {
+        "auctioneer": "Bowen",
+        "base": "https://bowensonandwatson.eigonlineauctions.com",
+        "archive_path": "/search",
+        "historical_trading_names": [
+            "Bowen Son and Watson",
+            "Bowen Son and Watson with Kent Jones",
+        ],
+        "merged_firms": ["Kent Jones"],
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -645,10 +655,16 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
         "failures": [],
     }
-    if source.get("operator_legal_name"):
+    if any(source.get(key) for key in (
+        "operator_legal_name", "historical_trading_names", "merged_firms",
+    )):
         summary.update({
-            "operator_legal_name": source["operator_legal_name"],
+            "operator_legal_name": source.get("operator_legal_name"),
             "operator_company_number": source.get("operator_company_number"),
+            "historical_trading_names_not_counted_as_auctioneers": source.get(
+                "historical_trading_names", []
+            ),
+            "merged_firms_not_counted_as_auctioneers": source.get("merged_firms", []),
             "partner_agents_not_counted_as_auctioneers": source.get("partner_agents", []),
         })
     if legacy:

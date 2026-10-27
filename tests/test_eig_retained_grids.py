@@ -238,6 +238,19 @@ def test_sage_co_uses_full_archive_and_distinct_legal_operator():
     }
 
 
+def test_bowen_reconciles_historical_trading_names_as_one_operator():
+    assert grids.SOURCES["bowen"] == {
+        "auctioneer": "Bowen",
+        "base": "https://bowensonandwatson.eigonlineauctions.com",
+        "archive_path": "/search",
+        "historical_trading_names": [
+            "Bowen Son and Watson",
+            "Bowen Son and Watson with Kent Jones",
+        ],
+        "merged_firms": ["Kent Jones"],
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
