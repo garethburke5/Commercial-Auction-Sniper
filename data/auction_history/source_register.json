@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T06:11:30.398221+00:00",
-  "corpus_checkpoint": "2026-10-27T06:11:05.855056+00:00",
+  "generated_at": "2026-10-27T07:11:44.688231+00:00",
+  "corpus_checkpoint": "2026-10-27T07:11:19.962025+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -252,13 +252,18 @@
       "name": "Astleys",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/astleys",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Astleys",
+      "match_basis": "exact label",
+      "retained_appearances": 26,
+      "years_with_retained_evidence": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 23,
+      "with_sale_price": 15,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8052,7 +8057,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 484,
+  "directory_entries_not_linked": 483,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8060,6 +8065,7 @@
     "Allsop": 44928,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
+    "Astleys": 26,
     "Auction Estates": 2072,
     "Auction Hammer Midlands": 128,
     "Auction House Beds & Bucks": 14,
@@ -8153,13 +8159,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292068,
-      "auction_ids_observed": 9524,
-      "with_guide_price": 98834,
-      "with_sale_price": 110561,
-      "with_both_prices": 47371,
-      "marked_sold": 149600,
-      "marked_sold_without_sale_price": 39779
+      "lot_appearances": 292094,
+      "auction_ids_observed": 9548,
+      "with_guide_price": 98857,
+      "with_sale_price": 110576,
+      "with_both_prices": 47385,
+      "marked_sold": 149617,
+      "marked_sold_without_sale_price": 39781
     },
     "by_auctioneer_and_year": [
       {
@@ -8677,6 +8683,50 @@
         "with_sale_price": 3,
         "with_both_prices": 3,
         "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2023,
+        "lot_appearances": 15,
+        "auction_ids_observed": 13,
+        "with_guide_price": 13,
+        "with_sale_price": 8,
+        "with_both_prices": 7,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2024,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 3,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2025,
+        "lot_appearances": 6,
+        "auction_ids_observed": 6,
+        "with_guide_price": 6,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2026,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -15565,6 +15615,14 @@
       "diagnostic_tail": "_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2026-08-05\",\n    \"2026-11-18\"\n  ],\n  \"by_status\": {\n    \"unknown\": 2,\n    \"unsold\": 5,\n    \"withdrawn\": 3,\n    \"postponed\": 2,\n    \"sold\": 2,\n    \"sold_prior\": 3\n  },\n  \"by_sector\": {\n    \"residential\": 8,\n    \"land\": 3,\n    \"unknown\": 2,\n    \"mixed-use\": 3,\n    \"commercial\": 1\n  },\n  \"detail_pages_captured\": 17,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": [],\n  \"operator_legal_name\": \"SAGE & CO AUCTIONS LIMITED\",\n  \"operator_company_number\": \"13328873\",\n  \"partner_agents_not_counted_as_auctioneers\": []\n}\n{\n  \"checked_at\": \"2026-10-27T05:43:30.826173+00:00\",\n  \"auctioneer\": \"Boultons Harrisons Ltd\",\n  \"parser_version\": 6,\n  \"source_url\": \"https://www.boultonsauctions.co.uk/past-auctions?lotResultType=All\",\n  \"archive_sha256\": \"a248c0e5c8fd15dc339760469351bd4b274f7d0faf8bdeec4b7a8cca9712b4bd\",\n  \"archive_page_count\": 2,\n  \"archive_page_rows\": [\n    50,\n    12\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    12\n  ],\n  \"visible_source_rows\": 62,\n  \"published_result_count\": 62,\n  \"distinct_source_identities\": 62,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"appearances_captured\": 62,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 3,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2025-01-22\",\n    \"2026-10-07\"\n  ],\n  \"by_status\": {\n    \"unsold\": 24,\n    \"sold\": 27,\n    \"sold_prior\": 3,\n    \"withdrawn\": 5,\n    \"sold_after\": 1,\n    \"postponed\": 2\n  },\n  \"by_sector\": {\n    \"land\": 7,\n    \"residential\": 47,\n    \"commercial\": 7,\n    \"unknown\": 1\n  },\n  \"detail_pages_captured\": 62,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-10-27T05:43:42.611099+00:00\",\n  \"auctioneer\": \"Online Property Auction Group\",\n  \"parser_version\": 6,\n  \"source_url\": \"https://www.opagroup.co.uk/past-auctions?lotResultType=All\",\n  \"archive_sha256\": \"1a5864b4466a1690db3eef6f2950f4f1fcb3e4d5a501a167ffb0e17f14ce3d2c\",\n  \"archive_page_count\": 2,\n  \"archive_page_rows\": [\n    50,\n    1\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    1\n  ],\n  \"visible_source_rows\": 51,\n  \"published_result_count\": 51,\n  \"distinct_source_identities\": 51,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"appearances_captured\": 51,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 2,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2023-09-21\",\n    \"2026-10-28\"\n  ],\n  \"by_status\": {\n    \"sold\": 47,\n    \"withdrawn\": 3,\n    \"sold_prior\": 1\n  },\n  \"by_sector\": {\n    \"land\": 8,\n    \"commercial\": 15,\n    \"residential\": 20,\n    \"mixed-use\": 8\n  },\n  \"detail_pages_captured\": 51,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-10-27T05:43:55.113111+00:00\",\n  \"auctioneer\": \"The Auction Company\",\n  \"parser_version\": 6,\n  \"source_url\": \"https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All\",\n  \"archive_sha256\": \"e9da58a54bf5833da73e356eff2fbaf7594c3f56a4e38eaa5701746a2287b328\",\n  \"archive_page_count\": 3,\n  \"archive_page_rows\": [\n    50,\n    50,\n    23\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    50,\n    23\n  ],\n  \"visible_source_rows\": 123,\n  \"published_result_count\": 123,\n  \"distinct_source_identities\": 123,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"appearances_captured\": 123,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 1,\n  \"run_new_rents\": 12,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2023-11-25\",\n    \"2026-10-26\"\n  ],\n  \"by_status\": {\n    \"sold\": 80,\n    \"sold_prior\": 41,\n    \"sold_after\": 2\n  },\n  \"by_sector\": {\n    \"residential\": 113,\n    \"unknown\": 4,\n    \"commercial\": 3,\n    \"land\": 1,\n    \"mixed-use\": 2\n  },\n  \"detail_pages_captured\": 123,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"sources\": [\n    \"auction-works\",\n    \"bradley-hall\",\n    \"brown-co\",\n    \"clarke-simpson\",\n    \"higgins-drysdale\",\n    \"the-property-auction-house\",\n    \"property-auction-agent\",\n    \"lot9-auction-house\",\n    \"auction-north\",\n    \"sage-co-auctions\",\n    \"boultons-harrisons\",\n    \"online-property-auction-group\",\n    \"the-auction-company\"\n  ],\n  \"run_new_appearances\": 0\n}\n",
       "duration_seconds": 275.22,
       "checked_at": "2026-10-27T05:43:55.203173+00:00"
+    },
+    "bowen": {
+      "source": "bowen",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"checked_at\":\"2026-10-27T06:11:39+00:00\",\"opportunity\":\"Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation\",\"saved_candidate_rows\":24,\"overlapping_rows_excluded\":0,\"net_new_appearances\":24,\"new_address_records\":24,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":22,\"new_undated_appearances\":0,\"new_future_dated_appearances\":2,\"commercial_or_mixed_use\":1,\"new_guide_prices\":12,\"new_sale_prices\":16,\"new_guide_prices_in_twenty_year_window\":10,\"new_sale_prices_in_twenty_year_window\":16,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.\",\"persisted_shard_verification\":\"24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.\",\"database_rebuild_verified\":true}",
+      "duration_seconds": 10.57,
+      "checked_at": "2026-10-27T06:09:19.746375+00:00"
     }
   },
   "unresolved_catalogues": [
@@ -20266,7 +20324,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T06:11:29.882979+00:00",
+    "checked_at": "2026-10-27T07:11:44.161053+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

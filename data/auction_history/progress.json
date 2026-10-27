@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-27T06:11:05.855056+00:00",
-  "individual_lot_records_captured": 299650,
-  "records_with_address": 288880,
+  "generated_at": "2026-10-27T07:11:19.962025+00:00",
+  "individual_lot_records_captured": 299676,
+  "records_with_address": 288906,
   "partial_lot_records": 10770,
-  "exact_address_groups": 159718,
+  "exact_address_groups": 159744,
   "groups_with_repeat_appearances": 40932,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -12,6 +12,7 @@
     "Allsop": 44928,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
+    "Astleys": 26,
     "Auction Estates": 2072,
     "Auction Hammer Midlands": 128,
     "Auction House Beds & Bucks": 14,
@@ -123,23 +124,23 @@
     "2020": 13779,
     "2021": 20574,
     "2022": 25523,
-    "2023": 31915,
-    "2024": 39914,
-    "2025": 45848,
-    "2026": 43962
+    "2023": 31930,
+    "2024": 39918,
+    "2025": 45854,
+    "2026": 43963
   },
   "by_sector": {
-    "commercial": 41986,
-    "land": 18277,
+    "commercial": 41989,
+    "land": 18278,
     "mixed-use": 46839,
-    "residential": 145628,
-    "unknown": 46920
+    "residential": 145648,
+    "unknown": 46922
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3470,
+  "surviving_catalogues_completely_harvested": 3494,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -153,13 +154,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292068,
-      "auction_ids_observed": 9524,
-      "with_guide_price": 98834,
-      "with_sale_price": 110561,
-      "with_both_prices": 47371,
-      "marked_sold": 149600,
-      "marked_sold_without_sale_price": 39779
+      "lot_appearances": 292094,
+      "auction_ids_observed": 9548,
+      "with_guide_price": 98857,
+      "with_sale_price": 110576,
+      "with_both_prices": 47385,
+      "marked_sold": 149617,
+      "marked_sold_without_sale_price": 39781
     },
     "by_auctioneer_and_year": [
       {
@@ -677,6 +678,50 @@
         "with_sale_price": 3,
         "with_both_prices": 3,
         "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2023,
+        "lot_appearances": 15,
+        "auction_ids_observed": 13,
+        "with_guide_price": 13,
+        "with_sale_price": 8,
+        "with_both_prices": 7,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2024,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 3,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2025,
+        "lot_appearances": 6,
+        "auction_ids_observed": 6,
+        "with_guide_price": 6,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Astleys",
+        "year": 2026,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
         "marked_sold_without_sale_price": 0
       },
       {
