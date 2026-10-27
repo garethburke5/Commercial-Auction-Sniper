@@ -1270,3 +1270,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   outcomes, original URLs and immutable snapshots. National completeness
   remains false.
 
+## 27 October 2026 — Sage & Co Auctions retained-grid expansion
+
+- Reconciled all **17** published auction-lot cards in Sage & Co Auctions'
+  surviving first-party EIG archive. The one-page denominator, 17 distinct
+  stable identities and all 17 detail pages reconcile exactly, with no
+  malformed rows, non-auction exclusions, shared-platform overlaps or recovery
+  failures.
+- Banked **17 net new address appearances** with no partial, undated or
+  duplicate-derived additions. **15** are exact-dated inside the current
+  20-year window and two are explicitly future-dated to 18 November 2026.
+  Source-year 2026 is newly represented.
+- Added **17 guide-price records** (15 within the current window), **4 achieved
+  prices** and no published rent values. The evidence-based sector split is
+  eight residential, three mixed-use, three land, one commercial and two
+  evidence-limited unknown appearances. Outcomes remain distinct: two sold,
+  three sold-prior, five unsold, three withdrawn, two postponed and two
+  current/future unknown listings.
+- Reconciled the operator before counting coverage: **SAGE & CO AUCTIONS
+  LIMITED** (company 13328873) is the auctioneer. The company number appears on
+  the first-party archive itself and agrees with the Companies House record.
+- The rebuilt corpus contains **299,626 appearances**: 288,856 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 292,046
+  appearances, with 98,824 guide-price records and 110,543 sale-price records.
+  The canonical shard contains 17 unique appearance IDs and 17 unique source
+  lot IDs; every row retains its original URL, grid evidence and detail
+  evidence. Focused tests, database rebuild, packaging, source-register
+  reconciliation and protected publication completed successfully.
+- Next concrete growth target: reconcile directory-listed **Bowen** with the
+  surviving **Bowen Son and Watson** trading name and its rebranded first-party
+  site, then collect
+  `https://bowensonandwatson.eigonlineauctions.com/search`. The archive
+  currently exposes 24 stable cards: 22 completed rows spanning 2021, 2023 and
+  2026 plus two future-dated November 2026 listings. It has zero retained
+  corpus appearances. Preserve the trading-name history without counting an
+  alias as a second operator, and bank individual dates, guides, achieved
+  prices, rents, outcomes, original URLs and immutable snapshots. National
+  completeness remains false.
+
