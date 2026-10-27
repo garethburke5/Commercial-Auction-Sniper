@@ -1,34 +1,37 @@
 {
-  "checked_at": "2026-10-26T21:04:14.297589+00:00",
+  "checked_at": "2026-10-27T00:09:11.691598+00:00",
   "auctioneer": "Bradley Hall",
-  "parser_version": 2,
+  "parser_version": 3,
   "source_url": "https://auction.bradleyhall.co.uk/search",
-  "archive_sha256": "8d8f7a42dd35079d1f6fdb9ad823534f73bfbd5c95891d1c7398d502a3df8da9",
+  "archive_sha256": "863409f1bb1f967b46ea7653e8ccc35655138a5b5c41b37c812545b7d275bf71",
   "archive_page_count": 2,
   "archive_page_rows": [
+    50,
+    25
+  ],
+  "archive_page_visible_cards": [
     50,
     25
   ],
   "visible_source_rows": 75,
   "published_result_count": 75,
   "distinct_source_identities": 75,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 75,
-  "run_new_appearances": 75,
-  "run_new_address_records": 75,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 54,
-  "run_new_commercial_mixed": 21,
-  "run_new_guide_prices": 75,
-  "run_new_sale_prices": 50,
-  "run_new_rents": 11,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 21,
+  "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
-  "new_source_years": [
-    2025,
-    2026
-  ],
+  "new_source_years": [],
   "date_range": [
     "2025-04-22",
     "2026-11-23"
@@ -48,6 +51,6 @@
   },
   "detail_pages_captured": 75,
   "detail_recovery_failures": [],
-  "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []
 }

@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-26T10:16:28.273786+00:00",
+  "checked_at": "2026-10-27T00:10:21.245063+00:00",
   "auctioneer": "Online Property Auction Group",
-  "parser_version": 2,
+  "parser_version": 3,
   "source_url": "https://www.opagroup.co.uk/past-auctions?lotResultType=All",
   "archive_sha256": "1a5864b4466a1690db3eef6f2950f4f1fcb3e4d5a501a167ffb0e17f14ce3d2c",
   "archive_page_count": 2,
@@ -9,8 +9,15 @@
     50,
     1
   ],
+  "archive_page_visible_cards": [
+    50,
+    1
+  ],
   "visible_source_rows": 51,
+  "published_result_count": 51,
   "distinct_source_identities": 51,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 51,
   "run_new_appearances": 0,
@@ -42,6 +49,6 @@
   },
   "detail_pages_captured": 51,
   "detail_recovery_failures": [],
-  "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []
 }

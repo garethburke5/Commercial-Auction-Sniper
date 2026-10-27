@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-26T20:22:25.286658+00:00",
+  "checked_at": "2026-10-27T00:25:06.449752+00:00",
   "auctions_discovered": 23,
   "catalogue_states_present": 23,
   "catalogues_complete": 23,
@@ -10,9 +10,32 @@
   "complete": true,
   "detail_rows_enriched": 3794,
   "detail_rows_remaining": 2,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
-  "run_new_partial_lots": 0,
-  "run_by_sector": {},
-  "failures": []
+  "run_detail_rows_enriched": 0,
+  "run_detail_failures": [
+    {
+      "appearance_id": "Clive Emson|clive-emson:231|4",
+      "url": "https://www.cliveemson.co.uk/properties/231/4/",
+      "error": "ValueError: detail page has no lot header/address"
+    },
+    {
+      "appearance_id": "Clive Emson|clive-emson:231|101",
+      "url": "https://www.cliveemson.co.uk/properties/231/101/",
+      "error": "ValueError: detail page has no lot header/address"
+    },
+    {
+      "appearance_id": "Clive Emson|clive-emson:231|5",
+      "url": "https://www.cliveemson.co.uk/properties/231/5/",
+      "error": "ValueError: detail page has no lot header/address"
+    },
+    {
+      "appearance_id": "Clive Emson|clive-emson:231|51",
+      "url": "https://www.cliveemson.co.uk/properties/231/51/",
+      "error": "ValueError: detail page has no lot header/address"
+    },
+    {
+      "appearance_id": "Clive Emson|clive-emson:231|58",
+      "url": "https://www.cliveemson.co.uk/properties/231/58/",
+      "error": "ValueError: detail page has no lot header/address"
+    }
+  ]
 }

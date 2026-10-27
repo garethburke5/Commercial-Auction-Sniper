@@ -1,16 +1,23 @@
 {
-  "checked_at": "2026-10-26T20:09:00.271238+00:00",
+  "checked_at": "2026-10-27T00:10:09.826705+00:00",
   "auctioneer": "Boultons Harrisons Ltd",
-  "parser_version": 2,
+  "parser_version": 3,
   "source_url": "https://www.boultonsauctions.co.uk/past-auctions?lotResultType=All",
-  "archive_sha256": "4d7cf48e27eb01cc38e18753f6a194fa586a0edc966f85ef045b28018f338de3",
+  "archive_sha256": "db15e0675dbd5be074230c753216d6c5edd5c57c082f968f4c4405825fe7576e",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
     12
   ],
+  "archive_page_visible_cards": [
+    50,
+    12
+  ],
   "visible_source_rows": 62,
+  "published_result_count": 62,
   "distinct_source_identities": 62,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 62,
   "run_new_appearances": 0,
@@ -45,6 +52,6 @@
   },
   "detail_pages_captured": 62,
   "detail_recovery_failures": [],
-  "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []
 }

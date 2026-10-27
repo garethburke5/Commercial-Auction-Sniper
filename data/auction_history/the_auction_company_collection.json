@@ -1,17 +1,25 @@
 {
-  "checked_at": "2026-10-26T20:09:21.818513+00:00",
+  "checked_at": "2026-10-27T00:10:33.524990+00:00",
   "auctioneer": "The Auction Company",
-  "parser_version": 2,
+  "parser_version": 3,
   "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All",
-  "archive_sha256": "b83ac5369c57d6531111d5103bf770207c2b4e8bdf9f5564409459e624ab329e",
+  "archive_sha256": "0417a42e3fc9bcb3a78f4fcf86437f89bfeceae550b0bbd529d92406e7bb1a4e",
   "archive_page_count": 3,
   "archive_page_rows": [
     50,
     50,
     23
   ],
+  "archive_page_visible_cards": [
+    50,
+    50,
+    23
+  ],
   "visible_source_rows": 123,
+  "published_result_count": 123,
   "distinct_source_identities": 123,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 123,
   "run_new_appearances": 0,
@@ -45,6 +53,6 @@
   },
   "detail_pages_captured": 123,
   "detail_recovery_failures": [],
-  "completion_scope": "every card in every page of the surviving first-party past-auction grid; deleted earlier lots are not claimed",
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []
 }
