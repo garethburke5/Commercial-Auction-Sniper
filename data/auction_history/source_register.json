@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T07:11:44.688231+00:00",
-  "corpus_checkpoint": "2026-10-27T07:11:19.962025+00:00",
+  "generated_at": "2026-10-27T08:09:38.997108+00:00",
+  "corpus_checkpoint": "2026-10-27T08:09:18.291778+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4849,13 +4849,18 @@
       "name": "Opal Property",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/opal-property",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Opal Property",
+      "match_basis": "exact label",
+      "retained_appearances": 20,
+      "years_with_retained_evidence": [
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "with_guide_price": 20,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8057,7 +8062,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 483,
+  "directory_entries_not_linked": 482,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8128,6 +8133,7 @@
     "McHugh & Co": 14133,
     "Network Auctions": 1202,
     "Online Property Auction Group": 51,
+    "Opal Property": 20,
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
@@ -8159,13 +8165,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292094,
-      "auction_ids_observed": 9548,
-      "with_guide_price": 98857,
+      "lot_appearances": 292114,
+      "auction_ids_observed": 9566,
+      "with_guide_price": 98877,
       "with_sale_price": 110576,
       "with_both_prices": 47385,
-      "marked_sold": 149617,
-      "marked_sold_without_sale_price": 39781
+      "marked_sold": 149624,
+      "marked_sold_without_sale_price": 39788
     },
     "by_auctioneer_and_year": [
       {
@@ -13537,6 +13543,50 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Opal Property",
+        "year": 2020,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Opal Property",
+        "year": 2021,
+        "lot_appearances": 10,
+        "auction_ids_observed": 8,
+        "with_guide_price": 10,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Opal Property",
+        "year": 2022,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 4,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Opal Property",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Pattinson Auctions",
         "year": 2026,
         "lot_appearances": 6,
@@ -15623,6 +15673,13 @@
       "diagnostic_tail": "{\"checked_at\":\"2026-10-27T06:11:39+00:00\",\"opportunity\":\"Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation\",\"saved_candidate_rows\":24,\"overlapping_rows_excluded\":0,\"net_new_appearances\":24,\"new_address_records\":24,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":22,\"new_undated_appearances\":0,\"new_future_dated_appearances\":2,\"commercial_or_mixed_use\":1,\"new_guide_prices\":12,\"new_sale_prices\":16,\"new_guide_prices_in_twenty_year_window\":10,\"new_sale_prices_in_twenty_year_window\":16,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.\",\"persisted_shard_verification\":\"24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.\",\"database_rebuild_verified\":true}",
       "duration_seconds": 10.57,
       "checked_at": "2026-10-27T06:09:19.746375+00:00"
+    },
+    "astleys": {
+      "source": "astleys",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"checked_at\":\"2026-10-27T07:09:27.193507+00:00\",\"opportunity\":\"Astleys complete first-party retained EIG archive and operator reconciliation\",\"saved_candidate_rows\":26,\"overlapping_rows_excluded\":0,\"net_new_appearances\":26,\"new_address_records\":26,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":26,\"new_undated_appearances\":0,\"new_future_dated_appearances\":0,\"commercial_or_mixed_use\":3,\"new_guide_prices\":23,\"new_sale_prices\":15,\"new_guide_prices_in_twenty_year_window\":23,\"new_sale_prices_in_twenty_year_window\":15,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Astleys is retained as one genuine Swansea operator under ASTLEY SAMUEL LEEDER LTD (company 03129558); no branch, alias or shared-platform participant is counted as an additional auctioneer.\",\"persisted_shard_verification\":\"26 rows, 26 unique appearance IDs, 26 unique source lot IDs, 26 original URLs, 26 grid source-evidence records and 26 detail source-evidence records.\",\"database_rebuild_verified\":true}",
+      "checked_at": "2026-10-27T07:09:27.193507+00:00"
     }
   },
   "unresolved_catalogues": [
@@ -20324,7 +20381,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T07:11:44.161053+00:00",
+    "checked_at": "2026-10-27T08:09:38.666861+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
