@@ -129,12 +129,19 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         lot_match = LOT_RE.search(clean(heading.get_text(" ", strip=True)) or "") if heading else None
         detail_url = urljoin(BASE, detail_node.get("href") or "") if detail_node else None
         id_match = DETAIL_RE.search(detail_url or "")
-        if not all((time_node, address_node, detail_url, id_match)):
-            raise ValueError(f"archive page {page} card {page_position} lacks identity, date or address")
+        # Identity is the admission floor.  EIG occasionally retains an
+        # explicit result card while omitting its date and/or address; those
+        # values must remain null rather than causing the entire archive to
+        # fail or being inferred from neighbouring cards.
+        if not all((detail_url, id_match)):
+            raise ValueError(f"archive page {page} card {page_position} lacks a stable lot identity")
         source_id = id_match.group(1).lower()
-        auction_date = datetime.fromisoformat(time_node["datetime"]).date().isoformat()
+        auction_date = (
+            datetime.fromisoformat(time_node["datetime"]).date().isoformat()
+            if time_node else None
+        )
         lot_number = clean(lot_match.group(1)) if lot_match else None
-        address = clean(address_node.get_text(" ", strip=True))
+        address = clean(address_node.get_text(" ", strip=True)) if address_node else None
         type_node = card.select_one(".lot-data-heading")
         property_type = clean(type_node.get_text(" ", strip=True)) if type_node else None
         description_node = card.select_one(".list-info p")
@@ -146,7 +153,9 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         image_url = urljoin(BASE, image_node["src"]) if image_node else None
         postcode_match = corpus.PC.search(address or "")
         row = corpus.base_row(
-            AUCTIONEER, f"{SLUG}:{auction_date}", auction_date,
+            AUCTIONEER,
+            f"{SLUG}:{auction_date}" if auction_date else f"{SLUG}:undated:{source_id}",
+            auction_date,
             lot_number, source_id, detail_url,
         )
         row.update(
@@ -169,7 +178,11 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
             source_position=(page - 1) * PAGE_SIZE + page_position,
             source_page=page,
             source_result_text=result_text,
-            auction_date_basis="published individual lot auction end date",
+            auction_date_basis=(
+                "published individual lot auction end date"
+                if auction_date else
+                "publisher omitted date; retained explicit result card"
+            ),
             source_evidence=evidence,
         )
         rows.append(row)

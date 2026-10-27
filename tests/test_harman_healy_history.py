@@ -71,6 +71,31 @@ def test_dated_identity_with_empty_address_is_preserved_as_partial():
     assert row["status"] == "unsold"
 
 
+def test_explicit_result_with_omitted_date_is_preserved_as_undated_address_record():
+    fixture = """
+    <html><body><div>Showing results 2640 - 2640 of 2778</div>
+    <div class="lot-panel"><h3 class="panel-title">Auction Ended</h3>
+    <a href="/lot/details/cb06f6ab-43c8-4f08-a494-b1520309808e">
+      <h3 class="list-address">18 Lansdowne Road, Bridlington, YO15 2QS</h3>
+    </a>
+    <div class="list-guideprice">Result: <strong>Sale Agreed Prior</strong></div></div>
+    </body></html>
+    """
+
+    rows = hh.parse_page(fixture, 53, {"snapshot_path": "page-53.json.gz"})
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["auction_date"] is None
+    assert row["source_auction_id"] == (
+        "harman-healy:undated:cb06f6ab-43c8-4f08-a494-b1520309808e"
+    )
+    assert row["address"] == "18 Lansdowne Road, Bridlington, YO15 2QS"
+    assert row["record_quality"] == "address_record"
+    assert row["status"] == "sold_prior"
+    assert row["auction_date_basis"] == "publisher omitted date; retained explicit result card"
+
+
 def test_unsold_asking_amount_is_not_a_sale():
     assert hh.status_and_price('Unsold £175,000')==('unsold',None)
 
