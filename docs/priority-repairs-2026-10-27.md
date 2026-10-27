@@ -95,3 +95,28 @@ The existing collector checkpoint at 17:30 UTC records 304,492 retained
 appearances, including 89,430 classified commercial/mixed-use appearances.
 There remain 515 incomplete/unreconciled catalogues and 22 fetch/parse failures.
 These counts are not a claim of comprehensive national 20-year coverage.
+
+## Verification after fixes
+
+- Public release run 40553692197: 512 tests passed, 14 skipped and three
+  subtests passed; controlled desktop/mobile browser checks passed. The GitHub
+  Pages verification mirror exports the correct enabled public account config.
+- Report CI run 40554984910: 261 tests and three subtests passed. It now explicitly
+  includes test_legal_pack_review.py, including the service-charge/rent regression.
+- Cloudflare checkout completed in 1 minute 24 seconds, compared with more than
+  14 minutes for the obsolete full checkout. Production run 40553692197 subsequently
+  completed its deployment and live verification successfully.
+- Backend readiness still reports production_email_confirmed false, live billing
+  false and paid_reports_approved false; no email delivery or paid acceptance
+  claim is made. Its reported revision was 87dcbcc685fc5c3b45652fae4dc202eb4ca0979e
+  at this check, so the new report-engine code is not yet verified on that backend.
+
+At 18:00 UTC, auctiongeek.co.uk/deployment.json returned the tested
+revision a7de524f574882efe9f405e1286e752efbfb8e09. Its platform-config.json
+passed account validation with accounts_enabled true and billing_enabled false.
+The repair is live; delivery of real customer authentication email remains an
+independent verification item.
+
+The production account page was also checked in Chromium: the email/password
+sign-in form, account creation control and recovery options rendered correctly.
+No real sign-in or email was submitted.
