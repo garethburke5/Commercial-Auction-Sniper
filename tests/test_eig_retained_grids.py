@@ -228,6 +228,16 @@ def test_auction_north_uses_full_archive_and_partner_operator_boundary():
     }
 
 
+def test_sage_co_uses_full_archive_and_distinct_legal_operator():
+    assert grids.SOURCES["sage-co-auctions"] == {
+        "auctioneer": "Sage & Co Auctions",
+        "base": "https://sageandco.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
+        "operator_company_number": "13328873",
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">

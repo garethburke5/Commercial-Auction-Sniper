@@ -78,6 +78,13 @@ SOURCES = {
         "operator_company_number": "10762287",
         "partner_agents": ["Dynamic Property Group", "independent local property experts"],
     },
+    "sage-co-auctions": {
+        "auctioneer": "Sage & Co Auctions",
+        "base": "https://sageandco.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
+        "operator_company_number": "13328873",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
