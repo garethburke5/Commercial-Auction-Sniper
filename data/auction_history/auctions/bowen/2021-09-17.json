@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Bowen",
+  "source_auction_id": "bowen:2021-09-17",
+  "auction_date": "2021-09-17",
+  "source_url": "https://bowensonandwatson.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 2,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://bowensonandwatson.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-27T06:09:10.410861+00:00",
+      "sha256": "07fbe521f5c6b424da8a381394905193ae8d266f312951be6e04cb3198a5a76b",
+      "snapshot_path": "data/auction_history/sources/bowen/past-auctions-page-1-07fbe521f5c6b424.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T06:09:19.744996+00:00"
+}

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T05:54:06.580569+00:00",
-  "corpus_checkpoint": "2026-10-27T05:53:45.838464+00:00",
+  "generated_at": "2026-10-27T06:11:30.398221+00:00",
+  "corpus_checkpoint": "2026-10-27T06:11:05.855056+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1327,13 +1327,18 @@
       "name": "Bowen",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/bowen",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Bowen",
+      "match_basis": "exact label",
+      "retained_appearances": 24,
+      "years_with_retained_evidence": [
+        2020,
+        2021,
+        2023,
+        2026
+      ],
+      "with_guide_price": 10,
+      "with_sale_price": 16,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8047,7 +8052,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 485,
+  "directory_entries_not_linked": 484,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8092,6 +8097,7 @@
     "BidX1": 294,
     "Bond Wolfe": 9582,
     "Boultons Harrisons Ltd": 62,
+    "Bowen": 24,
     "Bradley Hall": 75,
     "Brown&Co": 463,
     "Cheffins": 740,
@@ -8147,13 +8153,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292046,
-      "auction_ids_observed": 9511,
-      "with_guide_price": 98824,
-      "with_sale_price": 110545,
-      "with_both_prices": 47365,
-      "marked_sold": 149583,
-      "marked_sold_without_sale_price": 39778
+      "lot_appearances": 292068,
+      "auction_ids_observed": 9524,
+      "with_guide_price": 98834,
+      "with_sale_price": 110561,
+      "with_both_prices": 47371,
+      "marked_sold": 149600,
+      "marked_sold_without_sale_price": 39779
     },
     "by_auctioneer_and_year": [
       {
@@ -11146,6 +11152,50 @@
         "with_sale_price": 6,
         "with_both_prices": 6,
         "marked_sold": 7,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2020,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 3,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2021,
+        "lot_appearances": 15,
+        "auction_ids_observed": 8,
+        "with_guide_price": 5,
+        "with_sale_price": 13,
+        "with_both_prices": 4,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2023,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 1,
+        "marked_sold": 3,
         "marked_sold_without_sale_price": 1
       },
       {
@@ -15033,7 +15083,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 149,
+    "future_dated_appearances": 151,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -20216,7 +20266,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T05:54:06.258369+00:00",
+    "checked_at": "2026-10-27T06:11:29.882979+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

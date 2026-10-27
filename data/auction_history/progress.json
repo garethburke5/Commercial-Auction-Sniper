@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-27T05:53:45.838464+00:00",
-  "individual_lot_records_captured": 299626,
-  "records_with_address": 288856,
+  "generated_at": "2026-10-27T06:11:05.855056+00:00",
+  "individual_lot_records_captured": 299650,
+  "records_with_address": 288880,
   "partial_lot_records": 10770,
-  "exact_address_groups": 159694,
+  "exact_address_groups": 159718,
   "groups_with_repeat_appearances": 40932,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -49,6 +49,7 @@
     "BidX1": 294,
     "Bond Wolfe": 9582,
     "Boultons Harrisons Ltd": 62,
+    "Bowen": 24,
     "Bradley Hall": 75,
     "Brown&Co": 463,
     "Cheffins": 740,
@@ -119,26 +120,26 @@
     "2017": 8891,
     "2018": 8280,
     "2019": 7891,
-    "2020": 13776,
-    "2021": 20559,
+    "2020": 13779,
+    "2021": 20574,
     "2022": 25523,
-    "2023": 31914,
+    "2023": 31915,
     "2024": 39914,
     "2025": 45848,
-    "2026": 43957
+    "2026": 43962
   },
   "by_sector": {
-    "commercial": 41985,
-    "land": 18272,
+    "commercial": 41986,
+    "land": 18277,
     "mixed-use": 46839,
-    "residential": 145610,
+    "residential": 145628,
     "unknown": 46920
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3455,
+  "surviving_catalogues_completely_harvested": 3470,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -152,13 +153,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292046,
-      "auction_ids_observed": 9511,
-      "with_guide_price": 98824,
-      "with_sale_price": 110545,
-      "with_both_prices": 47365,
-      "marked_sold": 149583,
-      "marked_sold_without_sale_price": 39778
+      "lot_appearances": 292068,
+      "auction_ids_observed": 9524,
+      "with_guide_price": 98834,
+      "with_sale_price": 110561,
+      "with_both_prices": 47371,
+      "marked_sold": 149600,
+      "marked_sold_without_sale_price": 39779
     },
     "by_auctioneer_and_year": [
       {
@@ -3151,6 +3152,50 @@
         "with_sale_price": 6,
         "with_both_prices": 6,
         "marked_sold": 7,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2020,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 3,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2021,
+        "lot_appearances": 15,
+        "auction_ids_observed": 8,
+        "with_guide_price": 5,
+        "with_sale_price": 13,
+        "with_both_prices": 4,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2023,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bowen",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 1,
+        "marked_sold": 3,
         "marked_sold_without_sale_price": 1
       },
       {
@@ -7038,7 +7083,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 149,
+    "future_dated_appearances": 151,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
