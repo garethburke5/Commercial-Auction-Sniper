@@ -809,33 +809,22 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
 
 ## 27 October 2026 — Auction House Online May event retrieval blocker
 
-- Targeted the verified first-party event
-  `https://online.auctionhouse.co.uk/past-auctions/69595`, whose archive index
-  publishes **59 individual property cards** for 27 May 2025. No directory,
-  catalogue-level or inferred rows were admitted in place of individual lots.
-- The initial bounded workflow exhausted five requests to the bare event URL;
-  every request ended in a 120-second read timeout before the archive index was
-  returned. A single materially different retry used the explicit all-results
-  route `?lotResultType=All`; all five of those requests ended in the same
-  timeout. The retry is recorded as a distinct retrieval route, not repeated
-  diagnosis of the original route.
-- Both failed collection runs preserved their publication checkpoints. The
-  source-corpus bank, database rebuild, packaged parts, source-register
-  reconciliation and artifact retention stages completed, confirming **zero
-  net-new appearances**, zero dated, partial, undated or future-dated records,
-  zero commercial/mixed-use additions, zero guide or achieved prices, and zero
-  source-year additions. Corpus totals therefore remain **304,492 appearances**,
-  **293,721 address records**, **10,771 partial records**, **296,845 dated
-  appearances inside the current 20-year window**, **101,190 guide-price
-  records** and **111,445 achieved-price records** in that window.
-- **Next concrete growth target:** switch to first-party Auction House Online
-  event `https://online.auctionhouse.co.uk/past-auctions/70923`, which publishes
-  **92 individual result cards** dated 19 August 2025. This is larger than the
-  other verified adjacent batches of 70, 72 and 43 cards. Reuse the strict
-  branch-attributing collector, require all 92 detail pages and exclude only
-  exact regional-shard date/address overlaps before claiming growth. Do not
-  revisit event 69595 until its upstream response changes or a genuinely new
-  retrieval path is available. National completeness remains false.
+- Event `69595` publishes 59 individual first-party property cards, but five
+  requests to its standard archive route and five to the distinct explicit
+  all-results route each ended in a 120-second read timeout before the index
+  arrived. No inferred, directory-level or catalogue-container rows were
+  admitted.
+- Both bounded runs preserved their checkpoints, completed the source-corpus
+  bank and database rebuild, and confirmed zero new appearances, dated,
+  partial, undated or future rows, commercial/mixed-use additions, guide or
+  sale prices, rents, duplicates or source-years. Corpus totals remain 304,492
+  appearances, 293,721 addresses, 10,771 partial records and 296,845 dated
+  appearances within 20 years, including 101,190 guides and 111,445 sale
+  prices.
+- Next target is event `https://online.auctionhouse.co.uk/past-auctions/70923`,
+  with 92 individual cards dated 19 August 2025. Event 69595 will not be
+  retried until its upstream response changes or a genuinely new retrieval
+  route appears. National completeness remains false.
 
 ## 26 October 2026 — Robinson & Hall 2021 article and results-image recovery
 
