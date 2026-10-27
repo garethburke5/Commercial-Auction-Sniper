@@ -1,0 +1,42 @@
+{
+  "auctioneer": "The Property Auction House",
+  "source_auction_id": "the-property-auction-house:2024-09-19",
+  "auction_date": "2024-09-19",
+  "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-27T01:05:19.510478+00:00",
+      "sha256": "f100c196fef87adb221e395b8a8388dca30949b2a0daca9539b1906d03a524f6",
+      "snapshot_path": "data/auction_history/sources/the-property-auction-house/past-auctions-page-1-f100c196fef87adb.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 3
+    },
+    {
+      "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search?page=2",
+      "retrieved_at": "2026-10-27T01:05:19.571199+00:00",
+      "sha256": "6c5cd0c70d2c47ad0aa312a8f507f4f0141879e97c21549801a347c850920398",
+      "snapshot_path": "data/auction_history/sources/the-property-auction-house/past-auctions-page-2-6c5cd0c70d2c47ad.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 3
+    },
+    {
+      "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search?page=3",
+      "retrieved_at": "2026-10-27T01:05:19.633212+00:00",
+      "sha256": "01b26701d45d60ba7760563afcd812421b0402575f7da1236529dd03e7e541f9",
+      "snapshot_path": "data/auction_history/sources/the-property-auction-house/past-auctions-page-3-01b26701d45d60ba.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 3
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T01:05:31.172700+00:00"
+}

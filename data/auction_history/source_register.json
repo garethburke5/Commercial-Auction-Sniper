@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T00:36:17.288955+00:00",
-  "corpus_checkpoint": "2026-10-27T00:35:56.523964+00:00",
+  "generated_at": "2026-10-27T01:07:16.735604+00:00",
+  "corpus_checkpoint": "2026-10-27T01:06:55.589618+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7397,13 +7397,19 @@
       "name": "The Property Auction House",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/the-property-auction-house",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "The Property Auction House",
+      "match_basis": "exact label",
+      "retained_appearances": 127,
+      "years_with_retained_evidence": [
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 112,
+      "with_sale_price": 53,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8019,7 +8025,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 490,
+  "directory_entries_not_linked": 489,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8106,6 +8112,7 @@
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1129,
     "The Auction Company": 123,
+    "The Property Auction House": 127,
     "Town & Country Property Auctions": 2837,
     "Unknown auctioneer": 14
   },
@@ -8114,13 +8121,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291787,
-      "auction_ids_observed": 9277,
-      "with_guide_price": 98581,
-      "with_sale_price": 110447,
-      "with_both_prices": 47275,
-      "marked_sold": 149364,
-      "marked_sold_without_sale_price": 39657
+      "lot_appearances": 291899,
+      "auction_ids_observed": 9381,
+      "with_guide_price": 98693,
+      "with_sale_price": 110500,
+      "with_both_prices": 47328,
+      "marked_sold": 149476,
+      "marked_sold_without_sale_price": 39716
     },
     "by_auctioneer_and_year": [
       {
@@ -14669,6 +14676,61 @@
         "marked_sold_without_sale_price": 22
       },
       {
+        "auctioneer": "The Property Auction House",
+        "year": 2022,
+        "lot_appearances": 19,
+        "auction_ids_observed": 18,
+        "with_guide_price": 19,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 11
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2023,
+        "lot_appearances": 28,
+        "auction_ids_observed": 26,
+        "with_guide_price": 28,
+        "with_sale_price": 9,
+        "with_both_prices": 9,
+        "marked_sold": 28,
+        "marked_sold_without_sale_price": 19
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2024,
+        "lot_appearances": 20,
+        "auction_ids_observed": 20,
+        "with_guide_price": 20,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 8
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2025,
+        "lot_appearances": 19,
+        "auction_ids_observed": 18,
+        "with_guide_price": 19,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2026,
+        "lot_appearances": 26,
+        "auction_ids_observed": 22,
+        "with_guide_price": 26,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 26,
+        "marked_sold_without_sale_price": 14
+      },
+      {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2022,
         "lot_appearances": 99,
@@ -14747,7 +14809,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 127,
+    "future_dated_appearances": 142,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -19930,7 +19992,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T00:36:16.978732+00:00",
+    "checked_at": "2026-10-27T01:07:16.413874+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

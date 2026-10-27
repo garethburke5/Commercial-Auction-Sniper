@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T00:35:56.523964+00:00",
-  "individual_lot_records_captured": 299345,
-  "records_with_address": 288575,
+  "generated_at": "2026-10-27T01:06:55.589618+00:00",
+  "individual_lot_records_captured": 299472,
+  "records_with_address": 288702,
   "partial_lot_records": 10770,
-  "exact_address_groups": 159428,
-  "groups_with_repeat_appearances": 40923,
+  "exact_address_groups": 159550,
+  "groups_with_repeat_appearances": 40925,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -91,6 +91,7 @@
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1129,
     "The Auction Company": 123,
+    "The Property Auction House": 127,
     "Town & Country Property Auctions": 2837,
     "Unknown auctioneer": 14
   },
@@ -116,24 +117,24 @@
     "2019": 7889,
     "2020": 13772,
     "2021": 20554,
-    "2022": 25497,
-    "2023": 31869,
-    "2024": 39858,
-    "2025": 45791,
-    "2026": 43871
+    "2022": 25516,
+    "2023": 31897,
+    "2024": 39878,
+    "2025": 45810,
+    "2026": 43912
   },
   "by_sector": {
-    "commercial": 41977,
-    "land": 18262,
+    "commercial": 41979,
+    "land": 18266,
     "mixed-use": 46832,
-    "residential": 145358,
+    "residential": 145479,
     "unknown": 46916
   },
   "date_range": [
     "2002-10-31",
-    "2026-12-01"
+    "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3212,
+  "surviving_catalogues_completely_harvested": 3322,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -147,13 +148,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291787,
-      "auction_ids_observed": 9277,
-      "with_guide_price": 98581,
-      "with_sale_price": 110447,
-      "with_both_prices": 47275,
-      "marked_sold": 149364,
-      "marked_sold_without_sale_price": 39657
+      "lot_appearances": 291899,
+      "auction_ids_observed": 9381,
+      "with_guide_price": 98693,
+      "with_sale_price": 110500,
+      "with_both_prices": 47328,
+      "marked_sold": 149476,
+      "marked_sold_without_sale_price": 39716
     },
     "by_auctioneer_and_year": [
       {
@@ -6702,6 +6703,61 @@
         "marked_sold_without_sale_price": 22
       },
       {
+        "auctioneer": "The Property Auction House",
+        "year": 2022,
+        "lot_appearances": 19,
+        "auction_ids_observed": 18,
+        "with_guide_price": 19,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 11
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2023,
+        "lot_appearances": 28,
+        "auction_ids_observed": 26,
+        "with_guide_price": 28,
+        "with_sale_price": 9,
+        "with_both_prices": 9,
+        "marked_sold": 28,
+        "marked_sold_without_sale_price": 19
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2024,
+        "lot_appearances": 20,
+        "auction_ids_observed": 20,
+        "with_guide_price": 20,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 8
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2025,
+        "lot_appearances": 19,
+        "auction_ids_observed": 18,
+        "with_guide_price": 19,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "The Property Auction House",
+        "year": 2026,
+        "lot_appearances": 26,
+        "auction_ids_observed": 22,
+        "with_guide_price": 26,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 26,
+        "marked_sold_without_sale_price": 14
+      },
+      {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2022,
         "lot_appearances": 99,
@@ -6780,7 +6836,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 127,
+    "future_dated_appearances": 142,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
