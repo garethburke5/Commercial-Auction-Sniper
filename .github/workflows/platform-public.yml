@@ -31,6 +31,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
+          # Public rendering uses the packaged history database. Downloading
+          # 130,000+ raw source files here delays unrelated website repairs.
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/auction_history/sources/
+            !/data/auction_history/auctions/
+            !/data/auction_history/appearances/
+            !/data/auction_history/.auction_history.sqlite.*
+            !/data/historical_source_corpus/raw/
+            !/data/historical_raw/
       - name: Record tested source revision
         id: source
         run: echo "commit=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
@@ -132,6 +144,16 @@ jobs:
         with:
           ref: ${{ needs.publish.outputs.tested_commit }}
           persist-credentials: false
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/auction_history/sources/
+            !/data/auction_history/auctions/
+            !/data/auction_history/appearances/
+            !/data/auction_history/.auction_history.sqlite.*
+            !/data/historical_source_corpus/raw/
+            !/data/historical_raw/
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'

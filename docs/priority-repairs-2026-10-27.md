@@ -74,3 +74,13 @@ long lease to the property interests, resolving actual rent-uplift dates, title
 and plan interpretation, supported market value/cost conclusions, and independent
 commercial/editorial acceptance. Passing extraction or layout checks does not
 establish that the full report is worth £19.
+
+## Deployment checkout cost
+
+The public workflows previously checked out over 130,000 raw source files. They
+now exclude the raw source/catalogue/appearance directories and retained scratch
+databases, while keeping the packaged history database and parts, properties,
+progress and source-register metadata. Git sparse-checkout inclusion checks
+confirmed these boundaries. This changes website checkout only; it does not
+remove archived records or alter the historical collection workflows.
+The full local report regression set passed 226 tests and three subtests.
