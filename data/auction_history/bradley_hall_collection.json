@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:40:29.356291+00:00",
+  "checked_at": "2026-10-27T17:04:00.081212+00:00",
   "auctioneer": "Bradley Hall",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://auction.bradleyhall.co.uk/search",
-  "archive_sha256": "44bad2686394e96ce43f7eb4f2fd23090612d84810f8878ca7fa7b11563d2db6",
+  "archive_sha256": "0254026d944fd2edf6393e742d38a1fade4bd1bbe463ca0628edd4bd6448b63e",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
@@ -29,12 +29,15 @@
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 1,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2025-04-22",
-    "2026-11-23"
+    "2026-11-24"
   ],
   "by_status": {
     "unknown": 21,
@@ -48,6 +51,9 @@
     "land": 7,
     "commercial": 4,
     "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Bradley Hall": 75
   },
   "detail_pages_captured": 75,
   "detail_recovery_failures": [],

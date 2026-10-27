@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:41:58.974047+00:00",
+  "checked_at": "2026-10-27T17:05:40.341824+00:00",
   "auctioneer": "The Property Auction House",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
-  "archive_sha256": "559ec7fc5a4d9865bc0806edff7444d67b91396e6c51c6ea429baf76f7a812a1",
+  "archive_sha256": "257bce49a433d6cbf19bcc1e9ceb922895309ae863b22aaa27ddde6cef95bdf4",
   "archive_page_count": 3,
   "archive_page_rows": [
     43,
@@ -90,6 +90,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2022-01-26",
@@ -105,6 +108,9 @@
     "residential": 121,
     "land": 4,
     "commercial": 2
+  },
+  "by_attributed_auctioneer": {
+    "The Property Auction House": 127
   },
   "detail_pages_captured": 127,
   "detail_recovery_failures": [],

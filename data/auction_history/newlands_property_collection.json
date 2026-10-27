@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:43:32.254071+00:00",
+  "checked_at": "2026-10-27T17:07:08.292292+00:00",
   "auctioneer": "Newlands Property",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://newlands.eigonlineauctions.com/search",
-  "archive_sha256": "4814ab902e7a2a8bcd82c0b953fc8eef3863ee314d4e07a95bfb4cee8457e3d2",
+  "archive_sha256": "ccbd99ce09b126711680fb9a534caf9b08eaaaa9494ef3d2ed50dbb35d17da51",
   "archive_page_count": 1,
   "archive_page_rows": [
     9
@@ -29,6 +29,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2023-08-21",
@@ -44,6 +47,9 @@
     "mixed-use": 2,
     "land": 1,
     "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Newlands Property": 9
   },
   "detail_pages_captured": 9,
   "detail_recovery_failures": [],

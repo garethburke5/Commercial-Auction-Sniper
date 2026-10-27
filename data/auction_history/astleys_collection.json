@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:43:11.966149+00:00",
+  "checked_at": "2026-10-27T17:06:48.951370+00:00",
   "auctioneer": "Astleys",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://astleys.eigonlineauctions.com/search",
-  "archive_sha256": "559ad91bfafd1d23891a6cff147e228eda4a366c9fc6a98ee7044c44c73bf8a3",
+  "archive_sha256": "b12222e7a46fb2b827bc5b07e8ccdc91011ff035a6d927759dbc8fc96c6650cd",
   "archive_page_count": 1,
   "archive_page_rows": [
     26
@@ -29,6 +29,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2023-02-07",
@@ -46,6 +49,9 @@
     "commercial": 3,
     "land": 1,
     "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Astleys": 26
   },
   "detail_pages_captured": 26,
   "detail_recovery_failures": [],

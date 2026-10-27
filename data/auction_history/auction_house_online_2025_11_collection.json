@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T14:09:50.210829+00:00",
+  "checked_at": "2026-10-27T17:07:34.054975+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 7,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/75792",
-  "archive_sha256": "0d26c451f03073bf6ec8f332d6f20d8614b366fc26f7da2a495bcd39bddcdf5e",
+  "archive_sha256": "0c64d93c266b113a5c852da877209a9715e1baec762bfe531775fbea383cb39c",
   "archive_page_count": 1,
   "archive_page_rows": [
     92
@@ -18,13 +18,13 @@
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 39,
-  "run_new_appearances": 39,
-  "run_new_address_records": 39,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 39,
-  "run_new_commercial_mixed": 1,
-  "run_new_guide_prices": 39,
-  "run_new_sale_prices": 1,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -404,18 +404,16 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2025
-  ],
+  "new_source_years": [],
   "date_range": [
     "2025-11-10",
     "2025-11-25"
   ],
   "by_status": {
     "postponed": 3,
-    "sold_prior": 4,
+    "withdrawn": 5,
     "unsold": 27,
-    "withdrawn": 5
+    "sold_prior": 4
   },
   "by_sector": {
     "residential": 30,
@@ -425,20 +423,20 @@
   },
   "by_attributed_auctioneer": {
     "Auction House Birmingham": 4,
+    "Auction House East Anglia": 3,
     "Auction House Hull & East Yorkshire": 2,
-    "Auction House South Yorkshire": 5,
-    "Auction House North West": 8,
     "Auction House Kent": 2,
-    "Auction House South West": 1,
-    "Auction House Notts & Derby": 2,
     "Auction House Leicestershire": 1,
-    "Auction House London": 3,
     "Auction House Lincolnshire": 2,
-    "Auction House West Yorkshire": 2,
-    "Auction House North East": 2,
+    "Auction House London": 3,
     "Auction House Manchester": 1,
+    "Auction House North East": 2,
+    "Auction House North West": 8,
+    "Auction House Notts & Derby": 2,
     "Auction House Online": 1,
-    "Auction House East Anglia": 3
+    "Auction House South West": 1,
+    "Auction House South Yorkshire": 5,
+    "Auction House West Yorkshire": 2
   },
   "detail_pages_captured": 92,
   "detail_recovery_failures": [],

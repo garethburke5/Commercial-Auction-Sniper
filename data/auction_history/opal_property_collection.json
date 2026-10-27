@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:43:22.732018+00:00",
+  "checked_at": "2026-10-27T17:06:59.182794+00:00",
   "auctioneer": "Opal Property",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://opal-online.eigonlineauctions.com/search",
-  "archive_sha256": "44872f3223b1a63d7e157f1c838189552067015c79bc9f4965c1ff1b0c9a3b69",
+  "archive_sha256": "b03f3b7a594389828a643c1978f13fa56631cce8eff0f7cd16ffe0ace03458d8",
   "archive_page_count": 1,
   "archive_page_rows": [
     20
@@ -29,6 +29,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2020-10-16",
@@ -43,6 +46,9 @@
   "by_sector": {
     "residential": 19,
     "mixed-use": 1
+  },
+  "by_attributed_auctioneer": {
+    "Opal Property": 20
   },
   "detail_pages_captured": 20,
   "detail_recovery_failures": [],

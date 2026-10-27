@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:43:00.938845+00:00",
+  "checked_at": "2026-10-27T17:06:38.364976+00:00",
   "auctioneer": "Bowen",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://bowensonandwatson.eigonlineauctions.com/search",
-  "archive_sha256": "d266a283fc7bb38bbbc31349b71f7c22d839f850876de1456923e636ee6ae5d7",
+  "archive_sha256": "975d559ecd41d7b8bfa421856d61a9efd4e5d1a27c0e988616b012a7d89bf6d3",
   "archive_page_count": 1,
   "archive_page_rows": [
     24
@@ -29,6 +29,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2020-12-11",
@@ -45,6 +48,9 @@
     "residential": 18,
     "land": 5,
     "commercial": 1
+  },
+  "by_attributed_auctioneer": {
+    "Bowen": 24
   },
   "detail_pages_captured": 24,
   "detail_recovery_failures": [],

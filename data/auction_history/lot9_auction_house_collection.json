@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:42:27.807655+00:00",
+  "checked_at": "2026-10-27T17:06:06.540961+00:00",
   "auctioneer": "Lot9 Auction House",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://lot9.eigonlineauctions.com/search",
-  "archive_sha256": "5a1549d6f0e235cc27a2202307405840a715ab56da6b7355b5175b67dda2972f",
+  "archive_sha256": "3ed84a263370e0c74df2a373f1da41447bf9bf4bc9ddf05c6ed9232ebec4de4a",
   "archive_page_count": 1,
   "archive_page_rows": [
     34
@@ -29,6 +29,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2022-06-20",
@@ -46,6 +49,9 @@
     "unknown": 1,
     "residential": 31,
     "mixed-use": 2
+  },
+  "by_attributed_auctioneer": {
+    "Lot9 Auction House": 34
   },
   "detail_pages_captured": 34,
   "detail_recovery_failures": [],

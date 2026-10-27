@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:42:12.937117+00:00",
+  "checked_at": "2026-10-27T17:05:55.596694+00:00",
   "auctioneer": "Property Auction Agent",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://propertyauctionagent.eigonlineauctions.com/search",
-  "archive_sha256": "951b20372215d673b8459c2d5e23355f1b050c78cc3a64a11ee157bc79ea4df6",
+  "archive_sha256": "d7fcd352ea48bed11b748f6760eacfbd1954a5c9227ee86d7af872b5cc1b9ac0",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
@@ -31,6 +31,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2023-11-06",
@@ -48,6 +51,9 @@
     "land": 3,
     "commercial": 5,
     "mixed-use": 2
+  },
+  "by_attributed_auctioneer": {
+    "Property Auction Agent": 66
   },
   "detail_pages_captured": 66,
   "detail_recovery_failures": [],

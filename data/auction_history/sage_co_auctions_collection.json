@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T11:42:49.959213+00:00",
+  "checked_at": "2026-10-27T17:06:27.915898+00:00",
   "auctioneer": "Sage & Co Auctions",
-  "parser_version": 6,
+  "parser_version": 7,
   "source_url": "https://sageandco.eigonlineauctions.com/search",
-  "archive_sha256": "c7e4a9327cbeaa772aec65c310fb3c79e725a96b9d3d2d1408750617db143e00",
+  "archive_sha256": "4517bc8a4ab97d558d9e8b6b91e3d6767ce6b6a25687020c048481442277b95e",
   "archive_page_count": 1,
   "archive_page_rows": [
     17
@@ -29,6 +29,9 @@
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2026-08-05",
@@ -48,6 +51,9 @@
     "unknown": 2,
     "mixed-use": 3,
     "commercial": 1
+  },
+  "by_attributed_auctioneer": {
+    "Sage & Co Auctions": 17
   },
   "detail_pages_captured": 17,
   "detail_recovery_failures": [],

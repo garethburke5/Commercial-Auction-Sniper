@@ -14,10 +14,12 @@
   "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
+  "duplicate_source_evidence_excluded": 0,
+  "duplicate_source_exclusions": [],
   "source_evidence": [
     {
       "source_url": "https://harman-healy.co.uk/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-10-27T11:38:34.781369+00:00",
+      "retrieved_at": "2026-10-27T17:01:56.495048+00:00",
       "sha256": "3990b8327699affad09132ef219491fce2efd3802ba152fffea70a6d9c32cea0",
       "snapshot_path": "data/auction_history/sources/harman-healy/past-auctions-page-1-3990b8327699affa.json.gz",
       "basis": "first-party retained past-auctions lot grid",
@@ -327,5 +329,5 @@
     }
   ],
   "errors": [],
-  "checked_at": "2026-10-27T11:38:41.901794+00:00"
+  "checked_at": "2026-10-27T17:02:09.548571+00:00"
 }
