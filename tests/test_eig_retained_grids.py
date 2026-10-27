@@ -72,6 +72,14 @@ def test_detail_enrichment_preserves_guide_rent_and_mixed_sector():
     assert enriched["image_urls"] == ["https://cdn.example/full.jpg"]
 
 
+def test_detail_enrichment_annualises_explicit_monthly_rent():
+    row = grids.parse_grid(GRID, SOURCE, {})[0][0]
+    monthly = DETAIL.replace("£24,000 per annum", "£575 pcm")
+    enriched = grids.enrich_detail(monthly, row, {"source_url": row["original_url"]})
+    assert enriched["annual_rent"] == 6900
+    assert enriched["rent_text"] == "£575 pcm"
+
+
 def test_only_sold_outcomes_receive_achieved_prices():
     assert grids.status_and_price("Result: Withdrawn at £80,000") == ("withdrawn", None)
     assert grids.status_and_price("Result: Unsold £70,000") == ("unsold", None)
@@ -200,6 +208,17 @@ def test_lot9_uses_full_first_party_search_archive_and_distinct_operator():
         "operator_legal_name": "LOT9 AUCTION HOUSE LIMITED",
         "operator_company_number": "12953855",
         "partner_agents": ["Monopoly Buy Sell Rent"],
+    }
+
+
+def test_auction_north_uses_full_archive_and_partner_operator_boundary():
+    assert grids.SOURCES["auction-north"] == {
+        "auctioneer": "Auction North",
+        "base": "https://auction-north.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "AUCTION NORTH LIMITED",
+        "operator_company_number": "10762287",
+        "partner_agents": ["Dynamic Property Group", "independent local property experts"],
     }
 
 

@@ -70,6 +70,14 @@ SOURCES = {
         "operator_company_number": "12953855",
         "partner_agents": ["Monopoly Buy Sell Rent"],
     },
+    "auction-north": {
+        "auctioneer": "Auction North",
+        "base": "https://auction-north.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "AUCTION NORTH LIMITED",
+        "operator_company_number": "10762287",
+        "partner_agents": ["Dynamic Property Group", "independent local property experts"],
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -91,7 +99,10 @@ ISO_DATE_RE = re.compile(r"^(20\d{2}-\d{2}-\d{2})")
 MONEY_RE = re.compile(r"£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
 GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
 RENT_RE = re.compile(
-    r"£\s*([\d,]+(?:\.\d+)?)\s*(per\s+annum|annually|p\.?\s*a\.?)\b", re.I
+    r"£\s*([\d,]+(?:\.\d+)?)\s*"
+    r"(per\s+annum|annually|p\.?\s*a\.?|per\s+calendar\s+month|"
+    r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
+    re.I,
 )
 PARSER_VERSION = 5
 
@@ -111,6 +122,18 @@ def amount(match: re.Match | None) -> int | None:
 def exact_date(value: str | None) -> str | None:
     match = ISO_DATE_RE.match(value or "")
     return match.group(1) if match else None
+
+
+def annual_rent(match: re.Match | None) -> int | None:
+    if not match:
+        return None
+    value = corpus.money(match.group(1))
+    if value is None:
+        return None
+    period = match.group(2)
+    if re.search(r"month|p\.?\s*c\.?\s*m", period, re.I):
+        value *= 12
+    return int(value)
 
 
 def get(url: str) -> tuple[bytes, str]:
@@ -334,7 +357,7 @@ def enrich_detail(html: str, row: dict, evidence: dict) -> dict:
         guide_price_text=clean(guide_match.group(0)) if guide_match else None,
         description=combined,
         sector=classify_sector(row.get("address"), combined),
-        annual_rent=int(corpus.money(rent_match.group(1))) if rent_match else None,
+        annual_rent=annual_rent(rent_match),
         rent_text=clean(rent_match.group(0)) if rent_match else None,
         image_urls=images or row.get("image_urls") or [],
         detail_source_evidence=evidence,
