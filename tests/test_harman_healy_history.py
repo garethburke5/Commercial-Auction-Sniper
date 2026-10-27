@@ -47,6 +47,30 @@ def test_stable_identity_is_source_lot_id_not_address():
     assert rows[0]["source_auction_id"] == "harman-healy:2023-05-18"
 
 
+def test_dated_identity_with_empty_address_is_preserved_as_partial():
+    fixture = """
+    <html><body><div>Showing results 1201 - 1201 of 2778</div>
+    <div class="lot-panel"><h3 class="panel-title">Auction Ended -
+    <time datetime="2023-07-21T12:00:00">21 Jul 2023</time></h3>
+    <a href="/lot/details/da06dc52-dc1f-47c6-972e-c84c57d2c80a">
+      <h3 class="list-address"></h3>
+    </a>
+    <div class="list-guideprice">Result: <strong>No Bids</strong></div></div>
+    </body></html>
+    """
+
+    rows = hh.parse_page(fixture, 25, {"snapshot_path": "page-25.json.gz"})
+
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["source_lot_id"] == "da06dc52-dc1f-47c6-972e-c84c57d2c80a"
+    assert row["auction_date"] == "2023-07-21"
+    assert row["address"] is None
+    assert row["postcode"] is None
+    assert row["record_quality"] == "partial_lot"
+    assert row["status"] == "unsold"
+
+
 def test_unsold_asking_amount_is_not_a_sale():
     assert hh.status_and_price('Unsold £175,000')==('unsold',None)
 

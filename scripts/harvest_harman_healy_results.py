@@ -135,8 +135,6 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         auction_date = datetime.fromisoformat(time_node["datetime"]).date().isoformat()
         lot_number = clean(lot_match.group(1)) if lot_match else None
         address = clean(address_node.get_text(" ", strip=True))
-        if not address:
-            raise ValueError(f"archive page {page} card {page_position} has an empty address")
         type_node = card.select_one(".lot-data-heading")
         property_type = clean(type_node.get_text(" ", strip=True)) if type_node else None
         description_node = card.select_one(".list-info p")
@@ -146,7 +144,7 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         status, sale_price = status_and_price(result_text)
         image_node = card.select_one("img.list-image[src]")
         image_url = urljoin(BASE, image_node["src"]) if image_node else None
-        postcode_match = corpus.PC.search(address)
+        postcode_match = corpus.PC.search(address or "")
         row = corpus.base_row(
             AUCTIONEER, f"{SLUG}:{auction_date}", auction_date,
             lot_number, source_id, detail_url,
@@ -164,7 +162,10 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
             image_urls=[image_url] if image_url else [],
             property_id=source_id,
             identity_method="first_party_published_eig_lot_id",
-            record_quality="address_record",
+            # Preserve a dated first-party result with an exact EIG identity
+            # even when the publisher has left its address heading blank.
+            # The unknown address remains null and the appearance is partial.
+            record_quality="address_record" if address else "partial_lot",
             source_position=(page - 1) * PAGE_SIZE + page_position,
             source_page=page,
             source_result_text=result_text,
