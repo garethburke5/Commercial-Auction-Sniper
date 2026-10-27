@@ -1,0 +1,43 @@
+{
+  "auctioneer": "Butters John Bee",
+  "source_auction_id": "butters-john-bee:2025-01-20",
+  "auction_date": "2025-01-20",
+  "source_url": "https://app-spoke-sites-qa-uk.s3.amazonaws.com/uploads/sites/134/2025/01/bjb-Auction-Results-January-2025.pdf",
+  "catalogue_url": "https://app-spoke-sites-qa-uk.s3.amazonaws.com/uploads/sites/134/2024/12/Auction-Catalogue-January-2025-WEB-New.pdf",
+  "visible_source_rows": 64,
+  "lots_captured": 64,
+  "catalogue_lots_enriched": 63,
+  "source_rows_complete": true,
+  "catalogue_complete": true,
+  "completion_scope": "every sequential row in the first-party result sheet; catalogue text retained for enrichment",
+  "source_evidence": [
+    {
+      "source_url": "https://buttersjohnbee.com/auction-catalogues",
+      "retrieved_at": "2026-10-27T10:48:49.190536+00:00",
+      "sha256": "b194d2c2ebbdd04ab9b89dbe4679dd52582ac5d7b063401c4bbbc66ac257a807",
+      "snapshot_path": "data/auction_history/sources/butters-john-bee/archive-b194d2c2ebbdd04a.json.gz",
+      "basis": "first-party catalogue and result PDF index"
+    },
+    {
+      "source_url": "https://app-spoke-sites-qa-uk.s3.amazonaws.com/uploads/sites/134/2025/01/bjb-Auction-Results-January-2025.pdf",
+      "retrieved_at": "2026-10-27T10:49:03.952742+00:00",
+      "sha256": "c7f1d29d4d49a6ea0565a8b58690fd584754785ab4778c24995a4a3c3962342a",
+      "snapshot_path": "data/auction_history/sources/butters-john-bee/result-2025-01-20-c7f1d29d4d49a6ea.pdf.gz",
+      "basis": "first-party complete auction result sheet PDF",
+      "auction_date": "2025-01-20"
+    },
+    {
+      "source_url": "https://app-spoke-sites-qa-uk.s3.amazonaws.com/uploads/sites/134/2024/12/Auction-Catalogue-January-2025-WEB-New.pdf",
+      "retrieved_at": "2026-10-27T10:49:03.986021+00:00",
+      "sha256": "9c21ca7b1fc425a7366313228928d13a220868c7478b2a4d116c8b80b2c7731b",
+      "source_size_bytes": 10312834,
+      "snapshot_path": "data/auction_history/sources/butters-john-bee/catalogue-2025-01-20-9c21ca7b1fc425a7.txt.gz",
+      "snapshot_format": "pdftotext-layout UTF-8 text from immutable first-party PDF",
+      "basis": "first-party complete auction catalogue PDF",
+      "auction_date": "2025-01-20"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T10:49:04.242791+00:00",
+  "exact_global_overlaps_excluded": 0
+}

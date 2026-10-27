@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T10:45:20.171992+00:00",
-  "individual_lot_records_captured": 300293,
-  "records_with_address": 289523,
+  "generated_at": "2026-10-27T10:50:15.491457+00:00",
+  "individual_lot_records_captured": 301739,
+  "records_with_address": 290969,
   "partial_lot_records": 10770,
-  "exact_address_groups": 160332,
-  "groups_with_repeat_appearances": 40961,
+  "exact_address_groups": 161456,
+  "groups_with_repeat_appearances": 41216,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -53,6 +53,7 @@
     "Bowen": 24,
     "Bradley Hall": 75,
     "Brown&Co": 464,
+    "Butters John Bee": 1446,
     "Cheffins": 740,
     "Clarke & Simpson": 167,
     "Clive Emson": 3978,
@@ -128,22 +129,22 @@
     "2021": 20584,
     "2022": 25646,
     "2023": 32051,
-    "2024": 40034,
-    "2025": 45969,
-    "2026": 44092
+    "2024": 40622,
+    "2025": 46478,
+    "2026": 44441
   },
   "by_sector": {
-    "commercial": 42168,
-    "land": 18287,
-    "mixed-use": 47144,
-    "residential": 145750,
-    "unknown": 46944
+    "commercial": 42204,
+    "land": 18454,
+    "mixed-use": 47181,
+    "residential": 146474,
+    "unknown": 47426
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3606,
+  "surviving_catalogues_completely_harvested": 3629,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -157,13 +158,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292705,
-      "auction_ids_observed": 9637,
-      "with_guide_price": 99468,
-      "with_sale_price": 110905,
-      "with_both_prices": 47714,
-      "marked_sold": 150205,
-      "marked_sold_without_sale_price": 40040
+      "lot_appearances": 294151,
+      "auction_ids_observed": 9660,
+      "with_guide_price": 100913,
+      "with_sale_price": 111323,
+      "with_both_prices": 48132,
+      "marked_sold": 150957,
+      "marked_sold_without_sale_price": 40374
     },
     "by_auctioneer_and_year": [
       {
@@ -3333,6 +3334,39 @@
         "with_both_prices": 73,
         "marked_sold": 87,
         "marked_sold_without_sale_price": 14
+      },
+      {
+        "auctioneer": "Butters John Bee",
+        "year": 2024,
+        "lot_appearances": 588,
+        "auction_ids_observed": 9,
+        "with_guide_price": 587,
+        "with_sale_price": 181,
+        "with_both_prices": 181,
+        "marked_sold": 298,
+        "marked_sold_without_sale_price": 117
+      },
+      {
+        "auctioneer": "Butters John Bee",
+        "year": 2025,
+        "lot_appearances": 509,
+        "auction_ids_observed": 8,
+        "with_guide_price": 509,
+        "with_sale_price": 132,
+        "with_both_prices": 132,
+        "marked_sold": 257,
+        "marked_sold_without_sale_price": 125
+      },
+      {
+        "auctioneer": "Butters John Bee",
+        "year": 2026,
+        "lot_appearances": 349,
+        "auction_ids_observed": 6,
+        "with_guide_price": 349,
+        "with_sale_price": 105,
+        "with_both_prices": 105,
+        "marked_sold": 197,
+        "marked_sold_without_sale_price": 92
       },
       {
         "auctioneer": "Cheffins",
