@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T04:59:29.917740+00:00",
+  "checked_at": "2026-10-27T05:43:21.341951+00:00",
   "auctioneer": "Sage & Co Auctions",
   "parser_version": 6,
   "source_url": "https://sageandco.eigonlineauctions.com/search",
-  "archive_sha256": "190f63acd0cd3914e3e82440f81c73faa0702c03b09172d9f26a6d435aa7787f",
+  "archive_sha256": "b9a6ba8f2d9302d10e6b198fe906ae336bb005f2c2db222605deb1de50e737aa",
   "archive_page_count": 1,
   "archive_page_rows": [
     17
@@ -18,37 +18,35 @@
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 17,
-  "run_new_appearances": 17,
-  "run_new_address_records": 17,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 15,
-  "run_new_commercial_mixed": 4,
-  "run_new_guide_prices": 17,
-  "run_new_sale_prices": 4,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 2,
+  "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
-  "new_source_years": [
-    2026
-  ],
+  "new_source_years": [],
   "date_range": [
     "2026-08-05",
     "2026-11-18"
   ],
   "by_status": {
     "unknown": 2,
-    "sold_prior": 3,
-    "withdrawn": 3,
     "unsold": 5,
+    "withdrawn": 3,
+    "postponed": 2,
     "sold": 2,
-    "postponed": 2
+    "sold_prior": 3
   },
   "by_sector": {
-    "unknown": 2,
     "residential": 8,
-    "mixed-use": 3,
     "land": 3,
+    "unknown": 2,
+    "mixed-use": 3,
     "commercial": 1
   },
   "detail_pages_captured": 17,

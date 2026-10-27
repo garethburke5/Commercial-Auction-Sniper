@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T00:10:33.524990+00:00",
+  "checked_at": "2026-10-27T05:43:55.113111+00:00",
   "auctioneer": "The Auction Company",
-  "parser_version": 3,
+  "parser_version": 6,
   "source_url": "https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All",
-  "archive_sha256": "0417a42e3fc9bcb3a78f4fcf86437f89bfeceae550b0bbd529d92406e7bb1a4e",
+  "archive_sha256": "e9da58a54bf5833da73e356eff2fbaf7594c3f56a4e38eaa5701746a2287b328",
   "archive_page_count": 3,
   "archive_page_rows": [
     50,
@@ -28,8 +28,8 @@
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
   "run_new_guide_prices": 0,
-  "run_new_sale_prices": 0,
-  "run_new_rents": 0,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 12,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
@@ -39,10 +39,9 @@
     "2026-10-26"
   ],
   "by_status": {
-    "sold": 79,
+    "sold": 80,
     "sold_prior": 41,
-    "sold_after": 2,
-    "unknown": 1
+    "sold_after": 2
   },
   "by_sector": {
     "residential": 113,

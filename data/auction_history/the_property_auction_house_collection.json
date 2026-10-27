@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T01:05:31.179249+00:00",
+  "checked_at": "2026-10-27T05:42:47.875511+00:00",
   "auctioneer": "The Property Auction House",
-  "parser_version": 5,
+  "parser_version": 6,
   "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
-  "archive_sha256": "ef7165c47dbca93139422885efbb6bff0cdb6cb26d32b1dc91734e5459d95a16",
+  "archive_sha256": "f8a066ab71e44c79a808bc1985616ae82265233f793b15b0080dec56864a4cdc",
   "archive_page_count": 3,
   "archive_page_rows": [
     43,
@@ -79,38 +79,32 @@
   ],
   "archive_pagination_complete": true,
   "appearances_captured": 127,
-  "run_new_appearances": 127,
-  "run_new_address_records": 127,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 112,
-  "run_new_commercial_mixed": 2,
-  "run_new_guide_prices": 127,
-  "run_new_sale_prices": 53,
-  "run_new_rents": 2,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 7,
   "run_new_undated": 0,
-  "run_new_future_dated": 15,
+  "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
-  "new_source_years": [
-    2022,
-    2023,
-    2024,
-    2025,
-    2026
-  ],
+  "new_source_years": [],
   "date_range": [
     "2022-01-26",
     "2026-12-10"
   ],
   "by_status": {
-    "unknown": 15,
-    "sold": 23,
     "sold_prior": 79,
-    "sold_after": 10
+    "sold": 23,
+    "sold_after": 10,
+    "unknown": 15
   },
   "by_sector": {
     "residential": 121,
-    "commercial": 2,
-    "land": 4
+    "land": 4,
+    "commercial": 2
   },
   "detail_pages_captured": 127,
   "detail_recovery_failures": [],

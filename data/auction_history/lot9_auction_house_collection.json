@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T03:01:07.075194+00:00",
+  "checked_at": "2026-10-27T05:43:05.622306+00:00",
   "auctioneer": "Lot9 Auction House",
-  "parser_version": 5,
+  "parser_version": 6,
   "source_url": "https://lot9.eigonlineauctions.com/search",
-  "archive_sha256": "435d2bcfe3b5dfed4c60b4cfeb2d892fbc781ccd22a48e4c388821789308d143",
+  "archive_sha256": "67d6a302ef9d6252a3cf8f4dfbe05c378c6f13bfddc3485c77000d4e54009714",
   "archive_page_count": 1,
   "archive_page_rows": [
     34
@@ -18,39 +18,33 @@
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 34,
-  "run_new_appearances": 34,
-  "run_new_address_records": 34,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 34,
-  "run_new_commercial_mixed": 2,
-  "run_new_guide_prices": 27,
-  "run_new_sale_prices": 11,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
-  "new_source_years": [
-    2022,
-    2023,
-    2024,
-    2025,
-    2026
-  ],
+  "new_source_years": [],
   "date_range": [
     "2022-06-20",
     "2026-07-30"
   ],
   "by_status": {
-    "unsold": 6,
-    "sold_after": 2,
-    "sold_prior": 12,
-    "withdrawn": 6,
     "postponed": 6,
+    "sold_after": 2,
+    "withdrawn": 6,
+    "sold_prior": 12,
+    "unsold": 6,
     "sold": 2
   },
   "by_sector": {
-    "residential": 31,
     "unknown": 1,
+    "residential": 31,
     "mixed-use": 2
   },
   "detail_pages_captured": 34,
