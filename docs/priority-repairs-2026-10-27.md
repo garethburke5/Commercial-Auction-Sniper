@@ -45,8 +45,12 @@ The shared collector now retries only failed details once, at lower concurrency,
 retains the failed URLs/reasons, and counts recovered pages once. Index failures
 also prevent a misleading LIVE status or complete denominator. The transport
 already has bounded HTTP retries; this additionally recovers HTTP-success pages
-that fail content validation. 32 Pugh regression tests passed. A new complete
-source run must establish the current counts before claiming live recovery.
+that fail content validation. 32 Pugh regression tests passed. The complete live-source verification then
+finished successfully: 22 catalogue pages, 374 detail pages inspected, 89
+commercial/mixed-use lots (87 available and two unavailable), 285 noncommercial
+lots excluded, zero unresolved detail/index failures. No retry was needed in
+that successful pass. This is a local live-source check; the production scan
+40553104562 is separately responsible for publishing its refreshed snapshot.
 
 ## Investment-report defects
 
@@ -84,3 +88,10 @@ progress and source-register metadata. Git sparse-checkout inclusion checks
 confirmed these boundaries. This changes website checkout only; it does not
 remove archived records or alter the historical collection workflows.
 The full local report regression set passed 226 tests and three subtests.
+
+## Historical checkpoint
+
+The existing collector checkpoint at 17:30 UTC records 304,492 retained
+appearances, including 89,430 classified commercial/mixed-use appearances.
+There remain 515 incomplete/unreconciled catalogues and 22 fetch/parse failures.
+These counts are not a claim of comprehensive national 20-year coverage.
