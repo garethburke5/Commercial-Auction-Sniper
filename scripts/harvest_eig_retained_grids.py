@@ -176,7 +176,10 @@ SOURCES = {
     "auction-house-online-2025-05-27": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/69595",
+        # The bare event route repeatedly times out from GitHub's runner.  The
+        # platform's explicit all-results query uses a distinct cached route
+        # while preserving the same first-party 59-card event inventory.
+        "archive_path": "/past-auctions/69595?lotResultType=All",
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
