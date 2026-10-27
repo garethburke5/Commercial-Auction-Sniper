@@ -1090,3 +1090,34 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   first-party result page, so the archive collector must exclude exact stable-ID
   overlaps before reporting net growth. National completeness remains false.
 
+## 27 October 2026 — Brown&Co retained-grid expansion and identity reconciliation
+
+- Reconciled **456** published auction-lot cards across ten first-party search
+  pages and captured all 456 detail pages without recovery failures. The archive
+  uses UUID identities while Brown&Co's older rolling page used numeric EIG IDs,
+  so ID equality alone was not a valid overlap test.
+- Exact full-address plus auction-date comparison identified **21** genuine
+  identity migrations. Those appearances now retain both immutable evidence
+  trails under the archive UUID; seven nonmatching legacy rows remain distinct.
+  The final Brown&Co shard therefore contains **463** appearances, not the
+  temporarily inflated 484 and not the overly conservative 456.
+- Banked **435 net new address appearances** against the 28-row pre-archive
+  corpus. **430** are exact-dated within the current 20-year window, five are
+  explicitly future-dated, and none are partial or undated. Newly represented
+  Brown&Co source-years are 2020 and 2022–2025; 2026 was already represented.
+- Added **456 guide prices**, **392 net new achieved-price records** and five
+  annual rents. The gain contains 20 commercial and four mixed-use appearances.
+  Published outcomes remain separate: 412 sold, 25 sold-after, eight
+  sold-prior, five unsold, six withdrawn, one postponed and six unknown.
+- The rebuilt corpus contains **299,345 appearances**: 288,575 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 291,787
+  appearances, with 98,581 guide-price records and 110,447 sale-price records.
+  Collection, database rebuild, packaging, source-register reconciliation and
+  publication completed successfully. National completeness remains false.
+- Next concrete growth target: The Property Auction House, a genuine
+  directory-listed Welsh operator with no retained corpus match. Its first-party
+  archive at `https://thepropertyauctionhouse.eigonlineauctions.com/search`
+  currently publishes **134** rows across three pages. Reconcile the live
+  denominator, exclude non-auction committed-offer/online-sale cards, and bank
+  only property appearances with stable identities and immutable evidence.
+
