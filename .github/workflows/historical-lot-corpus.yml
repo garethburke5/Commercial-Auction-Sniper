@@ -436,7 +436,7 @@ jobs:
         continue-on-error: true
         run: python -u scripts/harvest_town_country_results.py --workers 4
       - name: Bank Brown and Co retained property-auction results
-        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh') && !startsWith(github.event.head_commit.message, 'Run focused Brown and Co archive expansion')
         timeout-minutes: 10
         continue-on-error: true
         run: python -u scripts/harvest_brown_co_results.py

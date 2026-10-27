@@ -75,7 +75,7 @@ GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re
 RENT_RE = re.compile(
     r"£\s*([\d,]+(?:\.\d+)?)\s*(per\s+annum|annually|p\.?\s*a\.?)\b", re.I
 )
-PARSER_VERSION = 3
+PARSER_VERSION = 4
 
 
 def clean(value: str | None) -> str | None:
@@ -344,6 +344,71 @@ def existing_global_ids(exclude_slug: str) -> set[str]:
     return values
 
 
+def exact_appearance_key(row: dict) -> tuple[str, str] | None:
+    """Return a deliberately strict same-appearance key.
+
+    EIG migrated some Brown&Co lots from numeric IDs to UUIDs.  We only join
+    those identities when both the exact published auction date and a
+    punctuation-insensitive full address agree.  Ambiguous repeated keys are
+    left separate so related legal interests are never collapsed.
+    """
+    auction_date = clean(row.get("auction_date"))
+    address = re.sub(r"[^a-z0-9]+", " ", clean(row.get("address")) or "", flags=re.I).strip().casefold()
+    return (auction_date, address) if auction_date and address else None
+
+
+def reconcile_legacy_rolling_rows(
+    archive_rows: list[dict], legacy_rows: list[dict]
+) -> tuple[list[dict], dict]:
+    """Consolidate only unambiguous exact Brown&Co rolling/archive overlaps."""
+    keyed = defaultdict(list)
+    for row in archive_rows:
+        key = exact_appearance_key(row)
+        if key:
+            keyed[key].append(row)
+
+    exact_overlaps, preserved = [], []
+    for legacy in legacy_rows:
+        key = exact_appearance_key(legacy)
+        matches = keyed.get(key, []) if key else []
+        if len(matches) != 1:
+            preserved.append(legacy)
+            continue
+        archive = matches[0]
+        evidence = {
+            "basis": "first-party rolling result card retained under legacy numeric EIG identity",
+            "source_lot_id": legacy.get("source_lot_id"),
+            "original_url": legacy.get("original_url"),
+            "source_result_text": legacy.get("source_result_text"),
+            "status": legacy.get("status"),
+            "sale_price": legacy.get("sale_price"),
+            "source_evidence": legacy.get("source_evidence"),
+        }
+        retained = list(archive.get("additional_source_evidence") or [])
+        fingerprint = json.dumps(evidence, sort_keys=True, default=str)
+        if all(json.dumps(value, sort_keys=True, default=str) != fingerprint for value in retained):
+            retained.append(evidence)
+        archive["additional_source_evidence"] = retained
+        for field in ("sale_price", "status", "source_result_text"):
+            if archive.get(field) is None and legacy.get(field) is not None:
+                archive[field] = legacy[field]
+        exact_overlaps.append({
+            "auction_date": legacy.get("auction_date"),
+            "address": legacy.get("address"),
+            "legacy_source_lot_id": legacy.get("source_lot_id"),
+            "archive_source_lot_id": archive.get("source_lot_id"),
+        })
+
+    merged = {row["appearance_id"]: row for row in archive_rows}
+    merged.update({row["appearance_id"]: row for row in preserved})
+    return list(merged.values()), {
+        "legacy_rows": len(legacy_rows),
+        "exact_overlaps": exact_overlaps,
+        "exact_overlap_count": len(exact_overlaps),
+        "preserved_distinct_count": len(preserved),
+    }
+
+
 def harvest(slug: str, workers: int = 10) -> dict:
     if slug not in SOURCES:
         raise ValueError(f"unknown retained grid: {slug}")
@@ -396,12 +461,14 @@ def harvest(slug: str, workers: int = 10) -> dict:
         )
 
     summary_path = corpus.DATA / f"{slug.replace('-', '_')}_collection.json"
+    legacy_path = corpus.DATA / "appearances" / slug / "results.jsonl.gz"
     prior = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     archive_sha = corpus.digest("".join(value["sha256"] for value in archive_evidence).encode())
     if (prior.get("archive_sha256") == archive_sha
             and prior.get("archive_pagination_complete") is True
             and prior.get("parser_version") == PARSER_VERSION
-            and not prior.get("detail_recovery_failures")):
+            and not prior.get("detail_recovery_failures")
+            and not (slug == "brown-co" and legacy_path.exists())):
         checked = datetime.fromisoformat(prior["checked_at"])
         if 0 <= (datetime.now(timezone.utc) - checked).total_seconds() < 86400:
             print(json.dumps({"source": slug, "skipped": "complete unchanged grid checked within 24 hours"}))
@@ -435,11 +502,23 @@ def harvest(slug: str, workers: int = 10) -> dict:
     admissible = [row for row in rows if row["source_lot_id"] not in global_ids]
     appearance_path = corpus.DATA / "appearances" / slug / "canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
-    before = {row["appearance_id"] for row in existing}
-    merged = {row["appearance_id"]: row for row in existing}
+    legacy = list(corpus.iter_rows(legacy_path)) if slug == "brown-co" and legacy_path.exists() else []
+    legacy_ids = {row["appearance_id"] for row in legacy}
+    existing_archive = [row for row in existing if row["appearance_id"] not in legacy_ids]
+    existing_reconciled, _ = reconcile_legacy_rolling_rows(existing_archive, legacy)
+    merged = {row["appearance_id"]: row for row in existing_archive}
     merged.update({row["appearance_id"]: row for row in admissible})
-    corpus.write_rows(f"{slug}/canonical", list(merged.values()))
-    added = [row for key, row in merged.items() if key not in before]
+    reconciliation = {"legacy_rows": 0, "exact_overlaps": [], "exact_overlap_count": 0, "preserved_distinct_count": 0}
+    if legacy:
+        reconciled, reconciliation = reconcile_legacy_rolling_rows(list(merged.values()), legacy)
+        merged = {row["appearance_id"]: row for row in reconciled}
+    corpus.write_rows(f"{slug}/canonical", list(merged.values()), preserve_existing=False)
+    persisted = list(corpus.iter_rows(appearance_path))
+    if len(persisted) != len(merged) or {row["appearance_id"] for row in persisted} != set(merged):
+        raise RuntimeError(f"{slug} canonical reconciliation did not persist exactly")
+    if legacy:
+        legacy_path.unlink()
+    run_new_count = max(0, len(merged) - len(existing_reconciled))
 
     by_date = defaultdict(list)
     for row in admissible:
@@ -463,9 +542,13 @@ def harvest(slug: str, workers: int = 10) -> dict:
     today_value = date.today()
     today = today_value.isoformat()
     cutoff = date(today_value.year - 20, today_value.month, today_value.day).isoformat()
-    historical = [row for row in added if row.get("auction_date") and cutoff <= row["auction_date"] <= today]
-    years_before = {int(row["auction_date"][:4]) for row in existing if row.get("auction_date")}
+    years_before = {int(row["auction_date"][:4]) for row in existing_reconciled if row.get("auction_date")}
     years_after = {int(row["auction_date"][:4]) for row in merged.values() if row.get("auction_date")}
+    archive_baseline = legacy if legacy else []
+    baseline_dates = {int(row["auction_date"][:4]) for row in archive_baseline if row.get("auction_date")}
+    all_rows = list(merged.values())
+    all_historical = [row for row in all_rows if row.get("auction_date") and cutoff <= row["auction_date"] <= today]
+    baseline_historical = [row for row in archive_baseline if row.get("auction_date") and cutoff <= row["auction_date"] <= today]
     summary = {
         "checked_at": corpus.now(),
         "auctioneer": source["auctioneer"],
@@ -482,16 +565,16 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "non_auction_exclusions": excluded_non_auction,
         "archive_pagination_complete": True,
         "appearances_captured": len(merged),
-        "run_new_appearances": len(added),
-        "run_new_address_records": sum(bool(row.get("address")) for row in added),
-        "run_new_partial_lots": sum(not row.get("address") for row in added),
-        "run_new_dated_twenty_year_address_records": sum(bool(row.get("address")) for row in historical),
-        "run_new_commercial_mixed": sum(row.get("sector") in {"commercial", "mixed-use"} for row in added),
-        "run_new_guide_prices": sum(row.get("guide_price") is not None for row in added),
-        "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
-        "run_new_rents": sum(row.get("annual_rent") is not None for row in added),
-        "run_new_undated": sum(not row.get("auction_date") for row in added),
-        "run_new_future_dated": sum((row.get("auction_date") or "") > today for row in added),
+        "run_new_appearances": run_new_count,
+        "run_new_address_records": max(0, sum(bool(row.get("address")) for row in all_rows) - sum(bool(row.get("address")) for row in existing_reconciled)),
+        "run_new_partial_lots": max(0, sum(not row.get("address") for row in all_rows) - sum(not row.get("address") for row in existing_reconciled)),
+        "run_new_dated_twenty_year_address_records": max(0, sum(bool(row.get("address")) for row in all_historical) - sum(bool(row.get("address")) for row in existing_reconciled if row.get("auction_date") and cutoff <= row["auction_date"] <= today)),
+        "run_new_commercial_mixed": max(0, sum(row.get("sector") in {"commercial", "mixed-use"} for row in all_rows) - sum(row.get("sector") in {"commercial", "mixed-use"} for row in existing_reconciled)),
+        "run_new_guide_prices": max(0, sum(row.get("guide_price") is not None for row in all_rows) - sum(row.get("guide_price") is not None for row in existing_reconciled)),
+        "run_new_sale_prices": max(0, sum(row.get("sale_price") is not None for row in all_rows) - sum(row.get("sale_price") is not None for row in existing_reconciled)),
+        "run_new_rents": max(0, sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in existing_reconciled)),
+        "run_new_undated": max(0, sum(not row.get("auction_date") for row in all_rows) - sum(not row.get("auction_date") for row in existing_reconciled)),
+        "run_new_future_dated": max(0, sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in existing_reconciled)),
         "run_duplicate_source_evidence_excluded": len(overlaps),
         "new_source_years": sorted(years_after - years_before),
         "date_range": [min(row["auction_date"] for row in merged.values()), max(row["auction_date"] for row in merged.values())],
@@ -502,6 +585,21 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
         "failures": [],
     }
+    if legacy:
+        summary.update({
+            "legacy_rolling_rows_reconciled": reconciliation["legacy_rows"],
+            "legacy_exact_address_date_overlaps_consolidated": reconciliation["exact_overlap_count"],
+            "legacy_distinct_appearances_preserved": reconciliation["preserved_distinct_count"],
+            "legacy_overlap_reconciliation": reconciliation["exact_overlaps"],
+            "archive_net_growth_against_pre_archive_rolling_corpus": len(all_rows) - len(archive_baseline),
+            "archive_net_dated_twenty_year_address_growth": sum(bool(row.get("address")) for row in all_historical) - sum(bool(row.get("address")) for row in baseline_historical),
+            "archive_net_commercial_mixed_growth": sum(row.get("sector") in {"commercial", "mixed-use"} for row in all_rows) - sum(row.get("sector") in {"commercial", "mixed-use"} for row in archive_baseline),
+            "archive_net_guide_price_growth": sum(row.get("guide_price") is not None for row in all_rows) - sum(row.get("guide_price") is not None for row in archive_baseline),
+            "archive_net_sale_price_growth": sum(row.get("sale_price") is not None for row in all_rows) - sum(row.get("sale_price") is not None for row in archive_baseline),
+            "archive_net_rent_growth": sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in archive_baseline),
+            "archive_net_future_dated_growth": sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in archive_baseline),
+            "archive_new_source_years": sorted(years_after - baseline_dates),
+        })
     corpus.save_json(summary_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
     return summary

@@ -1,5 +1,7 @@
+import json
 import pytest
 
+from scripts import harvest_brown_co_results as brown
 from scripts.harvest_brown_co_results import parse_results, parse_status
 
 
@@ -49,3 +51,12 @@ def test_empty_or_malformed_source_is_rejected():
         parse_results("<html></html>", {})
     with pytest.raises(ValueError, match="lacks identity"):
         parse_results('<a class="card--property-auction" href="https://brownandco.eigonlineauctions.com/lot/details/7"></a>', {})
+
+
+def test_complete_archive_supersedes_rolling_results(monkeypatch, tmp_path):
+    monkeypatch.setattr(brown.corpus, "DATA", tmp_path)
+    (tmp_path / "brown_co_collection.json").write_text(json.dumps({
+        "archive_pagination_complete": True,
+        "source_url": "https://brownandco.eigonlineauctions.com/search",
+    }))
+    assert brown.complete_archive_exists()

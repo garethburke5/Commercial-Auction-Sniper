@@ -133,6 +133,33 @@ def test_numeric_eig_lot_ids_are_preserved_as_stable_identities():
     assert rows[0]["appearance_id"] == "Example Auctions|eig-lot:193314"
 
 
+def test_legacy_numeric_identity_reconciles_only_on_exact_date_and_address():
+    archive = grids.parse_grid(GRID, SOURCE, {})[0]
+    legacy_match = dict(archive[0])
+    legacy_match.update(
+        appearance_id="Example Auctions|eig-lot:193314",
+        source_lot_id="193314",
+        original_url="https://example.test/lot/details/193314",
+        source_result_text="Sold for £420,000",
+        source_evidence={"sha256": "legacy"},
+    )
+    related_interest = dict(legacy_match)
+    related_interest.update(
+        appearance_id="Example Auctions|eig-lot:193315",
+        source_lot_id="193315",
+        address="Garage at 5 High Street, London, SW1A 1AA",
+    )
+    reconciled, stats = grids.reconcile_legacy_rolling_rows(
+        archive, [legacy_match, related_interest]
+    )
+    assert len(reconciled) == 3
+    assert stats["exact_overlap_count"] == 1
+    assert stats["preserved_distinct_count"] == 1
+    retained = next(row for row in reconciled if row["source_lot_id"].startswith("85c11"))
+    assert retained["additional_source_evidence"][0]["source_lot_id"] == "193314"
+    assert any(row["source_lot_id"] == "193315" for row in reconciled)
+
+
 def test_clarke_simpson_uses_full_first_party_search_archive():
     assert grids.SOURCES["clarke-simpson"] == {
         "auctioneer": "Clarke & Simpson",

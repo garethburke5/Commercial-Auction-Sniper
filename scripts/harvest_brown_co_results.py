@@ -32,6 +32,17 @@ DATE_RANGE_RE = re.compile(
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)")
 
 
+def complete_archive_exists() -> bool:
+    path = corpus.DATA / "brown_co_collection.json"
+    if not path.exists():
+        return False
+    summary = json.loads(path.read_text())
+    return bool(
+        summary.get("archive_pagination_complete") is True
+        and summary.get("source_url", "").startswith("https://brownandco.eigonlineauctions.com/search")
+    )
+
+
 def clean(value) -> str | None:
     value = re.sub(r"\s+", " ", str(value or "")).strip(" ,\xa0")
     return value or None
@@ -121,6 +132,12 @@ def parse_results(html: str, evidence: dict) -> list[dict]:
 
 
 def harvest() -> None:
+    if complete_archive_exists():
+        print(json.dumps({
+            "source": "brown-co",
+            "skipped": "complete first-party search archive supersedes the rolling result page",
+        }, indent=2), flush=True)
+        return
     response = requests.get(SOURCE_URL, headers=HEADERS, timeout=75)
     response.raise_for_status()
     raw = response.content
