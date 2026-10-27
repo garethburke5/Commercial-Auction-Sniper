@@ -45,6 +45,11 @@ DETAIL = """
 <p>Retail and residential property producing £24,000 per annum.</p>
 """
 
+AUCTION_HOUSE_DETAIL = DETAIL.replace(
+    "</head>",
+    "</head><a href='/northwest'>Auction House / North West</a>",
+)
+
 LANDMARK_RETAINED_GRID = """
 <div class="lot-panel">
  <a href="/lot/details/09702f31-6765-4293-bdd5-7b5742d0f968">
@@ -102,6 +107,48 @@ def test_detail_enrichment_preserves_guide_rent_and_mixed_sector():
     assert enriched["rent_text"] == "£24,000 per annum"
     assert enriched["sector"] == "mixed-use"
     assert enriched["image_urls"] == ["https://cdn.example/full.jpg"]
+
+
+def test_shared_auction_house_detail_attributes_regional_branch():
+    row = grids.parse_grid(GRID, SOURCE, {})[0][0]
+    source = {
+        **SOURCE,
+        "auctioneer": "Auction House Online",
+        "auctioneer_from_detail": True,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+    }
+    enriched = grids.enrich_detail(AUCTION_HOUSE_DETAIL, row, {}, source)
+    assert enriched["auctioneer"] == "Auction House North West"
+    assert enriched["appearance_id"] == (
+        "Auction House North West|eig-lot:85c11d6d-40f5-4b78-80c1-f360ee721c0b"
+    )
+    assert enriched["source_platform_auctioneer"] == "Auction House Online"
+
+
+def test_exact_cross_source_overlap_exclusion_preserves_ambiguous_interests():
+    rows = grids.parse_grid(GRID, SOURCE, {})[0]
+    exact = grids.exact_appearance_key(rows[0])
+    assert exact
+    retained, overlaps = grids.exclude_exact_cross_source_overlaps(
+        rows, grids.Counter({exact: 1})
+    )
+    assert len(retained) == 1 and retained[0] == rows[1]
+    assert overlaps[0]["source_lot_id"] == rows[0]["source_lot_id"]
+
+    related = dict(rows[0], appearance_id="related", source_lot_id="related")
+    retained, overlaps = grids.exclude_exact_cross_source_overlaps(
+        [rows[0], related], grids.Counter({exact: 1})
+    )
+    assert len(retained) == 2 and overlaps == []
+
+
+def test_unpaginated_event_reconciles_published_inventory_above_50():
+    rows = grids.parse_grid(GRID, SOURCE, {})[0]
+    inventory = [dict(rows[0], source_lot_id=f"lot-{index}") for index in range(92)]
+    assert grids.pagination_reconciles([inventory], [], [], 92, unpaginated_event=True)
+    assert not grids.pagination_reconciles([inventory], [], [], 92)
+    assert not grids.pagination_reconciles([inventory[:-1]], [], [], 92, unpaginated_event=True)
 
 
 def test_detail_enrichment_annualises_explicit_monthly_rent():
@@ -375,4 +422,17 @@ def test_landmark_uses_full_archive_and_one_legal_operator():
             "Daniels Estate Agents",
             "The Landmark Consultancy",
         ],
+    }
+
+
+def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
+    assert grids.SOURCES["auction-house-online-2025-11"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/75792",
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "exclude_exact_cross_source_overlaps": True,
     }

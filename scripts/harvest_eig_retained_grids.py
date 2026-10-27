@@ -125,6 +125,24 @@ SOURCES = {
             "The Landmark Consultancy",
         ],
     },
+    "auction-house-online-2025-11": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/75792",
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        # The national online catalogue is a shared first-party platform.  Its
+        # detail pages publish the responsible regional Auction House branch;
+        # retain that attribution instead of inventing a separate auctioneer.
+        "auctioneer_from_detail": True,
+        # This event route renders its complete 92-card inventory on one page
+        # instead of the usual 50-card retained-grid pagination.
+        "unpaginated_event": True,
+        # Regional collectors can retain the same appearance under an older
+        # numeric redirect ID.  A UUID mismatch alone is therefore not new
+        # evidence: exclude only an unambiguous exact date/address overlap.
+        "exclude_exact_cross_source_overlaps": True,
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -395,7 +413,17 @@ def description_after_heading(soup: BeautifulSoup) -> str | None:
     return None
 
 
-def enrich_detail(html: str, row: dict, evidence: dict) -> dict:
+def published_auction_house(soup: BeautifulSoup) -> str | None:
+    for link in soup.find_all("a"):
+        value = clean(link.get_text(" ", strip=True))
+        match = re.fullmatch(r"Auction House\s*/\s*(.+)", value or "", re.I)
+        if match:
+            branch = clean(match.group(1))
+            return f"Auction House {branch}" if branch else None
+    return None
+
+
+def enrich_detail(html: str, row: dict, evidence: dict, source: dict | None = None) -> dict:
     soup = BeautifulSoup(html, "lxml")
     heading = soup.select_one("h1.h3")
     detail_address = clean(heading.get_text(" ", strip=True)) if heading else None
@@ -427,6 +455,17 @@ def enrich_detail(html: str, row: dict, evidence: dict) -> dict:
         image_urls=images or row.get("image_urls") or [],
         detail_source_evidence=evidence,
     )
+    if source and source.get("auctioneer_from_detail"):
+        auctioneer = published_auction_house(soup)
+        if not auctioneer:
+            raise ValueError("detail page does not publish its Auction House branch")
+        row.update(
+            auctioneer=auctioneer,
+            appearance_id=f"{auctioneer}|eig-lot:{row['source_lot_id']}",
+            source_platform_auctioneer=source["auctioneer"],
+            operator_legal_name=source.get("operator_legal_name"),
+            operator_company_number=source.get("operator_company_number"),
+        )
     return row
 
 
@@ -469,6 +508,69 @@ def exact_appearance_key(row: dict) -> tuple[str, str] | None:
     auction_date = clean(row.get("auction_date"))
     address = re.sub(r"[^a-z0-9]+", " ", clean(row.get("address")) or "", flags=re.I).strip().casefold()
     return (auction_date, address) if auction_date and address else None
+
+
+def existing_global_exact_keys(exclude_slug: str) -> Counter:
+    values = Counter()
+    for path in (corpus.DATA / "appearances").glob("*/*.jsonl.gz"):
+        if path.parent.name == exclude_slug:
+            continue
+        for row in corpus.iter_rows(path):
+            key = exact_appearance_key(row)
+            if key:
+                values[key] += 1
+    return values
+
+
+def exclude_exact_cross_source_overlaps(
+    rows: list[dict], existing_keys: Counter
+) -> tuple[list[dict], list[dict]]:
+    """Exclude only one-to-one exact date/address platform migrations.
+
+    Repeated source keys are deliberately retained because separate flats,
+    garages or other legal interests can share a displayed address and date.
+    """
+    source_keys = Counter(filter(None, (exact_appearance_key(row) for row in rows)))
+    retained, overlaps = [], []
+    for row in rows:
+        key = exact_appearance_key(row)
+        if key and source_keys[key] == 1 and existing_keys[key] >= 1:
+            overlaps.append({
+                "auction_date": row.get("auction_date"),
+                "address": row.get("address"),
+                "source_lot_id": row.get("source_lot_id"),
+                "original_url": row.get("original_url"),
+                "existing_match_count": existing_keys[key],
+            })
+        else:
+            retained.append(row)
+    return retained, overlaps
+
+
+def pagination_reconciles(
+    page_rows: list[list[dict]],
+    malformed: list[dict],
+    excluded_non_auction: list[dict],
+    denominator: int | None,
+    *,
+    unpaginated_event: bool = False,
+) -> bool:
+    ids = [row["source_lot_id"] for rows in page_rows for row in rows]
+    page_visible_counts = [
+        len(rows) + sum(value["page"] == page for value in excluded_non_auction)
+        for page, rows in enumerate(page_rows, start=1)
+    ]
+    page_shape_complete = (
+        len(page_rows) == 1
+        if unpaginated_event
+        else all(page_visible_counts[page - 1] == 50 for page in range(1, len(page_rows)))
+        and page_visible_counts[-1] <= 50
+    )
+    return bool(
+        page_rows and all(page_rows) and not malformed and len(ids) == len(set(ids))
+        and page_shape_complete
+        and (denominator is None or len(ids) + len(excluded_non_auction) == denominator)
+    )
 
 
 def reconcile_legacy_rolling_rows(
@@ -561,11 +663,12 @@ def harvest(slug: str, workers: int = 10) -> dict:
         + sum(value["page"] == page for value in excluded_non_auction)
         for page in range(1, pages + 1)
     ]
-    pagination_complete = bool(
-        pages >= 1 and all(page_rows) and not malformed and len(ids) == len(set(ids))
-        and all(page_visible_counts[page - 1] == 50 for page in range(1, pages))
-        and page_visible_counts[-1] <= 50
-        and (denominator is None or len(ids) + len(excluded_non_auction) == denominator)
+    pagination_complete = pagination_reconciles(
+        page_rows,
+        malformed,
+        excluded_non_auction,
+        denominator,
+        unpaginated_event=source.get("unpaginated_event", False),
     )
     if not pagination_complete:
         raise RuntimeError(
@@ -601,7 +704,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
                     source_lot_id=row["source_lot_id"],
                 )
                 detail_results[row["appearance_id"]] = enrich_detail(
-                    raw.decode("utf-8", "replace"), row, evidence
+                    raw.decode("utf-8", "replace"), row, evidence, source
                 )
             except Exception as exc:
                 detail_failures.append({
@@ -609,11 +712,20 @@ def harvest(slug: str, workers: int = 10) -> dict:
                     "error": f"{type(exc).__name__}: {exc}",
                 })
                 detail_results[row["appearance_id"]] = row
+    if source.get("auctioneer_from_detail") and detail_failures:
+        raise RuntimeError(
+            f"{slug} branch attribution incomplete: {len(detail_failures)} detail pages failed"
+        )
     rows = [detail_results[row["appearance_id"]] for row in rows]
 
     global_ids = existing_global_ids(slug)
-    overlaps = [row for row in rows if row["source_lot_id"] in global_ids]
+    id_overlaps = [row for row in rows if row["source_lot_id"] in global_ids]
     admissible = [row for row in rows if row["source_lot_id"] not in global_ids]
+    exact_overlaps = []
+    if source.get("exclude_exact_cross_source_overlaps"):
+        admissible, exact_overlaps = exclude_exact_cross_source_overlaps(
+            admissible, existing_global_exact_keys(slug)
+        )
     appearance_path = corpus.DATA / "appearances" / slug / "canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
     legacy = list(corpus.iter_rows(legacy_path)) if slug == "brown-co" and legacy_path.exists() else []
@@ -689,11 +801,15 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "run_new_rents": max(0, sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in existing_reconciled)),
         "run_new_undated": max(0, sum(not row.get("auction_date") for row in all_rows) - sum(not row.get("auction_date") for row in existing_reconciled)),
         "run_new_future_dated": max(0, sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in existing_reconciled)),
-        "run_duplicate_source_evidence_excluded": len(overlaps),
+        "run_duplicate_source_evidence_excluded": len(id_overlaps) + len(exact_overlaps),
+        "duplicate_source_identity_exclusions": len(id_overlaps),
+        "exact_date_address_overlap_exclusions": len(exact_overlaps),
+        "exact_overlap_reconciliation": exact_overlaps,
         "new_source_years": sorted(years_after - years_before),
         "date_range": [min(row["auction_date"] for row in merged.values()), max(row["auction_date"] for row in merged.values())],
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
+        "by_attributed_auctioneer": dict(Counter(row.get("auctioneer") or "unknown" for row in merged.values())),
         "detail_pages_captured": len(rows) - len(detail_failures),
         "detail_recovery_failures": detail_failures,
         "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
