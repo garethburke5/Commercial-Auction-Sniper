@@ -95,6 +95,13 @@ SOURCES = {
         ],
         "merged_firms": ["Kent Jones"],
     },
+    "astleys": {
+        "auctioneer": "Astleys",
+        "base": "https://astleys.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "ASTLEY SAMUEL LEEDER LTD",
+        "operator_company_number": "03129558",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",

@@ -251,6 +251,16 @@ def test_bowen_reconciles_historical_trading_names_as_one_operator():
     }
 
 
+def test_astleys_uses_full_archive_and_distinct_legal_operator():
+    assert grids.SOURCES["astleys"] == {
+        "auctioneer": "Astleys",
+        "base": "https://astleys.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "ASTLEY SAMUEL LEEDER LTD",
+        "operator_company_number": "03129558",
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
