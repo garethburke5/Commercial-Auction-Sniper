@@ -1357,3 +1357,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
 - Collector and workflow verification passed **458 tests** (365 collector tests plus 93 workflow tests). National completeness remains false.
 - Sarah Mains was rejected as the next target because its apparent 588-lot subdomain redirects to Auction Works, whose 644 retained appearances already cover the shared platform; treating it as a new operator would inflate growth.
 - **Next growth target:** batch the accessible uncovered Opal Property retained grid (20 visible address cards, 2020-2023) with the Newlands Property retained grid (9 visible address cards), reconcile their legal operators and stable-ID overlaps, then bank only genuine net-new appearances. The former Star Property 16-card route currently returns 404 and is not the next collection route.
+
+
+## 27 October 2026 — Opal Property and Newlands Property retained-grid expansion
+
+- Reconciled both surviving first-party EIG grids: **20/20 Opal Property**
+  cards and **9/9 Newlands Property** cards, each with distinct stable source
+  identities and every detail page captured. The two first-party brands remain
+  separate genuine directory entries; no branch, alias or shared-platform
+  participant is counted as an extra auctioneer, and no unverified limited
+  company identity was invented.
+- Banked **29 net-new address appearances**, all exact-dated inside the current
+  20-year window. There are no partial, undated, future-dated,
+  duplicate-derived or non-auction-card additions. The new source-year pairs
+  are Opal 2020–2023 and Newlands 2023–2026 (**8 auctioneer-year pairs**).
+- Added **29 guide-price records**, **0 achieved prices** and **12 rent
+  values**. The evidence-based sector split is 23 residential, three mixed-use,
+  one commercial, one land and one evidence-limited unknown appearance; the
+  commercial/mixed-use increment is **4**. Outcomes remain distinct: 11
+  unsold, eight sold-prior, four sold-after and six withdrawn.
+- Repaired a reusable source-route defect exposed by Newlands: its root URL is
+  only a zero-delay meta-refresh landing page. The collector now requests the
+  retained `/search` grid directly while preserving a zero-row response as a
+  fatal reconciliation failure. **94 focused tests** pass.
+- The rebuilt corpus contains **299,705 appearances**: **288,935 address
+  records**, **10,770 partial records** and **292,123 exact-dated appearances
+  inside the current 20-year window**, including **98,886 guide-price records**
+  and **110,576 achieved-price records**. Every added row retains its original
+  lot URL and immutable grid/detail source evidence. Database rebuild,
+  packaging, source-register reconciliation and protected publication
+  completed successfully.
+- **Next concrete growth target:** collect Loveitts' substantial uncovered
+  first-party archive at
+  `https://www.loveitts.co.uk/auctions/past-auctions`. Its public index exposes
+  dated catalogues and property-level results back through at least 2022, with
+  guide prices and explicit sold, sold-prior and sold-after outcomes. Reconcile
+  Coventry and any associated branch/trading-name identities before counting
+  coverage, inventory every catalogue and lot, and deduplicate any
+  shared-platform overlap. National completeness remains false.
