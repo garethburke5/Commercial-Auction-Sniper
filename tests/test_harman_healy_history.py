@@ -108,6 +108,16 @@ def test_sale_agreed_prior_outcome_is_preserved():
     assert hh.status_and_price('Result: Sale Agreed Prior') == ('sold_prior', None)
 
 
+def test_retained_date_range_ignores_null_dates():
+    rows = [
+        {"auction_date": "2023-07-21"},
+        {"auction_date": None},
+        {"auction_date": "2021-01-04"},
+    ]
+    assert hh.retained_date_range(rows) == ["2021-01-04", "2023-07-21"]
+    assert hh.retained_date_range([{"auction_date": None}]) == [None, None]
+
+
 def test_configure_supports_retained_search_grids():
     original = (hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG, hh.OPERATOR_METADATA)
     try:

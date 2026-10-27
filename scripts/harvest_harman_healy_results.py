@@ -85,6 +85,11 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
     return status, pounds(value) if status in {"sold", "sold_prior", "sold_after"} else None
 
 
+def retained_date_range(rows) -> list[str | None]:
+    dates = [row.get("auction_date") for row in rows if row.get("auction_date")]
+    return [min(dates), max(dates)] if dates else [None, None]
+
+
 def is_non_auction_offer_card(card) -> bool:
     heading = card.select_one(".panel-title")
     heading_text = clean(heading.get_text(" ", strip=True)) if heading else None
@@ -395,7 +400,7 @@ def harvest() -> None:
         "non_auction_exclusions": non_auction_exclusions,
         "run_duplicate_source_evidence_excluded": len(overlap_exclusions),
         "duplicate_source_exclusions": overlap_exclusions,
-        "date_range": [min(row["auction_date"] for row in merged.values()), max(row["auction_date"] for row in merged.values())],
+        "date_range": retained_date_range(merged.values()),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "catalogue_completion_claimed": True,
