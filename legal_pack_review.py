@@ -142,10 +142,15 @@ def build_evidence_report(property_ref,documents,ingestion,catalogue=None):
     ('title','Title number in this document',r'(?:title number(?: / Rhif teitl)?|under title number)\s*[:\n]?\s*([A-Z]{1,3}\d{3,8})','Reconcile the interest and extent of this title with all other titles and the sale conditions.'),
     ('title','Registered proprietor recorded',r'PROPRIETOR:\s*([A-Z][A-Z &()’\'-]+?(?:LIMITED|LLP))\b','Compare the registered proprietor with the contractual seller and any intervening transfer.'),
     ('title','Title extent excludes accommodation',r'NOTE:\s*[^.]{0,250}\bexcluded from the title\b','Reconcile the coloured title plan and excluded accommodation against the actual sale extent.'),
-    ('rent','Rent amount recorded in this document',r'(?:initial rent|annual rent|yearly rent)\s*[:\-]?\s*£\s*[\d,]+(?:\.\d{2})?|£[\d,]+(?:\.\d{2})?\)?\s+per annum','Confirm which letting and period this amount applies to; do not assume it is the current rent.'),
+    ('rent','Rent amount recorded in this document',r'\b(?:(?:initial|annual|yearly|principal|basic)\s+)?rent\b[’\x27\"]?\s*(?::|means|is)?\s*(?:(?!\b(?:service charge|insurance|deposit|capped|costs|fees)\b)[^£.;]){0,100}£\s*[\d,]+(?:\.\d{2})?(?:\)\s*)?(?:\s*per annum)?','Confirm which letting and period this amount applies to; do not assume it is the current rent.'),
     ('expiry','Lease term recorded',r'\b(?:\d+|five|ten|fifteen|twenty) years (?:from|commencing).{0,160}?\b20\d{2}\b','Check the operative lease, contractual end date, breaks and current occupation; unresolved brackets or conflicting words need visual confirmation.'),
    ]:
     m=re.search(pattern,text,re.I)
+    if topic=='rent':
+     # Annual insurance, service-charge caps and deposits are ownership costs,
+     # not occupational rent. Keep those figures in their own evidence topics.
+     m=next((hit for hit in re.finditer(pattern,text,re.I)
+             if not re.search(r'\b(?:insurance|additional|service charge|deposit)\s*$',text[max(0,hit.start()-30):hit.start()],re.I)),None)
     if m:
      ev=evidence(d,page,m,85)
      summary=norm(m.group(0))

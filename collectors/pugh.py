@@ -222,13 +222,46 @@ def _parse_detail(page, href, card='', lotno=None, auction_date=None, card_statu
     return lot.finalise()
 
 
+def _hydrate_targets(targets):
+    """Retry incomplete detail responses once, at lower concurrency.
+
+    An HTTP 200 placeholder can lack the property particulars. Do not classify
+    that as residential or treat the catalogue teaser as a complete record.
+    """
+    captured = {}; failures = {}; retried = set()
+    def hydrate(href):
+        card, lotno, auction_date, card_status = targets[href]
+        return _parse_detail(soup(href, use_browser=False), href, card, lotno, auction_date, card_status)
+    pending = list(targets)
+    for workers in (6, 2):
+        if not pending:
+            break
+        if failures:
+            retried.update(pending)
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {pool.submit(hydrate, href): href for href in pending}
+            for future in as_completed(futures):
+                href = futures[future]
+                try:
+                    captured[href] = future.result()
+                    failures.pop(href, None)
+                except Exception as exc:
+                    failures[href] = {'url': href, 'error': type(exc).__name__, 'reason': str(exc)[:300]}
+        pending = list(failures)
+    for failure in failures.values():
+        print('PUGH_DETAIL_FAIL', failure['url'], failure['error'], failure['reason'])
+    return captured, list(failures.values()), len(retried - set(failures))
+
+
 def collect():
     try:
-        today = date.today().isoformat(); targets = {}; previous_ids = None; pages_seen = 0; future_pages_seen = 0; past_only_streak = 0
+        today = date.today().isoformat(); targets = {}; previous_ids = None; pages_seen = 0; future_pages_seen = 0; past_only_streak = 0; index_failures = []
         for page in range(1, 81):
             url = SEARCH if page == 1 else SEARCH + f"&page={page}"
             try: s = soup(url, use_browser=False)
-            except Exception as exc: print("PUGH_INDEX_FAIL", page, repr(exc)); continue
+            except Exception as exc:
+                index_failures.append({'url':url,'error':type(exc).__name__})
+                print("PUGH_INDEX_FAIL", page, repr(exc)); continue
             pages_seen += 1; cards = _property_cards(s); page_ids = set(cards)
             if page > 1 and page_ids and page_ids == previous_ids: break
             if not page_ids:
@@ -241,25 +274,18 @@ def collect():
             targets.update(_page_targets(s, today))
             if future_pages_seen and past_only_streak >= 2: break
             previous_ids = page_ids
-        if not targets: return SourceResult(SOURCE, "FAILED" if future_pages_seen else "CATALOGUE PENDING", [], f"Pugh future inventory was visible across {future_pages_seen} page(s) but no commercial/mixed-use lots were captured." if future_pages_seen else f"Newest-first Pugh search scanned {pages_seen} page(s); no future catalogue inventory identified.", discovered_count=0)
+        if not targets: return SourceResult(SOURCE, "FAILED" if future_pages_seen or index_failures else "CATALOGUE PENDING", [], f"Pugh future inventory was visible across {future_pages_seen} page(s) but no commercial/mixed-use lots were captured." if future_pages_seen else f"Newest-first Pugh search scanned {pages_seen} page(s); no future catalogue inventory identified; {len(index_failures)} index failures.", discovered_count=0, reconciliation={'index_failures':index_failures})
         lots=[]; failures=0; terminal_count=0; suppressed_noncommercial=0
-        def hydrate(item):
-            href,(card,lotno,auction_date,card_status)=item
-            lot=_parse_detail(soup(href,use_browser=False),href,card,lotno,auction_date,card_status)
-            if not lot: return None,card_status
-            lifecycle=_terminal_status(lot.status)
-            return lot.finalise(),lifecycle
-        with ThreadPoolExecutor(max_workers=10) as ex:
-            futures={ex.submit(hydrate,item):item[0] for item in targets.items()}
-            for f in as_completed(futures):
-                try:
-                    lot,lifecycle=f.result()
-                    if lot and str(lot.auction_date or "")[:10] >= today: lots.append(lot); terminal_count += int(bool(lifecycle))
-                    elif lot is None: suppressed_noncommercial += 1
-                except Exception as exc: failures+=1; print("PUGH_DETAIL_FAIL",futures[f],repr(exc))
+        captured, failed_details, recovered_details = _hydrate_targets(targets)
+        failures = len(failed_details)
+        for lot in captured.values():
+            if lot and str(lot.auction_date or "")[:10] >= today:
+                lots.append(lot); terminal_count += int(bool(_terminal_status(lot.status)))
+            elif lot is None:
+                suppressed_noncommercial += 1
         dedup={}
         for lot in lots: dedup[lot.url or (norm(lot.address).lower(),lot.auction_date)]=lot
-        lots=list(dedup.values()); scope_dates=tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date})); status="LIVE" if lots and failures==0 else "DEGRADED" if lots else "FAILED"
+        lots=list(dedup.values()); scope_dates=tuple(sorted({str(x.auction_date)[:10] for x in lots if x.auction_date})); status="LIVE" if lots and failures==0 and not index_failures else "DEGRADED" if lots else "FAILED"
         available=sum(1 for x in lots if _terminal_status(x.status) is None and str(x.status or "").upper() not in {"SOLD PRIOR","WITHDRAWN","POSTPONED"})
-        return SourceResult(SOURCE,status,lots,f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} lots discovered before classification; {available} available and {terminal_count} unavailable commercial/mixed-use lots; {suppressed_noncommercial} noncommercial excluded; {failures} detail failures.",discovered_count=len(targets),expected_count=len(lots) if not failures else None,authoritative_snapshot=False,scope_dates=scope_dates,reconciliation={'catalogue_pages':pages_seen,'discovered_lot_urls':len(targets),'detail_pages_inspected':len(targets)-failures,'commercial_mixed_lots':len(lots),'noncommercial_excluded':suppressed_noncommercial,'detail_failures':failures})
+        return SourceResult(SOURCE,status,lots,f"Newest-first all-future sweep: {pages_seen} page(s); {len(targets)} lots discovered before classification; {available} available and {terminal_count} unavailable commercial/mixed-use lots; {suppressed_noncommercial} noncommercial excluded; {failures} detail failures; {recovered_details} recovered on retry; {len(index_failures)} index failures.",discovered_count=len(targets),expected_count=len(lots) if not failures and not index_failures else None,authoritative_snapshot=False,scope_dates=scope_dates,reconciliation={'catalogue_pages':pages_seen,'discovered_lot_urls':len(targets),'detail_pages_inspected':len(targets)-failures,'commercial_mixed_lots':len(lots),'noncommercial_excluded':suppressed_noncommercial,'detail_failures':failures,'failed_detail_urls':failed_details,'recovered_details':recovered_details,'index_failures':index_failures})
     except Exception as exc: return SourceResult(SOURCE, "FAILED", [], f"Pugh discovery failed: {exc}")

@@ -163,6 +163,32 @@ def interpret(report):
         add(f['id'],'Match the leases to the correct premises','The documents have not been reliably matched to separate current lettings. Earlier leases and later changes may describe the same space, so their rents must not be added together.',[f])
     for f in matching('superior-interest'):
         add(f['id'],'A leasehold purchase has obligations to another owner','The interest is leasehold, so the buyer would hold the property under a lease from another owner. Its remaining term, rent, repair obligations and restrictions need checking alongside any tenancy that produces the investment income.',[f])
+    for f in matching('seller-percentage-fee'):
+        costs=[c for c in report.get('costs',[]) if c.get('percentage') and c.get('evidence')==f.get('evidence')]
+        if len(costs)==1:
+            cost=costs[0]
+            body=f"The sale conditions require a contribution of {cost['percentage']:g}% of the purchase price towards the seller’s legal and agent costs."
+            if cost.get('vat'):
+                body+=f" At the {money(cost['price_basis'])} assessment price, this is {money(cost['base'])} plus {money(cost['vat'])} VAT, totalling {money(cost['amount'])}."
+            else:
+                body+=f" At the {money(cost['price_basis'])} assessment price, this is {money(cost['amount'])}; the clause does not specify the VAT treatment."
+            body+=' This is payable in addition to the purchase price and changes with the price paid.'
+            add(f['id'],'Contribution to the seller’s costs',body,[f],kind='purchase_cost')
+    for f in findings:
+        if 'service-charge recovery includes a cap' in f.get('title','').lower():
+            text=f.get('finding','')
+            amounts=list(dict.fromkeys(re.findall(r'\bcapped at\s*(£[\d,]+(?:\.\d{1,2})?)\s*per annum',text,re.I)))
+            if len(amounts)==1:
+                body='The service-charge clause contains an annual cap of '+amounts[0]+'.'
+                if re.search(r'until the first anniversary and thereafter increase by Retail Price Index',text,re.I):
+                    body+=' After the first anniversary, the limit increases annually with the Retail Price Index (RPI), a measure of inflation.'
+                end=re.search(r'After (\d+)[ -]year anniversary there is no cap',text,re.I)
+                if end:body+=f' The clause removes the cap after the {end[1]}-year anniversary.'
+                body+=' A limit on recovery can leave the landlord paying some costs. Check exactly which charges the cap covers and its current amount before assuming building expenditure can be recovered from this tenant.'
+                add(f['id'],'Limits on recovering costs from the tenant',body,[f],kind='service_charge_cap')
+    for f in matching('renewal-rights-'):
+        add(f['id'],'Tenant rights when the lease ends',
+            'The lease states that the tenant’s automatic right to seek a new tenancy under the Landlord and Tenant Act 1954 is excluded. If the required procedure was completed correctly, the buyer may have more flexibility to recover possession when the lease ends. The warning notice and tenant declaration need checking; the clause alone does not establish that the exclusion is valid.',[f])
     for f in matching('vacancy-carry'):
         add(f['id'],'The empty period needs its own budget','An empty property produces no current rent. A buyer needs to budget for the time needed to secure an occupier, any work, insurance and other costs that continue before a letting starts.',[f])
     for f in findings:

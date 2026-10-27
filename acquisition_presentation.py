@@ -197,7 +197,9 @@ def _make_brief(report):
                 amounts=list(dict.fromkeys([x.rstrip(',') for x in re.findall(r'£[\d,]+(?:\.\d{1,2})?',f.get('finding',''))]))
                 if amounts:blocks+=[p('The lease material contains '+ ' and '.join(amounts)+'. These figures may relate to different periods or arrangements. The current amount cannot be selected safely until the later documents are checked.','small')]+cite(f.get('evidence'))
         other=[c for c in analysis['cards'] if c['kind'] not in ('interaction','rent_substitution') and c['id'] not in ('income-unreconciled','lease-extent-unresolved')]
-        for c in other[:2]:blocks+=section(c)
+        # A no-charge outcome is not permission to hide a known purchase cost
+        # or lease restriction. Pagination checks retain the length limit.
+        for c in other:blocks+=section(c)
         # Never silently omit an unfamiliar material issue just to make it short.
         if analysis['unedited_findings']:
             topics=sorted({f.get('topic','document') for f in analysis['unedited_findings']})

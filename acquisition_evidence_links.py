@@ -192,7 +192,7 @@ def end_references(brief, report):
         page['blocks'] = clean
     sources = [{'kind': 'h', 'text': 'Supporting sources'}, {'kind': 'evidence', 'rows': rows, 'endnotes': True}]
     if rows:
-        if brief['product_outcome'] == 'free_snapshot':
+        if brief['product_outcome'] in ('free_snapshot', 'insufficient_evidence'):
             pages[-1]['blocks'] += sources
         elif brief.get('appendix_pages'):
             brief['appendix_pages'][-1]['blocks'] += sources

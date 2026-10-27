@@ -98,3 +98,22 @@ def test_local_exports_do_not_execute_document_html_or_use_server_media():
     assert html.count('</script>')==1 and '<script>alert(1)' not in html
     assert 'URL.createObjectURL(new Blob' in html and 'media/' not in html
     assert 'Download readable report (HTML)' in html and 'Save report to reopen (JSON)' in html
+
+
+@pytest.mark.parametrize('cost_clause', [
+    'Service Charge: a fair proportion of costs, capped at £4,500.00 per annum.',
+    'Insurance Rent: £4,500 per annum.',
+    'The landlord may charge a management fee of £4,500 per annum.',
+    'Additional Rent: £4,500 per annum for services.',
+])
+def test_annual_costs_never_become_rental_income(cost_clause):
+    model,_=review([('Lease.txt', cost_clause)])
+    assert not any(f['title']=='Rent amount recorded in this document' for f in model['findings'])
+
+
+def test_rent_remains_attached_to_its_clause_alongside_service_charge():
+    model,_=review([('Lease.txt', 'Annual Rent: i. rent at an initial rate of £58,500 per annum '
+                   'exclusive for the first two and a half years. Service Charge: a fair '
+                   'proportion of costs capped at £4,500.00 per annum.')])
+    rents=[f for f in model['findings'] if f['title']=='Rent amount recorded in this document']
+    assert len(rents)==1 and '£58,500' in rents[0]['summary'] and '£4,500' not in rents[0]['summary']

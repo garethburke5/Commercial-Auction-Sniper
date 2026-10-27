@@ -131,3 +131,34 @@ def test_validated_open_review_can_explain_an_unanticipated_issue():
     assert 'A neighbouring owner controls' in paragraphs(b)
     assert b['editorial_quality']['automated_checks_passed']
     assert not b['editorial_quality']['human_editorial_approval']
+
+
+def test_no_charge_update_keeps_cost_cap_and_renewal_explanations():
+    r=build_acquisition(model(),cat())
+    r['investigation']['income_reconciled']=False
+    cap='Service Charge: costs capped at £3,000 per annum until the first anniversary and thereafter increase by Retail Price Index (RPI) per annum. After 5-year anniversary there is no cap.'
+    fee_ev=[{'document':'Conditions.pdf','page':4,'excerpt':'The buyer pays 2% of the price plus VAT towards seller costs.'}]
+    r['costs']=[{'label':'Seller contribution','percentage':2,'price_basis':200000,'base':4000,'vat':800,'amount':4800,'evidence':fee_ev}]
+    for fid,title,text,ev in [
+        ('seller-percentage-fee','Seller contribution','2% plus VAT',fee_ev),
+        ('lease-cap','Service-charge recovery includes a cap',cap,[{'document':'Lease.pdf','page':8,'excerpt':cap}]),
+        ('renewal-rights-fixture','Renewal rights','Sections 24 to 28 are excluded',[{'document':'Lease.pdf','page':9,'excerpt':'Sections 24 to 28 are excluded.'}]),
+    ]:
+        r['investigation']['findings'].append({'id':fid,'title':title,'finding':text,'consequence':'Affects investment costs or future letting.',
+            'resolution':'Check the document.','topic':'lease','materiality':'price_sensitive','evidence':ev})
+    b=make_brief(r);text=paragraphs(b)
+    assert b['product_outcome']=='insufficient_evidence'
+    assert all(value in text for value in ('£4,000 plus £800 VAT','£4,800','£3,000','Retail Price Index (RPI)','5-year','tenant declaration'))
+    assert not any(f['id'] in ('seller-percentage-fee','lease-cap','renewal-rights-fixture') for f in b['interpretation']['unedited_findings'])
+    assert not r['quality_status']['purchase_available']
+
+
+def test_unmatched_fee_evidence_still_requires_editorial_review():
+    r=build_acquisition(model(),cat())
+    r['costs']=[{'label':'Different charge','percentage':5,'price_basis':200000,'amount':10000,'evidence':[]}]
+    r['investigation']['findings'].append({'id':'seller-percentage-fee','title':'Seller contribution','finding':'2% plus VAT',
+        'consequence':'Cost','resolution':'Check','topic':'costs','materiality':'price_sensitive',
+        'evidence':[{'document':'Conditions.pdf','page':4,'excerpt':'2% plus VAT'}]})
+    a=interpret(r)
+    assert any(f['id']=='seller-percentage-fee' for f in a['unedited_findings'])
+    assert not any(c['id']=='seller-percentage-fee' for c in a['cards'])

@@ -85,3 +85,48 @@ class PughCollectorRegressionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def test_incomplete_detail_is_retried_without_double_counting(monkeypatch):
+    from collectors import pugh
+    calls=[]
+    def soup(url, **kwargs):
+        calls.append(url)
+        if len(calls)==1:return BeautifulSoup('<html>Temporary response</html>','lxml')
+        return BeautifulSoup('<div><div><div><h1>1 Example Road</h1></div></div></div>'
+                             '<div class="cms-content">A two bedroom terraced house.</div>','lxml')
+    monkeypatch.setattr(pugh,'soup',soup)
+    captured,failures,recovered=pugh._hydrate_targets({'https://example.com/1':('',None,'2099-01-01',None)})
+    assert len(calls)==2 and len(captured)==1 and captured['https://example.com/1'] is None
+    assert failures==[] and recovered==1
+
+
+def test_persistent_detail_failure_remains_unresolved_and_traceable(monkeypatch):
+    from collectors import pugh
+    calls=[]
+    def soup(url, **kwargs):
+        calls.append(url)
+        return BeautifulSoup('<html>No property detail</html>','lxml')
+    monkeypatch.setattr(pugh,'soup',soup)
+    captured,failures,recovered=pugh._hydrate_targets({'https://example.com/1':('',None,'2099-01-01',None)})
+    assert calls==['https://example.com/1']*2 and not captured and recovered==0
+    assert failures[0]['url']=='https://example.com/1' and failures[0]['error']=='ValueError'
+
+
+def test_missing_index_page_cannot_report_live_even_if_details_succeed(monkeypatch):
+    from collectors import pugh
+    calls=[]
+    def soup(url, **kwargs):
+        calls.append(url)
+        if len(calls)==2:raise OSError('index unavailable')
+        day='2099-01-01' if len(calls)==1 else '2000-01-01'
+        return day
+    monkeypatch.setattr(pugh,'soup',soup)
+    monkeypatch.setattr(pugh,'_property_cards',lambda page:{'url/'+str(len(calls)):'card'})
+    monkeypatch.setattr(pugh,'_auction_date',lambda card:'2099-01-01' if len(calls)==1 else '2000-01-01')
+    monkeypatch.setattr(pugh,'_page_targets',lambda page,today:{'https://example.com/1':('',None,'2099-01-01',None)} if page=='2099-01-01' else {})
+    lot=Lot(pugh.SOURCE,'https://example.com/1','1 Example Road',auction_date='2099-01-01')
+    monkeypatch.setattr(pugh,'_hydrate_targets',lambda targets:({'https://example.com/1':lot},[],0))
+    result=pugh.collect()
+    assert result.status=='DEGRADED' and result.expected_count is None
+    assert len(result.reconciliation['index_failures'])==1

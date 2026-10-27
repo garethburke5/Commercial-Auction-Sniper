@@ -85,3 +85,16 @@ def test_writer_packet_keeps_primary_fact_detail_without_repeating_full_webpages
     old=packet['evidence_digest'];source['text']+='Updated.'
     assert writing_packet(r)['evidence_digest']!=old
     assert r['investigation']['external_research']['records'][-1]['source']['text'].endswith('Updated.')
+
+
+def test_no_charge_update_keeps_sources_at_bottom_without_forced_appendix():
+    report={'documents':[{'document':'Shop lease.pdf','type':'lease'}]}
+    ev={'document':'Shop lease.pdf','page':8,'excerpt':'Source clause','document_sha256':'abc'}
+    row=EvidenceReferences(report).add([ev])[0]
+    brief={'pages':[{'title':'Research update','blocks':[{'kind':'p','text':'The lease sets a cap.'},
+            {'kind':'evidence','rows':[row]}]}], 'appendix_pages':[], 'references':[row],
+            'product_outcome':'insufficient_evidence'}
+    result=end_references(brief,report)
+    assert result['appendix_pages']==[]
+    assert result['pages'][-1]['blocks'][-2]['text']=='Supporting sources'
+    assert result['pages'][-1]['blocks'][-1]['rows'][0]['pages']==[8]
