@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Property Auction Agent",
+  "source_auction_id": "property-auction-agent:2025-06-11",
+  "auction_date": "2025-06-11",
+  "source_url": "https://propertyauctionagent.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 2,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://propertyauctionagent.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-27T02:10:24.605486+00:00",
+      "sha256": "13d90f1c35ff970be3b5d67da1e85cf6147543a2bc705c02e7c6e3651cbf28f3",
+      "snapshot_path": "data/auction_history/sources/property-auction-agent/past-auctions-page-1-13d90f1c35ff970b.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 2
+    },
+    {
+      "source_url": "https://propertyauctionagent.eigonlineauctions.com/search?page=2",
+      "retrieved_at": "2026-10-27T02:10:24.705973+00:00",
+      "sha256": "6db20742dd0c0db43d699d56f0d5e4290a4379444550e7fa1241b3f608a73953",
+      "snapshot_path": "data/auction_history/sources/property-auction-agent/past-auctions-page-2-6db20742dd0c0db4.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 2
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T02:10:55.805307+00:00"
+}

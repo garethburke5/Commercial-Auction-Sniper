@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-10-27T02:10:55.820933+00:00",
+  "auctioneer": "Property Auction Agent",
+  "parser_version": 5,
+  "source_url": "https://propertyauctionagent.eigonlineauctions.com/search",
+  "archive_sha256": "4bd8d3d994caf06af532b27acc0d5b949c31e963c0c59b9c2bc1736dcbbe942b",
+  "archive_page_count": 2,
+  "archive_page_rows": [
+    50,
+    16
+  ],
+  "archive_page_visible_cards": [
+    50,
+    16
+  ],
+  "visible_source_rows": 66,
+  "published_result_count": 66,
+  "distinct_source_identities": 66,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "appearances_captured": 66,
+  "run_new_appearances": 66,
+  "run_new_address_records": 66,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 61,
+  "run_new_commercial_mixed": 7,
+  "run_new_guide_prices": 66,
+  "run_new_sale_prices": 4,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 5,
+  "run_duplicate_source_evidence_excluded": 0,
+  "new_source_years": [
+    2023,
+    2024,
+    2025,
+    2026
+  ],
+  "date_range": [
+    "2023-11-06",
+    "2026-11-26"
+  ],
+  "by_status": {
+    "unknown": 5,
+    "sold_prior": 55,
+    "sold": 2,
+    "postponed": 1,
+    "withdrawn": 3
+  },
+  "by_sector": {
+    "mixed-use": 2,
+    "residential": 56,
+    "commercial": 5,
+    "land": 3
+  },
+  "detail_pages_captured": 66,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": []
+}

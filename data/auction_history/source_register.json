@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T01:07:16.735604+00:00",
-  "corpus_checkpoint": "2026-10-27T01:06:55.589618+00:00",
+  "generated_at": "2026-10-27T02:13:12.180776+00:00",
+  "corpus_checkpoint": "2026-10-27T02:12:47.454614+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -5144,13 +5144,18 @@
       "name": "Property Auction Agent",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/property-auction-agent",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Property Auction Agent",
+      "match_basis": "exact label",
+      "retained_appearances": 66,
+      "years_with_retained_evidence": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 61,
+      "with_sale_price": 4,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8025,7 +8030,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 489,
+  "directory_entries_not_linked": 488,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8095,6 +8100,7 @@
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2416,
+    "Property Auction Agent": 66,
     "Pugh Auctioneers": 6893,
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
@@ -8121,13 +8127,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291899,
-      "auction_ids_observed": 9381,
-      "with_guide_price": 98693,
-      "with_sale_price": 110500,
-      "with_both_prices": 47328,
-      "marked_sold": 149476,
-      "marked_sold_without_sale_price": 39716
+      "lot_appearances": 291960,
+      "auction_ids_observed": 9438,
+      "with_guide_price": 98754,
+      "with_sale_price": 110504,
+      "with_both_prices": 47332,
+      "marked_sold": 149533,
+      "marked_sold_without_sale_price": 39769
     },
     "by_auctioneer_and_year": [
       {
@@ -13609,6 +13615,50 @@
         "marked_sold_without_sale_price": 3
       },
       {
+        "auctioneer": "Property Auction Agent",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Property Auction Agent",
+        "year": 2024,
+        "lot_appearances": 28,
+        "auction_ids_observed": 26,
+        "with_guide_price": 28,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 24,
+        "marked_sold_without_sale_price": 23
+      },
+      {
+        "auctioneer": "Property Auction Agent",
+        "year": 2025,
+        "lot_appearances": 20,
+        "auction_ids_observed": 19,
+        "with_guide_price": 20,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 17
+      },
+      {
+        "auctioneer": "Property Auction Agent",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 9,
+        "with_guide_price": 10,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 10
+      },
+      {
         "auctioneer": "Pugh Auctioneers",
         "year": 2013,
         "lot_appearances": 2,
@@ -14809,7 +14859,7 @@
       }
     ],
     "undated_appearances": 4388,
-    "future_dated_appearances": 142,
+    "future_dated_appearances": 147,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -19992,7 +20042,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T01:07:16.413874+00:00",
+    "checked_at": "2026-10-27T02:13:11.663744+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
