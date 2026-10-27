@@ -1433,3 +1433,48 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   snapshots, reconcile branches as one operator/trading lineage, and exclude
   exact shared-platform overlap before claiming growth. National completeness
   remains false.
+
+## 27 October 2026 — Butters John Bee paired catalogue/results expansion
+
+- Reconciled **23 first-party catalogue/result pairs** from 22 January 2024
+  through 14 September 2026. Every result sheet exposed a complete sequential
+  lot table and together they contained **1,446 distinct source rows**.
+- Banked **1,446 net-new individual appearances**: 1,446 address records, zero
+  partial, zero undated, zero future-dated and zero duplicate-derived records.
+  All 1,446 have exact dates inside the current 20-year window and newly cover
+  Butters John Bee source-years **2024, 2025 and 2026**.
+- Added **1,445 guide-price records**, **418 achieved sale prices** and **151
+  rent values**. Sector evidence comprises 724 residential, 167 land, 37
+  mixed-use, 36 commercial and 482 evidence-limited unknown appearances; the
+  commercial/mixed-use increment is **73**. Published outcomes remain distinct:
+  418 sold, 355 unsold, 97 sold-after, 237 sold-prior, 250 postponed and 89
+  withdrawn.
+- Catalogue pages enriched 1,419 result rows with property details, tenure or
+  rent. The 27 printed postcode/address mismatches were left conservatively
+  unenriched instead of being forced into possibly different legal interests.
+  No exact global date/address overlap was excluded.
+- Reconciled the operator before counting coverage. **Butters John Bee Limited
+  (company 05289439)**, its lower-case trading style and its branches are one
+  operator. Darlows, Haybrook and haart remain related group-brand context and
+  are not counted as additional Butters John Bee auctioneers.
+- Evidence is persisted as 23 event inventories, 23 immutable result-PDF byte
+  snapshots, 23 catalogue text snapshots, the first-party archive snapshot and
+  every original catalogue/result URL. The canonical shard contains 1,446
+  unique appearance IDs and 1,446 unique source identities.
+- The rebuilt corpus contains **301,739 appearances**: **290,969 address
+  records**, **10,770 partial records**, **294,151 exact-dated appearances in
+  the current 20-year window**, **100,913 guide-price records** and **111,323
+  achieved-price records**. The separately completed bounded refresh added six
+  future-dated address records before this focused run; these are not included
+  in the 1,446 Butters growth claim. Undated remains 4,388 and future-dated is
+  now 157. Collection, packaging, source-register reconciliation and protected
+  publication completed successfully.
+- A reusable next collector is prepared for **Purplebricks Online Auctions**.
+  Its first-party GOTO `/search` route currently publishes a **2,778-card**
+  denominator across 56 pages, but also mixes in undated Committed Offer cards.
+  The tested parser now reconciles and excludes those non-auction cards instead
+  of admitting them or failing the whole archive. Purplebricks identifies Genle
+  Limited trading as GOTO Group (company 09790404) as its auction provider, so
+  the branded channel and platform must not be counted as two auctioneers.
+  Complete the 56-page inventory before claiming the net appearance count.
+  National completeness remains false.

@@ -59,6 +59,40 @@ def test_sale_agreed_prior_outcome_is_preserved():
     assert hh.status_and_price('Result: Sale Agreed Prior') == ('sold_prior', None)
 
 
+def test_configure_supports_retained_search_grids():
+    original = (hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG)
+    try:
+        hh.configure(
+            "https://purplebricks.gotoproperties.co.uk/",
+            "Purplebricks Online Auctions",
+            "purplebricks-online-auctions",
+            archive_path="/search",
+        )
+        assert hh.ARCHIVE_URL == "https://purplebricks.gotoproperties.co.uk/search"
+        assert "lotResultType=All" in hh.archive_page_url(1)
+    finally:
+        hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG = original
+
+
+def test_committed_offer_cards_are_reconciled_but_not_admitted():
+    fixture = """
+    <html><body><div>Showing results 1 - 1 of 1</div>
+    <div class="lot-panel"><h3 class="panel-title">Committed Offers Invited</h3>
+    <a href="/lot/details/offer-only"><img class="list-image" src="/one.jpg"></a>
+    <div class="list-info"><h3 class="list-address">1 Offer Road, London, E1 1AA</h3></div>
+    <div class="list-guideprice">Offers in Excess of: £225,000</div></div>
+    </body></html>
+    """
+    assert hh.parse_page(fixture, 1, {}) == []
+    exclusions = hh.non_auction_offer_cards(fixture, 1)
+    assert exclusions == [{
+        "reason": "committed_offer_not_an_auction_appearance",
+        "address": "1 Offer Road, London, E1 1AA",
+        "source_url": "https://harman-healy.co.uk/lot/details/offer-only",
+        "source_position": 1,
+    }]
+
+
 def test_growing_archive_refetches_old_pages_before_reconciliation(monkeypatch,tmp_path):
     import json
     monkeypatch.setattr(hh.corpus,'ROOT',tmp_path)

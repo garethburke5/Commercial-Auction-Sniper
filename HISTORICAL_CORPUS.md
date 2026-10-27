@@ -591,6 +591,20 @@ Haybrook and haart group brands are not counted as additional Butters John Bee
 auctioneers. Coverage is limited to the catalogue/result pairs still published
 on the first-party archive; no pre-2024 completeness claim is made.
 
+Purplebricks' first-party GOTO retained grid can be collected with:
+
+```bash
+python -u scripts/harvest_purplebricks_online_auctions.py
+```
+
+This wrapper reuses the reconciled EIG/GOTO grid collector but targets the
+platform's `/search` archive rather than `/past-auctions`. Every page must
+carry the same published denominator and every card must retain a distinct
+source lot identity, individual end date and address before the archive is
+banked. Published sold-prior, sold-after, no-bid, withdrawn and postponed
+states remain distinct, and monetary result text is treated as an achieved
+price only when the source labels it as a sale outcome.
+
 Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
 terminal source blockers in its collection summary. A missing source is never
 counted complete, but it no longer consumes a harvest slot on every run while

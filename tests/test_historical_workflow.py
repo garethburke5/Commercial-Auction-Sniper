@@ -227,6 +227,19 @@ def test_focused_butters_john_bee_expansion_is_isolated():
     assert "Run focused Butters John Bee archive expansion" in WORKFLOW[guide_start:guide_end]
 
 
+def test_focused_purplebricks_expansion_is_isolated():
+    focused = WORKFLOW.index("- name: Collect Purplebricks complete retained property archive")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_purplebricks_online_auctions.py" in block
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Purplebricks archive expansion" in bounded_condition
+    guide_start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")
+    guide_end = WORKFLOW.index("- name:", guide_start + 10)
+    assert "Run focused Purplebricks archive expansion" in WORKFLOW[guide_start:guide_end]
+
+
 def test_focused_symonds_sampson_repair_skips_broad_rotation():
     focused = WORKFLOW.index("- name: Run focused Symonds and Sampson reconciliation repair")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")

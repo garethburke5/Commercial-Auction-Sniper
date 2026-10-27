@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import datetime
+from datetime import date, datetime
 import json
 import math
 import re
@@ -84,6 +84,34 @@ def status_and_price(value: str | None) -> tuple[str, int | None]:
     return status, pounds(value) if status in {"sold", "sold_prior", "sold_after"} else None
 
 
+def is_non_auction_offer_card(card) -> bool:
+    heading = card.select_one(".panel-title")
+    heading_text = clean(heading.get_text(" ", strip=True)) if heading else None
+    return (
+        bool(heading_text)
+        and heading_text.casefold().startswith("committed offer")
+        and card.select_one("time[datetime]") is None
+    )
+
+
+def non_auction_offer_cards(html: str, page: int) -> list[dict]:
+    excluded = []
+    for page_position, card in enumerate(BeautifulSoup(html, "lxml").select(".lot-panel"), 1):
+        if not is_non_auction_offer_card(card):
+            continue
+        address_node = card.select_one(".list-address")
+        detail_node = card.select_one('a[href*="/lot/details/"]')
+        excluded.append(
+            {
+                "reason": "committed_offer_not_an_auction_appearance",
+                "address": clean(address_node.get_text(" ", strip=True)) if address_node else None,
+                "source_url": urljoin(BASE, detail_node.get("href") or "") if detail_node else None,
+                "source_position": (page - 1) * PAGE_SIZE + page_position,
+            }
+        )
+    return excluded
+
+
 def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
     soup = BeautifulSoup(html, "lxml")
     cards = soup.select(".lot-panel")
@@ -91,6 +119,8 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         raise ValueError(f"archive page {page} contains no lot cards")
     rows = []
     for page_position, card in enumerate(cards, 1):
+        if is_non_auction_offer_card(card):
+            continue
         heading = card.select_one(".panel-title, .lot-number")
         time_node = card.select_one("time[datetime]")
         address_node = card.select_one(".list-address")
@@ -155,10 +185,15 @@ def fetch(page: int) -> tuple[int, bytes, str]:
     return page, response.content, response.url
 
 
-def configure(base: str, auctioneer: str, slug: str) -> None:
+def configure(
+    base: str,
+    auctioneer: str,
+    slug: str,
+    archive_path: str = "/past-auctions",
+) -> None:
     global BASE, ARCHIVE_URL, AUCTIONEER, SLUG
     BASE = base.rstrip("/")
-    ARCHIVE_URL = BASE + "/past-auctions"
+    ARCHIVE_URL = BASE + "/" + archive_path.lstrip("/")
     AUCTIONEER = auctioneer
     SLUG = slug
 
@@ -196,7 +231,7 @@ def harvest() -> None:
             page, raw, resolved = future.result()
             fetched[page] = (raw, resolved, None)
 
-    observed, evidence_pages = [], []
+    observed, evidence_pages, non_auction_exclusions = [], [], []
     for page in range(1, total_pages + 1):
         raw, resolved, saved_evidence = fetched[page]
         html = raw.decode("utf-8", "replace")
@@ -220,15 +255,23 @@ def harvest() -> None:
             }
             corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
         rows = parse_page(html, page, evidence)
+        exclusions = non_auction_offer_cards(html, page)
         expected_on_page = PAGE_SIZE if page < total_pages else expected - PAGE_SIZE * (total_pages - 1)
-        if len(rows) != expected_on_page:
-            raise ValueError(f"archive page {page} reconciled {len(rows)} of {expected_on_page} expected rows")
+        if len(rows) + len(exclusions) != expected_on_page:
+            raise ValueError(
+                f"archive page {page} reconciled {len(rows)} auction rows plus "
+                f"{len(exclusions)} committed-offer exclusions of {expected_on_page} expected cards"
+            )
         observed.extend(rows)
+        non_auction_exclusions.extend(exclusions)
         evidence_pages.append(evidence)
 
     identities = [row["appearance_id"] for row in observed]
-    if len(observed) != expected or len(identities) != len(set(identities)):
-        raise ValueError(f"archive reconciled {len(observed)} rows and {len(set(identities))} identities of {expected}")
+    if len(observed) + len(non_auction_exclusions) != expected or len(identities) != len(set(identities)):
+        raise ValueError(
+            f"archive reconciled {len(observed)} auction rows, {len(non_auction_exclusions)} "
+            f"committed-offer exclusions and {len(set(identities))} identities of {expected} cards"
+        )
 
     appearance_path = corpus.DATA / f"appearances/{SLUG}/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
@@ -237,6 +280,14 @@ def harvest() -> None:
     merged.update({row["appearance_id"]: row for row in observed})
     total = corpus.write_rows(f"{SLUG}/canonical", list(merged.values()))
     added = [row for key, row in merged.items() if key not in before_ids]
+    today = date.today()
+    cutoff = today.replace(year=today.year - 20)
+    added_in_window = [
+        row for row in added
+        if row.get("auction_date") and cutoff.isoformat() <= row["auction_date"] <= today.isoformat()
+    ]
+    years_before = {row["auction_date"][:4] for row in existing if row.get("auction_date")}
+    years_after = {row["auction_date"][:4] for row in merged.values() if row.get("auction_date")}
 
     state = {
         "auctioneer": AUCTIONEER,
@@ -246,11 +297,14 @@ def harvest() -> None:
         "source_rows_complete": True,
         "published_lots_offered": expected,
         "visible_source_rows": len(observed),
+        "visible_source_cards": expected,
         "lots_captured": len(observed),
         "source_url": first_resolved,
         "pagination_reconciled": True,
         "denominator_reconciled": True,
         "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+        "non_auction_property_cards_excluded": len(non_auction_exclusions),
+        "non_auction_exclusions": non_auction_exclusions,
         "source_evidence": evidence_pages,
         "errors": [],
         "checked_at": corpus.now(),
@@ -266,6 +320,21 @@ def harvest() -> None:
         "run_new_appearances": len(added),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "run_new_dated_twenty_year_address_records": sum(bool(row.get("address")) for row in added_in_window),
+        "run_new_commercial_mixed": sum(row.get("sector") in {"commercial", "mixed-use"} for row in added),
+        "run_new_guide_prices": sum(
+            row.get("guide_price") is not None
+            or row.get("guide_price_lower") is not None
+            or row.get("guide_price_upper") is not None
+            for row in added
+        ),
+        "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
+        "run_new_rents": sum(row.get("rent") is not None for row in added),
+        "run_new_undated": sum(not row.get("auction_date") for row in added),
+        "run_new_future_dated": sum((row.get("auction_date") or "") > today.isoformat() for row in added),
+        "new_source_years": sorted(years_after - years_before),
+        "non_auction_property_cards_excluded": len(non_auction_exclusions),
+        "non_auction_exclusions": non_auction_exclusions,
         "date_range": [min(row["auction_date"] for row in merged.values()), max(row["auction_date"] for row in merged.values())],
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
