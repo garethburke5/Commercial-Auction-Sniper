@@ -64,6 +64,7 @@ python scripts/harvest_eig_retained_grids.py auction-house-online-2025-03-25 --w
 python scripts/harvest_eig_retained_grids.py auction-house-online-2025-04-15 --workers 16
 python scripts/harvest_eig_retained_grids.py auction-house-online-2025-05-27 --workers 16
 python scripts/harvest_eig_retained_grids.py auction-house-online-2025-08-19 --workers 16
+python scripts/harvest_eig_retained_grids.py auction-house-online-2025-11-11 --workers 16
 python scripts/harvest_propertyauctions_allsop_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py
