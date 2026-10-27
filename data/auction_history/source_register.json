@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T02:13:12.180776+00:00",
-  "corpus_checkpoint": "2026-10-27T02:12:47.454614+00:00",
+  "generated_at": "2026-10-27T03:02:27.086344+00:00",
+  "corpus_checkpoint": "2026-10-27T03:02:11.099335+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4204,13 +4204,19 @@
       "name": "Lot9 Auction House",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/lot9-auction-house",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Lot9 Auction House",
+      "match_basis": "exact label",
+      "retained_appearances": 34,
+      "years_with_retained_evidence": [
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 27,
+      "with_sale_price": 11,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8030,7 +8036,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 488,
+  "directory_entries_not_linked": 487,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8093,6 +8099,7 @@
     "Knight Frank Auctions": 290,
     "LSH Auctions": 590,
     "Landwood Property Auctions": 2721,
+    "Lot9 Auction House": 34,
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
     "Network Auctions": 1202,
@@ -8127,13 +8134,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291960,
-      "auction_ids_observed": 9438,
-      "with_guide_price": 98754,
-      "with_sale_price": 110504,
-      "with_both_prices": 47332,
-      "marked_sold": 149533,
-      "marked_sold_without_sale_price": 39769
+      "lot_appearances": 291994,
+      "auction_ids_observed": 9470,
+      "with_guide_price": 98781,
+      "with_sale_price": 110515,
+      "with_both_prices": 47339,
+      "marked_sold": 149549,
+      "marked_sold_without_sale_price": 39774
     },
     "by_auctioneer_and_year": [
       {
@@ -12931,6 +12938,61 @@
         "with_both_prices": 0,
         "marked_sold": 172,
         "marked_sold_without_sale_price": 91
+      },
+      {
+        "auctioneer": "Lot9 Auction House",
+        "year": 2022,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 2,
+        "with_sale_price": 3,
+        "with_both_prices": 1,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Lot9 Auction House",
+        "year": 2023,
+        "lot_appearances": 10,
+        "auction_ids_observed": 9,
+        "with_guide_price": 9,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Lot9 Auction House",
+        "year": 2024,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Lot9 Auction House",
+        "year": 2025,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Lot9 Auction House",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 9,
+        "with_guide_price": 6,
+        "with_sale_price": 5,
+        "with_both_prices": 3,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Maggs & Allen",
@@ -20042,7 +20104,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T02:13:11.663744+00:00",
+    "checked_at": "2026-10-27T03:02:26.855891+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }

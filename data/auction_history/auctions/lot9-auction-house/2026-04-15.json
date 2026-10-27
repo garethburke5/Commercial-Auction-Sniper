@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Lot9 Auction House",
+  "source_auction_id": "lot9-auction-house:2026-04-15",
+  "auction_date": "2026-04-15",
+  "source_url": "https://lot9.eigonlineauctions.com/search",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://lot9.eigonlineauctions.com/search",
+      "retrieved_at": "2026-10-27T03:01:00.742523+00:00",
+      "sha256": "bb743762d9e87def9b73d815d513469651d389b8f911f752f0641433ac1fc65f",
+      "snapshot_path": "data/auction_history/sources/lot9-auction-house/past-auctions-page-1-bb743762d9e87def.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T03:01:07.073220+00:00"
+}
