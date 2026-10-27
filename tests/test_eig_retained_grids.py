@@ -184,6 +184,14 @@ def test_the_property_auction_house_uses_full_first_party_search_archive():
     }
 
 
+def test_property_auction_agent_uses_full_first_party_search_archive():
+    assert grids.SOURCES["property-auction-agent"] == {
+        "auctioneer": "Property Auction Agent",
+        "base": "https://propertyauctionagent.eigonlineauctions.com",
+        "archive_path": "/search",
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
@@ -239,3 +247,4 @@ def test_missing_lot_identity_is_still_fatal_malformed_evidence():
     rows, malformed, excluded = grids.parse_grid(unknown, SOURCE, {})
     assert rows == [] and excluded == []
     assert malformed == [{"position": 1, "address": "Unknown Card, Durham, DH1 1AA", "detail_url": None}]
+

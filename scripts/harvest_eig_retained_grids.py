@@ -57,6 +57,11 @@ SOURCES = {
         "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
         "archive_path": "/search",
     },
+    "property-auction-agent": {
+        "auctioneer": "Property Auction Agent",
+        "base": "https://propertyauctionagent.eigonlineauctions.com",
+        "archive_path": "/search",
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -630,3 +635,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

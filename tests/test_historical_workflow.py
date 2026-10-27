@@ -123,6 +123,19 @@ def test_focused_property_auction_house_expansion_skips_broad_rotation():
     assert "Run focused The Property Auction House archive expansion" in bounded_condition
 
 
+def test_focused_property_auction_agent_expansion_is_isolated():
+    focused = WORKFLOW.index("- name: Collect Property Auction Agent complete property archive")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py property-auction-agent --workers 16" in block
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Property Auction Agent archive expansion" in bounded_condition
+    guide_start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")
+    guide_end = WORKFLOW.index("- name:", guide_start + 10)
+    assert "Run focused Property Auction Agent archive expansion" in WORKFLOW[guide_start:guide_end]
+
+
 def test_focused_symonds_sampson_repair_skips_broad_rotation():
     focused = WORKFLOW.index("- name: Run focused Symonds and Sampson reconciliation repair")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
@@ -139,3 +152,4 @@ def test_focused_online_result_state_repair_skips_broad_rotation():
     assert "scripts/reconcile_online_result_state_errors.py" in WORKFLOW[focused:bounded]
     bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
     assert "Run focused online-result state repair" in bounded_condition
+

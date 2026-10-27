@@ -49,6 +49,7 @@ python scripts/harvest_eig_retained_grids.py bradley-hall --workers 12
 python scripts/harvest_eig_retained_grids.py brown-co --workers 12
 python scripts/harvest_eig_retained_grids.py clarke-simpson --workers 12
 python scripts/harvest_eig_retained_grids.py higgins-drysdale --workers 12
+python scripts/harvest_eig_retained_grids.py property-auction-agent --workers 16
 python scripts/harvest_propertyauctions_allsop_results.py
 python scripts/harvest_lsh_results.py
 python scripts/harvest_goldings_results.py
@@ -563,3 +564,4 @@ available. Older recovered records are retained. `progress.json` now includes
 auctioneer/year, with unknown and future dates separated. Missing years and
 missing prices do not imply zero auctions or a zero sale price. These counts
 measure stored evidence, not verified national completeness.
+
