@@ -1,27 +1,220 @@
 {
-  "checked_at": "2026-10-27T00:16:06.550548+00:00",
-  "source_url": "https://www.brown-co.com/auctions/property-land/results",
-  "visible_result_cards_captured": 19,
-  "banked_appearances": 28,
+  "checked_at": "2026-10-27T00:34:33.984825+00:00",
+  "auctioneer": "Brown&Co",
+  "parser_version": 4,
+  "source_url": "https://brownandco.eigonlineauctions.com/search",
+  "archive_sha256": "684011b03faccccb1565deb02dda5904e2f0df8fad2488e15e23ca74e8b322a6",
+  "archive_page_count": 10,
+  "archive_page_rows": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    6
+  ],
+  "archive_page_visible_cards": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    50,
+    6
+  ],
+  "visible_source_rows": 456,
+  "published_result_count": 456,
+  "distinct_source_identities": 456,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "appearances_captured": 463,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 0,
+  "new_source_years": [],
   "date_range": [
-    "2026-07-14",
-    "2026-10-20"
+    "2020-03-26",
+    "2026-11-17"
   ],
-  "by_sector": {
-    "land": 2,
-    "unknown": 25,
-    "residential": 1
-  },
   "by_status": {
-    "sold": 23,
-    "withdrawn": 2,
-    "unsold": 2,
-    "unknown": 1
+    "sold": 412,
+    "sold_after": 25,
+    "unsold": 5,
+    "sold_prior": 8,
+    "postponed": 1,
+    "unknown": 6,
+    "withdrawn": 6
   },
-  "catalogue_completion_claimed": false,
-  "completion_scope": "every currently visible first-party result card; rolling page has no archive denominator",
-  "failures": []
+  "by_sector": {
+    "residential": 334,
+    "unknown": 57,
+    "commercial": 20,
+    "land": 48,
+    "mixed-use": 4
+  },
+  "detail_pages_captured": 456,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "legacy_rolling_rows_reconciled": 28,
+  "legacy_exact_address_date_overlaps_consolidated": 21,
+  "legacy_distinct_appearances_preserved": 7,
+  "legacy_overlap_reconciliation": [
+    {
+      "auction_date": "2026-07-14",
+      "address": "59 Theatre Street, Dereham, Norfolk, NR19 2ER",
+      "legacy_source_lot_id": "186205",
+      "archive_source_lot_id": "1a3c57c6-9e3f-4371-a107-715b2bbf976d"
+    },
+    {
+      "auction_date": "2026-08-25",
+      "address": "1, 2 & 3 Hindringham Road, Bale, Fakenham, Norfolk, NR21 0QQ",
+      "legacy_source_lot_id": "186300",
+      "archive_source_lot_id": "2dcce368-6743-44f8-9c36-4e0732bc1c56"
+    },
+    {
+      "auction_date": "2026-07-28",
+      "address": "3 Winfarthing Road, Banham, Norwich, Norfolk, NR16 2HA",
+      "legacy_source_lot_id": "186719",
+      "archive_source_lot_id": "b949d2b4-bcbc-4ca7-90f7-3d2db279df27"
+    },
+    {
+      "auction_date": "2026-07-28",
+      "address": "12 Cubitts Close, Bintree, Dereham, Norfolk, NR20 5NH",
+      "legacy_source_lot_id": "186947",
+      "archive_source_lot_id": "6d7e08ad-028b-4d27-922c-b1253d5a5b05"
+    },
+    {
+      "auction_date": "2026-07-28",
+      "address": "33 Morris Road, North Walsham, Norfolk, NR28 0EJ",
+      "legacy_source_lot_id": "187140",
+      "archive_source_lot_id": "321b5de8-c02d-4914-a615-1c0e54e2620d"
+    },
+    {
+      "auction_date": "2026-07-28",
+      "address": "4 Swaffham Road, Ashill, Thetford, Norfolk, IP25 7BT",
+      "legacy_source_lot_id": "187322",
+      "archive_source_lot_id": "e13aa2f0-0eaf-4c81-bef2-1f673602ff1b"
+    },
+    {
+      "auction_date": "2026-07-28",
+      "address": "2 & 3 Rayners Falgate, Caston, Attleborough, Norfolk, NR17 1DW",
+      "legacy_source_lot_id": "187323",
+      "archive_source_lot_id": "dc8a9edf-8bb0-4558-9310-5297718558fb"
+    },
+    {
+      "auction_date": "2026-08-25",
+      "address": "35 Orford Road, Swaffham, Norfolk, PE37 7JH",
+      "legacy_source_lot_id": "189055",
+      "archive_source_lot_id": "6f3a62b0-5732-4a5a-81d2-6eeb8ef57165"
+    },
+    {
+      "auction_date": "2026-08-25",
+      "address": "17 Waterfield Avenue, Fakenham, Norfolk, NR21 8EU",
+      "legacy_source_lot_id": "189190",
+      "archive_source_lot_id": "45f50ef2-85fc-452a-9928-d03454f24815"
+    },
+    {
+      "auction_date": "2026-09-29",
+      "address": "50 Jessopp Road, Norwich, Norfolk, NR2 3JF",
+      "legacy_source_lot_id": "189807",
+      "archive_source_lot_id": "c00a6ece-1e95-443e-8c54-963c8530bb64"
+    },
+    {
+      "auction_date": "2026-08-25",
+      "address": "32 Mount Pleasant, Walsingham, Norfolk, NR22 6DD",
+      "legacy_source_lot_id": "190073",
+      "archive_source_lot_id": "59f2a5cb-91db-465b-97d3-01da4fe3ed93"
+    },
+    {
+      "auction_date": "2026-09-29",
+      "address": "6 Jermyns Road, Reydon, Southwold, Suffolk, IP18 6QB",
+      "legacy_source_lot_id": "191233",
+      "archive_source_lot_id": "a044690f-3ac5-489b-b67a-355d8aa1c78d"
+    },
+    {
+      "auction_date": "2026-09-29",
+      "address": "11 Manor Way, Swaffham, Norfolk, PE37 7JR",
+      "legacy_source_lot_id": "192031",
+      "archive_source_lot_id": "11639add-19f4-4092-b6f0-298e2d3fc386"
+    },
+    {
+      "auction_date": "2026-09-29",
+      "address": "1 High Street, Whissonsett, Dereham, Norfolk, NR20 5AP",
+      "legacy_source_lot_id": "193314",
+      "archive_source_lot_id": "c199396f-8881-4ff7-8c25-aff4b1a1ffde"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "50 Lee Warner Avenue, Fakenham, Norfolk, NR21 8ER",
+      "legacy_source_lot_id": "194333",
+      "archive_source_lot_id": "e4b1459c-4128-4bb4-99b6-b4fe2ff6bc1a"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "41 Mill Hill, Bradenham, Thetford, Norfolk, IP25 7QW",
+      "legacy_source_lot_id": "194334",
+      "archive_source_lot_id": "930a09df-49e0-4193-94cf-5ccb8134afc5"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "Wayside, Waxham Road, Sea Palling, Norwich, Norfolk, NR12 0UX",
+      "legacy_source_lot_id": "194345",
+      "archive_source_lot_id": "5ade1583-98d3-4aa7-bf2a-efbc7392b2b1"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "6 Blenheim Crescent, Tittleshall, King's Lynn, Norfolk, PE32 2PG",
+      "legacy_source_lot_id": "194504",
+      "archive_source_lot_id": "88e4b28b-de86-4684-943b-6bb3adfffc8b"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "4 Bale Road, Sharrington, Melton Constable, Norfolk, NR24 2PF",
+      "legacy_source_lot_id": "195413",
+      "archive_source_lot_id": "439e31ec-c330-42c9-90ce-bb410e120fca"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "7 St. Marys Road, Stalham, Norwich, Norfolk, NR12 9DU",
+      "legacy_source_lot_id": "195569",
+      "archive_source_lot_id": "06ba3ae0-bee6-4c34-aaa4-9dd216adaf6a"
+    },
+    {
+      "auction_date": "2026-10-20",
+      "address": "7 Meadowside Barnards Road, Worstead, North Walsham, Norfolk, NR28 9RL",
+      "legacy_source_lot_id": "195573",
+      "archive_source_lot_id": "bc83cb70-7794-4767-ad14-7245f5dc60a0"
+    }
+  ],
+  "archive_net_growth_against_pre_archive_rolling_corpus": 435,
+  "archive_net_dated_twenty_year_address_growth": 430,
+  "archive_net_commercial_mixed_growth": 24,
+  "archive_net_guide_price_growth": 456,
+  "archive_net_sale_price_growth": 392,
+  "archive_net_rent_growth": 5,
+  "archive_net_future_dated_growth": 5,
+  "archive_new_source_years": [
+    2020,
+    2022,
+    2023,
+    2024,
+    2025
+  ]
 }
