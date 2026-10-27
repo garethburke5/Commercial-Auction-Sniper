@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T13:12:07.810808+00:00",
-  "corpus_checkpoint": "2026-10-27T13:11:42.974660+00:00",
+  "generated_at": "2026-10-27T13:20:05.027398+00:00",
+  "corpus_checkpoint": "2026-10-27T13:19:40.339449+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4108,13 +4108,16 @@
       "name": "Landmark Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/landmark-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Landmark Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 62,
+      "years_with_retained_evidence": [
+        2022,
+        2026
+      ],
+      "with_guide_price": 53,
+      "with_sale_price": 7,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8093,7 +8096,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 477,
+  "directory_entries_not_linked": 476,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8159,6 +8162,7 @@
     "John Francis": 1407,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 591,
+    "Landmark Auctions": 62,
     "Landwood Property Auctions": 2721,
     "Lot9 Auction House": 34,
     "Loveitts": 582,
@@ -8200,13 +8204,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 296563,
-      "auction_ids_observed": 10933,
-      "with_guide_price": 100918,
-      "with_sale_price": 111404,
-      "with_both_prices": 48134,
-      "marked_sold": 153097,
-      "marked_sold_without_sale_price": 42433
+      "lot_appearances": 296618,
+      "auction_ids_observed": 10956,
+      "with_guide_price": 100971,
+      "with_sale_price": 111411,
+      "with_both_prices": 48140,
+      "marked_sold": 153117,
+      "marked_sold_without_sale_price": 42446
     },
     "by_auctioneer_and_year": [
       {
@@ -13116,6 +13120,28 @@
         "marked_sold_without_sale_price": 30
       },
       {
+        "auctioneer": "Landmark Auctions",
+        "year": 2022,
+        "lot_appearances": 24,
+        "auction_ids_observed": 12,
+        "with_guide_price": 23,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 6
+      },
+      {
+        "auctioneer": "Landmark Auctions",
+        "year": 2026,
+        "lot_appearances": 31,
+        "auction_ids_observed": 11,
+        "with_guide_price": 30,
+        "with_sale_price": 5,
+        "with_both_prices": 4,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 7
+      },
+      {
         "auctioneer": "Landwood Property Auctions",
         "year": 2018,
         "lot_appearances": 49,
@@ -15427,7 +15453,7 @@
       }
     ],
     "undated_appearances": 4395,
-    "future_dated_appearances": 198,
+    "future_dated_appearances": 205,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -20625,7 +20651,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T13:12:07.264712+00:00",
+    "checked_at": "2026-10-27T13:20:04.495405+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
