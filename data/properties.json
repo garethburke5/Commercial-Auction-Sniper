@@ -161248,7 +161248,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 12,
       "last_successful_collection": "2026-10-26T23:20:55.192944+00:00",
-      "published_rows": 4
+      "published_rows": 3
     },
     {
       "source": "Auction House West Yorkshire",
@@ -162133,7 +162133,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 3,
       "last_successful_collection": "2026-10-26T23:20:55.313800+00:00",
-      "published_rows": 4
+      "published_rows": 3
     },
     {
       "source": "Auction House Wales",
@@ -162590,7 +162590,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 14,
       "last_successful_collection": "2026-10-26T23:20:55.519620+00:00",
-      "published_rows": 13
+      "published_rows": 12
     },
     {
       "source": "Auction House Cumbria",
@@ -164016,7 +164016,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 28,
       "last_successful_collection": "2026-10-26T23:20:55.988426+00:00",
-      "published_rows": 15
+      "published_rows": 14
     },
     {
       "source": "Auction House Lincolnshire, North Notts & South Yorks",
@@ -164334,7 +164334,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 9,
       "last_successful_collection": "2026-10-26T23:20:56.121921+00:00",
-      "published_rows": 11
+      "published_rows": 9
     },
     {
       "source": "Auction House Manchester",
@@ -168510,7 +168510,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 28,
       "last_successful_collection": "2026-10-26T23:20:57.157259+00:00",
-      "published_rows": 41
+      "published_rows": 27
     },
     {
       "source": "Savills Auctions",
@@ -173668,7 +173668,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 8,
       "last_successful_collection": "2026-10-26T23:21:07.586300+00:00",
-      "published_rows": 16
+      "published_rows": 13
     },
     {
       "source": "Auction House Kent",
@@ -174168,7 +174168,9 @@
       "quality_gate_rejections": 0,
       "production_rows": 6,
       "last_successful_collection": "2026-10-26T23:21:07.683004+00:00",
-      "published_rows": 9
+      "published_rows": 4,
+      "coverage_status": "DEGRADED",
+      "coverage_failure_reason": "Count collapse: 9 still-current prior rows \u2192 4 published"
     },
     {
       "source": "Auction House Northern Ireland",
@@ -182018,8 +182020,8 @@
     "zero_inventory_outage_sources": [
       "Greenslade Taylor Hunt"
     ],
-    "publication_revision": "43f494eed21f6ef7418cfc2e3e4094289015ed2e",
-    "revalidated_at": "2026-10-26T23:26:00.591860+00:00"
+    "publication_revision": "aea954574a0c9ab1a314ea986d849d05784e82f2",
+    "revalidated_at": "2026-10-27T00:06:47.311905+00:00"
   },
   "excluded_properties": [
     {
@@ -185149,7 +185151,7 @@
         "verified_on": "2026-10-25"
       }
     ],
-    "generated_at": "2026-10-26T23:26:00.589559+00:00",
+    "generated_at": "2026-10-27T00:06:47.309780+00:00",
     "snapshot_generated_at": "2026-10-26T23:21:09.120712+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -185802,10 +185804,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 83,
-        "qualifying_current_lots": 4,
-        "shared_feed_rows": 3,
-        "production_rows": 4,
-        "published_rows": 4,
+        "qualifying_current_lots": 3,
+        "shared_feed_rows": 2,
+        "production_rows": 3,
+        "published_rows": 3,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 4,
@@ -186207,10 +186209,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 41,
-        "qualifying_current_lots": 11,
-        "shared_feed_rows": 2,
-        "production_rows": 11,
-        "published_rows": 11,
+        "qualifying_current_lots": 9,
+        "shared_feed_rows": 0,
+        "production_rows": 9,
+        "published_rows": 9,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 11,
@@ -186447,10 +186449,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 76,
-        "qualifying_current_lots": 16,
-        "shared_feed_rows": 13,
-        "production_rows": 16,
-        "published_rows": 16,
+        "qualifying_current_lots": 13,
+        "shared_feed_rows": 10,
+        "production_rows": 13,
+        "published_rows": 13,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 16,
@@ -186760,10 +186762,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 309,
-        "qualifying_current_lots": 41,
-        "shared_feed_rows": 20,
-        "production_rows": 41,
-        "published_rows": 41,
+        "qualifying_current_lots": 27,
+        "shared_feed_rows": 12,
+        "production_rows": 27,
+        "published_rows": 27,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 41,
@@ -187289,10 +187291,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 111,
-        "qualifying_current_lots": 15,
+        "qualifying_current_lots": 14,
         "shared_feed_rows": 0,
-        "production_rows": 15,
-        "published_rows": 15,
+        "production_rows": 14,
+        "published_rows": 14,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 15,
@@ -188053,10 +188055,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 50,
-        "qualifying_current_lots": 4,
+        "qualifying_current_lots": 3,
         "shared_feed_rows": 1,
-        "production_rows": 4,
-        "published_rows": 4,
+        "production_rows": 3,
+        "published_rows": 3,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 4,
@@ -188159,7 +188161,7 @@
         "auctioneer": "Auction House South Yorkshire",
         "collector_configured": true,
         "collector_executed": true,
-        "status": "LIVE",
+        "status": "DEGRADED",
         "collection_status": "LIVE",
         "publication_status": "not independently verified",
         "current_catalogue_detected": true,
@@ -188173,14 +188175,14 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 56,
-        "qualifying_current_lots": 9,
+        "qualifying_current_lots": 4,
         "shared_feed_rows": 3,
-        "production_rows": 9,
-        "published_rows": 9,
+        "production_rows": 4,
+        "published_rows": 4,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 9,
-        "failure_reason": null,
+        "failure_reason": "Count collapse: 9 still-current prior rows \u2192 4 published",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-26T23:21:07.683004+00:00",
@@ -188407,10 +188409,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 54,
-        "qualifying_current_lots": 13,
+        "qualifying_current_lots": 12,
         "shared_feed_rows": 1,
-        "production_rows": 13,
-        "published_rows": 13,
+        "production_rows": 12,
+        "published_rows": 12,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 13,
@@ -190770,6 +190772,6 @@
         "storefronts": []
       }
     ],
-    "degraded_sources": 30
+    "degraded_sources": 31
   }
 }
