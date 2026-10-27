@@ -574,6 +574,23 @@ House Coventry & Warwickshire platform are not counted as three auctioneers.
 The completion claim covers surviving cards only; unlinked index dates and
 properties removed from historic pages remain outside it.
 
+Butters John Bee's paired catalogue and result archive can be collected with:
+
+```bash
+python -u scripts/harvest_butters_john_bee_archive.py --workers 12
+```
+
+Each result PDF must expose a complete sequential lot table before admission.
+The paired catalogue independently supplies the exact event date and can enrich
+the same printed lot with property type, tenure and rent. Result PDF bytes and
+catalogue extracted text are retained as immutable evidence with the original
+PDF URLs and source SHA-256 values. Exact date/address overlaps across the
+existing corpus are audited and excluded. Butters John Bee Limited (company
+05289439), its lower-case trading style, its branches and the related Darlows,
+Haybrook and haart group brands are not counted as additional Butters John Bee
+auctioneers. Coverage is limited to the catalogue/result pairs still published
+on the first-party archive; no pre-2024 completeness claim is made.
+
 Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
 terminal source blockers in its collection summary. A missing source is never
 counted complete, but it no longer consumes a harvest slot on every run while
