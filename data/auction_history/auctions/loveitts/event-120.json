@@ -1,0 +1,32 @@
+{
+  "auctioneer": "Loveitts",
+  "source_auction_id": "loveitts:120",
+  "auction_date": "2025-08-19",
+  "source_url": "https://www.loveitts.co.uk/auctions/past-auctions/120",
+  "visible_source_rows": 5,
+  "lots_captured": 1,
+  "exact_shared_platform_overlaps_excluded": 4,
+  "source_rows_complete": true,
+  "catalogue_complete": true,
+  "completion_scope": "every property card still visible on this retained first-party event page; not evidence of removed original lots",
+  "source_evidence": [
+    {
+      "source_url": "https://www.loveitts.co.uk/auctions/past-auctions",
+      "retrieved_at": "2026-10-27T09:11:17.991897+00:00",
+      "sha256": "49a2733579ad7e10f1638ff0da277a603b614124bb38ee0f964f5e2e209b141b",
+      "snapshot_path": "data/auction_history/sources/loveitts/past-auctions-49a2733579ad7e10.json.gz",
+      "basis": "first-party dated Loveitts event index"
+    },
+    {
+      "source_url": "https://www.loveitts.co.uk/auctions/past-auctions/120",
+      "retrieved_at": "2026-10-27T09:11:44.120022+00:00",
+      "sha256": "81462f87725307338aa7e1ed2da6fffe94e531bf2cafa27974c656c76d7cdabe",
+      "snapshot_path": "data/auction_history/sources/loveitts/event-120-81462f8772530733.json.gz",
+      "basis": "first-party retained event property-card inventory",
+      "event_id": "120",
+      "auction_date": "2025-08-19"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-27T09:12:24.871396+00:00"
+}

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T08:18:55.102323+00:00",
-  "individual_lot_records_captured": 299705,
-  "records_with_address": 288935,
+  "generated_at": "2026-10-27T09:13:54.733249+00:00",
+  "individual_lot_records_captured": 300287,
+  "records_with_address": 289517,
   "partial_lot_records": 10770,
-  "exact_address_groups": 159773,
-  "groups_with_repeat_appearances": 40932,
+  "exact_address_groups": 160327,
+  "groups_with_repeat_appearances": 40960,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -71,6 +71,7 @@
     "LSH Auctions": 590,
     "Landwood Property Auctions": 2721,
     "Lot9 Auction House": 34,
+    "Loveitts": 582,
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
     "Network Auctions": 1202,
@@ -125,24 +126,24 @@
     "2019": 7891,
     "2020": 13782,
     "2021": 20584,
-    "2022": 25527,
-    "2023": 31936,
-    "2024": 39922,
-    "2025": 45855,
-    "2026": 43964
+    "2022": 25646,
+    "2023": 32051,
+    "2024": 40034,
+    "2025": 45969,
+    "2026": 44086
   },
   "by_sector": {
-    "commercial": 41990,
-    "land": 18279,
-    "mixed-use": 46842,
-    "residential": 145671,
-    "unknown": 46923
+    "commercial": 42168,
+    "land": 18286,
+    "mixed-use": 47144,
+    "residential": 145747,
+    "unknown": 46942
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3521,
+  "surviving_catalogues_completely_harvested": 3604,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -156,13 +157,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292123,
-      "auction_ids_observed": 9575,
-      "with_guide_price": 98886,
-      "with_sale_price": 110576,
-      "with_both_prices": 47385,
-      "marked_sold": 149629,
-      "marked_sold_without_sale_price": 39793
+      "lot_appearances": 292705,
+      "auction_ids_observed": 9637,
+      "with_guide_price": 99468,
+      "with_sale_price": 110905,
+      "with_both_prices": 47714,
+      "marked_sold": 150205,
+      "marked_sold_without_sale_price": 40040
     },
     "by_auctioneer_and_year": [
       {
@@ -5191,6 +5192,61 @@
         "with_both_prices": 3,
         "marked_sold": 7,
         "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2022,
+        "lot_appearances": 119,
+        "auction_ids_observed": 11,
+        "with_guide_price": 119,
+        "with_sale_price": 83,
+        "with_both_prices": 83,
+        "marked_sold": 118,
+        "marked_sold_without_sale_price": 35
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2023,
+        "lot_appearances": 115,
+        "auction_ids_observed": 14,
+        "with_guide_price": 115,
+        "with_sale_price": 69,
+        "with_both_prices": 69,
+        "marked_sold": 114,
+        "marked_sold_without_sale_price": 45
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2024,
+        "lot_appearances": 112,
+        "auction_ids_observed": 11,
+        "with_guide_price": 112,
+        "with_sale_price": 60,
+        "with_both_prices": 60,
+        "marked_sold": 112,
+        "marked_sold_without_sale_price": 52
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2025,
+        "lot_appearances": 114,
+        "auction_ids_observed": 12,
+        "with_guide_price": 114,
+        "with_sale_price": 53,
+        "with_both_prices": 53,
+        "marked_sold": 114,
+        "marked_sold_without_sale_price": 61
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2026,
+        "lot_appearances": 122,
+        "auction_ids_observed": 14,
+        "with_guide_price": 122,
+        "with_sale_price": 64,
+        "with_both_prices": 64,
+        "marked_sold": 118,
+        "marked_sold_without_sale_price": 54
       },
       {
         "auctioneer": "Maggs & Allen",

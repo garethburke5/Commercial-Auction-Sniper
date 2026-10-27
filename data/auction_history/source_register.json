@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T08:19:16.076829+00:00",
-  "corpus_checkpoint": "2026-10-27T08:18:55.102323+00:00",
+  "generated_at": "2026-10-27T09:14:15.350421+00:00",
+  "corpus_checkpoint": "2026-10-27T09:13:54.733249+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4255,13 +4255,19 @@
       "name": "Loveitts",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/loveitts",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Loveitts",
+      "match_basis": "exact label",
+      "retained_appearances": 582,
+      "years_with_retained_evidence": [
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 582,
+      "with_sale_price": 329,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8067,7 +8073,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 481,
+  "directory_entries_not_linked": 480,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8134,6 +8140,7 @@
     "LSH Auctions": 590,
     "Landwood Property Auctions": 2721,
     "Lot9 Auction House": 34,
+    "Loveitts": 582,
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
     "Network Auctions": 1202,
@@ -8171,13 +8178,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 292123,
-      "auction_ids_observed": 9575,
-      "with_guide_price": 98886,
-      "with_sale_price": 110576,
-      "with_both_prices": 47385,
-      "marked_sold": 149629,
-      "marked_sold_without_sale_price": 39793
+      "lot_appearances": 292705,
+      "auction_ids_observed": 9637,
+      "with_guide_price": 99468,
+      "with_sale_price": 110905,
+      "with_both_prices": 47714,
+      "marked_sold": 150205,
+      "marked_sold_without_sale_price": 40040
     },
     "by_auctioneer_and_year": [
       {
@@ -13206,6 +13213,61 @@
         "with_both_prices": 3,
         "marked_sold": 7,
         "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2022,
+        "lot_appearances": 119,
+        "auction_ids_observed": 11,
+        "with_guide_price": 119,
+        "with_sale_price": 83,
+        "with_both_prices": 83,
+        "marked_sold": 118,
+        "marked_sold_without_sale_price": 35
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2023,
+        "lot_appearances": 115,
+        "auction_ids_observed": 14,
+        "with_guide_price": 115,
+        "with_sale_price": 69,
+        "with_both_prices": 69,
+        "marked_sold": 114,
+        "marked_sold_without_sale_price": 45
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2024,
+        "lot_appearances": 112,
+        "auction_ids_observed": 11,
+        "with_guide_price": 112,
+        "with_sale_price": 60,
+        "with_both_prices": 60,
+        "marked_sold": 112,
+        "marked_sold_without_sale_price": 52
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2025,
+        "lot_appearances": 114,
+        "auction_ids_observed": 12,
+        "with_guide_price": 114,
+        "with_sale_price": 53,
+        "with_both_prices": 53,
+        "marked_sold": 114,
+        "marked_sold_without_sale_price": 61
+      },
+      {
+        "auctioneer": "Loveitts",
+        "year": 2026,
+        "lot_appearances": 122,
+        "auction_ids_observed": 14,
+        "with_guide_price": 122,
+        "with_sale_price": 64,
+        "with_both_prices": 64,
+        "marked_sold": 118,
+        "marked_sold_without_sale_price": 54
       },
       {
         "auctioneer": "Maggs & Allen",
@@ -20431,7 +20493,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T08:19:15.749254+00:00",
+    "checked_at": "2026-10-27T09:14:15.014156+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
