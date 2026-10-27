@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-10-27T12:26:55.243521+00:00",
-  "individual_lot_records_captured": 301748,
-  "records_with_address": 290978,
-  "partial_lot_records": 10770,
-  "exact_address_groups": 161465,
-  "groups_with_repeat_appearances": 41216,
+  "generated_at": "2026-10-27T12:32:47.532670+00:00",
+  "individual_lot_records_captured": 304199,
+  "records_with_address": 293428,
+  "partial_lot_records": 10771,
+  "exact_address_groups": 163699,
+  "groups_with_repeat_appearances": 41386,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -84,6 +84,7 @@
     "Phillip Arnold Auctions": 2416,
     "Property Auction Agent": 66,
     "Pugh Auctioneers": 6893,
+    "Purplebricks Online Auctions": 2451,
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
@@ -106,7 +107,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4388,
+    "null": 4395,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -125,26 +126,26 @@
     "2017": 8891,
     "2018": 8280,
     "2019": 7891,
-    "2020": 13782,
-    "2021": 20584,
-    "2022": 25646,
-    "2023": 32051,
-    "2024": 40622,
-    "2025": 46478,
-    "2026": 44450
+    "2020": 13794,
+    "2021": 21006,
+    "2022": 26187,
+    "2023": 32497,
+    "2024": 41138,
+    "2025": 46748,
+    "2026": 44687
   },
   "by_sector": {
-    "commercial": 42204,
-    "land": 18454,
-    "mixed-use": 47181,
-    "residential": 146477,
-    "unknown": 47432
+    "commercial": 42218,
+    "land": 18495,
+    "mixed-use": 47200,
+    "residential": 148124,
+    "unknown": 48162
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3630,
+  "surviving_catalogues_completely_harvested": 3631,
   "catalogues_incomplete_or_unreconciled": 515,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -158,13 +159,13 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 294157,
-      "auction_ids_observed": 9662,
+      "lot_appearances": 296563,
+      "auction_ids_observed": 10933,
       "with_guide_price": 100918,
-      "with_sale_price": 111325,
+      "with_sale_price": 111404,
       "with_both_prices": 48134,
-      "marked_sold": 150964,
-      "marked_sold_without_sale_price": 40379
+      "marked_sold": 153097,
+      "marked_sold_without_sale_price": 42433
     },
     "by_auctioneer_and_year": [
       {
@@ -6207,6 +6208,83 @@
         "marked_sold_without_sale_price": 1477
       },
       {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2020,
+        "lot_appearances": 12,
+        "auction_ids_observed": 11,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 12
+      },
+      {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2021,
+        "lot_appearances": 422,
+        "auction_ids_observed": 233,
+        "with_guide_price": 0,
+        "with_sale_price": 27,
+        "with_both_prices": 0,
+        "marked_sold": 375,
+        "marked_sold_without_sale_price": 348
+      },
+      {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2022,
+        "lot_appearances": 541,
+        "auction_ids_observed": 247,
+        "with_guide_price": 0,
+        "with_sale_price": 6,
+        "with_both_prices": 0,
+        "marked_sold": 448,
+        "marked_sold_without_sale_price": 442
+      },
+      {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2023,
+        "lot_appearances": 446,
+        "auction_ids_observed": 230,
+        "with_guide_price": 0,
+        "with_sale_price": 8,
+        "with_both_prices": 0,
+        "marked_sold": 382,
+        "marked_sold_without_sale_price": 374
+      },
+      {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2024,
+        "lot_appearances": 516,
+        "auction_ids_observed": 259,
+        "with_guide_price": 0,
+        "with_sale_price": 14,
+        "with_both_prices": 0,
+        "marked_sold": 490,
+        "marked_sold_without_sale_price": 476
+      },
+      {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2025,
+        "lot_appearances": 270,
+        "auction_ids_observed": 165,
+        "with_guide_price": 0,
+        "with_sale_price": 14,
+        "with_both_prices": 0,
+        "marked_sold": 247,
+        "marked_sold_without_sale_price": 233
+      },
+      {
+        "auctioneer": "Purplebricks Online Auctions",
+        "year": 2026,
+        "lot_appearances": 199,
+        "auction_ids_observed": 126,
+        "with_guide_price": 0,
+        "with_sale_price": 10,
+        "with_both_prices": 0,
+        "marked_sold": 179,
+        "marked_sold_without_sale_price": 169
+      },
+      {
         "auctioneer": "Robinson & Hall",
         "year": 2021,
         "lot_appearances": 20,
@@ -7307,8 +7385,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4388,
-    "future_dated_appearances": 160,
+    "undated_appearances": 4395,
+    "future_dated_appearances": 198,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
