@@ -603,7 +603,16 @@ carry the same published denominator and every card must retain a distinct
 source lot identity, individual end date and address before the archive is
 banked. Published sold-prior, sold-after, no-bid, withdrawn and postponed
 states remain distinct, and monetary result text is treated as an achieved
-price only when the source labels it as a sale outcome.
+price only when the source labels it as a sale outcome. Undated `Committed
+Offer` property cards are reconciled against the published denominator but
+retained as audited non-auction exclusions rather than manufactured auction
+appearances. Stable EIG lot IDs already retained by another white-label source
+are recorded as duplicate-source exclusions; address similarity alone never
+collapses potentially different legal interests. Purplebricks is the branded
+channel and Genle Limited trading as
+GOTO Group (company 09790404) is the platform operator; both directory names
+map to the single `Purplebricks Online Auctions` corpus label and are not
+counted as separate auctioneers.
 
 Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
 terminal source blockers in its collection summary. A missing source is never

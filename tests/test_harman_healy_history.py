@@ -60,18 +60,20 @@ def test_sale_agreed_prior_outcome_is_preserved():
 
 
 def test_configure_supports_retained_search_grids():
-    original = (hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG)
+    original = (hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG, hh.OPERATOR_METADATA)
     try:
         hh.configure(
             "https://purplebricks.gotoproperties.co.uk/",
             "Purplebricks Online Auctions",
             "purplebricks-online-auctions",
             archive_path="/search",
+            operator_metadata={"operator_legal_name": "Genle Limited"},
         )
         assert hh.ARCHIVE_URL == "https://purplebricks.gotoproperties.co.uk/search"
         assert "lotResultType=All" in hh.archive_page_url(1)
+        assert hh.OPERATOR_METADATA == {"operator_legal_name": "Genle Limited"}
     finally:
-        hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG = original
+        hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG, hh.OPERATOR_METADATA = original
 
 
 def test_committed_offer_cards_are_reconciled_but_not_admitted():
@@ -93,6 +95,26 @@ def test_committed_offer_cards_are_reconciled_but_not_admitted():
     }]
 
 
+def test_global_eig_identity_overlap_is_detected_without_address_merging(monkeypatch, tmp_path):
+    monkeypatch.setattr(hh.corpus, 'DATA', tmp_path / 'data/auction_history')
+    hh.corpus.write_rows('other-platform/canonical', [{
+        'appearance_id': 'Other|eig-lot:shared-id',
+        'auctioneer': 'Other EIG White Label',
+        'auction_date': '2024-02-01',
+        'source_lot_id': 'shared-id',
+        'property_id': 'shared-id',
+        'identity_method': 'first_party_published_eig_lot_id',
+        'original_url': 'https://other.example/lot/details/shared-id',
+    }])
+    overlaps = hh.global_eig_source_ids('purplebricks-online-auctions')
+    assert overlaps['shared-id'] == [{
+        'appearance_id': 'Other|eig-lot:shared-id',
+        'auctioneer': 'Other EIG White Label',
+        'auction_date': '2024-02-01',
+        'original_url': 'https://other.example/lot/details/shared-id',
+    }]
+
+
 def test_growing_archive_refetches_old_pages_before_reconciliation(monkeypatch,tmp_path):
     import json
     monkeypatch.setattr(hh.corpus,'ROOT',tmp_path)
@@ -110,7 +132,7 @@ def test_growing_archive_refetches_old_pages_before_reconciliation(monkeypatch,t
         return page,f'{page}:8'.encode(),f'https://example.com/{page}'
     monkeypatch.setattr(hh,'fetch',fetch)
     monkeypatch.setattr(hh,'published_total',lambda html:int(html.split(':')[1]))
-    monkeypatch.setattr(hh,'parse_page',lambda html,page,ev:[{'appearance_id':f'row:{page}:{i}','auction_date':'2026-10-01','address':f'{page}-{i} High Street','source_evidence':ev} for i in range(2)])
+    monkeypatch.setattr(hh,'parse_page',lambda html,page,ev:[{'appearance_id':f'row:{page}:{i}','source_lot_id':f'{page}-{i}','auction_date':'2026-10-01','address':f'{page}-{i} High Street','source_evidence':ev} for i in range(2)])
     hh.harvest()
     assert sorted(fetched)==[1,2,3,4]
     state=json.loads((hh.corpus.DATA/'auctions/harman-healy/retained-past-auctions.json').read_text())

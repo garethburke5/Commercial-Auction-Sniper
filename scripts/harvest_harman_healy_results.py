@@ -7,7 +7,7 @@ complete after the denominator, pagination and identities reconcile exactly.
 """
 from __future__ import annotations
 
-from collections import Counter
+from collections import Counter, defaultdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime
 import json
@@ -28,6 +28,7 @@ BASE = "https://harman-healy.co.uk"
 ARCHIVE_URL = BASE + "/past-auctions"
 AUCTIONEER = "Harman Healy"
 SLUG = "harman-healy"
+OPERATOR_METADATA: dict[str, object] = {}
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 PAGE_SIZE = 50
 COUNT_RE = re.compile(r"Showing\s+results\s+[\d,]+\s*-\s*[\d,]+\s+of\s+([\d,]+)", re.I)
@@ -190,12 +191,35 @@ def configure(
     auctioneer: str,
     slug: str,
     archive_path: str = "/past-auctions",
+    operator_metadata: dict[str, object] | None = None,
 ) -> None:
-    global BASE, ARCHIVE_URL, AUCTIONEER, SLUG
+    global BASE, ARCHIVE_URL, AUCTIONEER, SLUG, OPERATOR_METADATA
     BASE = base.rstrip("/")
     ARCHIVE_URL = BASE + "/" + archive_path.lstrip("/")
     AUCTIONEER = auctioneer
     SLUG = slug
+    OPERATOR_METADATA = dict(operator_metadata or {})
+
+
+def global_eig_source_ids(exclude_slug: str) -> dict[str, list[dict]]:
+    """Return stable EIG lot IDs already banked by another source shard."""
+    values: dict[str, list[dict]] = defaultdict(list)
+    for path in (corpus.DATA / "appearances").glob("*/*.jsonl.gz"):
+        if path.parent.name == exclude_slug:
+            continue
+        for row in corpus.iter_rows(path):
+            if row.get("identity_method") != "first_party_published_eig_lot_id":
+                continue
+            source_id = clean(str(row.get("source_lot_id") or row.get("property_id") or ""))
+            if not source_id:
+                continue
+            values[source_id.casefold()].append({
+                "appearance_id": row.get("appearance_id"),
+                "auctioneer": row.get("auctioneer"),
+                "auction_date": row.get("auction_date"),
+                "original_url": row.get("original_url"),
+            })
+    return values
 
 
 def harvest() -> None:
@@ -273,11 +297,26 @@ def harvest() -> None:
             f"committed-offer exclusions and {len(set(identities))} identities of {expected} cards"
         )
 
+    global_ids = global_eig_source_ids(SLUG)
+    overlap_exclusions, admissible = [], []
+    for row in observed:
+        matches = global_ids.get(str(row["source_lot_id"]).casefold(), [])
+        if matches:
+            overlap_exclusions.append({
+                "source_lot_id": row["source_lot_id"],
+                "appearance_id": row["appearance_id"],
+                "auction_date": row["auction_date"],
+                "address": row["address"],
+                "existing": matches,
+            })
+        else:
+            admissible.append(row)
+
     appearance_path = corpus.DATA / f"appearances/{SLUG}/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearance_path)) if appearance_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
-    merged.update({row["appearance_id"]: row for row in observed})
+    merged.update({row["appearance_id"]: row for row in admissible})
     total = corpus.write_rows(f"{SLUG}/canonical", list(merged.values()))
     added = [row for key, row in merged.items() if key not in before_ids]
     today = date.today()
@@ -291,6 +330,7 @@ def harvest() -> None:
 
     state = {
         "auctioneer": AUCTIONEER,
+        **OPERATOR_METADATA,
         "source_auction_id": f"{SLUG}:retained-past-auctions",
         "auction_date": None,
         "catalogue_complete": True,
@@ -298,13 +338,15 @@ def harvest() -> None:
         "published_lots_offered": expected,
         "visible_source_rows": len(observed),
         "visible_source_cards": expected,
-        "lots_captured": len(observed),
+        "lots_captured": len(admissible),
         "source_url": first_resolved,
         "pagination_reconciled": True,
         "denominator_reconciled": True,
         "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
         "non_auction_property_cards_excluded": len(non_auction_exclusions),
         "non_auction_exclusions": non_auction_exclusions,
+        "duplicate_source_evidence_excluded": len(overlap_exclusions),
+        "duplicate_source_exclusions": overlap_exclusions,
         "source_evidence": evidence_pages,
         "errors": [],
         "checked_at": corpus.now(),
@@ -312,6 +354,8 @@ def harvest() -> None:
     corpus.save_json(state_path, state)
     summary = {
         "checked_at": corpus.now(),
+        "auctioneer": AUCTIONEER,
+        **OPERATOR_METADATA,
         "source_url": first_resolved,
         "published_archive_lots": expected,
         "pages_captured": total_pages,
@@ -335,6 +379,8 @@ def harvest() -> None:
         "new_source_years": sorted(years_after - years_before),
         "non_auction_property_cards_excluded": len(non_auction_exclusions),
         "non_auction_exclusions": non_auction_exclusions,
+        "run_duplicate_source_evidence_excluded": len(overlap_exclusions),
+        "duplicate_source_exclusions": overlap_exclusions,
         "date_range": [min(row["auction_date"] for row in merged.values()), max(row["auction_date"] for row in merged.values())],
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),

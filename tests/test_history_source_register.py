@@ -13,3 +13,34 @@ def test_directory_names_are_not_claimed_as_integrations_or_complete():
     assert r['latest_collector_attempts']['collector']['outcome']=='failed'
     assert r['unresolved_catalogues'][0]['lots_captured']==7
     assert not r['national_completeness_verified']
+
+
+def test_evidenced_operator_and_brand_aliases_share_one_corpus_label():
+    progress = {
+        'by_auctioneer': {'Purplebricks Online Auctions': 2750},
+        'twenty_year_coverage': {'by_auctioneer_and_year': []},
+    }
+    registry = {'sources': [
+        {
+            'brand': 'Purplebricks',
+            'source': 'Purplebricks Online Auctions',
+            'relationship_evidence': 'https://www.purplebricks.co.uk/online-auctions',
+        },
+        {
+            'brand': 'GOTO Group',
+            'source': 'Purplebricks Online Auctions',
+            'relationship_evidence': 'https://purplebricks.gotoproperties.co.uk/terms',
+        },
+    ]}
+    result = build(
+        progress,
+        [{'name': 'Purplebricks'}, {'name': 'GOTO Group'}],
+        registry,
+        {},
+        [],
+    )
+    assert result['directory_entries_not_linked'] == 0
+    assert {row['matched_corpus_label'] for row in result['directory_entries']} == {
+        'Purplebricks Online Auctions'
+    }
+    assert {row['retained_appearances'] for row in result['directory_entries']} == {2750}
