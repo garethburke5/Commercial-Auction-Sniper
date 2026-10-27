@@ -1521,3 +1521,47 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   appearances. Inventory every lot and retain dates, prices, outcomes,
   original URLs and immutable snapshots; reconcile shared-platform or partner
   overlap before claiming growth. National completeness remains false.
+
+## 27 October 2026 — Landmark Auctions retained-grid expansion
+
+- Reconciled the complete surviving first-party EIG grid: **62 published
+  auction-lot cards across two pages**, 62 distinct stable lot identities and
+  all 62 detail pages. There are no malformed cards, non-auction exclusions,
+  duplicate source rows or detail-recovery failures.
+- Banked **62 net-new address appearances** and no partial or undated records.
+  **55** are exact-dated inside the current 20-year window and seven are
+  explicitly future-dated to 29 October 2026, so the future records are not
+  counted as historical growth. Landmark source-years **2022 and 2026** are
+  newly represented.
+- Added **60 guide prices**, **seven achieved sale prices** and **15 published
+  rent values**. Of the guides, 53 belong to appearances inside the current
+  20-year window and seven belong to the future catalogue. The evidence-based
+  sector split is 47 residential, eight land, four commercial and three
+  mixed-use appearances; the commercial/mixed-use increment is **seven**.
+- Preserved published outcomes individually: 19 sold-prior, one sold, 11
+  unsold/no-bid, seven withdrawn, 17 postponed and seven current/future
+  unknown listings. Achieved prices are populated only on the seven cards that
+  publish one; other price fields remain null unless a first-party guide is
+  present.
+- Reconciled the operator before counting coverage. **Landmark Auctions
+  Limited (company 13592079)** is one operator; Daniels Estate Agents and The
+  Landmark Consultancy remain partner provenance and are not counted as
+  additional auctioneers.
+- The canonical shard contains 62 unique appearance IDs and 62 unique source
+  lot IDs. Every row retains its original lot URL, one of two immutable grid
+  snapshots and its immutable detail-page snapshot. The reusable EIG parser
+  now supports both current `list-*` cards and the retained `grid-*` address,
+  price and image markup; 53 focused local tests and 99 Actions tests pass.
+- The rebuilt database contains **304,261 appearances**: **293,490 address
+  records**, **10,771 partial records** and **296,618 appearances inside the
+  current 20-year window**, including **100,971 guide-price records** and
+  **111,411 achieved-price records** in that window. Undated appearances remain
+  4,395 and future-dated appearances are now 205. Packaging, source-register
+  reconciliation and protected publication completed successfully.
+- **Next concrete growth target:** inventory Aston Vaughan Auctions' first
+  completed first-party sale, whose published result article reports 18
+  properties offered and 16 sold, then reconcile its individual catalogue and
+  listing evidence against that denominator. Keep its announced 26 November
+  2026 catalogue explicitly future-dated, reconcile agency/auction trading
+  identities before counting operator coverage, and bank only evidenced
+  individual property appearances. National completeness remains false.
