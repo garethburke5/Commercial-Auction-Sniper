@@ -62,6 +62,14 @@ SOURCES = {
         "base": "https://propertyauctionagent.eigonlineauctions.com",
         "archive_path": "/search",
     },
+    "lot9-auction-house": {
+        "auctioneer": "Lot9 Auction House",
+        "base": "https://lot9.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "LOT9 AUCTION HOUSE LIMITED",
+        "operator_company_number": "12953855",
+        "partner_agents": ["Monopoly Buy Sell Rent"],
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -603,6 +611,12 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
         "failures": [],
     }
+    if source.get("operator_legal_name"):
+        summary.update({
+            "operator_legal_name": source["operator_legal_name"],
+            "operator_company_number": source.get("operator_company_number"),
+            "partner_agents_not_counted_as_auctioneers": source.get("partner_agents", []),
+        })
     if legacy:
         summary.update({
             "legacy_rolling_rows_reconciled": reconciliation["legacy_rows"],

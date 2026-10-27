@@ -192,6 +192,17 @@ def test_property_auction_agent_uses_full_first_party_search_archive():
     }
 
 
+def test_lot9_uses_full_first_party_search_archive_and_distinct_operator():
+    assert grids.SOURCES["lot9-auction-house"] == {
+        "auctioneer": "Lot9 Auction House",
+        "base": "https://lot9.eigonlineauctions.com",
+        "archive_path": "/search",
+        "operator_legal_name": "LOT9 AUCTION HOUSE LIMITED",
+        "operator_company_number": "12953855",
+        "partner_agents": ["Monopoly Buy Sell Rent"],
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
