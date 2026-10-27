@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-27T03:02:27.086344+00:00",
-  "corpus_checkpoint": "2026-10-27T03:02:11.099335+00:00",
+  "generated_at": "2026-10-27T04:01:37.016111+00:00",
+  "corpus_checkpoint": "2026-10-27T04:01:21.065864+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -885,13 +885,22 @@
       "name": "Auction North",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/auction-north",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Auction North",
+      "match_basis": "exact label",
+      "retained_appearances": 37,
+      "years_with_retained_evidence": [
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 28,
+      "with_sale_price": 10,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8036,7 +8045,7 @@
     }
   ],
   "directory_entry_count": 567,
-  "directory_entries_not_linked": 487,
+  "directory_entries_not_linked": 486,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
@@ -8072,6 +8081,7 @@
     "Auction House Sussex & Hampshire": 39,
     "Auction House Wales": 476,
     "Auction House West Yorkshire": 117,
+    "Auction North": 37,
     "Auction Works": 644,
     "BTG Eddisons": 2697,
     "Bagshaws": 84,
@@ -8134,12 +8144,12 @@
     "through_date": "2026-10-27",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 291994,
-      "auction_ids_observed": 9470,
-      "with_guide_price": 98781,
-      "with_sale_price": 110515,
-      "with_both_prices": 47339,
-      "marked_sold": 149549,
+      "lot_appearances": 292031,
+      "auction_ids_observed": 9505,
+      "with_guide_price": 98809,
+      "with_sale_price": 110525,
+      "with_both_prices": 47348,
+      "marked_sold": 149559,
       "marked_sold_without_sale_price": 39774
     },
     "by_auctioneer_and_year": [
@@ -10496,6 +10506,94 @@
         "with_both_prices": 19,
         "marked_sold": 20,
         "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2019,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2020,
+        "lot_appearances": 4,
+        "auction_ids_observed": 3,
+        "with_guide_price": 4,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2021,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2022,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2023,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2024,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 2,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2025,
+        "lot_appearances": 13,
+        "auction_ids_observed": 12,
+        "with_guide_price": 10,
+        "with_sale_price": 1,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction North",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Auction Works",
@@ -20104,7 +20202,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-10-27T03:02:26.855891+00:00",
+    "checked_at": "2026-10-27T04:01:36.802340+00:00",
     "sha256": "04232e14b17e03507cee27f06d3ba000289784ba435bf4f6b8f6e36a17a5b980",
     "status": "retrieved"
   }
