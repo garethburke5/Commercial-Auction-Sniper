@@ -1565,3 +1565,44 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   2026 catalogue explicitly future-dated, reconcile agency/auction trading
   identities before counting operator coverage, and bank only evidenced
   individual property appearances. National completeness remains false.
+
+## 27 October 2026 — Auction House Online shared-platform event expansion
+
+- Aston Vaughan's first completed sale was bounded without inventing records.
+  Its first-party article verifies only **18 offered / 16 sold**; the official
+  auction site blocks retrieval and the only exposed historical lot table is
+  subscription-only. No individual row was admitted from inconsistent search
+  snippets. Revisit this route only when accessible first-party lot evidence
+  or an immutable equivalent becomes available.
+- Switched to the accessible first-party Auction House Online event
+  `https://online.auctionhouse.co.uk/past-auctions/75792` and reconciled its
+  complete **92-card** published denominator, 92 distinct stable identities
+  and all 92 detail pages. No malformed card, non-auction exclusion or detail
+  recovery failure remains.
+- Excluded **53 exact date/address overlaps** already banked through regional
+  Auction House shards. Those URLs and overlap decisions remain in the source
+  audit and are not claimed as growth. The canonical shard banks **39 net-new
+  address appearances**, all exact-dated inside the current 20-year window;
+  there are zero partial, undated or future-dated additions. Auction House
+  Online source-year **2025** is newly represented.
+- Added **39 guide-price records**, **one achieved-price record** and no rent
+  values. The evidence-based sector split is 30 residential, one land, one
+  mixed-use and seven unknown appearances, giving a commercial/mixed-use
+  increment of **one**. Outcomes remain distinct: 27 unsold/no-bid, five
+  withdrawn, four sold-prior and three postponed.
+- Preserved the responsible branch/channel label from each property detail
+  page while treating **AUCTION HOUSE UK LIMITED (company 06025583)** as the
+  one shared-platform operator. Regional labels and the Online channel are
+  provenance, not additional legal operators.
+- The rebuilt corpus contains **304,300 appearances**: **293,529 address
+  records**, **10,771 partial records** and **296,657 dated appearances inside
+  the current 20-year window**, including **101,010 guide-price records** and
+  **111,412 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 205. The focused 58-test suite, complete database rebuild, source
+  register reconciliation and protected publication passed.
+- **Next concrete growth target:** collect the adjacent first-party Auction
+  House Online event `https://online.auctionhouse.co.uk/past-auctions/74284`,
+  which publishes **44 individual result cards** dated in October 2025. Reuse
+  the branch-attributing collector, require every detail page and exclude exact
+  regional-shard overlaps before claiming net growth. National completeness
+  remains false.
