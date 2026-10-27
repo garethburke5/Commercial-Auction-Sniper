@@ -557,6 +557,23 @@ that deleted earlier lots have been recovered. Auction Local's related official
 site currently exposes zero rows in its past-properties grid, so that route is
 recorded as blocked rather than counted as a zero-lot collection.
 
+Loveitts' separate first-party archive can be collected with:
+
+```bash
+python -u scripts/harvest_loveitts_archive.py --workers 20
+```
+
+It reconciles every retained property card in all linked event pages from the
+dated archive index, then enriches only property pages whose published event
+date exactly matches that appearance. Guide ranges and achieved prices remain
+separate, while sold-prior/sold-after/withdrawn/unsold states and rents are
+preserved where published. Exact date/address overlaps already banked from the
+shared Auction House platform are recorded and excluded from growth. Loveitts
+Limited (company 07558151), its Loveitts trading name, and the linked Auction
+House Coventry & Warwickshire platform are not counted as three auctioneers.
+The completion claim covers surviving cards only; unlinked index dates and
+properties removed from historic pages remain outside it.
+
 Edward Mellor's bounded PDF pass retains definitive 404/410 result links as
 terminal source blockers in its collection summary. A missing source is never
 counted complete, but it no longer consumes a harvest slot on every run while
