@@ -1,28 +1,28 @@
 {
   "next_task": 7,
   "last_manual_growth": {
-    "checked_at": "2026-10-26T23:21:37.630571+00:00",
-    "opportunity": "Higgins Drysdale complete first-party retained EIG archive",
-    "saved_candidate_rows": 164,
+    "checked_at": "2026-10-27T01:05:31.179249+00:00",
+    "opportunity": "The Property Auction House complete first-party retained EIG archive",
+    "saved_candidate_rows": 134,
     "overlapping_rows_excluded": 0,
-    "net_new_appearances": 163,
-    "new_address_records": 163,
+    "net_new_appearances": 127,
+    "new_address_records": 127,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 162,
+    "new_dated_address_records_in_twenty_year_window": 112,
     "new_undated_appearances": 0,
-    "new_future_dated_appearances": 1,
-    "commercial_or_mixed_use": 16,
-    "new_guide_prices": 163,
-    "new_sale_prices": 59,
-    "new_guide_prices_in_twenty_year_window": 162,
-    "new_sale_prices_in_twenty_year_window": 59,
-    "new_rent_values": 0,
-    "new_source_year_pairs": 6,
+    "new_future_dated_appearances": 15,
+    "commercial_or_mixed_use": 2,
+    "new_guide_prices": 127,
+    "new_sale_prices": 53,
+    "new_guide_prices_in_twenty_year_window": 112,
+    "new_sale_prices_in_twenty_year_window": 53,
+    "new_rent_values": 2,
+    "new_source_year_pairs": 5,
     "duplicate_appearance_ids": 0,
     "explicit_test_appearances_excluded": 0,
-    "non_auction_property_cards_excluded": 1
+    "non_auction_property_cards_excluded": 7
   },
-  "next_growth_target": "Collect and denominator-reconcile Brown&Co's independent first-party EIG archive at https://brownandco.eigonlineauctions.com/search, currently exposing 454 rows. Compare its stable EIG identities against the 28 Brown&Co appearances already retained from the rolling first-party results page, exclude exact overlaps before claiming growth, and preserve dates, guides, results, rents, outcomes and immutable snapshots.",
+  "next_growth_target": "Verify that Property Auction Agent is a genuine operator distinct from The Property Auction House, then collect and denominator-reconcile its first-party EIG archive at https://propertyauctionagent.eigonlineauctions.com/search, currently exposing 66 rows across two pages and zero retained corpus appearances. Preserve stable identities, dates, guides, achieved prices, rents, outcomes and immutable snapshots; if corporate or trading-name evidence shows it is an alias, merge attribution without counting a new operator.",
   "runs": [
     {
       "source": "btg_eddisons_catalogues",
@@ -53,7 +53,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1205,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T06:58:57.431672+00:00"
     },
     {
@@ -101,7 +101,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1218,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T06:59:12.352510+00:00"
     },
     {
@@ -109,7 +109,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1251,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T06:59:12.362664+00:00"
     },
     {
@@ -117,7 +117,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1259,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T06:59:12.372785+00:00"
     },
     {
@@ -125,7 +125,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1264,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T06:59:12.382995+00:00"
     },
     {
@@ -133,7 +133,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1269,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T06:59:12.393074+00:00"
     },
     {
@@ -293,7 +293,7 @@
       "outcome": "completed",
       "exit_code": 0,
       "diagnostic_tail": "25-12-04\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"pagination_reconciled\": true,\n      \"published_lots_offered\": 4,\n      \"published_lots_offered_matches_visible_rows\": false,\n      \"published_lots_offered_semantics\": \"first-party auction outcome statistic; not the retained result-table row denominator\",\n      \"visible_source_rows\": 7,\n      \"source_row_denominator\": 7,\n      \"lots_captured\": 7,\n      \"source_url\": \"https://www.philliparnoldauctions.co.uk/auction-results/116\",\n      \"completion_scope\": \"all visible rows in the first-party unpaginated result table\",\n      \"denominator_reconciled\": true,\n      \"reconciliation_note\": {\n        \"kind\": \"published_outcome_count_not_source_row_denominator\",\n        \"published_lots_offered\": 4,\n        \"visible_source_rows\": 7,\n        \"note\": \"all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T07:12:14.309359+00:00\"\n    },\n    \"117\": {\n      \"auctioneer\": \"Phillip Arnold Auctions\",\n      \"source_auction_id\": \"phillip-arnold:117\",\n      \"auction_date\": \"2026-02-26\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"pagination_reconciled\": true,\n      \"published_lots_offered\": 6,\n      \"published_lots_offered_matches_visible_rows\": false,\n      \"published_lots_offered_semantics\": \"first-party auction outcome statistic; not the retained result-table row denominator\",\n      \"visible_source_rows\": 8,\n      \"source_row_denominator\": 8,\n      \"lots_captured\": 8,\n      \"source_url\": \"https://www.philliparnoldauctions.co.uk/auction-results/117\",\n      \"completion_scope\": \"all visible rows in the first-party unpaginated result table\",\n      \"denominator_reconciled\": true,\n      \"reconciliation_note\": {\n        \"kind\": \"published_outcome_count_not_source_row_denominator\",\n        \"published_lots_offered\": 6,\n        \"visible_source_rows\": 8,\n        \"note\": \"all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T07:12:17.732077+00:00\"\n    },\n    \"118\": {\n      \"auctioneer\": \"Phillip Arnold Auctions\",\n      \"source_auction_id\": \"phillip-arnold:118\",\n      \"auction_date\": \"2026-04-16\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"pagination_reconciled\": true,\n      \"published_lots_offered\": 5,\n      \"published_lots_offered_matches_visible_rows\": false,\n      \"published_lots_offered_semantics\": \"first-party auction outcome statistic; not the retained result-table row denominator\",\n      \"visible_source_rows\": 12,\n      \"source_row_denominator\": 12,\n      \"lots_captured\": 12,\n      \"source_url\": \"https://www.philliparnoldauctions.co.uk/auction-results/118\",\n      \"completion_scope\": \"all visible rows in the first-party unpaginated result table\",\n      \"denominator_reconciled\": true,\n      \"reconciliation_note\": {\n        \"kind\": \"published_outcome_count_not_source_row_denominator\",\n        \"published_lots_offered\": 5,\n        \"visible_source_rows\": 12,\n        \"note\": \"all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T07:12:19.371749+00:00\"\n    },\n    \"120\": {\n      \"auctioneer\": \"Phillip Arnold Auctions\",\n      \"source_auction_id\": \"phillip-arnold:120\",\n      \"auction_date\": \"2026-09-17\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"pagination_reconciled\": true,\n      \"published_lots_offered\": 10,\n      \"published_lots_offered_matches_visible_rows\": false,\n      \"published_lots_offered_semantics\": \"first-party auction outcome statistic; not the retained result-table row denominator\",\n      \"visible_source_rows\": 16,\n      \"source_row_denominator\": 16,\n      \"lots_captured\": 16,\n      \"source_url\": \"https://www.philliparnoldauctions.co.uk/auction-results/120\",\n      \"completion_scope\": \"all visible rows in the first-party unpaginated result table\",\n      \"denominator_reconciled\": true,\n      \"reconciliation_note\": {\n        \"kind\": \"published_outcome_count_not_source_row_denominator\",\n        \"published_lots_offered\": 10,\n        \"visible_source_rows\": 16,\n        \"note\": \"all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T07:12:25.981793+00:00\"\n    },\n    \"119\": {\n      \"auctioneer\": \"Phillip Arnold Auctions\",\n      \"source_auction_id\": \"phillip-arnold:119\",\n      \"auction_date\": \"2026-06-25\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"pagination_reconciled\": true,\n      \"published_lots_offered\": 10,\n      \"published_lots_offered_matches_visible_rows\": false,\n      \"published_lots_offered_semantics\": \"first-party auction outcome statistic; not the retained result-table row denominator\",\n      \"visible_source_rows\": 16,\n      \"source_row_denominator\": 16,\n      \"lots_captured\": 16,\n      \"source_url\": \"https://www.philliparnoldauctions.co.uk/auction-results/119\",\n      \"completion_scope\": \"all visible rows in the first-party unpaginated result table\",\n      \"denominator_reconciled\": true,\n      \"reconciliation_note\": {\n        \"kind\": \"published_outcome_count_not_source_row_denominator\",\n        \"published_lots_offered\": 10,\n        \"visible_source_rows\": 16,\n        \"note\": \"all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T07:12:27.562601+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 152.0,
+      "duration_seconds": 152,
       "checked_at": "2026-10-26T07:12:27.837147+00:00"
     },
     {
@@ -325,7 +325,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 15992,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T07:48:41.490949+00:00"
     },
     {
@@ -789,7 +789,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 12583,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:45:30.304371+00:00"
     },
     {
@@ -901,7 +901,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18200,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:46:17.996232+00:00"
     },
     {
@@ -973,7 +973,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18204,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:46:47.588226+00:00"
     },
     {
@@ -1021,7 +1021,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18214,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:47:04.938317+00:00"
     },
     {
@@ -1029,7 +1029,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18246,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:47:04.944619+00:00"
     },
     {
@@ -1037,7 +1037,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18253,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:47:04.950836+00:00"
     },
     {
@@ -1045,7 +1045,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18257,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:47:04.956986+00:00"
     },
     {
@@ -1053,7 +1053,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 18261,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T08:47:04.963100+00:00"
     },
     {
@@ -1261,7 +1261,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 1342,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:52:51.706214+00:00"
     },
     {
@@ -1373,7 +1373,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6955,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:53:42.833999+00:00"
     },
     {
@@ -1445,7 +1445,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6956,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:54:15.276336+00:00"
     },
     {
@@ -1493,7 +1493,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6962,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:54:37.217602+00:00"
     },
     {
@@ -1501,7 +1501,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6993,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:54:37.228153+00:00"
     },
     {
@@ -1509,7 +1509,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 7000,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:54:37.238718+00:00"
     },
     {
@@ -1517,7 +1517,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 7005,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:54:37.249299+00:00"
     },
     {
@@ -1525,7 +1525,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 7008,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T11:54:37.259773+00:00"
     },
     {
@@ -2205,7 +2205,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 8135,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:18:35.859412+00:00"
     },
     {
@@ -2317,7 +2317,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 8132,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:19:33.573478+00:00"
     },
     {
@@ -2437,7 +2437,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 8113,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:21:15.226652+00:00"
     },
     {
@@ -2445,7 +2445,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 8142,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:21:15.237012+00:00"
     },
     {
@@ -2453,7 +2453,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 8150,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:21:15.247419+00:00"
     },
     {
@@ -2461,7 +2461,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 8154,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:21:15.257869+00:00"
     },
     {
@@ -2469,7 +2469,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 8158,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:21:15.268358+00:00"
     },
     {
@@ -2677,7 +2677,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 6528,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:45:23.135052+00:00"
     },
     {
@@ -2789,7 +2789,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6531,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:46:15.457029+00:00"
     },
     {
@@ -2909,7 +2909,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6563,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:47:04.989659+00:00"
     },
     {
@@ -2917,7 +2917,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6593,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:47:05.003111+00:00"
     },
     {
@@ -2925,7 +2925,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6600,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:47:05.013439+00:00"
     },
     {
@@ -2933,7 +2933,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6605,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:47:05.023211+00:00"
     },
     {
@@ -2941,7 +2941,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6608,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T18:47:05.033093+00:00"
     },
     {
@@ -3149,7 +3149,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 1489,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:09:21.911269+00:00"
     },
     {
@@ -3261,7 +3261,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1493,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:10:13.472541+00:00"
     },
     {
@@ -3333,7 +3333,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 16551,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:10:58.761973+00:00"
     },
     {
@@ -3381,7 +3381,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1513,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:11:14.686591+00:00"
     },
     {
@@ -3389,7 +3389,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1543,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:11:14.696141+00:00"
     },
     {
@@ -3397,7 +3397,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1551,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:11:14.705133+00:00"
     },
     {
@@ -3405,7 +3405,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1555,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:11:14.714032+00:00"
     },
     {
@@ -3413,7 +3413,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1558,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-26T20:11:14.722844+00:00"
     },
     {
@@ -3805,7 +3805,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1845,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T00:16:04.486140+00:00"
     },
     {

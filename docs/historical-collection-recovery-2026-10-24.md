@@ -1121,3 +1121,37 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   denominator, exclude non-auction committed-offer/online-sale cards, and bank
   only property appearances with stable identities and immutable evidence.
 
+## 27 October 2026 — The Property Auction House retained-grid expansion
+
+- Reconciled all **134** visible first-party cards across three pages. The
+  source contains 127 distinct auction-lot identities and seven separately
+  labelled committed-offer/online-sale cards. The latter retain their address,
+  URL and stable UUID in the exclusion audit but are not counted as auction
+  appearances.
+- Banked **127 net new address appearances** with no partial, undated,
+  overlapping or duplicate-derived additions. **112** are exact-dated inside
+  the current 20-year window and 15 are explicitly future-dated through 10
+  December 2026. Source-years 2022 through 2026 are newly represented.
+- Added **127 guide prices**, **53 achieved prices** and two annual rents.
+  The evidence-based sector split is 121 residential, four land and two
+  commercial appearances; no row is promoted to mixed-use without explicit
+  source wording. Outcomes remain distinct: 23 sold, 79 sold-prior, ten
+  sold-after and 15 current/unknown future listings.
+- All 127 detail pages and immutable snapshots were captured without recovery
+  failures. The rebuilt corpus contains **299,472 appearances**: 288,702
+  address records and 10,770 partial lots. Exact-date twenty-year coverage is
+  291,899 appearances, with 98,693 guide-price records and 110,500 sale-price
+  records. Tests, database rebuild, packaging, source-register reconciliation
+  and protected publication completed successfully.
+- Restored `continuation_collection.json` from the immediately preceding valid
+  Git blob before collection after detecting a binary-corrupt API-written
+  checkpoint; the focused JSON-validity test passed and no source batch was
+  discarded.
+- Next concrete growth target: verify that directory-listed **Property Auction
+  Agent** is a genuine Swansea operator distinct from The Property Auction
+  House, then collect its first-party EIG archive at
+  `https://propertyauctionagent.eigonlineauctions.com/search`, currently
+  exposing **66** cards across two pages and zero retained corpus appearances.
+  If company or trading-name evidence shows an alias, merge attribution without
+  claiming an additional operator. National completeness remains false.
+
