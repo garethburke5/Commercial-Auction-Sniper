@@ -218,3 +218,17 @@ def test_focused_online_result_state_repair_skips_broad_rotation():
     bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
     assert "Run focused online-result state repair" in bounded_condition
 
+
+
+def test_focused_opal_newlands_expansion_is_isolated():
+    focused = WORKFLOW.index("- name: Collect Opal and Newlands complete property archives")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py opal-property --workers 16" in block
+    assert "scripts/harvest_eig_retained_grids.py newlands-property --workers 16" in block
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Opal and Newlands archive expansion" in bounded_condition
+    guide_start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")
+    guide_end = WORKFLOW.index("- name:", guide_start + 10)
+    assert "Run focused Opal and Newlands archive expansion" in WORKFLOW[guide_start:guide_end]

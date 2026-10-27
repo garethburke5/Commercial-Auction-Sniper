@@ -317,3 +317,16 @@ def test_missing_lot_identity_is_still_fatal_malformed_evidence():
     assert rows == [] and excluded == []
     assert malformed == [{"position": 1, "address": "Unknown Card, Durham, DH1 1AA", "detail_url": None}]
 
+
+
+def test_opal_and_newlands_use_distinct_first_party_archives():
+    assert grids.SOURCES["opal-property"] == {
+        "auctioneer": "Opal Property",
+        "base": "https://opal-online.eigonlineauctions.com",
+        "archive_path": "/search",
+    }
+    assert grids.SOURCES["newlands-property"] == {
+        "auctioneer": "Newlands Property",
+        "base": "https://newlands.eigonlineauctions.com",
+        "archive_path": "/",
+    }
