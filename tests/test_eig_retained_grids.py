@@ -330,3 +330,17 @@ def test_opal_and_newlands_use_distinct_first_party_archives():
         "base": "https://newlands.eigonlineauctions.com",
         "archive_path": "/search",
     }
+
+
+def test_landmark_uses_full_archive_and_one_legal_operator():
+    assert grids.SOURCES["landmark-auctions"] == {
+        "auctioneer": "Landmark Auctions",
+        "base": "https://onlineauctions.landmarkauctions.co.uk",
+        "archive_path": "/search",
+        "operator_legal_name": "LANDMARK AUCTIONS LIMITED",
+        "operator_company_number": "13592079",
+        "partner_agents": [
+            "Daniels Estate Agents",
+            "The Landmark Consultancy",
+        ],
+    }

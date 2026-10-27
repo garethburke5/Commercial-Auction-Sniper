@@ -114,6 +114,17 @@ SOURCES = {
         # retained grid directly so zero rows remain a genuine failure.
         "archive_path": "/search",
     },
+    "landmark-auctions": {
+        "auctioneer": "Landmark Auctions",
+        "base": "https://onlineauctions.landmarkauctions.co.uk",
+        "archive_path": "/search",
+        "operator_legal_name": "LANDMARK AUCTIONS LIMITED",
+        "operator_company_number": "13592079",
+        "partner_agents": [
+            "Daniels Estate Agents",
+            "The Landmark Consultancy",
+        ],
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
