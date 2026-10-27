@@ -1,31 +1,31 @@
 {
   "next_task": 4,
   "last_manual_growth": {
-    "checked_at": "2026-10-27T04:59:29.917740+00:00",
-    "opportunity": "Sage & Co Auctions complete first-party retained EIG archive and legal-operator reconciliation",
-    "saved_candidate_rows": 17,
+    "checked_at": "2026-10-27T06:11:39+00:00",
+    "opportunity": "Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation",
+    "saved_candidate_rows": 24,
     "overlapping_rows_excluded": 0,
-    "net_new_appearances": 17,
-    "new_address_records": 17,
+    "net_new_appearances": 24,
+    "new_address_records": 24,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 15,
+    "new_dated_address_records_in_twenty_year_window": 22,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 2,
-    "commercial_or_mixed_use": 4,
-    "new_guide_prices": 17,
-    "new_sale_prices": 4,
-    "new_guide_prices_in_twenty_year_window": 15,
-    "new_sale_prices_in_twenty_year_window": 4,
+    "commercial_or_mixed_use": 1,
+    "new_guide_prices": 12,
+    "new_sale_prices": 16,
+    "new_guide_prices_in_twenty_year_window": 10,
+    "new_sale_prices_in_twenty_year_window": 16,
     "new_rent_values": 0,
-    "new_source_year_pairs": 1,
+    "new_source_year_pairs": 4,
     "duplicate_appearance_ids": 0,
     "explicit_test_appearances_excluded": 0,
     "non_auction_property_cards_excluded": 0,
-    "operator_reconciliation": "SAGE & CO AUCTIONS LIMITED (13328873) is the genuine operator; the company number is published on the first-party archive and agrees with Companies House. No alias or partner was counted as a second auctioneer.",
-    "persisted_shard_verification": "17 rows, 17 unique appearance IDs, 17 unique source lot IDs, 17 original URLs, 17 grid source-evidence records and 17 detail source-evidence records.",
+    "operator_reconciliation": "Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.",
+    "persisted_shard_verification": "24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.",
     "database_rebuild_verified": true
   },
-  "next_growth_target": "Reconcile directory-listed Bowen with the Bowen Son and Watson trading name and the rebranded first-party Bowen site, then collect https://bowensonandwatson.eigonlineauctions.com/search. The surviving archive currently exposes 24 stable cards and zero retained corpus appearances: 22 completed rows spanning 2021, 2023 and 2026 plus two future-dated November 2026 listings. Preserve the trading-name history without counting an alias as a second operator; retain stable identities, dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots, and exclude shared-EIG overlaps before claiming growth.",
+  "next_growth_target": "Reconcile directory-listed Astleys as a genuine UK operator/trading identity, then collect https://astleys.eigonlineauctions.com/search. The surviving first-party EIG archive currently exposes 26 completed address cards spanning 2023 through 2026 and zero retained corpus appearances, with published guide, outcome and achieved-price evidence. Reconcile any shared-EIG stable-ID overlaps before claiming growth; preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots, and do not count branches or aliases as additional auctioneers.",
   "runs": [
     {
       "source": "cheffins_history",
@@ -3648,7 +3648,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 1600,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:43:55.212112+00:00"
     },
     {
@@ -3760,7 +3760,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1850,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:44:39.980824+00:00"
     },
     {
@@ -3880,7 +3880,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1922,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:45:21.649532+00:00"
     },
     {
@@ -3888,7 +3888,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1953,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:45:21.869280+00:00"
     },
     {
@@ -3896,7 +3896,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1960,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:45:21.877514+00:00"
     },
     {
@@ -3904,7 +3904,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1964,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:45:21.913134+00:00"
     },
     {
@@ -3912,7 +3912,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1967,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-10-27T05:45:22.167028+00:00"
     },
     {
@@ -4026,6 +4026,14 @@
       "diagnostic_tail": "",
       "duration_seconds": 17.33,
       "checked_at": "2026-10-27T05:52:14.732364+00:00"
+    },
+    {
+      "source": "bowen",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"checked_at\":\"2026-10-27T06:11:39+00:00\",\"opportunity\":\"Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation\",\"saved_candidate_rows\":24,\"overlapping_rows_excluded\":0,\"net_new_appearances\":24,\"new_address_records\":24,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":22,\"new_undated_appearances\":0,\"new_future_dated_appearances\":2,\"commercial_or_mixed_use\":1,\"new_guide_prices\":12,\"new_sale_prices\":16,\"new_guide_prices_in_twenty_year_window\":10,\"new_sale_prices_in_twenty_year_window\":16,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.\",\"persisted_shard_verification\":\"24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.\",\"database_rebuild_verified\":true}",
+      "duration_seconds": 10.57,
+      "checked_at": "2026-10-27T06:09:19.746375+00:00"
     }
   ],
   "latest_by_source": {
@@ -4500,6 +4508,14 @@
       "diagnostic_tail": "_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2026-08-05\",\n    \"2026-11-18\"\n  ],\n  \"by_status\": {\n    \"unknown\": 2,\n    \"unsold\": 5,\n    \"withdrawn\": 3,\n    \"postponed\": 2,\n    \"sold\": 2,\n    \"sold_prior\": 3\n  },\n  \"by_sector\": {\n    \"residential\": 8,\n    \"land\": 3,\n    \"unknown\": 2,\n    \"mixed-use\": 3,\n    \"commercial\": 1\n  },\n  \"detail_pages_captured\": 17,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": [],\n  \"operator_legal_name\": \"SAGE & CO AUCTIONS LIMITED\",\n  \"operator_company_number\": \"13328873\",\n  \"partner_agents_not_counted_as_auctioneers\": []\n}\n{\n  \"checked_at\": \"2026-10-27T05:43:30.826173+00:00\",\n  \"auctioneer\": \"Boultons Harrisons Ltd\",\n  \"parser_version\": 6,\n  \"source_url\": \"https://www.boultonsauctions.co.uk/past-auctions?lotResultType=All\",\n  \"archive_sha256\": \"a248c0e5c8fd15dc339760469351bd4b274f7d0faf8bdeec4b7a8cca9712b4bd\",\n  \"archive_page_count\": 2,\n  \"archive_page_rows\": [\n    50,\n    12\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    12\n  ],\n  \"visible_source_rows\": 62,\n  \"published_result_count\": 62,\n  \"distinct_source_identities\": 62,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"appearances_captured\": 62,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 3,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2025-01-22\",\n    \"2026-10-07\"\n  ],\n  \"by_status\": {\n    \"unsold\": 24,\n    \"sold\": 27,\n    \"sold_prior\": 3,\n    \"withdrawn\": 5,\n    \"sold_after\": 1,\n    \"postponed\": 2\n  },\n  \"by_sector\": {\n    \"land\": 7,\n    \"residential\": 47,\n    \"commercial\": 7,\n    \"unknown\": 1\n  },\n  \"detail_pages_captured\": 62,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-10-27T05:43:42.611099+00:00\",\n  \"auctioneer\": \"Online Property Auction Group\",\n  \"parser_version\": 6,\n  \"source_url\": \"https://www.opagroup.co.uk/past-auctions?lotResultType=All\",\n  \"archive_sha256\": \"1a5864b4466a1690db3eef6f2950f4f1fcb3e4d5a501a167ffb0e17f14ce3d2c\",\n  \"archive_page_count\": 2,\n  \"archive_page_rows\": [\n    50,\n    1\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    1\n  ],\n  \"visible_source_rows\": 51,\n  \"published_result_count\": 51,\n  \"distinct_source_identities\": 51,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"appearances_captured\": 51,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 2,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2023-09-21\",\n    \"2026-10-28\"\n  ],\n  \"by_status\": {\n    \"sold\": 47,\n    \"withdrawn\": 3,\n    \"sold_prior\": 1\n  },\n  \"by_sector\": {\n    \"land\": 8,\n    \"commercial\": 15,\n    \"residential\": 20,\n    \"mixed-use\": 8\n  },\n  \"detail_pages_captured\": 51,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-10-27T05:43:55.113111+00:00\",\n  \"auctioneer\": \"The Auction Company\",\n  \"parser_version\": 6,\n  \"source_url\": \"https://auctions.theauctioncompany.co.uk/past-auctions?lotResultType=All\",\n  \"archive_sha256\": \"e9da58a54bf5833da73e356eff2fbaf7594c3f56a4e38eaa5701746a2287b328\",\n  \"archive_page_count\": 3,\n  \"archive_page_rows\": [\n    50,\n    50,\n    23\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    50,\n    23\n  ],\n  \"visible_source_rows\": 123,\n  \"published_result_count\": 123,\n  \"distinct_source_identities\": 123,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"appearances_captured\": 123,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 1,\n  \"run_new_rents\": 12,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2023-11-25\",\n    \"2026-10-26\"\n  ],\n  \"by_status\": {\n    \"sold\": 80,\n    \"sold_prior\": 41,\n    \"sold_after\": 2\n  },\n  \"by_sector\": {\n    \"residential\": 113,\n    \"unknown\": 4,\n    \"commercial\": 3,\n    \"land\": 1,\n    \"mixed-use\": 2\n  },\n  \"detail_pages_captured\": 123,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"sources\": [\n    \"auction-works\",\n    \"bradley-hall\",\n    \"brown-co\",\n    \"clarke-simpson\",\n    \"higgins-drysdale\",\n    \"the-property-auction-house\",\n    \"property-auction-agent\",\n    \"lot9-auction-house\",\n    \"auction-north\",\n    \"sage-co-auctions\",\n    \"boultons-harrisons\",\n    \"online-property-auction-group\",\n    \"the-auction-company\"\n  ],\n  \"run_new_appearances\": 0\n}\n",
       "duration_seconds": 275.22,
       "checked_at": "2026-10-27T05:43:55.203173+00:00"
+    },
+    "bowen": {
+      "source": "bowen",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"checked_at\":\"2026-10-27T06:11:39+00:00\",\"opportunity\":\"Bowen / Bowen Son and Watson complete first-party retained EIG archive and trading-name reconciliation\",\"saved_candidate_rows\":24,\"overlapping_rows_excluded\":0,\"net_new_appearances\":24,\"new_address_records\":24,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":22,\"new_undated_appearances\":0,\"new_future_dated_appearances\":2,\"commercial_or_mixed_use\":1,\"new_guide_prices\":12,\"new_sale_prices\":16,\"new_guide_prices_in_twenty_year_window\":10,\"new_sale_prices_in_twenty_year_window\":16,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Current Bowen and historical Bowen Son and Watson are one operator/trading lineage. Bowen Son and Watson with Kent Jones and the 2019 Kent Jones merger are retained as provenance and are not counted as additional auctioneers; no unverified limited-company identity was invented.\",\"persisted_shard_verification\":\"24 rows, 24 unique appearance IDs, 24 unique source lot IDs, 24 original URLs, 24 grid source-evidence records and 24 detail source-evidence records.\",\"database_rebuild_verified\":true}",
+      "duration_seconds": 10.57,
+      "checked_at": "2026-10-27T06:09:19.746375+00:00"
     }
   }
 }

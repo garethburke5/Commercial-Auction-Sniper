@@ -1308,3 +1308,39 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   prices, rents, outcomes, original URLs and immutable snapshots. National
   completeness remains false.
 
+## 27 October 2026 — Bowen / Bowen Son and Watson retained-grid expansion
+
+- Reconciled all **24** published auction-lot cards in the surviving first-party
+  Bowen Son and Watson EIG archive. The one-page denominator, 24 distinct
+  stable identities and all 24 detail pages reconcile exactly, with no
+  malformed rows, non-auction exclusions, shared-platform overlaps or recovery
+  failures.
+- Banked **24 net new address appearances** with no partial, undated or
+  duplicate-derived additions. **22** are exact-dated inside the current
+  20-year window and two are explicitly future-dated to 5 and 12 November
+  2026. Bowen source-years 2020, 2021, 2023 and 2026 are newly represented.
+- Added **12 guide-price records** (**10** inside the current window), **16
+  achieved prices** and no published rent values. The evidence-based sector
+  split is 18 residential, five land and one commercial appearance. Outcomes
+  remain distinct: 16 sold, one sold-prior, two unsold, three withdrawn and
+  two current/future unknown listings.
+- Reconciled the auctioneer family before counting coverage. Current **Bowen**
+  and historical **Bowen Son and Watson** are one operator/trading lineage;
+  the archive's “Bowen Son and Watson with Kent Jones” wording and the 2019
+  Kent Jones merger are retained as provenance, not counted as additional
+  auctioneers. No unverified limited-company identity was invented.
+- The rebuilt corpus contains **299,650 appearances**: 288,880 address records
+  and 10,770 partial lots. Exact-date twenty-year coverage is 292,068
+  appearances, with 98,834 guide-price records and 110,561 sale-price records.
+  The canonical shard contains 24 unique appearance IDs and 24 unique source
+  lot IDs; every row retains its original URL and immutable grid/detail source
+  evidence. All **456** focused tests, database rebuild, packaging,
+  source-register reconciliation and protected publication completed
+  successfully.
+- Next concrete growth target: directory-listed **Astleys**, which still has
+  zero retained corpus appearances. Its first-party archive at
+  `https://astleys.eigonlineauctions.com/search` currently exposes **26**
+  completed cards spanning 2023 through 2026, with guide, outcome and achieved
+  price evidence. Reconcile the Astleys trading/operator identity and any
+  shared-EIG overlaps before adding it to the reusable retained-grid collector.
+  National completeness remains false.
