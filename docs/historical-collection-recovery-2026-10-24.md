@@ -2372,3 +2372,35 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   claiming growth. Do not retry events 69595, 79607 or 82154 until their
   upstream response changes or a materially different retrieval route exists.
   National completeness remains false.
+
+## 28 October 2026 — Auction House Online 21 July event reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/83233?lotResultType=All`.
+  Its **64 visible result cards**, 64 stable source identities and 64 detail
+  pages reconcile exactly; immutable index and lot snapshots were banked.
+- Admitted **6 net-new appearances and address records**, all dated inside the
+  current 20-year window. Fifty-eight exact date/address overlaps with existing
+  regional evidence were audited and excluded, with no duplicate source
+  identities, partial, undated or future-dated additions.
+- Added **6 guide-price records**, **zero achieved-price records** and **one rent
+  value**. The evidence-based sector split is three residential, one land and
+  two unknown appearances; commercial/mixed-use growth is **zero commercial
+  and zero mixed-use**. Outcomes remain distinct: three sold-prior, two
+  withdrawn and one postponed.
+- Preserved individual dates from 2 to 20 July 2026. Four published
+  regional/channel labels remain provenance under **AUCTION HOUSE UK LIMITED
+  (company 06025583)** rather than additional legal operators.
+- The rebuilt corpus contains **305,406 appearances**, **294,635 address
+  records**, **10,771 partial records** and **297,781 dated appearances inside
+  the current 20-year window**, including **101,973 guide-price records** and
+  **111,480 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 187. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/82834`, dated 28 July
+  2026. Its all-results grid exposes **88 individual cards**; require every
+  detail page and strict exact-overlap exclusion before claiming growth. Do
+  not retry events 69595, 79607 or 82154 until their upstream response changes
+  or a materially different retrieval route exists. National completeness
+  remains false.
+
