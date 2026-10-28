@@ -2404,3 +2404,10 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   or a materially different retrieval route exists. National completeness
   remains false.
 
+
+
+## 28 October 2026 — protected rotation checkpoint and focused 28 July target
+
+The completed protected rotation banked 41 unique address appearances without removals or duplicate appearance IDs. Forty Town & Country Property Auctions records retain the exact 28 October 2026 date: 15 residential, two commercial, three land and 20 sector-unknown. Their published outcomes remain distinct (22 no bids, nine unsold, seven sold and two postponed), with seven achieved prices. One Auction House South West sold-prior record dated 17 November 2026 is future-dated and carries one published guide. One existing Town & Country record also gained achieved-price evidence. No new source-year or legal operator-year is claimed.
+
+The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address records and 297,860 appearances in the preceding twenty-year window. The next concrete growth target remains Auction House Online event 82834 at https://online.auctionhouse.co.uk/past-auctions/82834. Its first-party all-results grid exposes 88 individual cards for 28 July 2026. Reconcile every stable source identity and detail page, preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots, and exclude only exact overlaps. Auction House regional labels remain branch/channel attribution under AUCTION HOUSE UK LIMITED. If this event is unavailable, move to event 83949 (46 first-party cards dated 4 August 2026) rather than revisiting terminal blockers. National completeness remains false.
