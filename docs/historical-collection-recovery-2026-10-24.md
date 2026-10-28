@@ -2157,3 +2157,31 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   claiming growth. Do not retry events 69595 or 79607 until their upstream
   responses change or a materially new retrieval route exists. National
   completeness remains false.
+
+## 28 October 2026 — Auction House Online 9 June event blocked before capture
+
+- Targeted first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/82154?lotResultType=All`,
+  whose independently reconciled archive index reports **88 individual result
+  cards**. The bounded request exhausted the explicit all-results route and
+  ended in a 120-second read timeout before the archive index arrived.
+- No card, detail page or immutable event snapshot was admitted. Net-new
+  appearances, address records, dated address records inside the 20-year
+  window, commercial/mixed-use records, source-years, guides, achieved prices
+  and rents are therefore all **zero**. Partial, undated, future-dated and
+  duplicate additions are also zero; this is an upstream blocker, not
+  collection growth.
+- The two historical test stages passed **388 and 120 tests**. Protected
+  source-corpus banking, the database rebuild and checkpoint publication also
+  completed successfully, preserving all prior evidence. The corpus remains
+  at **305,072 appearances**, **294,301 address records**, **10,771 partial
+  records** and **297,454 dated appearances inside the current 20-year
+  window**, including **101,776 guide-price records** and **111,460
+  achieved-price records**. Undated remains 4,395 and future-dated remains 180.
+- **Next concrete growth target:** move to the separate first-party Auction
+  House Online event `https://online.auctionhouse.co.uk/past-auctions/81218`,
+  dated 25-26 May 2026 and exposing **80 actual result cards**. Require the
+  live-card denominator, every detail page and strict exact-overlap exclusion
+  before claiming growth. Do not retry events 69595, 79607 or 82154 until the
+  upstream response changes or a materially different retrieval route exists.
+  National completeness remains false.
