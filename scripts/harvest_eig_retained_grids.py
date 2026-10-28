@@ -475,6 +475,7 @@ SOURCES = {
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "expected_visible_cards": 88,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
@@ -506,7 +507,7 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
-PARSER_VERSION = 7
+PARSER_VERSION = 8
 
 
 def clean(value: str | None) -> str | None:
@@ -893,6 +894,7 @@ def pagination_reconciles(
     denominator: int | None,
     *,
     unpaginated_event: bool = False,
+    expected_visible_cards: int | None = None,
 ) -> bool:
     ids = [row["source_lot_id"] for rows in page_rows for row in rows]
     page_visible_counts = [
@@ -908,6 +910,10 @@ def pagination_reconciles(
     return bool(
         page_rows and all(page_rows) and not malformed and len(ids) == len(set(ids))
         and page_shape_complete
+        and (
+            expected_visible_cards is None
+            or sum(page_visible_counts) == expected_visible_cards
+        )
         and (denominator is None or len(ids) + len(excluded_non_auction) == denominator)
     )
 
@@ -1008,12 +1014,14 @@ def harvest(slug: str, workers: int = 10) -> dict:
         excluded_non_auction,
         denominator,
         unpaginated_event=source.get("unpaginated_event", False),
+        expected_visible_cards=source.get("expected_visible_cards"),
     )
     if not pagination_complete:
         raise RuntimeError(
             f"{slug} retained pagination did not reconcile: pages={list(map(len, page_rows))}, "
             f"malformed={len(malformed)}, distinct={len(set(ids))}/{len(ids)}, "
             f"excluded_non_auction={len(excluded_non_auction)}, published_denominator={denominator}"
+            f", expected_visible_cards={source.get('expected_visible_cards')}"
         )
 
     summary_path = corpus.DATA / f"{slug.replace('-', '_')}_collection.json"
@@ -1136,6 +1144,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "archive_page_rows": [len(value) for value in page_rows],
         "archive_page_visible_cards": page_visible_counts,
         "visible_source_rows": len(rows),
+        "expected_visible_cards": source.get("expected_visible_cards"),
         "published_result_count": denominator,
         "distinct_source_identities": len(set(ids)),
         "non_auction_property_cards_excluded": len(excluded_non_auction),
