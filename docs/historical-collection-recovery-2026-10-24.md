@@ -438,6 +438,7 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   appearances, 96,256 guide prices and 104,984 sale prices. Undated appearances
   are 4,333; future-dated appearances remain 28. National completeness remains
   false.
+
 - The removed Barnard Marcus September 2023 route remains a terminal 404 with no
   retained first-party lot identities. Do not retry it without a new source.
   Next growth target: audit other saved JSON array shapes and failed checkpoint
@@ -2308,3 +2309,35 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   page before claiming growth. Do not retry events 69595, 79607 or 82154 until
   their upstream response changes or a materially different retrieval route
   exists. National completeness remains false.
+
+## 28 October 2026 — Auction House Online 7 July event reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/82831?lotResultType=All`.
+  The current response and archive index both expose **62 result cards**; all
+  62 stable source identities and 62 detail pages reconcile, with immutable
+  index and lot snapshots banked. Two cards visible during target discovery
+  had disappeared before collection and were not manufactured or counted.
+- Admitted **9 net-new appearances and address records**, all dated inside the
+  current 20-year window. Fifty-three exact date/address overlaps with existing
+  regional evidence were audited and excluded, with no duplicate source
+  identities, partial, undated or future-dated additions.
+- Added **9 guide-price records**, **zero achieved-price records** and **zero
+  rent values**. The evidence-based sector split is seven residential, one
+  land and one unknown appearance; commercial/mixed-use growth is **zero
+  commercial and zero mixed-use**. Outcomes remain distinct: three sold-prior,
+  four withdrawn, one unsold and one postponed.
+- Preserved individual dates from 26 June to 7 July 2026. Seven published
+  regional/channel labels remain provenance under **AUCTION HOUSE UK LIMITED
+  (company 06025583)** rather than additional legal operators.
+- The rebuilt corpus contains **305,395 appearances**, **294,624 address
+  records**, **10,771 partial records** and **297,770 dated appearances inside
+  the current 20-year window**, including **101,962 guide-price records** and
+  **111,479 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 187. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/82742`, dated 13-14
+  July 2026. Its result page and archive index expose **52 actual property
+  cards**; require all detail pages and strict exact-overlap exclusion before
+  claiming growth. Do not retry events 69595, 79607 or 82154 until their
+  upstream response changes or a materially different retrieval route exists.
