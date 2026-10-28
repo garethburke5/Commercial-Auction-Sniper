@@ -545,4 +545,7 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
         "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
     }

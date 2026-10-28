@@ -255,6 +255,9 @@ SOURCES = {
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
         "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
     },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
@@ -314,18 +317,20 @@ def annual_rent(match: re.Match | None) -> int | None:
     return int(value)
 
 
-def get(url: str) -> tuple[bytes, str]:
+def get(
+    url: str, *, attempts: int = 5, timeout: int = 120
+) -> tuple[bytes, str]:
     error = None
-    for attempt in range(5):
+    for attempt in range(attempts):
         try:
-            response = requests.get(url, headers=HEADERS, timeout=120)
+            response = requests.get(url, headers=HEADERS, timeout=timeout)
             response.raise_for_status()
             if len(response.content) < 1000:
                 raise ValueError("response is unexpectedly short")
             return response.content, response.url
         except (requests.RequestException, ValueError) as exc:
             error = exc
-            if attempt < 4:
+            if attempt < attempts - 1:
                 time.sleep(2 ** attempt)
     raise RuntimeError(f"failed to fetch {url}: {error}")
 
@@ -806,7 +811,15 @@ def harvest(slug: str, workers: int = 10) -> dict:
 
     detail_results, detail_failures = {}, []
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = {pool.submit(get, row["original_url"]): row for row in rows}
+        futures = {
+            pool.submit(
+                get,
+                row["original_url"],
+                attempts=source.get("detail_attempts", 5),
+                timeout=source.get("detail_timeout", 120),
+            ): row
+            for row in rows
+        }
         for future in as_completed(futures):
             row = futures[future]
             try:
@@ -825,7 +838,11 @@ def harvest(slug: str, workers: int = 10) -> dict:
                     "error": f"{type(exc).__name__}: {exc}",
                 })
                 detail_results[row["appearance_id"]] = row
-    if source.get("auctioneer_from_detail") and detail_failures:
+    if (
+        source.get("auctioneer_from_detail")
+        and detail_failures
+        and not source.get("allow_incomplete_detail_recovery")
+    ):
         raise RuntimeError(
             f"{slug} branch attribution incomplete: {len(detail_failures)} detail pages failed"
         )
@@ -924,8 +941,18 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "by_attributed_auctioneer": dict(Counter(row.get("auctioneer") or "unknown" for row in merged.values())),
         "detail_pages_captured": len(rows) - len(detail_failures),
+        "detail_recovery_complete": not detail_failures,
         "detail_recovery_failures": detail_failures,
-        "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+        "completion_scope": (
+            "every auction-lot card in every page of the surviving first-party grid; "
+            "explicit /property/details/ committed-offer cards are reconciled but excluded, "
+            "and deleted earlier lots are not claimed"
+            + (
+                f"; detail enrichment remains partial for {len(detail_failures)} failed pages, "
+                "whose unknown guide, rent and branch values remain null"
+                if detail_failures else ""
+            )
+        ),
         "failures": [],
     }
     if any(source.get(key) for key in (
