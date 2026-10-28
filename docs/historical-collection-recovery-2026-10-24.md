@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 41413)
+Total output lines: 1985
+
 # Historical collection recovery — 24 October 2026
 
 ## Scope and acceptance
@@ -705,93 +708,7 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
 - Next concrete growth target: use this tested collector against another
   genuine uncovered EIG white-label operator only after resolving its
   first-party host and displayed trading name; otherwise recover an older
-  property-level Boultons/OPA source rather than refreshing these complete
-  grids. National completeness remains false.
-
-## 26 October 2026 — Auction Hammer Midlands WordPress recovery
-
-- Recovered all **129** property posts exposed by the operator's first-party
-  WordPress API and captured every corresponding first-party property page.
-  One exact 7 March 2023 address/date appearance already banked under Auction
-  House Cheshire, Staffordshire & Shropshire was excluded, leaving **128 net
-  new appearances and 128 address records**.
-- Of the net additions, **108** are exact-dated address records inside the
-  preceding 20-year window and **20** are explicitly future-dated to 4
-  November 2026. There are no partial or undated additions. Four rows are
-  commercial or mixed-use; 112 are residential, four land and eight remain
-  unknown rather than being inferred.
-- All 128 rows retain published guides. No achieved amount is published, so
-  sale prices remain null even for the 89 sold/sold-prior/sold-after outcomes.
-  Seven explicit current annual or annualised rents are retained. Withdrawn,
-  postponed and unknown outcomes remain distinct.
-- Fifty-eight surviving pages identify the predecessor trading name Auction
-  House Staffordshire. They remain attributed to one reconciled operator with
-  the historical name preserved, rather than inflating auctioneer coverage.
-  Four operator years are newly represented: 2022, 2023, 2024 and 2026.
-- The reusable collector reconciles all WordPress identities, preserves API
-  and page snapshots, rejects ambiguous dates, and records one source-page
-  year conflict while using the contemporaneous dated auction post. Event
-  manifests remain incomplete because surviving posts are not proof of each
-  original catalogue denominator.
-- Next concrete growth target: resolve Auction Local's official first-party
-  host and trading-name relationship and collect its property-level archive
-  only if a public denominator reconciles. Do not refresh this completed
-  129-page WordPress set. National completeness remains false.
-
-## 26 October 2026 — The Auction Company retained-grid recovery
-
-- Resolved the prior Auction Local target without inflating coverage. Its
-  official `auctionlocal.co.uk` site is the auction arm of Property Local
-  (company number 15308570), but the first-party `/past-auctions` grid exposes
-  zero property rows. That route is recorded as a current source blocker and
-  was not treated as an empty auction history or collection gain.
-- Pivoted to The Auction Company, whose official site links directly to its
-  EIG-hosted `auctions.theauctioncompany.co.uk` platform. The public past-
-  properties denominator reconciles exactly as 50 + 50 + 22 rows across three
-  pages, with 122 distinct stable EIG lot UUIDs and 122 captured detail pages.
-- Net growth is **122 appearances and 122 address records**, all exact-dated
-  inside the preceding 20-year window. There are no partial, undated,
-  future-dated or duplicate-derived additions. The source date range is
-  25 November 2023 to 13 October 2026, adding four operator-years (2023–2026).
-- The retained set contains 112 residential, three commercial, two mixed-use,
-  one land and four unknown appearances; the commercial/mixed-use subset is
-  five. Unknown sectors remain unknown rather than inferred.
-- First-party details add **122 guide prices**, while published results add
-  **92 achieved sale prices** and 17 explicit annual rents. Forty sold-prior,
-  79 sold and two sold-after outcomes remain distinct; the one unclassified
-  published outcome remains unknown. All original URLs and 125 immutable grid
-  and detail snapshots are retained.
-- The rebuilt SQLite database passes `PRAGMA integrity_check` with `ok` at
-  **297,327 appearances**: 286,557 address records and 10,770 partial lots.
-  Exact-date twenty-year coverage is 289,834 appearances, with 97,715 guide
-  prices and 109,075 sale prices. Undated appearances remain 4,371 and
-  future-dated appearances remain 79.
-- Next concrete growth target: recover Robinson & Hall Auctions from its
-  first-party past-auction/results and catalogue pages, beginning with the
-  explicit 2024–2026 auction denominators exposed by its results articles.
-  Reconcile each event before banking it; do not re-probe Auction Local unless
-  its first-party archive exposes property rows. National completeness remains
-  false.
-
-## 26 October 2026 — Robinson & Hall first-party EIG result-sheet recovery
-
-- Restored the invalid binary `continuation_collection.json` checkpoint to the
-  last known-good JSON before collection, preserving the 500-run rotation
-  history and its next-task position rather than discarding collector state.
-- Recovered all 12 result sheets in Robinson & Hall's first-party EIG past-
-  auction archive, covering 4 December 2024 to 14 October 2026. The published
-  `lots offered` total is 375, while the sheets retain 415 property rows;
-  the additional 40 withdrawn/non-offered appearances are preserved and
-  reported separately instead of being silently dropped.
-- Net growth is **415 appearances and 415 address records**, all exact-dated
-  inside the preceding 20-year window. The 415 event/LotID identities and 415
-  appearance IDs are unique, with no partial, undated, future-dated or
-  duplicate-derived additions. Three operator-years, 2024–2026, are newly
-  represented.
-- The retained outcomes are 247 sold, 39 sold-after, 29 sold-prior, 60 unsold
-  and 40 withdrawn-prior. Published results add **247 achieved sale prices**.
-  Result sheets publish no guides or rents, so those fields remain null.
-- First-pass sector evidence identifies four commercial appearances, 41
+  proper…1413 tokens truncated…identifies four commercial appearances, 41
   residential and 102 land rows; 268 remain unknown rather than being inferred.
   Per-lot detail and catalogue enrichment is explicitly incomplete.
 - The rebuilt and packaged corpus contains **297,742 appearances**: 286,972
@@ -1942,6 +1859,44 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
 - **Next concrete growth target:** collect first-party Auction House Online
   event `https://online.auctionhouse.co.uk/past-auctions/75333`, dated 12-13
   January 2026 and exposing **104 individual result cards**. Require the live
+  denominator, every detail page and strict exact-overlap exclusion before
+  claiming growth. Event 69595 remains terminal until a materially new
+  retrieval route exists. National completeness remains false.
+
+## 28 October 2026 — Auction House Online 13 January event expansion
+
+- Reconciled first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/75333` to **104 published
+  cards**, 104 distinct stable source identities and all 104 detail pages. The
+  first detail pass rejected the batch when transient page failures prevented
+  complete branch attribution; a bounded grid-first recovery then completed
+  every detail page and admitted no partial enrichment.
+- Excluded **50 exact date/address overlaps** already evidenced through
+  regional Auction House shards. The canonical event shard banks **54 net-new
+  address appearances**, all dated inside the current 20-year window. Partial,
+  undated and future-dated additions are all zero; duplicate identities added
+  are zero. Individual dates span 19 December 2025 to 13 January 2026, adding
+  two reconciled event-shard source-year pairs without claiming a new legal
+  operator-year.
+- Added **54 guide-price records**, **four achieved-price records** and no rent
+  values. The evidence-based sector split is 38 residential, ten unknown,
+  three land, two commercial and one mixed-use appearance; commercial/mixed-use
+  growth is **two commercial and one mixed-use**. Outcomes remain distinct: 39
+  unsold, five postponed, four withdrawn, four sold and two sold-prior.
+- Preserved 17 published regional/channel labels while treating **AUCTION
+  HOUSE UK LIMITED (company 06025583)** as the single shared-platform
+  operator. Branches and the Online channel remain provenance, not additional
+  legal operators.
+- The rebuilt corpus contains **304,726 appearances**: **293,955 address
+  records**, **10,771 partial records** and **297,108 dated appearances inside
+  the current 20-year window**, including **101,434 guide-price records** and
+  **111,452 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 180. Collection, immutable snapshot banking, overlap audit,
+  database rebuild and protected checkpoint publication completed
+  successfully.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/82458`, dated 29-30
+  June 2026 and exposing **102 individual result cards**. Require the live
   denominator, every detail page and strict exact-overlap exclusion before
   claiming growth. Event 69595 remains terminal until a materially new
   retrieval route exists. National completeness remains false.
