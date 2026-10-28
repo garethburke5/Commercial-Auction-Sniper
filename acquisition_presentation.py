@@ -43,6 +43,9 @@ def market_commentary(record):
 
 
 def make_brief(report):
+    if report.get('reviewed_memorandum'):
+        from acquisition_memorandum import memorandum_brief
+        return memorandum_brief(report)
     from acquisition_narrative import render_narrative
     from acquisition_evidence_links import end_references
     return end_references(render_narrative(report, _make_brief(report)), report)
@@ -74,7 +77,7 @@ def _make_brief(report):
     prior_sale=next((r for r in external if r.get('kind')=='subject_sale_status' and r.get('status')=='sold_prior' and compact(r.get('subject')).casefold()==compact(report['property']).casefold() and re.search(r'\bSold Prior\b',r.get('quote',''),re.I)),None)
     if prior_sale and price is None:price_label='Sale price'
     vacant=profile.get('vacant');yield_value=ratio(rent,price) if not vacant else None
-    title='PROPERTY SNAPSHOT / FREE' if not has_pack else 'INVESTMENT REPORT / REVIEW COPY'
+    title='PROPERTY SNAPSHOT / FREE' if not has_pack else 'FULL INVESTMENT REPORT / REVIEW COPY'
     date_text=str(report.get('created_at',''))[:10]
     display_address=re.sub(r'\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b',lambda m:m[0].upper(),report['property'],flags=re.I)
     header=[p('AUCTION GEEK  /  '+title,'kicker'),p(display_address,'title'),p('Prepared '+date_text+('  |  Review of a reported sale' if str(report.get('listing_status','')).upper()=='SOLD' else ''),'meta')]
@@ -208,7 +211,8 @@ def _make_brief(report):
         return finish([{'title':'Research update','blocks':blocks}],[],'insufficient_evidence','Research update - no charge')
     # The summary cites its principal lease; detailed findings carry their own
     # sources on the following pages, avoiding a detached source-key paragraph.
-    page1=header+overview(analysis['ownership'])
+    from acquisition_memorandum import transaction_summary
+    page1=header+[transaction_summary(report, finance)]+overview(analysis['ownership'])
     if heritage:page1+=cite(record_ref(heritage),'Listed building status')
     page1+=[h('The investment in plain English'),p(analysis['opening']),p(analysis['assessment'])]
     if principal:page1+=cite(principal.get('evidence',[])+[e for b in principal.get('breaks',[]) for e in b.get('evidence',[])],'Main income and lease terms')
@@ -299,8 +303,16 @@ def _make_brief(report):
     if finance['capital_basis']:costrows.append(['Subtotal before unpriced costs',cash(finance['capital_basis'])])
     page5+=[table(['Purchase cash','Amount'],costrows,[.74,.26]),p('The subtotal is not the full budget. Buyer’s legal and survey fees, finance, any VAT requirement and initial work still need pricing. The tax illustration assumes a single freehold non-residential or mixed-use purchase; the solicitor must check the tax treatment and any additional amounts that are taxable.','small')]
     page5+=cite([e for c in report.get('costs',[]) for e in c.get('evidence',[])]+([finance['illustrative_tax']['source']] if finance['illustrative_tax'] else []))
-    if finance['rent_loss_cases']:
-        page5+=[chart('Annual rent and return on identified purchase expenditure','downside',[[('All stated rent received' if not s['months'] else f"Main unit empty for {s['months']} months"),s['rent_remaining'],f"{s['capital_return_pct']:.2f}% before running costs" if s['capital_return_pct'] is not None else 'Return not established'] for s in finance['rent_loss_cases']]),p('Returns use the same '+cash(finance['capital_basis'])+' purchase subtotal. Other rents continue unchanged. Running costs, repairs, finance, tax on income and unpriced initial expenditure are excluded. These are rent scenarios, not predicted profits or vacancy periods.','caption')]
+    from acquisition_financials import ownership_scenarios
+    ownership = ownership_scenarios(rent, finance['capital_basis'],
+        principal_rent=principal['annual_rent'] if principal else None)
+    if ownership:
+        page5 += [h('Income after ownership costs'), table(
+            ['Illustrative scenario', 'Cash remaining', 'Cash return'],
+            [[s['label'], cash(s['cash_remaining']), f"{s['cash_return_pct']:.2f}%"] for s in ownership], [.52,.24,.24]),
+            p('The £5,000 and £10,000 annual costs are illustrative unrecovered expenditure, not estimates. '
+              'The £25,000 repair affects only the year it is paid. Vacancy holds the £5,000 annual allowance constant. '
+              'Returns use identified acquisition expenditure; finance, income tax and additional unpriced costs are excluded.', 'caption')]
     capacities=[c for c in finance['cost_capacity'] if c['hurdle_pct'] in (10,12)]
     if capacities:
         page5+=[table(['Illustrative annual return','Annual income needed','Allowance for unrecovered costs'],[[str(c['hurdle_pct'])+'%',cash(c['required_annual_cash']),cash(c['annual_cost_capacity'])] for c in capacities],[.29,.29,.42]),p('The allowance is the stated rent less the income needed for that return on the purchase subtotal. It is not an expense forecast. A negative figure is a shortfall even before expenses; additional purchase costs or lost rent reduce the allowance.','caption')]

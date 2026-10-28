@@ -94,6 +94,14 @@ def chart_png(block):
     return out.getvalue()
 
 def render_pdf(report, *, page_map=None):
+    return render_brief_pdf(make_brief(report), property_name=report['property'], page_map=page_map)
+
+
+def render_brief_pdf(brief, *, property_name, page_map=None):
+    """Render the same checked block format for generated and reviewed reports.
+
+    This is a renderer only. It does not grant customer access or approve sale.
+    """
     from reportlab.platypus import SimpleDocTemplate,Paragraph,Spacer,Table,TableStyle,PageBreak,Image,KeepTogether,Flowable
     from reportlab.lib.styles import ParagraphStyle
     from reportlab.lib import colors
@@ -106,13 +114,13 @@ def render_pdf(report, *, page_map=None):
         pdfmetrics.registerFont(TTFont('Investor',str(fonts/'Vera.ttf')))
         pdfmetrics.registerFont(TTFont('Investor-Bold',str(fonts/'VeraBd.ttf')))
         pdfmetrics.registerFontFamily('Investor',normal='Investor',bold='Investor-Bold',italic='Investor',boldItalic='Investor-Bold')
-    brief=make_brief(report);out=BytesIO();width=A4[0]-88
-    styles={k:ParagraphStyle(k,fontName='Investor',fontSize=s,leading=l,textColor=colors.HexColor(NAVY),spaceAfter=gap) for k,s,l,gap in [('body',10.1,14.1,8),('small',9.2,12.6,7),('caption',7.3,9.5,5),('meta',8.2,11,8),('kicker',8,10,6),('title',21,24,8),('h',13,16,9),('cell',8.1,10.4,0),('head',8,10.2,0)]}
+    out=BytesIO();width=A4[0]-88
+    styles={k:ParagraphStyle(k,fontName='Investor',fontSize=s,leading=l,textColor=colors.HexColor(NAVY),spaceAfter=gap) for k,s,l,gap in [('body',10.1,14.1,8),('small',9.5,13.0,7),('caption',7.3,9.5,5),('meta',8.2,11,8),('kicker',8,10,6),('title',21,24,8),('h',13,16,9),('cell',8.8,11.6,0),('head',8.5,11,0)]}
     for k in ('title','h','kicker'):styles[k].fontName='Investor-Bold'
     styles['head'].textColor=colors.white
     styles['h'].keepWithNext=True
     styles['callout']=styles['body']
-    styles['evidence']=ParagraphStyle('evidence',parent=styles['caption'],fontSize=8,leading=10.3)
+    styles['evidence']=ParagraphStyle('evidence',parent=styles['caption'],fontSize=8.5,leading=11.2)
     def para(t,style='body'):return Paragraph(escape(str(t)).replace('\n','<br/>'),styles.get(style,styles['body']))
     story=[]
     class PageMarker(Flowable):
@@ -167,7 +175,9 @@ def render_pdf(report, *, page_map=None):
                     items.append(label)
                 # One source per line in full reports; compact, still numbered
                 # sources keep a short snapshot on one readable page.
-                if brief['product_outcome']=='free_snapshot':
+                if b.get('layout') == 'single_column':
+                    story.extend(Paragraph(item, styles['evidence']) for item in items)
+                elif brief['product_outcome']=='free_snapshot':
                     story.append(Paragraph('  ·  '.join(items),styles['evidence']))
                 else:
                     mid=(len(items)+1)//2
@@ -177,7 +187,7 @@ def render_pdf(report, *, page_map=None):
                     story.append(t)
     def foot(canvas,doc):
         canvas.setFont('Investor',7);canvas.setFillColor(colors.HexColor(GREY));canvas.drawString(44,27,'AUCTION GEEK  |  '+brief['status']);canvas.drawRightString(A4[0]-44,27,str(doc.page))
-    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=report['property']+' - '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report')),author='Auction Geek')
+    doc=SimpleDocTemplate(out,pagesize=A4,leftMargin=44,rightMargin=44,topMargin=35,bottomMargin=43,title=property_name+' - '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Full Investment Report')),author='Auction Geek')
     doc.build(story,onFirstPage=foot,onLaterPages=foot)
     return out.getvalue()
 
@@ -220,7 +230,7 @@ def render_html(report,standalone=True):
     out.append('</article>')
     css+=' .end-sources{columns:2;column-gap:24px}.end-sources>div{break-inside:avoid;margin:0 0 7px}.endnote-links{font-size:9px}.endnote-links a{color:#246B70;text-decoration:none}@media(max-width:600px){.end-sources{columns:1}}'
     body='<style>'+css+'</style>'+''.join(out)
-    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))+'</title></head><body>'+body+'</body></html>' if standalone else body
+    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>'+e(report['property'])+' — '+({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Full Investment Report'))+'</title></head><body>'+body+'</body></html>' if standalone else body
 
 def render_docx(report):
     from docx import Document
@@ -229,7 +239,7 @@ def render_docx(report):
     from docx.oxml.ns import qn
     from docx.enum.table import WD_CELL_VERTICAL_ALIGNMENT
     brief=make_brief(report);doc=Document();section=doc.sections[0]
-    doc.core_properties.title = str(report['property']) + ' — ' + ({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Investment Report'))
+    doc.core_properties.title = str(report['property']) + ' — ' + ({'free_snapshot':'Free Property Snapshot','insufficient_evidence':'Incomplete evidence check'}.get(brief['product_outcome'],'Full Investment Report'))
     doc.core_properties.subject = 'Property Investment Report'
     doc.core_properties.author = 'Auction Geek'
     section.page_width=Cm(21);section.page_height=Cm(29.7)

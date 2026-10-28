@@ -122,6 +122,74 @@ def unrecovered_cost_scenarios(rent, capital, amounts=(0, 5000, 15000, 30000)):
             for amount in amounts]
 
 
+def ownership_scenarios(rent, capital, *, principal_rent=None,
+                        annual_costs=(5000, 10000), repair=25000,
+                        conditional_rent=None):
+    """Cash sensitivities, separating recurring expenditure from a one-off bill.
+
+    All amounts are the landlord's *unrecovered* costs. Negative cash survives.
+    A conditional rent must carry its condition; it never replaces passing rent.
+    """
+    if not number(rent) or not number(capital) or capital <= 0:
+        return []
+    if (not annual_costs or any(not number(v) for v in annual_costs)
+            or not number(repair)):
+        raise ValueError('Finite non-negative scenario costs are required')
+    if principal_rent is not None and (not number(principal_rent) or principal_rent > rent):
+        raise ValueError('Principal rent must be reconciled within total rent')
+    rows = []
+    def add(label, received, recurring=0, one_off=0, period='Illustrative annual cash return'):
+        remaining = rounded(received - recurring - one_off)
+        rows.append(dict(label=label, rent_received=received,
+                         recurring_cost=recurring, one_off_cost=one_off,
+                         cash_remaining=remaining, cash_return_pct=percent(remaining, capital),
+                         capital=capital, period=period))
+    add('Passing rent before ownership costs', rent)
+    for cost in annual_costs:
+        add(f'£{cost:,.0f} annual unrecovered costs', rent, cost)
+    base = annual_costs[0]
+    add(f'£{repair:,.0f} one-off repair + £{base:,.0f} annual costs', rent, base, repair,
+        'Cash return in the year the repair is paid; not a recurring yield')
+    if principal_rent is not None:
+        for months in (6, 12):
+            add(f'{months}-month main-unit vacancy + £{base:,.0f} annual costs',
+                rounded(rent - principal_rent * months / 12), base)
+    if conditional_rent is not None:
+        if (not number(conditional_rent.get('amount'))
+                or not str(conditional_rent.get('condition') or '').strip()):
+            raise ValueError('Conditional rent requires an amount and explicit condition')
+        add('Conditional rent: ' + conditional_rent['condition'], conditional_rent['amount'], base)
+    return rows
+
+
+def acquisition_price_scenarios(rent, prices, *, fixed_costs, allowances=0,
+                                seller_rate=0, seller_vat_rate=0,
+                                seller_fixed_costs=0, seller_costs_taxable=False,
+                                non_residential_tax=False):
+    """Recompute costs and tax at each hypothetical price; never infer a sale.
+
+    Caller must explicitly establish tax classification and seller-cost treatment.
+    Allowances remain labelled separately from evidenced transaction charges.
+    """
+    values = [rent, fixed_costs, allowances, seller_rate, seller_vat_rate, seller_fixed_costs, *prices]
+    if any(not number(v) for v in values) or any(p <= 0 for p in prices):
+        raise ValueError('Finite non-negative inputs and positive prices are required')
+    if seller_rate > 1 or seller_vat_rate > 1:
+        raise ValueError('Rates must be fractions between zero and one')
+    rows = []
+    for price in prices:
+        seller = rounded(rounded(price * seller_rate) * (1 + seller_vat_rate) + seller_fixed_costs)
+        consideration = rounded(price + (seller if seller_costs_taxable else 0))
+        tax = non_residential_sdlt(consideration) if non_residential_tax else None
+        capital = rounded(price + fixed_costs + allowances + seller + (tax or 0))
+        rows.append(dict(price=price, fixed_costs=fixed_costs, allowances=allowances,
+                         seller_costs=seller, tax=tax, tax_consideration=consideration,
+                         capital=capital, gross_yield_pct=percent(rent, price),
+                         gross_return_on_capital_pct=percent(rent, capital),
+                         basis='Illustrative price, not an achieved price or valuation'))
+    return rows
+
+
 def financial_view(report):
     inv = report.get('investigation') or {}
     price = report.get('assessment_price')

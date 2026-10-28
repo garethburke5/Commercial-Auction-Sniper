@@ -1,6 +1,6 @@
 # Investment report acceptance requirements — 28 October 2026
 
-Status: owner feedback recorded; implementation and specimen reissue outstanding.
+Status: Surbiton and Hartlepool feedback incorporated into reviewed examples and shared components; paid launch remains closed.
 This document is not a paid-launch approval or evidence of completed implementation.
 
 ## Shared product standard
@@ -105,9 +105,56 @@ including an unfamiliar property. Inspect rendered pages and investigate
 calculation/provenance defects. Software tests do not establish editorial or
 commercial acceptance. Owner approval of paid launch remains separate.
 
-The source documents can currently be read through connected file access, and
-GitHub is reachable. The local execution environment is unavailable, preventing
-replacement PDF generation and visual verification in this session. The received
-Hartlepool feedback attachment has not been read: the explicit attachment
-instruction requires local reading, which is blocked. Its contents must not be
-inferred from the Surbiton feedback.
+The execution environment recovered on 28 October. The Hartlepool attachment was
+read locally in full. All 16 retained Hartlepool originals match their SHA-256
+manifest. Both complete full reports are five pages; both snapshots are one page.
+They use the shared production PDF renderer and reproducible calculations, with
+reviewed content kept private outside this public repository.
+
+## Hartlepool additions
+
+- Keep undisclosed sold-after-auction prices unknown; illustrate £75k/£90k/£100k
+  with £2,880 known fees, £1,600 allowances and appropriate tax: total capital
+  £79,480/£94,480/£104,480. Gross returns 13.36%/11.24%/10.16%.
+- £890.04 management is one month annualised. Separate management-adjusted income,
+  net operating profit, recurring expenses and one-off repair-year cash return.
+- Review charity deficits with exceptional grant income, unrestricted reserves,
+  cash, other premises and actual contracting parties. Old reserves are not current
+  cash. Deficits do not establish default.
+- Read entire lease counterparts and supplied tenancy attachments. The £400 DPS
+  prescribed information is present; scheme record, transfer and service evidence
+  still need confirmation. A checklist acknowledges an electrical report, but
+  the actual report is not enclosed. Do not misdescribe either situation.
+- CPSE.6 says no notices; the 2026 information-sheet enquiry is unanswered. Apply
+  periodic-tenancy reforms and exceptions without assuming non-compliance.
+- Identify both addresses, individual EPCs, repair apportionment, rates/council-tax
+  holding costs and Savills' lack of internal inspection. A guide is not a value.
+- Same historical title number does not prove identical extent or income. Weak
+  achieved-sale examples must not fill space or imply valuation support.
+
+## Implemented and verified in this branch
+
+- Shared transaction overview with explicit unknowns. It survives narrative
+  replacement; guide-based deposits do not migrate to a different sale price.
+- Recomputed price-dependent charges/tax and recurring/one-off/vacancy scenarios.
+- Normal full-report cost presentation and editorial instructions updated.
+- Reviewed memorandum schema uses the same PDF/HTML/DOCX renderers, consolidated
+  sources and readable tables. Private links are not exported publicly.
+- Snapshot pathway requires public sources and performs no AI/network requests.
+- Paid purchase gate is unchanged and closed. Reviewed specimens explicitly do
+  not satisfy pipeline editorial acceptance automatically.
+- Full legal-pack CI selection: 268 tests and 3 subtests passed locally. Tests
+  cover both numerical examples, an unfamiliar mixed-income scenario, false
+  private links, unknown references, snapshot access and source placement.
+- Twelve PDF pages rendered and inspected; bounds/page counts checked. Of 19
+  unique public destinations, 17 returned HTTP 200 directly. Greig Cavey's content
+  was additionally retrieved through web lookup. Charity website direct fetching
+  remains blocked; indexed primary content was reviewed. Do not claim every link
+  was interactively opened successfully.
+
+## Remaining acceptance
+
+These reviewed examples are not proof that unattended generation meets the same
+standard. Run a complete unfamiliar-property case through the production pipeline,
+check the commercial reasoning and sources, and verify purchase/access/cost flows
+before seeking paid-launch approval. No paid report checkout is enabled here.

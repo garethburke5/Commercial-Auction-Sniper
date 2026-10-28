@@ -381,7 +381,7 @@ def render_narrative(report, base):
     facts = {f['id']: f for f in writing_packet(report)['facts']}
     original = base['pages']
     hero = next((deepcopy(b) for b in original[0]['blocks'] if b['kind']=='hero'), None)
-    header = [b for b in original[0]['blocks'] if b['kind'] == 'metrics' or (b['kind'] == 'p' and b.get('style') in ('kicker', 'title', 'meta'))]
+    header = [b for b in original[0]['blocks'] if b['kind'] == 'metrics' or b.get('role') == 'transaction_summary' or (b['kind'] == 'p' and b.get('style') in ('kicker', 'title', 'meta'))]
     pages = []
     product = writing_packet(report)['product']
     full = product == 'full'
@@ -423,3 +423,29 @@ def render_narrative(report, base):
         base['editorial_quality']['blockers'].append({'code': 'narrative_editorial_review_failed', 'issues': review.get('issues', [])})
         base['editorial_quality']['automated_checks_passed'] = False
     return base
+
+# Owner acceptance requirements apply to every case, not named properties.
+MEMORANDUM_EDITORIAL_REQUIREMENTS = """
+Use the first-page transaction summary without repeating all its figures in prose.
+Distinguish the exact interest bought from upper leases or neighbouring titles.
+Prioritise three material, evidenced discoveries when available, including one
+commercial insight beyond the particulars. Never manufacture findings to meet a
+quota; insufficient evidence remains a reason not to sell a full report.
+Read all counterpart pages and appended checklists before declaring documents
+missing. Distinguish supplied prescribed information, acknowledged receipt, actual
+certificate/protection evidence and proof of transfer/service. Qualified CPSE
+answers are not absolute denials. Explain the practical consequence of each gap.
+An unknown sold-after-auction price stays unknown. Show explicitly hypothetical
+price scenarios, recalculating price-dependent charges and tax. A historical price
+on the same title is not a like-for-like comparison without extent and income checks.
+Use full accounts and grant context when reviewing charity covenants: distinguish
+deficit, cash and unrestricted free reserves; establish contracting capacity and
+other premises commitments. Do not infer default from a deficit or subtract a
+subsequent deficit from old reserves to invent current liquidity.
+One-off repairs affect that year's cash return, not every future annual yield.
+Management deductions from a single month are labelled annualisations and never
+net operating profit. Show recurring ownership costs separately. Avoid weak
+comparables as filler. All full references stay together at the end.
+"""
+INSTRUCTIONS += MEMORANDUM_EDITORIAL_REQUIREMENTS
+EDITOR_INSTRUCTIONS += MEMORANDUM_EDITORIAL_REQUIREMENTS
