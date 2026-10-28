@@ -2277,3 +2277,34 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   events 69595, 79607 or 82154 until their upstream response changes or a
   materially different retrieval route exists. National completeness remains
   false.
+
+## 28 October 2026 — Auction House Online 23 June event fully reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/82282?lotResultType=All`.
+  Its **77 visible result cards**, 77 stable source identities and 77 detail
+  pages reconcile exactly; immutable index and lot snapshots were banked.
+- Admitted **52 net-new appearances and address records**, all dated inside the
+  current 20-year window. Twenty-five exact date/address overlaps with existing
+  regional evidence were audited and excluded, with no duplicate source
+  identities, partial, undated or future-dated additions.
+- Added **52 guide-price records**, **two achieved-price records** and **two rent
+  values**. The evidence-based sector split is 28 residential, 22 unknown and
+  two land appearances; commercial/mixed-use growth is **zero commercial and
+  zero mixed-use**. Outcomes remain distinct: 41 unsold, five sold-prior, four
+  postponed and two withdrawn.
+- Preserved individual dates from 20 May to 23 June 2026. Thirteen published
+  regional/channel labels remain provenance under **AUCTION HOUSE UK LIMITED
+  (company 06025583)** rather than additional legal operators.
+- The rebuilt corpus contains **305,386 appearances**, **294,615 address
+  records**, **10,771 partial records** and **297,761 dated appearances inside
+  the current 20-year window**, including **101,953 guide-price records** and
+  **111,479 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 187. Both workflow test stages passed 389 and 124 tests.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/82831`, dated 6-7 July
+  2026. Its result page exposes **64 actual property cards**, while the archive
+  index headline says 62; reconcile that two-card discrepancy and every detail
+  page before claiming growth. Do not retry events 69595, 79607 or 82154 until
+  their upstream response changes or a materially different retrieval route
+  exists. National completeness remains false.
