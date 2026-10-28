@@ -2446,3 +2446,38 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   detail page; bank immutable evidence and exclude only exact overlaps before
   claiming growth. Do not revisit terminal events 69595, 79607 or 82154 without
   a materially different recovery route. National completeness remains false.
+
+
+## 28 October 2026 — Auction House Online 4 August event reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/83949?lotResultType=All`.
+  Discovery had exposed 46 cards, but the live archive now publishes and
+  exposes **45 cards**. The denominator guard rejected the stale 46-card
+  expectation before accepting the current inventory. All 45 visible cards,
+  stable source identities and detail pages reconcile exactly; the disappeared
+  card was not manufactured or counted.
+- Admitted **8 net-new appearances and address records**, all dated inside the
+  current 20-year window. Thirty-seven exact date/address overlaps with
+  existing regional evidence were audited and excluded, with no duplicate
+  source identities, partial, undated or future-dated additions.
+- Added **8 guide-price records**, **zero achieved-price records** and **zero
+  rent values**. The evidence-based sector split is five residential, two land
+  and one unknown; commercial/mixed-use growth is **zero**. Outcomes remain
+  distinct: four postponed, one sold-prior, two withdrawn and one unsold.
+- Preserved individual dates from 29 July to 4 August 2026. Auction House South
+  West, Wales - Colwyn Bay, London and Kent remain branch attribution under
+  **AUCTION HOUSE UK LIMITED (company 06025583)** rather than new legal
+  operators.
+- The rebuilt corpus contains **305,507 appearances**, **294,736 address
+  records**, **10,771 partial records** and **297,880 dated appearances inside
+  the current 20-year window**, including **102,032 guide-price records** and
+  **111,507 achieved-price records**. The surviving-complete catalogue count is
+  3,824; 515 remain incomplete or unreconciled and 22 have fetch/parse errors.
+  National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/83905?lotResultType=All`.
+  The live archive index exposes **72 cards for 11 August 2026** (its
+  description incorrectly says 2025). Require the published denominator,
+  every stable source identity and every detail page before banking evidence,
+  and exclude only exact overlaps. National completeness remains false.
