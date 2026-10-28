@@ -1931,3 +1931,43 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   detail page and strict exact-overlap exclusion before claiming growth. Do not
   retry events 69595 or 79607 until the upstream response changes or a
   materially new retrieval route exists. National completeness remains false.
+
+## 28 October 2026 — Auction House Online 14 April event expansion
+
+- Reconciled first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/79785?lotResultType=All`
+  to **99 published cards**, 99 stable source identities and all 99 detail
+  pages. The explicit all-results route is unpaginated and completed without
+  detail-recovery failures or partial enrichment.
+- Excluded **50 exact date/address overlaps** already evidenced through
+  regional Auction House shards. The canonical event shard banks **49 net-new
+  address appearances**, all dated inside the current 20-year window. Partial,
+  undated and future-dated additions are zero; duplicate source identities are
+  zero. Individual dates span 20 March to 14 April 2026, adding one reconciled
+  event-shard source-year without claiming a new legal operator-year.
+- Added **49 guide-price records**, **one achieved-price record** and **three
+  rent values**. The evidence-based sector split is 32 residential, 12 unknown,
+  three land, one commercial and one mixed-use appearance. Outcomes remain
+  distinct: 38 unsold, four postponed, four withdrawn, two sold-prior and one
+  sold.
+- Preserved 17 published regional labels while treating **AUCTION HOUSE UK
+  LIMITED (company 06025583)** as the single shared-platform operator. Branches
+  remain provenance, not additional legal operators.
+- The rebuilt corpus contains **304,835 appearances**: **294,064 address
+  records**, **10,771 partial records** and **297,217 dated appearances inside
+  the current 20-year window**, including **101,543 guide-price records** and
+  **111,453 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 180. Collection, immutable snapshot banking, overlap audit, database
+  rebuild and protected checkpoint publication completed successfully.
+- The first trigger attempt exposed and repaired a truncated continuation
+  checkpoint before any event rows were admitted. Its complete 1,797,499-byte
+  content-addressed blob was restored and the exact pre-collection suite passed
+  114 tests. The April trigger is now event-specific; the already-complete
+  November event cannot be refreshed by this route again.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/78487`, dated 23-24
+  February 2026 and exposing **92 actual visible cards**. Require the live-card
+  denominator, every detail page and strict exact-overlap exclusion before
+  claiming growth. Do not retry events 69595 or 79607 until their upstream
+  responses change or a materially new retrieval route exists. National
+  completeness remains false.

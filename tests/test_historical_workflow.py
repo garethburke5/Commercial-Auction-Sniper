@@ -519,6 +519,7 @@ def test_focused_auction_house_online_14_april_expansion_is_isolated():
     assert focused < bounded
     block = WORKFLOW[focused:bounded]
     assert "scripts/harvest_eig_retained_grids.py auction-house-online-2026-04-14 --workers 16" in block
+    assert "Run focused Auction House Online 14 April 2026 expansion" in block
     bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
     assert "Run focused Auction House Online archive expansion" in bounded_condition
     guide_start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")

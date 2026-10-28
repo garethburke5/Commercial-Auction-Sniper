@@ -376,7 +376,7 @@ jobs:
         timeout-minutes: 20
         run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2026-03-31 --workers 16
       - name: Collect Auction House Online 14 April 2026 shared-platform event
-        if: startsWith(github.event.head_commit.message, 'Run focused Auction House Online archive expansion 14 April 2026')
+        if: startsWith(github.event.head_commit.message, 'Run focused Auction House Online 14 April 2026 expansion')
         timeout-minutes: 20
         run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2026-04-14 --workers 16
       - name: Collect Loveitts retained first-party event archive
