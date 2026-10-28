@@ -2411,3 +2411,38 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
 The completed protected rotation banked 41 unique address appearances without removals or duplicate appearance IDs. Forty Town & Country Property Auctions records retain the exact 28 October 2026 date: 15 residential, two commercial, three land and 20 sector-unknown. Their published outcomes remain distinct (22 no bids, nine unsold, seven sold and two postponed), with seven achieved prices. One Auction House South West sold-prior record dated 17 November 2026 is future-dated and carries one published guide. One existing Town & Country record also gained achieved-price evidence. No new source-year or legal operator-year is claimed.
 
 The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address records and 297,860 appearances in the preceding twenty-year window. The next concrete growth target remains Auction House Online event 82834 at https://online.auctionhouse.co.uk/past-auctions/82834. Its first-party all-results grid exposes 88 individual cards for 28 July 2026. Reconcile every stable source identity and detail page, preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots, and exclude only exact overlaps. Auction House regional labels remain branch/channel attribution under AUCTION HOUSE UK LIMITED. If this event is unavailable, move to event 83949 (46 first-party cards dated 4 August 2026) rather than revisiting terminal blockers. National completeness remains false.
+
+
+## 28 October 2026 — Auction House Online 28 July event reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/82834?lotResultType=All`.
+  The collector now requires the independently observed **88-card** denominator;
+  88 visible cards, 88 stable source identities, the published count of 88 and
+  all 88 detail pages reconcile exactly. Immutable index and lot snapshots were
+  banked.
+- Admitted **12 net-new appearances and address records**, all dated inside the
+  current 20-year window. Seventy-six exact date/address overlaps with existing
+  regional evidence were audited and excluded, with no duplicate source
+  identities, partial, undated or future-dated additions.
+- Added **12 guide-price records**, **one achieved-price record** and **zero rent
+  values**. The evidence-based sector split is five residential, one land, one
+  commercial and five unknown appearances; commercial/mixed-use growth is
+  **one commercial and zero mixed-use**. Outcomes remain distinct: four
+  withdrawn, two postponed, one unsold, four sold-prior and one sold.
+- Preserved individual dates from 14 to 28 July 2026. Eight published regional
+  labels remain branch/channel attribution under **AUCTION HOUSE UK LIMITED
+  (company 06025583)** rather than additional legal operators.
+- The rebuilt corpus contains **305,499 appearances**, **294,728 address
+  records**, **10,771 partial records** and **297,872 dated appearances inside
+  the current 20-year window**, including **102,024 guide-price records** and
+  **111,507 achieved-price records**. The surviving-complete catalogue count is
+  3,820; 515 remain incomplete or unreconciled and 22 have fetch/parse errors.
+  National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/83949?lotResultType=All`,
+  dated 4 August 2026. Its archive index exposes **46 individual cards**.
+  Reconcile the published denominator, every stable source identity and every
+  detail page; bank immutable evidence and exclude only exact overlaps before
+  claiming growth. Do not revisit terminal events 69595, 79607 or 82154 without
+  a materially different recovery route. National completeness remains false.
