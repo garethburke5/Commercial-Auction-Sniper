@@ -1905,3 +1905,29 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   denominator, every detail page and strict exact-overlap exclusion before
   claiming growth. Event 69595 remains terminal until a materially new
   retrieval route exists. National completeness remains false.
+
+## 28 October 2026 — Auction House Online 31 March event blocked before capture
+
+- Targeted first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/79607`, whose independently
+  observed catalogue exposes **101 individual result cards**. The collection
+  runner exhausted five requests against the event route; the final request
+  ended in a 120-second read timeout before the archive index arrived.
+- No card, detail page or immutable event snapshot was admitted. Net-new
+  appearances, address records, dated address records inside the 20-year
+  window, commercial/mixed-use records, source-years, guides, achieved prices
+  and rents are therefore all **zero**. Partial, undated, future-dated and
+  duplicate additions are also zero; this is a blocker, not collection growth.
+- The protected banking stage, database rebuild and checkpoint publication
+  still completed. The corpus remains at **304,786 appearances**, **294,015
+  address records**, **10,771 partial records** and **297,168 dated appearances
+  inside the current 20-year window**, including **101,494 guide-price records**
+  and **111,452 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 180. No captured evidence was discarded.
+- **Next concrete growth target:** move to the separate first-party Auction
+  House Online event `https://online.auctionhouse.co.uk/past-auctions/79785`,
+  dated 13-14 April 2026 and exposing **99 actual visible cards**. Lot-number
+  gaps are not extra properties. Require the live-card denominator, every
+  detail page and strict exact-overlap exclusion before claiming growth. Do not
+  retry events 69595 or 79607 until the upstream response changes or a
+  materially new retrieval route exists. National completeness remains false.
