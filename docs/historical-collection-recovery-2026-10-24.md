@@ -2341,3 +2341,34 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   cards**; require all detail pages and strict exact-overlap exclusion before
   claiming growth. Do not retry events 69595, 79607 or 82154 until their
   upstream response changes or a materially different retrieval route exists.
+
+## 28 October 2026 — Auction House Online 14 July event reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/82742?lotResultType=All`.
+  Its **52 visible result cards**, 52 stable source identities and 52 detail
+  pages reconcile exactly; immutable index and lot snapshots were banked.
+- Admitted **5 net-new appearances and address records**, all dated inside the
+  current 20-year window. Forty-seven exact date/address overlaps with existing
+  regional evidence were audited and excluded, with no duplicate source
+  identities, partial, undated or future-dated additions.
+- Added **5 guide-price records**, **one achieved-price record** and **zero rent
+  values**. The evidence-based sector split is one residential and four
+  unknown appearances; commercial/mixed-use growth is **zero commercial and
+  zero mixed-use**. Outcomes remain distinct: two sold-prior, two postponed
+  and one withdrawn.
+- Preserved individual dates from 2 to 13 July 2026. Four published
+  regional/channel labels remain provenance under **AUCTION HOUSE UK LIMITED
+  (company 06025583)** rather than additional legal operators.
+- The rebuilt corpus contains **305,400 appearances**, **294,629 address
+  records**, **10,771 partial records** and **297,775 dated appearances inside
+  the current 20-year window**, including **101,967 guide-price records** and
+  **111,480 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 187. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/83233`, dated 21 July
+  2026. Its archive index exposes **64 individual cards**; require the
+  all-results grid, every detail page and strict exact-overlap exclusion before
+  claiming growth. Do not retry events 69595, 79607 or 82154 until their
+  upstream response changes or a materially different retrieval route exists.
+  National completeness remains false.
