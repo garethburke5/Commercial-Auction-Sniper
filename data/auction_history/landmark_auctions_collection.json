@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-27T13:17:54.190897+00:00",
+  "checked_at": "2026-10-28T14:43:21.364463+00:00",
   "auctioneer": "Landmark Auctions",
   "parser_version": 7,
   "source_url": "https://onlineauctions.landmarkauctions.co.uk/search",
@@ -20,40 +20,44 @@
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 62,
-  "run_new_appearances": 62,
-  "run_new_address_records": 62,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 55,
-  "run_new_commercial_mixed": 7,
-  "run_new_guide_prices": 60,
-  "run_new_sale_prices": 7,
-  "run_new_rents": 15,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 7,
+  "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
-  "new_source_years": [
-    2022,
-    2026
-  ],
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
+  "new_source_years": [],
   "date_range": [
     "2022-05-16",
     "2026-10-29"
   ],
   "by_status": {
-    "unsold": 11,
-    "sold_prior": 19,
-    "withdrawn": 7,
     "postponed": 17,
-    "sold": 1,
-    "unknown": 7
+    "sold_prior": 19,
+    "unknown": 7,
+    "unsold": 11,
+    "withdrawn": 7,
+    "sold": 1
   },
   "by_sector": {
-    "commercial": 4,
     "residential": 47,
     "land": 8,
+    "commercial": 4,
     "mixed-use": 3
   },
+  "by_attributed_auctioneer": {
+    "Landmark Auctions": 62
+  },
   "detail_pages_captured": 62,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": [],

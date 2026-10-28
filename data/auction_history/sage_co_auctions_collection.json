@@ -1,33 +1,33 @@
 {
-  "checked_at": "2026-10-28T07:32:50.661936+00:00",
+  "checked_at": "2026-10-28T14:42:35.475478+00:00",
   "auctioneer": "Sage & Co Auctions",
   "parser_version": 7,
   "source_url": "https://sageandco.eigonlineauctions.com/search",
-  "archive_sha256": "0fa0ba624760a345dedce8046fdeab69c416d0e9322cb5cc957a495927f64c03",
+  "archive_sha256": "47ae53e48adb1d00c7ac2a29753e431bdd1ab43a7cd35ddd2f1b6c9e3e3de525",
   "archive_page_count": 1,
   "archive_page_rows": [
-    17
+    18
   ],
   "archive_page_visible_cards": [
-    17
+    18
   ],
-  "visible_source_rows": 17,
-  "published_result_count": 17,
-  "distinct_source_identities": 17,
+  "visible_source_rows": 18,
+  "published_result_count": 18,
+  "distinct_source_identities": 18,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
-  "appearances_captured": 17,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 18,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 1,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -38,7 +38,7 @@
     "2026-11-18"
   ],
   "by_status": {
-    "unknown": 2,
+    "unknown": 3,
     "unsold": 5,
     "withdrawn": 3,
     "postponed": 2,
@@ -46,16 +46,16 @@
     "sold_prior": 3
   },
   "by_sector": {
-    "residential": 8,
+    "residential": 9,
     "land": 3,
     "unknown": 2,
     "mixed-use": 3,
     "commercial": 1
   },
   "by_attributed_auctioneer": {
-    "Sage & Co Auctions": 17
+    "Sage & Co Auctions": 18
   },
-  "detail_pages_captured": 17,
+  "detail_pages_captured": 18,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

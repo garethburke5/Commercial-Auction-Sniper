@@ -1,21 +1,21 @@
 {
-  "checked_at": "2026-10-28T07:30:55.076570+00:00",
+  "checked_at": "2026-10-28T14:40:43.458842+00:00",
   "auctioneer": "Bradley Hall",
   "parser_version": 7,
   "source_url": "https://auction.bradleyhall.co.uk/search",
-  "archive_sha256": "e1907e4e67e7230af4c53236b859317026628eed81337b49fda7b8b89caf1df8",
+  "archive_sha256": "d2463c4c1ff7f7c133a4dba38ce371076057a6e264d7f70758a4be82f7b9f70a",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
-    25
+    24
   ],
   "archive_page_visible_cards": [
     50,
-    25
+    24
   ],
-  "visible_source_rows": 75,
-  "published_result_count": 75,
-  "distinct_source_identities": 75,
+  "visible_source_rows": 74,
+  "published_result_count": 74,
+  "distinct_source_identities": 74,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
@@ -29,7 +29,7 @@
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 3,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -37,7 +37,7 @@
   "new_source_years": [],
   "date_range": [
     "2025-04-22",
-    "2026-11-24"
+    "2026-11-25"
   ],
   "by_status": {
     "unknown": 21,
@@ -47,15 +47,15 @@
   },
   "by_sector": {
     "residential": 46,
-    "mixed-use": 17,
+    "mixed-use": 18,
     "land": 7,
-    "commercial": 4,
+    "commercial": 3,
     "unknown": 1
   },
   "by_attributed_auctioneer": {
     "Bradley Hall": 75
   },
-  "detail_pages_captured": 75,
+  "detail_pages_captured": 74,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

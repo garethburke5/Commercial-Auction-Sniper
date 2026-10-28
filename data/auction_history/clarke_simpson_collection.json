@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T17:05:03.564390+00:00",
+  "checked_at": "2026-10-28T14:41:40.418168+00:00",
   "auctioneer": "Clarke & Simpson",
   "parser_version": 7,
   "source_url": "https://clarke-simpson.eigonlineauctions.com/search",
-  "archive_sha256": "e845275fefb018ef1d514fec7d7cdd0e45d4a7b977c0ffbdb7c206cb97b8787d",
+  "archive_sha256": "c4a413e804bffbcc56a9edfac896dcf01f5ce430feca907f46b07538f4f37163",
   "archive_page_count": 4,
   "archive_page_rows": [
     50,
@@ -30,7 +30,7 @@
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
   "run_new_guide_prices": 0,
-  "run_new_sale_prices": 0,
+  "run_new_sale_prices": 2,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -45,10 +45,10 @@
   ],
   "by_status": {
     "withdrawn": 2,
-    "unsold": 40,
-    "sold": 92,
+    "unsold": 42,
+    "sold": 94,
     "sold_prior": 15,
-    "unknown": 8,
+    "unknown": 4,
     "sold_after": 8,
     "postponed": 3
   },
@@ -62,6 +62,7 @@
     "Clarke & Simpson": 168
   },
   "detail_pages_captured": 168,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []
