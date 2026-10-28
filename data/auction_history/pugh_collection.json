@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-28T00:49:33.343705+00:00",
+  "checked_at": "2026-10-28T07:36:45.579617+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": null,
-  "observed_property_ids": 6871,
+  "published_property_rows": 7161,
+  "observed_property_ids": 6874,
   "observed_source_ids": [
     "10088",
     "10113",
@@ -1941,6 +1941,7 @@
     "202604211349sq_lx8a",
     "202604211429sq_hagn",
     "202604211500sq_nbve",
+    "202604211513sq_nyfz",
     "202604211518sq_6ux3",
     "202604211559sq_l833",
     "202604211637sq_r5d1",
@@ -3034,6 +3035,7 @@
     "202609241339sq_4shm",
     "202609241443sq_lqy3",
     "202609241518sq_wavg",
+    "202609241613sq_oeah",
     "202609241902sq_1fwt",
     "202609250839sq_1858",
     "202609250917sq_0rdi",
@@ -3123,6 +3125,7 @@
     "202610131255sq_gi8t",
     "202610131313sq_5019",
     "202610140905sq_ndh2",
+    "202610201443sq_hq6j",
     "20268",
     "20269",
     "20272",
@@ -6876,7 +6879,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 1,
+  "pages_expected": 359,
   "pages_captured_this_run": [
     1,
     2,
@@ -7577,7 +7580,7 @@
     "96": 20,
     "355": 20
   },
-  "published_rows_reconciled": 239,
+  "published_rows_reconciled": 7161,
   "source_rows_reconciled_complete": true,
   "grid_covered_normal_pages": [
     348,
@@ -7593,14 +7596,14 @@
     358,
     359
   ],
-  "grid_tail_source_rows": 219,
+  "grid_tail_source_rows": 221,
   "reverse_tail_source_rows": 0,
   "reverse_covered_normal_pages": [],
   "reverse_tail_upgraded_undated": 0,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 0,
-  "undated_tail_appearances_captured": 0,
-  "undated_tail_existing_appearances_enriched": 0,
+  "undated_tail_source_rows": 221,
+  "undated_tail_appearances_captured": 56,
+  "undated_tail_existing_appearances_enriched": 164,
   "detail_pages_recovered_this_run": 0,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
@@ -8006,7 +8009,7 @@
       "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875"
     }
   ],
-  "archive_pagination_complete": false,
+  "archive_pagination_complete": true,
   "property_appearances_captured": 6891,
   "canonical_shard_rows": 6891,
   "legacy_rows_enriched": 0,
@@ -8014,11 +8017,5 @@
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": [
-    {
-      "page": 1,
-      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=1",
-      "error": "ReadTimeout: HTTPSConnectionPool(host='www.pugh-auctions.com', port=443): Read timed out. (read timeout=60)"
-    }
-  ]
+  "failures": []
 }

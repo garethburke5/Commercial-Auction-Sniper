@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T17:04:00.081212+00:00",
+  "checked_at": "2026-10-28T07:30:55.076570+00:00",
   "auctioneer": "Bradley Hall",
   "parser_version": 7,
   "source_url": "https://auction.bradleyhall.co.uk/search",
-  "archive_sha256": "0254026d944fd2edf6393e742d38a1fade4bd1bbe463ca0628edd4bd6448b63e",
+  "archive_sha256": "e1907e4e67e7230af4c53236b859317026628eed81337b49fda7b8b89caf1df8",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
@@ -29,7 +29,7 @@
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 1,
+  "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -56,6 +56,7 @@
     "Bradley Hall": 75
   },
   "detail_pages_captured": 75,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []

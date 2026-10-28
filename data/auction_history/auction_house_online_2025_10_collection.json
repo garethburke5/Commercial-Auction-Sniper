@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T15:05:03.449593+00:00",
+  "checked_at": "2026-10-28T07:33:59.964480+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 7,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/74284",
-  "archive_sha256": "c9807dc1156512e4b2d97d33e3457ffd5f6b594ded02679234191e5caae9aca9",
+  "archive_sha256": "b49fb2032b6a39f851f6e4a6aef8e19ee8bfbd72a8fe3fd190a6940c08991774",
   "archive_page_count": 1,
   "archive_page_rows": [
     44
@@ -18,13 +18,13 @@
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 13,
-  "run_new_appearances": 13,
-  "run_new_address_records": 13,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 13,
-  "run_new_commercial_mixed": 1,
-  "run_new_guide_prices": 13,
-  "run_new_sale_prices": 1,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -250,37 +250,36 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2025
-  ],
+  "new_source_years": [],
   "date_range": [
     "2025-09-25",
     "2025-10-14"
   ],
   "by_status": {
-    "unsold": 5,
-    "postponed": 3,
     "sold_prior": 4,
+    "postponed": 3,
+    "unsold": 5,
     "sold": 1
   },
   "by_sector": {
+    "commercial": 1,
     "residential": 8,
-    "land": 1,
     "unknown": 3,
-    "commercial": 1
+    "land": 1
   },
   "by_attributed_auctioneer": {
-    "Auction House Lincolnshire": 1,
-    "Auction House Kent": 2,
     "Auction House Coventry and Warwickshire": 4,
-    "Auction House South Yorkshire": 1,
-    "Auction House Leicestershire": 1,
     "Auction House Hull & East Yorkshire": 1,
-    "Auction House Northants, Beds & Bucks": 1,
+    "Auction House Kent": 2,
+    "Auction House Leicestershire": 1,
+    "Auction House Lincolnshire": 1,
     "Auction House London": 1,
-    "Auction House North East": 1
+    "Auction House North East": 1,
+    "Auction House Northants, Beds & Bucks": 1,
+    "Auction House South Yorkshire": 1
   },
   "detail_pages_captured": 44,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": [],

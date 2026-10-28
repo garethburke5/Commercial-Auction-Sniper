@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T16:08:11.426963+00:00",
+  "checked_at": "2026-10-28T07:34:17.194771+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 7,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/67455",
-  "archive_sha256": "0956d45c7c9349acbc0a67b58dc020100441c49350bf79927363811e59c49d13",
+  "archive_sha256": "f1837e73c55729caab7435a6e726986bc8e900e36cef1741ecb8172d28ca73ac",
   "archive_page_count": 1,
   "archive_page_rows": [
     55
@@ -18,14 +18,14 @@
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "appearances_captured": 31,
-  "run_new_appearances": 31,
-  "run_new_address_records": 31,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 31,
-  "run_new_commercial_mixed": 2,
-  "run_new_guide_prices": 31,
-  "run_new_sale_prices": 1,
-  "run_new_rents": 1,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 24,
@@ -201,19 +201,17 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2025
-  ],
+  "new_source_years": [],
   "date_range": [
     "2025-03-13",
     "2025-03-25"
   ],
   "by_status": {
-    "sold": 1,
-    "withdrawn": 6,
     "unsold": 20,
-    "sold_prior": 1,
+    "withdrawn": 6,
+    "sold": 1,
     "postponed": 2,
+    "sold_prior": 1,
     "sold_after": 1
   },
   "by_sector": {
@@ -224,19 +222,20 @@
     "commercial": 1
   },
   "by_attributed_auctioneer": {
+    "Auction House Birmingham": 1,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1,
+    "Auction House Hull & East Yorkshire": 1,
     "Auction House London": 2,
     "Auction House North West": 11,
     "Auction House Notts & Derby": 2,
-    "Auction House Wales - Cardiff": 7,
-    "Auction House Sussex & Hampshire": 1,
     "Auction House Scotland": 1,
-    "Auction House Hull & East Yorkshire": 1,
     "Auction House South West": 3,
-    "Auction House Birmingham": 1,
-    "Auction House Cheshire, Staffordshire & Shropshire": 1,
-    "Auction House South Yorkshire": 1
+    "Auction House South Yorkshire": 1,
+    "Auction House Sussex & Hampshire": 1,
+    "Auction House Wales - Cardiff": 7
   },
   "detail_pages_captured": 55,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": [],

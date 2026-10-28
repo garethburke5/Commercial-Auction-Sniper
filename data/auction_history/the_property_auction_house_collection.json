@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T17:05:40.341824+00:00",
+  "checked_at": "2026-10-28T07:32:13.954122+00:00",
   "auctioneer": "The Property Auction House",
   "parser_version": 7,
   "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
-  "archive_sha256": "257bce49a433d6cbf19bcc1e9ceb922895309ae863b22aaa27ddde6cef95bdf4",
+  "archive_sha256": "0975e2983449235c21a9c5a5a0772ea1c84c9cbb1ffe66576175c4ed22eefdb6",
   "archive_page_count": 3,
   "archive_page_rows": [
     43,
@@ -113,6 +113,7 @@
     "The Property Auction House": 127
   },
   "detail_pages_captured": 127,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []

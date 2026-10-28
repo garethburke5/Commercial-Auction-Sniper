@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T17:06:18.075810+00:00",
+  "checked_at": "2026-10-28T07:32:42.810185+00:00",
   "auctioneer": "Auction North",
   "parser_version": 7,
   "source_url": "https://auction-north.eigonlineauctions.com/search",
-  "archive_sha256": "9a6789bb6fa1711450e7ace6be09748c8016bb2a40e503bcbb5a59c7f332b009",
+  "archive_sha256": "db6bef4ff6254425e6d7395a4df4b98bbc71b1677ce5e563f4e7cb1675a3735d",
   "archive_page_count": 1,
   "archive_page_rows": [
     37
@@ -52,6 +52,7 @@
     "Auction North": 37
   },
   "detail_pages_captured": 37,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": [],
