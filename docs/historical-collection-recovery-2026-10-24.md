@@ -2045,3 +2045,41 @@ Implementation: [article fallback](https://github.com/garethburke5/Commercial-Au
   claiming growth. Do not retry events 69595 or 79607 until their upstream
   responses change or a materially new retrieval route exists. National
   completeness remains false.
+
+## 28 October 2026 — Auction House Online 24 March event expansion
+
+- Reconciled first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/79158?lotResultType=All`
+  to **73 published cards**, 73 stable source identities and all 73 detail
+  pages. The explicit all-results route is unpaginated and completed without
+  detail-recovery failures or partial enrichment.
+- Excluded **35 exact date/address overlaps** already evidenced through
+  regional Auction House shards. The canonical event shard banks **38 net-new
+  address appearances**, all dated inside the current 20-year window. Partial,
+  undated and future-dated additions are zero; duplicate source identities are
+  zero. Individual dates span 24 February to 24 March 2026, adding one
+  reconciled event-shard source-year without claiming a new legal
+  operator-year.
+- Added **38 guide-price records**, **one achieved-price record** and no rent
+  values. The evidence-based sector split is 23 residential, 14 unknown and
+  one commercial appearance; commercial/mixed-use growth is **one commercial
+  and zero mixed-use**. Outcomes remain distinct: 26 unsold, six withdrawn,
+  three sold-prior, two postponed and one sold.
+- Preserved 12 published regional labels while treating **AUCTION HOUSE UK
+  LIMITED (company 06025583)** as the single shared-platform operator.
+  Branches remain provenance, not additional legal operators.
+- The rebuilt corpus contains **304,991 appearances**: **294,220 address
+  records**, **10,771 partial records** and **297,373 dated appearances inside
+  the current 20-year window**, including **101,695 guide-price records** and
+  **111,459 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 180. Collection, immutable snapshot banking, overlap audit, database
+  rebuild and protected checkpoint publication completed successfully. The
+  two historical workflow test stages passed 388 and 117 tests; the protected
+  live-board publication revalidation passed 1,357 tests.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/80208`, dated 20-21
+  April 2026 and exposing **72 actual visible cards**. Require the live-card
+  denominator, every detail page and strict exact-overlap exclusion before
+  claiming growth. Do not retry events 69595 or 79607 until their upstream
+  responses change or a materially new retrieval route exists. National
+  completeness remains false.
