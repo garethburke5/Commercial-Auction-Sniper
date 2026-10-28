@@ -545,3 +545,20 @@ def test_focused_auction_house_online_24_february_expansion_is_isolated():
     ocr_start = WORKFLOW.index("- name: Ensure PDF and OCR extraction is available")
     ocr_end = WORKFLOW.index("- name:", ocr_start + 10)
     assert "Run focused Auction House Online 24 February 2026 expansion" in WORKFLOW[ocr_start:ocr_end]
+
+
+def test_focused_auction_house_online_17_march_expansion_is_isolated():
+    focused = WORKFLOW.index("- name: Collect Auction House Online 17 March 2026 shared-platform event")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py auction-house-online-2026-03-17 --workers 16" in block
+    assert "Run focused Auction House Online 17 March 2026 expansion" in block
+    bounded_condition = WORKFLOW[bounded:WORKFLOW.index("- name:", bounded + 10)]
+    assert "Run focused Auction House Online 17 March 2026 expansion" in bounded_condition
+    guide_start = WORKFLOW.index("- name: Enrich banked Cottons appearances with exact catalogue guides")
+    guide_end = WORKFLOW.index("- name:", guide_start + 10)
+    assert "Run focused Auction House Online 17 March 2026 expansion" in WORKFLOW[guide_start:guide_end]
+    ocr_start = WORKFLOW.index("- name: Ensure PDF and OCR extraction is available")
+    ocr_end = WORKFLOW.index("- name:", ocr_start + 10)
+    assert "Run focused Auction House Online 17 March 2026 expansion" in WORKFLOW[ocr_start:ocr_end]
