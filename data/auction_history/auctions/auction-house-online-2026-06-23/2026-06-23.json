@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Auction House Online",
+  "source_auction_id": "auction-house-online-2026-06-23:2026-06-23",
+  "auction_date": "2026-06-23",
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/82282?lotResultType=All",
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 41,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://online.auctionhouse.co.uk/past-auctions/82282?lotResultType=All",
+      "retrieved_at": "2026-10-28T15:10:42.525792+00:00",
+      "sha256": "473d4c79abbd73745b9996e8ccd06771f0532f6909e17fd5c70895749b372857",
+      "snapshot_path": "data/auction_history/sources/auction-house-online-2026-06-23/past-auctions-page-1-473d4c79abbd7374.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-10-28T15:11:05.252164+00:00"
+}
