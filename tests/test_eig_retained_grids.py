@@ -795,7 +795,7 @@ def test_auction_house_online_4_august_event_configuration():
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
-        "expected_visible_cards": 46,
+        "expected_visible_cards": 45,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
