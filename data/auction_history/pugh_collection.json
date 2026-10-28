@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-27T17:09:03.516932+00:00",
+  "checked_at": "2026-10-28T00:49:33.343705+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7159,
+  "published_property_rows": null,
   "observed_property_ids": 6871,
   "observed_source_ids": [
     "10088",
@@ -6876,7 +6876,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 358,
+  "pages_expected": 1,
   "pages_captured_this_run": [
     1,
     2,
@@ -7577,7 +7577,7 @@
     "96": 20,
     "355": 20
   },
-  "published_rows_reconciled": 7159,
+  "published_rows_reconciled": 239,
   "source_rows_reconciled_complete": true,
   "grid_covered_normal_pages": [
     348,
@@ -8006,7 +8006,7 @@
       "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875"
     }
   ],
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "property_appearances_captured": 6891,
   "canonical_shard_rows": 6891,
   "legacy_rows_enriched": 0,
@@ -8014,5 +8014,11 @@
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": []
+  "failures": [
+    {
+      "page": 1,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=1",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='www.pugh-auctions.com', port=443): Read timed out. (read timeout=60)"
+    }
+  ]
 }

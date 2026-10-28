@@ -3,12 +3,12 @@
   "source_auction_id": "pugh:property-search-archive",
   "auction_date": null,
   "catalogue_complete": false,
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "lots_captured": 6891,
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "pages_expected": 358,
-  "published_property_rows": 7159,
-  "published_rows_reconciled": 7159,
+  "pages_expected": 1,
+  "published_property_rows": null,
+  "published_rows_reconciled": 239,
   "source_rows_reconciled_complete": true,
   "grid_tail_source_rows": 219,
   "reverse_tail_source_rows": 0,
@@ -423,6 +423,12 @@
     }
   ],
   "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
-  "errors": [],
-  "checked_at": "2026-10-27T17:09:03.521241+00:00"
+  "errors": [
+    {
+      "page": 1,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=1",
+      "error": "ReadTimeout: HTTPSConnectionPool(host='www.pugh-auctions.com', port=443): Read timed out. (read timeout=60)"
+    }
+  ],
+  "checked_at": "2026-10-28T00:49:33.347258+00:00"
 }
