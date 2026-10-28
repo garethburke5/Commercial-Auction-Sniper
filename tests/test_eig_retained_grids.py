@@ -770,6 +770,7 @@ def test_auction_house_online_28_july_event_configuration():
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "expected_visible_cards": 88,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
