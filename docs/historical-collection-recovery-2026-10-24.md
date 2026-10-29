@@ -2708,3 +2708,47 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   Require the published denominator, stable source identities and detail-page
   reconciliation before claiming growth, and keep regional labels as branch
   attribution under AUCTION HOUSE UK LIMITED.
+
+## 29 October 2026 — Auction House Online 20 October visible inventory banked, catalogue partial
+
+- Collected the first-party all-results event at
+  `https://online.auctionhouse.co.uk/past-auctions/85651?lotResultType=All`.
+  The official event detail and archive index advertise **87 lots**, but the
+  live all-results page exposes an internally consistent denominator of **86
+  visible result cards**. All 86 stable source identities and 86 detail pages
+  were captured with immutable index and lot snapshots. The one-row published
+  discrepancy remains explicit; this catalogue is not complete.
+- Admitted **17 net-new appearances and address records**, all dated inside the
+  current 20-year window. Sixty-nine exact date/address overlaps with existing
+  regional evidence were audited and excluded. There were no duplicate source
+  identities and no partial, undated or future-dated additions.
+- Added **17 guide-price records**, **zero achieved-price records** and **one
+  rent value**. The evidence-based sector split is 12 residential, one
+  commercial, one land, one mixed-use and two unknown appearances;
+  commercial/mixed-use growth is therefore **one commercial and one
+  mixed-use**. Outcomes remain distinct: nine postponed, five withdrawn, one
+  sold-prior and two unsold.
+- Preserved individual property dates from 6 to 20 October 2026. Auction House
+  South Yorkshire, Kent, London, North East, Birmingham and Online remain
+  branch/channel attribution under **AUCTION HOUSE UK LIMITED (company
+  06025583)** rather than new legal operators. The event adds one evidenced
+  source-year and zero legal operator-years.
+- The rebuilt corpus contains **305,607 appearances**, **294,836 address
+  records**, **10,771 partial records** and **298,006 dated appearances inside
+  the current 20-year window**, including **102,128 guide-price records** and
+  **111,511 achieved-price records**. Undated is 4,395 and future-dated is 163.
+  Surviving-complete catalogue states correctly remain **3,857**; 522 are
+  incomplete or unreconciled and 22 have fetch/parse errors. The collector's
+  per-date states were corrected so internally reconciled visible rows do not
+  falsely turn the 87-versus-86 event into a complete catalogue. Validation
+  passed **399 and 128 tests**. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/85028?lotResultType=All`,
+  whose official event detail and archive index advertise **86 lots for 13
+  October 2026**. Smaller outstanding September and 6 October events remain
+  queued, not covered. Reconcile the advertised denominator, visible inventory,
+  stable identities and detail pages; preserve a partial state if they differ,
+  preserve all dates, guides, achieved prices, rents, outcomes, original URLs
+  and immutable snapshots, and exclude exact date/address overlaps before
+  claiming growth. Regional labels remain branch attribution under AUCTION
+  HOUSE UK LIMITED.
