@@ -3176,3 +3176,45 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   date/address overlaps before claiming growth. Do not retry event 85650's
   timed-out route or event 85376's incomplete route without a materially
   different recovery path.
+
+## 29 October 2026 — Auction House Online 4 November 2025 catalogue fully reconciled
+
+- Collected the first-party Auction House Online event at
+  `https://online.auctionhouse.co.uk/past-auctions/75082?lotResultType=All`.
+  The published count, unpaginated grid, stable source identities and detail
+  inventory reconcile at **48 of 48 lots**. Immutable index and lot snapshots
+  were retained, detail recovery completed without failure and the surviving
+  first-party catalogue is complete.
+- The event admitted **25 net-new appearances and 25 address records**, all
+  individually dated from 23 October to 4 November 2025 and inside the current
+  20-year window. Twenty-three exact date/address overlaps were audited and
+  excluded from growth; no duplicate source identities and no partial,
+  undated or future-dated additions were admitted.
+- Added **25 guide-price records**, **one achieved-price record** and **one rent
+  value**. The evidence-based sector split is 19 residential, one commercial,
+  one land and four unknown appearances, with **one commercial and zero
+  mixed-use additions**. Outcomes remain distinct: 15 unsold, six postponed,
+  two sold-prior, one sold and one withdrawn.
+- Eleven regional Auction House labels remain branch/channel attribution under
+  **AUCTION HOUSE UK LIMITED (company 06025583)** rather than additional legal
+  operators. The event adds one evidenced source-year and zero legal
+  operator-years.
+- The rebuilt corpus contains **305,997 appearances**, **295,225 address
+  records**, **10,772 partial records** and **298,337 dated appearances inside
+  the current 20-year window**, including **102,392 guide-price records** and
+  **111,547 achieved-price records**. Undated remains 4,445 and future-dated
+  remains 172. Surviving-complete catalogue states are **3,905**; 536 remain
+  incomplete or unreconciled and 22 have fetch/parse errors. Focused tests
+  passed 112/112 locally; collection, source banking, database rebuilding and
+  source-register reconciliation completed successfully. National completeness
+  remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/74653?lotResultType=All`,
+  whose all-results route exposes **47 of 47 rows for 21 October 2025** and is
+  absent from the event-specific collector inventory. Preserve every stable
+  identity, detail page, individual date, guide, achieved price, rent, outcome,
+  original URL and immutable snapshot, and exclude exact date/address overlaps
+  before claiming growth. Queue the four-row 22 October 2025 conditional
+  catalogue after this higher-yield event. Do not retry event 85650's timed-out
+  route or event 85376's incomplete route without a materially different
+  recovery path.
