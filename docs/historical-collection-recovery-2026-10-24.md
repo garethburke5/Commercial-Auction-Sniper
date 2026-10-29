@@ -2554,3 +2554,41 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   and immutable snapshots, and exclude only exact date/address overlaps.
   Auction House regional labels remain attribution under AUCTION HOUSE UK
   LIMITED. National completeness remains false.
+
+
+## 29 October 2026 — Auction House Online 25 August event reconciled
+
+- Collected first-party event
+  `https://online.auctionhouse.co.uk/past-auctions/84203?lotResultType=All`.
+  Its **92 visible result cards**, 92 stable source identities and 92 detail
+  pages reconcile exactly against the published 92-lot denominator; immutable
+  index and lot snapshots were banked.
+- Admitted **19 net-new appearances and address records**, all dated inside the
+  current 20-year window. Seventy-three exact date/address overlaps with
+  existing regional evidence were audited and excluded, with no duplicate
+  source identities, partial, undated or future-dated additions.
+- Added **19 guide-price records**, **zero achieved-price records** and **one
+  rent value**. The evidence-based sector split is 14 residential, three
+  unknown, one commercial and one land appearance; commercial/mixed-use growth
+  is **one commercial and zero mixed-use**. Outcomes remain distinct: nine
+  postponed, five withdrawn and five sold-prior.
+- Preserved individual property dates from 7 to 24 August 2026. Thirteen
+  published regional/channel labels remain branch attribution under **AUCTION
+  HOUSE UK LIMITED (company 06025583)** rather than additional legal operators.
+- The rebuilt corpus contains **305,558 appearances**, **294,787 address
+  records**, **10,771 partial records** and **297,957 dated appearances inside
+  the current 20-year window**, including **102,079 guide-price records** and
+  **111,507 achieved-price records**. Undated is 4,395 and future-dated is 163.
+  Surviving-complete catalogue states increased to **3,841**; 515 remain
+  incomplete or unreconciled and 22 have fetch/parse errors. The workflow test
+  stages passed 394 and 128 tests. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/84567?lotResultType=All`,
+  dated 8 September 2026 and currently exposing **73 individual cards**. It is
+  prioritised over the smaller 17-card 2 September event 84329, which remains
+  queued rather than treated as covered. Require the published denominator,
+  every stable source identity and every detail page; preserve dates, guides,
+  achieved prices, rents, outcomes, original URLs and immutable snapshots, and
+  exclude only exact date/address overlaps. Auction House regional labels
+  remain attribution under AUCTION HOUSE UK LIMITED. National completeness
+  remains false.
