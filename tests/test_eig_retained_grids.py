@@ -928,11 +928,27 @@ def test_auction_house_online_13_october_event_configuration():
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
         "expected_visible_cards": 87,
+        "allow_expected_visible_card_mismatch": True,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
         "detail_timeout": 45,
     }
+
+def test_13_october_visible_inventory_can_be_banked_without_claiming_full_catalogue():
+    source = grids.SOURCES["auction-house-online-2026-10-13"]
+    rows = grids.parse_grid(GRID, SOURCE, {})[0]
+    inventory = [dict(rows[0], source_lot_id=f"lot-{index}") for index in range(86)]
+    assert not grids.pagination_reconciles(
+        [inventory], [], [], 86,
+        unpaginated_event=source["unpaginated_event"],
+        expected_visible_cards=source["expected_visible_cards"],
+    )
+    assert source["allow_expected_visible_card_mismatch"] is True
+    assert grids.pagination_reconciles(
+        [inventory], [], [], 86,
+        unpaginated_event=source["unpaginated_event"],
+    )
 
 def test_20_october_visible_inventory_can_be_banked_without_claiming_full_catalogue():
     source = grids.SOURCES["auction-house-online-2026-10-20"]

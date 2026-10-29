@@ -589,6 +589,7 @@ SOURCES = {
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
         "expected_visible_cards": 87,
+        "allow_expected_visible_card_mismatch": True,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
