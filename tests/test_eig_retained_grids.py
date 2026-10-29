@@ -149,6 +149,7 @@ def test_unpaginated_event_reconciles_published_inventory_above_50():
     assert grids.pagination_reconciles([inventory], [], [], 92, unpaginated_event=True)
     assert not grids.pagination_reconciles([inventory], [], [], 92)
     assert not grids.pagination_reconciles([inventory[:-1]], [], [], 92, unpaginated_event=True)
+    assert grids.pagination_reconciles([inventory[:-1]], [], [], 91, unpaginated_event=True)
     assert grids.pagination_reconciles(
         [inventory], [], [], None,
         unpaginated_event=True, expected_visible_cards=92,
@@ -910,6 +911,7 @@ def test_auction_house_online_20_october_event_configuration():
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
         "expected_visible_cards": 87,
+        "allow_expected_visible_card_mismatch": True,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,

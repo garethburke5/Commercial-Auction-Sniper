@@ -574,6 +574,7 @@ SOURCES = {
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
         "expected_visible_cards": 87,
+        "allow_expected_visible_card_mismatch": True,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
@@ -1128,7 +1129,18 @@ def harvest(slug: str, workers: int = 10) -> dict:
         unpaginated_event=source.get("unpaginated_event", False),
         expected_visible_cards=source.get("expected_visible_cards"),
     )
-    if not pagination_complete:
+    visible_inventory_reconciled = bool(
+        not pagination_complete
+        and source.get("allow_expected_visible_card_mismatch")
+        and pagination_reconciles(
+            page_rows,
+            malformed,
+            excluded_non_auction,
+            denominator,
+            unpaginated_event=source.get("unpaginated_event", False),
+        )
+    )
+    if not pagination_complete and not visible_inventory_reconciled:
         raise RuntimeError(
             f"{slug} retained pagination did not reconcile: pages={list(map(len, page_rows))}, "
             f"malformed={len(malformed)}, distinct={len(set(ids))}/{len(ids)}, "
@@ -1261,7 +1273,16 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "distinct_source_identities": len(set(ids)),
         "non_auction_property_cards_excluded": len(excluded_non_auction),
         "non_auction_exclusions": excluded_non_auction,
-        "archive_pagination_complete": True,
+        "archive_pagination_complete": pagination_complete,
+        "archive_visible_inventory_reconciled": pagination_complete or visible_inventory_reconciled,
+        "archive_reconciliation_note": ({
+            "kind": "published_event_total_exceeds_visible_result_inventory",
+            "expected_event_lots": source.get("expected_visible_cards"),
+            "visible_result_rows": len(rows),
+            "published_result_count": denominator,
+            "missing_result_rows": max(0, (source.get("expected_visible_cards") or 0) - len(rows)),
+            "banking_scope": "every internally reconciled visible result card; catalogue remains incomplete",
+        } if visible_inventory_reconciled else None),
         "appearances_captured": len(merged),
         "run_new_appearances": run_new_count,
         "run_new_address_records": max(0, sum(bool(row.get("address")) for row in all_rows) - sum(bool(row.get("address")) for row in existing_reconciled)),
