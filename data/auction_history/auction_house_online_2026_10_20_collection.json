@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-29T07:57:54.311405+00:00",
+  "checked_at": "2026-10-29T08:25:52.536175+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/85651?lotResultType=All",
-  "archive_sha256": "db1237fb828c2c2781a80f92f76b669a1d9944afbb7454dbf45a8eab43bfcc0a",
+  "archive_sha256": "3d0a12a8a7c9e76f9bc891e9290b3b2caa01a70b4426684d9e99dcc9fdfd8c90",
   "archive_page_count": 1,
   "archive_page_rows": [
     86
@@ -28,14 +28,14 @@
     "banking_scope": "every internally reconciled visible result card; catalogue remains incomplete"
   },
   "appearances_captured": 17,
-  "run_new_appearances": 17,
-  "run_new_address_records": 17,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 17,
-  "run_new_commercial_mixed": 2,
-  "run_new_guide_prices": 17,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
   "run_new_sale_prices": 0,
-  "run_new_rents": 1,
+  "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 69,
@@ -526,33 +526,31 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2026
-  ],
+  "new_source_years": [],
   "date_range": [
     "2026-10-06",
     "2026-10-20"
   ],
   "by_status": {
-    "withdrawn": 5,
     "postponed": 9,
-    "sold_prior": 1,
-    "unsold": 2
+    "withdrawn": 5,
+    "unsold": 2,
+    "sold_prior": 1
   },
   "by_sector": {
+    "unknown": 2,
     "residential": 12,
-    "commercial": 1,
     "land": 1,
     "mixed-use": 1,
-    "unknown": 2
+    "commercial": 1
   },
   "by_attributed_auctioneer": {
-    "Auction House South Yorkshire": 3,
+    "Auction House Birmingham": 2,
     "Auction House Kent": 1,
     "Auction House London": 3,
     "Auction House North East": 7,
-    "Auction House Birmingham": 2,
-    "Auction House Online": 1
+    "Auction House Online": 1,
+    "Auction House South Yorkshire": 3
   },
   "detail_pages_captured": 86,
   "detail_recovery_complete": true,
