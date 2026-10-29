@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-29T13:56:06.143040+00:00",
+  "checked_at": "2026-10-29T20:08:06.028316+00:00",
   "source_url": "https://aglandandproperty.com/auction-results",
   "selected_result_appearances_captured": 29,
   "run_new_appearances": 0,
@@ -10,10 +10,15 @@
     "unknown": 17,
     "residential": 7
   },
-  "retained_listing_urls_reconciled": 50,
+  "retained_listing_urls_reconciled": 51,
   "dated_sold_auction_details_admitted": 4,
   "existing_appearances_exact_date_enriched": 4,
   "detail_audit": [
+    {
+      "source_url": "https://aglandandproperty.com/listings/residential_sale-RX855107-longbenton",
+      "sha256": "6e99d0cae15a4f09e925ec502650a41905f45f755583cc20967ecf4d9c1098d1",
+      "admitted": false
+    },
     {
       "source_url": "https://aglandandproperty.com/listings/residential_sale-RX854782-gilsland",
       "sha256": "c104fd7fddef95db68e6251fbb2513e3be709756edb9d1cb17208ea7641aeddf",
@@ -278,13 +283,13 @@
     "completion_scope": "every sold-property block on the first-party recent-results page; not a dated full catalogue",
     "source_evidence": {
       "source_url": "https://aglandandproperty.com/auction-results",
-      "retrieved_at": "2026-10-29T13:56:01.304265+00:00",
-      "sha256": "a88b57b9a111b3cc7676818cf47857dc537b2ef9fcb91919eb91b089e5bb5c8a",
-      "snapshot_path": "data/auction_history/sources/anderson-garland/recent-auction-results-a88b57b9a111b3cc.json.gz",
+      "retrieved_at": "2026-10-29T20:08:00.454335+00:00",
+      "sha256": "7c3a165c6be26b1eac4ef956d019561a539edaa96c82d64bfdc2c799969e8aa0",
+      "snapshot_path": "data/auction_history/sources/anderson-garland/recent-auction-results-7c3a165c6be26b1e.json.gz",
       "basis": "first-party retained recent auction results page"
     },
     "errors": [],
-    "checked_at": "2026-10-29T13:56:06.142637+00:00"
+    "checked_at": "2026-10-29T20:08:06.027991+00:00"
   },
   "failures": []
 }

@@ -1,38 +1,38 @@
 {
-  "checked_at": "2026-10-29T13:52:39.858807+00:00",
+  "checked_at": "2026-10-29T20:04:45.594522+00:00",
   "auctioneer": "Landmark Auctions",
   "parser_version": 8,
   "source_url": "https://onlineauctions.landmarkauctions.co.uk/search",
-  "archive_sha256": "2444266afc56d065741c4a62571bceb6049364c03163a2a02a80357e69ebd88a",
+  "archive_sha256": "f107318a458f96a408ed9e725da0ede2b1300261c09b97da0525cf6d7d2b78c5",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
-    12
+    18
   ],
   "archive_page_visible_cards": [
     50,
-    12
+    18
   ],
-  "visible_source_rows": 62,
+  "visible_source_rows": 68,
   "expected_visible_cards": null,
-  "published_result_count": 62,
-  "distinct_source_identities": 62,
+  "published_result_count": 68,
+  "distinct_source_identities": 68,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 62,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 68,
+  "run_new_appearances": 6,
+  "run_new_address_records": 6,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
-  "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
-  "run_new_sale_prices": 1,
-  "run_new_rents": 0,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 6,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 3,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 6,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -40,26 +40,26 @@
   "new_source_years": [],
   "date_range": [
     "2022-05-16",
-    "2026-10-29"
+    "2026-12-03"
   ],
   "by_status": {
-    "postponed": 19,
+    "postponed": 21,
     "sold_prior": 21,
-    "unknown": 3,
-    "unsold": 11,
+    "unsold": 12,
     "withdrawn": 7,
-    "sold": 1
+    "sold": 1,
+    "unknown": 6
   },
   "by_sector": {
-    "residential": 47,
-    "land": 8,
-    "commercial": 4,
+    "residential": 50,
+    "land": 10,
+    "commercial": 5,
     "mixed-use": 3
   },
   "by_attributed_auctioneer": {
-    "Landmark Auctions": 62
+    "Landmark Auctions": 68
   },
-  "detail_pages_captured": 62,
+  "detail_pages_captured": 68,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

@@ -1,12 +1,12 @@
 {
-  "checked_at": "2026-10-29T13:53:51.404881+00:00",
+  "checked_at": "2026-10-29T20:05:59.587068+00:00",
   "transport_version": 3,
   "source_url": "https://www.agentspropertyauction.com/auctions/auction-results/",
   "archive_evidence": {
     "source_url": "https://www.agentspropertyauction.com/auctions/auction-results/",
-    "retrieved_at": "2026-10-29T06:24:37.337630+00:00",
-    "sha256": "3bc15a8c41382ecb259230847eaea9c4a5d45895f2f116344c9f73cdaa91891a",
-    "snapshot_path": "data/auction_history/sources/agents-property-auction/result-filter-3bc15a8c41382ecb.json.gz",
+    "retrieved_at": "2026-10-29T20:05:59.538359+00:00",
+    "sha256": "f6f4864332b884aba7ef4d5f0addc3e6a3edebd7c241f5dd8b8ed2a104b9db7a",
+    "snapshot_path": "data/auction_history/sources/agents-property-auction/result-filter-f6f4864332b884ab.json.gz",
     "basis": "first-party current sold-result table and archive filter"
   },
   "venues": [
@@ -135,15 +135,16 @@
   "month_filters_expected_through_current_month": 404,
   "filter_inventory_complete_through_current_month": false,
   "result_tables_captured_this_run": 1,
-  "appearances_captured": 35,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 83,
+  "run_new_appearances": 48,
+  "run_new_address_records": 48,
   "run_new_partial_lots": 0,
-  "run_new_undated_records": 0,
-  "with_sale_price": 35,
+  "run_new_undated_records": 48,
+  "with_sale_price": 82,
   "by_sector": {
-    "unknown": 34,
-    "commercial": 1
+    "unknown": 81,
+    "commercial": 1,
+    "land": 1
   },
   "catalogue_completion_claimed": false,
   "completion_limit": "sold-result tables do not expose the original catalogue denominator or exact auction day",
@@ -635,6 +636,6 @@
     "direct_route": "HTTP 500 whenever the first-party a_sub filter is submitted",
     "scope": "historical Newcastle/Cumbria venue-month filters",
     "retry_policy": "terminal unless a materially different free retrieval route appears",
-    "usable_route": "unfiltered first-party page retained 35 visible sold rows for Newcastle September 2026"
+    "usable_route": "unfiltered first-party page retained 48 visible sold rows for Newcastle October 2026"
   }
 }

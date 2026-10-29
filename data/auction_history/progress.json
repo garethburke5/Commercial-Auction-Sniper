@@ -1,14 +1,14 @@
 {
-  "generated_at": "2026-10-29T19:12:19.473282+00:00",
-  "individual_lot_records_captured": 305887,
-  "records_with_address": 295116,
-  "partial_lot_records": 10771,
-  "exact_address_groups": 164563,
-  "groups_with_repeat_appearances": 41889,
+  "generated_at": "2026-10-29T20:12:36.729698+00:00",
+  "individual_lot_records_captured": 305972,
+  "records_with_address": 295200,
+  "partial_lot_records": 10772,
+  "exact_address_groups": 164593,
+  "groups_with_repeat_appearances": 41890,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5697,
-    "Agents Property Auction": 35,
+    "Agents Property Auction": 83,
     "Allsop": 44928,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
@@ -69,7 +69,7 @@
     "Dawsons": 138,
     "Dedman Gray": 2851,
     "Edward Mellor": 10268,
-    "First for Auctions": 1422,
+    "First for Auctions": 1449,
     "Future Property Auctions": 75881,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
@@ -78,7 +78,7 @@
     "John Francis": 1407,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 591,
-    "Landmark Auctions": 62,
+    "Landmark Auctions": 68,
     "Landwood Property Auctions": 2731,
     "Lot9 Auction House": 34,
     "Loveitts": 582,
@@ -109,14 +109,14 @@
     "Strettons": 123,
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
-    "Symonds & Sampson": 1129,
+    "Symonds & Sampson": 1131,
     "The Auction Company": 123,
     "The Property Auction House": 128,
-    "Town & Country Property Auctions": 3009,
+    "Town & Country Property Auctions": 3011,
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4395,
+    "null": 4445,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -141,21 +141,21 @@
     "2023": 32497,
     "2024": 41138,
     "2025": 47237,
-    "2026": 45862
+    "2026": 45897
   },
   "by_sector": {
-    "commercial": 42268,
-    "land": 18585,
-    "mixed-use": 47224,
-    "residential": 149043,
-    "unknown": 48767
+    "commercial": 42269,
+    "land": 18588,
+    "mixed-use": 47225,
+    "residential": 149071,
+    "unknown": 48819
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3897,
-  "catalogues_incomplete_or_unreconciled": 535,
+  "surviving_catalogues_completely_harvested": 3899,
+  "catalogues_incomplete_or_unreconciled": 536,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -168,13 +168,13 @@
     "through_date": "2026-10-29",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 298285,
+      "lot_appearances": 298312,
       "auction_ids_observed": 11666,
-      "with_guide_price": 102369,
-      "with_sale_price": 111541,
+      "with_guide_price": 102367,
+      "with_sale_price": 111546,
       "with_both_prices": 48229,
-      "marked_sold": 153422,
-      "marked_sold_without_sale_price": 42621
+      "marked_sold": 153431,
+      "marked_sold_without_sale_price": 42625
     },
     "by_auctioneer_and_year": [
       {
@@ -2088,8 +2088,8 @@
         "with_guide_price": 223,
         "with_sale_price": 70,
         "with_both_prices": 70,
-        "marked_sold": 101,
-        "marked_sold_without_sale_price": 31
+        "marked_sold": 102,
+        "marked_sold_without_sale_price": 32
       },
       {
         "auctioneer": "Auction House North Yorkshire & Tees Valley",
@@ -3436,9 +3436,9 @@
       {
         "auctioneer": "Bradley Hall",
         "year": 2026,
-        "lot_appearances": 33,
-        "auction_ids_observed": 30,
-        "with_guide_price": 33,
+        "lot_appearances": 31,
+        "auction_ids_observed": 29,
+        "with_guide_price": 31,
         "with_sale_price": 28,
         "with_both_prices": 28,
         "marked_sold": 30,
@@ -4481,12 +4481,12 @@
       {
         "auctioneer": "First for Auctions",
         "year": 2026,
-        "lot_appearances": 340,
+        "lot_appearances": 367,
         "auction_ids_observed": 10,
         "with_guide_price": 0,
-        "with_sale_price": 215,
+        "with_sale_price": 220,
         "with_both_prices": 0,
-        "marked_sold": 320,
+        "marked_sold": 325,
         "marked_sold_without_sale_price": 105
       },
       {
@@ -7550,13 +7550,13 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1312,
-        "auction_ids_observed": 579,
+        "lot_appearances": 1314,
+        "auction_ids_observed": 580,
         "with_guide_price": 0,
         "with_sale_price": 249,
         "with_both_prices": 0,
-        "marked_sold": 755,
-        "marked_sold_without_sale_price": 506
+        "marked_sold": 758,
+        "marked_sold_without_sale_price": 509
       },
       {
         "auctioneer": "Unknown auctioneer",
@@ -7581,8 +7581,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4395,
-    "future_dated_appearances": 164,
+    "undated_appearances": 4445,
+    "future_dated_appearances": 172,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
