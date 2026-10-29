@@ -2794,3 +2794,46 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   and immutable snapshots, and exclude exact date/address overlaps before
   claiming growth. Regional labels remain branch attribution under AUCTION
   HOUSE UK LIMITED.
+
+## 29 October 2026 — Auction House Online 22 September catalogue fully reconciled
+
+- Collected the first-party all-results event at
+  `https://online.auctionhouse.co.uk/past-auctions/84253?lotResultType=All`.
+  The archive index, live grid, stable source identities and detail-page
+  inventory all reconcile at **87 of 87 rows**. Immutable index and lot
+  snapshots were retained and this catalogue is complete.
+- Admitted **10 net-new appearances and address records**, all individually
+  dated from 18 to 22 September 2026 and inside the current 20-year window.
+  Seventy-seven exact date/address overlaps with existing regional evidence
+  were audited and excluded. There were no duplicate source identities and no
+  partial, undated or future-dated additions.
+- Added **10 guide-price records**, **three achieved-price records** and **zero
+  rent values**. The evidence-based sector split is seven residential, one land
+  and two unknown appearances, with **zero commercial or mixed-use additions**.
+  Outcomes remain distinct: six postponed, three sold-prior and one sold.
+- Auction House London, West Yorkshire, Online, South Yorkshire, North West,
+  Coventry and Warwickshire, Birmingham and Wales - Colwyn Bay remain
+  branch/channel attribution under **AUCTION HOUSE UK LIMITED (company
+  06025583)** rather than new legal operators. The event adds one evidenced
+  source-year and zero legal operator-years.
+- The rebuilt corpus contains **305,637 appearances**, **294,866 address
+  records**, **10,771 partial records** and **298,036 dated appearances inside
+  the current 20-year window**, including **102,158 guide-price records** and
+  **111,514 achieved-price records**. Undated remains 4,395 and future-dated
+  remains 163. Surviving-complete catalogue states increased to **3,860**; 529
+  remain incomplete or unreconciled and 22 have fetch/parse errors. Collection,
+  publication validation and permanent-history banking completed successfully.
+  The downstream public-platform foundation run was cancelled by its existing
+  concurrency control before a job started; that checkpoint was preserved and
+  no duplicate deployment was launched. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/84412?lotResultType=All`,
+  whose archive index publishes **71 result rows for 15 September 2026**.
+  Lot numbering reaches 72 because the numbering has a gap and must not be used
+  as the denominator. The 46-row 6 October catalogue remains queued, not
+  covered. Reconcile the published row denominator, visible inventory, stable
+  identities and detail pages; preserve a partial state if they differ,
+  preserve all dates, guides, achieved prices, rents, outcomes, original URLs
+  and immutable snapshots, and exclude exact date/address overlaps before
+  claiming growth. Regional labels remain branch attribution under AUCTION
+  HOUSE UK LIMITED.
