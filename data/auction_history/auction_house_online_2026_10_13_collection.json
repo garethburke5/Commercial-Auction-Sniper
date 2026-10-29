@@ -1,0 +1,543 @@
+{
+  "checked_at": "2026-10-29T09:21:43.564271+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/85028?lotResultType=All",
+  "archive_sha256": "f3dcf1ecad23d1e95e183152adffb4bb77ea4dfc0363b001e8bd000cd78ecd03",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    86
+  ],
+  "archive_page_visible_cards": [
+    86
+  ],
+  "visible_source_rows": 86,
+  "expected_visible_cards": 87,
+  "published_result_count": 86,
+  "distinct_source_identities": 86,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": false,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": {
+    "kind": "published_event_total_exceeds_visible_result_inventory",
+    "expected_event_lots": 87,
+    "visible_result_rows": 86,
+    "published_result_count": 86,
+    "missing_result_rows": 1,
+    "banking_scope": "every internally reconciled visible result card; catalogue remains incomplete"
+  },
+  "appearances_captured": 20,
+  "run_new_appearances": 20,
+  "run_new_address_records": 20,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 20,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 20,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 66,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 66,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2026-10-13",
+      "address": "Car Park off Newgate Lane, Mansfield, Nottinghamshire, NG18 2HG",
+      "source_lot_id": "b8c7f106-3fcc-41f6-a112-4f565c8381b2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b8c7f106-3fcc-41f6-a112-4f565c8381b2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "32 Wynyard Mews, Hartlepool, Cleveland, TS25 3JE",
+      "source_lot_id": "d031de96-38cd-4050-a0c5-426280d18630",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d031de96-38cd-4050-a0c5-426280d18630",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "No, 83 Norfolk Park Village, 200 Norfolk Park Road, Sheffield, South Yorkshire, S2 2UF",
+      "source_lot_id": "b88824c7-ecb1-4294-8700-575139ba4256",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b88824c7-ecb1-4294-8700-575139ba4256",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "39. Hatherley Road Swinton, Mexborough, South Yorkshire, S64 8PE",
+      "source_lot_id": "20da1df3-b9a9-4ef7-92ec-e9d29adb29fb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/20da1df3-b9a9-4ef7-92ec-e9d29adb29fb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "81 Brooklands Crescent Havercroft, Wakefield, West Yorkshire, WF4 2HR",
+      "source_lot_id": "8dc91657-461c-4736-8cff-a902db09b92e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8dc91657-461c-4736-8cff-a902db09b92e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Car park area Drapers Fields, Coventry, West Midlands, CV1 4AF",
+      "source_lot_id": "bc6e8728-4574-4e3d-83f4-a78fffbd1bc5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/bc6e8728-4574-4e3d-83f4-a78fffbd1bc5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "77 East Terrace Wales Bar, Sheffield, South Yorkshire, S26 5LX",
+      "source_lot_id": "642e3cce-70c8-4193-b959-f4049e25c263",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/642e3cce-70c8-4193-b959-f4049e25c263",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "664 City Road, Sheffield, South Yorkshire, S2 1GH",
+      "source_lot_id": "2c433e0c-3112-4f3d-8871-c538e0e3f484",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2c433e0c-3112-4f3d-8871-c538e0e3f484",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "66 Chaucer Street, Northampton, Northamptonshire, NN2 7HN",
+      "source_lot_id": "3eed39bf-d0fe-44fd-a90e-dd9e50ba1d03",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3eed39bf-d0fe-44fd-a90e-dd9e50ba1d03",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "23 Rockingham Court Belgrave Road, Barnsley, South Yorkshire, S71 1HL",
+      "source_lot_id": "aaf9531d-e1c9-41a3-b5d0-f4c7b630b029",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/aaf9531d-e1c9-41a3-b5d0-f4c7b630b029",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "61 Victoria Road Edlington, Doncaster, South Yorkshire, DN12 1BQ",
+      "source_lot_id": "397b488a-dd56-4aaa-9095-fa9c89d539df",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/397b488a-dd56-4aaa-9095-fa9c89d539df",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Seven Vancouver Drive Bolton-Upon-Dearne, Rotherham, South Yorkshire, S63 8DT",
+      "source_lot_id": "414618d5-4130-42e2-9c17-fe112d248ac0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/414618d5-4130-42e2-9c17-fe112d248ac0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Number 276 Blackstock Road, Sheffield, South Yorkshire, S14 1FY",
+      "source_lot_id": "a4968965-4525-453c-ab93-d00f05936cd5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a4968965-4525-453c-ab93-d00f05936cd5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Mill House Harley, Shrewsbury, Shropshire, SY5 6LP",
+      "source_lot_id": "fd9671aa-2ef9-4147-a14a-d4700db520d0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fd9671aa-2ef9-4147-a14a-d4700db520d0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "14 Stourhead Road Bilton, Rugby, Warwickshire, CV22 7BF",
+      "source_lot_id": "b53d8b80-48c2-4aa9-8e8c-c18556e790a6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b53d8b80-48c2-4aa9-8e8c-c18556e790a6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "48 Goodman Way Tanyard Farm, Coventry, West Midlands, CV4 9UG",
+      "source_lot_id": "ff45f5fb-935b-4c7e-9610-2b4ed827b326",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ff45f5fb-935b-4c7e-9610-2b4ed827b326",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Apartment 3 Jacoby Place Priory Road, Birmingham, West Midlands, B5 7UN",
+      "source_lot_id": "087fa07c-e224-43f1-b74d-2bd1b1430950",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/087fa07c-e224-43f1-b74d-2bd1b1430950",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "70 St. Lukes Road Holbrooks, Coventry, West Midlands, CV6 4JH",
+      "source_lot_id": "a0ac65b7-c9eb-4ec6-b79b-c67c15d21ef7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a0ac65b7-c9eb-4ec6-b79b-c67c15d21ef7",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Retail Unit Coventry Canal Basin, Coventry, West Midlands, CV1 4LY",
+      "source_lot_id": "97abf2ce-c8b8-41b5-8915-a05089b18c06",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/97abf2ce-c8b8-41b5-8915-a05089b18c06",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Land to the North of Lowery House Lowery Lane, Craghead, County Durham, DH9 6EN",
+      "source_lot_id": "83a89a5d-5f1a-4b5e-93bc-31d473d737b3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/83a89a5d-5f1a-4b5e-93bc-31d473d737b3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Land at Hartley Cleugh Farm West Allendale, Hexham, Northumberland, NE47 8AW",
+      "source_lot_id": "9bde9dc5-881d-430e-8545-12f814e52626",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/9bde9dc5-881d-430e-8545-12f814e52626",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "24 Bourn Lea, Houghton le Spring, Tyne And Wear, DH4 4PG",
+      "source_lot_id": "fa2ee252-8543-4fc9-88ed-cd72a4286cbc",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fa2ee252-8543-4fc9-88ed-cd72a4286cbc",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Partridge Cottage Zeal Monachorum, Crediton, Devon, EX17 6DF",
+      "source_lot_id": "dad87958-2f8a-4644-9a9a-4d2beac0d9f9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/dad87958-2f8a-4644-9a9a-4d2beac0d9f9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Garage 4 New Road Folly Gate, Okehampton, Devon, EX20 3AB",
+      "source_lot_id": "872c7f6b-094d-40d1-b761-411c3f4902b4",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/872c7f6b-094d-40d1-b761-411c3f4902b4",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "16 Ashley Road, Okehampton, Devon, EX20 1PX",
+      "source_lot_id": "8be79be8-f4e8-4787-bbc5-e0728b447bd9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8be79be8-f4e8-4787-bbc5-e0728b447bd9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Flat 3 247 North Road West, Plymouth, Devon, PL1 5DQ",
+      "source_lot_id": "3d2f5f0c-0e1d-4e16-b6d6-91a717911116",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3d2f5f0c-0e1d-4e16-b6d6-91a717911116",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "45 Priory Road Higher Compton, Plymouth, Devon, PL3 5EP",
+      "source_lot_id": "c5a9de28-f387-48f4-afec-5f0b9d284b88",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c5a9de28-f387-48f4-afec-5f0b9d284b88",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Flat 4 Domino Court, Bournemouth, Dorset, BH1 1JR",
+      "source_lot_id": "e04b0c21-3260-4b80-8ca1-c744dbac41a9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e04b0c21-3260-4b80-8ca1-c744dbac41a9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "3 St. Francis Close, Rochester, Kent, ME2 2GR",
+      "source_lot_id": "eaf07036-9bdd-45ca-95a5-1dad41004f4d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/eaf07036-9bdd-45ca-95a5-1dad41004f4d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Alma Cottage, Worthing Road, Dial Post, Horsham, West Sussex, RH13 8NH",
+      "source_lot_id": "99eb4cee-6b44-4f35-991f-9281c54264f0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/99eb4cee-6b44-4f35-991f-9281c54264f0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "15 Sycamore Drive, Liverpool, Merseyside, L33 8WX",
+      "source_lot_id": "abc6f13c-20d2-4f11-bfaa-80f9bac28abb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/abc6f13c-20d2-4f11-bfaa-80f9bac28abb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "5 Clarinda House Clovelly Place, Greenhithe, Kent, DA9 9FB",
+      "source_lot_id": "77833cc4-bfe4-4aaf-9e55-1f379ea3050c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/77833cc4-bfe4-4aaf-9e55-1f379ea3050c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "16 Leabrooks Road Somercotes, Alfreton, Derbyshire, DE55 4HB",
+      "source_lot_id": "9d377ae2-6f62-4d34-90a3-63ffca6b6cf3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/9d377ae2-6f62-4d34-90a3-63ffca6b6cf3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "49 Boweswell Road, Ilkeston, Derbyshire, DE7 8EE",
+      "source_lot_id": "2ceae86f-5a7b-4710-bad5-96ab7d94e66a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2ceae86f-5a7b-4710-bad5-96ab7d94e66a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "18 The Willows Little Harrowden, Wellingborough, Northamptonshire, NN9 5BJ",
+      "source_lot_id": "815d729b-7947-4fc4-8a8c-b9b547ece390",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/815d729b-7947-4fc4-8a8c-b9b547ece390",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "8 Harcourt Street Raunds, Wellingborough, Northamptonshire, NN9 6LZ",
+      "source_lot_id": "df166ab5-6590-4d06-9266-041de8623d54",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/df166ab5-6590-4d06-9266-041de8623d54",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "17 Lodge Close Little Houghton, Northampton, Northamptonshire, NN7 1AF",
+      "source_lot_id": "05b000a0-0b20-4df4-9cce-8b0611d5d886",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/05b000a0-0b20-4df4-9cce-8b0611d5d886",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "23 West Street Stanwick, Wellingborough, Northamptonshire, NN9 6QY",
+      "source_lot_id": "e67802ff-6293-40c1-95a5-0d0746aaeb73",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e67802ff-6293-40c1-95a5-0d0746aaeb73",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "18 Manor Street Raunds, Wellingborough, Northamptonshire, NN9 6JW",
+      "source_lot_id": "90a7f31c-5283-4e38-9fe3-104206383890",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/90a7f31c-5283-4e38-9fe3-104206383890",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "75 Kettering Road Rothwell, Kettering, Northamptonshire, NN14 6JR",
+      "source_lot_id": "12a7fc88-1932-45e8-9ffe-51129171d3b6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/12a7fc88-1932-45e8-9ffe-51129171d3b6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "New Middle Club Welbeck Street, Worksop, Nottinghamshire, S80 4TQ",
+      "source_lot_id": "e6a5432a-7033-49c4-a06a-54de35b333a6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e6a5432a-7033-49c4-a06a-54de35b333a6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "3 Sydenham Road, Hartlepool, Cleveland, TS25 1QA",
+      "source_lot_id": "1f835697-9d82-4df8-8b46-bd788f3b2666",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1f835697-9d82-4df8-8b46-bd788f3b2666",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "No. 24 Dayshield, Newcastle upon Tyne, Tyne and Wear, NE5 2YH",
+      "source_lot_id": "c4f6b854-da58-4df3-b324-5eeed7ad2977",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c4f6b854-da58-4df3-b324-5eeed7ad2977",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Flat 15 32 Nile Street, Sunderland, Tyne and Wear, SR1 1EY",
+      "source_lot_id": "5eef9ce6-23e6-4576-aa6e-0a9fd255199a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5eef9ce6-23e6-4576-aa6e-0a9fd255199a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "46 Moor View Hatherleigh, Okehampton, Devon, EX20 3LB",
+      "source_lot_id": "ef574006-d4e3-4629-b694-19fa346ce72c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ef574006-d4e3-4629-b694-19fa346ce72c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "6 Chivrick Close, Sturminster Newton, Dorset, DT10 1QJ",
+      "source_lot_id": "96f2162e-2236-49aa-ae71-fc922bfc0ea0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/96f2162e-2236-49aa-ae71-fc922bfc0ea0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Flat 33 Market Square, Crewkerne, Somerset, TA18 7LP",
+      "source_lot_id": "a85ea7d8-7902-498c-891a-9b43694749df",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a85ea7d8-7902-498c-891a-9b43694749df",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "2 Brookmans Farm Cottages Low Road, Harwich, Essex, CO12 3TT",
+      "source_lot_id": "a86ea871-f396-4806-abb2-d1b8cb4bd1af",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a86ea871-f396-4806-abb2-d1b8cb4bd1af",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "47 Ansley Road Stockingford, Nuneaton, Warwickshire, CV10 8LY",
+      "source_lot_id": "847c1cfb-5fb1-4f4a-a34e-1b20bbd927af",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/847c1cfb-5fb1-4f4a-a34e-1b20bbd927af",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "28 Branstree Drive Holbrooks, Coventry, West Midlands, CV6 6GB",
+      "source_lot_id": "3fdb3e25-5a04-4510-ab02-26ab78d3d184",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3fdb3e25-5a04-4510-ab02-26ab78d3d184",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Apartment 49 Orion Building, 90 Navigation Street, Birmingham, West Midlands, B5 4AA",
+      "source_lot_id": "eb1ad61a-9ae2-4f0a-8d16-4bad6eacf46c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/eb1ad61a-9ae2-4f0a-8d16-4bad6eacf46c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Flat 3, 4 The Crescent, Bridlington, East Yorkshire, YO15 2NX",
+      "source_lot_id": "a22ec877-7420-486c-aa7c-51373e1c1e91",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a22ec877-7420-486c-aa7c-51373e1c1e91",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Number 7 Hay Green Lane Birdwell, Barnsley, South Yorkshire, S70 5XA",
+      "source_lot_id": "5ac81b19-21e4-4895-8100-7b6940482ed5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5ac81b19-21e4-4895-8100-7b6940482ed5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Apartment 209 Pearl Works, Sheffield, South Yorkshire, S1 2FT",
+      "source_lot_id": "5caa12a1-5386-4042-8a27-51d507fea20a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5caa12a1-5386-4042-8a27-51d507fea20a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "9 Greyfriars Court Sadler Road, Coventry, West Midlands, CV6 2PA",
+      "source_lot_id": "211fd7e2-c75a-475e-b024-d2fc8315e672",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/211fd7e2-c75a-475e-b024-d2fc8315e672",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Land off Outermarch Road Radford, Coventry, West Midlands, CV6 3FQ",
+      "source_lot_id": "95492ffe-6976-4526-835b-afb042ac92c8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/95492ffe-6976-4526-835b-afb042ac92c8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "23 St. Austell Road Wyken, Coventry, West Midlands, CV2 5AF",
+      "source_lot_id": "4a35e7d9-5cfb-4eed-9149-74488100635a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4a35e7d9-5cfb-4eed-9149-74488100635a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "21 Sugley Street, Newcastle upon Tyne, Tyne and Wear, NE15 8RS",
+      "source_lot_id": "30492bd9-ecad-46cd-9a7c-b81a05e5ae53",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/30492bd9-ecad-46cd-9a7c-b81a05e5ae53",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "8 Belsay Gardens, Newcastle upon Tyne, Tyne and Wear, NE3 2AU",
+      "source_lot_id": "f92ede74-3f10-46f6-9994-10be2a6ba22e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f92ede74-3f10-46f6-9994-10be2a6ba22e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "18 Ancona Street, Sunderland, Tyne and Wear, SR4 6TJ",
+      "source_lot_id": "e30a6fb0-73cb-4652-8da7-3d8a57187661",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e30a6fb0-73cb-4652-8da7-3d8a57187661",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Rhyd Y Meirch Llansawel, Llandeilo, Dyfed, SA19 7NQ",
+      "source_lot_id": "dad30d9d-93cc-418f-96a3-93593f9db88c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/dad30d9d-93cc-418f-96a3-93593f9db88c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "No. 208 York Road, Leeds, West Yorkshire, LS9 9LN",
+      "source_lot_id": "c07b239f-eb36-422e-a738-7c68eeb50318",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c07b239f-eb36-422e-a738-7c68eeb50318",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Second Floor Flat 25 Melbourne Street, Plymouth, Devon, PL1 5HQ",
+      "source_lot_id": "7cb5c426-8c61-4a00-a169-b3f4813a17f9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7cb5c426-8c61-4a00-a169-b3f4813a17f9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Second Floor Flat 43 Emma Place, Plymouth, Devon, PL1 3QT",
+      "source_lot_id": "b0154070-7c60-4923-9123-88f115d20f27",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b0154070-7c60-4923-9123-88f115d20f27",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "21. Atkinson Street, Colne, Lancashire, BB8 8AT",
+      "source_lot_id": "2661a051-7fe4-4017-bca7-6828dcf2d5a4",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2661a051-7fe4-4017-bca7-6828dcf2d5a4",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-10-13",
+      "address": "Leasowe Castle Hotel, Leasowe Road, Wirral, CH46 3RF",
+      "source_lot_id": "fc965077-65c3-4b57-a4bd-3e25608022a0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fc965077-65c3-4b57-a4bd-3e25608022a0",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2026
+  ],
+  "date_range": [
+    "2026-10-05",
+    "2026-10-12"
+  ],
+  "by_status": {
+    "postponed": 12,
+    "sold_prior": 6,
+    "withdrawn": 2
+  },
+  "by_sector": {
+    "residential": 15,
+    "unknown": 5
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South Yorkshire": 8,
+    "Auction House Coventry and Warwickshire": 3,
+    "Auction House North East": 4,
+    "Auction House Kent": 2,
+    "Auction House Northants, Beds & Bucks": 1,
+    "Auction House North West": 1,
+    "Auction House Hull & East Yorkshire": 1
+  },
+  "detail_pages_captured": 86,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
