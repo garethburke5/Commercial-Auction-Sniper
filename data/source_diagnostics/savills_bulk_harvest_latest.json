@@ -3,18 +3,13 @@
   "strategy": "bulk_capture_first",
   "auctioneer": "Savills",
   "auctioneer_pages_visited": 1,
-  "listing_urls_discovered_this_run": 0,
-  "corpus_records": 15,
-  "blockers": [
-    {
-      "url": "https://propertyauctions.io/auctioneers/savills",
-      "status": 403
-    }
-  ],
+  "listing_urls_discovered_this_run": 15,
+  "corpus_records": 30,
+  "blockers": [],
   "attempted_pages": [
     {
       "url": "https://propertyauctions.io/auctioneers/savills",
-      "status": 403
+      "status": 200
     }
   ]
 }
