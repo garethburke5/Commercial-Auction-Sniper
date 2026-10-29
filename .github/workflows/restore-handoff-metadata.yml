@@ -13,16 +13,22 @@ permissions:
 
 concurrency:
   group: historical-handoff-metadata
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   restore:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out staged archive
+      - name: Check out staged archive and handoff targets
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
+          sparse-checkout: |
+            .github/handoff-repair
+            .github/workflows/restore-handoff-metadata.yml
+            data/auction_history/continuation_collection.json
+            docs/historical-collection-recovery-2026-10-24.md
+          sparse-checkout-cone-mode: false
 
       - name: Restore and verify handoff files
         shell: bash
