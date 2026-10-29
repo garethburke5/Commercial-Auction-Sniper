@@ -451,6 +451,10 @@ jobs:
         if: startsWith(github.event.head_commit.message, 'Run focused Auction House Online 25 August 2026 expansion')
         timeout-minutes: 20
         run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2026-08-25 --workers 16
+      - name: Collect Auction House Online 2 September 2026 shared-platform event
+        if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 2 September 2026')
+        timeout-minutes: 20
+        run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2026-09-02 --workers 16
       - name: Collect Auction House Online 8 September 2026 shared-platform event
         if: startsWith(github.event.head_commit.message, 'Run focused Auction House Online 8 September 2026 expansion')
         timeout-minutes: 20
