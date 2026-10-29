@@ -166899,7 +166899,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 49,
       "last_successful_collection": "2026-10-28T23:05:48.175746+00:00",
-      "published_rows": 48
+      "published_rows": 40
     },
     {
       "source": "Auction House Hull & East Yorkshire",
@@ -170207,7 +170207,9 @@
       "quality_gate_rejections": 0,
       "production_rows": 94,
       "last_successful_collection": "2026-10-28T23:05:49.585316+00:00",
-      "published_rows": 94
+      "published_rows": 35,
+      "coverage_status": "DEGRADED",
+      "coverage_failure_reason": "Candidate/publication drop: 94 commercial/mixed-use candidates \u2192 35 current rows; inspect dates and rejection evidence; Count collapse: 94 still-current prior rows \u2192 35 published"
     },
     {
       "source": "Strettons",
@@ -173781,7 +173783,7 @@
       "quality_gate_rejections": 0,
       "production_rows": 22,
       "last_successful_collection": "2026-10-28T23:05:54.818960+00:00",
-      "published_rows": 11
+      "published_rows": 10
     },
     {
       "source": "Future Property Auctions Scotland",
@@ -183118,8 +183120,8 @@
     "zero_inventory_outage_sources": [
       "Greenslade Taylor Hunt"
     ],
-    "publication_revision": "dcd171ffff0384847ec1af747599d1d06e0abeb9",
-    "revalidated_at": "2026-10-28T23:06:54.110059+00:00"
+    "publication_revision": "85149ce7f2bc3c5b67553dc8f635ab64c7a04c71",
+    "revalidated_at": "2026-10-29T00:06:43.173571+00:00"
   },
   "excluded_properties": [
     {
@@ -186771,7 +186773,7 @@
         "verified_on": "2026-10-27"
       }
     ],
-    "generated_at": "2026-10-28T23:06:54.107422+00:00",
+    "generated_at": "2026-10-29T00:06:43.171320+00:00",
     "snapshot_generated_at": "2026-10-28T23:06:00.439855+00:00",
     "live_verification": "not yet verified",
     "sources": [
@@ -189354,10 +189356,10 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 89,
-        "qualifying_current_lots": 48,
+        "qualifying_current_lots": 40,
         "shared_feed_rows": 0,
-        "production_rows": 48,
-        "published_rows": 48,
+        "production_rows": 40,
+        "published_rows": 40,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 48,
@@ -191585,7 +191587,7 @@
         "auctioneer": "Pugh / BTG Eddisons",
         "collector_configured": true,
         "collector_executed": true,
-        "status": "LIVE",
+        "status": "DEGRADED",
         "collection_status": "LIVE",
         "publication_status": "not independently verified",
         "current_catalogue_detected": true,
@@ -191599,14 +191601,14 @@
         "publication_residential_exclusions": 0,
         "quality_gate_rejections": 0,
         "classification_rejections": 297,
-        "qualifying_current_lots": 94,
+        "qualifying_current_lots": 35,
         "shared_feed_rows": 0,
-        "production_rows": 94,
-        "published_rows": 94,
+        "production_rows": 35,
+        "published_rows": 35,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 94,
-        "failure_reason": null,
+        "failure_reason": "Candidate/publication drop: 94 commercial/mixed-use candidates \u2192 35 current rows; inspect dates and rejection evidence; Count collapse: 94 still-current prior rows \u2192 35 published",
         "telemetry_missing": [],
         "current_source_assessment": null,
         "last_collection": "2026-10-28T23:05:49.585316+00:00",
@@ -192071,10 +192073,10 @@
         "publication_residential_exclusions": 3,
         "quality_gate_rejections": 0,
         "classification_rejections": null,
-        "qualifying_current_lots": 11,
+        "qualifying_current_lots": 10,
         "shared_feed_rows": 0,
-        "production_rows": 11,
-        "published_rows": 11,
+        "production_rows": 10,
+        "published_rows": 10,
         "live_rows": null,
         "difference": null,
         "previous_published_current_rows": 12,
@@ -192238,6 +192240,6 @@
         "storefronts": []
       }
     ],
-    "degraded_sources": 29
+    "degraded_sources": 30
   }
 }
