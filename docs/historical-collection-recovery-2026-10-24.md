@@ -3260,3 +3260,66 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   the four-row 22 October conditional catalogue. Do not retry event 85650's
   timed-out route or event 85376's incomplete route without a materially
   different recovery path.
+
+## 29 October 2026 — 14 October overlap reconciliation and empty-result repair
+
+- Revisited first-party Auction House Online event `74284` at
+  `https://online.auctionhouse.co.uk/past-auctions/74284?lotResultType=All`.
+  The run retained immutable index and lot snapshots for all **44 published
+  cards**, but the same event was already represented by the older generic
+  source key `auction-house-online-2025-10`. Exact-overlap exclusion therefore
+  admitted **zero new appearances, addresses, prices or rents**; this was a
+  reconciliation result, not collection growth.
+- The event-specific collector exposed a real reusable fault after successful
+  capture: summary generation called `min` and `max` on an empty deduplicated
+  result and raised `ValueError`. Date-range summary generation now emits
+  `[null, null]` for an empty result and retains normal minimum/maximum bounds
+  for populated results. The repair has explicit empty and populated regression
+  tests; the following focused run passed **139/139** tests and the full
+  admission suite passed **408/408**.
+- Workflow `40962099805` failed only at that summary line after capture. Bank
+  commit `2ee2c629f8b8cb19e27f753fd9c61e2d12783817` preserved the 44 source
+  snapshots, rebuilt the unchanged database and retained its publication
+  checkpoint. Do not retry event 74284 as a growth target.
+
+## 29 October 2026 — Auction House Online 7 October 2025 catalogue fully reconciled
+
+- Collected the first-party Auction House Online event at
+  `https://online.auctionhouse.co.uk/past-auctions/74097?lotResultType=All`.
+  The published count, unpaginated grid, stable source identities and detail
+  inventory reconcile at **28 of 28 lots**. All 28 detail pages and immutable
+  index/lot snapshots were retained with no recovery failures.
+- The event admitted **14 net-new appearances and 14 address records**, all
+  individually dated from 29 September to 7 October 2025 and inside the current
+  20-year window. Fourteen exact date/address overlaps were audited and
+  excluded; no duplicate source identities and no partial, undated or
+  future-dated additions were admitted.
+- Added **14 guide-price records**, **two achieved-price records** and **one rent
+  value**. The new-record sector split is seven residential, one land and six
+  unknown, so the commercial/mixed-use subset is **zero**. Outcomes remain
+  distinct: eight unsold, two sold, two sold-prior, one withdrawn and one
+  postponed.
+- Nine regional Auction House labels remain branch/channel attribution under
+  **AUCTION HOUSE UK LIMITED (company 06025583)** rather than additional legal
+  operators. The event adds one evidenced source-year (2025) and zero legal
+  operator-years.
+- The rebuilt corpus contains **306,034 appearances**, **295,262 address
+  records**, **10,772 partial records** and **298,374 dated appearances inside
+  the current 20-year window**, including **102,429 guide-price records** and
+  **111,549 achieved-price records**. Undated remains 4,445 and future-dated
+  remains 172. Surviving-complete catalogue states are **3,911**; 536 remain
+  incomplete or unreconciled and 22 have fetch/parse errors. Collection,
+  source banking, database rebuilding and source-register reconciliation,
+  Publish Now, Pages, auctiongeek.co.uk verification and permanent-history
+  banking completed successfully. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/73292?lotResultType=All`,
+  whose all-results route exposes **52 of 52 rows for 9 September 2025** and is
+  absent from the event-specific collector inventory. Preserve every stable
+  identity, detail page, individual date, guide, achieved price, rent, outcome,
+  original URL and immutable snapshot, and exclude exact date/address overlaps
+  before claiming growth. Queue event 73692 (39 rows for 23 September 2025)
+  ahead of the small conditional catalogues. Do not retry event 74284's
+  already-overlapping route, event 85650's timed-out route or event 85376's
+  incomplete route without a materially different recovery path.
+
