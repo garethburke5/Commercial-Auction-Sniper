@@ -2924,3 +2924,52 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   and exclude exact date/address overlaps before claiming growth. Do not retry
   event 85376's same incomplete route unless a materially different recovery
   path emerges.
+
+## 29 October 2026 — Auction House Online 2 September catalogue and bounded saved-source growth
+
+- Collected the first-party Auction House Online event at
+  `https://online.auctionhouse.co.uk/past-auctions/84329?lotResultType=All`.
+  The archive index, visible grid, stable source identities and detail-page
+  inventory reconcile at **17 of 17 rows**. Immutable index and lot snapshots
+  were retained and the catalogue is complete.
+- The focused event admitted **two net-new appearances and address records**,
+  both individually dated inside the current 20-year window. Fifteen exact
+  date/address overlaps were audited and excluded; there were no duplicate
+  source identities and no partial, undated or future-dated additions. It
+  added **two guide-price records**, no achieved prices and no rents. The
+  sector split is one residential and one unknown; outcomes remain distinct
+  as one unsold and one withdrawn.
+- The already queued bounded historical rotation then banked **39 additional
+  sourced appearances**: 36 from First for Auctions, one from The Property
+  Auction House and two from Town & Country Property Auctions. Thirty-eight
+  are dated inside the current window and one is explicitly future-dated.
+  Their sector split is one commercial, one mixed-use, three land, 32
+  residential and two unknown appearances. The run added **20 in-window
+  achieved-price records** (18 on its new First for Auctions rows and two
+  price enrichments to existing evidence) plus one future-dated guide. It
+  added no partial or undated records.
+- Combined, this collection run banked **41 net-new appearances and 41 address
+  records**, including **40 newly dated addresses inside the 20-year window**
+  and one future-dated appearance. The commercial/mixed-use subset is one/one.
+  Price evidence increased by **two in-window guides, one future-dated guide
+  and 20 in-window achieved prices**; rent evidence did not increase. The
+  focused event adds one evidenced source-year and zero legal operator-years;
+  the bounded sources were already represented in 2026.
+- Auction House Sussex & Hampshire and Auction House North West remain branch
+  attribution under **AUCTION HOUSE UK LIMITED (company 06025583)** rather
+  than additional legal operators. The rebuilt corpus contains **305,702
+  appearances**, **294,931 address records**, **10,771 partial records** and
+  **298,100 dated appearances inside the current 20-year window**, including
+  **102,184 guide-price records** and **111,534 achieved-price records**.
+  Undated remains 4,395 and future-dated is 164. Surviving-complete catalogue
+  states are 3,868; 535 remain incomplete or unreconciled and 22 have
+  fetch/parse errors. National completeness remains false.
+- **Next concrete growth target:** collect first-party Auction House Online
+  event `https://online.auctionhouse.co.uk/past-auctions/76336?lotResultType=All`,
+  whose results route exposes **87 of 87 rows for 16 December 2025** and is
+  absent from the event-specific collector inventory. Reconcile every visible
+  identity and detail page, preserve dates, guides, achieved prices, rents,
+  outcomes, original URLs and immutable snapshots, and exclude exact
+  date/address overlaps before claiming growth. Do not retry event 85650's
+  timed-out route or event 85376's incomplete route without a materially
+  different recovery path.
