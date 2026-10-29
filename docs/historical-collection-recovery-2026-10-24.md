@@ -2671,3 +2671,40 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   remain attribution under AUCTION HOUSE UK LIMITED. National completeness
   remains false.
 
+## 29 October 2026 — Auction House Online 27 October event blocked before inventory
+
+- Targeted the first-party all-results catalogue at
+  `https://online.auctionhouse.co.uk/past-auctions/85650?lotResultType=All`.
+  The official event detail reports **125 lots for 27 October 2026**, making it
+  the largest verified remaining opportunity at the start of this run.
+- The collector made five bounded archive-index requests. Each exhausted a
+  120-second read timeout before the response body could be parsed. The failure
+  occurred before card inventory, stable identities, detail pages or an
+  immutable index snapshot could be reconciled; no second collector was
+  launched and no captured evidence was discarded.
+- This is a genuine **zero-growth** attempt: **0 net-new appearances**, **0 new
+  address records**, **0 newly dated address records inside the 20-year
+  window**, **0 commercial/mixed-use records**, **0 source-years**, **0 legal
+  operator-years**, **0 guides**, **0 achieved prices** and **0 rents**. There
+  were no partial, undated, future-dated or duplicate additions. Overlaps are
+  unmeasured because the source inventory was not retrieved; zero exclusions
+  must not be read as proof that no overlaps exist.
+- The normal saved-corpus bank, rebuild, source-register reconciliation and
+  protected checkpoint completed. Corpus totals remain **305,590
+  appearances**, **294,819 address records**, **10,771 partial records** and
+  **297,989 dated appearances inside the current 20-year window**, including
+  **102,111 guide-price records** and **111,511 achieved-price records**.
+  Surviving-complete catalogues remain **3,857**; 515 are incomplete or
+  unreconciled and 22 have fetch/parse errors. Validation passed **397 and 128
+  tests**. Permanent-history banking and publication validation completed
+  successfully. National completeness remains false.
+- Treat event 85650's current all-results route as blocked until the upstream
+  response changes or a materially different retrieval route exists. **Next
+  concrete growth target:** collect
+  `https://online.auctionhouse.co.uk/past-auctions/85651?lotResultType=All`,
+  whose first-party event detail and archive index report **87 of 87 lots for
+  20 October 2026**. Event 85028 (86 lots, 13 October 2026) is the secondary
+  target; smaller September and 6 October events remain queued, not covered.
+  Require the published denominator, stable source identities and detail-page
+  reconciliation before claiming growth, and keep regional labels as branch
+  attribution under AUCTION HOUSE UK LIMITED.
