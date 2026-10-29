@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-28T14:46:35.826602+00:00",
+  "checked_at": "2026-10-29T00:25:37.871834+00:00",
   "source_url": "https://aglandandproperty.com/auction-results",
   "selected_result_appearances_captured": 29,
   "run_new_appearances": 0,
@@ -10,10 +10,15 @@
     "unknown": 17,
     "residential": 7
   },
-  "retained_listing_urls_reconciled": 49,
+  "retained_listing_urls_reconciled": 50,
   "dated_sold_auction_details_admitted": 4,
   "existing_appearances_exact_date_enriched": 4,
   "detail_audit": [
+    {
+      "source_url": "https://aglandandproperty.com/listings/residential_sale-RX854782-gilsland",
+      "sha256": "c104fd7fddef95db68e6251fbb2513e3be709756edb9d1cb17208ea7641aeddf",
+      "admitted": false
+    },
     {
       "source_url": "https://aglandandproperty.com/listings/residential_sale-RX824094-tyne-wear",
       "sha256": "5162e97234b89c2cc0ab3625398966f7778f751165733bea6e4f15d4d833f523",
@@ -273,13 +278,13 @@
     "completion_scope": "every sold-property block on the first-party recent-results page; not a dated full catalogue",
     "source_evidence": {
       "source_url": "https://aglandandproperty.com/auction-results",
-      "retrieved_at": "2026-10-28T14:46:31.231410+00:00",
-      "sha256": "c7a141e41c6e5bf3922be5fc0aa760b9f1028a5c1b97b26ea2c0144c9fb559e8",
-      "snapshot_path": "data/auction_history/sources/anderson-garland/recent-auction-results-c7a141e41c6e5bf3.json.gz",
+      "retrieved_at": "2026-10-29T00:25:31.430952+00:00",
+      "sha256": "0f13c2e6ad69e54f506267e13511febfe69593c0fb37b2ca324816e7a40c3159",
+      "snapshot_path": "data/auction_history/sources/anderson-garland/recent-auction-results-0f13c2e6ad69e54f.json.gz",
       "basis": "first-party retained recent auction results page"
     },
     "errors": [],
-    "checked_at": "2026-10-28T14:46:35.826285+00:00"
+    "checked_at": "2026-10-29T00:25:37.871173+00:00"
   },
   "failures": []
 }
