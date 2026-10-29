@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-10-29T00:24:48.746814+00:00",
+  "checked_at": "2026-10-29T06:25:39.974212+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7157,
+  "published_property_rows": 7161,
   "observed_property_ids": 6898,
   "observed_source_ids": [
     "10088",
@@ -6903,7 +6903,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 358,
+  "pages_expected": 359,
   "pages_captured_this_run": [
     1,
     2,
@@ -7625,9 +7625,9 @@
   "reverse_covered_normal_pages": [],
   "reverse_tail_upgraded_undated": 0,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 217,
-  "undated_tail_appearances_captured": 56,
-  "undated_tail_existing_appearances_enriched": 160,
+  "undated_tail_source_rows": 0,
+  "undated_tail_appearances_captured": 0,
+  "undated_tail_existing_appearances_enriched": 0,
   "detail_pages_recovered_this_run": 0,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
@@ -8033,7 +8033,7 @@
       "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875"
     }
   ],
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "property_appearances_captured": 6891,
   "canonical_shard_rows": 6891,
   "legacy_rows_enriched": 0,
@@ -8041,5 +8041,11 @@
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": []
+  "failures": [
+    {
+      "kind": "grid_tail_growth_recovery",
+      "url": "https://www.pugh-auctions.com/property-search?order-results=date-desc&show-results=80&include-sold=on&page=1",
+      "error": "ValueError: Published result count changed in grid fallback"
+    }
+  ]
 }
