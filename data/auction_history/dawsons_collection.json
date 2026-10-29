@@ -1,11 +1,26 @@
 {
-  "checked_at": "2026-10-29T06:33:00.889379+00:00",
+  "checked_at": "2026-10-29T07:29:07.144122+00:00",
   "parser_version": 1,
   "archive_url": "https://dawsonsproperty.co.uk/past-auctions.php",
-  "published_property_count": null,
-  "current_unique_properties": 0,
-  "pages_captured": {},
-  "archive_pagination_complete": false,
+  "published_property_count": 138,
+  "current_unique_properties": 138,
+  "pages_captured": {
+    "https://dawsonsproperty.co.uk/past-auctions.php": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=2": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=3": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=4": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=5": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=6": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=7": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=8": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=9": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=10": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=11": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=12": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=13": 10,
+    "https://dawsonsproperty.co.uk/past-auctions.php?page=14": 8
+  },
+  "archive_pagination_complete": true,
   "property_appearances_captured": 138,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
@@ -20,11 +35,6 @@
     "sold": 138
   },
   "catalogue_complete": false,
-  "failures": [
-    {
-      "url": "https://dawsonsproperty.co.uk/past-auctions.php",
-      "error": "HTTPError: 502 Server Error: Bad Gateway for url: https://dawsonsproperty.co.uk/past-auctions.php"
-    }
-  ],
+  "failures": [],
   "completion_scope": "retained past-property archive only; no original auction denominators or twenty-year completeness claim"
 }
