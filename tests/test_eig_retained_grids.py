@@ -933,6 +933,40 @@ def test_auction_house_online_27_october_event_configuration():
         "detail_timeout": 45,
     }
 
+def test_auction_house_online_6_october_event_configuration():
+    assert grids.SOURCES["auction-house-online-2026-10-06"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/85376?lotResultType=All",
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 47,
+        "allow_expected_visible_card_mismatch": True,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    }
+
+
+def test_6_october_visible_inventory_can_be_banked_without_claiming_full_catalogue():
+    source = grids.SOURCES["auction-house-online-2026-10-06"]
+    rows = grids.parse_grid(GRID, SOURCE, {})[0]
+    inventory = [dict(rows[0], source_lot_id=f"lot-{index}") for index in range(46)]
+    assert not grids.pagination_reconciles(
+        [inventory], [], [], 46,
+        unpaginated_event=source["unpaginated_event"],
+        expected_visible_cards=source["expected_visible_cards"],
+    )
+    assert source["allow_expected_visible_card_mismatch"] is True
+    assert grids.pagination_reconciles(
+        [inventory], [], [], 46,
+        unpaginated_event=source["unpaginated_event"],
+    )
+
+
 def test_auction_house_online_20_october_event_configuration():
     assert grids.SOURCES["auction-house-online-2026-10-20"] == {
         "auctioneer": "Auction House Online",

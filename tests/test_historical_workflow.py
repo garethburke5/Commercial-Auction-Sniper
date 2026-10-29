@@ -23,6 +23,15 @@ def test_queued_collection_moves_to_current_main_before_collection():
     assert "git checkout --detach origin/main" in WORKFLOW[refresh:setup]
 
 
+def test_focused_auction_house_online_6_october_expansion_is_isolated():
+    focused = WORKFLOW.index("- name: Collect Auction House Online 6 October 2026 shared-platform event")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py auction-house-online-2026-10-06 --workers 16" in block
+    assert "Rebuild historical database from banked records and collect Auction House Online 6 October 2026" in block
+
+
 def test_focused_cottons_repair_skips_broad_rotation():
     focused = WORKFLOW.index("- name: Run focused Cottons split-row recovery")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
