@@ -1238,11 +1238,17 @@ def harvest(slug: str, workers: int = 10) -> dict:
             "source_auction_id": f"{slug}:{auction_date}",
             "auction_date": auction_date,
             "source_url": first_resolved,
-            "catalogue_complete": True,
-            "source_rows_complete": True,
-            "pagination_reconciled": True,
+            "catalogue_complete": pagination_complete,
+            "source_rows_complete": pagination_complete or visible_inventory_reconciled,
+            "pagination_reconciled": pagination_complete or visible_inventory_reconciled,
             "lots_captured": len(date_rows),
-            "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+            "completion_scope": (
+                "all rows for this date in the reconciled retained flat archive; "
+                "not evidence of deleted rows or a separate event catalogue"
+                if pagination_complete else
+                "all internally reconciled visible rows for this date; the source "
+                "event advertises more lots than its result inventory and remains incomplete"
+            ),
             "source_evidence": archive_evidence,
             "errors": [],
             "checked_at": corpus.now(),
