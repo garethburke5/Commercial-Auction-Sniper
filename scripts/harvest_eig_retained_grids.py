@@ -344,6 +344,20 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2025-10-07": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/74097?lotResultType=All",
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 28,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2025-11-04": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
@@ -822,6 +836,11 @@ def amount(match: re.Match | None) -> int | None:
 def exact_date(value: str | None) -> str | None:
     match = ISO_DATE_RE.match(value or "")
     return match.group(1) if match else None
+
+
+def summary_date_range(rows) -> list[str | None]:
+    dates = [row.get("auction_date") for row in rows if row.get("auction_date")]
+    return [min(dates), max(dates)] if dates else [None, None]
 
 
 def annual_rent(match: re.Match | None) -> int | None:
@@ -1489,7 +1508,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "exact_date_address_overlap_exclusions": len(exact_overlaps),
         "exact_overlap_reconciliation": exact_overlaps,
         "new_source_years": sorted(years_after - years_before),
-        "date_range": [min(row["auction_date"] for row in merged.values()), max(row["auction_date"] for row in merged.values())],
+        "date_range": summary_date_range(merged.values()),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "by_attributed_auctioneer": dict(Counter(row.get("auctioneer") or "unknown" for row in merged.values())),
