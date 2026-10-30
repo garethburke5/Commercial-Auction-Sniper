@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-10-27T22:07:54.795961+00:00",
+  "checked_at": "2026-10-30T08:00:14.475940+00:00",
   "auctioneer": "Auction House Online",
-  "parser_version": 7,
-  "source_url": "https://online.auctionhouse.co.uk/past-auctions/71414",
-  "archive_sha256": "c44dbc581506b857a1898e43f488a7a116c218786f9e367b86dffe3baa4b8756",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/71414?lotResultType=All",
+  "archive_sha256": "e99bda6d373b7fb98d8e0f38f79e36062efa4b9b8cd7be75efa28c8deb4621b0",
   "archive_page_count": 1,
   "archive_page_rows": [
     70
@@ -12,18 +12,21 @@
     70
   ],
   "visible_source_rows": 70,
+  "expected_visible_cards": 70,
   "published_result_count": 70,
   "distinct_source_identities": 70,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
   "appearances_captured": 28,
-  "run_new_appearances": 28,
-  "run_new_address_records": 28,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 28,
-  "run_new_commercial_mixed": 1,
-  "run_new_guide_prices": 28,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
@@ -327,17 +330,15 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2025
-  ],
+  "new_source_years": [],
   "date_range": [
     "2025-07-21",
     "2025-07-29"
   ],
   "by_status": {
     "unsold": 22,
-    "sold_prior": 3,
-    "postponed": 3
+    "postponed": 3,
+    "sold_prior": 3
   },
   "by_sector": {
     "unknown": 10,
@@ -346,18 +347,19 @@
     "commercial": 1
   },
   "by_attributed_auctioneer": {
-    "Auction House North West": 7,
-    "Auction House Notts & Derby": 2,
-    "Auction House South Yorkshire": 4,
-    "Auction House North East": 3,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1,
+    "Auction House Kent": 4,
     "Auction House Lincolnshire": 3,
     "Auction House Manchester": 1,
+    "Auction House North East": 3,
+    "Auction House North West": 7,
+    "Auction House Notts & Derby": 2,
     "Auction House South West": 2,
-    "Auction House Kent": 4,
-    "Auction House Cheshire, Staffordshire & Shropshire": 1,
+    "Auction House South Yorkshire": 4,
     "Auction House Sussex & Hampshire": 1
   },
   "detail_pages_captured": 70,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": [],
