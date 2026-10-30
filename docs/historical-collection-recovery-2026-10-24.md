@@ -3650,3 +3650,23 @@ Different next target: recover individual lots from Cottons' retained first-part
 - Rebuilt corpus totals remain 306,858 appearances, 296,086 addressed records, 10,772 partial appearances, 298,926 in-window appearances, 102,778 in-window guides, 111,616 in-window achieved prices, 4,723 undated appearances and 166 future-dated appearances. Catalogue states remain 3,977 complete, 536 incomplete and 22 failed.
 - Different next target: resolve the official event ID and visible all-results denominator for Auction House Online's missing weekly event dated **6 May 2025**, then run the isolated shared-platform collector with immutable index/detail snapshots and exact overlap accounting. The persisted first-party sequence currently jumps from 15 April to 13 May 2025. Regional labels remain branches under AUCTION HOUSE UK LIMITED, not new auctioneers.
 - National completeness remains false.
+
+
+## 30 October 2026 19:31 UTC — Auction House Online 6 May 2025 complete event
+
+Specific growth opportunity: recover first-party shared-platform event 69338, whose all-results route exposes 21 of 21 property cards. The collector started only after the scheduled collection writer and its publication checkpoint were terminal.
+
+- Collector/configuration commit: `c54c1ac67218f28e50cb0fd950a6b08b113081cd`; focused run `41114551797` completed successfully.
+- Banked evidence and rebuilt database commit: `f212a76de7f65b606313da8dbe26fe818debb61b`.
+- Publication/revalidation runs `41115120949` and `41114551814` completed successfully; Pages deployment and source-to-live verification passed before handoff.
+- First-party inventory: **21/21 visible cards**, 21 stable source identities, 21 detail pages, one index page, no malformed/non-property rows, no detail failures, and explicit platform event ID 69338.
+- Net focused growth: **13 individual appearances**, **13 address records**, **0 partial**, and **13 newly dated address records inside the twenty-year window**. Individual evidence dates remain distinct from **3 May to 6 May 2025**.
+- Sectors: **1 commercial**, **0 mixed-use**, 8 residential and 4 unknown. Outcomes among admitted net-new rows: **10 unsold**, **1 postponed** and **2 sold**.
+- New evidence: **13 guide prices**, **2 achieved prices**, and **0 rent values**.
+- Deduplication: **8 exact date/address cross-source overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: **0**.
+- Coverage: one newly covered event-source year (2025), no new legal-operator year. Six regional labels remain branches of AUCTION HOUSE UK LIMITED (company 06025583), not new auctioneers.
+- The protected scheduled writer immediately preceding the focused baseline separately banked **5 appearances**: 4 addressed, 1 partial, 0 newly dated in-window, 2 undated and 3 future-dated. Those five are not included in the 13 focused-event gain.
+- Rebuilt totals: **306,876 appearances**, **296,103 address records**, **10,773 partial records**, **298,939 in-window appearances**, **102,791 in-window guides**, **111,618 in-window achieved prices**, **4,725 undated appearances** and **169 future-dated appearances**. Catalogue states are **3,980 complete**, **537 incomplete/unreconciled** and **22 failures**.
+- National completeness remains false.
+
+Different next target: collect Auction House Online event **68655** dated **29 April 2025**. Its official all-results route exposes **56 of 56** cards, including published sold, unsold, withdrawn, postponed, no-bid and sold-post outcomes. Preserve individual early outcome dates, exact branch attribution and immutable index/detail snapshots, then apply the same source-identity and exact date/address overlap accounting before claiming growth.
