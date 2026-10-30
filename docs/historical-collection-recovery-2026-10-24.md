@@ -3601,3 +3601,20 @@ Specific growth opportunity: recover first-party shared-platform event 70402 for
 - National completeness remains false.
 
 Next concrete target: event 69595, exposing 59 of 59 first-party rows for 27 May 2025. The isolated hardened collector is prepared. Event 69260, exposing 43 of 43 rows for 20 May 2025, is queued immediately behind it.
+
+
+## 30 October 2026 checkpoint — Auction House Online 27 and 20 May complete inventories, no net growth
+
+Specific opportunity: reconcile two substantial first-party shared-platform catalogues that had not yet been denominator-verified in the current collector path. Each collection started only after confirming no duplicate collector or generated-data writer was active; each retained immutable index and detail snapshots, rebuilt the database and preserved exact-overlap audits.
+
+- Event 69595 trigger commit: `0e178cbcc0f44200d8fb5852a8268b14fe6b5989`; collection run: `41086373947`; banked evidence commit: `e3c0dd67b3df6c166467c7fda337d28eec99dffb`; publication run: `41087050822`.
+- Event 69595 reconciliation: 59/59 visible cards, 59 stable source identities and 59 detail pages; no missing cards, non-property exclusions, incomplete detail pages or duplicate source identities. Seventeen admissible source appearances were already banked and the remaining 42 cards were exact date/address overlaps.
+- Event 69260 trigger and hardened-collector commit: `ce66beee41687224a570ce566cfa741fe0d749b7`; collection run: `41088732886`; banked evidence commit: `7cae604a83f7259a3aa57a847c625f17e182cc31`; publication run: `41089524833`.
+- Event 69260 reconciliation: 43/43 visible cards, 43 stable source identities and 43 detail pages; no missing cards, non-property exclusions, incomplete detail pages or duplicate source identities. Eighteen admissible source appearances were already banked and the remaining 25 cards were exact date/address overlaps.
+- Combined net growth: **0** appearances, **0** address records, **0** newly dated in-window address records, **0/0 commercial/mixed-use**, **0** guides, **0** achieved prices and **0** rent values. Partial/undated/future-dated growth is **0/0/0**. No source-year or legal-operator year was added.
+- The specific blocker is duplicate coverage, not retrieval failure: 35 admissible source rows were already present and 67 additional cards exactly matched existing date/address evidence. Both catalogues are now recorded as exhausted and are not queued again.
+- Corpus totals remain **306,846** appearances, **296,074** address records, **10,772** partial records, **298,914** in-window appearances, **102,766** in-window guides, **111,615** in-window achieved prices, **4,723** undated appearances and **166** future-dated appearances. Catalogue states remain **3,974** complete, **536** incomplete/unreconciled and **22** failures.
+- Validation passed 408/408 admission/identity/completeness tests and 154/154 continuation/storage tests for both runs. The prepared 13 May collector, explicit 33-card denominator, recovery safeguards, exact workflow isolation and regression files passed Python syntax and workflow YAML validation.
+- National completeness remains false.
+
+Next concrete target: event 69455, exposing 33 of 33 first-party rows for 13 May 2025. This materially different catalogue contains published achieved-price and rent evidence and now has a tested isolated collector. Reconciled 27 and 20 May events will not be refreshed again without a new recovery route.
