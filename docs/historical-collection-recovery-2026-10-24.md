@@ -3704,3 +3704,24 @@ Different next target: collect Auction House Online event **68131** dated **22 A
 - National completeness remains false.
 
 Different next target: collect Auction House Online event **68130** dated **8 April 2025**. Its official all-results route exposes **37 of 37** cards, including commercial property, rent and achieved-price evidence. Preserve individual dates, branch attribution and immutable index/detail snapshots, then apply the same source-identity and exact date/address overlap accounting before claiming growth.
+
+## 30 October 2026 23:44 UTC — Auction House Online 8 April 2025 complete event and protected scheduled follow-on
+
+Specific growth opportunity: recover first-party shared-platform event 68130, whose all-results route exposes 37 of 37 property cards. The isolated collector started only after predecessor collection and publication writers were terminal.
+
+- Collector/configuration commit: `07f063eed17ad685edc834af54efa504eced011f`; focused run `41135003750` completed successfully.
+- Banked evidence and rebuilt database commit: `d1734753041a547dc20e7297e33b699714c9f756`.
+- Publication run `41135871412` completed successfully; tests, Pages, source-to-live verification and auctiongeek.co.uk deployment passed. Protected revalidation run `41135003767` also completed successfully while its production job remained skipped.
+- First-party inventory: **37/37 visible cards**, 37 stable source identities, 37 detail pages and one index page. There were no non-property exclusions, malformed identities or detail failures.
+- Net focused growth: **20 individual appearances**, **20 address records**, **0 partial**, and **20 newly dated address records inside the twenty-year window**. Individual evidence dates remain distinct from **11 March to 8 April 2025**.
+- Sectors: **0 commercial**, **0 mixed-use**, 9 residential, 1 land and 10 unknown. Outcomes among admitted net-new rows: 18 unsold, 1 sold-prior and 1 sold.
+- New focused evidence: **20 guide prices**, **1 achieved price**, and **2 rent values**.
+- Deduplication: **17 exact date/address cross-source overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: **0**.
+- Coverage: one newly covered event-source year (2025), no new legal-operator year. Twelve regional labels remain branches of AUCTION HOUSE UK LIMITED (company 06025583), not new auctioneers.
+- The protected scheduled follow-on run `41142775789` separately banked **4 Town & Country Property Auctions appearances** at commit `7ba158f065b343684874194175d60b74541c14d1`: 4 addressed and dated in-window, 3 residential and 1 unknown, with 0 partial, undated, future-dated, commercial, mixed-use, guide-price or sale-price additions and 0 new source-year pairs. Its legacy summary did not emit a per-run rent delta, so no additional rent gain is claimed. Publication run `41145294546` completed successfully.
+- The same scheduled run recorded one new source-integrity blocker: Auction House North West page 2 raised `source identity drift for lot 366952`; the archive remains incomplete rather than discarding or relabelling evidence.
+- Rebuilt totals after both gains: **306,935 appearances**, **296,162 address records**, **10,773 partial records**, **298,998 in-window appearances**, **102,846 in-window guides**, **111,620 in-window achieved prices**, **4,725 undated appearances** and **169 future-dated appearances**. Catalogue states are **3,988 complete**, **537 incomplete/unreconciled** and **23 failures**.
+- National completeness remains false.
+
+Different next target: collect Auction House Online event **68049** dated **1 April 2025**. Its official all-results route exposes **26 of 26** cards: 25 individually dated 1 April and one individually dated 21 March 2025. The visible inventory carries 15 sold-price labels plus guide, rent and commercial wording. Preserve every individual date and outcome, branch attribution and immutable index/detail snapshots, then apply the same source-identity and exact date/address overlap accounting before claiming growth.
+
