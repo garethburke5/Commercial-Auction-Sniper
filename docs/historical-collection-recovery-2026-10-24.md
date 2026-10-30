@@ -3618,3 +3618,23 @@ Specific opportunity: reconcile two substantial first-party shared-platform cata
 - National completeness remains false.
 
 Next concrete target: event 69455, exposing 33 of 33 first-party rows for 13 May 2025. This materially different catalogue contains published achieved-price and rent evidence and now has a tested isolated collector. Reconciled 27 and 20 May events will not be refreshed again without a new recovery route.
+
+
+## 30 October 2026 checkpoint — Auction House Online 13 May 2025 complete event
+
+Specific growth opportunity: recover first-party shared-platform event 69455 for 13 May 2025, whose all-results route exposes 33 of 33 property cards. The collector began only after the prior publication and revalidation writers were terminal; generated data was banked before publication.
+
+- Trigger and event-provenance collector commit: `c8859192cc7d755a1d884a43b0952d6c349c4f80`.
+- Collection run: `41095326064`; source banking and database rebuilding completed successfully.
+- Banked evidence commit: `1904542493d2a14b185dddbd12a9a9bc173452a2`.
+- Publication run: `41096221972`; Pages deployment, auctiongeek.co.uk publication and source-to-live verification were protected through terminal success before handoff.
+- First-party inventory reconciliation: 33 visible cards, 33 stable source identities and 33 detail pages; one retained archive page; no missing advertised cards, non-property exclusions, incomplete detail pages or duplicate source identities. Numeric platform event ID 69455 is now retained explicitly in the source summary and catalogue states.
+- Net growth: **12** individual appearances, **12** address records and **12** newly dated address records inside the twenty-year window. No partial, undated or future-dated records were added.
+- Sectors: **10 residential** and **2 unknown**; commercial/mixed-use growth is **0/0**. Outcomes remain distinct: **8 unsold**, **2 sold prior**, **1 sold** and **1 postponed**.
+- Price and tenancy evidence: **12** new guides, **1** new achieved price and **0** rent values.
+- Deduplication: **21** exact date/address cross-source overlaps were preserved in the audit and excluded from claimed growth; duplicate source identities added: **0**.
+- Coverage: one event-source year pair (2025), no new legal-operator year. Five regional labels remain branches of AUCTION HOUSE UK LIMITED (company 06025583), not separate auctioneers.
+- Rebuilt totals: **306,858 appearances**, **296,086 address records**, **10,772 partial records**, **298,926 in-window appearances**, **102,778 in-window guides**, **111,616 in-window achieved prices**, **4,723 undated appearances** and **166 future-dated appearances**. Catalogue states are **3,977 complete**, **536 incomplete/unreconciled** and **22 failures**.
+- Validation: admission/identity/completeness suite **409/409**; continuation/storage suite **155/155**. National completeness remains false.
+
+Different next target: recover individual lots from Cottons' retained first-party image-only result PDFs for **14 February 2018** and **28 February 2017**. The immutable PDF snapshots are already banked, but the current free PSM 4 OCR route is blocked respectively by a missing table header and conflicting lot labels. The next collector improvement must try bounded alternative free OCR segmentation while retaining exact date, unique lot-number, sequence, duplicate and source-snapshot admission rules; no rows are claimed until those checks pass.
