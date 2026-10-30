@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-30T00:02:17.622390+00:00",
-  "individual_lot_records_captured": 306058,
-  "records_with_address": 295286,
+  "generated_at": "2026-10-30T00:38:50.328092+00:00",
+  "individual_lot_records_captured": 306258,
+  "records_with_address": 295486,
   "partial_lot_records": 10772,
-  "exact_address_groups": 164624,
-  "groups_with_repeat_appearances": 41920,
+  "exact_address_groups": 164659,
+  "groups_with_repeat_appearances": 41943,
   "by_auctioneer": {
     "247 Property Auctions": 263,
-    "Acuitus": 5697,
+    "Acuitus": 5734,
     "Agents Property Auction": 83,
     "Allsop": 44928,
     "Allsop Commercial": 68,
@@ -70,7 +70,7 @@
     "Dedman Gray": 2851,
     "Edward Mellor": 10268,
     "First for Auctions": 1449,
-    "Future Property Auctions": 75881,
+    "Future Property Auctions": 76043,
     "Goldings Auctions": 621,
     "Harman Healy": 1520,
     "Higgins Drysdale National Property Auctions": 163,
@@ -78,7 +78,7 @@
     "John Francis": 1407,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 591,
-    "Landmark Auctions": 68,
+    "Landmark Auctions": 69,
     "Landwood Property Auctions": 2731,
     "Lot9 Auction House": 34,
     "Loveitts": 582,
@@ -141,20 +141,20 @@
     "2023": 32497,
     "2024": 41138,
     "2025": 47323,
-    "2026": 45897
+    "2026": 46097
   },
   "by_sector": {
-    "commercial": 42272,
-    "land": 18591,
-    "mixed-use": 47225,
-    "residential": 149116,
+    "commercial": 42366,
+    "land": 18599,
+    "mixed-use": 47301,
+    "residential": 149138,
     "unknown": 48854
   },
   "date_range": [
     "2002-10-31",
     "2026-12-10"
   ],
-  "surviving_catalogues_completely_harvested": 3915,
+  "surviving_catalogues_completely_harvested": 3917,
   "catalogues_incomplete_or_unreconciled": 536,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
@@ -168,13 +168,13 @@
     "through_date": "2026-10-30",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 298408,
-      "auction_ids_observed": 11722,
+      "lot_appearances": 298607,
+      "auction_ids_observed": 11724,
       "with_guide_price": 102459,
-      "with_sale_price": 111551,
+      "with_sale_price": 111572,
       "with_both_prices": 48234,
-      "marked_sold": 153441,
-      "marked_sold_without_sale_price": 42630
+      "marked_sold": 153480,
+      "marked_sold_without_sale_price": 42648
     },
     "by_auctioneer_and_year": [
       {
@@ -422,13 +422,13 @@
       {
         "auctioneer": "Acuitus",
         "year": 2026,
-        "lot_appearances": 183,
-        "auction_ids_observed": 5,
+        "lot_appearances": 220,
+        "auction_ids_observed": 6,
         "with_guide_price": 4,
-        "with_sale_price": 71,
+        "with_sale_price": 77,
         "with_both_prices": 0,
-        "marked_sold": 119,
-        "marked_sold_without_sale_price": 48
+        "marked_sold": 143,
+        "marked_sold_without_sale_price": 66
       },
       {
         "auctioneer": "Allsop",
@@ -4569,12 +4569,12 @@
       {
         "auctioneer": "Future Property Auctions",
         "year": 2026,
-        "lot_appearances": 14722,
-        "auction_ids_observed": 40,
+        "lot_appearances": 14884,
+        "auction_ids_observed": 41,
         "with_guide_price": 0,
-        "with_sale_price": 931,
+        "with_sale_price": 946,
         "with_both_prices": 0,
-        "marked_sold": 931,
+        "marked_sold": 946,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -7582,7 +7582,7 @@
       }
     ],
     "undated_appearances": 4445,
-    "future_dated_appearances": 162,
+    "future_dated_appearances": 163,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

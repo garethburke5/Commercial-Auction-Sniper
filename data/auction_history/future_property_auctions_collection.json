@@ -1,18 +1,20 @@
 {
-  "checked_at": "2026-10-29T20:08:12.474082+00:00",
+  "checked_at": "2026-10-30T00:35:08.150698+00:00",
   "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
-  "archive_auctions_discovered": 229,
+  "archive_auctions_discovered": 230,
   "archive_date_min": "2019-09-24",
-  "archive_date_max": "2026-10-22",
-  "catalogues_complete": 229,
+  "archive_date_max": "2026-10-29",
+  "catalogues_complete": 230,
   "catalogues_pending": 0,
-  "catalogues_attempted_this_run": 0,
+  "catalogues_attempted_this_run": 1,
   "catalogues_deferred_recent_403": 0,
-  "catalogues_eligible_after_deferrals": 0,
-  "selected_auction_uuids": [],
-  "appearances_captured": 75881,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "catalogues_eligible_after_deferrals": 1,
+  "selected_auction_uuids": [
+    "8c752921-126d-457f-a87e-e628d55cf92a"
+  ],
+  "appearances_captured": 76043,
+  "run_new_appearances": 162,
+  "run_new_address_records": 162,
   "run_new_partial_lots": 0,
   "excluded_test_auctions": [
     {
@@ -43,23 +45,23 @@
   ],
   "excluded_test_appearances": 0,
   "by_status": {
-    "unsold": 71808,
-    "sold": 4073
+    "unsold": 71955,
+    "sold": 4088
   },
   "by_sector": {
-    "residential": 23929,
-    "commercial": 17281,
-    "mixed-use": 29764,
-    "land": 4902,
+    "residential": 23949,
+    "commercial": 17350,
+    "mixed-use": 29831,
+    "land": 4908,
     "unknown": 5
   },
   "privacy_note": "source snapshots exclude registrants, bidder/user UUIDs, full bid histories and reserve values",
-  "manifest_refresh_error": "HTTPError: 403 Client Error: Forbidden for url: https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
+  "manifest_refresh_error": null,
   "archive_evidence": {
     "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
-    "retrieved_at": "2026-10-25T23:33:59.731214+00:00",
-    "sha256": "39c64d7fd044b3efb26c1e430fcc467335340d3c730440d2c77359ed71d8f8be",
-    "snapshot_path": "data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz",
+    "retrieved_at": "2026-10-30T00:35:03.210712+00:00",
+    "sha256": "95a755eb9f7c2f68b555d79733c5ca07e73464c958571209434281c89e57eb9d",
+    "snapshot_path": "data/auction_history/sources/future_property_auctions/archive-95a755eb9f7c2f68.json.gz",
     "basis": "first-party public BidJS archived-auction manifest"
   },
   "auctions": {
@@ -6474,6 +6476,34 @@
       },
       "errors": [],
       "checked_at": "2026-10-26T00:11:27.696111+00:00"
+    },
+    "11696": {
+      "auctioneer": "Future Property Auctions",
+      "source_auction_id": "future-property:8c752921-126d-457f-a87e-e628d55cf92a",
+      "source_numeric_auction_id": "11696",
+      "auction_uuid": "8c752921-126d-457f-a87e-e628d55cf92a",
+      "auction_title": "Timed Online Auction- Thursday 29th October 2026, 10am-3pm",
+      "auction_date": "2026-10-29",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_listing_count": 162,
+      "lots_captured": 162,
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
+      "completion_scope": "all listing UUIDs in the archived auction payload",
+      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/8c752921-126d-457f-a87e-e628d55cf92a",
+      "source_evidence": {
+        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/8c752921-126d-457f-a87e-e628d55cf92a",
+        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
+        "retrieved_at": "2026-10-30T00:35:07.904609+00:00",
+        "sha256": "24dd3319e93e15417debfcc86acba9bc40e8a3aa8c74ad001ebb3c53ede143aa",
+        "snapshot_path": "data/auction_history/sources/future_property_auctions/11696/auction-24dd3319e93e1541.json.gz",
+        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-95a755eb9f7c2f68.json.gz",
+        "basis": "complete first-party public BidJS archived-auction payload"
+      },
+      "errors": [],
+      "checked_at": "2026-10-30T00:35:08.061994+00:00"
     }
   },
   "deferred_failures": [],
