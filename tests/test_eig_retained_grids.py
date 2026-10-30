@@ -496,7 +496,11 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "expected_visible_cards": 59,
         "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
     }
     assert grids.SOURCES["auction-house-online-2025-08-19"] == {
         "auctioneer": "Auction House Online",
