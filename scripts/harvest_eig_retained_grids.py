@@ -1512,6 +1512,14 @@ def reconcile_legacy_rolling_rows(
     }
 
 
+def retained_event_id(url: str) -> str | None:
+    """Return the first-party numeric event ID without inventing one for rolling grids."""
+    parts = [part for part in urlsplit(url).path.split("/") if part]
+    if len(parts) >= 2 and parts[-2] == "past-auctions" and parts[-1].isdigit():
+        return parts[-1]
+    return None
+
+
 def harvest(slug: str, workers: int = 10) -> dict:
     if slug not in SOURCES:
         raise ValueError(f"unknown retained grid: {slug}")
@@ -1519,6 +1527,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
     archive_url = source["base"] + source.get("archive_path", "/past-auctions?lotResultType=All")
     first_raw, first_resolved = get(archive_url)
     first_html = first_raw.decode("utf-8", "replace")
+    platform_event_id = retained_event_id(first_resolved)
     pages = page_count(first_html)
     fetched = {1: (first_raw, first_resolved)}
     with ThreadPoolExecutor(max_workers=min(workers, pages)) as pool:
@@ -1667,6 +1676,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
             "source_auction_id": f"{slug}:{auction_date}",
             "auction_date": auction_date,
             "source_url": first_resolved,
+            "platform_event_id": platform_event_id,
             "catalogue_complete": pagination_complete,
             "source_rows_complete": pagination_complete or visible_inventory_reconciled,
             "pagination_reconciled": pagination_complete or visible_inventory_reconciled,
@@ -1698,6 +1708,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "auctioneer": source["auctioneer"],
         "parser_version": PARSER_VERSION,
         "source_url": first_resolved,
+        "platform_event_id": platform_event_id,
         "archive_sha256": archive_sha,
         "archive_page_count": pages,
         "archive_page_rows": [len(value) for value in page_rows],

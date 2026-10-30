@@ -1415,3 +1415,13 @@ def test_20_october_visible_inventory_can_be_banked_without_claiming_full_catalo
         unpaginated_event=source["unpaginated_event"],
     )
 
+
+
+
+def test_retained_event_id_is_preserved_only_for_numbered_event_routes():
+    assert grids.retained_event_id(
+        "https://online.auctionhouse.co.uk/past-auctions/69455?lotResultType=All"
+    ) == "69455"
+    assert grids.retained_event_id(
+        "https://propertyauctions.lsh.co.uk/past-auctions?page=1&lotResultType=All"
+    ) is None
