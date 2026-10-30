@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-10-30T13:46:10.529773+00:00",
+  "checked_at": "2026-10-30T23:13:11.918962+00:00",
   "pages_expected": 14,
   "pages_captured": 14,
-  "current_archive_rows": 397,
+  "current_archive_rows": 371,
   "property_appearances_captured": 417,
   "run_new_appearances": 0,
   "address_records": 417,
@@ -13,8 +13,8 @@
     "sold_prior": 29,
     "sold": 264,
     "sold_after": 55,
-    "no_bids": 31,
-    "last_bid": 25,
+    "no_bids": 30,
+    "last_bid": 26,
     "withdrawn": 11,
     "postponed": 2
   },
@@ -34,6 +34,12 @@
     "13": 30,
     "14": 7
   },
-  "failures": [],
-  "archive_pagination_complete": true
+  "failures": [
+    {
+      "page": 2,
+      "url": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2",
+      "error": "ValueError: source identity drift for lot 366952"
+    }
+  ],
+  "archive_pagination_complete": false
 }

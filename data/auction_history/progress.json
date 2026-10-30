@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-30T22:04:51.318228+00:00",
-  "individual_lot_records_captured": 306931,
-  "records_with_address": 296158,
+  "generated_at": "2026-10-30T23:32:59.302119+00:00",
+  "individual_lot_records_captured": 306935,
+  "records_with_address": 296162,
   "partial_lot_records": 10773,
-  "exact_address_groups": 165047,
+  "exact_address_groups": 165051,
   "groups_with_repeat_appearances": 42079,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -112,7 +112,7 @@
     "Symonds & Sampson": 1134,
     "The Auction Company": 123,
     "The Property Auction House": 129,
-    "Town & Country Property Auctions": 3011,
+    "Town & Country Property Auctions": 3015,
     "Unknown auctioneer": 14
   },
   "by_year": {
@@ -141,15 +141,15 @@
     "2023": 32497,
     "2024": 41138,
     "2025": 47634,
-    "2026": 46178,
+    "2026": 46182,
     "2027": 1
   },
   "by_sector": {
     "commercial": 42393,
     "land": 18648,
     "mixed-use": 47315,
-    "residential": 149397,
-    "unknown": 49178
+    "residential": 149400,
+    "unknown": 49179
   },
   "date_range": [
     "2002-10-31",
@@ -157,7 +157,7 @@
   ],
   "surviving_catalogues_completely_harvested": 3988,
   "catalogues_incomplete_or_unreconciled": 537,
-  "catalogue_fetch_or_parse_failures": 22,
+  "catalogue_fetch_or_parse_failures": 23,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -169,13 +169,13 @@
     "through_date": "2026-10-30",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 298994,
+      "lot_appearances": 298998,
       "auction_ids_observed": 11926,
       "with_guide_price": 102846,
       "with_sale_price": 111620,
       "with_both_prices": 48280,
-      "marked_sold": 153574,
-      "marked_sold_without_sale_price": 42694
+      "marked_sold": 153576,
+      "marked_sold_without_sale_price": 42696
     },
     "by_auctioneer_and_year": [
       {
@@ -2364,8 +2364,8 @@
         "with_guide_price": 187,
         "with_sale_price": 72,
         "with_both_prices": 72,
-        "marked_sold": 79,
-        "marked_sold_without_sale_price": 7
+        "marked_sold": 80,
+        "marked_sold_without_sale_price": 8
       },
       {
         "auctioneer": "Auction House South Yorkshire",
@@ -7573,13 +7573,13 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1314,
+        "lot_appearances": 1318,
         "auction_ids_observed": 580,
         "with_guide_price": 0,
         "with_sale_price": 249,
         "with_both_prices": 0,
-        "marked_sold": 758,
-        "marked_sold_without_sale_price": 509
+        "marked_sold": 759,
+        "marked_sold_without_sale_price": 510
       },
       {
         "auctioneer": "Unknown auctioneer",
@@ -7616,7 +7616,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-30T18:52:31.240129+00:00",
+    "checked_at": "2026-10-30T23:19:50.741976+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
