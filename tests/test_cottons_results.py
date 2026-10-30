@@ -1,9 +1,11 @@
 import pytest
 
+import scripts.harvest_cottons_results as cottons
 from scripts.harvest_cottons_results import (
     discover_result_sheets,
     merge_result_row,
     parse_date,
+    parse_result_pdf_ocr,
     parse_result_text,
     reconcile_catalogue_validated_gap,
     result_state_reusable,
@@ -292,11 +294,83 @@ def test_complete_ocr_state_is_refreshed_when_ocr_parser_version_changes():
     }
     assert result_state_reusable(common, rows) is True
     assert result_state_reusable(
-        {**common, "ocr_recovered": True, "ocr_version": 5}, rows
+        {**common, "ocr_recovered": True, "ocr_version": 6}, rows
     ) is False
     assert result_state_reusable(
-        {**common, "ocr_recovered": True, "ocr_version": 6}, rows
+        {**common, "ocr_recovered": True, "ocr_version": 7}, rows
     ) is True
+
+
+def test_bounded_ocr_selects_largest_strict_candidate(monkeypatch):
+    texts = {
+        4: "Auction : 25 February 2014 Results Sheet\nno table heading",
+        3: """
+Auction : 25 February 2014 Results Sheet
+Lot Address Result
+1 1 HIGH STREET, BIRMINGHAM £50,000
+2 2 HIGH STREET, BIRMINGHAM SOLD PRIOR
+""",
+        6: """
+Auction : 25 February 2014 Results Sheet
+Lot Address Result
+1 1 HIGH STREET, BIRMINGHAM £50,000
+""",
+    }
+    attempted = []
+
+    def fake_extract(_raw, psm=4):
+        attempted.append(psm)
+        return texts[psm]
+
+    monkeypatch.setattr(cottons, "OCR_PSM_MODES", (4, 3, 6))
+    monkeypatch.setattr(cottons, "extract_pdf_text_ocr", fake_extract)
+    item = {
+        "auction_id": "cottons:test-bounded-ocr",
+        "auction_date": "2014-02-25",
+        "result_url": "https://www.cottons.co.uk/Results-25-02-14.pdf",
+    }
+    state, rows, selected = parse_result_pdf_ocr(
+        b"saved scan", item, {"basis": "OCR of retained first-party result PDF"}
+    )
+
+    assert attempted == [4, 3, 6]
+    assert state["lots_captured"] == 2
+    assert [row["lot_number"] for row in rows] == ["1", "2"]
+    assert selected["ocr_selected_psm"] == 3
+    assert selected["ocr_modes_attempted"] == [4, 3, 6]
+    assert selected["ocr_candidates_admitted"] == [
+        {
+            "psm": 3,
+            "lots_captured": 2,
+            "catalogue_complete": True,
+            "published_lots_offered": 2,
+        },
+        {
+            "psm": 6,
+            "lots_captured": 1,
+            "catalogue_complete": True,
+            "published_lots_offered": 1,
+        },
+    ]
+    assert "result table header is absent" in selected["ocr_mode_failures"]["4"]
+
+
+def test_bounded_ocr_reports_each_strict_failure(monkeypatch):
+    monkeypatch.setattr(cottons, "OCR_PSM_MODES", (4, 11))
+    monkeypatch.setattr(
+        cottons, "extract_pdf_text_ocr",
+        lambda _raw, psm=4: f"Auction : 25 February 2014 Results Sheet\nPSM {psm}",
+    )
+    item = {
+        "auction_id": "cottons:test-bounded-ocr-failure",
+        "auction_date": "2014-02-25",
+        "result_url": "https://www.cottons.co.uk/Results-25-02-14.pdf",
+    }
+    with pytest.raises(ValueError, match=r"PSM 4:.*PSM 11:"):
+        parse_result_pdf_ocr(
+            b"saved scan", item,
+            {"basis": "OCR of retained first-party result PDF"},
+        )
 
 
 def test_ocr_row_start_artifact_is_not_repaired_out_of_sequence():

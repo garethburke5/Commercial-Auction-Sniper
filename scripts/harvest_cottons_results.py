@@ -47,8 +47,12 @@ ROW_RE = re.compile(
     r"^(\d+[A-Za-z]?|I|LI|L1|I1|AQ|AL|[§$]2|§3)[.)}\]]?(?:\s*[_|{}]+\s*|\s+)(.+)$",
     re.I,
 )
-OCR_VERSION = 6
+OCR_VERSION = 7
 OCR_DPI = 300
+# Try the table-oriented layout first, then a finite set of materially
+# different free Tesseract segmenters. Every candidate still has to pass the
+# same exact-date, unique-lot and sequence admission rules below.
+OCR_PSM_MODES = (4, 3, 6, 11, 12)
 # Bump when native-PDF row reconstruction changes. A saved sheet can have a
 # contiguous 1..N prefix and still be truncated at page furniture, so count
 # equality alone is not enough to reuse states parsed by an older algorithm.
@@ -615,8 +619,8 @@ def extract_pdf_text(raw: bytes) -> str:
     return text
 
 
-def extract_pdf_text_ocr(raw: bytes) -> str:
-    """OCR a retained image-only result PDF using free runner binaries."""
+def extract_pdf_text_ocr(raw: bytes, psm: int = 4) -> str:
+    """OCR a retained image-only result PDF using one bounded segmenter."""
     if not shutil.which("pdftoppm") or not shutil.which("tesseract"):
         raise RuntimeError("OCR requires pdftoppm and tesseract")
     with tempfile.TemporaryDirectory(prefix="cottons-ocr-") as directory:
@@ -633,10 +637,7 @@ def extract_pdf_text_ocr(raw: bytes) -> str:
         pages = []
         for image in sorted(work.glob("page-*.png")):
             completed = subprocess.run(
-                # PSM 4 preserves the result table's row ordering. PSM 6
-                # treated the whole page as one block and dropped most rows
-                # from retained 2017 scans.
-                ["tesseract", str(image), "stdout", "--psm", "4"],
+                ["tesseract", str(image), "stdout", "--psm", str(psm)],
                 check=True,
                 capture_output=True,
                 text=True,
@@ -647,6 +648,67 @@ def extract_pdf_text_ocr(raw: bytes) -> str:
         if len(text.strip()) < 100:
             raise ValueError("OCR produced no usable result text")
         return text
+
+
+def parse_result_pdf_ocr(
+        raw: bytes, expected: dict, evidence: dict
+) -> tuple[dict, list[dict], dict]:
+    """Select the strongest strictly admitted result from bounded OCR modes.
+
+    PSM 4 remains first because it usually preserves table order. The other
+    modes are materially different free segmentation routes for saved scans.
+    We never merge conflicting OCR output: every candidate is parsed
+    independently, and the admitted candidate with the most evidenced rows is
+    retained. This prevents the known PSM 6 short-prefix output from winning
+    merely because its truncated prefix is contiguous.
+    """
+    candidates = []
+    failures = {}
+    for psm in OCR_PSM_MODES:
+        candidate_evidence = {
+            **evidence,
+            "ocr_engine": (
+                f"Tesseract PSM {psm} with Poppler {OCR_DPI}dpi "
+                "lossless rasterisation"
+            ),
+            "ocr_psm": psm,
+        }
+        try:
+            state, rows = parse_result_text(
+                extract_pdf_text_ocr(raw, psm=psm), expected, candidate_evidence
+            )
+            candidates.append((state, rows, candidate_evidence, psm))
+        except Exception as exc:
+            failures[str(psm)] = f"{type(exc).__name__}: {exc}"[:300]
+    if not candidates:
+        details = "; ".join(
+            f"PSM {psm}: {failures.get(str(psm), 'not attempted')}"
+            for psm in OCR_PSM_MODES
+        )
+        raise ValueError(f"bounded OCR modes failed: {details}")
+
+    state, rows, selected_evidence, selected_psm = max(
+        candidates,
+        key=lambda candidate: (
+            candidate[0].get("lots_captured", 0),
+            bool(candidate[0].get("catalogue_complete")),
+            candidate[0].get("published_lots_offered", 0),
+            -OCR_PSM_MODES.index(candidate[3]),
+        ),
+    )
+    selected_evidence["ocr_modes_attempted"] = list(OCR_PSM_MODES)
+    selected_evidence["ocr_mode_failures"] = failures
+    selected_evidence["ocr_candidates_admitted"] = [
+        {
+            "psm": psm,
+            "lots_captured": candidate_state.get("lots_captured", 0),
+            "catalogue_complete": bool(candidate_state.get("catalogue_complete")),
+            "published_lots_offered": candidate_state.get("published_lots_offered"),
+        }
+        for candidate_state, _candidate_rows, _candidate_evidence, psm in candidates
+    ]
+    selected_evidence["ocr_selected_psm"] = selected_psm
+    return state, rows, selected_evidence
 
 
 def get(url: str) -> requests.Response:
@@ -727,10 +789,9 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "archive_snapshot_path": archive_evidence["snapshot_path"],
                 "basis": "OCR of retained first-party complete auction result PDF",
-                "ocr_engine": f"Tesseract PSM 4 with Poppler {OCR_DPI}dpi lossless rasterisation",
                 "ocr_version": OCR_VERSION,
             }
-            state, rows = parse_result_text(extract_pdf_text_ocr(raw), item, evidence)
+            state, rows, evidence = parse_result_pdf_ocr(raw, item, evidence)
             state["ocr_recovered"] = True
             state["ocr_version"] = OCR_VERSION
             state["source_evidence"] = evidence
@@ -838,11 +899,10 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
                         ocr_evidence = {
                             **evidence,
                             "basis": "OCR of retained first-party complete auction result PDF",
-                            "ocr_engine": f"Tesseract PSM 4 with Poppler {OCR_DPI}dpi lossless rasterisation",
                             "ocr_version": OCR_VERSION,
                         }
-                        state, rows = parse_result_text(
-                            extract_pdf_text_ocr(raw), item, ocr_evidence
+                        state, rows, ocr_evidence = parse_result_pdf_ocr(
+                            raw, item, ocr_evidence
                         )
                         state["ocr_recovered"] = True
                         state["ocr_version"] = OCR_VERSION
