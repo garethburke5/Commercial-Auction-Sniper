@@ -2,7 +2,7 @@
   "auctioneer": "Auction House Online",
   "source_auction_id": "auction-house-online-2025-06-24:2025-06-20",
   "auction_date": "2025-06-20",
-  "source_url": "https://online.auctionhouse.co.uk/past-auctions/70967",
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/70967?lotResultType=All",
   "catalogue_complete": true,
   "source_rows_complete": true,
   "pagination_reconciled": true,
@@ -10,15 +10,15 @@
   "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
   "source_evidence": [
     {
-      "source_url": "https://online.auctionhouse.co.uk/past-auctions/70967",
-      "retrieved_at": "2026-10-28T00:09:12.122838+00:00",
-      "sha256": "311b368e507482585ec7898f4f8ffc2f2d720460af56bd2da26d1a2644d8df70",
-      "snapshot_path": "data/auction_history/sources/auction-house-online-2025-06-24/past-auctions-page-1-311b368e50748258.json.gz",
+      "source_url": "https://online.auctionhouse.co.uk/past-auctions/70967?lotResultType=All",
+      "retrieved_at": "2026-10-30T12:03:03.274018+00:00",
+      "sha256": "dcc7a72f642994e92168004bdda8922fd9743a86e1994bde36d3286cbed7f527",
+      "snapshot_path": "data/auction_history/sources/auction-house-online-2025-06-24/past-auctions-page-1-dcc7a72f642994e9.json.gz",
       "basis": "first-party retained EIG white-label past-auction grid",
       "page": 1,
       "page_count": 1
     }
   ],
   "errors": [],
-  "checked_at": "2026-10-28T00:09:33.631726+00:00"
+  "checked_at": "2026-10-30T12:03:27.539593+00:00"
 }
