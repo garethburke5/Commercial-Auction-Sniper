@@ -3520,3 +3520,21 @@ Specific growth opportunity: recover first-party shared-platform event 71014 for
 
 Next concrete target: event 70967, exposing 54 of 54 first-party rows for 24 June 2025. Its existing collector is upgraded with the explicit denominator, all-results route, exact-overlap exclusion, incomplete-detail recovery, isolated workflow gate and regression checks. Event 70557, exposing 40 of 40 rows for 17 June 2025, is queued next.
 
+## 30 October 2026 checkpoint — Auction House Online 24 June 2025 exhausted event
+
+Specific growth opportunity: recover first-party shared-platform event 70967 for 24 June 2025, whose all-results route exposes 54 of 54 property cards. The isolated collection ran only after the writer lock was clear.
+
+- Trigger commit: `eea925f3d3cba30d60fbe4825beccc8b021ae4da`.
+- Collection run: `41052310180`; source reconciliation, banking and database rebuild completed successfully.
+- Banked evidence commit: `ab5dc62ce236de99409e64b4b2adb5bae44c7f49`.
+- Publication run: `41052788614`; protected until terminal success before the next collector was triggered.
+- First-party inventory reconciliation: 54 visible cards, 54 stable source identities and 54 detail pages; one retained archive page; no missing advertised cards, non-property exclusions, incomplete detail pages or duplicate source identities.
+- Net growth: **0** individual appearances, **0** address records and **0** newly dated address records inside the twenty-year window. No partial, undated or future-dated records were added.
+- Specific blocker: the event shard already contained all 27 admissible rows; the remaining 27 cards are exact date/address cross-source overlaps. No canonical guide, achieved-price or rent evidence was new.
+- No event-source year or legal-operator year was added. Fourteen regional labels remain branches of AUCTION HOUSE UK LIMITED (company 06025583), not separate auctioneers.
+- Rebuilt totals remain 306,435 appearances, 295,663 address records, 10,772 partial records, 298,784 in-window appearances, 102,636 in-window guides, 111,587 in-window achieved prices, 4,445 undated appearances and 163 future-dated appearances. Catalogue states remain 3,960 complete, 536 incomplete/unreconciled and 22 failures.
+- Validation: admission/identity/completeness suite 408/408; continuation/storage suite 151/151. The prepared 17 June collector, source configuration, explicit denominator, recovery safeguards and workflow gate passed Python syntax and workflow YAML validation.
+- National completeness remains false.
+
+Different next target: event 70557, exposing 40 of 40 first-party rows for 17 June 2025. The isolated tested collector is prepared and triggered only after publication run `41052788614` reached terminal success. Event 70403, exposing 52 of 52 rows for 10 June 2025, is queued immediately behind it.
+
