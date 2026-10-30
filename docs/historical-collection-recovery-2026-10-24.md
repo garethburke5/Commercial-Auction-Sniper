@@ -3323,3 +3323,17 @@ The rebuilt corpus checkpoint is 305,487 appearances, including 294,716 address 
   already-overlapping route, event 85650's timed-out route or event 85376's
   incomplete route without a materially different recovery path.
 
+## Checkpoint: Auction House Online 9 September 2025
+
+Published source checkpoint `81f567e98ac185c4c6d4a3db393f434670c05d2b` from workflow run `40976718989`:
+
+- Reconciled all **52** visible first-party cards, **52** stable identities and **52** detail pages for event 73292. Immutable index and lot snapshots were retained; the catalogue has no missing visible rows or detail failures.
+- Banked **24 net-new individual appearances**, all address records and all dated inside the preceding twenty-year window. There were no partial, undated or future-dated additions.
+- Added **24 guide prices**, **2 achieved prices** and no new rent values. The additions comprise **9 residential**, **1 land** and **14 unknown-sector** appearances; no commercial or mixed-use addition was evidenced.
+- Preserved published outcomes separately: **2 sold**, **1 sold prior**, **16 unsold**, **3 withdrawn** and **2 postponed** among the net-new rows.
+- Excluded **28 exact date/address overlaps** from growth while preserving them in the reconciliation audit. Duplicate source identities were zero.
+- Added one event source-year (Auction House Online 2025) but no new legal operator-year. Seven regional Auction House labels remain branch attribution under AUCTION HOUSE UK LIMITED (company 06025583), not separate legal operators.
+- The rebuilt database contains **306,058 appearances**, **295,286 address records** and **10,772 partial records**. Focused collector growth is 24 dated in-window addresses; the separate movement of ten records from future-dated to current coverage reflects the 30 October date boundary and is not claimed as collection growth.
+- Current totals are **298,408** in-window appearances, **102,459** in-window guides, **111,551** in-window achieved prices, **4,445** undated appearances, **162** future-dated appearances, **3,915** complete catalogue states, **536** incomplete/unreconciled states and **22** fetch/parse failures.
+
+Next concrete target: Auction House Online event 73692, exposing **39/39** first-party rows for 23 September 2025. Event 73419, exposing **39/39** rows for 16 September 2025, is queued behind it. National completeness remains false.
