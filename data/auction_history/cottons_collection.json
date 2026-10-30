@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-10-30T13:48:14.877523+00:00",
+  "checked_at": "2026-10-30T18:22:22.824153+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 135,
   "result_sheets_complete": 129,
   "result_sheets_blocked": 3,
-  "result_sheets_reused": 128,
+  "result_sheets_reused": 127,
   "result_sheets_attempted_this_run": 4,
   "result_sheets_pending": 0,
-  "ocr_sheets_attempted_this_run": 3,
-  "ocr_appearances_recovered_this_run": 144,
+  "ocr_sheets_attempted_this_run": 4,
+  "ocr_appearances_recovered_this_run": 226,
   "appearances_captured": 7474,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
@@ -34,9 +34,9 @@
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-10-30T13:48:03.185646+00:00",
-    "sha256": "42dfc8ea5c8d4d75a822cbc5a159d88603d9ffe3cb042177ebd5dbd14751cc7d",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-42dfc8ea5c8d4d75.json.gz",
+    "retrieved_at": "2026-10-30T18:20:43.690538+00:00",
+    "sha256": "c9087718039928a916ea214935fb21d9af700609172398b1de5548161a4f9827",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-c9087718039928a9.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -54,7 +54,7 @@
       "url": "https://www.cottons.co.uk/wp-content/uploads/2018/02/Auction-Results-14-02-18.pdf",
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained image-only result PDF failed bounded OCR recovery",
-      "ocr_error": "ValueError: result table header is absent"
+      "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: ValueError: result table header is absent; PSM 3: ValueError: result table header is absent; PSM 6: ValueError: result table header is absent; PSM 11: ValueError: result table header is absent; PSM 12: ValueError: result table header is absent"
     },
     {
       "auction_id": "cottons:2017-02-28:4614c568ee5f",
@@ -62,7 +62,7 @@
       "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-28th-Feb-2017.pdf",
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained image-only result PDF failed bounded OCR recovery",
-      "ocr_error": "ValueError: duplicate lot labels in result PDF with conflicting evidence"
+      "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: ValueError: duplicate lot labels in result PDF with conflicting evidence; PSM 3: ValueError: duplicate lot labels in result PDF with conflicting evidence; PSM 6: ValueError: result table header is absent; PSM 11: ValueError: result table header is absent; PSM 12: ValueError: result table header is absent"
     }
   ],
   "failures": []

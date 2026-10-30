@@ -18,17 +18,45 @@
   "result_parser_version": 2,
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results.pdf",
   "errors": [],
-  "checked_at": "2026-10-25T15:09:28.480433+00:00",
+  "checked_at": "2026-10-30T18:20:50.888714+00:00",
   "ocr_recovered": true,
-  "ocr_version": 6,
+  "ocr_version": 7,
   "source_evidence": {
     "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results.pdf",
-    "retrieved_at": "2026-10-25T15:09:19.889047+00:00",
+    "retrieved_at": "2026-10-30T18:20:43.869088+00:00",
     "sha256": "1e7792539ed0007a2b6a81fa60667271a1a8b741f1c3f4c469e40ec05e11ff5e",
     "snapshot_path": "data/auction_history/sources/cottons/results/2011-02-17-1e7792539ed0007a.pdf.gz",
-    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-5bd3f09dd525c709.json.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-c9087718039928a9.json.gz",
     "basis": "OCR of retained first-party complete auction result PDF",
+    "ocr_version": 7,
     "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
-    "ocr_version": 6
+    "ocr_psm": 4,
+    "ocr_modes_attempted": [
+      4,
+      3,
+      6,
+      11,
+      12
+    ],
+    "ocr_mode_failures": {
+      "6": "ValueError: result table header is absent",
+      "11": "ValueError: result table header is absent",
+      "12": "ValueError: result table header is absent"
+    },
+    "ocr_candidates_admitted": [
+      {
+        "psm": 4,
+        "lots_captured": 82,
+        "catalogue_complete": true,
+        "published_lots_offered": 82
+      },
+      {
+        "psm": 3,
+        "lots_captured": 82,
+        "catalogue_complete": true,
+        "published_lots_offered": 82
+      }
+    ],
+    "ocr_selected_psm": 4
   }
 }
