@@ -3538,3 +3538,23 @@ Specific growth opportunity: recover first-party shared-platform event 70967 for
 
 Different next target: event 70557, exposing 40 of 40 first-party rows for 17 June 2025. The isolated tested collector is prepared and triggered only after publication run `41052788614` reached terminal success. Event 70403, exposing 52 of 52 rows for 10 June 2025, is queued immediately behind it.
 
+## 30 October 2026 checkpoint — Auction House Online 17 June 2025 complete event
+
+Specific growth opportunity: recover first-party shared-platform event 70557 for 17 June 2025, whose all-results route exposes 40 of 40 property cards. The isolated collection began only after the 24 June publication chain reached terminal success.
+
+- Trigger and prepared-collector commit: `2e2c6e249a57eb094c6ec205d32c1f34e49bb24a`.
+- Collection run: `41054158853`; source banking and database rebuild completed successfully.
+- Banked evidence commit: `071548c3970e1574a45a7b950c7792f79fe6d6bf`.
+- Publication run: `41054783603`; Pages deployment, auctiongeek.co.uk publication and source-to-live verification were protected through terminal success before handoff.
+- First-party inventory reconciliation: 40 visible cards, 40 stable source identities and 40 detail pages; one retained archive page; no missing advertised cards, non-property exclusions, incomplete detail pages or duplicate source identities.
+- Net growth: **21** individual appearances, **21** address records and **21** newly dated address records inside the twenty-year window. No partial, undated or future-dated records were added.
+- Sectors: 12 residential, 1 commercial, 1 land and 7 unknown; commercial/mixed-use growth is **1/0**. Outcomes remain distinct: 14 unsold, 2 postponed, 1 sold-prior, 3 withdrawn and 1 sold.
+- Price and tenancy evidence: **21** new guides, **1** new achieved price and **0** rent values.
+- Deduplication: 19 exact date/address cross-source overlaps were retained in the audit and excluded from claimed growth; duplicate source identities added: 0.
+- Coverage: one event-source year pair (2025), no new legal-operator year. Six regional labels remain branches of AUCTION HOUSE UK LIMITED (company 06025583), not separate auctioneers.
+- Rebuilt totals: **306,456** appearances, **295,684** address records, **10,772** partial records, **298,805** in-window appearances, **102,657** in-window guides, **111,588** in-window achieved prices, **4,445** undated appearances and **163** future-dated appearances. Catalogue states are **3,964** complete, **536** incomplete/unreconciled and **22** failures.
+- Validation: admission/identity/completeness suite 408/408; continuation/storage suite 152/152. The prepared 10 June collector, source configuration, explicit denominator, recovery safeguards and workflow gate passed Python syntax and workflow YAML validation.
+- National completeness remains false.
+
+Next concrete target: event 70403, exposing 52 of 52 first-party rows for 10 June 2025. The isolated tested collector is prepared. Event 70402, exposing 24 of 24 rows for 3 June 2025, is queued immediately behind it.
+
