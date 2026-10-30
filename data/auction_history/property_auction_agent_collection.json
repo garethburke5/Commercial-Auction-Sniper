@@ -1,22 +1,22 @@
 {
-  "checked_at": "2026-10-30T06:42:22.222248+00:00",
+  "checked_at": "2026-10-30T13:38:50.350891+00:00",
   "auctioneer": "Property Auction Agent",
   "parser_version": 8,
   "source_url": "https://propertyauctionagent.eigonlineauctions.com/search",
-  "archive_sha256": "cd0a8de890a3cd5eb418e0353b02d1857df515bf79e47f72469ca2a87d0dde61",
+  "archive_sha256": "bc7f61f2ffec674852b36b9c9a33ba23139de8c8cfd4f40cbec0a735d049d54c",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
-    16
+    15
   ],
   "archive_page_visible_cards": [
     50,
-    16
+    15
   ],
-  "visible_source_rows": 66,
+  "visible_source_rows": 65,
   "expected_visible_cards": null,
-  "published_result_count": 66,
-  "distinct_source_identities": 66,
+  "published_result_count": 65,
+  "distinct_source_identities": 65,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
@@ -58,7 +58,7 @@
   "by_attributed_auctioneer": {
     "Property Auction Agent": 66
   },
-  "detail_pages_captured": 66,
+  "detail_pages_captured": 65,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
