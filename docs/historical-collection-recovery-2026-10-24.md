@@ -3558,3 +3558,26 @@ Specific growth opportunity: recover first-party shared-platform event 70557 for
 
 Next concrete target: event 70403, exposing 52 of 52 first-party rows for 10 June 2025. The isolated tested collector is prepared. Event 70402, exposing 24 of 24 rows for 3 June 2025, is queued immediately behind it.
 
+## 30 October 2026 checkpoint — bounded rotation growth and Auction House Online 10 June 2025 complete event
+
+Specific growth opportunities: first preserve the scheduled bounded rotation's newly exposed evidence while all writers were protected, then recover first-party shared-platform event 70403 for 10 June 2025, whose all-results route exposes 52 of 52 property cards. The focused collection began only after the scheduled collection, permanent-history bank, Pages publication and auctiongeek.co.uk deployment reached terminal success.
+
+- Scheduled collection run: `41063411281`; banked evidence commit `e44220366579df8e470fe02dc3f1340fc0e212c7`; publication run `41066817672`.
+- The bounded rotation banked 357 aggregate appearances and 357 address records. Of those, 76 are newly dated address records inside the twenty-year window, 278 are undated and 3 are future-dated. No partial records were added.
+- Bounded-rotation field growth: 17 commercial, 10 mixed-use, 76 guide prices and 22 achieved prices. No new auctioneer/year pair was created; First for Auctions explicitly contributed one dated address record and the remainder is retained as aggregate rebuild evidence because several legacy collectors do not yet emit complete per-run field deltas.
+- Focused trigger commit: `4d2625e4440ac2bb8e6d56e9897532bc17eaea4d`.
+- Focused collection run: `41068543012`; source banking and database rebuild completed successfully.
+- Focused banked evidence commit: `3f121dc8ea6814c8479bbed9b3153ec98fa7454a`.
+- Focused publication run: `41069297158`; Pages deployment, auctiongeek.co.uk publication and source-to-live verification were protected through terminal success before handoff.
+- First-party inventory reconciliation: 52 visible cards, 52 stable source identities and 52 detail pages; one retained archive page; no missing advertised cards, non-property exclusions, incomplete detail pages or duplicate source identities.
+- Focused net growth: **22** individual appearances, **22** address records and **22** newly dated address records inside the twenty-year window. No partial, undated or future-dated records were added by this event.
+- Focused sectors: 17 residential, 1 commercial, 1 mixed-use and 3 unknown; commercial/mixed-use growth is **1/1**. Outcomes remain distinct: 3 sold, 5 sold-prior, 13 unsold and 1 postponed.
+- Focused price and tenancy evidence: **22** new guides, **4** new achieved prices and **1** rent value.
+- Focused deduplication: 30 exact date/address cross-source overlaps were retained in the audit and excluded from claimed growth; duplicate source identities added: 0.
+- Focused coverage: one event-source year pair (2025), no new legal-operator year. Twelve regional labels remain branches of AUCTION HOUSE UK LIMITED (company 06025583), not separate auctioneers.
+- Combined net growth this checkpoint: **379** appearances, **379** address records, **98** dated in-window address records, **18 commercial / 11 mixed-use**, **98** guides and **26** achieved prices. Undated/future-dated growth remains separately identified at **278/3**; partial growth is 0.
+- Rebuilt totals: **306,835** appearances, **296,063** address records, **10,772** partial records, **298,903** in-window appearances, **102,755** in-window guides, **111,614** in-window achieved prices, **4,723** undated appearances and **166** future-dated appearances. Catalogue states are **3,971** complete, **536** incomplete/unreconciled and **22** failures.
+- Validation: admission/identity/completeness suite 408/408; continuation/storage suite 153/153. The prepared 3 June collector, source configuration, explicit denominator, recovery safeguards, workflow isolation and regression files passed Python syntax and workflow YAML validation before handoff.
+- National completeness remains false.
+
+Next concrete target: event 70402, exposing 24 of 24 first-party rows for 3 June 2025. The isolated tested collector is prepared. Event 69595, exposing 59 of 59 rows for 27 May 2025, is queued immediately behind it.
