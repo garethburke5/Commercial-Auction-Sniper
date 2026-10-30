@@ -209,12 +209,16 @@ SOURCES = {
     "auction-house-online-2025-07-29": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/71414",
+        "archive_path": "/past-auctions/71414?lotResultType=All",
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "expected_visible_cards": 70,
         "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
     },
     "auction-house-online-2025-05-20": {
         "auctioneer": "Auction House Online",
