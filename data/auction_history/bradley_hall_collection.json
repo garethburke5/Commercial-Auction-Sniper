@@ -1,36 +1,37 @@
 {
-  "checked_at": "2026-10-30T13:37:13.093043+00:00",
+  "checked_at": "2026-10-30T19:05:40.337833+00:00",
   "auctioneer": "Bradley Hall",
   "parser_version": 8,
   "source_url": "https://auction.bradleyhall.co.uk/search",
-  "archive_sha256": "fb388d43e0b8828facd8853f8c4cc471440846a1add00137108a63a6fa8665d1",
+  "platform_event_id": null,
+  "archive_sha256": "e98b208ffda2d969fda04ecd282381747e875a3bb2880a1c99aeebcea7937c02",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
-    25
+    26
   ],
   "archive_page_visible_cards": [
     50,
-    25
+    26
   ],
-  "visible_source_rows": 75,
+  "visible_source_rows": 76,
   "expected_visible_cards": null,
-  "published_result_count": 75,
-  "distinct_source_identities": 75,
+  "published_result_count": 76,
+  "distinct_source_identities": 76,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 76,
+  "appearances_captured": 77,
   "run_new_appearances": 1,
   "run_new_address_records": 1,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
-  "run_new_commercial_mixed": 0,
+  "run_new_commercial_mixed": 1,
   "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
-  "run_new_rents": 0,
+  "run_new_rents": 1,
   "run_new_undated": 0,
   "run_new_future_dated": 1,
   "run_duplicate_source_evidence_excluded": 0,
@@ -43,22 +44,22 @@
     "2026-11-30"
   ],
   "by_status": {
-    "unknown": 22,
+    "unknown": 23,
     "sold_prior": 21,
     "sold": 32,
     "postponed": 1
   },
   "by_sector": {
     "residential": 46,
-    "mixed-use": 18,
+    "mixed-use": 19,
     "land": 8,
     "commercial": 3,
     "unknown": 1
   },
   "by_attributed_auctioneer": {
-    "Bradley Hall": 76
+    "Bradley Hall": 77
   },
-  "detail_pages_captured": 75,
+  "detail_pages_captured": 76,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

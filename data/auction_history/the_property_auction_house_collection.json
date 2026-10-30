@@ -1,29 +1,30 @@
 {
-  "checked_at": "2026-10-30T13:38:40.568663+00:00",
+  "checked_at": "2026-10-30T19:07:14.635324+00:00",
   "auctioneer": "The Property Auction House",
   "parser_version": 8,
   "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
-  "archive_sha256": "099713bacf654142d1f7aa898188ea15a42a200c3ef3b2c3db5d927fd3ae1f7c",
+  "platform_event_id": null,
+  "archive_sha256": "5e70444e60e5734ffdbfdc750d36d477e778ef71a91983c27d918db6f8ca7469",
   "archive_page_count": 3,
   "archive_page_rows": [
     43,
     50,
-    35
+    36
   ],
   "archive_page_visible_cards": [
     50,
     50,
-    35
+    36
   ],
-  "visible_source_rows": 128,
+  "visible_source_rows": 129,
   "expected_visible_cards": null,
-  "published_result_count": 135,
-  "distinct_source_identities": 128,
+  "published_result_count": 136,
+  "distinct_source_identities": 129,
   "non_auction_property_cards_excluded": 7,
   "non_auction_exclusions": [
     {
       "page": 1,
-      "position": 17,
+      "position": 18,
       "address": "Apartment 21 Portland House, 58-60 The Kingsway, Swansea, West Glamorgan, SA1 5HN",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/cfb5436c-f26e-4880-8318-4b1d576226cc",
       "source_lot_id": "cfb5436c-f26e-4880-8318-4b1d576226cc",
@@ -31,7 +32,7 @@
     },
     {
       "page": 1,
-      "position": 18,
+      "position": 19,
       "address": "62 Brunswick Street, Swansea, West Glamorgan, SA1 4JR",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/a7d13f65-a396-441c-bf21-d64c53d4bdee",
       "source_lot_id": "a7d13f65-a396-441c-bf21-d64c53d4bdee",
@@ -39,7 +40,7 @@
     },
     {
       "page": 1,
-      "position": 19,
+      "position": 20,
       "address": "4 Pleasant Street, Morriston, Swansea, West Glamorgan, SA6 6HJ",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/8b342a53-86d5-41f2-bd49-135979a29995",
       "source_lot_id": "8b342a53-86d5-41f2-bd49-135979a29995",
@@ -47,7 +48,7 @@
     },
     {
       "page": 1,
-      "position": 20,
+      "position": 21,
       "address": "57 Summerland Park, Upper Killay, Swansea, West Glamorgan, SA2 7HY",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/7009a1b4-ecbd-4335-991a-f8983cb036fe",
       "source_lot_id": "7009a1b4-ecbd-4335-991a-f8983cb036fe",
@@ -55,7 +56,7 @@
     },
     {
       "page": 1,
-      "position": 21,
+      "position": 22,
       "address": "88 Terrace Road, Swansea, West Glamorgan, SA1 6HU",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/821adf98-2bbf-4f99-97d6-c8a6bd9e8f0d",
       "source_lot_id": "821adf98-2bbf-4f99-97d6-c8a6bd9e8f0d",
@@ -63,7 +64,7 @@
     },
     {
       "page": 1,
-      "position": 22,
+      "position": 23,
       "address": "54-55 Water Street, Carmarthen, Dyfed, SA31 1RH",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/b23024b4-10e2-4f79-9a11-df49ac2e983d",
       "source_lot_id": "b23024b4-10e2-4f79-9a11-df49ac2e983d",
@@ -71,7 +72,7 @@
     },
     {
       "page": 1,
-      "position": 45,
+      "position": 46,
       "address": "13 Bridgend Road, Aberkenfig, Bridgend, Mid Glamorgan, CF32 9BN",
       "detail_url": "https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/d76059cc-a476-4d5b-b482-7374f064be1c",
       "source_lot_id": "d76059cc-a476-4d5b-b482-7374f064be1c",
@@ -81,41 +82,43 @@
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 128,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 129,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 1,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
   "exact_overlap_reconciliation": [],
-  "new_source_years": [],
+  "new_source_years": [
+    2027
+  ],
   "date_range": [
     "2022-01-26",
-    "2026-12-10"
+    "2027-01-14"
   ],
   "by_status": {
     "sold_prior": 79,
     "sold": 23,
     "sold_after": 10,
-    "unknown": 16
+    "unknown": 17
   },
   "by_sector": {
-    "residential": 122,
+    "residential": 123,
     "land": 4,
     "commercial": 2
   },
   "by_attributed_auctioneer": {
-    "The Property Auction House": 128
+    "The Property Auction House": 129
   },
-  "detail_pages_captured": 128,
+  "detail_pages_captured": 129,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

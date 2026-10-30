@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-30T18:24:05.593983+00:00",
-  "individual_lot_records_captured": 306858,
-  "records_with_address": 296086,
-  "partial_lot_records": 10772,
-  "exact_address_groups": 165017,
+  "generated_at": "2026-10-30T19:12:26.935941+00:00",
+  "individual_lot_records_captured": 306863,
+  "records_with_address": 296090,
+  "partial_lot_records": 10773,
+  "exact_address_groups": 165019,
   "groups_with_repeat_appearances": 42054,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -59,7 +59,7 @@
     "Bond Wolfe": 9582,
     "Boultons Harrisons Ltd": 62,
     "Bowen": 24,
-    "Bradley Hall": 76,
+    "Bradley Hall": 77,
     "Brown&Co": 466,
     "Butters John Bee": 1446,
     "Cheffins": 740,
@@ -109,14 +109,14 @@
     "Strettons": 199,
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
-    "Symonds & Sampson": 1131,
+    "Symonds & Sampson": 1134,
     "The Auction Company": 123,
-    "The Property Auction House": 128,
+    "The Property Auction House": 129,
     "Town & Country Property Auctions": 3011,
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4723,
+    "null": 4725,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -141,21 +141,22 @@
     "2023": 32497,
     "2024": 41138,
     "2025": 47566,
-    "2026": 46176
+    "2026": 46178,
+    "2027": 1
   },
   "by_sector": {
     "commercial": 42391,
-    "land": 18642,
-    "mixed-use": 47313,
-    "residential": 149360,
-    "unknown": 49152
+    "land": 18644,
+    "mixed-use": 47314,
+    "residential": 149361,
+    "unknown": 49153
   },
   "date_range": [
     "2002-10-31",
-    "2026-12-10"
+    "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 3977,
-  "catalogues_incomplete_or_unreconciled": 536,
+  "surviving_catalogues_completely_harvested": 3978,
+  "catalogues_incomplete_or_unreconciled": 537,
   "catalogue_fetch_or_parse_failures": 22,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -7592,8 +7593,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4723,
-    "future_dated_appearances": 166,
+    "undated_appearances": 4725,
+    "future_dated_appearances": 169,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -7604,7 +7605,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-30T06:28:18.821572+00:00",
+    "checked_at": "2026-10-30T18:52:31.240129+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
