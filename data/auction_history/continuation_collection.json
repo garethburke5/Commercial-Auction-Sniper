@@ -1,5 +1,5 @@
 {
-  "next_task": 56,
+  "next_task": 57,
   "last_manual_growth": {
     "checked_at": "2026-10-30T17:05:17.928770+00:00",
     "opportunity": "Auction House Online 13 May 2025 shared-platform event 69455",
@@ -34,48 +34,67 @@
     "database_rebuild_verified": true,
     "national_completeness_verified": false
   },
-  "prior_target_blocker": "Auction House Online event 69595 (27 May 2025) is fully reconciled at 59/59 cards and detail pages, but 17 admissible source appearances were already banked and the remaining 42 cards are exact date/address cross-source overlaps. Event 69260 (20 May 2025) is likewise fully reconciled at 43/43 cards and detail pages, but its 18 admissible source appearances were already banked and its remaining 25 cards are exact overlaps. Both focused runs therefore added zero appearances, dates, sector records, guides, achieved prices or rents; do not retry either as a growth target. Events 70967, 71414 and 74284 are also exhausted through already-banked rows or exact overlaps, event 85650 remains terminal after repeated 120-second index timeouts, and event 85376 remains incomplete; revisit them only through a materially different recovery path.",
+  "prior_target_blocker": "Cottons' retained first-party image-only result PDFs dated 14 February 2018 and 28 February 2017 are now terminal for the bounded free Tesseract route. At 300 dpi, PSM 4, 3, 6, 11 and 12 all failed the existing strict admission rules: every 2018 candidate lacked a result-table header; the 2017 PSM 4 and 3 candidates contained duplicate lot labels with conflicting evidence, while PSM 6, 11 and 12 lacked a result-table header. No target rows were admitted and no appearances, dates, sectors, guides, sale prices or rents were added. Do not retry either scan unless a materially different non-Tesseract recovery route becomes available.",
   "last_growth_attempt": {
-    "checked_at": "2026-10-30T17:05:17.928770+00:00",
-    "opportunity": "Auction House Online 13 May 2025 shared-platform event 69455",
-    "advertised_event_lots": 33,
-    "published_source_cards": 33,
-    "missing_advertised_rows": 0,
-    "non_auction_property_cards_excluded": 0,
-    "overlapping_rows_excluded": 21,
-    "net_new_appearances": 12,
-    "new_address_records": 12,
+    "checked_at": "2026-10-30T18:22:22.824153+00:00",
+    "opportunity": "Two retained Cottons image-only result PDFs dated 14 February 2018 and 28 February 2017",
+    "target_pdf_snapshots_retried": 2,
+    "collector_ocr_states_attempted": 4,
+    "ocr_psm_modes_attempted": [
+      4,
+      3,
+      6,
+      11,
+      12
+    ],
+    "existing_appearances_reparsed_by_ocr": 226,
+    "existing_appearances_reparsed_are_net_growth": false,
+    "net_new_appearances": 0,
+    "new_address_records": 0,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 12,
+    "new_dated_address_records_in_twenty_year_window": 0,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
     "commercial_or_mixed_use": 0,
     "new_commercial_appearances": 0,
     "new_mixed_use_appearances": 0,
-    "new_guide_prices": 12,
-    "new_sale_prices": 1,
-    "new_guide_prices_in_twenty_year_window": 12,
-    "new_sale_prices_in_twenty_year_window": 1,
+    "new_guide_prices": 0,
+    "new_sale_prices": 0,
+    "new_guide_prices_in_twenty_year_window": 0,
+    "new_sale_prices_in_twenty_year_window": 0,
     "new_rent_values": 0,
-    "new_source_year_pairs": 1,
+    "new_source_year_pairs": 0,
     "new_operator_year_pairs": 0,
     "duplicate_appearance_ids": 0,
-    "unique_source_lot_ids": 33,
-    "source_pages_reconciled": 1,
-    "catalogue_complete": true,
-    "visible_inventory_reconciled": true,
-    "operator_reconciliation": "AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Five published regional labels are retained as branch attribution and are not counted as new legal operators.",
-    "persisted_shard_verification": "The first-party all-results route reconciles all 33 visible cards, 33 stable source identities and 33 detail pages, with immutable index and lot snapshots retained. The canonical shard contains 12 unique net-new dated address appearances; 21 exact date/address matches are preserved in the overlap audit and not double-counted. Published evidence dates run from 30 April to 13 May 2025.",
-    "database_rebuild_verified": true,
-    "national_completeness_verified": false,
+    "exact_date_address_overlaps_excluded": 0,
+    "catalogue_complete": false,
+    "visible_inventory_reconciled": false,
     "retrieval_routes_attempted": [
-      "https://online.auctionhouse.co.uk/past-auctions/69455?lotResultType=All"
+      "retained immutable PDF snapshot + Poppler 300 dpi + Tesseract PSM 4",
+      "retained immutable PDF snapshot + Poppler 300 dpi + Tesseract PSM 3",
+      "retained immutable PDF snapshot + Poppler 300 dpi + Tesseract PSM 6",
+      "retained immutable PDF snapshot + Poppler 300 dpi + Tesseract PSM 11",
+      "retained immutable PDF snapshot + Poppler 300 dpi + Tesseract PSM 12"
     ],
-    "already_banked_source_rows": 0,
-    "exact_date_address_overlaps_excluded": 21,
-    "different_next_target": "Recover individual Cottons lots from the retained first-party image-only result PDFs for 14 February 2018 and 28 February 2017 using a materially different free OCR route. Both PDF snapshots are already banked; the current Tesseract PSM 4 path is blocked respectively by a missing table header and conflicting lot labels. Add bounded multi-mode OCR with the existing exact date, duplicate, sequence and source-snapshot admission rules before claiming any rows."
+    "blockers": [
+      {
+        "auction_date": "2018-02-14",
+        "source_url": "https://www.cottons.co.uk/wp-content/uploads/2018/02/Auction-Results-14-02-18.pdf",
+        "result": "PSM 4, 3, 6, 11 and 12 each failed because the result-table header is absent"
+      },
+      {
+        "auction_date": "2017-02-28",
+        "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-28th-Feb-2017.pdf",
+        "result": "PSM 4 and 3 produced conflicting duplicate lot labels; PSM 6, 11 and 12 lacked the result-table header"
+      }
+    ],
+    "reusable_collector_improvement": "OCR version 7 parses five bounded segmentation modes independently, preserves the exact-date/header/duplicate/sequence admission rules, never merges conflicting candidates, and selects only the largest strictly admitted candidate.",
+    "database_rebuild_verified": true,
+    "publication_verified": true,
+    "national_completeness_verified": false,
+    "different_next_target": "Resolve and collect the missing Auction House Online weekly event dated 6 May 2025. The first-party shard sequence currently jumps from 15 April to 13 May 2025; discover the event ID and visible catalogue denominator, retain index and detail snapshots, then run the existing isolated shared-platform collector with exact source-identity and date/address overlap accounting."
   },
-  "next_growth_target": "Recover the saved Cottons image-only result PDFs for 14 February 2018 (https://www.cottons.co.uk/wp-content/uploads/2018/02/Auction-Results-14-02-18.pdf) and 28 February 2017 (https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-28th-Feb-2017.pdf). Their immutable first-party PDF snapshots are already present, but the current free OCR route is blocked by a missing table header and conflicting lot labels. Implement and test a bounded multi-mode Tesseract/Poppler recovery path that accepts only exact dated, uniquely numbered rows passing the existing duplicate and sequence checks. Do not retry the reconciled Auction House Online 13, 20 or 27 May 2025 events without a materially different route. National completeness remains false.",
+  "next_growth_target": "Resolve and collect Auction House Online's missing weekly event dated 6 May 2025. The persisted first-party shard sequence has 15 April 2025 and then 13 May 2025, with no 6 May shard. First identify the official numeric event ID and visible all-results denominator; then retain immutable index/detail snapshots and run the isolated shared-platform collector. Preserve branch labels under AUCTION HOUSE UK LIMITED, deduplicate exact date/address overlaps before claiming growth, and record guide, achieved price, rent and every published outcome separately. Do not return to the two Cottons scans unless a materially different non-Tesseract route exists. National completeness remains false.",
   "runs": [
     {
       "source": "barnett_ross_canonical",
