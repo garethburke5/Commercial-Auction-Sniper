@@ -3401,3 +3401,18 @@ Published source checkpoint `1e5c37c9c8c1edfbcb6e4961425a912fbe1968d7` from coll
 - The admission suite passed **408/408** tests and the continuation/storage suite passed **144/144**. Collection, source banking, database rebuilding, source-register reconciliation, Pages publication, source-to-live verification, custom-domain deployment and live production verification completed successfully. National completeness remains false.
 
 Next concrete target: Auction House Online event 72617, exposing **38/38** first-party rows for 12 August 2025. Event 72017, exposing **33/33** rows for 5 August 2025, is queued behind it. National completeness remains false.
+
+## Checkpoint: Auction House Online 12 August 2025
+
+Published source checkpoint `c3899cb773ec12b6b679e1b835f482af6a26b870` from collection workflow run `41005636608`:
+
+- Reconciled all **38** visible first-party cards, **38** stable identities and **38** detail pages for event 72617. Immutable index and lot snapshots were retained; the catalogue has no missing visible rows, non-property exclusions or detail failures.
+- Banked **17 net-new individual appearances**, all address records and all individually dated inside the preceding twenty-year window. There were no partial, undated or future-dated additions.
+- Added **17 guide prices**, no achieved prices and no rent values. The additions comprise **13 residential**, **1 land** and **3 unknown-sector** appearances; the commercial and mixed-use subsets are both zero.
+- Preserved published outcomes separately: **15 unsold**, **1 postponed** and **1 withdrawn** among the net-new rows.
+- Excluded **21 exact date/address overlaps** from growth while preserving them in the reconciliation audit. Duplicate source identities were zero.
+- Added one event source-year (Auction House Online 2025) but no new legal operator-year. Eleven regional Auction House labels remain branch attribution under **AUCTION HOUSE UK LIMITED (company 06025583)**, not separate legal operators.
+- The rebuilt database contains **306,338 appearances**, **295,566 address records** and **10,772 partial records**. Current totals are **298,687** dated appearances inside the twenty-year window, **102,539** in-window guides, **111,580** in-window achieved prices, **4,445** undated appearances, **163** future-dated appearances, **3,942** complete catalogue states, **536** incomplete/unreconciled states and **22** fetch/parse failures.
+- The admission suite passed **408/408** tests and the continuation/storage suite passed **145/145**. Collection, source banking, database rebuilding, source-register reconciliation, Pages publication, source-to-live verification, custom-domain deployment and live production verification completed successfully. National completeness remains false.
+
+Next concrete target: Auction House Online event 72017, exposing **33/33** first-party rows for 5 August 2025. Event 71414, exposing **70/70** rows for 29 July 2025, is queued behind it. National completeness remains false.
