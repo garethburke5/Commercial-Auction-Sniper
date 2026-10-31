@@ -32,6 +32,11 @@ def index_exclusions(row):
 def property_description(row):
     """Identify the exact lot, price basis and auction without inventing claims."""
     parts = [row['address'] + ('' if row['address'].endswith('.') else '.')]
+    if row.get('archive_notice'):
+        notice = row['archive_notice']
+        return ' '.join([parts[0], notice['title'] + '.',
+            'Historical guide ' + str(row.get('guide') or 'not stated') + '.',
+            'Current availability is not confirmed. View the archived particulars and property snapshot.'])
     if row.get('unavailable'):
         parts.append(str(row.get('status') or 'Unavailable').rstrip('. ') + '.')
     if positive(row.get('guide_price')):

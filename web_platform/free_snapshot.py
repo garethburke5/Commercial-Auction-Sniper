@@ -121,13 +121,13 @@ def build_snapshot(row, fee=None, captured_at=None, *, published_sections=()):
     sold = status in ('sold', 'sold_prior', 'sold_after', 'sold_at_auction')
     sale = number(r.get('sale_price')) if sold else None
     price, upper = (sale, sale) if sale else (guide, high)
-    price_label = 'Reported sale price' if sale else 'Guide price'
+    price_label = 'Reported sale price' if sale else ('Historical guide price' if row.get('archived_listing') else 'Guide price')
     price_text = cash(price) + ('–' + cash(upper) if upper != price else '') if price else 'Not stated'
     yields = (100 * rent / upper, 100 * rent / price) if rent and price else None
     yield_text = (f'{yields[0]:.2f}–{yields[1]:.2f}%' if upper != price else f'{yields[0]:.2f}%') if yields else 'Not calculable'
     intro = []
     if rent and price:
-        intro.append(f'The advertised annual rent of {cash(rent)} represents a gross rental yield of {yield_text} at the {price_text} {"reported sale price" if sale else "guide price"}, before purchase and running costs.')
+        intro.append(f'The advertised annual rent of {cash(rent)} represents a gross rental yield of {yield_text} at the {price_text} {price_label.lower()}, before purchase and running costs.')
         if upper != price:
             intro.append(f'The lower yield uses the {cash(upper)} upper guide; the higher yield uses the {cash(price)} lower guide.')
     elif rent:
@@ -208,6 +208,7 @@ def build_snapshot(row, fee=None, captured_at=None, *, published_sections=()):
             if link and link not in [s['url'] for s in sources]:
                 sources.append({'label': clean(source.get('label')) or 'Auctioneer buyer fees', 'url': link})
     return {'address': address, 'captured_at': r.get('collected_at') or captured_at,
+            'archive_notice': row.get('archive_notice'), 'archived_listing': bool(row.get('archived_listing')),
             'price_label': price_label, 'price': price_text, 'rent': cash(rent) if rent else 'Not established',
             'yield': yield_text, 'intro': intro, 'insights': insights, 'sections': sections,
             'components': components, 'gaps': gaps, 'costs': costs, 'sources': sources,

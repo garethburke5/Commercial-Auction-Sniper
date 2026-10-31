@@ -11,6 +11,7 @@ from datetime import date
 from board_presentation import searchable_catalogue_row
 from collectors.publication_quality import lot_identity, publication_exclusion
 from .board import enrich_board_row
+from .archive_status import apply_archive_status
 from .free_snapshot import eligible
 from .seo import index_exclusions
 from pathlib import Path
@@ -64,6 +65,7 @@ class Catalogue:
             row['index_exclusions'] = index_exclusions(row)
             row['indexable'] = not row['index_exclusions']
             enrich_board_row(row,summaries=summaries)
+            apply_archive_status(row, in_current_catalogue=row['id'] in current_ids)
             self.rows.setdefault(row['id'], row)
         self.all_properties = list(self.rows.values())
         self.properties = sorted((r for r in self.all_properties if searchable_catalogue_row(r, in_current_catalogue=r['id'] in current_ids)), key=lambda r: (bool(r['unavailable']), r.get('auction_date') or '9999-12-31', r['address']))

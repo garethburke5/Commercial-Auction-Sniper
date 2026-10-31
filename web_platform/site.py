@@ -124,7 +124,7 @@ class Site:
             structured.append({'@context':'https://schema.org','@type':'WebSite',
                 'name':'Auction Geek','url':self.origin+'/'})
         ctx['noindex'] = bool(ctx.get('noindex') or not self.search_indexing_enabled)
-        return self.env.get_template('page.html').render(title=title, search_title=title + (' — Auction details' if kind == 'property' else ''), kind=kind, description=description,
+        return self.env.get_template('page.html').render(title=title, search_title=title + ((' — Archived auction listing' if ctx.get('row', {}).get('archived_listing') else ' — Auction details') if kind == 'property' else ''), kind=kind, description=description,
             social=self.social_details(ctx['row']) if kind == 'property' else {'title':title+' | Auction Geek','text':description,'image':''},
             canonical=self.origin+path, path=path, crumbs=crumbs, catalogue=self.catalogue,
             structured=json.dumps(structured).replace('<','\\u003c'), **ctx)

@@ -2,8 +2,8 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>{{ s.address }} — Free Property Snapshot | Auction Geek</title>
-  <meta name="description" content="Property facts, rental yield and purchase-cost calculations for {{ s.address }}. Read Auction Geek’s free snapshot and save it as a PDF.">
+  <title>{{ s.address }} — {% if s.archived_listing %}Archived {% endif %}Free Property Snapshot | Auction Geek</title>
+  <meta name="description" content="{% if s.archived_listing %}Archived auction listing. Current availability is not confirmed. {% endif %}Property facts, rental yield and purchase-cost calculations for {{ s.address }}. Read Auction Geek’s free snapshot and save it as a PDF.">
   <meta name="robots" content="{{ 'index,follow,max-image-preview:large' if s.indexable else 'noindex,follow' }}">
   <link rel="canonical" href="{{ canonical }}">
   {% include 'social.html' %}
@@ -16,15 +16,16 @@
   <nav class="toolbar" aria-label="Snapshot actions"><a href="{{ url(row.path) }}">← Property listing</a><button type="button" id="print-snapshot">Print / Save as PDF</button>{{ share_button(row, 'snapshot') }}</nav>
   <main>
     <header><a class="brand" href="{{ url('/') }}">AUCTION <b>GEEK</b><span>PROPERTY INVESTMENT SNAPSHOT</span></a><p class="edition">Free snapshot{% if s.captured_at %} · Updated {{ uk_date(s.captured_at) }}{% endif %}</p><h1>{{ s.address }}</h1></header>
-    <dl class="headline"><div><dt>{{ s.price_label }}</dt><dd>{{ s.price }}</dd></div><div><dt>Annual rental income</dt><dd>{{ s.rent }}</dd></div><div><dt>Gross rental yield</dt><dd>{{ s.yield }}</dd></div></dl>
+    {% if s.archive_notice %}<section class="archive-notice" aria-label="Archived property status"><h2>{{ s.archive_notice.title }}</h2><p>{{ s.archive_notice.text }}</p></section>{% endif %}
+    <dl class="headline"><div><dt>{{ s.price_label }}</dt><dd>{{ s.price }}</dd></div><div><dt>{{ 'Advertised rent at auction' if s.archived_listing else 'Annual rental income' }}</dt><dd>{{ s.rent }}</dd></div><div><dt>Gross rental yield</dt><dd>{{ s.yield }}</dd></div></dl>
     <section class="opening" aria-label="Property overview">{% for p in s.intro %}<p>{{ p }}</p>{% endfor %}</section>
     {% for section in s.sections %}<section><h2>{{ section.title }}</h2>{% if section.title == 'The property' %}<p>{{ section['items']|join(' ') }}</p>{% else %}{% for item in section['items'] %}<p>{{ item }}</p>{% endfor %}{% endif %}</section>{% endfor %}
     {% if s.components %}<section><h2>Rental income by unit</h2><table><thead><tr><th scope="col">Income source</th><th scope="col">Annual rent</th><th scope="col">Share of income</th></tr></thead><tbody>{% for c in s.components %}<tr><th scope="row">{{ c.label }}</th><td>{{ c.rent }}</td><td>{{ c.share }}%</td></tr>{% endfor %}</tbody></table></section>{% endif %}
     {% for title, body in s.insights %}<section class="insight"><h2>{{ title }}</h2><p>{{ body }}</p></section>{% endfor %}
-    {% if s.costs %}<section><h2>Purchase costs at the guide price</h2><table><tbody><tr><th scope="row">Guide price</th><td>{{ s.price }}</td></tr><tr><th scope="row">Estimated auctioneer buyer fee, including any stated VAT</th><td>{{ s.costs.fee }}</td></tr><tr class="total"><th scope="row">Price and auctioneer fee</th><td>{{ s.costs.subtotal }}</td></tr>{% if s.costs.yield %}<tr><th scope="row">Gross yield after this buyer fee</th><td>{{ s.costs.yield }}</td></tr>{% endif %}</tbody></table><p class="small">{{ s.costs.basis }} This subtotal excludes property taxes, legal fees, any VAT on the property, additional seller charges and building works. It is not the total purchase cost.</p></section>{% endif %}
-    {% if s.gaps %}<section><h2>Details to check before bidding</h2><ul>{% for gap in s.gaps %}<li>{{ gap }}</li>{% endfor %}</ul></section>{% endif %}
+    {% if s.costs %}<section><h2>Purchase costs at the guide price</h2><table><tbody><tr><th scope="row">{{ s.price_label }}</th><td>{{ s.price }}</td></tr><tr><th scope="row">Estimated auctioneer buyer fee, including any stated VAT</th><td>{{ s.costs.fee }}</td></tr><tr class="total"><th scope="row">Price and auctioneer fee</th><td>{{ s.costs.subtotal }}</td></tr>{% if s.costs.yield %}<tr><th scope="row">Gross yield after this buyer fee</th><td>{{ s.costs.yield }}</td></tr>{% endif %}</tbody></table><p class="small">{{ s.costs.basis }} This subtotal excludes property taxes, legal fees, any VAT on the property, additional seller charges and building works. It is not the total purchase cost.</p></section>{% endif %}
+    {% if s.gaps %}<section><h2>{{ 'Details not established in this archive' if s.archived_listing else 'Details to check before bidding' }}</h2><ul>{% for gap in s.gaps %}<li>{{ gap }}</li>{% endfor %}</ul></section>{% endif %}
     <footer>
-      <p class="scope">This is an initial property investment snapshot. No legal pack was analysed. Figures use the captured particulars; check the auctioneer’s latest listing and addendum before bidding.</p>
+      <p class="scope">This is an initial property investment snapshot. No legal pack was analysed. {{ 'Figures describe the historical offering and do not confirm current availability.' if s.archived_listing else 'Figures use the captured particulars; check the auctioneer’s latest listing and addendum before bidding.' }}</p>
       <aside class="upgrade"><h2>Full Investment Report · £19</h2><p>Deeper research will examine legal-pack evidence where supplied, comparable properties, ownership costs and investment risks. Paid reports are undergoing quality review and are not yet available to purchase.</p><a href="{{ url('/due-diligence/') }}?property={{ row.id }}">About Full Investment Reports →</a></aside>
       <section class="sources"><h2>Sources and calculations</h2><ol>{% for source in s.sources %}<li>{% if source.url %}<a href="{{ source.url }}" rel="noopener noreferrer">{{ source.label }}</a>{% else %}{{ source.label }}{% endif %}</li>{% endfor %}</ol><p>Gross yield = annual rent ÷ price × 100. Gross figures exclude purchase expenses, financing, vacancies and running costs. These calculations are not a market valuation.</p></section>
     </footer>
