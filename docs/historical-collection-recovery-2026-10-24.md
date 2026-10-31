@@ -3738,3 +3738,21 @@ Fifteen exact date/address overlaps were excluded before growth was claimed. The
 After the rebuild, corpus totals are 306,946 appearances, 296,173 addresses, 299,009 appearances dated within the current twenty-year window, 102,857 in-window guide prices and 111,620 in-window achieved prices. Partial, undated and future-dated totals remain 10,773, 4,725 and 169 respectively. Source status is 3,990 complete, 537 incomplete and 23 failures. National completeness remains false.
 
 Different next target: collect Auction House Online shared-platform event 67455 dated 25 March 2025. Its official first-party all-results route exposes 55 of 55 property cards with individual dates from 13 to 25 March 2025, achieved-price evidence, rent evidence and commercial evidence. Harden the existing source with `expected_visible_cards=55` and detail recovery, preserve every date/outcome/branch and immutable snapshot, and exclude exact date/address overlaps before claiming growth.
+
+## 31 October 2026 01:14 UTC — Auction House Online 25 March 2025 complete duplicate coverage
+
+The specific opportunity was the first-party all-results route for shared-platform event 67455. Before triggering it, no collection or publication writer was active or queued. The previously under-specified source was hardened to use `/past-auctions/67455?lotResultType=All`, an explicit 55-card denominator, bounded detail recovery, immutable index/detail snapshots, exact-overlap exclusion and AUCTION HOUSE UK LIMITED (company 06025583) as the reconciled legal operator.
+
+- Preparation commits: `4ccd298579f365415d75a86cc1c8f947e972adb6` and `447d4050c86f688dceaa794b5ffd57ed557ddfbc`.
+- Focused collection run `41153125606` completed successfully and banked commit `918867bbc6444137389dc56c9206d4e1195b8c34`.
+- Publication run `41153594417` completed successfully: tests, Pages deployment, source-to-live verification, auctiongeek.co.uk deployment and live production verification all passed.
+- Inventory reconciliation: **55/55 visible cards**, 55 stable source identities, 55 detail pages and one immutable index snapshot; zero malformed/non-property exclusions and zero detail failures.
+- Individual evidence dates remain distinct from **13 March to 25 March 2025**.
+- Net growth: **0 appearances**, **0 addresses**, **0 dated in-window addresses**, **0 partial**, **0 undated** and **0 future-dated**.
+- New evidence: **0 commercial**, **0 mixed-use**, **0 guide prices**, **0 achieved prices** and **0 rent values**.
+- Coverage: **0 new source-year pairs** and **0 new legal-operator years**. Eleven regional labels remain branch attribution under AUCTION HOUSE UK LIMITED rather than new auctioneers.
+- Specific blocker: 31 admissible source appearances were already banked, and the remaining 24 cards are exact date/address cross-source overlaps. Duplicate source identities added: 0. Re-running this event cannot add an evidenced appearance without double counting.
+- Corpus totals therefore remain **306,946 appearances**, **296,173 address records**, **10,773 partial records**, **299,009 in-window appearances**, **102,857 in-window guides**, **111,620 in-window achieved prices**, **4,725 undated appearances** and **169 future-dated appearances**. Catalogue states remain **3,990 complete**, **537 incomplete/unreconciled** and **23 failures**.
+- National completeness remains false.
+
+Different next target: collect first-party event **67662** dated **18 March 2025**. Its all-results route exposes **29/29 property cards**, with individual evidence dates from 14 to 18 March, 20 explicit sold-price outcomes plus sold-post/unsold/postponed outcomes, and rent evidence. Source key `auction-house-online-2025-03-18` is prepared with an explicit 29-card denominator, immutable snapshot support, exact-overlap exclusion and bounded detail recovery in commits `a7ea9bec7160f7779eabfc73c4ad920cbd0eebae` and `102cca307069c0b862230052d379ab0d4dd4672c`. Add the isolated workflow trigger before collection, preserve every date/outcome/branch and exclude exact date/address overlaps before claiming growth.
