@@ -3756,3 +3756,21 @@ The specific opportunity was the first-party all-results route for shared-platfo
 - National completeness remains false.
 
 Different next target: collect first-party event **67662** dated **18 March 2025**. Its all-results route exposes **29/29 property cards**, with individual evidence dates from 14 to 18 March, 20 explicit sold-price outcomes plus sold-post/unsold/postponed outcomes, and rent evidence. Source key `auction-house-online-2025-03-18` is prepared with an explicit 29-card denominator, immutable snapshot support, exact-overlap exclusion and bounded detail recovery in commits `a7ea9bec7160f7779eabfc73c4ad920cbd0eebae` and `102cca307069c0b862230052d379ab0d4dd4672c`. Add the isolated workflow trigger before collection, preserve every date/outcome/branch and exclude exact date/address overlaps before claiming growth.
+
+## 31 October 2026 02:15 UTC — Auction House Online 18 March 2025 complete event
+
+The specific growth opportunity was first-party shared-platform event 67662. The source and regression assertion had already been prepared; this run added an isolated workflow trigger and the three negative guards needed to prevent broad archive collectors from running alongside it. No collection or publication writer was active or queued before the trigger.
+
+- Isolated trigger commit: `1ee22dd09fd82d8cb5b5cf06828cba8de358b399`.
+- Focused collection run `41157882765` completed successfully and banked commit `51b8430b9d81a4cfed1cc9180760422075f530e5`.
+- Publication run `41158246310` completed successfully: tests, Pages deployment, source-to-live verification, auctiongeek.co.uk deployment and live production verification passed.
+- Inventory reconciliation: **29/29 visible cards**, 29 stable source identities, 29 detail pages and one immutable index snapshot; zero non-property exclusions and zero detail failures.
+- Net growth: **5 individual appearances**, **5 address records**, **0 partial**, and **5 newly dated address records inside the twenty-year window**. Individual evidence dates remain distinct from **14 March to 18 March 2025**.
+- Sectors: **0 commercial**, **0 mixed-use**, 2 residential, 1 land and 2 unknown. Outcomes among net-new rows: 4 unsold and 1 postponed.
+- New evidence: **5 guide prices**, **0 achieved prices** and **0 rent values**.
+- Deduplication: **24 exact date/address cross-source overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: 0.
+- Coverage: one newly covered event-source year (2025), no new legal-operator year. Auction House Lincolnshire, Birmingham and Kent remain branch attribution under AUCTION HOUSE UK LIMITED (company 06025583), not additional auctioneers.
+- Rebuilt totals: **306,951 appearances**, **296,178 address records**, **10,773 partial records**, **299,014 in-window appearances**, **102,862 in-window guides**, **111,620 in-window achieved prices**, **4,725 undated appearances** and **169 future-dated appearances**. Catalogue states are **3,992 complete**, **537 incomplete/unreconciled** and **23 failures**.
+- National completeness remains false.
+
+Different next target: collect first-party event **67372** dated **11 March 2025**. Its all-results route exposes **30/30 property cards** with achieved-price and rent evidence. Source key `auction-house-online-2025-03-11` is prepared with an explicit 30-card denominator, exact-overlap exclusion and bounded detail recovery in commits `a4d3294f71100e59d7a23db053f2d26143e23b00` and `c1b6a83af17b92c7806bbfdfa67d5000265a3b7e`. Add the isolated workflow trigger, preserve every date/outcome/branch and immutable snapshot, and exclude exact date/address overlaps before claiming growth. Event **67141** dated **4 March 2025**, exposing **49/49 cards**, follows it.
