@@ -3792,3 +3792,25 @@ The specific growth opportunity was first-party shared-platform event 67372. The
 - National completeness remains false.
 
 Different next target: collect first-party event **67141** dated **4 March 2025**. Its all-results route exposes **49/49 property cards**. Source key `auction-house-online-2025-03-04` is prepared with an explicit 49-card denominator, exact-overlap exclusion and bounded detail recovery in commits `c337872d4dfcb646ddde78e1aed8d2b455bcfda4` and `6912b0c5e91a3e92a21ec4e75f51ae6f5f8011d6`. Add the isolated workflow trigger, preserve every date/outcome/price/branch and immutable snapshot, and exclude exact date/address overlaps before claiming growth. Event **66590** dated **25 February 2025**, exposing **57/57 cards** with achieved-price and rent evidence, follows it.
+
+## 31 October 2026 04:25 UTC — 4 March route blocked; 25 February event banked 26 appearances
+
+The initial target was first-party shared-platform event 67141 dated 4 March 2025. Its isolated collector ran after confirming that no collection or publication writer was active. The official all-results index did not return to the GitHub runner despite repeated bounded reads; the final request timed out after 120 seconds. No event shard was created, the subsequent rebuild remained at 306,959 appearances, and its publication workflow correctly skipped because the collection run failed. This route is terminal until a materially different cached, saved-file or snapshot path exists.
+
+The run then moved to materially different first-party event 66590 dated 25 February 2025 rather than retrying the blocked route.
+
+- Blocked-route run: `41166887282`; preserved zero-growth checkpoint: `07342024720c7c6a4c644ec88aca0f8520231351`.
+- 25 February source and assertion: `09cf563fb1ae124dcc230b420c0090fcf4aebfe3` and `e903c8d50c49df9dbb62d600036574c803cced5a`.
+- Isolated trigger commit: `f17c01a8aff4a3979fac23fd1f59b11e23b3e836`.
+- Focused collection run `41167973201` completed successfully and banked commit `db2282832cb9d21110a1aea0031019642f2ec5a3`.
+- Publication run `41168474732` completed successfully: tests, Pages deployment, source-to-live verification, auctiongeek.co.uk deployment and live production verification passed.
+- Inventory reconciliation: **57/57 visible cards**, 57 stable source identities, 57 detail pages and one immutable index snapshot; zero non-property exclusions and zero detail failures.
+- Net growth: **26 individual appearances**, **26 address records**, **0 partial**, and **26 newly dated address records inside the twenty-year window**. Individual evidence dates remain distinct from **30 January to 25 February 2025**.
+- Sectors: **1 commercial**, **1 mixed-use**, 14 residential and 10 unknown. Outcomes among net-new rows: 19 unsold, 4 sold prior, 1 withdrawn, 1 postponed and 1 sold after.
+- New evidence: **26 guide prices**, **0 achieved prices** and **0 rent values**.
+- Deduplication: **31 exact date/address cross-source overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: 0.
+- Coverage: one newly covered event-source year (2025), no new legal-operator year. Nine regional labels remain branch attribution under AUCTION HOUSE UK LIMITED (company 06025583), not additional auctioneers.
+- Rebuilt totals: **306,985 appearances**, **296,212 address records**, **10,773 partial records**, **299,048 in-window appearances**, **102,896 in-window guides**, **111,620 in-window achieved prices**, **4,725 undated appearances** and **169 future-dated appearances**. Catalogue states are **4,000 complete**, **537 incomplete/unreconciled** and **23 failures**.
+- National completeness remains false.
+
+Different next target: collect first-party event **66585** dated **18 February 2025**. Its all-results route exposes **33/33 property cards**, including achieved-price, rent, commercial and mixed-use evidence. Source key `auction-house-online-2025-02-18` is prepared with an explicit 33-card denominator, exact-overlap exclusion and bounded detail recovery in commits `984f315ed6890e98b35d60b82efe81961438866e` and `b4876d10970c3add5bcac79c4bda769b185dc845`. Add the isolated workflow trigger, preserve every date/outcome/price/branch and immutable snapshot, and exclude exact date/address overlaps before claiming growth.
