@@ -3814,3 +3814,21 @@ The run then moved to materially different first-party event 66590 dated 25 Febr
 - National completeness remains false.
 
 Different next target: collect first-party event **66585** dated **18 February 2025**. Its all-results route exposes **33/33 property cards**, including achieved-price, rent, commercial and mixed-use evidence. Source key `auction-house-online-2025-02-18` is prepared with an explicit 33-card denominator, exact-overlap exclusion and bounded detail recovery in commits `984f315ed6890e98b35d60b82efe81961438866e` and `b4876d10970c3add5bcac79c4bda769b185dc845`. Add the isolated workflow trigger, preserve every date/outcome/price/branch and immutable snapshot, and exclude exact date/address overlaps before claiming growth.
+
+## 31 October 2026 checkpoint — Auction House Online 18 February complete event
+
+Specific growth opportunity: recover first-party shared-platform event 66585 for 18 February 2025, whose all-results route exposes 33 of 33 property cards. The isolated collector started only after confirming no collector or publication writer was active; generated evidence was banked and both publication paths reached terminal success before handoff.
+
+- Inventory: all **33 visible cards**, **33 stable source identities** and **33 detail pages** reconciled with immutable index/detail snapshots and no recovery failures.
+- Net growth: **14 individual appearances**, **14 address records** and **14 newly dated address records inside the twenty-year window**. Partial, undated and future-dated additions are **0 / 0 / 0**.
+- Sectors: **7 residential** and **7 unknown**; commercial/mixed-use growth is **0 / 0**.
+- Outcomes remain distinct: **5 postponed**, **7 unsold** and **2 withdrawn**.
+- Price and rent evidence: **14 new guide prices**, **0 new achieved prices** and **0 new rent values**.
+- Deduplication: **19 exact date/address overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: **0**.
+- Coverage: **1 event source-year (2025)** was newly covered; legal operator-year growth is **0**. Hull & East Yorkshire, Sussex & Hampshire, South Yorkshire and Wales - Cardiff remain branches of AUCTION HOUSE UK LIMITED, not new auctioneers.
+- Rebuilt totals: **306,999 appearances**, **296,226 address records**, **299,062 in-window appearances**, **102,910 in-window guides** and **111,620 in-window achieved prices**. Partial/undated/future counts remain **10,773 / 4,725 / 169**; complete catalogue states are **4,004**, with **537** incomplete states and **23** failures.
+- Collection run `41171124621`, bank commit `d143f8383fd3f6273878e43d5711ba87b0e67142` and publication run `41171471939` completed successfully, including Pages, auctiongeek.co.uk and live verification.
+- National completeness remains false.
+
+Next concrete target: collect Auction House Online event **66522** dated **11 February 2025**. Its official first-party route exposes **31 of 31** cards with achieved-price and rent evidence. Source key `auction-house-online-2025-02-11` and its regression assertion are prepared in commits `f01cf020a9a6110789fbbe6360264a55838b550d` and `af7c60981783d471caa86574d14596abe5972537`. Launch only after confirming the writer lock is clear.
+
