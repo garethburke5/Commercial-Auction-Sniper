@@ -17,11 +17,13 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,readiness='ready',plan='free',balance=null}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,readiness='ready',reportEnabled=billingEnabled,plan='free',balance=null}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
  const elements=Object.fromEntries(['checkout-return','checkout-return-title','checkout-return-message','checkout-refresh','account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
  elements['#billing-status']=new Element('billing-status',true);
+ elements['reportAvailability']=new Element();elements['reportAvailability'].textContent='Report checkout is currently unavailable.';
+ elements['reportPending']=new Element();
  const navSignOut=new Element('nav-signout',true),dashboardSignOut=new Element('account-signout',true);
  for(const b of [navSignOut,dashboardSignOut])b.setAttribute('data-sign-out');
  elements['#account-signout']=dashboardSignOut;elements['#sign-in-form']=new Element('sign-in-form',true);
@@ -39,7 +41,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
  const context={Event,window:{dispatchEvent(){},AuctionIdentity:{createClient:()=>({auth})}},document:{
   body:{dataset:{prefix:'/test'},append(){}},
   querySelector:s=>elements[s]||null,
-  querySelectorAll:s=>s==='[data-save],[data-watch]'?[saveButton,watchButton]:s==='[data-account-link]'?[link]:s==='[data-sign-out]'?[navSignOut,dashboardSignOut]:[],
+  querySelectorAll:s=>s==='[data-report-availability]'?[elements.reportAvailability]:s==='[data-report-pending]'?[elements.reportPending]:s==='[data-save],[data-watch]'?[saveButton,watchButton]:s==='[data-account-link]'?[link]:s==='[data-sign-out]'?[navSignOut,dashboardSignOut]:[],
   getElementById:id=>elements['#'+id],createElement:()=>new Element(),createTextNode:s=>s,
   addEventListener:(name,fn)=>{handlers[name]=fn;}
  },localStorage:{getItem:()=>null},sessionStorage:{getItem:k=>storage.get(k),removeItem:k=>storage.delete(k)},
@@ -54,7 +56,7 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   if(url.endsWith('/api/readiness')){
    if(readiness==='pending')return new Promise(()=>{});
    if(readiness==='failed')throw Error('Readiness unavailable');
-   return {ok:true,json:async()=>({accounts_ready:true,membership_checkout_available:billingEnabled,report_checkout_available:billingEnabled})};
+   return {ok:true,json:async()=>({accounts_ready:true,membership_checkout_available:billingEnabled,report_checkout_available:reportEnabled})};
   }
   if(url.includes('/api/admin/preview/'))return {ok:true,json:async()=>({plan:'visitor',features:[]})};
   assert.equal(url,'https://private.example/api/account');accountCalls++;
@@ -302,4 +304,10 @@ for(const readiness of ['pending','failed'])test(readiness+' payment readiness n
  assert.equal(app.navSignOut.hidden,false);
  assert.equal(app.elements['#account-billing'].hidden,true);
  assert.equal(app.accountCalls,1);
+});
+
+for(const [billingEnabled,reportEnabled] of [[true,true],[true,false],[false,false]])test('report availability copy follows server flags '+billingEnabled+'/'+reportEnabled,async()=>{
+ const app=await setup({billingEnabled,reportEnabled});
+ assert.equal(app.elements.reportPending.hidden,reportEnabled);
+ assert.match(app.elements.reportAvailability.textContent,reportEnabled?/Purchase a report for £19/:/currently unavailable/);
 });

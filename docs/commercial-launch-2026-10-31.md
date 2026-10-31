@@ -92,3 +92,27 @@ by existing ownership and payment state, not a marketing flag.
 
 Facebook and Instagram were explicitly excluded from this launch work because
 the owner confirmed their posts are already live. No social settings changed.
+
+## Follow-up launch checkpoint
+
+- Removed obsolete permanent quality-review and coming-soon messages from
+  property pages, snapshots, the report workspace, pricing and account credits.
+  Actual checkout availability still comes from server readiness; failure keeps
+  purchasing unavailable. Product prices and entitlements are unchanged.
+- 42 focused platform/product/snapshot/review tests and 37 Node account/navigation
+  tests passed, including independent report and membership availability states.
+- Saved Render build filters excluding docs, tests, web_platform/tests, and raw
+  historical sources/auctions/appearances/source-corpus/raw-capture directories.
+  Code, current catalogue and packaged historical database changes still deploy.
+  This reduces unnecessary backend builds without stopping collection or the
+  independent signed catalogue refresh.
+- Render Billing confirms 500 of 500 included pipeline minutes used, Hobby plan,
+  no payment method and no accrued charges. No paid upgrade was made. The live
+  backend remains on 87dcbcc while pipeline capacity is exhausted.
+- Stripe live reads succeeded, but products, prices and webhook endpoints were
+  empty. Creating the agreed Investor product failed for missing connection
+  permissions; no product was created. The owner received the provider renewal
+  link. Runtime keys, VAT configuration and webhook setup remain outstanding.
+
+This checkpoint records tested code and saved settings, not a completed live
+payment or proof of the paid report customer journey.

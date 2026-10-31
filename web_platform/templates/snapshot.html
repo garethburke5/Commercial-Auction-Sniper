@@ -26,7 +26,7 @@
     {% if s.gaps %}<section><h2>{{ 'Details not established in this archive' if s.archived_listing else 'Details to check before bidding' }}</h2><ul>{% for gap in s.gaps %}<li>{{ gap }}</li>{% endfor %}</ul></section>{% endif %}
     <footer>
       <p class="scope">This is an initial property investment snapshot. No legal pack was analysed. {{ 'Figures describe the historical offering and do not confirm current availability.' if s.archived_listing else 'Figures use the captured particulars; check the auctioneer’s latest listing and addendum before bidding.' }}</p>
-      <aside class="upgrade"><h2>Full Investment Report · £19</h2><p>Deeper research will examine legal-pack evidence where supplied, comparable properties, ownership costs and investment risks. Paid reports are undergoing quality review and are not yet available to purchase.</p><a href="{{ url('/due-diligence/') }}?property={{ row.id }}">About Full Investment Reports →</a></aside>
+      <aside class="upgrade"><h2>Full Investment Report · £19</h2><p>Explore deeper research into legal-pack evidence where supplied, comparable properties, ownership costs and investment risks. No subscription is required.</p><a href="{{ url('/due-diligence/') }}?property={{ row.id }}">Explore the Full Investment Report →</a></aside>
       <section class="sources"><h2>Sources and calculations</h2><ol>{% for source in s.sources %}<li>{% if source.url %}<a href="{{ source.url }}" rel="noopener noreferrer">{{ source.label }}</a>{% else %}{{ source.label }}{% endif %}</li>{% endfor %}</ol><p>Gross yield = annual rent ÷ price × 100. Gross figures exclude purchase expenses, financing, vacancies and running costs. These calculations are not a market valuation.</p></section>
     </footer>
   </main>

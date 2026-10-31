@@ -423,7 +423,7 @@ async function loadAccount(){
  if(credits&&balance){
   const replacements=balance.replacement_credits||0,monthly=balance.remaining-replacements;
   const monthlyText=balance.period_end?`${monthly} of ${balance.allowance} monthly report credits available until ${new Date(balance.period_end*1000).toLocaleDateString('en-GB')}. Unused monthly credits do not roll over.`:'No monthly report credits are available.';
-  credits.textContent=monthlyText+(replacements?` ${replacements} replacement report credit${replacements===1?'':'s'} available; these remain available after membership ends.`:'')+' Full Investment Reports remain under quality review.';
+  credits.textContent=monthlyText+(replacements?` ${replacements} replacement report credit${replacements===1?'':'s'} available; these remain available after membership ends.`:'');
  }
  const reviews=document.querySelector('#account-reviews');
  if(reviews)reviews.innerHTML=remote.workspace.reviews.map(r=>`<p><a href="${root}/due-diligence/?review=${encodeURIComponent(r.id)}">Saved property research · ${new Date(r.created_at*1000).toLocaleDateString('en-GB')}</a></p>`).join('');
@@ -594,6 +594,9 @@ async function refreshPaymentAvailability(){
      window.dispatchEvent(new Event('auction-payment-availability'));
      renderAuth();
      document.querySelectorAll('[data-report-pending]').forEach(e=>e.hidden=config.report_checkout_available);
+     document.querySelectorAll('[data-report-availability]').forEach(e=>e.textContent=config.report_checkout_available
+      ? 'Purchase a report for £19, or sign in to use your included membership credit or member price.'
+      : 'Report checkout is currently unavailable. Free Property Snapshots remain available.');
      document.querySelectorAll('[data-history-pending]').forEach(e=>e.hidden=live.history_checkout_available===true);
      document.querySelectorAll('[data-membership-pending]').forEach(e=>e.hidden=config.billing_enabled);
      const announcement=document.querySelector('[data-payment-status]');
