@@ -3950,3 +3950,19 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Next concrete growth target: Auction House Online event `64324` dated 3 December 2024, advertised at 41 lots. Source key `auction-house-online-2024-12-03` and its regression assertion are prepared in commits `38e3bac4e990e455d0450911bed4b54b7258ab25` and `40116b7fe9b6fdc0ccf2db6e388b4cf730cfffb8`. Add one isolated trigger only after historical writers are clear, then reconcile all 41 cards with immutable index/detail snapshots and exact-overlap exclusion.
 - National completeness remains false.
 
+
+## 2026-10-31 13:37 UTC — Auction House Online 3 December 2024 event 64324
+
+- Focused growth opportunity: first-party all-results event `64324`, advertised and reconciled at 41/41 property cards.
+- Banked commit: `ca28f4836eba8232bce44d731d137406f8766bcf`; collection run `41205195533`; publication run `41205568880` completed successfully for tests, Pages, auctiongeek.co.uk and production verification.
+- Net growth: 17 appearances, 17 address records and 17 dated address records inside the rolling 20-year window.
+- Property mix: 2 commercial, 0 mixed-use, 8 residential, 3 land and 4 unknown-sector records.
+- New evidence: 17 guide prices, 0 achieved prices and 0 rent values. Partial, undated and future-dated additions were all zero.
+- Outcomes remain distinct: 12 unsold, 3 sold prior, 1 withdrawn and 1 postponed.
+- Reconciliation: all 41 stable source identities and 41 detail pages were snapshotted; 24 exact date/address overlaps were retained in the audit and excluded from growth; duplicate source identities were zero.
+- Newly covered source-year: 2024. The individually published dates 29 November, 2 December and 3 December 2024 remain distinct catalogue states.
+- Legal operator remains AUCTION HOUSE UK LIMITED (company 06025583); regional labels are branch attribution, not additional auctioneers.
+- Corpus after rebuild: 307,139 appearances; 296,366 address records; 299,202 in-window appearances; 103,049 guide prices; 111,634 achieved prices; 10,773 partial, 4,725 undated and 169 future-dated records; 4,036 complete catalogue states, 537 incomplete states and 23 fetch/parse failures.
+- Next concrete growth target: Auction House Online event `64323` dated 26 November 2024, exposing 54/54 first-party cards with achieved-price and commercial-property evidence. Source key `auction-house-online-2024-11-26` and its focused assertion are prepared in commits `a7e96f62c012c5c46123bd3e27a64f27c89ba6b4` and `146ada19508df5d6a36951c2152dc77d49e76859`. Add one isolated trigger only after historical writers are clear, then reconcile all 54 cards with immutable index/detail snapshots and exact-overlap exclusion.
+- The terminal blocker for event `67141` dated 4 March 2025 remains preserved and must not be retried without a materially different recovery route.
+- National completeness remains false.
