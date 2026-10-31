@@ -3832,3 +3832,20 @@ Specific growth opportunity: recover first-party shared-platform event 66585 for
 
 Next concrete target: collect Auction House Online event **66522** dated **11 February 2025**. Its official first-party route exposes **31 of 31** cards with achieved-price and rent evidence. Source key `auction-house-online-2025-02-11` and its regression assertion are prepared in commits `f01cf020a9a6110789fbbe6360264a55838b550d` and `af7c60981783d471caa86574d14596abe5972537`. Launch only after confirming the writer lock is clear.
 
+## 31 October 2026 checkpoint — Auction House Online 11 February complete event
+
+Specific growth opportunity: recover first-party shared-platform event 66522 for 11 February 2025, whose all-results route exposes 31 of 31 property cards. The isolated collector started only after the scheduled production scan, permanent-history bank and all related publication writers reached terminal success.
+
+- Inventory: all **31 visible cards**, **31 stable source identities** and **31 detail pages** reconciled with immutable index/detail snapshots and no recovery failures.
+- Net growth: **11 individual appearances**, **11 address records** and **11 newly dated address records inside the twenty-year window**. Partial, undated and future-dated additions are **0 / 0 / 0**.
+- Sectors: **7 residential** and **4 unknown**; commercial/mixed-use growth is **0 / 0**.
+- Outcomes remain distinct: **9 unsold**, **1 sold after** and **1 sold prior**.
+- Price and rent evidence: **11 new guide prices**, **0 new achieved prices** and **1 new rent value**.
+- Deduplication: **20 exact date/address overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: **0**.
+- Coverage: **1 event source-year (2025)** was newly covered; legal operator-year growth is **0**. Lincolnshire, Hull & East Yorkshire, South West, South Yorkshire and Sussex & Hampshire remain branches of AUCTION HOUSE UK LIMITED, not new auctioneers.
+- Rebuilt totals: **307,010 appearances**, **296,237 address records**, **299,073 in-window appearances**, **102,921 in-window guides** and **111,620 in-window achieved prices**. Partial/undated/future counts remain **10,773 / 4,725 / 169**; complete catalogue states are **4,007**, with **537** incomplete states and **23** failures.
+- Collection run `41177172686`, bank commit `1478a9358ad4910b561276769afaf060c8f2c6d8` and publication run `41177483068` completed successfully, including Pages, auctiongeek.co.uk and live verification.
+- National completeness remains false.
+
+Next concrete target: collect Auction House Online event **66552** dated **4 February 2025**. Its official first-party route exposes **22 of 22** cards with mixed-use, achieved-price and rent evidence. Source key `auction-house-online-2025-02-04` and its regression assertion are prepared in commits `cd95c4af4895e78d8dd87512b8a25a3dfbfde557` and `22898e76ca0ccb86a069bb5557eb4f16e0783dc8`. Launch only after confirming the writer lock is clear.
+
