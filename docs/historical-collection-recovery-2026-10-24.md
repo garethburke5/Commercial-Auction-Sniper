@@ -3966,3 +3966,20 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Next concrete growth target: Auction House Online event `64323` dated 26 November 2024, exposing 54/54 first-party cards with achieved-price and commercial-property evidence. Source key `auction-house-online-2024-11-26` and its focused assertion are prepared in commits `a7e96f62c012c5c46123bd3e27a64f27c89ba6b4` and `146ada19508df5d6a36951c2152dc77d49e76859`. Add one isolated trigger only after historical writers are clear, then reconcile all 54 cards with immutable index/detail snapshots and exact-overlap exclusion.
 - The terminal blocker for event `67141` dated 4 March 2025 remains preserved and must not be retried without a materially different recovery route.
 - National completeness remains false.
+
+
+## 2026-10-31 14:20 UTC — Auction House Online 26 November 2024 event 64323
+
+- Focused growth opportunity: first-party all-results event `64323`, advertised and reconciled at 54/54 property cards.
+- Banked commit: `c5fc3fd4c44395e188991b38ac6ee7b6cdf20b89`; collection run `41208500793`; publication run `41208865527` completed successfully for tests, Pages, auctiongeek.co.uk and production verification.
+- Net growth: 31 appearances, 31 address records and 31 dated address records inside the rolling 20-year window.
+- Property mix: 0 commercial, 0 mixed-use, 17 residential, 2 land and 12 unknown-sector records.
+- New evidence: 31 guide prices, 2 achieved prices and 1 rent value. Partial, undated and future-dated additions were all zero.
+- Outcomes remain distinct: 2 sold, 3 sold prior, 18 unsold, 5 postponed and 3 withdrawn.
+- Reconciliation: all 54 stable source identities and 54 detail pages were snapshotted; 23 exact date/address overlaps were retained in the audit and excluded from growth; duplicate source identities were zero.
+- Newly covered source-year: 2024. The individually published dates 1, 18, 19, 21, 25 and 26 November 2024 remain distinct catalogue states.
+- Legal operator remains AUCTION HOUSE UK LIMITED (company 06025583); regional labels are branch attribution, not additional auctioneers.
+- Corpus after rebuild: 307,170 appearances; 296,397 address records; 299,233 in-window appearances; 103,080 guide prices; 111,636 achieved prices; 10,773 partial, 4,725 undated and 169 future-dated records; 4,042 complete catalogue states, 537 incomplete states and 23 fetch/parse failures.
+- Next concrete growth target: Auction House Online event `64249` dated 19 November 2024, officially listed at 51 lots. Source key `auction-house-online-2024-11-19` and its focused assertion are prepared in commits `1f09af977b0b458ce204130653c2a66ecb18e64b` and `ca486fb06cb33a4c10778dde0183687ed76d8623`. Add one isolated trigger only after historical writers are clear, then reconcile all 51 cards with immutable index/detail snapshots and exact-overlap exclusion.
+- The terminal blocker for event `67141` dated 4 March 2025 remains preserved and must not be retried without a materially different recovery route.
+- National completeness remains false.
