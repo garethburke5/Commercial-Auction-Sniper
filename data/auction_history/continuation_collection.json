@@ -4693,5 +4693,47 @@
     "publication_verified": true,
     "national_completeness_verified": false
   },
-  "latest_target_blocker": "Auction House Online event 62277 dated 15 October 2024 produced zero growth on collection run 41237222757. The first-party all-results index /past-auctions/62277?lotResultType=All timed out after the collector's bounded reads; the final request ended with a 120-second HTTPS read timeout. No immutable event shard or collection summary was created, no cards were captured, and the rebuilt corpus totals were unchanged in checkpoint commit 4a1e3daa6e286db68f1393c2149f5ff748969ca7. Publication run 41238355171 was skipped because collection failed. Do not retry this route unless a materially different cached, saved-file or snapshot path becomes available."
+  "latest_target_blocker": "Auction House Online event 62277 dated 15 October 2024 produced zero growth on collection run 41237222757. The first-party all-results index /past-auctions/62277?lotResultType=All timed out after the collector's bounded reads; the final request ended with a 120-second HTTPS read timeout. No immutable event shard or collection summary was created, no cards were captured, and the rebuilt corpus totals were unchanged in checkpoint commit 4a1e3daa6e286db68f1393c2149f5ff748969ca7. Publication run 41238355171 was skipped because collection failed. Do not retry this route unless a materially different cached, saved-file or snapshot path becomes available.",
+  "latest_deferred_launch": {
+    "checked_at": "2026-10-31T22:05:20+00:00",
+    "opportunity": "Auction House Online 1 October 2024 shared-platform event 62275",
+    "historical_collector_launched": false,
+    "net_new_appearances": 0,
+    "new_address_records": 0,
+    "new_dated_address_records_in_twenty_year_window": 0,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_guide_prices": 0,
+    "new_sale_prices": 0,
+    "new_rent_values": 0,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "new_source_year_pairs": 0,
+    "blocker": "Routine production scan run 41244102032 remained in its Run production collectors step from 2026-10-31T21:32:55Z through this checkpoint. It will validate and publish data/properties.json, so launching the historical generated-data writer concurrently would violate the publication-safety rule. This is a concurrency deferment, not a source-route failure; no property capture or zero-growth refresh is claimed.",
+    "next_growth_target": "Launch the already prepared isolated event 62275 collector only after run 41244102032 and any resulting publication writer have completed.",
+    "different_follow_on_target": "Auction House Online event 62274 dated 24 September 2024 exposes 23 first-party cards at /past-auctions/62274?lotResultType=All, including mixed-use and achieved-price evidence. Its bounded configuration, source-contract assertion and dormant isolated workflow trigger are prepared in commits d80d066b2cb1a0763f131164946030e8e2a1f6ab, 27976459c2977573a3ce8eaae7981348eddceb0f and 49103418fe7dbad7e75714bab208a1c7ec0b80b0.",
+    "national_completeness_verified": false
+  },
+  "prepared_follow_on_target": {
+    "checked_at": "2026-10-31T22:05:20+00:00",
+    "source_key": "auction-house-online-2024-09-24",
+    "auctioneer": "Auction House Online",
+    "platform_event_id": "62274",
+    "source_url": "https://online.auctionhouse.co.uk/past-auctions/62274?lotResultType=All",
+    "expected_visible_cards": 23,
+    "observed_source_year": 2024,
+    "evidence_opportunity": [
+      "mixed-use",
+      "achieved sale prices",
+      "published outcomes",
+      "rents where present"
+    ],
+    "source_config_commit": "d80d066b2cb1a0763f131164946030e8e2a1f6ab",
+    "assertion_commit": "27976459c2977573a3ce8eaae7981348eddceb0f",
+    "dormant_trigger_commit": "49103418fe7dbad7e75714bab208a1c7ec0b80b0",
+    "validation": "Python syntax and literal source-contract assertion passed locally; the repository workflow will run the full collector regression suite before collection.",
+    "launch_state": "prepared_not_launched",
+    "national_completeness_verified": false
+  }
 }
