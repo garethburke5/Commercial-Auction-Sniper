@@ -3900,3 +3900,21 @@ Specific growth opportunity: recover first-party shared-platform event 65927 for
 
 Next concrete target: collect Auction House Online event **65629** dated **14 January 2025**. Its official first-party all-results route exposes **58 of 58** property cards with commercial and mixed commercial/residential descriptions plus achieved-price evidence. Source key `auction-house-online-2025-01-14` and its regression assertion are prepared in commits `80e471e6be1d999f12dadd55e3d69845d5ead6b6` and `97c7d7f104042fe0df2b969e95f3c90506d76cbe`. Add only an isolated workflow trigger after confirming the writer lock is clear.
 
+
+## 31 October 2026 checkpoint — Auction House Online 14 January complete event
+
+Specific growth opportunity: recover first-party shared-platform event 65629 for 14 January 2025, whose all-results route exposes 58 of 58 property cards. The scheduled bounded archive batch immediately before it completed with zero corpus growth, so it was not repeated; the isolated event collector started only after that run and its publication were both terminal. While the writer lock was held, only the next 17 December source configuration and regression assertion were prepared with `[skip ci]`.
+
+- Inventory: all **58 visible cards**, **58 stable source identities** and **58 detail pages** reconciled with immutable index/detail snapshots and no recovery failures.
+- Net growth: **30 individual appearances**, **30 address records** and **30 newly dated address records inside the twenty-year window**. Partial, undated and future-dated additions are **0 / 0 / 0**.
+- Sectors: **2 commercial**, **0 mixed-use**, 11 residential, 1 land and 16 unknown.
+- Outcomes remain distinct: **3 sold**, **4 sold prior**, **21 unsold** and **2 postponed**.
+- Price and rent evidence: **30 new guide prices**, **3 new achieved prices** and **1 new rent value**.
+- Deduplication: **28 exact date/address overlaps** were retained in the audit and excluded from claimed growth; duplicate source identities added: **0**.
+- Coverage: **2 event source-years (2024 and 2025)** were newly covered because individual published dates span 20 December 2024 to 14 January 2025; legal operator-year growth is **0**. Wales - Cardiff, Scotland, South Yorkshire, London, Lincolnshire, Cheshire/Staffordshire/Shropshire, South West and East Anglia remain branches of AUCTION HOUSE UK LIMITED, not new auctioneers.
+- Rebuilt totals: **307,079 appearances**, **296,306 address records**, **299,142 in-window appearances**, **102,989 in-window guides** and **111,628 in-window achieved prices**. Partial/undated/future counts remain **10,773 / 4,725 / 169**; complete catalogue states are **4,025**, with **537** incomplete states and **23** failures.
+- Collection run `41193125502`, bank commit `a5fdb8a5594aa4887ac0842da09ad7ee91d811a7` and publication run `41193500989` completed successfully, including tests, Pages, auctiongeek.co.uk and live production verification.
+- National completeness remains false.
+
+Next concrete target: collect Auction House Online event **65351** dated **17 December 2024**. Its official first-party all-results route exposes **44 of 44** property cards with commercial, achieved-price and rent evidence. Source key `auction-house-online-2024-12-17` and its regression assertion are prepared in commits `a03a20a0a076333522e8a30a248eb0f8979d3939` and `de0ec4a9d0ea92d9193210d4c99a38ec388b0cbd`. Add only an isolated workflow trigger after confirming the writer lock is clear.
+
