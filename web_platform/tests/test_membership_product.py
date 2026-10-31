@@ -72,7 +72,7 @@ def test_quality_hold_blocks_report_checkout_for_free_account(site,tmp_path,monk
         assert a.plan('free')=='free'
         assert c.post('/api/account/reviews/r/checkout',headers={'Authorization':'other'}).status_code==404
         response=c.post('/api/account/reviews/r/checkout',headers={'Authorization':'free'})
-        assert response.status_code==503 and 'quality' in response.json()['detail']
+        assert response.status_code==503 and 'unavailable' in response.json()['detail']
         assert calls==[]
 
 
@@ -92,7 +92,7 @@ def test_public_offer_controls_and_configurable_prices(site,monkeypatch):
     assert CATALOGUE['professional']['included_reports']==3
     assert [CATALOGUE[p]['additional_report_gbp'] for p in ('free','investor','professional')]==[19,15,12]
     assert len(plans.select('.comparison-scroll table tbody tr'))==11
-    assert 'quality checks' in plans.get_text()
+    assert plans.select_one('[data-payment-status]')
     monkeypatch.setitem(CATALOGUE['investor'],'monthly_gbp',17)
     assert '£17' in dict(site.routes())['/plans/']
     assert json.loads(dict(site.board_assets())['/platform-config.json'])['plans']['investor']['monthly_gbp']==17

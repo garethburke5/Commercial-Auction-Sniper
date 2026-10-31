@@ -586,7 +586,7 @@ async function refreshPaymentAvailability(){
   config.report_checkout_available=false;
   if(config.accounts_enabled&&config.api_origin){
    try{
-    const response=await fetch(config.api_origin+'/api/readiness',{cache:'no-store',signal:AbortSignal.timeout(60000)});
+    const response=await fetch(config.api_origin+'/api/readiness',{cache:'no-store',signal:typeof AbortSignal!=='undefined'?AbortSignal.timeout(60000):undefined});
     if(response.ok){
      const live=await response.json();
      config.billing_enabled=live.accounts_ready===true&&live.membership_checkout_available===true;

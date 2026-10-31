@@ -109,7 +109,7 @@ def test_checkout_cannot_be_enabled_by_provider_configuration():
     billing=Billing(None,'configured','configured',{},'https://example.org',{'legal_pack_report':'price_configured'})
     with pytest.raises(HTTPException) as error:
         billing.purchase('user','legal_pack_report','review:test')
-    assert error.value.status_code==503 and 'quality' in error.value.detail
+    assert error.value.status_code==503 and 'unavailable' in error.value.detail
 
 def test_pdf_export_remains_owner_purchase_and_refund_bound(tmp_path):
     import json,time

@@ -17,7 +17,7 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,plan='free',balance=null}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,readiness='ready',plan='free',balance=null}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
  const elements=Object.fromEntries(['checkout-return','checkout-return-title','checkout-return-message','checkout-refresh','account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
@@ -51,6 +51,11 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   if(url.endsWith('/api/billing/portal')){writes.push({url,...options});return {ok:true,json:async()=>({url:'https://billing.stripe.test/session'})};}
   if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[{id:'lot'}]})};
   if(url.endsWith('platform-config.json'))return {ok:true,json:async()=>config};
+  if(url.endsWith('/api/readiness')){
+   if(readiness==='pending')return new Promise(()=>{});
+   if(readiness==='failed')throw Error('Readiness unavailable');
+   return {ok:true,json:async()=>({accounts_ready:true,membership_checkout_available:billingEnabled,report_checkout_available:billingEnabled})};
+  }
   if(url.includes('/api/admin/preview/'))return {ok:true,json:async()=>({plan:'visitor',features:[]})};
   assert.equal(url,'https://private.example/api/account');accountCalls++;
   if(delayed)await new Promise(resolve=>{release=resolve;});
@@ -289,4 +294,12 @@ test('cancelled portal return shows ended membership rather than indefinite pend
  const app=await setup({initial:buyer('a'),billingReturn:true,billing:{status:'canceled',has_customer:true,payment_required:false}});
  assert.match(app.elements['#checkout-return-title'].textContent,/not active/);
  assert.equal(app.elements['#checkout-refresh'].hidden,true);
+});
+
+for(const readiness of ['pending','failed'])test(readiness+' payment readiness never blocks sign-in or trusts stale public billing',async()=>{
+ const app=await setup({initial:buyer('a'),billing:failedBilling(),billingEnabled:true,readiness});
+ assert.equal(app.link.textContent,'My Auction Geek');
+ assert.equal(app.navSignOut.hidden,false);
+ assert.equal(app.elements['#account-billing'].hidden,true);
+ assert.equal(app.accountCalls,1);
 });

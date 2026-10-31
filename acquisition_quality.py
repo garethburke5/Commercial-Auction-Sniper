@@ -1,7 +1,7 @@
 """Product acceptance is separate from extraction success and payment configuration.
 
-This release is under investment-quality validation. Changing provider keys or
-setting BILLING_LIVE must never implicitly approve Acquisition Intelligence.
+Owner-authorised product availability is separate from individual report quality.
+Changing BILLING_LIVE never implicitly enables the report product.
 """
 from __future__ import annotations
 import os

@@ -39,6 +39,13 @@ checkouts. JavaScript syntax checks passed. These are application tests with
 provider doubles, not real Stripe transactions or a completed customer journey.
 PR #31's existing two GitHub test checks also passed before merge.
 
+The full local platform suite subsequently passed: 394 tests, 14 PostgreSQL
+cases skipped locally. The dedicated hosted PostgreSQL job in run 41200822203
+passed. The Node session/navigation suite passed all 34 cases, including slow
+and failed readiness without delaying login. The report-engine GitHub workflow
+41200822089 passed. Old permanent-quality-hold text expectations were updated;
+the Cloudflare fallback test required its documented pysqlite3 build dependency.
+
 ## Actual blockers, not a request for launch approval
 
 1. Render events report pipeline_minutes_exhausted. The API is still serving
