@@ -3936,3 +3936,17 @@ Specific growth opportunity: recover first-party shared-platform event 65351 for
 
 Next concrete target: collect Auction House Online event **64325** dated **10 December 2024**. Its official first-party all-results route exposes **30 of 30** property cards with achieved-price and rent evidence. Source key `auction-house-online-2024-12-10` and its focused assertion are prepared in commits `b81b87c45b4f79b37881ea01bc9f86efae39c078` and `0d18a661d670879184689989b68166028c4a5b08`. Add only an isolated workflow trigger after confirming the writer lock is clear.
 
+## 2026-10-31 12:02 UTC — Auction House Online 10 December 2024 event 64325
+
+- Focused growth opportunity: first-party all-results event `64325`, advertised and reconciled at 30/30 property cards.
+- Banked commit: `59b8d9f9b7752d8bdc84672411be428b30cc1573`; collection run `41199230594`; publication run `41199612070` completed successfully for Pages and auctiongeek.co.uk.
+- Net growth: 13 appearances, 13 address records and 13 dated address records inside the rolling 20-year window.
+- Property mix: 1 commercial, 0 mixed-use, 9 residential, 0 land and 3 unknown-sector records.
+- New evidence: 13 guide prices, 1 achieved price and 1 rent value. Partial, undated and future-dated additions were all zero.
+- Reconciliation: all 30 stable source identities and 30 detail pages were snapshotted; 17 exact date/address overlaps were retained in the audit and excluded from growth; duplicate source identities were zero.
+- Newly covered source-year: 2024. The four individually published end dates (24 and 28 November; 9 and 10 December 2024) remain distinct catalogue states.
+- Legal operator remains AUCTION HOUSE UK LIMITED (company 06025583); regional labels are branch attribution, not additional auctioneers.
+- Corpus after rebuild: 307,122 appearances; 296,349 address records; 299,185 in-window appearances; 103,032 guide prices; 111,634 achieved prices; 10,773 partial, 4,725 undated and 169 future-dated records; 4,033 complete catalogue states, 537 incomplete states and 23 fetch/parse failures.
+- Next concrete growth target: Auction House Online event `64324` dated 3 December 2024, advertised at 41 lots. Source key `auction-house-online-2024-12-03` and its regression assertion are prepared in commits `38e3bac4e990e455d0450911bed4b54b7258ab25` and `40116b7fe9b6fdc0ccf2db6e388b4cf730cfffb8`. Add one isolated trigger only after historical writers are clear, then reconcile all 41 cards with immutable index/detail snapshots and exact-overlap exclusion.
+- National completeness remains false.
+
