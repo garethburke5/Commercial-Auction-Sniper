@@ -4,15 +4,18 @@ This release is under investment-quality validation. Changing provider keys or
 setting BILLING_LIVE must never implicitly approve Acquisition Intelligence.
 """
 from __future__ import annotations
+import os
 
-PAID_PRODUCT_STATUS = 'quality_review_required'
-PAID_PRODUCT_MESSAGE = ('Full Investment Reports are undergoing investment-quality validation. '
-                        'Paid report checkout is not available yet.')
+PAID_PRODUCT_STATUS = 'checkout_unavailable'
+PAID_PRODUCT_MESSAGE = 'Full Investment Report checkout is currently unavailable. Please try again later.'
 
 
 def paid_report_status(report=None):
-    # Deliberately fail closed while the rejected product is being rebuilt.
-    # Release requires a reviewed code change and an independent acceptance record.
+    # Owner authorised commercial launch on 31 October 2026. Product availability
+    # does not approve an individual output: acceptance_issues and refunds remain.
+    if os.getenv('PAID_REPORTS_ENABLED') == 'true':
+        return {'status': 'available', 'purchase_available': True,
+                'message': 'Full Investment Reports are available. Each report is checked before delivery.'}
     return {'status': PAID_PRODUCT_STATUS, 'purchase_available': False,
             'message': PAID_PRODUCT_MESSAGE}
 

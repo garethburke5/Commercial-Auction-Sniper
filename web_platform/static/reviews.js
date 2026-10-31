@@ -3,6 +3,7 @@
 const panel=document.querySelector('#native-review');if(!panel)return;
 const $=id=>document.getElementById(id),params=new URLSearchParams(location.search);
 let id=params.get('review'),epoch=0,last=null;
+window.addEventListener('auction-payment-availability',()=>{if(last)show(last);});
 const ready=()=>window.AuctionWorkspace?.signedIn();
 const progress=$('review-progress'),snapshotForm=$('review-snapshot'),uploadForm=$('review-upload');
 const confirmForm=$('review-confirm'),scopeForm=$('review-scope');
@@ -13,7 +14,7 @@ function show(r){
  $('acquisition-result').innerHTML=r.html;
  snapshotForm.hidden=true;confirmForm.hidden=state!=='awaiting_confirmation';scopeForm.hidden=state!=='awaiting_scope';
  const accepted=!s||s.accepted;
- $('unlock-review').hidden=!accepted||r.purchase_verified||r.access==='full'||r.processing_allowed||!AuctionWorkspace.config()?.billing_enabled||r.report?.quality_status?.purchase_available!==true;
+ $('unlock-review').hidden=!accepted||r.purchase_verified||r.access==='full'||r.processing_allowed||!AuctionWorkspace.config()?.report_checkout_available||r.report?.quality_status?.purchase_available!==true;
  $('redeem-review').hidden=!accepted||r.purchase_verified||r.access==='full'||r.processing_allowed||r.report?.quality_status?.purchase_available!==true;
  uploadForm.hidden=!(r.processing_allowed||r.owner_validation_allowed);
  uploadForm.querySelector('button[type="submit"]').textContent=r.owner_validation_allowed?'Run private validation report':'Generate my Full Investment Report';

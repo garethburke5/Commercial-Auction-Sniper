@@ -47,6 +47,8 @@ def install(app,site,user):
         from acquisition_quality import free_snapshot_exportable
         public_free=state in ('complete','requires_review') and free_snapshot_exportable(report)
         projection={k:v for k,v in report.items() if not k.startswith('_')} if diagnostic or public_free or (full and state=='complete') else snapshot(report)
+        from acquisition_quality import paid_report_status
+        projection['quality_status'] = {**projection.get('quality_status', {}), **paid_report_status(report)}
         delivered=diagnostic or public_free or (full and state=='complete')
         # Customer JSON carries display metadata. Source text is delivered by the
         # separately authorised evidence endpoint; raw audit JSON is owner-only.

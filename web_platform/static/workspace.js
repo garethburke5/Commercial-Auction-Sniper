@@ -45,7 +45,7 @@ function renderCheckoutReturn(){
    detail='Welcome back. Your account membership has been verified. Unlimited Premium Property History & Intelligence is included at no extra charge.';
    const balance=checkoutAccount.report_credits;
    if(balance?.period_end)detail+=' '+balance.remaining+' of '+balance.allowance+' included report credits available until '+new Date(balance.period_end*1000).toLocaleDateString('en-GB')+'.';
-   detail+=' Report generation remains subject to launch quality approval.';
+   if(!config.report_checkout_available)detail+=' Report generation is currently unavailable.';
    if(preview)detail+=' You are viewing a customer preview; select My account to use your membership.';
   }else if(['canceled','incomplete_expired'].includes(checkoutAccount.billing?.status)){
    heading='Your membership is not active';detail='Your account is on Free. Your shortlist and previously paid reports remain available.';
@@ -579,11 +579,37 @@ document.querySelector('#owner-preview')?.addEventListener('change',async e=>{
   location.reload();
  }catch(err){notice(err.message);}
 });
+async function refreshPaymentAvailability(){
+  // The deployed API is authoritative, including when static pages predate a
+  // launch or emergency pause. A failed check never enables checkout.
+  config.billing_enabled=false;
+  config.report_checkout_available=false;
+  if(config.accounts_enabled&&config.api_origin){
+   try{
+    const response=await fetch(config.api_origin+'/api/readiness',{cache:'no-store',signal:AbortSignal.timeout(60000)});
+    if(response.ok){
+     const live=await response.json();
+     config.billing_enabled=live.accounts_ready===true&&live.membership_checkout_available===true;
+     config.report_checkout_available=live.accounts_ready===true&&live.report_checkout_available===true;
+     window.dispatchEvent(new Event('auction-payment-availability'));
+     renderAuth();
+     document.querySelectorAll('[data-report-pending]').forEach(e=>e.hidden=config.report_checkout_available);
+     document.querySelectorAll('[data-history-pending]').forEach(e=>e.hidden=live.history_checkout_available===true);
+     document.querySelectorAll('[data-membership-pending]').forEach(e=>e.hidden=config.billing_enabled);
+     const announcement=document.querySelector('[data-payment-status]');
+     if(announcement)announcement.textContent=config.billing_enabled
+      ? 'Memberships are available. Free property search and snapshots remain free.'+(config.report_checkout_available?' Full Investment Reports cost £19, with included reports and lower additional-report prices for members.':' Full Investment Report checkout is temporarily unavailable.')
+      : 'Free browsing and accounts are available. Payment checkout is currently unavailable.';
+    }
+   }catch(_){}
+  }
+}
 async function initialize(){
  try{const r=await fetch(root+'/workspace-index.json',{signal:typeof AbortSignal!=='undefined'?AbortSignal.timeout(15000):undefined});if(!r.ok)throw Error();const data=await r.json();index=Object.fromEntries(data.rows.map(r=>[r.id,r]));render();}
  catch(_){notice('Property workspace details are unavailable. Your earlier records remain intact.');}
  try{
   const r=await fetch(root+'/platform-config.json',{cache:'no-store'});if(!r.ok)throw Error();config=await r.json();
+  refreshPaymentAvailability();
   if(config.accounts_enabled&&window.AuctionIdentity){
    auth=window.AuctionIdentity.createClient(config.supabase_url,config.supabase_key,{auth:{flowType:'pkce'}});
    auth.auth.onAuthStateChange((event,next)=>{

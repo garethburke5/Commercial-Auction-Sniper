@@ -93,7 +93,8 @@ def test_rendered_review_preserves_search_hero_and_contextual_history(tmp_path):
     assert prop.select_one('#property-target')
     assert 'Official example lot' not in pages['/auctioneers/']
     assert '1 September 2099' in pages['/auctions/']
-    assert 'Checkout remains closed' in pages['/plans/']
+    assert BeautifulSoup(pages['/plans/'],'html.parser').select_one('[data-payment-status]')
+    assert 'Checkout remains closed' not in pages['/plans/']
 
 
 def test_one_off_payment_ownership_signature_replay_and_refund(tmp_path,monkeypatch):

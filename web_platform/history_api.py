@@ -17,8 +17,8 @@ def install(app,site,user,current_catalogue):
 
     @app.get('/api/history/products')
     def products():
-        import os
-        available=sales_ready() and os.getenv('BILLING_LIVE')=='true' and os.getenv('HISTORY_TAX_MODE') in ('not_registered','inclusive_manual')
+        from .payment_availability import availability
+        available=availability()['history_checkout_available']
         return {'purchases_available':available,'products':offers()}
 
     @app.get('/api/history/{property_id}')

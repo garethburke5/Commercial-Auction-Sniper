@@ -118,6 +118,14 @@ def create_app(site=None):
                 ready=False
         from fastapi.responses import JSONResponse
         from .alert_delivery import configured as alerts_configured
+        from .payment_availability import availability
+        from acquisition_quality import paid_report_status
+        payment_state = availability()
+        if not ready:
+            for key in ('membership_checkout_available','report_checkout_available','history_checkout_available'):
+                payment_state[key] = False
+        if not callable(app.state.acquisition_provider_factory):
+            payment_state['report_checkout_available'] = False
         return JSONResponse({'accounts_ready':ready,
             'release':os.getenv('RENDER_GIT_COMMIT','local'),
             'billing_configured':bool(os.getenv('STRIPE_SECRET_KEY') and os.getenv('STRIPE_WEBHOOK_SECRET')),
@@ -126,7 +134,8 @@ def create_app(site=None):
             'production_email_confirmed':os.getenv('PRODUCTION_EMAIL_VERIFIED')=='true',
             'owner_access_configured':ready and bool(os.getenv('ADMIN_ACCOUNT_IDS','').strip()),
             'analysis_provider_configured':callable(app.state.acquisition_provider_factory),
-            'paid_reports_approved':False},status_code=200 if ready else 503)
+            'paid_reports_approved':paid_report_status()['purchase_available'],
+            **payment_state},status_code=200 if ready else 503)
     @app.post('/api/internal/monitor')
     def scheduled_check(x_monitor_timestamp:str|None=Header(default=None),x_monitor_signature:str|None=Header(default=None)):
         from .scheduled_monitoring import authenticate,run

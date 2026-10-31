@@ -11,7 +11,7 @@
  <button type="button" data-history-buy="property_history" disabled><span>Unlock this property’s history</span><strong>{{ plans.history_products.property_history.price_label }}</strong><small>Permanent history access</small></button>
  <button type="button" data-history-buy="history_day_pass" disabled><span>All property histories</span><strong>{{ plans.history_products.history_day_pass.price_label }}</strong><small>24-hour Day Pass</small></button>
  </div>
- <p><a class="textlink" href="{{ url('/plans/#investor') }}">Get unlimited Premium Property History with Investor membership — £{{ plans.investor.monthly_gbp }}/month →</a></p><p class="small">Unlimited Premium Property History &amp; Intelligence is included with Investor and Investor Pro at no extra charge. History purchases are coming soon. Full Investment Reports use your separate report allowance or a one-off purchase.</p>
+ <p><a class="textlink" href="{{ url('/plans/#investor') }}">Get unlimited Premium Property History with Investor membership — £{{ plans.investor.monthly_gbp }}/month →</a></p><p class="small">Unlimited Premium Property History &amp; Intelligence is included with Investor and Investor Pro at no extra charge. <span data-history-pending>History checkout is currently unavailable.</span> Full Investment Reports use your separate report allowance or a one-off purchase.</p>
  {% endif %}
  <div class="history-preview-actions"><a class="textlink" href="{{ url('/account/') }}">Sign in to your account →</a><button type="button" class="button outline" data-history-load>Check my history access</button></div>
  </div>
