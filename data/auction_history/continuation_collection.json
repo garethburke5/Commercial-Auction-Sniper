@@ -4697,7 +4697,7 @@
   "latest_deferred_launch": {
     "checked_at": "2026-10-31T22:05:20+00:00",
     "opportunity": "Auction House Online 1 October 2024 shared-platform event 62275",
-    "historical_collector_launched": false,
+    "historical_collector_launched": true,
     "net_new_appearances": 0,
     "new_address_records": 0,
     "new_dated_address_records_in_twenty_year_window": 0,
@@ -4713,7 +4713,10 @@
     "blocker": "Routine production scan run 41244102032 remained in its Run production collectors step from 2026-10-31T21:32:55Z through this checkpoint. It will validate and publish data/properties.json, so launching the historical generated-data writer concurrently would violate the publication-safety rule. This is a concurrency deferment, not a source-route failure; no property capture or zero-growth refresh is claimed.",
     "next_growth_target": "Launch the already prepared isolated event 62275 collector only after run 41244102032 and any resulting publication writer have completed.",
     "different_follow_on_target": "Auction House Online event 62274 dated 24 September 2024 exposes 23 first-party cards at /past-auctions/62274?lotResultType=All, including mixed-use and achieved-price evidence. Its bounded configuration, source-contract assertion and dormant isolated workflow trigger are prepared in commits d80d066b2cb1a0763f131164946030e8e2a1f6ab, 27976459c2977573a3ce8eaae7981348eddceb0f and 49103418fe7dbad7e75714bab208a1c7ec0b80b0.",
-    "national_completeness_verified": false
+    "national_completeness_verified": false,
+    "cleared_at": "2026-10-31T22:17:00+00:00",
+    "writer_clearance": "Production scan 41244102032, downstream history banker 41246718227, publication 41246718188 and follow-on publication 41246817162 all completed successfully; no active workflow remained before release.",
+    "launch_commit_pending": true
   },
   "prepared_follow_on_target": {
     "checked_at": "2026-10-31T22:05:20+00:00",
