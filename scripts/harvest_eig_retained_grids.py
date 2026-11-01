@@ -186,7 +186,7 @@ SOURCES = {
     "auction-house-online-2024-05-21": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/58375?lotResultType=All",
+        "archive_path": "/past-auctions/58375",
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
