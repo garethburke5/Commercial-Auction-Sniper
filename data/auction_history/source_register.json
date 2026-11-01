@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-01T07:21:00.153630+00:00",
-  "corpus_checkpoint": "2026-11-01T07:20:33.977180+00:00",
+  "generated_at": "2026-11-01T08:09:04.006186+00:00",
+  "corpus_checkpoint": "2026-11-01T08:08:36.980320+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -718,13 +718,13 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Auction House Online",
       "match_basis": "exact label",
-      "retained_appearances": 14,
+      "retained_appearances": 15,
       "years_with_retained_evidence": [
         2024,
         2025,
         2026
       ],
-      "with_guide_price": 14,
+      "with_guide_price": 15,
       "with_sale_price": 0,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
@@ -748,14 +748,14 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Auction House Scotland",
       "match_basis": "exact label",
-      "retained_appearances": 25,
+      "retained_appearances": 27,
       "years_with_retained_evidence": [
         2024,
         2025,
         2026
       ],
-      "with_guide_price": 25,
-      "with_sale_price": 1,
+      "with_guide_price": 27,
+      "with_sale_price": 2,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -787,7 +787,7 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Auction House South Yorkshire",
       "match_basis": "exact label",
-      "retained_appearances": 2106,
+      "retained_appearances": 2107,
       "years_with_retained_evidence": [
         2018,
         2019,
@@ -799,7 +799,7 @@
         2025,
         2026
       ],
-      "with_guide_price": 2105,
+      "with_guide_price": 2106,
       "with_sale_price": 1509,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
@@ -8152,14 +8152,14 @@
     "Auction House Northants, Beds & Bucks": 42,
     "Auction House Northern Ireland": 8,
     "Auction House Notts & Derby": 405,
-    "Auction House Online": 14,
-    "Auction House Scotland": 25,
+    "Auction House Online": 15,
+    "Auction House Scotland": 27,
     "Auction House South West": 405,
-    "Auction House South Yorkshire": 2106,
+    "Auction House South Yorkshire": 2107,
     "Auction House Sussex & Hampshire": 97,
     "Auction House Tees Valley": 16,
     "Auction House Wales": 482,
-    "Auction House Wales - Cardiff": 92,
+    "Auction House Wales - Cardiff": 97,
     "Auction House Wales - Colwyn Bay": 35,
     "Auction House West Yorkshire": 181,
     "Auction North": 37,
@@ -8233,12 +8233,12 @@
     "through_date": "2026-11-01",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 299391,
-      "auction_ids_observed": 12193,
-      "with_guide_price": 103289,
-      "with_sale_price": 111616,
-      "with_both_prices": 48305,
-      "marked_sold": 153614,
+      "lot_appearances": 299400,
+      "auction_ids_observed": 12197,
+      "with_guide_price": 103298,
+      "with_sale_price": 111617,
+      "with_both_prices": 48306,
+      "marked_sold": 153615,
       "marked_sold_without_sale_price": 42738
     },
     "by_auctioneer_and_year": [
@@ -10357,9 +10357,9 @@
       {
         "auctioneer": "Auction House Online",
         "year": 2024,
-        "lot_appearances": 5,
-        "auction_ids_observed": 4,
-        "with_guide_price": 5,
+        "lot_appearances": 6,
+        "auction_ids_observed": 5,
+        "with_guide_price": 6,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 1,
@@ -10390,12 +10390,12 @@
       {
         "auctioneer": "Auction House Scotland",
         "year": 2024,
-        "lot_appearances": 17,
-        "auction_ids_observed": 11,
-        "with_guide_price": 17,
-        "with_sale_price": 1,
-        "with_both_prices": 1,
-        "marked_sold": 2,
+        "lot_appearances": 19,
+        "auction_ids_observed": 12,
+        "with_guide_price": 19,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 3,
         "marked_sold_without_sale_price": 1
       },
       {
@@ -10577,9 +10577,9 @@
       {
         "auctioneer": "Auction House South Yorkshire",
         "year": 2024,
-        "lot_appearances": 351,
-        "auction_ids_observed": 56,
-        "with_guide_price": 351,
+        "lot_appearances": 352,
+        "auction_ids_observed": 57,
+        "with_guide_price": 352,
         "with_sale_price": 320,
         "with_both_prices": 320,
         "marked_sold": 335,
@@ -10786,9 +10786,9 @@
       {
         "auctioneer": "Auction House Wales - Cardiff",
         "year": 2024,
-        "lot_appearances": 40,
-        "auction_ids_observed": 17,
-        "with_guide_price": 40,
+        "lot_appearances": 45,
+        "auction_ids_observed": 18,
+        "with_guide_price": 45,
         "with_sale_price": 1,
         "with_both_prices": 1,
         "marked_sold": 6,
@@ -16265,6 +16265,24 @@
       "exit_code": 0,
       "diagnostic_tail": "{\"checked_at\":\"2026-10-27T07:09:27.193507+00:00\",\"opportunity\":\"Astleys complete first-party retained EIG archive and operator reconciliation\",\"saved_candidate_rows\":26,\"overlapping_rows_excluded\":0,\"net_new_appearances\":26,\"new_address_records\":26,\"new_partial_lots\":0,\"new_dated_address_records_in_twenty_year_window\":26,\"new_undated_appearances\":0,\"new_future_dated_appearances\":0,\"commercial_or_mixed_use\":3,\"new_guide_prices\":23,\"new_sale_prices\":15,\"new_guide_prices_in_twenty_year_window\":23,\"new_sale_prices_in_twenty_year_window\":15,\"new_rent_values\":0,\"new_source_year_pairs\":4,\"duplicate_appearance_ids\":0,\"explicit_test_appearances_excluded\":0,\"non_auction_property_cards_excluded\":0,\"operator_reconciliation\":\"Astleys is retained as one genuine Swansea operator under ASTLEY SAMUEL LEEDER LTD (company 03129558); no branch, alias or shared-platform participant is counted as an additional auctioneer.\",\"persisted_shard_verification\":\"26 rows, 26 unique appearance IDs, 26 unique source lot IDs, 26 original URLs, 26 grid source-evidence records and 26 detail source-evidence records.\",\"database_rebuild_verified\":true}",
       "checked_at": "2026-10-27T07:09:27.193507+00:00"
+    },
+    "auction_house_online_2024_07_23": {
+      "outcome": "completed",
+      "checked_at": "2026-11-01T07:27:00.000Z",
+      "run_new_appearances": 10,
+      "run_new_address_records": 10,
+      "run_new_dated_twenty_year_address_records": 10,
+      "run_new_commercial_mixed": 1,
+      "run_new_guide_prices": 10,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "run_duplicate_source_evidence_excluded": 19,
+      "published_result_count": 29,
+      "detail_pages_captured": 29,
+      "archive_visible_inventory_reconciled": true,
+      "collection_run_id": 41284119474,
+      "banked_commit": "efb9c9f7e01473c98556d663b396dde845eabc87",
+      "publication_run_id": 41284514530
     }
   },
   "unresolved_catalogues": [
@@ -21170,7 +21188,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-01T07:20:59.544988+00:00",
+    "checked_at": "2026-11-01T08:09:03.524807+00:00",
     "sha256": "d456f785160986794b58a92c38feaa1130d79dab23a1b2d71602d1f2c16d5209",
     "status": "retrieved"
   }
