@@ -4361,3 +4361,21 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Event `60899` remains terminal on its timed-out first-party route; do not retry without a materially different cached, saved-file or snapshot path.
 - National completeness remains **false**.
 
+## 2026-11-01 — Auction House Online 11 June 2024 event 59262
+
+- Growth opportunity: the surviving first-party [event 59262](https://online.auctionhouse.co.uk/past-auctions/59262?lotResultType=All) exposes **19 of 19 property cards**, individually dated from 3 to 11 June 2024.
+- Writer protection: all collection and publication workflows were clear before release. [Collection run 41308893714](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41308893714) was the only collector. The release changed only the retained-grid source contract and historical workflow trigger, so the unrelated publish-now revalidation route was not activated.
+- Net banked gain after deduplication: **5 appearances**, **5 address records**, **5 dated address records inside the preceding 20-year window**, **0 partial**, **0 undated** and **0 future-dated** records.
+- Duplicate handling: **14 exact date/address overlaps** were reconciled against existing evidence and excluded from net growth. There were **0 duplicate source identities** and no captured record was discarded.
+- Sector subset: **1 commercial**, **0 mixed-use**, three residential and one unknown. Unknown property types remain unknown.
+- Evidence gain: **5 guide prices**, **0 achieved sale prices** and **1 rent value**. Outcomes remain distinct: three sold prior, one unsold and one postponed. Missing monetary values remain null.
+- Dates and coverage: individual published dates from 3 to 11 June 2024 were retained. The event adds one reconciled **Auction House Online / 2024 event inventory**, but 2024 was already represented, so **0 new operator/source-year pairs** and no new legal operator are claimed. Four catalogue-date states became reconciled.
+- Operator reconciliation: AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Scotland, South West, Lincolnshire, West Yorkshire and Birmingham remain branch attribution and are not counted as additional auctioneers.
+- Immutable evidence: event index SHA-256 `85cfe68da61a2cbaca60f62000df2ebc77dbc6ef91ef76ddad89a785fcdd89a7`; all 19 detail snapshots were retained. The surviving first-party inventory is reconciled; deleted earlier lots are not claimed.
+- Corpus after rebuild: **307,450 appearances**; **296,677 address records**; **299,461 in-window appearances**; **103,359 in-window guides**; **111,618 in-window sale prices**; **10,773 partial**; **4,725 undated**; **169 future-dated**; **4,104 complete catalogue states**; **537 incomplete/unreconciled states**; **23 fetch/parse failures**.
+- Bank commit: [`0828b7e612644a967081e14d7450ef2cc855d0db`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/0828b7e612644a967081e14d7450ef2cc855d0db).
+- Publication: [run 41309320230](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41309320230) completed successfully through tests, evidence validation, Pages deployment, production-domain deployment and live property-data verification.
+- Next concrete growth target: Auction House Online [event 58638](https://online.auctionhouse.co.uk/past-auctions/58638?lotResultType=All), principally dated 4 June 2024. The first-party page reports **38 of 38 cards** and exposes varied 13 May, 23 May, 3 June and 4 June end dates, commercial, mixed-use, residential and land evidence, published rents, guides and extensive achieved prices. Add one strict 38-card source contract and isolated trigger, then release it only after writer clearance. Preserve later descriptive date text distinctly from each card's end date.
+- Event `60899` remains terminal on its timed-out first-party route; do not retry without a materially different cached, saved-file or snapshot path.
+- National completeness remains **false**.
+
