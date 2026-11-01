@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-31T23:05:33.703106+00:00",
+  "generated_at": "2026-11-01T00:03:18.640356+00:00",
   "individual_lot_records_captured": 307311,
   "records_with_address": 296538,
   "partial_lot_records": 10773,
@@ -166,17 +166,17 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "twenty_year_coverage": {
-    "from_date": "2006-10-31",
-    "through_date": "2026-10-31",
+    "from_date": "2006-11-01",
+    "through_date": "2026-11-01",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 299374,
-      "auction_ids_observed": 12155,
+      "lot_appearances": 299322,
+      "auction_ids_observed": 12154,
       "with_guide_price": 103220,
-      "with_sale_price": 111644,
+      "with_sale_price": 111615,
       "with_both_prices": 48304,
-      "marked_sold": 153637,
-      "marked_sold_without_sale_price": 42733
+      "marked_sold": 153607,
+      "marked_sold_without_sale_price": 42732
     },
     "by_auctioneer_and_year": [
       {
@@ -3174,13 +3174,13 @@
       {
         "auctioneer": "Barnett Ross",
         "year": 2006,
-        "lot_appearances": 156,
-        "auction_ids_observed": 3,
+        "lot_appearances": 104,
+        "auction_ids_observed": 2,
         "with_guide_price": 0,
-        "with_sale_price": 105,
+        "with_sale_price": 76,
         "with_both_prices": 0,
-        "marked_sold": 114,
-        "marked_sold_without_sale_price": 9
+        "marked_sold": 84,
+        "marked_sold_without_sale_price": 8
       },
       {
         "auctioneer": "Barnett Ross",
@@ -7716,7 +7716,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-10-31T20:29:48.360607+00:00",
+    "checked_at": "2026-10-31T23:49:49.235804+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
