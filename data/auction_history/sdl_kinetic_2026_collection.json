@@ -1,0 +1,111 @@
+{
+  "checked_at": "2026-11-01T23:47:06.032985+00:00",
+  "source_url": "https://kinetic.sdlauctions.co.uk/property-auctions/past-auctions/",
+  "auctioneer": "SDL Property Auctions",
+  "auctioneer_canonical": "Eddisons Commercial Limited",
+  "operator_company_number": "03280893",
+  "events_discovered": 11,
+  "events_complete": 0,
+  "events_failed": 11,
+  "published_source_rows": 0,
+  "appearances_captured": 0,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_dated_address_records_twenty_year_window": 0,
+  "run_new_partial_lots": 0,
+  "run_new_future_dated": 0,
+  "run_new_commercial_mixed_use": 0,
+  "run_new_guide_price_rows": 0,
+  "run_new_sale_price_rows": 0,
+  "exact_alias_overlaps_excluded": 0,
+  "ambiguous_exact_matches_excluded": 0,
+  "existing_appearances_enriched_with_source_evidence": 0,
+  "alternate_guide_price_evidence_added": 0,
+  "alternate_sale_price_evidence_added": 0,
+  "newly_covered_source_years": [],
+  "by_status_new": {},
+  "by_sector_new": {},
+  "archive_evidence": {
+    "source_url": "https://kinetic.sdlauctions.co.uk/property-auctions/past-auctions/",
+    "retrieved_at": "2026-11-01T23:46:54.589157+00:00",
+    "sha256": "34268c03efc22de89906bcd23dedda5bd21b9cdd32e19ca492aa0d4039d29b81",
+    "snapshot_path": "data/auction_history/sources/sdl-property-auctions/kinetic/past-auctions-34268c03efc22de8.json.gz",
+    "basis": "explicit 2026 event manifest transcribed from the rendered first-party SDL past-auction index after runner HTTP 403",
+    "source_blocker": {
+      "kind": "archive_index_http_403",
+      "status": 403,
+      "route": "https://kinetic.sdlauctions.co.uk/property-auctions/past-auctions/",
+      "recovery_route": "explicit first-party event-feed manifest"
+    }
+  },
+  "events": {},
+  "failures": [
+    {
+      "event_id": "1291",
+      "auction_date": "2026-01-29",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1291/live-stream-auction-2026-01-29/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1292",
+      "auction_date": "2026-02-26",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1292/live-stream-auction-2026-02-26/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1297",
+      "auction_date": "2026-03-26",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1297/live-stream-auction-2026-03-26/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1298",
+      "auction_date": "2026-04-30",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1298/live-stream-auction-2026-04-30/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1299",
+      "auction_date": "2026-05-28",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1299/live-stream-auction-2026-05-28/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1300",
+      "auction_date": "2026-06-24",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1300/live-stream-auction-2026-06-24/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1301",
+      "auction_date": "2026-07-29",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1301/live-stream-auction-2026-07-29/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1302",
+      "auction_date": "2026-08-27",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1302/live-stream-auction-2026-08-27/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1303",
+      "auction_date": "2026-09-30",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1303/live-stream-auction-2026-09-30/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1322",
+      "auction_date": "2026-10-22",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1322/live-stream-auction-2026-10-22/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    },
+    {
+      "event_id": "1304",
+      "auction_date": "2026-10-28",
+      "source_url": "https://kinetic.sdlauctions.co.uk/auction/1304/live-stream-auction-2026-10-28/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://kinetic.sdlauctions.co.uk/wp-content/themes/sdl-auctions/library/property-functions.php"
+    }
+  ],
+  "scope_warning": "SDL is an Eddisons Commercial Limited trading name; exact BTG Eddisons address/date/lot overlaps are alternate evidence, not new appearances"
+}
