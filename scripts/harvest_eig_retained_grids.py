@@ -187,6 +187,8 @@ SOURCES = {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
         "archive_path": "/past-auctions/58327",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
@@ -2161,14 +2163,23 @@ def harvest(slug: str, workers: int = 10) -> dict:
         raise ValueError(f"unknown retained grid: {slug}")
     source = {"slug": slug, **SOURCES[slug]}
     archive_url = source["base"] + source.get("archive_path", "/past-auctions?lotResultType=All")
-    first_raw, first_resolved = get(archive_url)
+    archive_attempts = int(source.get("archive_attempts", 5))
+    archive_timeout = int(source.get("archive_timeout", 120))
+    first_raw, first_resolved = get(
+        archive_url, attempts=archive_attempts, timeout=archive_timeout
+    )
     first_html = first_raw.decode("utf-8", "replace")
     platform_event_id = retained_event_id(first_resolved)
     pages = page_count(first_html)
     fetched = {1: (first_raw, first_resolved)}
     with ThreadPoolExecutor(max_workers=min(workers, pages)) as pool:
         futures = {
-            pool.submit(get, archive_url + ("&" if "?" in archive_url else "?") + f"page={page}"): page
+            pool.submit(
+                get,
+                archive_url + ("&" if "?" in archive_url else "?") + f"page={page}",
+                attempts=archive_attempts,
+                timeout=archive_timeout,
+            ): page
             for page in range(2, pages + 1)
         }
         for future in as_completed(futures):
