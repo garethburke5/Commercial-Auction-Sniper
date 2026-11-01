@@ -1,28 +1,28 @@
 {
   "next_task": 1,
   "last_manual_growth": {
-    "checked_at": "2026-11-01T18:24:41.784Z",
-    "opportunity": "Auction House Online 14 May 2024 shared-platform event 58327",
-    "advertised_event_lots": 30,
-    "published_source_cards": 30,
+    "checked_at": "2026-11-01T19:47:15.932Z",
+    "opportunity": "Auction House Online 23 April 2024 shared-platform event 57204",
+    "advertised_event_lots": 31,
+    "published_source_cards": 31,
     "missing_advertised_rows": 0,
     "non_auction_property_cards_excluded": 0,
-    "overlapping_rows_excluded": 18,
-    "net_new_appearances": 12,
-    "new_address_records": 12,
+    "overlapping_rows_excluded": 14,
+    "net_new_appearances": 17,
+    "new_address_records": 17,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 12,
+    "new_dated_address_records_in_twenty_year_window": 17,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
     "commercial_or_mixed_use": 0,
     "new_commercial_appearances": 0,
     "new_mixed_use_appearances": 0,
-    "new_residential_appearances": 6,
-    "new_land_appearances": 1,
-    "new_unknown_sector_appearances": 5,
-    "new_guide_prices": 12,
+    "new_residential_appearances": 5,
+    "new_land_appearances": 2,
+    "new_unknown_sector_appearances": 10,
+    "new_guide_prices": 17,
     "new_sale_prices": 0,
-    "new_guide_prices_in_twenty_year_window": 12,
+    "new_guide_prices_in_twenty_year_window": 17,
     "new_sale_prices_in_twenty_year_window": 0,
     "new_rent_values": 0,
     "source_years_observed": [
@@ -32,82 +32,82 @@
     "newly_reconciled_catalogue_date_states": 4,
     "new_operator_year_pairs": 0,
     "duplicate_appearance_ids": 0,
-    "unique_source_lot_ids": 30,
-    "exact_date_address_overlaps_excluded": 18,
+    "unique_source_lot_ids": 31,
+    "exact_date_address_overlaps_excluded": 14,
     "source_pages_reconciled": 1,
-    "detail_pages_captured": 30,
+    "detail_pages_captured": 31,
     "catalogue_complete": true,
     "visible_inventory_reconciled": true,
     "sector_breakdown": {
-      "unknown": 5,
-      "residential": 6,
-      "land": 1,
+      "residential": 5,
+      "unknown": 10,
+      "land": 2,
       "commercial": 0,
       "mixed-use": 0
     },
     "outcome_breakdown": {
-      "postponed": 3,
-      "unsold": 8,
-      "sold_prior": 1
+      "unsold": 12,
+      "postponed": 1,
+      "sold_prior": 3,
+      "sold_after": 1
     },
     "date_range": [
-      "2024-05-09",
-      "2024-05-14"
+      "2024-04-09",
+      "2024-04-23"
     ],
-    "operator_reconciliation": "AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Wales-Cardiff, Leicestershire, Scotland, Tees Valley, Beds & Bucks and Hull & East Yorkshire remain branch attribution and are not counted as new legal operators or auctioneers.",
-    "persisted_shard_verification": "The verified first-party no-query route reconciles all 30 visible cards, 30 stable source identities and 30 detail pages with immutable index/detail snapshots. Twelve unique dated address appearances were banked after excluding eighteen exact date/address overlaps. Index snapshot SHA-256: dbdbb5f4299e61db330b184aef08f8ade837d65acbf15eb03006a7cfe573f53b.",
-    "initial_preflight_blocker": "Collection run 41334442300 failed the continuation JSON preflight before the event collector ran because next_task had been replaced by prose instead of the required integer cursor. It banked zero appearances in checkpoint d9e9e533f745bc5fad46f1a4bf04ec71493a8065. Cursor 9 was restored in commit 1453ae94b66eba4b1c1351442220542df0661566; the source itself was not blocked.",
-    "collector_improvement": "Commit c68227c68f45831b85e89baa8beb60e08b1cc829 added reusable source-specific archive_attempts and archive_timeout controls and configured this event for three 90-second index attempts.",
+    "operator_reconciliation": "AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Birmingham, Lincolnshire, North West, Wales-Cardiff, North East, Cheshire Staffordshire & Shropshire, Hull & East Yorkshire, Coventry & Warwickshire, South Yorkshire, South West, London and the Online channel remain branch attribution and are not counted as new legal operators or auctioneers.",
+    "persisted_shard_verification": "The verified first-party no-query route reconciles all 31 visible cards, 31 stable source identities and 31 detail pages with immutable index/detail snapshots. Seventeen unique dated address appearances were banked after excluding fourteen exact date/address overlaps. Index snapshot SHA-256: 8e70a2ec115c63f0bea87e53dfce09e83a23acde25abfa1f18b9a24c07d9ae5f.",
     "database_rebuild_verified": true,
     "publication_verified": true,
     "production_domain_verified": true,
-    "collection_run_id": 41335018649,
-    "failed_preflight_run_id": 41334442300,
-    "zero_growth_checkpoint_before_recovery": "d9e9e533f745bc5fad46f1a4bf04ec71493a8065",
-    "continuation_repair_commit": "1453ae94b66eba4b1c1351442220542df0661566",
-    "collector_improvement_commit": "c68227c68f45831b85e89baa8beb60e08b1cc829",
-    "banked_commit": "24e53afeea7759a3c2eee2b7ccd677d12c5f640d",
-    "publication_run_id": 41335493771,
+    "collector_release_commit": "b44971b6007e77cbae9572afaa263426df277233",
+    "collection_run_id": 41339577602,
+    "banked_commit": "bff4c59c4fe8a28a7ef298b28ce8006492b1141e",
+    "publication_run_id": 41340034250,
+    "independent_scheduled_batch_run_id": 41340237651,
+    "independent_zero_growth_checkpoint": "e4389e115fe61fda69fcc392d305f016171369b0",
+    "independent_checkpoint_publication_run_id": 41342612183,
+    "independent_batch_note": "The independently scheduled bounded rotation refreshed existing Auction House national/region, Network Auctions and related retained sources, added zero appearances, preserved the 17-record target gain, and advanced the numeric cursor from 9 to 1. It is not claimed as collection growth.",
     "corpus_after_rebuild": {
-      "appearances": 307505,
-      "address_records": 296732,
-      "in_window_appearances": 299516,
-      "in_window_guide_prices": 103414,
+      "appearances": 307522,
+      "address_records": 296749,
+      "in_window_appearances": 299533,
+      "in_window_guide_prices": 103431,
       "in_window_sale_prices": 111621,
       "partial": 10773,
       "undated": 4725,
       "future_dated": 169,
-      "complete_catalogue_states": 4119,
+      "complete_catalogue_states": 4123,
       "incomplete_catalogue_states": 537,
       "fetch_or_parse_failures": 23
     },
     "national_completeness_verified": false,
-    "different_next_target": "Prepare and collect Auction House Online event 57204, principally dated 23 April 2024. The verified first-party no-query inventory exposes 31 of 31 individual property cards with published April 2024 end dates, including commercial, land and residential evidence plus published rent, guide and achieved-price evidence. Add one strict 31-card source contract using /past-auctions/57204 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
+    "different_next_target": "Prepare and collect Auction House Online event 57231, principally dated 16 April 2024. The verified first-party no-query inventory exposes 36 of 36 individual property cards with published 15 and 16 April dates, including commercial retail/mixed-use potential, a self-contained shop, tenanted flats, residential and land evidence, published rents, guides and extensive achieved prices. Add one strict 36-card source contract using /past-auctions/57231 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
   },
   "prior_target_blocker": "Auction House Online event 67141 dated 4 March 2025 is blocked on the current GitHub-runner all-results route. Run 41166887282 made repeated bounded reads for /past-auctions/67141?lotResultType=All; the first-party index never returned and the final read timed out after 120 seconds. No immutable event shard was created and the rebuilt totals were unchanged. Do not retry that route unless a materially different cached, saved-file or snapshot recovery path becomes available.",
   "last_growth_attempt": {
-    "checked_at": "2026-11-01T18:24:41.784Z",
-    "opportunity": "Auction House Online 14 May 2024 shared-platform event 58327",
-    "advertised_event_lots": 30,
-    "published_source_cards": 30,
+    "checked_at": "2026-11-01T19:47:15.932Z",
+    "opportunity": "Auction House Online 23 April 2024 shared-platform event 57204",
+    "advertised_event_lots": 31,
+    "published_source_cards": 31,
     "missing_advertised_rows": 0,
     "non_auction_property_cards_excluded": 0,
-    "overlapping_rows_excluded": 18,
-    "net_new_appearances": 12,
-    "new_address_records": 12,
+    "overlapping_rows_excluded": 14,
+    "net_new_appearances": 17,
+    "new_address_records": 17,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 12,
+    "new_dated_address_records_in_twenty_year_window": 17,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
     "commercial_or_mixed_use": 0,
     "new_commercial_appearances": 0,
     "new_mixed_use_appearances": 0,
-    "new_residential_appearances": 6,
-    "new_land_appearances": 1,
-    "new_unknown_sector_appearances": 5,
-    "new_guide_prices": 12,
+    "new_residential_appearances": 5,
+    "new_land_appearances": 2,
+    "new_unknown_sector_appearances": 10,
+    "new_guide_prices": 17,
     "new_sale_prices": 0,
-    "new_guide_prices_in_twenty_year_window": 12,
+    "new_guide_prices_in_twenty_year_window": 17,
     "new_sale_prices_in_twenty_year_window": 0,
     "new_rent_values": 0,
     "source_years_observed": [
@@ -117,59 +117,59 @@
     "newly_reconciled_catalogue_date_states": 4,
     "new_operator_year_pairs": 0,
     "duplicate_appearance_ids": 0,
-    "unique_source_lot_ids": 30,
-    "exact_date_address_overlaps_excluded": 18,
+    "unique_source_lot_ids": 31,
+    "exact_date_address_overlaps_excluded": 14,
     "source_pages_reconciled": 1,
-    "detail_pages_captured": 30,
+    "detail_pages_captured": 31,
     "catalogue_complete": true,
     "visible_inventory_reconciled": true,
     "sector_breakdown": {
-      "unknown": 5,
-      "residential": 6,
-      "land": 1,
+      "residential": 5,
+      "unknown": 10,
+      "land": 2,
       "commercial": 0,
       "mixed-use": 0
     },
     "outcome_breakdown": {
-      "postponed": 3,
-      "unsold": 8,
-      "sold_prior": 1
+      "unsold": 12,
+      "postponed": 1,
+      "sold_prior": 3,
+      "sold_after": 1
     },
     "date_range": [
-      "2024-05-09",
-      "2024-05-14"
+      "2024-04-09",
+      "2024-04-23"
     ],
-    "operator_reconciliation": "AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Wales-Cardiff, Leicestershire, Scotland, Tees Valley, Beds & Bucks and Hull & East Yorkshire remain branch attribution and are not counted as new legal operators or auctioneers.",
-    "persisted_shard_verification": "The verified first-party no-query route reconciles all 30 visible cards, 30 stable source identities and 30 detail pages with immutable index/detail snapshots. Twelve unique dated address appearances were banked after excluding eighteen exact date/address overlaps. Index snapshot SHA-256: dbdbb5f4299e61db330b184aef08f8ade837d65acbf15eb03006a7cfe573f53b.",
-    "initial_preflight_blocker": "Collection run 41334442300 failed the continuation JSON preflight before the event collector ran because next_task had been replaced by prose instead of the required integer cursor. It banked zero appearances in checkpoint d9e9e533f745bc5fad46f1a4bf04ec71493a8065. Cursor 9 was restored in commit 1453ae94b66eba4b1c1351442220542df0661566; the source itself was not blocked.",
-    "collector_improvement": "Commit c68227c68f45831b85e89baa8beb60e08b1cc829 added reusable source-specific archive_attempts and archive_timeout controls and configured this event for three 90-second index attempts.",
+    "operator_reconciliation": "AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Birmingham, Lincolnshire, North West, Wales-Cardiff, North East, Cheshire Staffordshire & Shropshire, Hull & East Yorkshire, Coventry & Warwickshire, South Yorkshire, South West, London and the Online channel remain branch attribution and are not counted as new legal operators or auctioneers.",
+    "persisted_shard_verification": "The verified first-party no-query route reconciles all 31 visible cards, 31 stable source identities and 31 detail pages with immutable index/detail snapshots. Seventeen unique dated address appearances were banked after excluding fourteen exact date/address overlaps. Index snapshot SHA-256: 8e70a2ec115c63f0bea87e53dfce09e83a23acde25abfa1f18b9a24c07d9ae5f.",
     "database_rebuild_verified": true,
     "publication_verified": true,
     "production_domain_verified": true,
-    "collection_run_id": 41335018649,
-    "failed_preflight_run_id": 41334442300,
-    "zero_growth_checkpoint_before_recovery": "d9e9e533f745bc5fad46f1a4bf04ec71493a8065",
-    "continuation_repair_commit": "1453ae94b66eba4b1c1351442220542df0661566",
-    "collector_improvement_commit": "c68227c68f45831b85e89baa8beb60e08b1cc829",
-    "banked_commit": "24e53afeea7759a3c2eee2b7ccd677d12c5f640d",
-    "publication_run_id": 41335493771,
+    "collector_release_commit": "b44971b6007e77cbae9572afaa263426df277233",
+    "collection_run_id": 41339577602,
+    "banked_commit": "bff4c59c4fe8a28a7ef298b28ce8006492b1141e",
+    "publication_run_id": 41340034250,
+    "independent_scheduled_batch_run_id": 41340237651,
+    "independent_zero_growth_checkpoint": "e4389e115fe61fda69fcc392d305f016171369b0",
+    "independent_checkpoint_publication_run_id": 41342612183,
+    "independent_batch_note": "The independently scheduled bounded rotation refreshed existing Auction House national/region, Network Auctions and related retained sources, added zero appearances, preserved the 17-record target gain, and advanced the numeric cursor from 9 to 1. It is not claimed as collection growth.",
     "corpus_after_rebuild": {
-      "appearances": 307505,
-      "address_records": 296732,
-      "in_window_appearances": 299516,
-      "in_window_guide_prices": 103414,
+      "appearances": 307522,
+      "address_records": 296749,
+      "in_window_appearances": 299533,
+      "in_window_guide_prices": 103431,
       "in_window_sale_prices": 111621,
       "partial": 10773,
       "undated": 4725,
       "future_dated": 169,
-      "complete_catalogue_states": 4119,
+      "complete_catalogue_states": 4123,
       "incomplete_catalogue_states": 537,
       "fetch_or_parse_failures": 23
     },
     "national_completeness_verified": false,
-    "different_next_target": "Prepare and collect Auction House Online event 57204, principally dated 23 April 2024. The verified first-party no-query inventory exposes 31 of 31 individual property cards with published April 2024 end dates, including commercial, land and residential evidence plus published rent, guide and achieved-price evidence. Add one strict 31-card source contract using /past-auctions/57204 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
+    "different_next_target": "Prepare and collect Auction House Online event 57231, principally dated 16 April 2024. The verified first-party no-query inventory exposes 36 of 36 individual property cards with published 15 and 16 April dates, including commercial retail/mixed-use potential, a self-contained shop, tenanted flats, residential and land evidence, published rents, guides and extensive achieved prices. Add one strict 36-card source contract using /past-auctions/57231 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
   },
-  "next_growth_target": "Prepare and collect Auction House Online event 57204, principally dated 23 April 2024. The verified first-party no-query inventory exposes 31 of 31 individual property cards with published April 2024 end dates, including commercial, land and residential evidence plus published rent, guide and achieved-price evidence. Add one strict 31-card source contract using /past-auctions/57204 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false.",
+  "next_growth_target": "Prepare and collect Auction House Online event 57231, principally dated 16 April 2024. The verified first-party no-query inventory exposes 36 of 36 individual property cards with published 15 and 16 April dates, including commercial retail/mixed-use potential, a self-contained shop, tenanted flats, residential and land evidence, published rents, guides and extensive achieved prices. Add one strict 36-card source contract using /past-auctions/57231 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false.",
   "runs": [
     {
       "source": "goldings_results",
@@ -3815,7 +3815,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 4374,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:23:05.856851+00:00"
     },
     {
@@ -3927,7 +3927,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 4380,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:24:03.503279+00:00"
     },
     {
@@ -3999,7 +3999,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 4381,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:24:40.466160+00:00"
     },
     {
@@ -4047,7 +4047,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 4343,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:25:46.102859+00:00"
     },
     {
@@ -4055,7 +4055,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 4379,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:25:46.112586+00:00"
     },
     {
@@ -4071,7 +4071,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 4383,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:25:54.471394+00:00"
     },
     {
@@ -4079,7 +4079,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 4387,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-01T19:25:54.480799+00:00"
     },
     {
@@ -4169,6 +4169,22 @@
       "diagnostic_tail": "PAUL_FOSH 100 / 5601 page 2\nPAUL_FOSH 150 / 5601 page 3\nPAUL_FOSH 200 / 5601 page 4\nPAUL_FOSH 250 / 5601 page 5\nPAUL_FOSH 300 / 5601 page 6\nPAUL_FOSH 350 / 5601 page 7\nPAUL_FOSH 400 / 5601 page 8\nPAUL_FOSH 450 / 5601 page 9\nPAUL_FOSH 500 / 5601 page 10\nPAUL_FOSH 550 / 5601 page 11\nPAUL_FOSH 600 / 5601 page 12\nPAUL_FOSH 650 / 5601 page 13\nPAUL_FOSH 700 / 5601 page 14\nPAUL_FOSH 750 / 5601 page 15\nPAUL_FOSH 800 / 5601 page 16\nPAUL_FOSH 850 / 5601 page 17\nPAUL_FOSH 900 / 5601 page 18\nPAUL_FOSH 950 / 5601 page 19\nPAUL_FOSH 1000 / 5601 page 20\nPAUL_FOSH 1050 / 5601 page 21\nPAUL_FOSH 1100 / 5601 page 22\nPAUL_FOSH 1150 / 5601 page 23\nPAUL_FOSH 1200 / 5601 page 24\nPAUL_FOSH 1250 / 5601 page 25\nPAUL_FOSH 1300 / 5601 page 26\nPAUL_FOSH 1350 / 5601 page 27\nPAUL_FOSH 1400 / 5601 page 28\nPAUL_FOSH 1450 / 5601 page 29\nPAUL_FOSH 1500 / 5601 page 30\nPAUL_FOSH 1550 / 5601 page 31\nPAUL_FOSH 1600 / 5601 page 32\nPAUL_FOSH 1650 / 5601 page 33\nPAUL_FOSH 1700 / 5601 page 34\nPAUL_FOSH 1750 / 5601 page 35\nPAUL_FOSH 1800 / 5601 page 36\nPAUL_FOSH 1850 / 5601 page 37\nPAUL_FOSH 1900 / 5601 page 38\nPAUL_FOSH 1950 / 5601 page 39\nPAUL_FOSH 2000 / 5601 page 40\nPAUL_FOSH 2050 / 5601 page 41\nPAUL_FOSH 2100 / 5601 page 42\nPAUL_FOSH 2150 / 5601 page 43\nPAUL_FOSH 2200 / 5601 page 44\nPAUL_FOSH 2250 / 5601 page 45\nPAUL_FOSH 2300 / 5601 page 46\nPAUL_FOSH 2350 / 5601 page 47\nPAUL_FOSH 2400 / 5601 page 48\nPAUL_FOSH 2450 / 5601 page 49\nPAUL_FOSH 2500 / 5601 page 50\nPAUL_FOSH 2550 / 5601 page 51\nPAUL_FOSH 2600 / 5601 page 52\nPAUL_FOSH 2650 / 5601 page 53\nPAUL_FOSH 2700 / 5601 page 54\nPAUL_FOSH 2750 / 5601 page 55\nPAUL_FOSH 2800 / 5601 page 56\nPAUL_FOSH 2850 / 5601 page 57\nPAUL_FOSH 2900 / 5601 page 58\nPAUL_FOSH 2950 / 5601 page 59\nPAUL_FOSH 3000 / 5601 page 60\nPAUL_FOSH 3050 / 5601 page 61\nPAUL_FOSH 3100 / 5601 page 62\nPAUL_FOSH 3150 / 5601 page 63\nPAUL_FOSH 3200 / 5601 page 64\nPAUL_FOSH 3250 / 5601 page 65\nPAUL_FOSH 3300 / 5601 page 66\nPAUL_FOSH 3350 / 5601 page 67\nPAUL_FOSH 3400 / 5601 page 68\nPAUL_FOSH 3450 / 5601 page 69\nPAUL_FOSH 3500 / 5601 page 70\nPAUL_FOSH 3550 / 5601 page 71\nPAUL_FOSH 3600 / 5601 page 72\nPAUL_FOSH 3650 / 5601 page 73\nPAUL_FOSH 3700 / 5601 page 74\nPAUL_FOSH 3750 / 5601 page 75\nPAUL_FOSH 3800 / 5601 page 76\nPAUL_FOSH 3850 / 5601 page 77\nPAUL_FOSH 3900 / 5601 page 78\nPAUL_FOSH 3950 / 5601 page 79\nPAUL_FOSH 4000 / 5601 page 80\nPAUL_FOSH 4050 / 5601 page 81\nPAUL_FOSH 4100 / 5601 page 82\nPAUL_FOSH 4150 / 5601 page 83\nPAUL_FOSH 4200 / 5601 page 84\nPAUL_FOSH 4250 / 5601 page 85\nPAUL_FOSH 4300 / 5601 page 86\nPAUL_FOSH 4350 / 5601 page 87\nPAUL_FOSH 4400 / 5601 page 88\nPAUL_FOSH 4450 / 5601 page 89\nPAUL_FOSH 4500 / 5601 page 90\nPAUL_FOSH 4550 / 5601 page 91\nPAUL_FOSH 4600 / 5601 page 92\nPAUL_FOSH 4650 / 5601 page 93\nPAUL_FOSH 4700 / 5601 page 94\nPAUL_FOSH 4750 / 5601 page 95\nPAUL_FOSH 4800 / 5601 page 96\nPAUL_FOSH 4850 / 5601 page 97\nPAUL_FOSH 4900 / 5601 page 98\nPAUL_FOSH 4950 / 5601 page 99\nPAUL_FOSH 5000 / 5601 page 100\nPAUL_FOSH 5050 / 5601 page 101\nPAUL_FOSH 5100 / 5601 page 102\nPAUL_FOSH 5150 / 5601 page 103\nPAUL_FOSH 5200 / 5601 page 104\nPAUL_FOSH 5250 / 5601 page 105\nPAUL_FOSH 5300 / 5601 page 106\nPAUL_FOSH 5350 / 5601 page 107\nPAUL_FOSH 5400 / 5601 page 108\nPAUL_FOSH 5450 / 5601 page 109\nPAUL_FOSH 5500 / 5601 page 110\nPAUL_FOSH 5550 / 5601 page 111\nPAUL_FOSH 5600 / 5601 page 112\nPAUL_FOSH 5601 / 5601 page 113\n",
       "duration_seconds": 110.75,
       "checked_at": "2026-11-01T19:33:08.351302+00:00"
+    },
+    {
+      "source": "auction-house-online-2024-04-23",
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-01T19:47:15.932Z",
+      "run_id": 41339577602,
+      "diagnostic_tail": "Verified no-query route reconciled 31/31 cards and 31 detail pages; banked 17 appearances and excluded 14 exact date/address overlaps."
+    },
+    {
+      "source": "scheduled-bounded-rotation-after-auction-house-online-2024-04-23",
+      "outcome": "completed_zero_growth",
+      "exit_code": 0,
+      "checked_at": "2026-11-01T19:37:13Z",
+      "run_id": 41340237651,
+      "diagnostic_tail": "Refreshed existing retained sources, added zero appearances, preserved target totals and advanced continuation cursor 9 -> 1 in e4389e115fe61fda69fcc392d305f016171369b0."
     }
   ],
   "latest_by_source": {
@@ -4712,6 +4728,15 @@
       "source_cards": 30,
       "exact_overlaps_excluded": 18,
       "route": "/past-auctions/58327"
+    },
+    "auction-house-online-2024-04-23": {
+      "outcome": "completed",
+      "checked_at": "2026-11-01T19:47:15.932Z",
+      "run_id": 41339577602,
+      "net_new_appearances": 17,
+      "source_cards": 31,
+      "exact_overlaps_excluded": 14,
+      "route": "/past-auctions/57204"
     }
   },
   "last_automated_growth": {
@@ -4768,7 +4793,7 @@
     "publication_verified": true,
     "national_completeness_verified": false
   },
-  "latest_target_blocker": "Run 41334442300 failed before collection because continuation_collection.json next_task was not an integer. The preserved cursor was restored to 9 in commit 1453ae94b66eba4b1c1351442220542df0661566, preflight passed, and event 58327 then completed. This integrity fault is repaired and is not a source blocker.",
+  "latest_target_blocker": "No active source blocker: event 57204 completed at 31/31 cards and 31/31 detail pages. The following scheduled bounded batch added zero appearances and preserved the banked gain in checkpoint e4389e115fe61fda69fcc392d305f016171369b0.",
   "latest_deferred_launch": {
     "checked_at": "2026-11-01T06:12:00+00:00",
     "opportunity": "Auction House Online 23 July 2024 shared-platform event 60428",
@@ -4797,20 +4822,20 @@
     "publication_run_id": 41284514530
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-01T18:24:41.784Z",
-    "source_key": "auction-house-online-2024-04-23",
+    "checked_at": "2026-11-01T19:47:15.932Z",
+    "source_key": "auction-house-online-2024-04-16",
     "auctioneer": "Auction House Online",
-    "platform_event_id": "57204",
-    "source_url": "https://online.auctionhouse.co.uk/past-auctions/57204",
-    "expected_visible_cards": 31,
+    "platform_event_id": "57231",
+    "source_url": "https://online.auctionhouse.co.uk/past-auctions/57231",
+    "expected_visible_cards": 36,
     "observed_source_year": 2024,
     "evidence_opportunity": [
-      "31 individually evidenced property cards",
-      "individual April 2024 end dates",
-      "commercial building, hot-food takeaway, development land, stable/garage site and residential evidence",
-      "published rent, guide and achieved-price evidence"
+      "36 individually evidenced property cards",
+      "individual 15 and 16 April 2024 end dates",
+      "commercial retail/mixed-use potential, a self-contained shop, tenanted flats, residential and land evidence",
+      "published rents, guides and extensive achieved prices"
     ],
-    "validation": "The official first-party no-query page reports Showing 1\u201331 of 31 and exposes stable lot-detail links plus individual dates and monetary evidence. A strict source configuration and isolated workflow trigger remain to be committed before launch.",
+    "validation": "The official first-party no-query page reports Showing 1–36 of 36 and exposes stable lot-detail links plus individual dates and monetary evidence. A strict source configuration and isolated workflow trigger remain to be committed before launch.",
     "launch_state": "evidence_validated_configuration_not_yet_committed",
     "national_completeness_verified": false
   },
