@@ -51,6 +51,14 @@ HEADERS = {
 SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 EVENT_RE = re.compile(r"/auction/(\d+)/[^?#]*?(20\d{2}-\d{2}-\d{2})/?$", re.I)
+FALLBACK_EVENTS = (
+    ("1291", "2026-01-29"), ("1292", "2026-02-26"),
+    ("1297", "2026-03-26"), ("1298", "2026-04-30"),
+    ("1299", "2026-05-28"), ("1300", "2026-06-24"),
+    ("1301", "2026-07-29"), ("1302", "2026-08-27"),
+    ("1303", "2026-09-30"), ("1322", "2026-10-22"),
+    ("1304", "2026-10-28"),
+)
 LOT_RE = re.compile(r"\blot\s+([0-9]+[A-Za-z]?)\b", re.I)
 MONEY_RE = re.compile(r"£\s*([\d,]+)")
 
@@ -122,6 +130,17 @@ def serialise_event_form(html: str) -> str:
         ("limit", "All"), ("page", "1"), ("order", "Lot Number"), ("oos", "0"),
     ])
     return urlencode(pairs, doseq=True)
+
+
+def direct_event_form(event_id: str) -> str:
+    """Build the public event feed query without first loading a blocked page."""
+    return urlencode([
+        ("location", ""), ("radius", "3"), ("type[]", ""),
+        ("minBeds", ""), ("maxBeds", ""), ("minPrice", ""), ("maxPrice", ""),
+        ("auctionId", str(event_id)), ("include[]", ""), ("lat", ""),
+        ("lng", ""), ("bounds", ""), ("tempType", "auction"), ("search", "true"),
+        ("limit", "All"), ("page", "1"), ("order", "Lot Number"), ("oos", "0"),
+    ], doseq=True)
 
 
 def status_and_sale(result_text: str | None) -> tuple[str, int | None]:
@@ -287,24 +306,62 @@ def get(url: str) -> requests.Response:
 
 
 def harvest(year: int = YEAR, limit_events: int = 0) -> None:
-    archive_response = get(PAST)
-    archive_raw = archive_response.content
+    archive_blocker = None
+    try:
+        archive_response = get(PAST)
+    except requests.HTTPError as exc:
+        status = getattr(exc.response, "status_code", None)
+        if status != 403 or year != YEAR:
+            raise
+        archive_response = None
+        archive_blocker = {
+            "kind": "archive_index_http_403",
+            "status": status,
+            "route": PAST,
+            "recovery_route": "explicit first-party event-feed manifest",
+        }
+        events = [
+            {
+                "event_id": event_id,
+                "auction_date": auction_date,
+                "url": (
+                    f"{BASE}/auction/{event_id}/"
+                    f"live-stream-auction-{auction_date}/"
+                ),
+                "label": "Live Stream Auction",
+            }
+            for event_id, auction_date in FALLBACK_EVENTS
+        ]
+        archive_raw = json.dumps(
+            {"source_url": PAST, "events": events}, sort_keys=True
+        ).encode()
+        archive_basis = (
+            "explicit 2026 event manifest transcribed from the rendered "
+            "first-party SDL past-auction index after runner HTTP 403"
+        )
+    else:
+        archive_raw = archive_response.content
+        events = discover_events(archive_raw.decode("utf-8", "replace"), year)
+        archive_basis = "first-party SDL past-auction event index"
     archive_sha = corpus.digest(archive_raw)
     archive_snapshot = (
         corpus.DATA / "sources/sdl-property-auctions/kinetic"
         / f"past-auctions-{archive_sha[:16]}.json.gz"
     )
     archive_evidence = {
-        "source_url": archive_response.url, "retrieved_at": corpus.now(),
-        "sha256": archive_sha,
+        "source_url": archive_response.url if archive_response else PAST,
+        "retrieved_at": corpus.now(), "sha256": archive_sha,
         "snapshot_path": str(archive_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party SDL past-auction event index",
+        "basis": archive_basis, "source_blocker": archive_blocker,
     }
     corpus.save_gzip(
         archive_snapshot,
-        {"evidence": archive_evidence, "html": archive_raw.decode("utf-8", "replace")},
+        {
+            "evidence": archive_evidence,
+            "html": archive_raw.decode("utf-8", "replace"),
+            "events": events,
+        },
     )
-    events = discover_events(archive_raw.decode("utf-8", "replace"), year)
     if limit_events:
         events = events[:max(0, limit_events)]
 
@@ -331,13 +388,30 @@ def harvest(year: int = YEAR, limit_events: int = 0) -> None:
             states[event["event_id"]] = old_state
             continue
         try:
-            event_response = get(event["url"])
-            event_raw = event_response.content
-            event_html = event_raw.decode("utf-8", "replace")
-            serialised = serialise_event_form(event_html)
+            event_page_blocker = None
+            try:
+                event_response = get(event["url"])
+            except requests.HTTPError as exc:
+                status = getattr(exc.response, "status_code", None)
+                if status != 403:
+                    raise
+                event_response = None
+                event_page_blocker = {
+                    "kind": "event_page_http_403", "status": status,
+                    "recovery_route": "direct first-party event feed POST",
+                }
+                event_raw = json.dumps(event, sort_keys=True).encode()
+                event_html = ""
+                serialised = direct_event_form(event["event_id"])
+                event_source_url = event["url"]
+            else:
+                event_raw = event_response.content
+                event_html = event_raw.decode("utf-8", "replace")
+                serialised = serialise_event_form(event_html)
+                event_source_url = event_response.url
             feed_response = SESSION.post(
                 FEED, data={"func": "ajaxProp", "data": serialised},
-                headers={"Referer": event_response.url}, timeout=90,
+                headers={"Referer": event["url"]}, timeout=90,
             )
             feed_response.raise_for_status()
             feed_raw = feed_response.content
@@ -349,7 +423,8 @@ def harvest(year: int = YEAR, limit_events: int = 0) -> None:
                 / f"{event['event_id']}-{combined_sha[:16]}.json.gz"
             )
             evidence = {
-                "source_url": event_response.url, "feed_url": feed_response.url,
+                "source_url": event_source_url, "feed_url": feed_response.url,
+                "event_page_blocker": event_page_blocker,
                 "retrieved_at": corpus.now(), "sha256": combined_sha,
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "archive_snapshot_path": archive_evidence["snapshot_path"],
@@ -406,7 +481,7 @@ def harvest(year: int = YEAR, limit_events: int = 0) -> None:
                 "pages_captured": 1, "denominator_reconciled": True,
                 "denominator_basis": "published #propCounter value in first-party all-results feed",
                 "completion_scope": "all property cards returned by the event search with limit=All",
-                "source_url": event_response.url, "source_evidence": evidence,
+                "source_url": event_source_url, "source_evidence": evidence,
                 "errors": [], "checked_at": corpus.now(),
             }
             corpus.save_json(state_path, state)
@@ -472,6 +547,10 @@ def harvest(year: int = YEAR, limit_events: int = 0) -> None:
     }
     corpus.save_json(corpus.DATA / "sdl_kinetic_2026_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
+    if failures and not states:
+        raise RuntimeError(
+            f"all {len(failures)} SDL event feeds failed; see collection summary"
+        )
 
 
 if __name__ == "__main__":

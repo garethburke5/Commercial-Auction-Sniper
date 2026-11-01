@@ -1,8 +1,8 @@
 import pytest
 
 from scripts.harvest_sdl_kinetic_2026 import (
-    date_compatible, discover_events, exact_interest_key, parse_feed,
-    serialise_event_form, status_and_sale,
+    date_compatible, direct_event_form, discover_events, exact_interest_key,
+    parse_feed, serialise_event_form, status_and_sale,
 )
 
 
@@ -23,6 +23,16 @@ def test_discovers_only_requested_year_events():
     assert [(event["event_id"], event["auction_date"]) for event in events] == [
         ("1291", "2026-01-29"), ("1304", "2026-10-28")
     ]
+
+
+def test_builds_direct_event_feed_form_without_archive_page():
+    value = direct_event_form("1304")
+    assert "auctionId=1304" in value
+    assert "tempType=auction" in value
+    assert "search=true" in value
+    assert "type%5B%5D=" in value
+    assert "include%5B%5D=" in value
+    assert "limit=All" in value
 
 
 def test_serialises_first_party_form_and_requests_all_rows():
