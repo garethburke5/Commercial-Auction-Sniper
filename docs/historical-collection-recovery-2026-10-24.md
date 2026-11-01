@@ -4324,3 +4324,22 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Next concrete growth target: Auction House Online event [`59715`](https://online.auctionhouse.co.uk/past-auctions/59715?lotResultType=All), principally dated 25 June 2024. The first-party page reports **33 of 33 cards** and exposes individual 11, 18, 24 and 25 June dates, commercial and mixed-use investments, land, achieved sale prices and published rents. Add one strict 33-card source contract and isolated trigger, then release it only after writer clearance.
 - Event `60899` remains terminal on its timed-out first-party route; do not retry without a materially different cached, saved-file or snapshot path.
 - National completeness remains **false**.
+
+## 2026-11-01 — Auction House Online 25 June 2024 event 59715
+
+- Growth opportunity: the surviving first-party [event 59715](https://online.auctionhouse.co.uk/past-auctions/59715?lotResultType=All) exposes **33 of 33 property cards**, individually dated from 11 to 25 June 2024.
+- Writer protection: all collection and publication workflows were clear before release. [Collection run 41299706280](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41299706280) was the only collector. The release changed only the retained-grid source contract and historical workflow trigger, so the unrelated publish-now revalidation route was not activated.
+- Net banked gain after deduplication: **20 appearances**, **20 address records**, **20 dated address records inside the preceding 20-year window**, **0 partial**, **0 undated** and **0 future-dated** records.
+- Duplicate handling: **13 exact date/address overlaps** were reconciled against existing evidence and excluded from net growth. There were **0 duplicate source identities** and no captured record was discarded.
+- Sector subset: **3 commercial**, **0 mixed-use**, nine residential, three land and five unknown. Unknown property types remain unknown.
+- Evidence gain: **20 guide prices**, **0 achieved sale prices** and **0 rent values**. Outcomes remain distinct: sixteen unsold, two sold prior, one withdrawn and one postponed. Missing monetary values remain null.
+- Dates and coverage: individual published dates from 11 to 25 June 2024 were retained. The event adds one reconciled **Auction House Online / 2024 event inventory**, but 2024 was already represented, so **0 new operator/source-year pairs** and no new legal operator are claimed. Four catalogue-date states became reconciled.
+- Operator reconciliation: AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Lincolnshire, North West, Sussex & Hampshire, Scotland and East Anglia remain branch attribution and are not counted as additional auctioneers.
+- Immutable evidence: event index SHA-256 `d086df94a40328461a17f6990cfe89e5683908815f65c40d146ecd05ec5c98ad`; all 33 detail snapshots were retained. The surviving first-party inventory is reconciled; deleted earlier lots are not claimed.
+- Corpus after rebuild: **307,427 appearances**; **296,654 address records**; **299,438 in-window appearances**; **103,336 in-window guides**; **111,617 in-window sale prices**; **10,773 partial**; **4,725 undated**; **169 future-dated**; **4,095 complete catalogue states**; **537 incomplete/unreconciled states**; **23 fetch/parse failures**.
+- Bank commit: [`a4aee99b71e8f2b436fbd5fb6280695f22ffc8c1`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/a4aee99b71e8f2b436fbd5fb6280695f22ffc8c1).
+- Publication: [run 41300086032](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41300086032) completed successfully through tests, evidence validation, Pages deployment, production-domain deployment and live property-data verification.
+- Next concrete growth target: Auction House Online [event 59454](https://online.auctionhouse.co.uk/past-auctions/59454?lotResultType=All), principally dated 18 June 2024. The first-party page reports **37 of 37 cards** and exposes varied 7, 11, 14, 17 and 18 June end dates, commercial and land evidence, published rents, guides and achieved prices. Add one strict 37-card source contract and isolated trigger, then release it only after writer clearance. Preserve later descriptive date text distinctly from each card's end date.
+- Event `60899` remains terminal on its timed-out first-party route; do not retry without a materially different cached, saved-file or snapshot path.
+- National completeness remains **false**.
+
