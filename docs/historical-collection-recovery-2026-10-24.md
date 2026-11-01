@@ -1,9 +1,3 @@
-Warning: truncated output (original token count: 40605)
-Total output lines: 1939
-
-Warning: truncated output (original token count: 41413)
-Total output lines: 1985
-
 # Historical collection recovery — 24 October 2026
 
 ## Scope and acceptance
@@ -4143,4 +4137,21 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Publication: [run 41251159635](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41251159635) completed successfully through Pages source-to-live verification and the `auctiongeek.co.uk` production-domain verification.
 - Next concrete target: Auction House Online event `62273`, principally dated 17 September 2024, exposes 13 first-party cards at `/past-auctions/62273?lotResultType=All`, including one lot individually dated 16 September plus commercial and achieved-price evidence. Its source configuration, assertion and dormant isolated trigger are prepared in [`053ffb99c55ff43f61e4e2692b4cfcd60e2d6a3d`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/053ffb99c55ff43f61e4e2692b4cfcd60e2d6a3d), [`1e5df995e443751124a156eae9e9e19753cad205`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/1e5df995e443751124a156eae9e9e19753cad205) and [`7ce493b76ad3c413529e89aaf36906afe4dd0ef7`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/7ce493b76ad3c413529e89aaf36906afe4dd0ef7). Preserve the 16 September lot's individual date.
 - Event `62277` dated 15 October 2024 remains a terminal blocker after its 120-second first-party read timeout. Do not retry without a materially different cached, saved-file or snapshot route.
+- National completeness remains **false**.
+
+## 2026-11-01 00:30 UTC — Auction House Online event 62273 banked and published
+
+- Growth opportunity: the prepared first-party all-results inventory for Auction House Online event `62273`, principally dated 17 September 2024, exposed 13 individual property cards at `/past-auctions/62273?lotResultType=All`.
+- Safety and validation: scheduled historical run [41253434108](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41253434108) was already active at the start, so no duplicate collector was launched. It completed and published first; its zero appearance growth is not counted here. Historical run [41255984564](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41255984564) then ran the isolated event collector only. The workflow passed 411 broad tests and 155 admission, identity and completeness tests.
+- Reconciliation: 13/13 visible cards, 13 stable source identities, one immutable index snapshot and 13 immutable detail snapshots were retained. Four exact auction-date/address overlaps were audited and excluded. There were no missing advertised rows, duplicate source identities, non-property exclusions or detail failures. Snapshot SHA-256: `72727b5a43c10c7c6697b3ed84948f56aa3e3d9be5b1596bbf16354b771ba32a`.
+- Net banked gain: **9 appearances**, **9 address records**, **9 dated address records inside the preceding 20-year window**, **0 partial**, **0 undated** and **0 future-dated** records.
+- Sector subset: **2 commercial** and **0 mixed-use**. The remaining additions classify as four residential and three unknown; no property type is inferred for unknown values.
+- Evidence gain: **9 guide prices**, **1 achieved sale price** and **0 rent values**. Outcomes remain distinct: six unsold, one sold, one sold after and one sold prior. Unknown monetary values remain null.
+- Dates and coverage: individually published dates of 16 and 17 September 2024 were retained. Two complete catalogue-date states were added. Auction House Online 2024 was already represented, so **0 new auctioneer/source-year pairs** and no new legal operator are claimed.
+- Operator reconciliation: AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Wales - Cardiff, Notts & Derby, Cheshire/Staffordshire/Shropshire, Hull & East Yorkshire, Scotland and the Online channel remain branch/platform attribution, not additional auctioneers.
+- Corpus after rebuild: **307,320 appearances**; **296,547 address records**; **299,331 in-window appearances**; **103,229 in-window guides**; **111,616 in-window sale prices**; **10,773 partial**; **4,725 undated**; **169 future-dated**; **4,073 complete catalogue states**; **537 incomplete/unreconciled states**; **23 fetch/parse failures**. The 20-year window advanced to 1 November 2006, so its aggregate price totals are not directly comparable to the prior day's window; no captured record was discarded.
+- Bank commit: [`1a5291be2f0cfcb6c281df59bdae4f5947b4d667`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/1a5291be2f0cfcb6c281df59bdae4f5947b4d667).
+- Publication: [run 41256339943](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41256339943) completed successfully through Pages source-to-live verification and the `auctiongeek.co.uk` production-domain verification.
+- Next concrete target: Auction House Online event `62272`, dated 10 September 2024, exposes **17 of 17 first-party cards** at `/past-auctions/62272?lotResultType=All`, including mixed-use and achieved-price evidence. Its source configuration, assertion and dormant isolated trigger are prepared in [`84a302b`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/84a302b80d3ef58fc08e9b2fbb3a328e0eea843a), [`61730df`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/61730dfe695116f1705b1201da3f8646554a5acb) and [`8941b74`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/8941b74296b089155846762cbdf97d9be2c43b7e). Launch one isolated trigger only when writers are clear.
+- Events `62277` and `67141` remain terminal blockers on their recorded first-party routes. Do not retry without a materially different cached, saved-file or snapshot route.
 - National completeness remains **false**.
