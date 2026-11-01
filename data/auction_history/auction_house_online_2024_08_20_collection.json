@@ -1,0 +1,93 @@
+{
+  "checked_at": "2026-11-01T03:03:07.739613+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/60537?lotResultType=All",
+  "platform_event_id": "60537",
+  "archive_sha256": "60a42c7c0d0fe866bd44db36365a8095f114b54ad0b2e981301722306767180c",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    25
+  ],
+  "archive_page_visible_cards": [
+    25
+  ],
+  "visible_source_rows": 25,
+  "expected_visible_cards": 25,
+  "published_result_count": 25,
+  "distinct_source_identities": 25,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 23,
+  "run_new_appearances": 23,
+  "run_new_address_records": 23,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 23,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 23,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2024-08-20",
+      "address": "375 Old Church Road Bell Green, Coventry, West Midlands, CV6 7DT",
+      "source_lot_id": "1f225054-46bd-4a3a-86ce-74b50b56c323",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1f225054-46bd-4a3a-86ce-74b50b56c323",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-08-20",
+      "address": "16 Meriden Street Coundon, Coventry, West Midlands, CV1 4DL",
+      "source_lot_id": "20447b9f-fdff-4c40-9f2b-5c9a9d5b397b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/20447b9f-fdff-4c40-9f2b-5c9a9d5b397b",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2024
+  ],
+  "date_range": [
+    "2024-08-02",
+    "2024-08-20"
+  ],
+  "by_status": {
+    "unsold": 22,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 17,
+    "land": 1,
+    "unknown": 5
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire, Staffordshire & Shropshire": 2,
+    "Auction House South Yorkshire": 1,
+    "Auction House Notts & Derby": 1,
+    "Auction House Coventry and Warwickshire": 3,
+    "Auction House Cumbria": 1,
+    "Auction House Lincolnshire": 3,
+    "Auction House Hull & East Yorkshire": 3,
+    "Auction House West Yorkshire": 3,
+    "Auction House Sussex & Hampshire": 3,
+    "Auction House Online": 2,
+    "Auction House Manchester": 1
+  },
+  "detail_pages_captured": 25,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
