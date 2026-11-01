@@ -186,7 +186,10 @@ SOURCES = {
     "auction-house-online-2024-04-09": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/57095",
+        # The bounded no-query route timed out before capture on run
+        # 41349716111; use the explicit first-party all-results surface as a
+        # materially different recovery route while retaining event identity.
+        "archive_path": "/past-auctions/57095?lotResultType=All",
         "archive_attempts": 3,
         "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
