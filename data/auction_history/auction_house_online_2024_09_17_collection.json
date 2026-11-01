@@ -1,0 +1,104 @@
+{
+  "checked_at": "2026-11-01T00:17:40.768220+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/62273?lotResultType=All",
+  "platform_event_id": "62273",
+  "archive_sha256": "72727b5a43c10c7c6697b3ed84948f56aa3e3d9be5b1596bbf16354b771ba32a",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    13
+  ],
+  "archive_page_visible_cards": [
+    13
+  ],
+  "visible_source_rows": 13,
+  "expected_visible_cards": 13,
+  "published_result_count": 13,
+  "distinct_source_identities": 13,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 9,
+  "run_new_appearances": 9,
+  "run_new_address_records": 9,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 9,
+  "run_new_commercial_mixed": 2,
+  "run_new_guide_prices": 9,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2024-09-17",
+      "address": "4 Peppermint Drive Pontprennau, Cardiff, South Glamorgan, CF23 8SH",
+      "source_lot_id": "2b8fc1f3-e90c-4a20-acf4-80a9f091734e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2b8fc1f3-e90c-4a20-acf4-80a9f091734e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-09-17",
+      "address": "22 Glenmore Drive Stenson Fields, Derby, Derbyshire, DE24 3HE",
+      "source_lot_id": "3e747d4a-d04a-4d18-b750-194ae01c9d33",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3e747d4a-d04a-4d18-b750-194ae01c9d33",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-09-17",
+      "address": "39 Tilford Road Newstead Village, Nottingham, Nottinghamshire, NG15 0BU",
+      "source_lot_id": "b3727b90-736f-499e-a0fb-cb098d93f3a3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b3727b90-736f-499e-a0fb-cb098d93f3a3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-09-17",
+      "address": "7 Guest Cottages Dowlais, Merthyr Tydfil, Mid Glamorgan, CF48 3NT",
+      "source_lot_id": "238e4441-9bdf-4328-9087-81d33125c586",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/238e4441-9bdf-4328-9087-81d33125c586",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2024
+  ],
+  "date_range": [
+    "2024-09-16",
+    "2024-09-17"
+  ],
+  "by_status": {
+    "unsold": 6,
+    "sold": 1,
+    "sold_after": 1,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "unknown": 3,
+    "residential": 4,
+    "commercial": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Wales - Cardiff": 4,
+    "Auction House Notts & Derby": 1,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1,
+    "Auction House Hull & East Yorkshire": 1,
+    "Auction House Online": 1,
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 13,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
