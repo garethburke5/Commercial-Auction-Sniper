@@ -4343,3 +4343,21 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Event `60899` remains terminal on its timed-out first-party route; do not retry without a materially different cached, saved-file or snapshot path.
 - National completeness remains **false**.
 
+## 2026-11-01 — Auction House Online 18 June 2024 event 59454
+
+- Growth opportunity: the surviving first-party [event 59454](https://online.auctionhouse.co.uk/past-auctions/59454?lotResultType=All) exposes **37 of 37 property cards**, individually dated from 7 to 18 June 2024.
+- Writer protection: all collection and publication workflows were clear before release. [Collection run 41304229455](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41304229455) was the only collector. The release changed only the retained-grid source contract and historical workflow trigger, so the unrelated publish-now revalidation route was not activated.
+- Net banked gain after deduplication: **18 appearances**, **18 address records**, **18 dated address records inside the preceding 20-year window**, **0 partial**, **0 undated** and **0 future-dated** records.
+- Duplicate handling: **19 exact date/address overlaps** were reconciled against existing evidence and excluded from net growth. There were **0 duplicate source identities** and no captured record was discarded.
+- Sector subset: **2 commercial**, **0 mixed-use**, ten residential and six unknown. Unknown property types remain unknown.
+- Evidence gain: **18 guide prices**, **1 achieved sale price** and **0 rent values**. Outcomes remain distinct: seven withdrawn, seven unsold, two sold prior, one postponed and one sold. Missing monetary values remain null.
+- Dates and coverage: individual published dates from 7 to 18 June 2024 were retained. The event adds one reconciled **Auction House Online / 2024 event inventory**, but 2024 was already represented, so **0 new operator/source-year pairs** and no new legal operator are claimed. Five catalogue-date states became reconciled.
+- Operator reconciliation: AUCTION HOUSE UK LIMITED (company 06025583) remains the shared-platform legal operator. Hull & East Yorkshire, Coventry and Warwickshire, Scotland, Birmingham, North West, Lincolnshire, Sussex & Hampshire, South West, Cheshire Staffordshire & Shropshire and West Yorkshire remain branch attribution and are not counted as additional auctioneers.
+- Immutable evidence: event index SHA-256 `7d691d5625e132c4c20bc45e62aa25f951c04aa5c231d117f8c9d7d9b64eacbe`; all 37 detail snapshots were retained. The surviving first-party inventory is reconciled; deleted earlier lots are not claimed.
+- Corpus after rebuild: **307,445 appearances**; **296,672 address records**; **299,456 in-window appearances**; **103,354 in-window guides**; **111,618 in-window sale prices**; **10,773 partial**; **4,725 undated**; **169 future-dated**; **4,100 complete catalogue states**; **537 incomplete/unreconciled states**; **23 fetch/parse failures**.
+- Bank commit: [`ab169948e05c29d2f76879c39215b453596fd854`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/ab169948e05c29d2f76879c39215b453596fd854).
+- Publication: [run 41304529412](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/41304529412) completed successfully through tests, evidence validation, Pages deployment, production-domain deployment and live property-data verification.
+- Next concrete growth target: Auction House Online [event 59262](https://online.auctionhouse.co.uk/past-auctions/59262?lotResultType=All), principally dated 11 June 2024. The first-party page reports **19 of 19 cards** and exposes varied 3, 7, 10 and 11 June end dates, commercial, residential and land evidence, published rent, guides and achieved prices. Add one strict 19-card source contract and isolated trigger, then release it only after writer clearance.
+- Event `60899` remains terminal on its timed-out first-party route; do not retry without a materially different cached, saved-file or snapshot path.
+- National completeness remains **false**.
+
