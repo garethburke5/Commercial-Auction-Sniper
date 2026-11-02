@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-10-31T11:04:37.382646+00:00",
+  "checked_at": "2026-11-02T03:03:26.928648+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/65351?lotResultType=All",
   "platform_event_id": "65351",
-  "archive_sha256": "f2fc1870442c4ad5f6f25ab6868a6565e40237efe945d32cd03718de58c8cf65",
+  "archive_sha256": "11602668c06aae50abdef08e66f0c22029eeffb287a0a5f12ca0aec8deb6db38",
   "archive_page_count": 1,
   "archive_page_rows": [
     44
@@ -22,13 +22,13 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 30,
-  "run_new_appearances": 30,
-  "run_new_address_records": 30,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 30,
+  "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 30,
-  "run_new_sale_prices": 5,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -135,16 +135,14 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2024
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-12-04",
     "2024-12-17"
   ],
   "by_status": {
-    "unsold": 21,
     "sold": 5,
+    "unsold": 21,
     "withdrawn": 4
   },
   "by_sector": {
@@ -153,17 +151,17 @@
     "land": 4
   },
   "by_attributed_auctioneer": {
-    "Auction House Notts & Derby": 1,
-    "Auction House Coventry and Warwickshire": 4,
-    "Auction House Cheshire, Staffordshire & Shropshire": 4,
-    "Auction House Scotland": 4,
-    "Auction House Wales - Cardiff": 2,
-    "Auction House London": 4,
-    "Auction House Kent": 2,
-    "Auction House South West": 3,
+    "Auction House Beds & Bucks": 1,
     "Auction House Birmingham": 1,
-    "Auction House West Yorkshire": 4,
-    "Auction House Beds & Bucks": 1
+    "Auction House Cheshire, Staffordshire & Shropshire": 4,
+    "Auction House Coventry and Warwickshire": 4,
+    "Auction House Kent": 2,
+    "Auction House London": 4,
+    "Auction House Notts & Derby": 1,
+    "Auction House Scotland": 4,
+    "Auction House South West": 3,
+    "Auction House Wales - Cardiff": 2,
+    "Auction House West Yorkshire": 4
   },
   "detail_pages_captured": 44,
   "detail_recovery_complete": true,
