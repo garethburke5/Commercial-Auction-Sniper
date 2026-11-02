@@ -79,27 +79,12 @@
     "national_completeness_verified": false,
     "different_next_target": "Prepare and collect Auction House Online event 57095, principally dated 9 April 2024. The verified first-party no-query inventory exposes 28 of 28 individual property cards with published 8 and 9 April dates, including a three-storey commercial building, land and garages, tenanted property, residential evidence, published rents, guides and extensive achieved prices. Add one strict 28-card source contract using /past-auctions/57095 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
   },
-  "prior_target_blocker": "Auction House Online event 67141 dated 4 March 2025 is blocked on the current GitHub-runner all-results route. Run 41166887282 made repeated bounded reads for /past-auctions/67141?lotResultType=All; the first-party index never returned and the final read timed out after 120 seconds. No immutable event shard was created and the rebuilt totals were unchanged. Do not retry that route unless a materially different cached, saved-file or snapshot recovery path becomes available.",
+  "prior_target_blocker": "The focused Cottons saved-file recovery (run 41366799767) completed four bounded result-parser passes around guide enrichment and reconstructed the same 7,474 appearances. The immutable 2016, 2015 and 2012 source sheets genuinely omit printed labels 24/28, 54 and 51 respectively; the 2014 sheet is complete. No identity, address, guide, sale price or rent was invented for those gaps. Do not rerun the unchanged OCR/guide route unless a materially different source file or catalogue is found.",
   "last_growth_attempt": {
-    "checked_at": "2026-11-02T00:20:00.000Z",
-    "opportunity": "SDL Property Auctions 2026 Kinetic: 11 explicit first-party event inventories",
-    "attempted_routes": [
-      {
-        "run_id": 41362937550,
-        "route": "GET /property-auctions/past-auctions/ and event-page form replay",
-        "outcome": "blocked_before_capture",
-        "error": "HTTP 403 on the first-party archive index",
-        "checkpoint": "e83ecbe7ef379824addc7ae69f6b06f34a1302b9"
-      },
-      {
-        "run_id": 41363642608,
-        "route": "explicit event-ID direct POST to /wp-content/themes/sdl-auctions/library/property-functions.php",
-        "outcome": "blocked_before_capture",
-        "error": "all 11 explicit event feed POSTs returned HTTP 403",
-        "checkpoint": "b45fde82cc18d0aee61a584c419a987ebb330443"
-      }
-    ],
-    "published_source_cards": 0,
+    "checked_at": "2026-11-02T00:43:34Z",
+    "opportunity": "Cottons saved result-PDF split-row recovery for 2016, 2015 and 2012 sequence gaps",
+    "attempted_route": "Four bounded saved-PDF result-parser passes with exact catalogue-guide enrichment between passes",
+    "published_source_rows_reconstructed": 7474,
     "net_new_appearances": 0,
     "new_address_records": 0,
     "new_partial_lots": 0,
@@ -113,10 +98,9 @@
     "new_rent_values": 0,
     "new_source_year_pairs": 0,
     "duplicate_appearance_ids": 0,
-    "immutable_event_shard_created": false,
     "database_rebuild_verified": true,
     "publication_verified": true,
-    "publication_note": "The zero-growth evidence checkpoint was rebuilt, revalidated and published successfully without discarding captured records.",
+    "publication_note": "The zero-growth checkpoint was banked and rebuilt without discarding any existing Cottons appearance.",
     "corpus_after_rebuild": {
       "appearances": 307536,
       "address_records": 296763,
@@ -130,16 +114,14 @@
       "incomplete_catalogue_states": 537,
       "fetch_or_parse_failures": 23
     },
-    "blocker": "SDL Property Auctions 2026 Kinetic is terminal on both current GitHub-runner first-party routes. Run 41362937550 received HTTP 403 on the archive index before capture. The materially different explicit 11-event direct-feed run 41363642608 bypassed archive and event pages but every POST to property-functions.php also returned HTTP 403. The event manifest, immutable blocker snapshot, per-event errors and zero-row checkpoint are preserved. Do not retry SDL from the GitHub runner unless a saved file, cache, mirror, permitted browser export or other genuinely different recovery surface becomes available.",
-    "different_next_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false.",
+    "blocker": "The saved source PDFs themselves skip the unresolved printed labels: 6 September 2016 omits 24 and 28, 10 September 2015 omits 54, and 23 October 2012 omits 51. Repeated parser and guide passes expose no additional property identity to bank.",
+    "different_next_target": "Recover the 14 advertised individual lots in Goldings Auctions' cached 22 July 2020 catalogue. Preserve the original Rightmove-hosted PDF URL and a structured immutable snapshot, exact addresses, the 11 unambiguous guide prices and the one current £6,000 p.a. shop rent. Leave three corrupted guides null. Keep all outcomes and sale prices null. The later first-party result archive reports 13 lots offered and no surviving lot cards, so retain all 14 catalogue appearances while keeping the 14-versus-13 result denominator explicitly unreconciled. Exclude any exact date/address overlaps before claiming growth. National completeness remains false.",
     "national_completeness_verified": false,
-    "collector_release_commit": "9a9f86c0fe84f07a0ee70c94ed8560aed3e3ba8b",
-    "collection_run_id": 41363642608,
-    "banked_commit": "b45fde82cc18d0aee61a584c419a987ebb330443",
-    "publication_revalidation_run_id": 41363642643,
-    "publication_run_id": 41364627855
+    "collector_release_commit": "5a6b4b7f32bf2389157525cbfe18d9f6111bf5d2",
+    "collection_run_id": 41366799767,
+    "banked_commit": "bf1879a248f6561e368b8b135c17605c9719e227"
   },
-  "next_growth_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false.",
+  "next_growth_target": "Recover the 14 advertised individual lots in Goldings Auctions' cached 22 July 2020 catalogue. Preserve the original Rightmove-hosted PDF URL and a structured immutable snapshot, exact addresses, the 11 unambiguous guide prices and the one current £6,000 p.a. shop rent. Leave three corrupted guides null. Keep all outcomes and sale prices null. The later first-party result archive reports 13 lots offered and no surviving lot cards, so retain all 14 catalogue appearances while keeping the 14-versus-13 result denominator explicitly unreconciled. Exclude any exact date/address overlaps before claiming growth. National completeness remains false.",
   "runs": [
     {
       "source": "lsh_results",
