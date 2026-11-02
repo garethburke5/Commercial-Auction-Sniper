@@ -81,25 +81,24 @@
   },
   "prior_target_blocker": "Auction House Online event 67141 dated 4 March 2025 is blocked on the current GitHub-runner all-results route. Run 41166887282 made repeated bounded reads for /past-auctions/67141?lotResultType=All; the first-party index never returned and the final read timed out after 120 seconds. No immutable event shard was created and the rebuilt totals were unchanged. Do not retry that route unless a materially different cached, saved-file or snapshot recovery path becomes available.",
   "last_growth_attempt": {
-    "checked_at": "2026-11-01T21:19:30.000Z",
-    "opportunity": "Auction House Online 9 April 2024 shared-platform event 57095",
+    "checked_at": "2026-11-02T00:20:00.000Z",
+    "opportunity": "SDL Property Auctions 2026 Kinetic: 11 explicit first-party event inventories",
     "attempted_routes": [
       {
-        "run_id": 41349716111,
-        "route": "/past-auctions/57095",
+        "run_id": 41362937550,
+        "route": "GET /property-auctions/past-auctions/ and event-page form replay",
         "outcome": "blocked_before_capture",
-        "error": "three bounded first-party index reads timed out; final read timeout 90 seconds",
-        "checkpoint": "711760ae08ea3a8f0629fd4550b506a77e7416f9"
+        "error": "HTTP 403 on the first-party archive index",
+        "checkpoint": "e83ecbe7ef379824addc7ae69f6b06f34a1302b9"
       },
       {
-        "run_id": 41350577469,
-        "route": "/past-auctions/57095?lotResultType=All",
+        "run_id": 41363642608,
+        "route": "explicit event-ID direct POST to /wp-content/themes/sdl-auctions/library/property-functions.php",
         "outcome": "blocked_before_capture",
-        "error": "materially different explicit all-results index route also timed out after bounded reads; final read timeout 90 seconds",
-        "checkpoint": "6174c5fcf7696c3191b72e070cb5bd7f5237fe00"
+        "error": "all 11 explicit event feed POSTs returned HTTP 403",
+        "checkpoint": "b45fde82cc18d0aee61a584c419a987ebb330443"
       }
     ],
-    "advertised_event_lots": 28,
     "published_source_cards": 0,
     "net_new_appearances": 0,
     "new_address_records": 0,
@@ -116,8 +115,8 @@
     "duplicate_appearance_ids": 0,
     "immutable_event_shard_created": false,
     "database_rebuild_verified": true,
-    "publication_verified": false,
-    "publication_note": "Both collection workflows concluded failure because the target index could not be fetched; downstream publication runs were skipped. Zero-growth database checkpoints were preserved and totals remained unchanged.",
+    "publication_verified": true,
+    "publication_note": "The zero-growth evidence checkpoint was rebuilt, revalidated and published successfully without discarding captured records.",
     "corpus_after_rebuild": {
       "appearances": 307536,
       "address_records": 296763,
@@ -131,11 +130,16 @@
       "incomplete_catalogue_states": 537,
       "fetch_or_parse_failures": 23
     },
-    "blocker": "Auction House Online event 57095 is terminal on both current GitHub-runner first-party routes. No-query run 41349716111 and explicit all-results run 41350577469 each exhausted bounded reads and ended with a 90-second read timeout before any event index or detail snapshot was captured. Do not retry either route unless a saved-file, cache, mirror or other materially different recovery surface becomes available.",
-    "different_next_target": "Extend the existing SDL Property Auctions collector to the first-party 2026 past-auctions archive. Ten dated live-stream catalogues from 29 January through 22 October 2026 are exposed, while the retained corpus has SDL evidence for 2022-2025 but no SDL 2026 source-year. Follow the event catalogue/PDF links rather than trusting the empty rendered result grids, preserve individual lot dates, guides, achieved prices, rents, outcomes and immutable snapshots, and reconcile SDL Property Auctions as a trading name of Eddisons Commercial Limited (company 03280893), not a new legal operator. National completeness remains false.",
-    "national_completeness_verified": false
+    "blocker": "SDL Property Auctions 2026 Kinetic is terminal on both current GitHub-runner first-party routes. Run 41362937550 received HTTP 403 on the archive index before capture. The materially different explicit 11-event direct-feed run 41363642608 bypassed archive and event pages but every POST to property-functions.php also returned HTTP 403. The event manifest, immutable blocker snapshot, per-event errors and zero-row checkpoint are preserved. Do not retry SDL from the GitHub runner unless a saved file, cache, mirror, permitted browser export or other genuinely different recovery surface becomes available.",
+    "different_next_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false.",
+    "national_completeness_verified": false,
+    "collector_release_commit": "9a9f86c0fe84f07a0ee70c94ed8560aed3e3ba8b",
+    "collection_run_id": 41363642608,
+    "banked_commit": "b45fde82cc18d0aee61a584c419a987ebb330443",
+    "publication_revalidation_run_id": 41363642643,
+    "publication_run_id": 41364627855
   },
-  "next_growth_target": "After production scan 41354945189 and any resulting publication writer complete, wire and launch scripts/harvest_sdl_kinetic_2026.py against all 11 first-party SDL 2026 event feeds (29 January through 28 October), reconcile published denominators, merge exact address/date/lot Eddisons alias overlaps as alternate evidence, rebuild the corpus, and publish the verified checkpoint.",
+  "next_growth_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false.",
   "runs": [
     {
       "source": "lsh_results",
@@ -3797,7 +3801,7 @@
       "outcome": "completed",
       "exit_code": 0,
       "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-01T23:11:19.899859+00:00\",\n  \"auctioneer\": \"Harman Healy\",\n  \"source_url\": \"https://harman-healy.co.uk/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All\",\n  \"published_archive_lots\": 1519,\n  \"pages_captured\": 31,\n  \"pages_expected\": 31,\n  \"appearances_captured\": 1520,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"new_source_years\": [],\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_exclusions\": [],\n  \"date_range\": [\n    \"2020-04-28\",\n    \"2026-10-15\"\n  ],\n  \"by_status\": {\n    \"unsold\": 597,\n    \"sold\": 607,\n    \"postponed\": 14,\n    \"sold_after\": 130,\n    \"sold_prior\": 42,\n    \"withdrawn\": 130\n  },\n  \"by_sector\": {\n    \"residential\": 1429,\n    \"commercial\": 10,\n    \"unknown\": 44,\n    \"mixed-use\": 29,\n    \"land\": 8\n  },\n  \"catalogue_completion_claimed\": true,\n  \"completion_scope\": \"every lot card across every page of the first-party retained past-auctions grid\",\n  \"failures\": []\n}\n",
-      "duration_seconds": 14.0,
+      "duration_seconds": 14,
       "checked_at": "2026-11-01T23:11:19.986804+00:00"
     },
     {
@@ -4375,7 +4379,7 @@
       "outcome": "completed",
       "exit_code": 0,
       "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-01T23:11:19.899859+00:00\",\n  \"auctioneer\": \"Harman Healy\",\n  \"source_url\": \"https://harman-healy.co.uk/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All\",\n  \"published_archive_lots\": 1519,\n  \"pages_captured\": 31,\n  \"pages_expected\": 31,\n  \"appearances_captured\": 1520,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"new_source_years\": [],\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_exclusions\": [],\n  \"date_range\": [\n    \"2020-04-28\",\n    \"2026-10-15\"\n  ],\n  \"by_status\": {\n    \"unsold\": 597,\n    \"sold\": 607,\n    \"postponed\": 14,\n    \"sold_after\": 130,\n    \"sold_prior\": 42,\n    \"withdrawn\": 130\n  },\n  \"by_sector\": {\n    \"residential\": 1429,\n    \"commercial\": 10,\n    \"unknown\": 44,\n    \"mixed-use\": 29,\n    \"land\": 8\n  },\n  \"catalogue_completion_claimed\": true,\n  \"completion_scope\": \"every lot card across every page of the first-party retained past-auctions grid\",\n  \"failures\": []\n}\n",
-      "duration_seconds": 14.0,
+      "duration_seconds": 14,
       "checked_at": "2026-11-01T23:11:19.986804+00:00"
     },
     "lsh_results": {
@@ -4728,6 +4732,24 @@
       "active_writer_run_id": 41354945189,
       "blocker": "Scheduled Auction Sniper Scan run 41354945189 is the active generated-data writer and remains in progress at Checkout production branch. The reusable SDL collector and tests are safely checkpointed on main, but the historical workflow is intentionally not wired or launched until this run and any resulting publication writer finish. This is a concurrency deferment, not a source-route failure; no property growth is claimed.",
       "next_growth_target": "After production scan 41354945189 and any resulting publication writer complete, wire and launch scripts/harvest_sdl_kinetic_2026.py against all 11 first-party SDL 2026 event feeds (29 January through 28 October), reconcile published denominators, merge exact address/date/lot Eddisons alias overlaps as alternate evidence, rebuild the corpus, and publish the verified checkpoint."
+    },
+    "sdl-property-auctions-2026-kinetic": {
+      "source": "sdl-property-auctions-2026-kinetic",
+      "outcome": "blocked",
+      "exit_code": 1,
+      "checked_at": "2026-11-02T00:20:00.000Z",
+      "run_id": 41363642608,
+      "events_attempted": 11,
+      "events_complete": 0,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_partial_lots": 0,
+      "run_new_commercial_mixed_use": 0,
+      "run_new_guide_price_rows": 0,
+      "run_new_sale_price_rows": 0,
+      "newly_covered_source_years": [],
+      "blocker": "SDL Property Auctions 2026 Kinetic is terminal on both current GitHub-runner first-party routes. Run 41362937550 received HTTP 403 on the archive index before capture. The materially different explicit 11-event direct-feed run 41363642608 bypassed archive and event pages but every POST to property-functions.php also returned HTTP 403. The event manifest, immutable blocker snapshot, per-event errors and zero-row checkpoint are preserved. Do not retry SDL from the GitHub runner unless a saved file, cache, mirror, permitted browser export or other genuinely different recovery surface becomes available.",
+      "next_growth_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false."
     }
   },
   "last_automated_growth": {
@@ -4784,7 +4806,7 @@
     "publication_verified": true,
     "national_completeness_verified": false
   },
-  "latest_target_blocker": "Auction House Online event 57095 is terminal on both current GitHub-runner first-party routes. No-query run 41349716111 and explicit all-results run 41350577469 each exhausted bounded reads and ended with a 90-second read timeout before any event index or detail snapshot was captured. Do not retry either route unless a saved-file, cache, mirror or other materially different recovery surface becomes available.",
+  "latest_target_blocker": "SDL Property Auctions 2026 Kinetic is terminal on both current GitHub-runner first-party routes. Run 41362937550 received HTTP 403 on the archive index before capture. The materially different explicit 11-event direct-feed run 41363642608 bypassed archive and event pages but every POST to property-functions.php also returned HTTP 403. The event manifest, immutable blocker snapshot, per-event errors and zero-row checkpoint are preserved. Do not retry SDL from the GitHub runner unless a saved file, cache, mirror, permitted browser export or other genuinely different recovery surface becomes available.",
   "latest_deferred_launch": {
     "checked_at": "2026-11-01T22:19:01.014Z",
     "opportunity": "SDL Property Auctions 2026 first-party Kinetic archive: 11 event inventories",
@@ -4808,26 +4830,21 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-01T22:19:01.014Z",
-    "source_key": "sdl-property-auctions-2026-kinetic",
-    "auctioneer": "SDL Property Auctions",
-    "source_url": "https://kinetic.sdlauctions.co.uk/property-auctions/past-auctions/",
-    "expected_catalogue_count": 11,
-    "observed_source_year": 2026,
-    "retained_gap": "SDL Property Auctions has retained evidence for 2022-2025 but no independently inventoried SDL 2026 source-year.",
-    "evidence_opportunity": [
-      "eleven first-party dated live-stream event inventories from 29 January to 28 October 2026",
-      "the 28 October feed publishes 289 individual property cards",
-      "cards preserve exact dates, addresses, lot numbers, guides, outcomes and achieved prices",
-      "commercial, mixed-use, residential and land sectors are retained without pre-filtering"
+    "checked_at": "2026-11-02T00:20:00.000Z",
+    "source_key": "cottons-results-2016-saved-pdf-repair",
+    "auctioneer": "Cottons",
+    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-6th-Sept-as-of-26th-Sept-2016.pdf",
+    "source_format": "saved first-party result PDF with OCR text recovery",
+    "observed_source_year": 2016,
+    "saved_rows_current": 30,
+    "missing_sequence_labels": [
+      24,
+      28
     ],
-    "operator_reconciliation": "SDL Property Auctions is a trading name of Eddisons Commercial Limited (company 03280893); exact address/date/lot overlaps are alternate source presentations and do not count as new appearances.",
-    "validation": "The public event page search form exposes auctionId and its first-party property-functions.php POST returns a complete limit=All feed with a published #propCounter denominator.",
-    "collector_checkpoint": "950091f745f65517a081b9e1c9acabf6fa9959f9",
-    "test_file": "tests/test_sdl_kinetic_2026.py",
-    "launch_state": "collector_and_tests_checkpointed_workflow_launch_deferred_for_active_generated_data_writer",
-    "blocker": "Scheduled Auction Sniper Scan run 41354945189 is the active generated-data writer and remains in progress at Checkout production branch. The reusable SDL collector and tests are safely checkpointed on main, but the historical workflow is intentionally not wired or launched until this run and any resulting publication writer finish. This is a concurrency deferment, not a source-route failure; no property growth is claimed.",
-    "next_growth_target": "After production scan 41354945189 and any resulting publication writer complete, wire and launch scripts/harvest_sdl_kinetic_2026.py against all 11 first-party SDL 2026 event feeds (29 January through 28 October), reconcile published denominators, merge exact address/date/lot Eddisons alias overlaps as alternate evidence, rebuild the corpus, and publish the verified checkpoint.",
+    "opportunity": "recover uncaptured individual lot rows from an already saved source file before further live-archive discovery",
+    "collector": "scripts/harvest_cottons_results.py",
+    "launch_trigger": "Run focused Cottons repair",
+    "next_growth_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false
