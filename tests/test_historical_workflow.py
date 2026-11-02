@@ -32,6 +32,15 @@ def test_focused_auction_house_online_6_october_expansion_is_isolated():
     assert "Rebuild historical database from banked records and collect Auction House Online 6 October 2026" in block
 
 
+def test_focused_auction_house_online_26_march_2024_expansion_is_isolated():
+    focused = WORKFLOW.index("- name: Collect Auction House Online 26 March 2024 shared-platform event")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    assert focused < bounded
+    block = WORKFLOW[focused:bounded]
+    assert "scripts/harvest_eig_retained_grids.py auction-house-online-2024-03-26 --workers 16" in block
+    assert "Rebuild historical database from banked records and collect Auction House Online 26 March 2024" in block
+
+
 def test_focused_auction_house_online_2_september_expansion_is_isolated():
     focused = WORKFLOW.index("- name: Collect Auction House Online 2 September 2026 shared-platform event")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
