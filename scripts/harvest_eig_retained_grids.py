@@ -239,6 +239,24 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2024-01-23": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The surviving first-party event page exposes all 44 cards. Keep this
+        # event isolated and retain its detail-derived regional attribution.
+        "archive_path": "/past-auctions/54780",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 44,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2024-04-16": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
