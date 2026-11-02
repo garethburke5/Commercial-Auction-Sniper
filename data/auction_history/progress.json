@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-02T12:01:30.941784+00:00",
-  "individual_lot_records_captured": 307618,
-  "records_with_address": 296845,
+  "generated_at": "2026-11-02T22:16:24.203944+00:00",
+  "individual_lot_records_captured": 307633,
+  "records_with_address": 296860,
   "partial_lot_records": 10773,
-  "exact_address_groups": 165444,
-  "groups_with_repeat_appearances": 42265,
+  "exact_address_groups": 165452,
+  "groups_with_repeat_appearances": 42270,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -12,7 +12,7 @@
     "Allsop": 44928,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
-    "Astleys": 26,
+    "Astleys": 27,
     "Auction Estates": 2072,
     "Auction Hammer Midlands": 128,
     "Auction House Beds & Bucks": 28,
@@ -52,8 +52,8 @@
     "Auction House Wales - Colwyn Bay": 35,
     "Auction House West Yorkshire": 184,
     "Auction North": 37,
-    "Auction Works": 649,
-    "BTG Eddisons": 2975,
+    "Auction Works": 650,
+    "BTG Eddisons": 2981,
     "Bagshaws": 84,
     "Barnard Marcus Auctions": 6701,
     "Barnett Ross": 7601,
@@ -62,7 +62,7 @@
     "Boultons Harrisons Ltd": 62,
     "Bowen": 24,
     "Bradley Hall": 77,
-    "Brown&Co": 466,
+    "Brown&Co": 472,
     "Butters John Bee": 1446,
     "Cheffins": 740,
     "Clarke & Simpson": 168,
@@ -93,7 +93,7 @@
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Phillip Arnold Auctions": 2431,
-    "Property Auction Agent": 66,
+    "Property Auction Agent": 67,
     "Pugh Auctioneers": 6893,
     "Purplebricks Online Auctions": 2451,
     "Robinson & Hall": 546,
@@ -118,7 +118,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 4725,
+    "null": 4731,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -143,22 +143,22 @@
     "2023": 32497,
     "2024": 41662,
     "2025": 47777,
-    "2026": 46184,
-    "2027": 1
+    "2026": 46191,
+    "2027": 3
   },
   "by_sector": {
-    "commercial": 42423,
-    "land": 18695,
-    "mixed-use": 47324,
-    "residential": 149736,
-    "unknown": 49440
+    "commercial": 42424,
+    "land": 18699,
+    "mixed-use": 47325,
+    "residential": 149744,
+    "unknown": 49441
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4138,
-  "catalogues_incomplete_or_unreconciled": 537,
+  "surviving_catalogues_completely_harvested": 4141,
+  "catalogues_incomplete_or_unreconciled": 538,
   "catalogue_fetch_or_parse_failures": 23,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -171,12 +171,12 @@
     "through_date": "2026-11-02",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 299632,
-      "auction_ids_observed": 12330,
+      "lot_appearances": 299631,
+      "auction_ids_observed": 12329,
       "with_guide_price": 103522,
-      "with_sale_price": 111624,
+      "with_sale_price": 111626,
       "with_both_prices": 48313,
-      "marked_sold": 153650,
+      "marked_sold": 153652,
       "marked_sold_without_sale_price": 42766
     },
     "by_auctioneer_and_year": [
@@ -3043,8 +3043,8 @@
       {
         "auctioneer": "Auction Works",
         "year": 2026,
-        "lot_appearances": 48,
-        "auction_ids_observed": 40,
+        "lot_appearances": 47,
+        "auction_ids_observed": 39,
         "with_guide_price": 1,
         "with_sale_price": 34,
         "with_both_prices": 0,
@@ -7699,9 +7699,9 @@
         "lot_appearances": 1319,
         "auction_ids_observed": 580,
         "with_guide_price": 0,
-        "with_sale_price": 249,
+        "with_sale_price": 251,
         "with_both_prices": 0,
-        "marked_sold": 760,
+        "marked_sold": 762,
         "marked_sold_without_sale_price": 511
       },
       {
@@ -7727,8 +7727,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 4725,
-    "future_dated_appearances": 166,
+    "undated_appearances": 4731,
+    "future_dated_appearances": 176,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -7739,7 +7739,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-02T11:48:24.457804+00:00",
+    "checked_at": "2026-11-02T22:09:56.068831+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
