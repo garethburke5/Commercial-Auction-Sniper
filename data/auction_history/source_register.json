@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-01T23:49:23.286260+00:00",
-  "corpus_checkpoint": "2026-11-01T23:48:57.441684+00:00",
+  "generated_at": "2026-11-02T00:32:17.580230+00:00",
+  "corpus_checkpoint": "2026-11-02T00:31:51.483484+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8230,12 +8230,12 @@
     "Unknown auctioneer": 14
   },
   "price_coverage": {
-    "from_date": "2006-11-01",
-    "through_date": "2026-11-01",
+    "from_date": "2006-11-02",
+    "through_date": "2026-11-02",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 299547,
-      "auction_ids_observed": 12298,
+      "lot_appearances": 299551,
+      "auction_ids_observed": 12300,
       "with_guide_price": 103445,
       "with_sale_price": 111621,
       "with_both_prices": 48310,
@@ -11095,8 +11095,8 @@
       {
         "auctioneer": "Auction Works",
         "year": 2026,
-        "lot_appearances": 47,
-        "auction_ids_observed": 39,
+        "lot_appearances": 48,
+        "auction_ids_observed": 40,
         "with_guide_price": 1,
         "with_sale_price": 34,
         "with_both_prices": 0,
@@ -14670,8 +14670,8 @@
       {
         "auctioneer": "Purplebricks Online Auctions",
         "year": 2026,
-        "lot_appearances": 205,
-        "auction_ids_observed": 128,
+        "lot_appearances": 208,
+        "auction_ids_observed": 129,
         "with_guide_price": 0,
         "with_sale_price": 10,
         "with_both_prices": 0,
@@ -15780,7 +15780,7 @@
       }
     ],
     "undated_appearances": 4725,
-    "future_dated_appearances": 169,
+    "future_dated_appearances": 165,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -16220,7 +16220,7 @@
       "outcome": "completed",
       "exit_code": 0,
       "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-01T23:11:19.899859+00:00\",\n  \"auctioneer\": \"Harman Healy\",\n  \"source_url\": \"https://harman-healy.co.uk/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All\",\n  \"published_archive_lots\": 1519,\n  \"pages_captured\": 31,\n  \"pages_expected\": 31,\n  \"appearances_captured\": 1520,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"new_source_years\": [],\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_exclusions\": [],\n  \"date_range\": [\n    \"2020-04-28\",\n    \"2026-10-15\"\n  ],\n  \"by_status\": {\n    \"unsold\": 597,\n    \"sold\": 607,\n    \"postponed\": 14,\n    \"sold_after\": 130,\n    \"sold_prior\": 42,\n    \"withdrawn\": 130\n  },\n  \"by_sector\": {\n    \"residential\": 1429,\n    \"commercial\": 10,\n    \"unknown\": 44,\n    \"mixed-use\": 29,\n    \"land\": 8\n  },\n  \"catalogue_completion_claimed\": true,\n  \"completion_scope\": \"every lot card across every page of the first-party retained past-auctions grid\",\n  \"failures\": []\n}\n",
-      "duration_seconds": 14.0,
+      "duration_seconds": 14,
       "checked_at": "2026-11-01T23:11:19.986804+00:00"
     },
     "first_for_auctions": {
@@ -16420,6 +16420,24 @@
       "collection_run_id": 41287320474,
       "banked_commit": "e3384471fda4221ade9eade6304c837bb91745ab",
       "publication_run_id": 41287705111
+    },
+    "sdl-property-auctions-2026-kinetic": {
+      "source": "sdl-property-auctions-2026-kinetic",
+      "outcome": "blocked",
+      "exit_code": 1,
+      "checked_at": "2026-11-02T00:20:00.000Z",
+      "run_id": 41363642608,
+      "events_attempted": 11,
+      "events_complete": 0,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_partial_lots": 0,
+      "run_new_commercial_mixed_use": 0,
+      "run_new_guide_price_rows": 0,
+      "run_new_sale_price_rows": 0,
+      "newly_covered_source_years": [],
+      "blocker": "SDL Property Auctions 2026 Kinetic is terminal on both current GitHub-runner first-party routes. Run 41362937550 received HTTP 403 on the archive index before capture. The materially different explicit 11-event direct-feed run 41363642608 bypassed archive and event pages but every POST to property-functions.php also returned HTTP 403. The event manifest, immutable blocker snapshot, per-event errors and zero-row checkpoint are preserved. Do not retry SDL from the GitHub runner unless a saved file, cache, mirror, permitted browser export or other genuinely different recovery surface becomes available.",
+      "next_growth_target": "Run the existing focused Cottons split-row/OCR recovery against the already saved 6 September 2016 results PDF. Its current state preserves 30 parsed lots but reports a non-contiguous sequence with lot labels 24 and 28 missing. Drain the bounded three-pass saved-file repair, preserve the original PDF/snapshots, keep sale outcomes and achieved prices distinct, deduplicate against existing Cottons appearances, rebuild, and publish. Then inspect the saved 10 September 2015 and 23 October 2012 sheets, each missing one sequence label, only if the 2016 repair banks or materially advances individual lot evidence. National completeness remains false."
     }
   },
   "unresolved_catalogues": [
@@ -17372,7 +17390,7 @@
           ]
         }
       ],
-      "checked_at": "2026-11-01T19:28:23.850699+00:00"
+      "checked_at": "2026-11-02T00:29:06.165075+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2017-02-28-4614c568ee5f.json",
@@ -17397,7 +17415,7 @@
           ]
         }
       ],
-      "checked_at": "2026-11-01T19:29:22.775410+00:00"
+      "checked_at": "2026-11-02T00:30:03.674390+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2016-09-06-a34f0a04cfc6.json",
@@ -17414,7 +17432,7 @@
           ]
         }
       ],
-      "checked_at": "2026-11-01T23:21:32.792662+00:00"
+      "checked_at": "2026-11-02T00:28:45.592214+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2023-09-13-a01ba76011e3.json",
@@ -21325,7 +21343,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-01T23:49:22.673781+00:00",
+    "checked_at": "2026-11-02T00:32:16.962359+00:00",
     "sha256": "d456f785160986794b58a92c38feaa1130d79dab23a1b2d71602d1f2c16d5209",
     "status": "retrieved"
   }
