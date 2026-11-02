@@ -1,0 +1,71 @@
+{
+  "checked_at": "2026-11-02T00:50:49.090521+00:00",
+  "source": "Goldings Auctions cached 22 July 2020 catalogue",
+  "source_url": "https://media.rightmove.co.uk/22k/21017/94316006/21017_108176_DOC_02_0000.pdf",
+  "source_snapshot": {
+    "source_url": "https://media.rightmove.co.uk/22k/21017/94316006/21017_108176_DOC_02_0000.pdf",
+    "retrieved_at": "2026-11-02T00:43:34Z",
+    "sha256": "8a3886301a8ac119d83902d17e1fbd0028eb7ca81ebafd8a0e0e8b7a88dbe5a3",
+    "snapshot_path": "data/auction_history/sources/goldings/cached-catalogue-2020-07-22.json",
+    "basis": "Publicly indexed cached text extraction of the Goldings Auctions catalogue PDF formerly hosted on Rightmove media; retained as structured evidence because the current first-party result page exposes no lot cards.",
+    "cache_metadata": {
+      "content_type": "application/pdf",
+      "pages": 36,
+      "extracted_text_lines": 2428,
+      "catalogue_intro_pages": [
+        2,
+        3
+      ],
+      "lot_pages": [
+        7,
+        8,
+        10,
+        11,
+        13,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        24,
+        25,
+        26
+      ]
+    }
+  },
+  "auction_date": "2020-07-22",
+  "catalogue_rows_captured": 14,
+  "result_archive_lots_offered": 13,
+  "denominator_reconciled": false,
+  "run_new_appearances": 14,
+  "run_new_address_records": 14,
+  "run_new_dated_address_records_in_twenty_year_window": 14,
+  "run_new_partial_lots": 0,
+  "run_new_undated_appearances": 0,
+  "run_new_future_dated_appearances": 0,
+  "run_new_commercial_appearances": 2,
+  "run_new_mixed_use_appearances": 1,
+  "run_new_guide_prices": 11,
+  "run_new_sale_prices": 0,
+  "run_new_rent_values": 1,
+  "new_source_year_pairs": 0,
+  "duplicate_appearance_ids": 0,
+  "exact_date_address_overlaps_excluded": 0,
+  "ambiguous_guides_left_null": 3,
+  "by_sector_new": {
+    "residential": 10,
+    "land": 1,
+    "commercial": 2,
+    "mixed-use": 1
+  },
+  "by_status_new": {
+    "unknown": 14
+  },
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "national_completeness_verified": false,
+  "failures": []
+}
