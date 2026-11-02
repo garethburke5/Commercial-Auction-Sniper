@@ -230,6 +230,10 @@ jobs:
             python -u scripts/harvest_cottons_results.py 16 16 || true
           done
           python -u scripts/enrich_cottons_guides.py 16 || true
+          # Guide evidence can independently prove that an apparent sequence
+          # gap is an unused lot number. Re-run once after enrichment so the
+          # saved result state is reconciled in this focused workflow.
+          python -u scripts/harvest_cottons_results.py 16 16 || true
       - name: Run focused Pugh hybrid archive repair
         if: inputs.focus == 'pugh' || startsWith(github.event.head_commit.message, 'Run focused Pugh repair')
         timeout-minutes: 12
@@ -1103,7 +1107,7 @@ jobs:
         continue-on-error: true
         run: python -u scripts/harvest_network_auctions.py 6
       - name: Ensure OCR tools for retained Cottons scans
-        if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
+        if: (inputs.focus == 'all' || startsWith(github.event.head_commit.message, 'Run focused Cottons repair')) && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 5
         run: |
           if ! command -v tesseract >/dev/null || ! command -v pdftoppm >/dev/null; then
