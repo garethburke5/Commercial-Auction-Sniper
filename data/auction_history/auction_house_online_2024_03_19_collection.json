@@ -1,0 +1,114 @@
+{
+  "checked_at": "2026-11-04T15:07:02.665334+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/56775?lotResultType=All",
+  "platform_event_id": "56775",
+  "archive_sha256": "e0cd878427c6300823f302177d765d472fd6241d13c3614a72e6161bbd2f8034",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    11
+  ],
+  "archive_page_visible_cards": [
+    11
+  ],
+  "visible_source_rows": 11,
+  "expected_visible_cards": 11,
+  "published_result_count": 11,
+  "distinct_source_identities": 11,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 5,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2024-03-19",
+      "address": "4F Norfolk Street, Sunderland, Tyne and Wear, SR1 1EA",
+      "source_lot_id": "01454342-541c-43ca-b9ff-141153fd390b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/01454342-541c-43ca-b9ff-141153fd390b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-19",
+      "address": "301 Tudor Studios 164 Tudor Road, Leicester, Leicestershire, LE3 5HU",
+      "source_lot_id": "c9be9f97-f52b-457f-bd4f-2385cc00ea66",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c9be9f97-f52b-457f-bd4f-2385cc00ea66",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-19",
+      "address": "6 Farmers Row, Blackburn, Lancashire, BB2 4NN",
+      "source_lot_id": "b25c7506-ecdf-426c-bbd3-fef4f042bfc0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b25c7506-ecdf-426c-bbd3-fef4f042bfc0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-19",
+      "address": "409 Nottingham Road, Nottingham, Nottinghamshire, NG7 7FD",
+      "source_lot_id": "8ba59244-decb-4fad-aea9-107c1606d65d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8ba59244-decb-4fad-aea9-107c1606d65d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-19",
+      "address": "34 Wynyard Mews, Hartlepool, Cleveland, TS25 3JE",
+      "source_lot_id": "1616d3f3-58a6-455c-ad1e-0a4f1922729a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1616d3f3-58a6-455c-ad1e-0a4f1922729a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-19",
+      "address": "78 Sandsfield Lane, Gainsborough, Lincolnshire, DN21 1DD",
+      "source_lot_id": "269df73d-ca3a-406c-beda-1d5a441e548b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/269df73d-ca3a-406c-beda-1d5a441e548b",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2024
+  ],
+  "date_range": [
+    "2024-02-26",
+    "2024-03-19"
+  ],
+  "by_status": {
+    "unsold": 2,
+    "sold_prior": 3
+  },
+  "by_sector": {
+    "residential": 4,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South West": 1,
+    "Auction House Wales - Cardiff": 1,
+    "Auction House Sussex & Hampshire": 1,
+    "Auction House South Yorkshire": 1,
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 11,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
