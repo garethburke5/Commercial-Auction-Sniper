@@ -1003,7 +1003,12 @@ SOURCES = {
     "auction-house-online-2025-03-04": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/67141?lotResultType=All",
+        # The stable no-query event route exposes the complete 49-card result
+        # inventory; the historical query-string route is intermittently
+        # rejected before the rendered cards arrive.
+        "archive_path": "/past-auctions/67141",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,

@@ -361,7 +361,7 @@ jobs:
         if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 11 March 2025')
         timeout-minutes: 18
         run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2025-03-11 --workers 16
-      # Isolated 49-card 4 March event with explicit denominator and detail recovery.
+      # Isolated 49-card 4 March event; release only after writer clearance.
       - name: Collect Auction House Online 4 March 2025 shared-platform event
         if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 4 March 2025')
         timeout-minutes: 18
