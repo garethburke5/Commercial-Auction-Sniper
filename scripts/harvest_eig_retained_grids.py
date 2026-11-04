@@ -260,9 +260,10 @@ SOURCES = {
     "auction-house-online-2024-01-16": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        # The surviving first-party event page exposes all 36 cards. Keep this
-        # event isolated and retain its detail-derived regional attribution.
-        "archive_path": "/past-auctions/54612",
+        # The bare event route failed before capture on run 41792284236. Use
+        # the explicit all-results surface as a materially different cached
+        # route; it exposes the same 36-card first-party event inventory.
+        "archive_path": "/past-auctions/54612?lotResultType=All",
         "archive_attempts": 3,
         "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
