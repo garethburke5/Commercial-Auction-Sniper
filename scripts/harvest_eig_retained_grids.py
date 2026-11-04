@@ -239,6 +239,25 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2024-02-06": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # Use the explicit all-results route from the outset.  The neighbouring
+        # January event's bare route exhausted bounded GitHub-runner reads,
+        # while this first-party surface exposes the complete 29-card event.
+        "archive_path": "/past-auctions/55393?lotResultType=All",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 29,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2024-01-23": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
