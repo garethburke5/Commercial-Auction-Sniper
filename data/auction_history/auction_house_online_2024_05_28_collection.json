@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-01T16:00:28.120828+00:00",
+  "checked_at": "2026-11-04T19:13:13.263327+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
-  "source_url": "https://online.auctionhouse.co.uk/past-auctions/58610?lotResultType=All",
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/58610",
   "platform_event_id": "58610",
-  "archive_sha256": "a52edbf7c63852c8fc95f5267d82a0a9e8ef5a81ee9edee34599028b735c8f92",
+  "archive_sha256": "310a25a34c0a3f314523432d4e7c1fa06096319a015ed9ff55fd4ee8dd76479d",
   "archive_page_count": 1,
   "archive_page_rows": [
     26
@@ -22,13 +22,13 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 16,
-  "run_new_appearances": 16,
-  "run_new_address_records": 16,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 16,
-  "run_new_commercial_mixed": 1,
-  "run_new_guide_prices": 16,
-  "run_new_sale_prices": 1,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -107,31 +107,29 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2024
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-05-09",
     "2024-05-28"
   ],
   "by_status": {
     "unsold": 9,
-    "postponed": 3,
-    "sold_prior": 4
+    "sold_prior": 4,
+    "postponed": 3
   },
   "by_sector": {
-    "residential": 11,
     "unknown": 3,
-    "mixed-use": 1,
-    "land": 1
+    "residential": 11,
+    "land": 1,
+    "mixed-use": 1
   },
   "by_attributed_auctioneer": {
-    "Auction House North West": 6,
     "Auction House East Anglia": 1,
-    "Auction House South West": 2,
+    "Auction House Leicestershire": 1,
+    "Auction House North West": 6,
     "Auction House Notts & Derby": 3,
     "Auction House Scotland": 1,
-    "Auction House Leicestershire": 1,
+    "Auction House South West": 2,
     "Auction House South Yorkshire": 1,
     "Auction House Wales - Cardiff": 1
   },
