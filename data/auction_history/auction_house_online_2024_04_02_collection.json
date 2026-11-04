@@ -1,0 +1,113 @@
+{
+  "checked_at": "2026-11-04T16:09:06.766178+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/57272",
+  "platform_event_id": "57272",
+  "archive_sha256": "ffb79856eb1eee72a109db5cde2078d33284885ea2241e68b28f3e20656d4819",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2024-04-02",
+      "address": "49 Sturton Road, Sheffield, South Yorkshire, S4 7DE",
+      "source_lot_id": "bd2030d2-5660-4593-bd29-9026e79a63fb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/bd2030d2-5660-4593-bd29-9026e79a63fb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-04-02",
+      "address": "51 Steventon Road Thrybergh, Rotherham, South Yorkshire, S65 4EU",
+      "source_lot_id": "7899f508-c946-45c9-8db6-012032ad0b04",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7899f508-c946-45c9-8db6-012032ad0b04",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-04-02",
+      "address": "9 Main Street, Wombwell, Barnsley, South Yorkshire, S73 8JQ",
+      "source_lot_id": "20c74324-ba60-4f4e-ad4c-2ddc5e25491f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/20c74324-ba60-4f4e-ad4c-2ddc5e25491f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-04-02",
+      "address": "64 Acton Street, Stoke-On-Trent, Staffordshire, ST1 6NU",
+      "source_lot_id": "4be178dd-e79a-4d22-a5fa-3fc04f93c029",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4be178dd-e79a-4d22-a5fa-3fc04f93c029",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-04-02",
+      "address": "3 Nora Street, Goldthorpe, Rotherham, South Yorkshire, S63 9JH",
+      "source_lot_id": "8314163d-fbcb-4e93-9dd8-bb866d5acfbf",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8314163d-fbcb-4e93-9dd8-bb866d5acfbf",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-04-02",
+      "address": "Manchester Road East Little Hulton, Manchester, Lancashire, M38 9WQ",
+      "source_lot_id": "38c846e3-8177-4d03-9165-cedb1ac4e2af",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/38c846e3-8177-4d03-9165-cedb1ac4e2af",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2024
+  ],
+  "date_range": [
+    "2024-04-02",
+    "2024-04-02"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 2
+  },
+  "by_sector": {
+    "mixed-use": 1,
+    "residential": 1,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House London": 1,
+    "Auction House North West": 1,
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
