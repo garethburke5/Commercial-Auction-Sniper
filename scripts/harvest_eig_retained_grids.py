@@ -643,7 +643,12 @@ SOURCES = {
     "auction-house-online-2024-07-30": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/60899?lotResultType=All",
+        # The surviving no-query first-party event page exposes all 20 cards.
+        # Preserve each actual end date and detail-derived regional branch
+        # attribution under the shared legal operator.
+        "archive_path": "/past-auctions/60899",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
