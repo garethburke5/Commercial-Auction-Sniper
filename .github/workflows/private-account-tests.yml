@@ -23,6 +23,19 @@ jobs:
           --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Account tests create disposable fixtures; raw auction archives are
+          # unnecessary here and can consume most of the job's time limit.
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/auction_history/sources/
+            !/data/auction_history/auctions/
+            !/data/auction_history/appearances/
+            !/data/auction_history/.auction_history.sqlite.*
+            !/data/historical_source_corpus/raw/
+            !/data/historical_raw/
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -36,6 +49,19 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Account tests create disposable fixtures; raw auction archives are
+          # unnecessary here and can consume most of the job's time limit.
+          filter: blob:none
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            /*
+            !/data/auction_history/sources/
+            !/data/auction_history/auctions/
+            !/data/auction_history/appearances/
+            !/data/auction_history/.auction_history.sqlite.*
+            !/data/historical_source_corpus/raw/
+            !/data/historical_raw/
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
