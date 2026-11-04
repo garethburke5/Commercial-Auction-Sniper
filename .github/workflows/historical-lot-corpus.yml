@@ -1451,7 +1451,22 @@ jobs:
           if test -n "$database_backup"; then cp "$database_backup" data/auction_history/auction_history.sqlite.gz; fi
           test "$pushed" = true
           if test "$checkpoint_saved" = true; then
-            git push origin --delete "$checkpoint_branch"
+            checkpoint_removed=false
+            for cleanup_attempt in 1 2 3 4; do
+              if git -c http.version=HTTP/1.1 push origin --delete "$checkpoint_branch"; then
+                checkpoint_removed=true
+                break
+              fi
+              # Deletion may have reached GitHub even when its response failed.
+              if ! git ls-remote --exit-code --heads origin "refs/heads/$checkpoint_branch" >/dev/null 2>&1; then
+                checkpoint_removed=true
+                break
+              fi
+              sleep 5
+            done
+            if test "$checkpoint_removed" != true; then
+              echo "::warning::Banked main successfully; temporary checkpoint branch $checkpoint_branch could not be removed."
+            fi
           fi
       - name: Restore the newly built database for artifact retention
         if: always()
