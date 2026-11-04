@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-04T14:01:17.733683+00:00",
+  "checked_at": "2026-11-04T16:39:53.871879+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/56215?lotResultType=All",
   "platform_event_id": "56215",
-  "archive_sha256": "a384a7ad7b232d2b06998ecd6ede495892c6598529ca7f34c89575607d94c80b",
+  "archive_sha256": "c4cbfe8b03d3b1b6073ef975ad362f5b565064c1a1584c6b61b427cb270c7528",
   "archive_page_count": 1,
   "archive_page_rows": [
     14
@@ -22,13 +22,13 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 7,
-  "run_new_appearances": 7,
-  "run_new_address_records": 7,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 7,
-  "run_new_commercial_mixed": 1,
-  "run_new_guide_prices": 7,
-  "run_new_sale_prices": 1,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -86,30 +86,28 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2024
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-02-29",
     "2024-03-12"
   ],
   "by_status": {
-    "sold": 1,
     "unsold": 2,
-    "withdrawn": 2,
-    "sold_prior": 2
+    "sold_prior": 2,
+    "sold": 1,
+    "withdrawn": 2
   },
   "by_sector": {
-    "unknown": 4,
     "commercial": 1,
+    "unknown": 4,
     "residential": 2
   },
   "by_attributed_auctioneer": {
-    "Auction House Scotland": 1,
     "Auction House Cumbria": 1,
-    "Auction House Wales - Cardiff": 2,
+    "Auction House Lincolnshire": 2,
     "Auction House North West": 1,
-    "Auction House Lincolnshire": 2
+    "Auction House Scotland": 1,
+    "Auction House Wales - Cardiff": 2
   },
   "detail_pages_captured": 14,
   "detail_recovery_complete": true,

@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-04T10:20:24.729025+00:00",
+  "checked_at": "2026-11-04T16:38:58.454984+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/57095?lotResultType=All",
   "platform_event_id": "57095",
-  "archive_sha256": "e321ef258cd3e64d0a7de8691115670a781711cdc4a8f2ef2c23834e661c336b",
+  "archive_sha256": "e3302c5e5b251ae3a9434e8d51e5b5b6e708bcaf42202b7c3623ae9337de5495",
   "archive_page_count": 1,
   "archive_page_rows": [
     28
@@ -22,12 +22,12 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 6,
-  "run_new_appearances": 6,
-  "run_new_address_records": 6,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 6,
+  "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 6,
+  "run_new_guide_prices": 0,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
@@ -191,26 +191,24 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2024
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-04-08",
     "2024-04-09"
   ],
   "by_status": {
-    "withdrawn": 1,
     "unsold": 4,
+    "withdrawn": 1,
     "sold_prior": 1
   },
   "by_sector": {
-    "unknown": 3,
-    "residential": 3
+    "residential": 3,
+    "unknown": 3
   },
   "by_attributed_auctioneer": {
+    "Auction House Cheshire, Staffordshire & Shropshire": 1,
     "Auction House North West": 1,
-    "Auction House Scotland": 4,
-    "Auction House Cheshire, Staffordshire & Shropshire": 1
+    "Auction House Scotland": 4
   },
   "detail_pages_captured": 28,
   "detail_recovery_complete": true,
