@@ -13,7 +13,9 @@ permissions:
   pages: write
   id-token: write
 concurrency:
-  group: public-platform-pages
+  # Ineligible workflow_run events must not evict a valid pending deployment.
+  # GitHub replaces a pending run even when cancel-in-progress is false.
+  group: ${{ (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')) && 'public-platform-pages' || format('public-platform-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 jobs:
   publish:
