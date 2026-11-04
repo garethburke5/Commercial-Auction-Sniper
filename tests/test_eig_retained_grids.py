@@ -893,7 +893,9 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
     assert grids.SOURCES["auction-house-online-2024-10-15"] == {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
-        "archive_path": "/past-auctions/62277?lotResultType=All",
+        "archive_path": "/past-auctions/62277",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
