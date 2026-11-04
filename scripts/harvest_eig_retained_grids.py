@@ -239,6 +239,25 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2024-02-20": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The explicit first-party all-results surface publishes the complete
+        # 14-card event. Keep each actual lot end date and preserve regional
+        # attribution under the shared legal operator.
+        "archive_path": "/past-auctions/55507?lotResultType=All",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 14,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2024-02-13": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
