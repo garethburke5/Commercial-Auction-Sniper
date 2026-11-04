@@ -139,3 +139,41 @@ def test_free_tier_limits_fail_build(tmp_path, monkeypatch, kind):
     monkeypatch.setattr(cloudflare, 'MAX_FILES' if kind == 'count' else 'MAX_ASSET_BYTES', 1)
     with pytest.raises(ValueError, match='limit'):
         cloudflare.build(tmp_path / 'public')
+
+
+def test_native_build_always_identifies_its_revision(tmp_path, monkeypatch):
+    monkeypatch.delenv('TESTED_COMMIT', raising=False)
+    monkeypatch.delenv('GITHUB_RUN_ID', raising=False)
+    def export_fixture(dest, origin):
+        dest.mkdir()
+        (dest / 'index.html').write_text('public fixture', encoding='utf-8')
+    monkeypatch.setattr(cloudflare, 'export', export_fixture)
+    output = tmp_path / 'native-build'
+    cloudflare.build(output)
+    metadata = json.loads((output / 'deployment.json').read_text())
+    actual = subprocess.check_output(
+        ['git', 'rev-parse', 'HEAD'], cwd=Path(cloudflare.__file__).resolve().parents[1],
+        text=True,
+    ).strip()
+    assert metadata == {'commit': actual}
+    assert '/deployment.json\n  Cache-Control: no-store' in (output / '_headers').read_text()
+
+
+def test_deployment_refuses_a_different_checkout_before_export(tmp_path, monkeypatch):
+    monkeypatch.setenv('TESTED_COMMIT', '0' * 40)
+    def unexpected_export(*args):
+        pytest.fail('A different checkout must never be exported as the tested build')
+    monkeypatch.setattr(cloudflare, 'export', unexpected_export)
+    with pytest.raises(RuntimeError, match='does not match'):
+        cloudflare.build(tmp_path / 'wrong-checkout')
+    assert not (tmp_path / 'wrong-checkout').exists()
+
+
+def test_github_build_metadata_keeps_run_identifier(monkeypatch):
+    actual = subprocess.check_output(
+        ['git', 'rev-parse', 'HEAD'], cwd=Path(cloudflare.__file__).resolve().parents[1],
+        text=True,
+    ).strip()
+    monkeypatch.setenv('TESTED_COMMIT', actual)
+    monkeypatch.setenv('GITHUB_RUN_ID', '12345')
+    assert cloudflare.deployment_metadata() == {'commit': actual, 'run_id': '12345'}

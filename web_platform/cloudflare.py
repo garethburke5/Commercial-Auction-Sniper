@@ -2,6 +2,9 @@
 import argparse
 import importlib
 import os
+import json
+import re
+import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -43,6 +46,9 @@ HEADERS = '''/*
 /platform-config.json
   Cache-Control: no-cache
 
+/deployment.json
+  Cache-Control: no-store
+
 https://:version.:subdomain.workers.dev/*
   X-Robots-Tag: noindex
 
@@ -52,6 +58,26 @@ https://:project.pages.dev/*
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
 '''
+
+
+def deployment_metadata():
+    """Identify the actual checkout for both native and GitHub-hosted builds."""
+    try:
+        commit = subprocess.check_output(
+            ['git', 'rev-parse', 'HEAD'], cwd=Path(__file__).resolve().parents[1],
+            text=True, stderr=subprocess.DEVNULL, timeout=10,
+        ).strip()
+    except (OSError, subprocess.SubprocessError) as exc:
+        raise RuntimeError('Cannot identify the source revision for this deployment') from exc
+    if not re.fullmatch(r'[0-9a-f]{40}|[0-9a-f]{64}', commit):
+        raise RuntimeError('Invalid source revision for this deployment')
+    tested = os.getenv('TESTED_COMMIT', '').strip()
+    if tested and tested != commit:
+        raise RuntimeError('Deployment checkout does not match the tested source revision')
+    metadata = {'commit': commit}
+    if os.getenv('GITHUB_RUN_ID'):
+        metadata['run_id'] = os.environ['GITHUB_RUN_ID']
+    return metadata
 
 
 def build(destination='public-dist', origin=DEFAULT_ORIGIN):
@@ -64,7 +90,9 @@ def build(destination='public-dist', origin=DEFAULT_ORIGIN):
     dest = Path(destination)
     if dest.exists() and any(dest.iterdir()):
         raise ValueError('Use an empty build directory to avoid publishing stale files')
+    metadata = deployment_metadata()
     export(dest, origin.rstrip('/'))
+    (dest / 'deployment.json').write_text(json.dumps(metadata) + '\n', encoding='utf-8')
     (dest / '_headers').write_text(HEADERS, encoding='utf-8')
     files = [p for p in dest.rglob('*') if p.is_file()]
     if len(files) > MAX_FILES:

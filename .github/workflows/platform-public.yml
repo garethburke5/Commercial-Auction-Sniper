@@ -54,6 +54,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Check account session and slow-service behaviour
+        run: node --test web_platform/tests/account_navigation.cjs
       - name: Check evidence links and account sign-in in Chromium
         timeout-minutes: 5
         run: |
@@ -164,7 +166,6 @@ jobs:
       - name: Build production domain with public configuration
         run: |
           python -m web_platform.cloudflare
-          python -c 'import json,os,pathlib; pathlib.Path("public-dist/deployment.json").write_text(json.dumps({"commit":os.environ["TESTED_COMMIT"],"run_id":os.environ["GITHUB_RUN_ID"]}))'
         env:
           TESTED_COMMIT: ${{ needs.publish.outputs.tested_commit }}
           SUPABASE_URL: ${{ vars.SUPABASE_URL }}

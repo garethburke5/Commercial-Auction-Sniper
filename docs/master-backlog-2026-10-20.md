@@ -1,5 +1,25 @@
 # Auction Geek master delivery backlog — 20 October 2026
 
+## Current launch status — 4 November 2026
+
+The owner approved paid report launch on 31 October and reconfirmed approval on
+4 November. The live API reports `paid_reports_approved: true` at release
+`8217a81105618a4d2355cbf9a3d932b7d0171503`. Any older statement below that
+owner approval is still pending is superseded. Approval does not certify every
+quality requirement or replace customer-journey verification.
+
+Checkout remains unavailable: the live runtime Stripe key, VAT configuration and
+payment/customer-access acceptance are still outstanding. Seven live prices and
+the live webhook were created on 4 November and their configuration saved to
+Render, with `BILLING_LIVE=false`; Render's build-minute quota prevented that
+deployment. See [Stripe connection checkpoint](stripe-live-connection-2026-11-04.md).
+Do not mark saved environment settings as deployed.
+
+Free snapshots remain deterministic and must not trigger paid AI calls. Keep
+per-report evidence and delivery checks, server-side ownership and entitlement
+checks, duplicate-processing protections and failure/refund handling. Report
+approval is not a reason to disable these controls.
+
 ## Continuation checkpoint — 21 October 2026
 
 - Property sharing is implemented across shared property/card/snapshot templates,

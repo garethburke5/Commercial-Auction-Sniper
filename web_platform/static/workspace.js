@@ -607,9 +607,13 @@ async function refreshPaymentAvailability(){
    }catch(_){}
   }
 }
-async function initialize(){
- try{const r=await fetch(root+'/workspace-index.json',{signal:typeof AbortSignal!=='undefined'?AbortSignal.timeout(15000):undefined});if(!r.ok)throw Error();const data=await r.json();index=Object.fromEntries(data.rows.map(r=>[r.id,r]));render();}
+async function loadPropertyIndex(){
+ try{const r=await fetch(root+'/workspace-index.json',{signal:typeof AbortSignal!=='undefined'?AbortSignal.timeout(15000):undefined});if(!r.ok)throw Error();const data=await r.json();index={...Object.fromEntries(data.rows.map(r=>[r.id,r])),...index};render();}
  catch(_){notice('Property workspace details are unavailable. Your earlier records remain intact.');}
+}
+async function initialize(){
+ // Public catalogue loading must not delay authentication or private account access.
+ loadPropertyIndex();
  try{
   const r=await fetch(root+'/platform-config.json',{cache:'no-store'});if(!r.ok)throw Error();config=await r.json();
   refreshPaymentAvailability();

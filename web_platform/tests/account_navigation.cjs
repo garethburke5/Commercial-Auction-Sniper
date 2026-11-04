@@ -17,7 +17,7 @@ class Element {
  addEventListener(){}
  closest(selector){return selector==='button'?this:null;}
 }
-async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,readiness='ready',reportEnabled=billingEnabled,plan='free',balance=null}={}){
+async function setup({initial=null,enabled=true,accountError=false,delayed=false,owner=false,watch=true,propertyPage=false,ownerPreview=true,checkout=false,billingReturn=false,billing=null,billingEnabled=false,readiness='ready',indexState='ready',reportEnabled=billingEnabled,plan='free',balance=null}={}){
  let stored=initial,callback,release,signOutError=null,signOutCalls=0,accountCalls=0;
  const elements=Object.fromEntries(['checkout-return','checkout-return-title','checkout-return-message','checkout-refresh','account-entry','new-password-form','register-form','reset-password-form','magic-link-form','account-retry','account-title','account-intro','account-customer-content','account-dashboard','account-status','account-billing','owner-controls','owner-sandbox-billing','owner-preview','owner-preview-status','account-reviews','report-credit-balance','saved-items','saved-count','watched-items','watch-count','saved-searches','watch-updates','recent-items','workspace-message'].map(id=>['#'+id,new Element(id)]));
  const link=new Element();link.textContent='Sign in / Register';
@@ -51,7 +51,11 @@ async function setup({initial=null,enabled=true,accountError=false,delayed=false
   if(url.includes('/api/account/saved/')||url.includes('/api/account/workspace/')){writes.push(options);return {ok:true,json:async()=>({})};}
   if(url.includes('/api/admin/billing/')){writes.push({url,...options});return {ok:true,json:async()=>({url:'https://checkout.stripe.test/session'})};}
   if(url.endsWith('/api/billing/portal')){writes.push({url,...options});return {ok:true,json:async()=>({url:'https://billing.stripe.test/session'})};}
-  if(url.endsWith('workspace-index.json'))return {ok:true,json:async()=>({rows:[{id:'lot'}]})};
+  if(url.endsWith('workspace-index.json')){
+   if(indexState==='pending')return new Promise(()=>{});
+   if(indexState==='failed')throw Error('Catalogue unavailable');
+   return {ok:true,json:async()=>({rows:[{id:'lot'}]})};
+  }
   if(url.endsWith('platform-config.json'))return {ok:true,json:async()=>config};
   if(url.endsWith('/api/readiness')){
    if(readiness==='pending')return new Promise(()=>{});
@@ -311,3 +315,21 @@ for(const [billingEnabled,reportEnabled] of [[true,true],[true,false],[false,fal
  assert.equal(app.elements.reportPending.hidden,reportEnabled);
  assert.match(app.elements.reportAvailability.textContent,reportEnabled?/Purchase a report for £19/:/currently unavailable/);
 });
+
+for(const indexState of ['pending','failed']){
+ test(indexState+' catalogue does not block guest sign-in',async()=>{
+  const app=await setup({indexState});
+  assert.equal(app.elements['#sign-in-form'].hidden,false);
+  assert.equal(app.link.textContent,'Sign in / Register');
+  assert.equal(app.accountCalls,0);
+ });
+ test(indexState+' catalogue does not block account restoration or sign-out',async()=>{
+  const app=await setup({initial:buyer('a'),indexState});
+  assert.equal(app.link.textContent,'My Auction Geek');
+  assert.equal(app.navSignOut.hidden,false);
+  assert.equal(app.accountCalls,1);
+  await app.click(app.navSignOut);
+  assert.equal(app.elements['#sign-in-form'].hidden,false);
+  assert.equal(app.navSignOut.hidden,true);
+ });
+}
