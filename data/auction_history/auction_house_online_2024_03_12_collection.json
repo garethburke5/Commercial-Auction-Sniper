@@ -1,0 +1,124 @@
+{
+  "checked_at": "2026-11-04T14:01:17.733683+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/56215?lotResultType=All",
+  "platform_event_id": "56215",
+  "archive_sha256": "a384a7ad7b232d2b06998ecd6ede495892c6598529ca7f34c89575607d94c80b",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    14
+  ],
+  "archive_page_visible_cards": [
+    14
+  ],
+  "visible_source_rows": 14,
+  "expected_visible_cards": 14,
+  "published_result_count": 14,
+  "distinct_source_identities": 14,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 7,
+  "run_new_appearances": 7,
+  "run_new_address_records": 7,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 7,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 7,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 7,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 7,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2024-03-12",
+      "address": "Mayo Court Cottage Main Street, Cockermouth, Cumbria, CA13 9LU",
+      "source_lot_id": "fee1fca1-3905-4d39-9584-bc8588caf2b7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fee1fca1-3905-4d39-9584-bc8588caf2b7",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-12",
+      "address": "Beddycor Llanfachraeth, Holyhead, Gwynedd, LL65 4UR",
+      "source_lot_id": "968a683f-d34d-4183-9017-34909ae60dbe",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/968a683f-d34d-4183-9017-34909ae60dbe",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-12",
+      "address": "5 Station Road, Barnsley, South Yorkshire, S70 6DE",
+      "source_lot_id": "b4a6509a-13d0-430a-91dd-3b2b3d4503f6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b4a6509a-13d0-430a-91dd-3b2b3d4503f6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-12",
+      "address": "Clinton Avenue, Blackpool, Lancashire, FY1 4AE",
+      "source_lot_id": "a660968b-7f42-4f32-ab6f-a0ab3d095b22",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a660968b-7f42-4f32-ab6f-a0ab3d095b22",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-12",
+      "address": "Ridge Balk Lane Woodlands, Doncaster, South Yorkshire, DN6 7NP",
+      "source_lot_id": "6c1245a7-dae2-49d8-9e88-48ba068a808d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6c1245a7-dae2-49d8-9e88-48ba068a808d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-12",
+      "address": "52 Wilberforce Road, Doncaster, South Yorkshire, DN2 4RW",
+      "source_lot_id": "f5e87ad2-8811-43d5-a7fe-6787a5a5f0a7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f5e87ad2-8811-43d5-a7fe-6787a5a5f0a7",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2024-03-12",
+      "address": "Flat 3 43 Louis Street, Kingston upon Hull, North Humberside, HU3 1LZ",
+      "source_lot_id": "27329810-907c-4e76-a91e-62d9a7a094e0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/27329810-907c-4e76-a91e-62d9a7a094e0",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2024
+  ],
+  "date_range": [
+    "2024-02-29",
+    "2024-03-12"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 2,
+    "withdrawn": 2,
+    "sold_prior": 2
+  },
+  "by_sector": {
+    "unknown": 4,
+    "commercial": 1,
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1,
+    "Auction House Cumbria": 1,
+    "Auction House Wales - Cardiff": 2,
+    "Auction House North West": 1,
+    "Auction House Lincolnshire": 2
+  },
+  "detail_pages_captured": 14,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
