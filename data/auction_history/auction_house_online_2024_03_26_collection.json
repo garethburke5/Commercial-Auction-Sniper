@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-02T02:03:00.871726+00:00",
+  "checked_at": "2026-11-04T10:20:43.145469+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/56832",
   "platform_event_id": "56832",
-  "archive_sha256": "6650031a562cc3451dbda4de4820e6aae25e042e9b5a6a69e9b464ee1ec55d10",
+  "archive_sha256": "e940c7d80fe59a3b33f16f40b1d446cb5425eb117a67aa3b88efbfb4f90c1952",
   "archive_page_count": 1,
   "archive_page_rows": [
     44
@@ -22,14 +22,14 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 14,
-  "run_new_appearances": 14,
-  "run_new_address_records": 14,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 14,
-  "run_new_commercial_mixed": 2,
-  "run_new_guide_prices": 14,
-  "run_new_sale_prices": 1,
-  "run_new_rents": 1,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 30,
@@ -247,9 +247,7 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2024
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-03-25",
     "2024-03-26"
@@ -262,19 +260,19 @@
   "by_sector": {
     "unknown": 5,
     "residential": 7,
-    "mixed-use": 1,
-    "commercial": 1
+    "commercial": 1,
+    "mixed-use": 1
   },
   "by_attributed_auctioneer": {
-    "Auction House East Anglia": 2,
-    "Auction House Chesterfield and North Derbyshire": 1,
-    "Auction House London": 3,
-    "Auction House Scotland": 1,
     "Auction House Birmingham": 1,
-    "Auction House Tees Valley": 1,
-    "Auction House North West": 2,
     "Auction House Cheshire, Staffordshire & Shropshire": 1,
-    "Auction House Lincolnshire": 2
+    "Auction House Chesterfield and North Derbyshire": 1,
+    "Auction House East Anglia": 2,
+    "Auction House Lincolnshire": 2,
+    "Auction House London": 3,
+    "Auction House North West": 2,
+    "Auction House Scotland": 1,
+    "Auction House Tees Valley": 1
   },
   "detail_pages_captured": 44,
   "detail_recovery_complete": true,
