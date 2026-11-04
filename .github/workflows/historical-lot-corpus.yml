@@ -415,6 +415,12 @@ jobs:
         timeout-minutes: 18
         run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2024-03-26 --workers 16
 
+      # Isolated 15-card 5 March event (event 56086); release only after writer clearance.
+      - name: Collect Auction House Online 5 March 2024 shared-platform event
+        if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 5 March 2024')
+        timeout-minutes: 18
+        run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2024-03-05 --workers 16
+
       # Isolated 41-card 27 February event (event 55629); release only after writer clearance.
       - name: Collect Auction House Online 27 February 2024 shared-platform event
         if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 27 February 2024')
