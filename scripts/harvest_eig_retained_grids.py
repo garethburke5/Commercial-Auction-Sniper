@@ -151,6 +151,8 @@ SOURCES = {
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "exclude_exact_cross_source_overlaps": True,
     },
     "auction-house-online-2025-03-25": {
@@ -1055,6 +1057,8 @@ SOURCES = {
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "exclude_exact_cross_source_overlaps": True,
     },
     "auction-house-online-2025-05-27": {
@@ -1586,6 +1590,8 @@ SOURCES = {
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,

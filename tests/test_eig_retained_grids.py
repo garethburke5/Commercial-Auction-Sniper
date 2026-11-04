@@ -466,6 +466,8 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "exclude_exact_cross_source_overlaps": True,
     }
     assert grids.SOURCES["auction-house-online-2025-03-25"] == {
@@ -1168,6 +1170,8 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "exclude_exact_cross_source_overlaps": True,
     }
     assert grids.SOURCES["auction-house-online-2025-05-27"] == {
@@ -1698,6 +1702,8 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
         "operator_company_number": "06025583",
         "auctioneer_from_detail": True,
         "unpaginated_event": True,
+        "archive_attempts": 3,
+        "archive_timeout": 90,
         "exclude_exact_cross_source_overlaps": True,
         "allow_incomplete_detail_recovery": True,
         "detail_attempts": 2,
