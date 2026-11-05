@@ -81,120 +81,68 @@
   },
   "prior_target_blocker": "Goldings' later first-party 22 July 2020 result archive reports 13 lots offered but exposes no individual result cards, while the retained cached catalogue preserves 14 advertised lot pages. The removed or withdrawn lot cannot be identified from the surviving evidence, so the catalogue/result denominator remains unreconciled and every outcome and sale price stays null. Do not revisit that result route unless an individual result sheet, card snapshot or other materially different source survives.",
   "last_growth_attempt": {
-    "checked_at": "2026-11-05T05:56:00.000Z",
-    "opportunity": "Kal Sangra Shonki Brothers complete first-party retained PDF catalogue archive: 13 exact-dated catalogues and 300 individual lot pages from 25 September 2024 through 23 September 2026.",
-    "attempted_route": "Added a strict retained-source collector, stored immutable native-text snapshots tied to each original first-party PDF and SHA-256, reconciled every printed individual lot page to each order of sale, enriched exact date+lot+postcode matches from the current unsold/available grid, rebuilt the database and published the exact banked revision.",
-    "net_new_appearances": 300,
-    "new_address_records": 300,
+    "checked_at": "2026-11-05T07:42:01.048265+00:00",
+    "opportunity": "Recover saved first-party Shonki Brothers June 2024 lot 16, omitted only because the retained catalogue printed GUIDE PRICE with a semicolon.",
+    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher’s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
+    "net_new_appearances": 1,
+    "new_address_records": 1,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 300,
+    "new_dated_address_records_in_twenty_year_window": 1,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
-    "commercial_or_mixed_use": 60,
-    "new_commercial_appearances": 31,
-    "new_mixed_use_appearances": 29,
-    "new_residential_appearances": 185,
-    "new_land_appearances": 29,
-    "new_unknown_sector_appearances": 26,
-    "new_guide_prices": 300,
-    "new_in_window_guide_prices": 300,
+    "commercial_or_mixed_use": 0,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_residential_appearances": 1,
+    "new_land_appearances": 0,
+    "new_unknown_sector_appearances": 0,
+    "new_guide_prices": 1,
+    "new_in_window_guide_prices": 1,
     "new_sale_prices": 0,
     "new_in_window_sale_prices": 0,
-    "new_available_prices_not_sale_prices": 4,
-    "new_rent_values": 24,
-    "published_outcomes_enriched": 9,
-    "source_years_observed": [
-      2024,
-      2025,
-      2026
-    ],
-    "newly_covered_source_years": [
-      2024,
-      2025,
-      2026
-    ],
+    "new_rent_values": 0,
+    "published_outcomes_enriched": 0,
+    "newly_covered_source_years": [],
     "new_calendar_source_years": 0,
-    "newly_reconciled_complete_source_event_inventories": 13,
+    "newly_reconciled_complete_source_event_inventories": 1,
     "duplicate_appearance_ids": 0,
     "duplicate_source_evidence_excluded": 0,
-    "future_catalogues_excluded": 1,
+    "future_catalogues_excluded": 0,
     "reconciled_archive_inventory": {
-      "official_historical_pdfs": 13,
-      "catalogues_captured": 13,
-      "catalogues_complete": 13,
-      "visible_individual_lot_pages": 300,
-      "lots_captured": 300,
-      "first_event_date": "2024-09-25",
+      "official_catalogues": 20,
+      "catalogues_captured": 20,
+      "catalogues_complete": 20,
+      "visible_individual_lot_pages": 464,
+      "lots_captured": 464,
+      "first_event_date": "2023-07-19",
       "last_event_date": "2026-09-23",
-      "guide_prices": 300,
-      "sale_prices": 0,
-      "available_prices_not_sale_prices": 4,
-      "rent_values": 24,
-      "outcomes_enriched": 9,
-      "sectors": {
-        "residential": 185,
-        "land": 29,
-        "unknown": 26,
-        "commercial": 31,
-        "mixed_use": 29
-      },
-      "statuses": {
-        "unknown": 291,
-        "unsold": 9
-      },
-      "catalogue_denominators_reconciled": true,
-      "limitation": "The 17 November 2026 PDF was future-dated at collection time and was recorded but excluded. Sale prices remain null because the retained catalogue and current unsold/available grid publish none."
+      "catalogue_denominators_reconciled": true
     },
-    "operator_reconciliation": "Kal Sangra Shonki Brothers is retained as the trading name of Shonki Brothers Limited (company 05393795). Office, branch and trading-name labels remain attribution under that operator and are not counted as additional auctioneers.",
+    "operator_reconciliation": "Kal Sangra Shonki Brothers remains the trading name of Shonki Brothers Limited (company 05393795); office and branch labels are attribution, not additional auctioneers.",
+    "collector_release_commit": "602ce87e3436790ebf920cb79a69aed9cebf5eb0",
+    "collection_run_id": 41988717021,
+    "banked_commit": "628f8ea3df87df28bf644a495e6c09e6101cfa56",
     "database_rebuild_verified": true,
     "publication_verified": true,
-    "production_domain_verified": true,
-    "collector_release_commit": "acd64cd43c5370ae5eed4c85cde2f052db97ef20",
-    "collection_run_id": 41973288710,
-    "banked_commit": "dced5e8c36c0652caa4064735839d3a56d262527",
-    "publication_run_id": 41975906141,
-    "publication_note": "Public-platform run 41975906141 completed regression tests, database export, Pages deployment, source-to-live verification, auctiongeek.co.uk deployment and production verification for banked commit dced5e8c36c0652caa4064735839d3a56d262527. The earlier release-triggered repair run 41973288732 passed regression tests and recovered its candidate but failed unrelated live-source rich-particular validation for Auction House Cumbria and Auction House National Online; its checkpoint was preserved and it was not rerun after authoritative publication succeeded.",
-    "focused_workflow_guard": "The focused Shonki trigger now excludes unrelated Cottons enrichment and the bounded archive rotation. This fixes the delay observed in run 41973288710 without discarding any captured records.",
     "corpus_after_target_rebuild": {
-      "appearances": 309556,
-      "address_records": 298604,
-      "in_window_appearances": 301297,
-      "in_window_guide_prices": 104420,
+      "appearances": 309720,
+      "address_records": 298768,
+      "in_window_appearances": 301461,
+      "in_window_guide_prices": 104584,
       "in_window_sale_prices": 111827,
       "partial": 10952,
       "undated": 5015,
       "future_dated": 149,
-      "complete_catalogue_states": 4466,
+      "complete_catalogue_states": 4473,
       "incomplete_catalogue_states": 550,
       "fetch_or_parse_failures": 26,
       "marked_sold": 154266,
       "marked_sold_without_sale_price": 43179
     },
     "national_completeness_verified": false,
-    "different_next_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false.",
-    "post_handoff_zero_growth_checkpoint": {
-      "collection_run_id": 41977332619,
-      "banked_commit": "b202f9a32dba6d6d5acbbfca5b41337c02a3b2c8",
-      "publication_run_id": 41980109647,
-      "net_new_appearances": 0,
-      "new_address_records": 0,
-      "new_dated_address_records_in_twenty_year_window": 0,
-      "new_commercial_appearances": 0,
-      "new_mixed_use_appearances": 0,
-      "new_guide_prices": 0,
-      "new_sale_prices": 0,
-      "new_rent_values": 0,
-      "new_partial_lots": 0,
-      "new_undated_appearances": 0,
-      "new_future_dated_appearances": 0,
-      "blocker": "Changing the historical workflow to add the focused-run guard itself matched that workflow's push paths, launching one bounded rotation. It refreshed generated timestamps and checkpoints but the rebuilt corpus metrics were byte-for-byte equivalent in all requested count dimensions; no collection growth is claimed.",
-      "action": "The run completed as the only writer, its exact unchanged corpus was rebuilt and published, and no additional collector was launched. Future focused Shonki runs now exit both the unrelated Cottons enrichment and bounded rotation guards.",
-      "different_next_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false.",
-      "publication_verified": true,
-      "production_domain_verified": true
-    }
+    "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false.",
+  "next_growth_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false.",
   "runs": [
     {
       "source": "edward_mellor_pdfs",
@@ -4876,6 +4824,15 @@
       ],
       "archive_visible_inventory_reconciled": true,
       "national_completeness_verified": false
+    },
+    "shonki-brothers": {
+      "source": "shonki-brothers",
+      "outcome": "completed",
+      "net_new_appearances": 1,
+      "appearances_captured": 464,
+      "catalogues_complete": 20,
+      "catalogues_captured": 20,
+      "checked_at": "2026-11-05T07:42:01.048265+00:00"
     }
   },
   "last_automated_growth": {
@@ -4961,20 +4918,16 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-05T04:35:00.000Z",
-    "source_key_candidate": "shonki-brothers-retained-auction-archive",
-    "auctioneer": "Kal Sangra Shonki Brothers",
+    "checked_at": "2026-11-05T07:42:01.048265+00:00",
+    "source_key_candidate": "city-rural-property-auctions-catalogues",
+    "auctioneer": "City & Rural Property Auctions",
     "source_urls": [
-      "https://www.shonkibrothers.com/un-sold-lots",
-      "https://www.shonkibrothers.com/catalogues",
-      "https://www.shonkibrothers.com/auction-properties"
+      "https://cityandruralpropertyauctions.com/",
+      "https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf"
     ],
-    "source_format": "accessible first-party exact-dated retained property rows and detail pages plus 13 downloadable official catalogue PDFs with guide-price evidence",
-    "observed_downloadable_catalogue_pdfs": 13,
-    "observed_result_evidence": "The retained unsold/available grid exposes individual auction dates, lot numbers, addresses and outcome text; the current property grid exposes individual guides; the PDF archive can recover catalogue-only rows and historical guides.",
-    "opportunity": "collect an uncovered genuine auctioneer's retained individual rows and substantial catalogue-PDF inventory, deduplicating the page/PDF overlap before claiming growth",
-    "trading_name_reconciliation": "Kal Sangra, Shonki Brothers and office/branch labels require one operator/trading-name reconciliation and must not be counted as separate auctioneers.",
-    "next_growth_target": "Inventory and collect Kal Sangra / Shonki Brothers' first-party retained auction archive. Start with every exact-dated individual property row and detail page at https://www.shonkibrothers.com/un-sold-lots, then parse and reconcile the 13 official catalogue PDFs at https://www.shonkibrothers.com/catalogues to recover additional lots and guide-price evidence. Preserve every date, lot number, address, guide, available/unsold outcome, rent and original URL; reconcile each catalogue denominator before completeness; deduplicate exact overlap between property pages and PDFs; and treat Kal Sangra, Shonki Brothers and office/branch labels as trading-name evidence pending operator reconciliation, not as separate auctioneers. National completeness remains false.",
+    "source_format": "accessible first-party catalogue PDFs plus published result evidence",
+    "opportunity": "collect an uncovered genuine UK auctioneer’s retained individual catalogue lots and results",
+    "next_growth_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
@@ -5049,5 +5002,46 @@
     "published_source_cards": 44,
     "banked_appearances": 13,
     "exact_date_address_overlaps": 31
+  },
+  "shonki_fliphtml_expansion": {
+    "checked_at": "2026-11-05T07:42:01.048265+00:00",
+    "source": "Kal Sangra Shonki Brothers retained FlipHTML5 catalogues",
+    "catalogues": 7,
+    "event_date_range": [
+      "2023-07-19",
+      "2024-07-24"
+    ],
+    "source_years_observed": [
+      2023,
+      2024
+    ],
+    "newly_covered_source_years": [
+      2023
+    ],
+    "net_new_appearances": 164,
+    "new_address_records": 164,
+    "new_dated_address_records_in_twenty_year_window": 164,
+    "commercial_or_mixed_use": 41,
+    "new_guide_prices": 164,
+    "new_sale_prices": 0,
+    "new_rent_values": 20,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "duplicate_source_evidence_excluded": 0,
+    "newly_reconciled_complete_source_event_inventories": 7,
+    "collector_release_commits": [
+      "3c44b5c2440665eafeae3d7ddebd751f3c19999e",
+      "602ce87e3436790ebf920cb79a69aed9cebf5eb0"
+    ],
+    "collection_run_ids": [
+      41987338160,
+      41988717021
+    ],
+    "banked_commits": [
+      "cf5090209ee8937c7113d9d43649e46ebc03ad3a",
+      "628f8ea3df87df28bf644a495e6c09e6101cfa56"
+    ],
+    "national_completeness_verified": false
   }
 }
