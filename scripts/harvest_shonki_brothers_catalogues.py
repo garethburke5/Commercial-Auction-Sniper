@@ -42,7 +42,7 @@ DATE_RE = re.compile(
 LOT_RE = re.compile(r"^_?([A-Z]|\d{1,3})\s+GUIDE\s+PRICE:\s*(.+)$", re.I)
 FLIPHTML_LOT_RE = re.compile(
     r"(?:^|\r?\n)LOT\s*\r?\n\s*([A-Z]|\d{1,3})\s*\r?\n"
-    r"([\s\S]*?)\r?\nGUIDE\s+PRICE\s*:\s*([^\r\n]+)",
+    r"([\s\S]*?)\r?\nGUIDE\s+PRICE\s*[:;]\s*([^\r\n]+)",
     re.I,
 )
 MONEY_RE = re.compile(r"£\s*([\d,]+(?:\.\d+)?)")
@@ -649,8 +649,8 @@ def harvest(
         "auctions": {state["auction_date"]: state for state in states},
         "completion_scope": (
             "20 retained first-party catalogues from July 2023 through September 2026; "
-            "June 2024 remains partial because printed lot 16 has no retained individual lot page; "
-            "earlier catalogues are not reconciled"
+            "every printed lot is reconciled to an individual retained lot page; "
+            "catalogues before July 2023 are not yet evidenced"
         ),
         "national_completeness": False,
         "failures": [],

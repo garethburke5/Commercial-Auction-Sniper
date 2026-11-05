@@ -91,7 +91,7 @@ def test_fliphtml_page_text_banks_only_retained_individual_lot_pages():
             "COMMERCIAL / RESIDENTIAL\r\nLocation:\r\nExample.\r\n"
             "Current Rental Income £12,000\r\nLOT\r\n1\r\n"
             "55 Mill Street, Ilkeston, Derbyshire DE7 8GQ\r\n"
-            "GUIDE PRICE: £70,000 - £75,000"
+            "GUIDE PRICE; £70,000 - £75,000"
         ),
     ]
     rows, order = shonki.parse_fliphtml_lot_pages(
