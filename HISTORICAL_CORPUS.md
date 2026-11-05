@@ -659,3 +659,39 @@ auctioneer/year, with unknown and future dates separated. Missing years and
 missing prices do not imply zero auctions or a zero sale price. These counts
 measure stored evidence, not verified national completeness.
 
+## Latest persisted collection handoff — 5 November 2026
+
+The retained Bagshaws Bakewell page dated 17 November 2025 has been banked
+from its immutable first-party HTML snapshot. Fourteen individually named sold
+interests were added: twelve with achieved prices and two sold prior with prices
+left null. The page's aggregate says fifteen lots sold, so the one unnamed
+interest was excluded. The event remains incomplete and national completeness
+remains false.
+
+Net gain: 14 appearances, 14 address records, 14 exact-dated records inside the
+preceding 20-year window, 12 achieved prices, no guides, no rents, no
+commercial/mixed-use rows, no partials, no undated or future-dated rows, and no
+duplicate appearance identities. Sector deltas were three land, four residential
+and seven unknown. The rebuilt corpus totals are 310,121 appearances, 299,169
+address records, 301,860 in-window appearances, 104,815 in-window guides and
+112,018 in-window achieved prices. Bagshaws now has 250 appearances.
+
+Collection release: `96213aaab75e941ccb07f7fc6ceb99871ad6d965`.
+The first attempt was blocked before collection by unrelated PDF/OCR setup and
+banked no growth at `7251ef984d66fe6dd68826e286db97be97bb0ff2`.
+The reusable workflow correction is
+`b908fa04b1f6025160471e8d488400843cb2b097`; successful collection run
+`42055035885`, banked evidence
+`26df56ea198b35a96c59e86068ac5fa629e53e3a`, verified publication run
+`42055901715`.
+
+Next concrete growth target: reparse the retained Bagshaws Bakewell page dated
+21 July 2025 and bank its nine individually priced property outcomes: three
+pre-auction sales (Wharf Bungalow, Land at Merehay and Land at The Wash), New
+Barn Farm at Aldwark, and the five other named sales. Preserve pre-auction status
+separately, keep every achieved price distinct from guide evidence, exclude
+unidentified or ambiguous catalogue interests, reconcile exact-event overlaps,
+and leave the inventory incomplete unless every original lot can be named.
+This newer handoff supersedes older Bagshaws target text in
+`continuation_collection.json`.
+
