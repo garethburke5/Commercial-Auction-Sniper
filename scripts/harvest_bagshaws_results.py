@@ -315,6 +315,15 @@ RETAINED_NARRATIVE_RESULTS = {
         ("Lot 8 Brookfield Grove, Ashford in the Water", None, "unsold"),
         ("Lot 9 Westhaven/The Beeches", None, "postponed"),
     ],
+    "uttoxeter-land-and-property-auction-may-2023": [
+        ("Green Farm at Chatcull, near Eccleshall", 710000, "sold"),
+        ("23.3 acres at Breadsall", 355000, "sold"),
+        ("6.2 acres between Stretton and Rolleston on Dove", 88000, "sold"),
+        ("2.9 acres at Elmhurst", 78000, "sold"),
+        ("3.89 acres at Elmhurst", 75000, "sold"),
+        ("just over 67 acres at Elmhurst", 800000, "sold"),
+        ("25.36 acres at Footherley, near Lichfield", 175000, "sold"),
+    ],
     "uttoxeter-land-and-property-auction-may-2024": [
         ("Lot 1 equestrian yard at Marston, Stafford extending to 5.06 acres", 242000, "sold"),
         ("Lot 2 4.76 acres of pastureland at Hayfield Hill Road, Rugeley", 92000, "sold"),

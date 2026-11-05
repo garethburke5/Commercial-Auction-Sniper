@@ -119,6 +119,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("bakewell-land-property-auction-in-september", "2025-09-22", 10, 6, 1),
         ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
         ("bakewell-property-auction-september-2021", "2021-09-20", 9, 7, 0),
+        ("uttoxeter-land-and-property-auction-may-2023", "2023-05-10", 7, 7, 0),
     ],
 )
 def test_retained_narratives_reconcile_only_identified_property_rows(
@@ -410,6 +411,38 @@ def test_september_2025_available_properties_keep_published_status_ambiguity():
         for row in ambiguous
     )
     assert sum(priced.values()) == 1492000
+
+
+def test_uttoxeter_may_2023_prices_exclude_per_acre_comparisons():
+    slug = "uttoxeter-land-and-property-auction-may-2023"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+
+    assert observed_date == "2023-05-10"
+    assert detail == {
+        "property_cards": 0,
+        "published_result_rows": 7,
+        "published_table_result_rows": 0,
+        "published_narrative_result_rows": 7,
+        "result_rows_matched_to_cards": 0,
+        "result_rows_without_matching_card": 7,
+    }
+    assert len(narrative_rows) == 7
+    assert len({row["appearance_id"] for row in narrative_rows}) == 7
+    assert {row["sale_price"] for row in narrative_rows} == {
+        710000, 355000, 88000, 78000, 75000, 800000, 175000,
+    }
+    assert all(row["status"] == "sold" for row in narrative_rows)
+    assert all(row["guide_price"] is None for row in narrative_rows)
+    assert not ({15236, 14194, 26897} & {row["sale_price"] for row in narrative_rows})
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
