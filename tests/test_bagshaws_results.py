@@ -116,6 +116,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("uttoxeter-land-property-auction-october-2024", "2024-10-23", 3, 3, 0),
         ("bakewell-land-property-auction-in-july", "2025-07-21", 9, 9, 3),
         ("bakewell-land-property-auction-in-may", "2025-05-19", 13, 6, 2),
+        ("bakewell-land-property-auction-in-september", "2025-09-22", 10, 6, 1),
         ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
         ("bakewell-property-auction-september-2021", "2021-09-20", 9, 7, 0),
     ],
@@ -347,6 +348,48 @@ def test_september_2021_results_exclude_per_acre_figures_and_keep_lots_separate(
     assert by_lot["9"]["status"] == "postponed"
     assert by_lot["9"]["sale_price"] is None
     assert by_lot["4"]["appearance_id"] != by_lot["5"]["appearance_id"]
+
+
+def test_september_2025_available_properties_keep_published_status_ambiguity():
+    slug = "bakewell-land-property-auction-in-september"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+
+    assert observed_date == "2025-09-22"
+    assert detail == {
+        "property_cards": 0,
+        "published_result_rows": 10,
+        "published_table_result_rows": 0,
+        "published_narrative_result_rows": 10,
+        "result_rows_matched_to_cards": 0,
+        "result_rows_without_matching_card": 10,
+    }
+    assert len(narrative_rows) == 10
+    assert len({row["appearance_id"] for row in narrative_rows}) == 10
+    assert sum(row["sale_price"] is not None for row in narrative_rows) == 6
+    assert sum(row["status"] == "sold_prior" for row in narrative_rows) == 1
+
+    ambiguous = [row for row in narrative_rows if row["status"] == "unknown"]
+    assert {row["address"] for row in ambiguous} == {
+        "Long Lane Head Barn (Hilderstone)",
+        "Pethills Head Farm (Bottomhouse, Leek)",
+        "47 Chesterfield Road (Shirland)",
+    }
+    assert all(row["sale_price"] is None for row in ambiguous)
+    assert all(
+        row["result_text"]
+        == "Some properties did not sell or were postponed and remain available"
+        for row in ambiguous
+    )
+    assert all(row["sale_price"] != 1850000 for row in narrative_rows)
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():

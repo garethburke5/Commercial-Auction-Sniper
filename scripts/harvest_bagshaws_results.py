@@ -249,6 +249,36 @@ RETAINED_NARRATIVE_RESULTS = {
         ("The Old Estate Yard, Shottle", 150000, "sold"),
         ("1 Market Street, Longton", 25000, "sold"),
     ],
+    "bakewell-land-property-auction-in-september": [
+        ("Broom Vale Farm, Dungworth", 940000, "sold"),
+        ("Palerow Barn, Shottle, Belper", 160000, "sold"),
+        ("Lammas Barn, Shottle, Belper", 150000, "sold"),
+        ("Land and Stables, Barlow", 120000, "sold"),
+        ("Land and Stone Barn, Bradwell", 84000, "sold"),
+        ("Ex Methodist Chapel, Quarnford", 38000, "sold"),
+        ("Hollyseat Cottage, Shottle, Belper", None, "sold_prior"),
+        (
+            "Long Lane Head Barn (Hilderstone)",
+            None,
+            "unknown",
+            None,
+            "Some properties did not sell or were postponed and remain available",
+        ),
+        (
+            "Pethills Head Farm (Bottomhouse, Leek)",
+            None,
+            "unknown",
+            None,
+            "Some properties did not sell or were postponed and remain available",
+        ),
+        (
+            "47 Chesterfield Road (Shirland)",
+            None,
+            "unknown",
+            None,
+            "Some properties did not sell or were postponed and remain available",
+        ),
+    ],
     "bagshaws-may-land-property-auction-bakewell": [
         ("Land off Kirk Dale, Sheldon", None, "unsold", "1"),
         ("Land off Station Road, Haughton", 118000, "sold", "2"),
@@ -456,7 +486,8 @@ def parse_retained_narrative_results(soup: BeautifulSoup, slug: str) -> list[dic
     results = []
     for checked_row in checked:
         title, sale_price, status = checked_row[:3]
-        published_lot_number = checked_row[3] if len(checked_row) == 4 else None
+        published_lot_number = checked_row[3] if len(checked_row) >= 4 else None
+        published_result_text = checked_row[4] if len(checked_row) >= 5 else None
         if not narrative_title_is_evidenced(title, page_text):
             raise ValueError(f"checked Bagshaws narrative title missing from source: {title!r}")
         if sale_price is not None and f"{sale_price:,}" not in page_text:
@@ -470,7 +501,7 @@ def parse_retained_narrative_results(soup: BeautifulSoup, slug: str) -> list[dic
             ),
             "sale_price": sale_price,
             "status": status,
-            "result_text": (
+            "result_text": published_result_text or (
                 f"{status.replace('_', ' ')} £{sale_price:,}"
                 if sale_price is not None else status.replace("_", " ")
             ),
