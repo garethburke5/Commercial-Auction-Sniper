@@ -860,3 +860,34 @@ the £1.85 million aggregate, reconcile exact-event overlaps, preserve the saved
 snapshot and leave the event incomplete. This handoff supersedes older Bagshaws
 target text in `continuation_collection.json` and earlier sections of this
 file.
+
+## Prepared collection handoff — 5 November 2026 (Bagshaws September 2025)
+
+The reusable saved-narrative importer now supports a verbatim published result
+text that is distinct from the normalized status. This is required by the
+retained 22 September 2025 Bagshaws page: it collectively says that Long Lane
+Head Barn, Pethills Head Farm and 47 Chesterfield Road "did not sell or were
+postponed and remain available", without identifying which outcome applies to
+which property. The checked inventory therefore keeps each row's status as
+unknown, its sale price null and the source wording intact. Six separately
+priced sales and Hollyseat Cottage sold prior are also transcribed; the £1.85m
+aggregate is excluded. Tests pass 124/124.
+
+A saved-snapshot dry run produced ten candidate address appearances, all dated
+22 September 2025 and inside the twenty-year window: two land and eight unknown,
+with six achieved prices, no guides, no rents, no commercial or mixed-use rows,
+and no partial, undated, future-dated or duplicate result identities. These are
+candidate metrics only and are not claimed as banked growth. Release
+`ef5696415bea0430ea0d5ee0cf07043884542337` deliberately used `[skip ci]`
+because pre-existing live-scan and hourly historical workflows were active; no
+generated corpus files were written concurrently and no duplicate collector was
+launched.
+
+Immediate growth target: after the active writer lanes clear, run the focused
+Bagshaws saved-narrative collector, bank the ten rows, rebuild the database and
+verify publication from the resulting checkpoint. Different researched
+follow-on: the retained Bagshaws Uttoxeter page dated 10 May 2023 names seven
+sold properties with seven achieved prices and explicitly reports a 100%
+clearance. Bank those seven rows next, excluding the £/acre comparisons and the
+previously saved navigation card from net growth. Keep both events and national
+coverage incomplete unless their original lot inventories reconcile.
