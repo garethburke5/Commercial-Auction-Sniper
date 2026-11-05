@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-05T11:39:17.480186+00:00",
+  "checked_at": "2026-11-05T20:23:07.500810+00:00",
   "auctioneer": "Auction Works",
   "parser_version": 8,
   "source_url": "https://www.auctionworks.co.uk/search",
   "platform_event_id": null,
-  "archive_sha256": "c81d3455f84304c0b7f0fe0522b80fb89acb2d49769856244d0d849e7ed1f98a",
+  "archive_sha256": "dc300496daf69c89fd7a85b52cc67ca5f11cdfee95bb63ea3b250b511941426d",
   "archive_page_count": 13,
   "archive_page_rows": [
     50,
@@ -19,7 +19,7 @@
     50,
     50,
     50,
-    49
+    48
   ],
   "archive_page_visible_cards": [
     50,
@@ -34,16 +34,16 @@
     50,
     50,
     50,
-    49
+    48
   ],
-  "visible_source_rows": 649,
+  "visible_source_rows": 648,
   "expected_visible_cards": null,
   "event_advertised_lots": null,
   "event_advertised_lot_discrepancy": null,
   "past_results_index_lots": null,
   "past_results_index_discrepancy": null,
-  "published_result_count": 649,
-  "distinct_source_identities": 649,
+  "published_result_count": 648,
+  "distinct_source_identities": 648,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
@@ -53,10 +53,10 @@
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_dated_twenty_year_address_records": 1,
   "run_new_commercial_mixed": 0,
   "run_new_guide_prices": 0,
-  "run_new_sale_prices": 0,
+  "run_new_sale_prices": 2,
   "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
@@ -70,9 +70,9 @@
     "2026-11-24"
   ],
   "by_status": {
-    "unsold": 93,
-    "sold": 525,
-    "unknown": 23,
+    "unsold": 92,
+    "sold": 528,
+    "unknown": 21,
     "withdrawn": 9,
     "postponed": 1
   },
@@ -86,7 +86,7 @@
   "by_attributed_auctioneer": {
     "Auction Works": 651
   },
-  "detail_pages_captured": 649,
+  "detail_pages_captured": 648,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

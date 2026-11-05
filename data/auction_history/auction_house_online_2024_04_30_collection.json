@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-04T18:08:44.617477+00:00",
+  "checked_at": "2026-11-05T20:27:08.219390+00:00",
   "auctioneer": "Auction House Online",
   "parser_version": 8,
   "source_url": "https://online.auctionhouse.co.uk/past-auctions/57949",
   "platform_event_id": "57949",
-  "archive_sha256": "8907f772d11b1d3fe178e6398998ee1bcd23b9814bcae94a31359f21ebbf2f4e",
+  "archive_sha256": "00562e853a6450181c618edbb45b2c370431377249525ef834c56c59689ad9cc",
   "archive_page_count": 1,
   "archive_page_rows": [
     21
@@ -14,6 +14,10 @@
   ],
   "visible_source_rows": 21,
   "expected_visible_cards": 21,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
   "published_result_count": 21,
   "distinct_source_identities": 21,
   "non_auction_property_cards_excluded": 0,
@@ -22,14 +26,14 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 8,
-  "run_new_appearances": 8,
-  "run_new_address_records": 8,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 8,
-  "run_new_commercial_mixed": 1,
-  "run_new_guide_prices": 8,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
   "run_new_sale_prices": 0,
-  "run_new_rents": 1,
+  "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 13,
@@ -128,9 +132,7 @@
       "existing_match_count": 1
     }
   ],
-  "new_source_years": [
-    2024
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-04-29",
     "2024-04-30"
@@ -141,16 +143,16 @@
   },
   "by_sector": {
     "unknown": 3,
-    "residential": 4,
-    "commercial": 1
+    "commercial": 1,
+    "residential": 4
   },
   "by_attributed_auctioneer": {
     "Auction House Cheshire, Staffordshire & Shropshire": 2,
-    "Auction House Manchester": 1,
-    "Auction House Scotland": 1,
+    "Auction House Lincolnshire": 1,
     "Auction House London": 2,
+    "Auction House Manchester": 1,
     "Auction House North West": 1,
-    "Auction House Lincolnshire": 1
+    "Auction House Scotland": 1
   },
   "detail_pages_captured": 21,
   "detail_recovery_complete": true,
