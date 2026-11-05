@@ -194,6 +194,34 @@ RETAINED_NARRATIVE_RESULTS = {
         ("Palace Cottage, Shottle", None, "unsold"),
         ("Glapwell Lanes Farm", None, "unsold"),
     ],
+    "bakewell-land-property-auction-2024-march": [
+        ("Morrell Wood Farm", None, "sold_prior"),
+        ("Development site at Whittington Moor", None, "sold_prior"),
+        ("Land off Crowhill Lane", None, "sold_prior"),
+        ("Land at Carsington", None, "sold_prior"),
+        ("Rose Cottage", None, "sold_prior"),
+        ("Chadwick Hill at Winster Lot A 9.26 acres", 104000, "sold"),
+        ("Chadwick Hill at Winster Lot B 0.56 acres", 16000, "sold"),
+        ("5.34-acre plot on Conksbury Lane near Youlgrave", 85000, "sold"),
+        ("3.20 acres on Hope Road, Thornhill", 55000, "sold"),
+        ("3.39 acres on Hope Road, Thornhill", 55000, "sold"),
+        ("4.75 acres at Netherfield Lane, Wadshelf", 50000, "sold"),
+        ("2 acres at Netherfield Lane, Wadshelf", 75000, "sold"),
+        ("7.63 acres of grassland off Bonsallmoor Lane in Winster", 60000, "sold"),
+    ],
+    "bakewell-land-property-auction-may-2024": [
+        ("2.65 acres at Bamford", 60000, "sold"),
+        ("2.92 acres off Blackwell Lane, Kirk Ireton", 87000, "sold"),
+        ("12.77 acres at Kirk Ireton", 152000, "sold"),
+        ("12.31 acres at Kirk Ireton", 150000, "sold"),
+        ("2.32 acres at Kirk Ireton", 44000, "sold"),
+        ("3.31 acres of pasture at Chelmorton", 70000, "sold"),
+        (
+            "2.31 acres of land with a general-purpose agricultural building at Kirk Langley",
+            211000,
+            "sold",
+        ),
+    ],
 }
 
 

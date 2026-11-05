@@ -1,3 +1,6 @@
+import gzip
+import json
+
 import pytest
 
 from scripts import harvest_bagshaws_results as bagshaws
@@ -101,6 +104,36 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
     assert by_title["3.5 acres at Test Lane, Bakewell"]["status"] == "sold"
     assert by_title["Old Barn, Test Village"]["sale_price"] is None
     assert by_title["Old Barn, Test Village"]["status"] == "unsold"
+
+
+@pytest.mark.parametrize(
+    ("slug", "auction_date", "expected_rows", "expected_prices", "expected_prior"),
+    [
+        ("bakewell-land-property-auction-2024-march", "2024-03-25", 13, 8, 5),
+        ("bakewell-land-property-auction-may-2024", "2024-05-20", 7, 7, 0),
+    ],
+)
+def test_retained_2024_narratives_reconcile_only_identified_property_rows(
+    slug, auction_date, expected_rows, expected_prices, expected_prior
+):
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+
+    assert observed_date == auction_date
+    assert detail["published_narrative_result_rows"] == expected_rows
+    assert len(narrative_rows) == expected_rows
+    assert sum(row["sale_price"] is not None for row in narrative_rows) == expected_prices
+    assert sum(row["status"] == "sold_prior" for row in narrative_rows) == expected_prior
+    assert all(row["record_quality"] == "address_record" for row in narrative_rows)
+    assert all(row["auction_date"] == auction_date for row in narrative_rows)
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
