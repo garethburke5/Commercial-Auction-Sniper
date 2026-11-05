@@ -77,3 +77,26 @@ stays £19 with the correct tax breakdown; an overseas sale keeps a £19 net bas
 and adds only the tax applicable to that transaction; changes to customer
 location cannot reuse an incorrectly priced session; invoices, refunds and
 server-side fulfilment preserve the agreed amounts and tax treatment.
+
+## Verified progress — 5 November, 00:18 UTC
+
+- Created and read back overseas standard-report price
+  `price_1UYELbRpkJti4bUnlrnQIlHr`: active, live, GBP 1900 minor units,
+  tax_behavior=exclusive, lookup_key=auctiongeek_report_overseas_gbp.
+  Existing UK inclusive price is unchanged. The new price is not yet routed
+  into website checkout; tax calculation and location selection remain pending.
+- Created and read back default live customer portal configuration
+  `bpc_1UYELyRpkJti4bUnEXhY9OnW`: invoices, payment-method updates,
+  name/email updates and cancellation at paid-period end enabled. Plan switching
+  remains off. Return URL is https://auctiongeek.co.uk/account/.
+- Explicitly selected Render Environment > Edit > Save and deploy in the
+  dashboard. Deploy `dep-dblskvbm8hqs73a3e2h0` still failed, with
+  pipeline_minutes_exhausted at 00:14:53 UTC. No spend limit or plan changed.
+  This disproves the proposed no-rebuild route for this attempt; do not claim
+  the saved key is active or that a free workaround has been verified.
+- Live readiness still reports release 8217a81105618a4d2355cbf9a3d932b7d0171503,
+  accounts_ready=true, paid_reports_approved=true and all checkout flags=false.
+- Stripe connector supports product prices and customer portal setup but does
+  not expose manual tax-rate or account-tax-ID operations in this session.
+  Dashboard fallback currently requires Stripe sign-in. No paid Stripe Tax,
+  customer charge, tax registration or runtime activation was performed.
