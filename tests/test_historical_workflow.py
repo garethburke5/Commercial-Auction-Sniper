@@ -23,6 +23,15 @@ def test_queued_collection_moves_to_current_main_before_collection():
     assert "git checkout --detach origin/main" in WORKFLOW[refresh:setup]
 
 
+def test_focused_bagshaws_saved_html_collection_skips_unrelated_pdf_setup():
+    ocr_start = WORKFLOW.index("- name: Ensure PDF and OCR extraction is available")
+    ocr_end = WORKFLOW.index("- name:", ocr_start + 10)
+    ocr_block = WORKFLOW[ocr_start:ocr_end]
+    assert 'inputs.focus }}" == "bagshaws-saved-narratives"' in ocr_block
+    assert "Run focused Bagshaws saved narrative expansion" in ocr_block
+    assert "PDF and OCR setup is not required for this focused saved-HTML collection" in ocr_block
+
+
 def test_focused_auction_house_online_6_october_expansion_is_isolated():
     focused = WORKFLOW.index("- name: Collect Auction House Online 6 October 2026 shared-platform event")
     bounded = WORKFLOW.index("- name: Resume bounded archive batch")
