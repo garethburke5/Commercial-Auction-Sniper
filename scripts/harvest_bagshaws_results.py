@@ -249,6 +249,16 @@ RETAINED_NARRATIVE_RESULTS = {
         ("The Old Estate Yard, Shottle", 150000, "sold"),
         ("1 Market Street, Longton", 25000, "sold"),
     ],
+    "bagshaws-may-land-property-auction-bakewell": [
+        ("Land off Kirk Dale, Sheldon", None, "unsold", "1"),
+        ("Land off Station Road, Haughton", 118000, "sold", "2"),
+        ("Land and Stables, The Lodge, Tideswell", None, "unsold", "3"),
+        ("43 Stanton Road, Meir", 65000, "sold", "4"),
+        ("Land off Dobbin Lane, Dronfield Lot A", 44000, "sold", "5"),
+        ("Land off Dobbin Lane, Dronfield Lot B", 105000, "sold", "6"),
+        ("Land and Barn, Bonsall", 90000, "sold", "7"),
+        ("27 Grangefields, Biddulph", None, "unsold", "8"),
+    ],
     "uttoxeter-land-and-property-auction-may-2024": [
         ("Lot 1 equestrian yard at Marston, Stafford extending to 5.06 acres", 242000, "sold"),
         ("Lot 2 4.76 acres of pastureland at Hayfield Hill Road, Rugeley", 92000, "sold"),
@@ -418,7 +428,9 @@ def parse_retained_narrative_results(soup: BeautifulSoup, slug: str) -> list[dic
         return []
     page_text = clean(soup.get_text(" ", strip=True)) or ""
     results = []
-    for title, sale_price, status in checked:
+    for checked_row in checked:
+        title, sale_price, status = checked_row[:3]
+        published_lot_number = checked_row[3] if len(checked_row) == 4 else None
         if not narrative_title_is_evidenced(title, page_text):
             raise ValueError(f"checked Bagshaws narrative title missing from source: {title!r}")
         if sale_price is not None and f"{sale_price:,}" not in page_text:
@@ -426,7 +438,10 @@ def parse_retained_narrative_results(soup: BeautifulSoup, slug: str) -> list[dic
         lot_match = LOT_RE.search(title)
         results.append({
             "title": title,
-            "lot_number": lot_match.group(1).upper() if lot_match else None,
+            "lot_number": (
+                published_lot_number or
+                (lot_match.group(1).upper() if lot_match else None)
+            ),
             "sale_price": sale_price,
             "status": status,
             "result_text": (
@@ -504,6 +519,7 @@ def parse_auction(html: str, source_url: str, evidence: dict) -> tuple[str, list
         if len(matches) == 1:
             row = rows[matches[0]]
             row.update(
+                lot_number=result.get("lot_number") or row.get("lot_number"),
                 status=result.get("status", "sold"),
                 sale_price=result["sale_price"],
                 result_text=result["result_text"],

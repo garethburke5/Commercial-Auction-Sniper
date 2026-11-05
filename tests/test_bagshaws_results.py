@@ -218,6 +218,46 @@ def test_july_2025_pre_auction_sales_keep_status_and_published_prices():
     assert by_address["New Barn Farm, Aldwark"]["status"] == "sold"
 
 
+def test_may_2026_complete_result_list_reconciles_existing_card_and_lot_numbers():
+    slug = "bagshaws-may-land-property-auction-bakewell"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    by_address = {row["address"]: row for row in rows}
+
+    assert observed_date == "2026-05-18"
+    assert detail == {
+        "property_cards": 1,
+        "published_result_rows": 8,
+        "published_table_result_rows": 0,
+        "published_narrative_result_rows": 8,
+        "result_rows_matched_to_cards": 1,
+        "result_rows_without_matching_card": 7,
+    }
+    assert len(rows) == 8
+    assert len({row["appearance_id"] for row in rows}) == 8
+    assert sum(row["sale_price"] is not None for row in rows) == 5
+    assert sum(row["status"] == "unsold" for row in rows) == 3
+
+    tideswell = by_address["Land and Stables, The Lodge, Tideswell"]
+    assert tideswell["source_lot_id"].startswith("property:")
+    assert tideswell["lot_number"] == "3"
+    assert tideswell["guide_price"] == 100000
+    assert tideswell["sale_price"] is None
+    assert tideswell["status"] == "unsold"
+
+    lot_a = by_address["Land off Dobbin Lane, Dronfield Lot A"]
+    lot_b = by_address["Land off Dobbin Lane, Dronfield Lot B"]
+    assert (lot_a["lot_number"], lot_a["sale_price"]) == ("5", 44000)
+    assert (lot_b["lot_number"], lot_b["sale_price"]) == ("6", 105000)
+
+
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
     date, rows, detail = parse_auction(
         "<p>This auction was held on 18th November 2019.</p><p>Narrative only.</p>",
