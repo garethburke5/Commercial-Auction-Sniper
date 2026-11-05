@@ -3,9 +3,9 @@
   "source_auction_id": "bagshaws:2023-07-24:bakewell-land-property-auction-july",
   "auction_date": "2023-07-24",
   "catalogue_complete": false,
-  "lots_captured": 1,
+  "lots_captured": 18,
   "source_url": "https://www.bagshaws.com/property-auction/bakewell-land-property-auction-july/",
-  "completion_scope": "all explicit property cards and tabular result rows on the retained page; original catalogue denominator unavailable",
+  "completion_scope": "all explicit property cards, result tables and checked property-level narrative rows retained on the page; original catalogue denominator unavailable",
   "source_evidence": {
     "source_url": "https://www.bagshaws.com/property-auction/bakewell-land-property-auction-july/",
     "retrieved_at": "2026-10-04T14:26:24.139006+00:00",
@@ -21,11 +21,14 @@
     "basis": "first-party dated auction page property cards and result table rows"
   },
   "page_detail": {
-    "property_cards": 1,
-    "published_result_rows": 0,
+    "property_cards": 0,
+    "published_result_rows": 18,
+    "published_table_result_rows": 0,
+    "published_narrative_result_rows": 18,
     "result_rows_matched_to_cards": 0,
-    "result_rows_without_matching_card": 0
+    "result_rows_without_matching_card": 18
   },
   "errors": [],
-  "checked_at": "2026-10-04T14:26:24.161366+00:00"
+  "checked_at": "2026-11-05T12:35:06.564840+00:00",
+  "narrative_snapshot_reparsed": true
 }
