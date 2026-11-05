@@ -695,3 +695,41 @@ and leave the inventory incomplete unless every original lot can be named.
 This newer handoff supersedes older Bagshaws target text in
 `continuation_collection.json`.
 
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws July 2025)
+
+The retained Bagshaws Bakewell page dated 21 July 2025 has been reparsed from
+its immutable first-party HTML snapshot. Nine individually named property
+outcomes were added: three pre-auction sales with their achieved prices and six
+auction sales with achieved prices. The pre-auction statuses remain distinct
+from auction-room sales. Unidentified, under-offer and merely available
+interests were excluded; previously banked page-card evidence was preserved.
+The event remains incomplete and national completeness remains false.
+
+Net gain: 9 appearances, 9 address records and 9 exact-dated records inside the
+preceding 20-year window. Five are land, one residential and three unknown;
+none are commercial or mixed-use. The gain contains 9 achieved prices, no guide
+prices and no rents, with no new partial, undated, future-dated or duplicate
+result identities. No new source-year was opened because Bagshaws 2025 evidence
+was already present. The rebuilt corpus totals are 310,130 appearances, 299,178
+address records, 301,869 in-window appearances, 104,815 in-window guides and
+112,027 in-window achieved prices. Bagshaws now has 259 appearances.
+
+Collection release: `ea36962f2c8cb420d9da433a773905499dbfe113`;
+successful collection and rebuild run `42061439454`; banked evidence
+`bfaaa0ff870a440b7a838c4b3ba9b5f495502e02`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42062195284`. The separate publication
+revalidation checkpoint `42061439909` was preserved as failed: its live-source
+validation found rich-particular coverage of 50% for Auction House Cumbria and
+Auction House National Online against a 60% threshold. It reclassified no fresh
+lots and was not rerun; this blocker is outside the saved historical result
+inventory collected here.
+
+Next concrete growth target: reparse the retained Bagshaws Bakewell page dated
+18 May 2026 (`bagshaws-may-land-property-auction-bakewell`) and bank its complete
+eight-row published result list: five named achieved-price sales and three named
+no-sales. Keep the two Dobbin Lane legal interests separate as Lots A and B,
+preserve the three no-sale outcomes with null sale prices, reconcile any exact
+page-card overlap, and leave national completeness false. This handoff
+supersedes older Bagshaws targets in `continuation_collection.json` and earlier
+sections of this file.
+
