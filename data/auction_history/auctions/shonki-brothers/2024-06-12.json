@@ -1,0 +1,39 @@
+{
+  "auctioneer": "Kal Sangra Shonki Brothers",
+  "operator_legal_name": "Shonki Brothers Limited",
+  "operator_company_number": "05393795",
+  "source_auction_id": "shonki-brothers:2024-06-12",
+  "auction_date": "2024-06-12",
+  "auction_date_precision": "day",
+  "source_url": "https://online.fliphtml5.com/bqhel/xjhy/",
+  "visible_order_of_sale_lots": 20,
+  "individual_lot_pages": 19,
+  "lots_captured": 19,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
+  "missing_individual_lot_pages": [
+    "16"
+  ],
+  "unexpected_individual_lot_pages": [],
+  "completion_scope": "every retained individual lot page reconciled to the printed order of sale; missing order entries remain explicit",
+  "source_evidence": {
+    "source_url": "https://online.fliphtml5.com/bqhel/xjhy/files/search/search_config.js",
+    "catalogue_url": "https://online.fliphtml5.com/bqhel/xjhy/",
+    "retrieved_at": "2026-11-05T07:07:00+00:00",
+    "sha256": "cc7864755a5a71114eadbc892cd6d36e1395a12a4509a9b62ed9325712e6ef8e",
+    "source_size_bytes": 96499,
+    "snapshot_path": "data/auction_history/sources/shonki-brothers/fliphtml5-xjhy-2024-06-12-cc7864755a5a7111.js.gz",
+    "snapshot_format": "verbatim FlipHTML5 search_config.js UTF-8 source",
+    "config_source_url": "https://online.fliphtml5.com/bqhel/xjhy/javascript/config.js",
+    "config_sha256": "98aa9e2ac3fbe4c7e1db23a08d3ed13fce2ec86f43bc6ce2468519af1ff3e560",
+    "config_size_bytes": 82440,
+    "config_snapshot_path": "data/auction_history/sources/shonki-brothers/fliphtml5-xjhy-config-98aa9e2ac3fbe4c7.js.gz",
+    "basis": "first-party retained catalogue page-text inventory and book configuration",
+    "auction_date": "2024-06-12"
+  },
+  "errors": [
+    "printed order lots without individual lot page: ['16']"
+  ],
+  "checked_at": "2026-11-05T07:28:40.533644+00:00"
+}

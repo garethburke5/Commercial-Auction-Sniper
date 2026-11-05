@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T06:22:03.831135+00:00",
-  "corpus_checkpoint": "2026-11-05T06:21:42.405489+00:00",
+  "generated_at": "2026-11-05T07:30:21.171558+00:00",
+  "corpus_checkpoint": "2026-11-05T07:30:01.577206+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8197,7 +8197,7 @@
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
-    "Kal Sangra Shonki Brothers": 300,
+    "Kal Sangra Shonki Brothers": 463,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 593,
     "Landmark Auctions": 69,
@@ -8244,9 +8244,9 @@
     "through_date": "2026-11-05",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 301297,
-      "auction_ids_observed": 12748,
-      "with_guide_price": 104420,
+      "lot_appearances": 301460,
+      "auction_ids_observed": 12755,
+      "with_guide_price": 104583,
       "with_sale_price": 111827,
       "with_both_prices": 48342,
       "marked_sold": 154266,
@@ -13348,10 +13348,21 @@
       },
       {
         "auctioneer": "Kal Sangra Shonki Brothers",
+        "year": 2023,
+        "lot_appearances": 61,
+        "auction_ids_observed": 3,
+        "with_guide_price": 61,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Kal Sangra Shonki Brothers",
         "year": 2024,
-        "lot_appearances": 46,
-        "auction_ids_observed": 2,
-        "with_guide_price": 46,
+        "lot_appearances": 148,
+        "auction_ids_observed": 6,
+        "with_guide_price": 148,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 0,
@@ -17277,6 +17288,17 @@
       "lots_captured": 251,
       "errors": [],
       "checked_at": "2026-11-05T02:49:47.256810+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/shonki-brothers/2024-06-12.json",
+      "auctioneer": "Kal Sangra Shonki Brothers",
+      "auction_date": "2024-06-12",
+      "source_url": "https://online.fliphtml5.com/bqhel/xjhy/",
+      "lots_captured": 19,
+      "errors": [
+        "printed order lots without individual lot page: ['16']"
+      ],
+      "checked_at": "2026-11-05T07:28:40.533644+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-nottsderby/regional-online-results.json",
@@ -21662,7 +21684,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-05T06:22:03.423103+00:00",
+    "checked_at": "2026-11-05T07:30:20.875109+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
