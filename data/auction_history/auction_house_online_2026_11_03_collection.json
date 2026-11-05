@@ -1,0 +1,433 @@
+{
+  "checked_at": "2026-11-05T01:23:22.197924+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/86733",
+  "platform_event_id": "86733",
+  "archive_sha256": "a29bb6e5321db34fd361e6823bd4f746f41e83dc46ad1fd663ff6eb9e1a22dca",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    57
+  ],
+  "archive_page_visible_cards": [
+    57
+  ],
+  "visible_source_rows": 57,
+  "expected_visible_cards": 57,
+  "event_advertised_lots": 57,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": 58,
+  "past_results_index_discrepancy": {
+    "past_results_index_lots": 58,
+    "visible_result_cards": 57,
+    "published_event_lots": 57,
+    "difference": -1,
+    "treatment": "preserve the separate first-party counts; retain every distinct visible result card without inventing or deleting a lot"
+  },
+  "published_result_count": 57,
+  "distinct_source_identities": 57,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 7,
+  "run_new_appearances": 7,
+  "run_new_address_records": 7,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 7,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 7,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 50,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 50,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2026-11-03",
+      "address": "260 Torogay Street, Glasgow, Lanarkshire, G22 7DS",
+      "source_lot_id": "87eff95c-c30a-4376-843e-767bbb2b75d1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/87eff95c-c30a-4376-843e-767bbb2b75d1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "20 Priestsic Road, Sutton-In-Ashfield, Ashfield, Nottinghamshire, NG17 4EB",
+      "source_lot_id": "a05678c0-25d0-445c-9ba4-ee2fdfb989bb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a05678c0-25d0-445c-9ba4-ee2fdfb989bb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Apartment 906 Marco Island, Nottingham, Nottinghamshire, NG1 1AT",
+      "source_lot_id": "021ce2bb-1e05-4b53-aae1-8504ca13276d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/021ce2bb-1e05-4b53-aae1-8504ca13276d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "30 Argyle Court, Nottingham, Nottinghamshire, NG7 3LW",
+      "source_lot_id": "6f36cbba-1677-43db-a908-56148a46fe6f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6f36cbba-1677-43db-a908-56148a46fe6f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Apartment 19 The Mill, 6-8 Fosse Road North, Leicester, Leicestershire, LE3 5EQ",
+      "source_lot_id": "fa7d1a57-cc26-4e0b-863c-60700da5ff85",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fa7d1a57-cc26-4e0b-863c-60700da5ff85",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Number 113. The Pack Horse, Bolton, Lancashire, BL1 1AS",
+      "source_lot_id": "7b5933f0-48da-406c-841e-d0d8d93d82be",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7b5933f0-48da-406c-841e-d0d8d93d82be",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "89 Compair Crescent, Ipswich, Suffolk, IP2 0EJ",
+      "source_lot_id": "4868c609-4021-49a8-aa0e-5b7e7cdb989e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4868c609-4021-49a8-aa0e-5b7e7cdb989e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "21 Charles Court Wheatfield Road, Colchester, Essex, CO3 0YS",
+      "source_lot_id": "1bcb5a7e-5f35-45f6-8b53-ebb0bc0645e6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1bcb5a7e-5f35-45f6-8b53-ebb0bc0645e6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "14 Notley Road, Lowestoft, Suffolk, NR33 0UG",
+      "source_lot_id": "0be520b4-0165-4c5e-88f6-3c4bf36ee6e0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/0be520b4-0165-4c5e-88f6-3c4bf36ee6e0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "27, Evans Street, Stoke-On-Trent, Staffordshire, ST6 4HP",
+      "source_lot_id": "3f6d219e-7d0e-4998-a7e2-ea64f11d547c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3f6d219e-7d0e-4998-a7e2-ea64f11d547c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Flat 3 Vincent Court, Plymouth, Devon, PL1 3FW",
+      "source_lot_id": "8635e1e5-7970-41e3-96aa-16b7120e48e0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8635e1e5-7970-41e3-96aa-16b7120e48e0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "3 Lys an Pons Crockwell Street, Bodmin, Cornwall, PL31 2DS",
+      "source_lot_id": "145f2633-df20-4bd7-b2a4-0e8c4fb9f0f2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/145f2633-df20-4bd7-b2a4-0e8c4fb9f0f2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Hawksworth Road Land, Reading, Berkshire, RG7 3XW",
+      "source_lot_id": "bd9fd9ec-bf80-4601-9304-2f2e688d88f0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/bd9fd9ec-bf80-4601-9304-2f2e688d88f0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "New Hanney Spice (formerly The Lamb Inn) School Road, Wantage, Oxfordshire, OX12 0LA",
+      "source_lot_id": "5baffc8d-0581-4f9b-9859-1a5662887fe8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5baffc8d-0581-4f9b-9859-1a5662887fe8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "28 Westbury Mansions Old Bracknell Lane West, Bracknell, Berkshire, RG12 7LZ",
+      "source_lot_id": "1582bb66-6d7b-4d99-86b9-ce7e9d8e0766",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1582bb66-6d7b-4d99-86b9-ce7e9d8e0766",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Access Road @ Crookston road, London, SE9 1YQ",
+      "source_lot_id": "cf2e8885-657f-49aa-a37a-37f2db102a47",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/cf2e8885-657f-49aa-a37a-37f2db102a47",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "South West Cemetery Lodge Chester Road, Sunderland, Tyne and Wear, SR4 8PX",
+      "source_lot_id": "be41c44e-ae68-4d27-89ba-c4e55f8aef22",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/be41c44e-ae68-4d27-89ba-c4e55f8aef22",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "flat 602. Horizon House, Sunderland, Tyne and Wear, SR1 1HS",
+      "source_lot_id": "3e4f7620-3545-4295-a303-66915975e049",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3e4f7620-3545-4295-a303-66915975e049",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "21 Eastfield Gardens, Bradford, West Yorkshire, BD4 0DP",
+      "source_lot_id": "77152e84-b409-43a7-a666-9fa93c9ea256",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/77152e84-b409-43a7-a666-9fa93c9ea256",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "3 Samuel Close, Sheffield, South Yorkshire, S2 3UH",
+      "source_lot_id": "eab7ef9d-bd1f-4b9f-8111-4db8aa30d57d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/eab7ef9d-bd1f-4b9f-8111-4db8aa30d57d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Flat 9, Hallam Chase 64 Endcliffe Vale Road, Sheffield, South Yorkshire, S10 3EW",
+      "source_lot_id": "64dd0c49-ff28-42b5-ac99-9498a5274f86",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/64dd0c49-ff28-42b5-ac99-9498a5274f86",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "29 King Street Goldthorpe, Rotherham, South Yorkshire, S63 9LZ",
+      "source_lot_id": "6071c9dc-c1fa-4395-99fd-c32c7f5a0522",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6071c9dc-c1fa-4395-99fd-c32c7f5a0522",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Apartment 16, 53 Leeds Road, Bradford, West Yorkshire, BD1 5AF",
+      "source_lot_id": "099229b6-cbea-433b-81a9-e1e0f1344cc1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/099229b6-cbea-433b-81a9-e1e0f1344cc1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Pendre Wyn 13 West Street, Knighton, LD7 1EN",
+      "source_lot_id": "77519f0f-1a87-4e3d-9531-4728e0b535e4",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/77519f0f-1a87-4e3d-9531-4728e0b535e4",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "No. 3 Fron Dirion Terrace, Bangor, Gwynedd, LL57 2PY",
+      "source_lot_id": "68ffd27a-2028-462e-85df-f9e6acf64eca",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/68ffd27a-2028-462e-85df-f9e6acf64eca",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Apartment 44 16 Crosby Road North, Liverpool, Merseyside, L22 0AD",
+      "source_lot_id": "80708711-413a-4e03-bc26-7d37d1a969a3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/80708711-413a-4e03-bc26-7d37d1a969a3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "10 Rolling Mill (&Garage), Consett, County Durham, DH8 6NH",
+      "source_lot_id": "6080ca5e-de82-4135-acf2-ee05782fad0b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6080ca5e-de82-4135-acf2-ee05782fad0b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "42 Seventh Row, Ashington, Northumberland, NE63 8HX",
+      "source_lot_id": "41089e41-3d5e-42c2-bb56-02e68d17c306",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/41089e41-3d5e-42c2-bb56-02e68d17c306",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "267 Milburn Road, Ashington, Northumberland, NE63 0NF",
+      "source_lot_id": "37865270-6d83-468d-83fa-77dc26f6f1a6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/37865270-6d83-468d-83fa-77dc26f6f1a6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Number 656 City Road, Sheffield, South Yorkshire, S2 1GH",
+      "source_lot_id": "e1cf2bb9-97ce-4999-a5dc-63bbcf08fc71",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e1cf2bb9-97ce-4999-a5dc-63bbcf08fc71",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "12 Grove Road, Burnham-On-Sea, Somerset, TA8 2HF",
+      "source_lot_id": "95e43c92-3eb5-49e6-b16e-15b9967b1d2f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/95e43c92-3eb5-49e6-b16e-15b9967b1d2f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Flat, 76a Lansdowne Place, Hove, Brighton & Hove, BN3 1FH",
+      "source_lot_id": "e9913b4b-f273-4e76-901d-3e7f0cd24b8b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e9913b4b-f273-4e76-901d-3e7f0cd24b8b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Flat 6, 25 South Terrace, Littlehampton, West Sussex, BN17 5PA",
+      "source_lot_id": "49beab25-45c3-47b9-83a5-be84bc95bfd2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/49beab25-45c3-47b9-83a5-be84bc95bfd2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "8 Old School Lane Creswell, Worksop, Nottinghamshire, S80 4BY",
+      "source_lot_id": "61a51ea0-c6c3-48f0-a98b-949f4a836b0f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/61a51ea0-c6c3-48f0-a98b-949f4a836b0f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "16 Old School Lane Creswell, Worksop, Nottinghamshire, S80 4BY",
+      "source_lot_id": "1b30469a-ca94-4819-9a9e-02fa39f76279",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1b30469a-ca94-4819-9a9e-02fa39f76279",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "5 Chestnut Road Glenfield, Leicester, Leicestershire, LE3 8DD",
+      "source_lot_id": "fef369b7-0508-40db-83e1-d067c9ceda8c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fef369b7-0508-40db-83e1-d067c9ceda8c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "102 Portland Road, Nottingham, Nottinghamshire, NG7 4GP",
+      "source_lot_id": "29e2ea05-dd88-4062-b118-6e9d4800d71a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/29e2ea05-dd88-4062-b118-6e9d4800d71a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Flat 6, Jolly House 128 High Street, Colchester, Essex, CO7 9AF",
+      "source_lot_id": "4ee43f1b-c13a-477f-9fa2-d1b51d2d1fba",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4ee43f1b-c13a-477f-9fa2-d1b51d2d1fba",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Harrington Drive Land, Stoke-On-Trent, Staffordshire, ST3 5SX",
+      "source_lot_id": "812a6f8f-92aa-404e-90f1-11ff56a8871f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/812a6f8f-92aa-404e-90f1-11ff56a8871f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "8 Collingwood Court, Washington, Tyne And Wear, NE37 3EB",
+      "source_lot_id": "852b55c8-c060-4742-b899-b2b1f8d0ada3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/852b55c8-c060-4742-b899-b2b1f8d0ada3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "1 Lindisfarne Avenue, Chester le Street, County Durham, DH3 3PT",
+      "source_lot_id": "52523817-4fa5-41ca-ba3c-4304a7b06df6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/52523817-4fa5-41ca-ba3c-4304a7b06df6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "Number 18. Meadowcroft Glade Westfield, Sheffield, South Yorkshire, S20 8EN",
+      "source_lot_id": "88f88fe6-1346-494c-9542-d297ce0eae4c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/88f88fe6-1346-494c-9542-d297ce0eae4c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "105 Lambert Street, Hull, East Yorkshire, HU5 2SH",
+      "source_lot_id": "3f06ac7c-db59-40d6-812c-3e0e4c67b205",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3f06ac7c-db59-40d6-812c-3e0e4c67b205",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "1 Corby Road, Scunthorpe, South Humberside, DN16 1TZ",
+      "source_lot_id": "d2dc3d7d-6096-438e-81f8-61c26621871d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d2dc3d7d-6096-438e-81f8-61c26621871d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "93 Wilne Road Long Eaton, Nottingham, Nottinghamshire, NG10 3AP",
+      "source_lot_id": "d5498ea2-1ee2-48ec-be58-ecc396487aef",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d5498ea2-1ee2-48ec-be58-ecc396487aef",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "65 Reeves Road, Derby, Derbyshire, DE23 8JF",
+      "source_lot_id": "f55b5d5e-c240-470f-b0ae-8b799c9d0258",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f55b5d5e-c240-470f-b0ae-8b799c9d0258",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "2-09 19 - 23 Stanley Street, Liverpool, Merseyside, L1 6AA",
+      "source_lot_id": "00b407e2-6d0b-4c30-93b2-0898040e1e9c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/00b407e2-6d0b-4c30-93b2-0898040e1e9c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "46. Dragon Lane Whiston, Prescot, Merseyside, L35 2UG",
+      "source_lot_id": "90e0869b-f0e4-4a2b-a676-09a71f2c07d1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/90e0869b-f0e4-4a2b-a676-09a71f2c07d1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "69. Queen Street Birtley, Chester le Street, County Durham, DH3 1EB",
+      "source_lot_id": "70add2ae-048b-47c3-a8a9-c742373268b4",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/70add2ae-048b-47c3-a8a9-c742373268b4",
+      "existing_match_count": 2
+    },
+    {
+      "auction_date": "2026-11-03",
+      "address": "42 Morris Crescent, Motherwell, Lanarkshire, ML1 5NH",
+      "source_lot_id": "bc7cf96c-de51-4c76-b063-f2d1aaa657fd",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/bc7cf96c-de51-4c76-b063-f2d1aaa657fd",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2026
+  ],
+  "date_range": [
+    "2026-10-27",
+    "2026-11-02"
+  ],
+  "by_status": {
+    "postponed": 6,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 4,
+    "unknown": 2,
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House London": 1,
+    "Auction House South Yorkshire": 1,
+    "Auction House North East": 3,
+    "Auction House Hull & East Yorkshire": 1,
+    "Auction House East Anglia": 1
+  },
+  "detail_pages_captured": 57,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
