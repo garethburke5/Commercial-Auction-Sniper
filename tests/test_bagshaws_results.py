@@ -120,6 +120,13 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
         ("bakewell-property-auction-september-2021", "2021-09-20", 9, 7, 0),
         ("uttoxeter-land-and-property-auction-may-2023", "2023-05-10", 7, 7, 0),
+        (
+            "uttoxeter-property-auction-for-wednesday-23rd-september-2020",
+            "2020-09-23",
+            7,
+            5,
+            1,
+        ),
     ],
 )
 def test_retained_narratives_reconcile_only_identified_property_rows(
@@ -444,6 +451,62 @@ def test_uttoxeter_may_2023_prices_exclude_per_acre_comparisons():
     assert all(row["status"] == "sold" for row in narrative_rows)
     assert all(row["guide_price"] is None for row in narrative_rows)
     assert not ({15236, 14194, 26897} & {row["sale_price"] for row in narrative_rows})
+
+
+def test_uttoxeter_september_2020_keeps_outcomes_and_land_interests_separate():
+    slug = "uttoxeter-property-auction-for-wednesday-23rd-september-2020"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_address = {row["address"]: row for row in narrative_rows}
+
+    assert observed_date == "2020-09-23"
+    assert detail == {
+        "property_cards": 0,
+        "published_result_rows": 7,
+        "published_table_result_rows": 0,
+        "published_narrative_result_rows": 7,
+        "result_rows_matched_to_cards": 0,
+        "result_rows_without_matching_card": 7,
+    }
+    assert len(narrative_rows) == 7
+    assert len({row["appearance_id"] for row in narrative_rows}) == 7
+    assert {
+        address: row["sale_price"]
+        for address, row in by_address.items()
+        if row["sale_price"] is not None
+    } == {
+        "Top House Farm at Prestwood, Ellastone": 475000,
+        "9.14 acres off Leigh Road at Bramshall": 146000,
+        "4.91 acres off Leigh Road at Bramshall": 75000,
+        "1.52 acres at Ellastone": 62000,
+        "20.47 acres at Hollington": 218000,
+    }
+    assert by_address["Heathy Grove Farm"]["status"] == "sold_prior"
+    assert by_address["Heathy Grove Farm"]["sale_price"] is None
+    assert by_address["Heathy Grove Farm"]["result_text"] == (
+        "Heathy Grove Farm had been sold prior"
+    )
+    assert by_address["Building plot at Fradley"]["status"] == "withdrawn"
+    assert by_address["Building plot at Fradley"]["sale_price"] is None
+    assert by_address["Building plot at Fradley"]["result_text"] == (
+        "the building plot at Fradley had to be withdrawn"
+    )
+    assert (
+        by_address["9.14 acres off Leigh Road at Bramshall"]["appearance_id"]
+        != by_address["4.91 acres off Leigh Road at Bramshall"]["appearance_id"]
+    )
+    assert not (
+        {15973, 15275, 40789, 10650}
+        & {row["sale_price"] for row in narrative_rows if row["sale_price"] is not None}
+    )
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():

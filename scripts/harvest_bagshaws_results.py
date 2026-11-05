@@ -324,6 +324,27 @@ RETAINED_NARRATIVE_RESULTS = {
         ("just over 67 acres at Elmhurst", 800000, "sold"),
         ("25.36 acres at Footherley, near Lichfield", 175000, "sold"),
     ],
+    "uttoxeter-property-auction-for-wednesday-23rd-september-2020": [
+        (
+            "Heathy Grove Farm",
+            None,
+            "sold_prior",
+            None,
+            "Heathy Grove Farm had been sold prior",
+        ),
+        (
+            "Building plot at Fradley",
+            None,
+            "withdrawn",
+            None,
+            "the building plot at Fradley had to be withdrawn",
+        ),
+        ("Top House Farm at Prestwood, Ellastone", 475000, "sold"),
+        ("9.14 acres off Leigh Road at Bramshall", 146000, "sold"),
+        ("4.91 acres off Leigh Road at Bramshall", 75000, "sold"),
+        ("1.52 acres at Ellastone", 62000, "sold"),
+        ("20.47 acres at Hollington", 218000, "sold"),
+    ],
     "uttoxeter-land-and-property-auction-may-2024": [
         ("Lot 1 equestrian yard at Marston, Stafford extending to 5.06 acres", 242000, "sold"),
         ("Lot 2 4.76 acres of pastureland at Hayfield Hill Road, Rugeley", 92000, "sold"),
