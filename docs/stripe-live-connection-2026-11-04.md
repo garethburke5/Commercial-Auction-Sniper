@@ -36,13 +36,44 @@ is saved, not verified active. Before the update, production readiness served
 release `8217a81105618a4d2355cbf9a3d932b7d0171503`, with paid_reports_approved
 true but live_billing_configured and all checkout flags false.
 
-The website still needs a live Stripe runtime key stored securely as
-STRIPE_SECRET_KEY; ChatGPT OAuth access does not supply an application key.
-Confirm VAT rate/registration treatment, configure the inclusive manual rate,
-complete the customer portal, reconcile sandbox customer/entitlement records,
-and test signed fulfilment and account access before opening checkout.
+The owner reported saving a live Stripe runtime key as STRIPE_SECRET_KEY on
+4 November. Its deployment failed with pipeline_minutes_exhausted; runtime use
+of the new key has not been verified. ChatGPT OAuth access does not supply an
+application key. Complete the location-aware tax/pricing work below, the customer
+portal, sandbox customer/entitlement reconciliation, and signed fulfilment and
+account-access checks before opening checkout.
 The historical archive/privacy requirements in the earlier launch log remain.
 Webhook creation and price verification are not proof of payment fulfilment.
 
 This checkpoint supersedes the earlier connection-blocked and empty-catalogue
 statements in commercial-launch-2026-10-31.md. It does not claim payments live.
+
+## Owner-confirmed billing decision — 5 November 2026
+
+- Legal business: Burke Commercial Ltd.
+- VAT registration supplied by the owner: GB528469357. Recording this does not
+  claim independent HMRC validation or that Stripe's legal-entity details have
+  been updated.
+- UK Full Investment Report purchases: £19 total, inclusive of applicable UK VAT.
+- Overseas Full Investment Report purchases: £19 base price, exclusive of any
+  applicable tax. Do not restrict paid checkout to UK customers as a substitute
+  for implementing this policy.
+- Do not automatically apply UK VAT to all overseas customers, assume all
+  overseas purchases are exempt, or add 20% universally. Customer location,
+  business/customer status, product treatment and relevant registrations must
+  determine any tax added. The user has not approved paid Stripe Tax or any
+  other new paid service.
+- The existing seven Stripe price objects were created as inclusive. They do
+  not implement the overseas exclusive-price rule. Preserve current UK prices;
+  implement the overseas price treatment separately. This decision explicitly
+  concerns the £19 report; do not silently change other product prices.
+- Current billing.py applies one configured manual rate to all checkouts without
+  customer-location selection. That is not a completed implementation of this
+  policy. No tax-rate, environment or checkout activation change was made by
+  recording this decision.
+
+Required verification before marking the policy implemented: UK report total
+stays £19 with the correct tax breakdown; an overseas sale keeps a £19 net base
+and adds only the tax applicable to that transaction; changes to customer
+location cannot reuse an incorrectly priced session; invoices, refunds and
+server-side fulfilment preserve the agreed amounts and tax treatment.
