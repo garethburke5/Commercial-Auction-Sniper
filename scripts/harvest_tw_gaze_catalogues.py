@@ -110,9 +110,9 @@ CATALOGUES = (
 )
 
 RESULT_ROWS = (
-    lot(4, "Former Chapel, Welgate, Mattishall, Dereham, Norfolk", 110000, 130000, sale=156000),
-    lot(5, "Pixey Green, Stradbroke, Eye, Suffolk", 20000, 30000, sale=43000),
-    lot(8, "Land at Needham, Harleston, Norfolk", 50000, 60000, sale=174000),
+    lot(4, "Former Chapel, Welgate, Mattishall, Norfolk", 110000, 130000, sale=156000),
+    lot(5, "Pixey Green, Stradbroke, Suffolk", 20000, 30000, sale=43000),
+    lot(8, "Needham, Norfolk", 50000, 60000, sale=174000),
     lot(9, "The Bungalow, Thornham Magna, Eye, Suffolk", None, None, sale=300000),
 )
 
@@ -177,8 +177,11 @@ def validate_result_page(html):
     if not re.search(r"\b21(?:st|nd|rd|th)? march 2018\b", text):
         raise ValueError("result page does not prove 21 March 2018")
     for row in RESULT_ROWS:
-        anchor = " ".join(normalized(row["address"]).split()[:3])
-        if anchor not in text or str(row["sale_price"] // 1000) not in text:
+        # The result page publishes a concise title (for example simply
+        # "Needham, Norfolk").  Validate that exact pre-comma title and the
+        # achieved price; longer locality text must not be invented.
+        title = normalized(row["address"].split(",", 1)[0])
+        if title not in text or str(row["sale_price"] // 1000) not in text:
             raise ValueError(f"result page evidence missing for lot {row['lot_number']}")
     return True
 
