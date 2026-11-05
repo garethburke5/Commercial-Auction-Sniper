@@ -115,6 +115,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("uttoxeter-land-and-property-auction-july-2024-2", "2024-07-10", 2, 2, 0),
         ("uttoxeter-land-property-auction-october-2024", "2024-10-23", 3, 3, 0),
         ("bakewell-land-property-auction-in-july", "2025-07-21", 9, 9, 3),
+        ("bakewell-land-property-auction-in-may", "2025-05-19", 13, 6, 2),
         ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
     ],
 )
@@ -256,6 +257,55 @@ def test_may_2026_complete_result_list_reconciles_existing_card_and_lot_numbers(
     lot_b = by_address["Land off Dobbin Lane, Dronfield Lot B"]
     assert (lot_a["lot_number"], lot_a["sale_price"]) == ("5", 44000)
     assert (lot_b["lot_number"], lot_b["sale_price"]) == ("6", 105000)
+
+
+def test_may_2025_results_keep_related_interests_and_non_sale_prices_separate():
+    slug = "bakewell-land-property-auction-in-may"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    by_address = {row["address"]: row for row in rows}
+
+    assert observed_date == "2025-05-19"
+    assert detail == {
+        "property_cards": 0,
+        "published_result_rows": 13,
+        "published_table_result_rows": 0,
+        "published_narrative_result_rows": 13,
+        "result_rows_matched_to_cards": 0,
+        "result_rows_without_matching_card": 13,
+    }
+    assert len(rows) == 13
+    assert len({row["appearance_id"] for row in rows}) == 13
+    assert sum(row["sale_price"] is not None for row in rows) == 6
+    assert sum(row["status"] == "sold_prior" for row in rows) == 2
+    assert sum(row["status"] == "sold_after" for row in rows) == 1
+    assert sum(row["status"] == "unsold" for row in rows) == 4
+
+    bowling_a = by_address["Lot A Bowling Green Farm"]
+    bowling_b = by_address["Lot B Bowling Green Farm"]
+    assert (bowling_a["lot_number"], bowling_a["sale_price"], bowling_a["status"]) == (
+        "A", 470000, "sold"
+    )
+    assert (bowling_b["lot_number"], bowling_b["sale_price"], bowling_b["status"]) == (
+        "B", None, "sold_prior"
+    )
+
+    fenny_a = by_address["Land at Fenny Bentley Lot A"]
+    fenny_b = by_address["Land at Fenny Bentley Lot B"]
+    assert (fenny_a["lot_number"], fenny_a["status"], fenny_a["sale_price"]) == (
+        "A", "unsold", None
+    )
+    assert (fenny_b["lot_number"], fenny_b["status"], fenny_b["sale_price"]) == (
+        "B", "unsold", None
+    )
+    assert all(row["sale_price"] is None for row in rows if row["status"] != "sold")
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
