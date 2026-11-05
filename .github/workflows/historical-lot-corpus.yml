@@ -27,6 +27,7 @@ on:
           - clive-emson-legacy
           - rebuild
           - dawsons
+          - bagshaws-saved-narratives
   push:
     paths:
       - data/auction_history/appearances/**
@@ -1038,7 +1039,7 @@ jobs:
         timeout-minutes: 10
         run: python -u scripts/harvest_robinson_hall_results.py --catalogues-only
       - name: Bank Bagshaws retained narrative result inventories
-        if: startsWith(github.event.head_commit.message, 'Run focused Bagshaws saved narrative expansion')
+        if: inputs.focus == 'bagshaws-saved-narratives' || startsWith(github.event.head_commit.message, 'Run focused Bagshaws saved narrative expansion') || contains(join(github.event.commits.*.message, '\n'), 'Run focused Bagshaws saved narrative expansion')
         timeout-minutes: 10
         # Reparse only immutable saved first-party pages; do not refresh the live archive.
         run: |
@@ -1049,7 +1050,7 @@ jobs:
         timeout-minutes: 22
         # Attempt the full rotation while retaining the same 20-minute budget.
         run: |
-          if [[ "${{ startsWith(github.event.head_commit.message, 'Run focused Bagshaws saved narrative expansion') }}" == "true" ]]; then
+          if [[ "${{ inputs.focus }}" == "bagshaws-saved-narratives" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bagshaws saved narrative expansion') }}" == "true" || "${{ contains(join(github.event.commits.*.message, '\n'), 'Run focused Bagshaws saved narrative expansion') }}" == "true" ]]; then
             echo "Bounded rotation is excluded from this focused collection run"
             exit 0
           fi
