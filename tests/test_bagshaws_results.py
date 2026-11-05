@@ -109,6 +109,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
 @pytest.mark.parametrize(
     ("slug", "auction_date", "expected_rows", "expected_prices", "expected_prior"),
     [
+        ("bakewell-property-auction-november-2019", "2019-11-18", 6, 3, 1),
         ("bagshaws-march-land-property-auction-bakewell", "2026-03-23", 9, 5, 0),
         ("bakewell-land-property-auction-2024-march", "2024-03-25", 13, 8, 5),
         ("bakewell-land-property-auction-may-2024", "2024-05-20", 7, 7, 0),
@@ -121,6 +122,8 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
         ("bakewell-property-auction-september-2021", "2021-09-20", 9, 7, 0),
         ("uttoxeter-land-and-property-auction-may-2023", "2023-05-10", 7, 7, 0),
+        ("uttoxeter-land-and-property-auction-august-2023", "2023-08-09", 3, 3, 0),
+        ("bakewell-land-property-auction-in-march", "2025-03-24", 5, 5, 0),
         (
             "uttoxeter-property-auction-for-wednesday-23rd-september-2020",
             "2020-09-23",
@@ -546,6 +549,51 @@ def test_march_2026_reconciles_all_nine_named_outcomes_without_aggregate_price()
     assert sum(row["status"] == "unsold" for row in narrative_rows) == 4
     assert all(row["sale_price"] is None for row in narrative_rows if row["status"] == "unsold")
     assert 1000000 not in {row["sale_price"] for row in narrative_rows}
+
+
+@pytest.mark.parametrize(
+    ("slug", "expected_prices", "expected_outcomes"),
+    [
+        (
+            "bakewell-property-auction-november-2019",
+            {127000, 46000, 144000},
+            {"sold": 3, "sold_prior": 1, "unsold": 2},
+        ),
+        (
+            "uttoxeter-land-and-property-auction-august-2023",
+            {82000, 31000, 78000},
+            {"sold": 3},
+        ),
+        (
+            "bakewell-land-property-auction-in-march",
+            {21500, 126000, 247500, 106000, 36000},
+            {"sold": 5},
+        ),
+    ],
+)
+def test_next_retained_narrative_batch_preserves_exact_rows_and_prices(
+    slug, expected_prices, expected_outcomes
+):
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    _, rows, _ = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+
+    assert {row["sale_price"] for row in narrative_rows if row["sale_price"] is not None} == expected_prices
+    assert {
+        status: sum(row["status"] == status for row in narrative_rows)
+        for status in expected_outcomes
+    } == expected_outcomes
+    assert all(row["guide_price"] is None for row in narrative_rows)
+    assert all(row["annual_rent"] is None for row in narrative_rows)
+    assert len({row["appearance_id"] for row in narrative_rows}) == len(narrative_rows)
+    assert not ({51250, 10000, 11026} & expected_prices)
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():

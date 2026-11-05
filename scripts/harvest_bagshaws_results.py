@@ -52,6 +52,14 @@ LOT_RE = re.compile(r"\bLot\s+([A-Za-z0-9]+)\b", re.I)
 # aggregate turnover figures, per-acre comparables and ambiguous related legal
 # interests.
 RETAINED_NARRATIVE_RESULTS = {
+    "bakewell-property-auction-november-2019": [
+        ("8.37 acres of grassland and barn off St Helens Lane, Wirksworth", 127000, "sold"),
+        ("1.2 acres off Locko Road, Lower Pilsley", 46000, "sold"),
+        ("13.06 acres at Flagg", 144000, "sold"),
+        ("Church Street at Brassington", None, "sold_prior"),
+        ("6.15 acres at Oughtibridge", None, "unsold"),
+        ("Doone at Barn, Two Dales, Matlock", None, "unsold"),
+    ],
     "bagshaws-march-land-property-auction-bakewell": [
         ("Land at Haughton, Stafford", 110000, "sold"),
         ("Land and Buildings off Bonsall Lane, Bonsall, Matlock", 86000, "sold"),
@@ -335,6 +343,11 @@ RETAINED_NARRATIVE_RESULTS = {
         ("just over 67 acres at Elmhurst", 800000, "sold"),
         ("25.36 acres at Footherley, near Lichfield", 175000, "sold"),
     ],
+    "uttoxeter-land-and-property-auction-august-2023": [
+        ("1.6 acres at Corner Field, Dalley Lane, Belper Lane End", 82000, "sold"),
+        ("Lot 3 Weir Meadow, Baswich Lane, Stafford, 3.10 acres", 31000, "sold"),
+        ("Lot 4 2.44 acres at Lower Lane, Chorley, Lichfield", 78000, "sold"),
+    ],
     "uttoxeter-property-auction-for-wednesday-23rd-september-2020": [
         (
             "Heathy Grove Farm",
@@ -369,6 +382,13 @@ RETAINED_NARRATIVE_RESULTS = {
         ("Land and Buildings at Highfields Farm, Upper Tean extending to 2.59 acres", 150000, "sold"),
         ("1.95 acres of grassland and woodland copse at Highfields Farm, Upper Tean", 54000, "sold"),
         ("Lot 6 3.11 acres of paddock land near Stonnall, Aldridge", 114000, "sold"),
+    ],
+    "bakewell-land-property-auction-in-march": [
+        ("Land off Sherwood Road, Tideswell", 21500, "sold"),
+        ("Land off Over Lane, Baslow", 126000, "sold"),
+        ("Land off Church Road and Blackwell Lot A", 247500, "sold"),
+        ("Land off Church Road and Blackwell Lot B", 106000, "sold"),
+        ("Land off Foxholes Lane, Tansley Lot B", 36000, "sold"),
     ],
 }
 
