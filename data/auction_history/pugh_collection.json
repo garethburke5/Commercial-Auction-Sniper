@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-04T16:40:42.525465+00:00",
+  "checked_at": "2026-11-05T02:47:30.372222+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7179,
-  "observed_property_ids": 6902,
+  "published_property_rows": 7205,
+  "observed_property_ids": 6907,
   "observed_source_ids": [
     "10088",
     "10113",
@@ -2809,6 +2809,7 @@
     "202608190931sq_w39p",
     "202608191000sq_bycq",
     "202608191016sq_z0ay",
+    "202608191039sq_a2qa",
     "202608191044sq_9t6o",
     "202608191110sq_a46b",
     "202608191148sq_p5jc",
@@ -3031,6 +3032,7 @@
     "202609231123sq_zia0",
     "202609231129sq_52d4",
     "202609231340sq_b7ep",
+    "202609231433sq_vxpe",
     "202609231517sq_y1w6",
     "202609231556sq_c40p",
     "202609231755sq_c4m8",
@@ -3078,6 +3080,8 @@
     "202610011038sq_nn58",
     "202610011424sq_ncph",
     "202610011616sq_w8gw",
+    "202610012319sq_4e41",
+    "202610012324sq_jwx6",
     "202610021148sq_1g22",
     "202610021541sq_yg25",
     "202610021603sq_907e",
@@ -3127,6 +3131,7 @@
     "202610091110sq_yfe9",
     "202610091131sq_2bw3",
     "202610091133sq_libn",
+    "202610091348sq_hfd9",
     "202610091550sq_p0m4",
     "202610120846sq_ma6u",
     "202610121034sq_md6u",
@@ -6907,7 +6912,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 359,
+  "pages_expected": 361,
   "pages_captured_this_run": [
     1,
     2,
@@ -7608,7 +7613,7 @@
     "96": 20,
     "355": 20
   },
-  "published_rows_reconciled": 7179,
+  "published_rows_reconciled": 7205,
   "source_rows_reconciled_complete": true,
   "grid_covered_normal_pages": [
     348,
@@ -7622,16 +7627,18 @@
     356,
     357,
     358,
-    359
+    359,
+    360,
+    361
   ],
-  "grid_tail_source_rows": 239,
+  "grid_tail_source_rows": 265,
   "reverse_tail_source_rows": 0,
   "reverse_covered_normal_pages": [],
   "reverse_tail_upgraded_undated": 0,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 0,
-  "undated_tail_appearances_captured": 0,
-  "undated_tail_existing_appearances_enriched": 0,
+  "undated_tail_source_rows": 265,
+  "undated_tail_appearances_captured": 57,
+  "undated_tail_existing_appearances_enriched": 206,
   "detail_pages_recovered_this_run": 0,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
@@ -7690,6 +7697,9 @@
     "202608281350sq_e5wq",
     "202609021014sq_jfpn",
     "202609140959sq_q7n5",
+    "202609231433sq_vxpe",
+    "202610012319sq_4e41",
+    "202610012324sq_jwx6",
     "202610131313sq_5019",
     "34893"
   ],
@@ -8035,15 +8045,35 @@
       "source_lot_id": "34893",
       "url": "https://www.pugh-auctions.com/property/34893",
       "error": "HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202610012319sq_4e41",
+      "url": "https://www.pugh-auctions.com/property/202610012319sq_4e41",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202610012324sq_jwx6",
+      "url": "https://www.pugh-auctions.com/property/202610012324sq_jwx6",
+      "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202609231433sq_vxpe",
+      "url": "https://www.pugh-auctions.com/property/202609231433sq_vxpe",
+      "error": "ValueError: detail page has no exact lot and auction date"
     }
   ],
   "archive_pagination_complete": true,
-  "property_appearances_captured": 6891,
-  "canonical_shard_rows": 6891,
+  "property_appearances_captured": 6894,
+  "canonical_shard_rows": 6894,
   "legacy_rows_enriched": 0,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
   "run_new_partial_lots": 0,
-  "run_by_sector": {},
+  "run_by_sector": {
+    "unknown": 3
+  },
   "failures": []
 }
