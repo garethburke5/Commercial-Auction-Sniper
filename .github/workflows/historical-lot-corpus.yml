@@ -234,7 +234,7 @@ jobs:
         # 16-catalogue window clears publication-defect retries without
         # repeatedly re-fetching the completed archive.
         run: |
-          if [[ "${{ inputs.focus }}" == "pearson-ferrier" || "${{ inputs.focus }}" == "pearsons-auctions" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearson Ferrier result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearsons Auctions result-table expansion') }}" == "true" ]]; then
+          if [[ "${{ inputs.focus }}" == "pearson-ferrier" || "${{ inputs.focus }}" == "pearsons-auctions" || "${{ inputs.focus }}" == "shonki-brothers" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearson Ferrier result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearsons Auctions result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Shonki Brothers catalogue expansion') }}" == "true" ]]; then
             echo "Cottons enrichment is outside this focused collection run"
             exit 0
           fi
@@ -1016,7 +1016,7 @@ jobs:
         timeout-minutes: 22
         # Attempt the full rotation while retaining the same 20-minute budget.
         run: |
-          if [[ "${{ inputs.focus }}" == "pearson-ferrier" || "${{ inputs.focus }}" == "pearsons-auctions" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearson Ferrier result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearsons Auctions result-table expansion') }}" == "true" ]]; then
+          if [[ "${{ inputs.focus }}" == "pearson-ferrier" || "${{ inputs.focus }}" == "pearsons-auctions" || "${{ inputs.focus }}" == "shonki-brothers" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearson Ferrier result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearsons Auctions result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Shonki Brothers catalogue expansion') }}" == "true" ]]; then
             echo "Bounded rotation is excluded from this focused collection run"
             exit 0
           fi
