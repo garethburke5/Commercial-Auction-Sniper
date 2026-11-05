@@ -970,3 +970,55 @@ per-acre comparisons and the previously saved navigation card from net growth.
 Keep the two Leigh Road parcels separate legal interests, preserve the saved
 snapshot and leave the event and national completeness false until its original
 lot inventory reconciles.
+
+
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws September 2020 and March 2026)
+
+Two retained Bagshaws first-party narrative inventories have now been reparsed,
+banked and rebuilt. The Uttoxeter page dated 23 September 2020 contributes seven
+net-new named interests: five sold with achieved prices, Heathy Grove Farm sold
+prior and the Fradley building plot withdrawn. The Bakewell page dated 23 March
+2026 contributes nine net-new named interests: five sold with achieved prices
+and four unsold with sale prices left null. The two Leigh Road parcels remain
+separate legal interests. All five September 2020 per-acre comparisons and the
+March 2026 aggregate of just under £1 million were excluded. Previously banked
+navigation-derived page cards were preserved and excluded from net growth.
+
+Combined net gain: 16 appearances, 16 address records and 16 exact-dated records
+inside the preceding 20-year window. Five are land, two residential and nine
+unknown; none are commercial or mixed-use. The gain contains 10 achieved prices,
+no guide prices and no rents. Outcomes comprise 10 sold, four unsold, one sold
+prior and one withdrawn. No partial, undated, future-dated or duplicate result
+identity was added. No source-year was opened because Bagshaws 2020 and 2026
+were already represented. The rebuilt corpus totals are 310,684 appearances,
+299,732 address records, 302,423 in-window appearances, 104,815 in-window guides
+and 112,081 in-window achieved prices. Bagshaws now has 321 appearances.
+National completeness remains false.
+
+September collector release:
+`a2e1829f30d0fbdeb692493155988023627e0533`; successful collection and rebuild
+run `42118834218`; banked evidence
+`53370dbb3fcb1a4fd5a33322f8ab2ef236857ebf`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42119978024`. March collector release:
+`30b88156236d56f6a03397ce84c3b951c8f22b90`; successful collection and rebuild
+run `42121541327`; banked evidence
+`8a0e8b1fe5f1effdcabcbefee29c743a7f1f2dd5`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42122284226`. Separate live-snapshot
+revalidation runs `42118834256` and `42121541407` were preserved with
+production skipped. The first failed safely because Auction House Cumbria and
+Auction House National Online each remained at 50% rich-particular coverage
+against 60%; neither revalidation contributed to the historical gain.
+
+Next concrete growth target: bank the 14 named interests already verified in
+three retained Bagshaws narrative snapshots. The 18 November 2019 Bakewell page
+contains six named outcomes: three priced sales, Church Street at Brassington
+sold prior, and two unsold properties. The 9 August 2023 Uttoxeter page contains
+three individually priced land sales; its three unnamed reserve failures remain
+excluded. The 24 March 2025 Bakewell page contains five individually priced land
+sales, keeping Church Road and Blackwell Lots A and B and Foxholes Lane Lot B as
+separate legal interests. Preserve exact dates, outcomes and achieved prices,
+exclude every aggregate or unnamed result, reconcile exact-event overlaps and
+leave all three events incomplete unless their original lot inventories
+reconcile. A different retained November 2019 Uttoxeter narrative also contains
+guide-price evidence; do not collect it until the narrative importer can carry
+that guide distinctly rather than dropping it.
