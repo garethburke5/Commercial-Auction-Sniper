@@ -238,6 +238,17 @@ RETAINED_NARRATIVE_RESULTS = {
         ("Land off Grin Low, Sheldon", None, "sold_prior"),
         ("Little Broadgates Farm, Ashleyhay", None, "sold_prior"),
     ],
+    "bakewell-land-property-auction-in-july": [
+        ("Wharf Bungalow", 350000, "sold_prior"),
+        ("Land at Merehay", 155000, "sold_prior"),
+        ("Land at The Wash", 110000, "sold_prior"),
+        ("New Barn Farm, Aldwark", 1100000, "sold"),
+        ("Land off Sherwood Road, Tideswell", 18000, "sold"),
+        ("Land off Colton Road, Rugeley", 33000, "sold"),
+        ("Land off Gatehouse Lane, Hathersage", 60000, "sold"),
+        ("The Old Estate Yard, Shottle", 150000, "sold"),
+        ("1 Market Street, Longton", 25000, "sold"),
+    ],
     "uttoxeter-land-and-property-auction-may-2024": [
         ("Lot 1 equestrian yard at Marston, Stafford extending to 5.06 acres", 242000, "sold"),
         ("Lot 2 4.76 acres of pastureland at Hayfield Hill Road, Rugeley", 92000, "sold"),

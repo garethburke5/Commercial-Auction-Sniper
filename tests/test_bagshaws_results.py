@@ -114,6 +114,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("uttoxeter-land-and-property-auction-may-2024", "2024-05-01", 3, 3, 0),
         ("uttoxeter-land-and-property-auction-july-2024-2", "2024-07-10", 2, 2, 0),
         ("uttoxeter-land-property-auction-october-2024", "2024-10-23", 3, 3, 0),
+        ("bakewell-land-property-auction-in-july", "2025-07-21", 9, 9, 3),
         ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
     ],
 )
@@ -188,6 +189,33 @@ def test_november_2025_lot_interests_stay_separate_and_sold_prior_prices_are_nul
         "Little Broadgates Farm, Ashleyhay",
     }
     assert all(row["sale_price"] is None for row in sold_prior)
+
+
+def test_july_2025_pre_auction_sales_keep_status_and_published_prices():
+    slug = "bakewell-land-property-auction-in-july"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    _, rows, _ = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_address = {row["address"]: row for row in narrative_rows}
+
+    expected_prior = {
+        "Wharf Bungalow": 350000,
+        "Land at Merehay": 155000,
+        "Land at The Wash": 110000,
+    }
+    assert {
+        address: by_address[address]["sale_price"] for address in expected_prior
+    } == expected_prior
+    assert all(by_address[address]["status"] == "sold_prior" for address in expected_prior)
+    assert by_address["New Barn Farm, Aldwark"]["sale_price"] == 1100000
+    assert by_address["New Barn Farm, Aldwark"]["status"] == "sold"
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
