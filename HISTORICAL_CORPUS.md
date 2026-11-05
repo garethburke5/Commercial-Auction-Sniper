@@ -815,3 +815,48 @@ preserve unknown guide and rent values as null, reconcile exact-event overlaps,
 and leave the event incomplete unless its original denominator reconciles.
 This handoff supersedes older Bagshaws target text in
 `continuation_collection.json` and earlier sections of this file.
+
+
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws September 2021)
+
+The retained Bagshaws Bakewell page dated 20 September 2021 has been reparsed
+from its immutable first-party HTML snapshot. Nine individually named interests
+were added: seven sold lots with achieved prices, Lot 8 Brookfield Grove as
+unsold and Lot 9 Westhaven/The Beeches as postponed. Alabaster Lane Lots 4 and
+5 remain separate legal interests. The published per-acre comparisons were
+excluded from achieved-price fields, and the two non-priced outcomes retain
+null sale prices. The previously banked navigation-derived page card was
+preserved rather than discarded, but is excluded from this run's growth. The
+page's stated denominator conflicts with its later numbered postponed interest,
+so catalogue completeness remains false and national completeness remains
+false.
+
+Net gain: 9 appearances, 9 address records and 9 exact-dated records inside the
+preceding 20-year window. Four are land and five unknown; none are commercial
+or mixed-use. The gain contains 7 achieved prices, no guide prices and no rents,
+with no new partial, undated, future-dated or duplicate result identities. No
+new source-year was opened because Bagshaws 2021 evidence was already present.
+The rebuilt corpus totals are 310,159 appearances, 299,207 address records,
+301,898 in-window appearances, 104,815 in-window guides and 112,045 in-window
+achieved prices. Bagshaws now has 288 appearances.
+
+Collection release: `29e41cb404e625e82444418be7611f526578a8b3`;
+successful collection and rebuild run `42090729565`; banked evidence
+`d3b726ed89913e2c6f4a81413556ba05a0a89862`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42091818524`. Separate live-snapshot
+revalidation run `42090729601` reclassified 0 fresh lots and failed at the
+preserved publication threshold: Auction House Cumbria and Auction House
+National Online remain at 50% rich-particular coverage against 60%. It wrote
+and published nothing and was not rerun.
+
+Next concrete growth target: reparse the retained Bagshaws Bakewell page dated
+22 September 2025 (`bakewell-land-property-auction-in-september`) and bank
+its ten individually named appearances: six sales with achieved prices,
+Hollyseat Cottage as sold prior with a null price, and the three named available
+properties Long Lane Head Barn, Pethills Head Farm and 47 Chesterfield Road.
+The page only says those three did not sell or were postponed, so preserve that
+published ambiguity and do not assign unsupported individual statuses. Exclude
+the £1.85 million aggregate, reconcile exact-event overlaps, preserve the saved
+snapshot and leave the event incomplete. This handoff supersedes older Bagshaws
+target text in `continuation_collection.json` and earlier sections of this
+file.
