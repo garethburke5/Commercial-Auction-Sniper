@@ -185,7 +185,7 @@ def parse_result_page(html: str, event: dict, evidence: dict) -> tuple[dict, lis
     if pagination:
         raise ValueError("unexpected pagination on retained result table")
 
-    rows, exact_seen, duplicate_source_rows = [], set(), 0
+    rows, exact_seen, duplicate_source_rows, blank_placeholder_rows = [], set(), 0, 0
     duplicate_lot_numbers = []
     lot_seen = set()
     for position, source_row in enumerate(table.select("tbody tr"), 1):
@@ -195,6 +195,11 @@ def parse_result_page(html: str, event: dict, evidence: dict) -> tuple[dict, lis
         lot_number = clean(cells[0].get_text(" ", strip=True))
         address = clean(cells[1].get_text(" ", strip=True))
         result_text = clean(cells[2].get_text(" ", strip=True))
+        if not lot_number and not address and not result_text:
+            # Two retained tables contain a completely empty HTML row before
+            # lot 1.  It is a presentation placeholder, not a property.
+            blank_placeholder_rows += 1
+            continue
         if not lot_number or not address:
             raise ValueError(f"result row {position} lacks lot number or address")
         exact_key = (lot_number.casefold(), normalized_address(address), (result_text or "").casefold())
@@ -270,6 +275,7 @@ def parse_result_page(html: str, event: dict, evidence: dict) -> tuple[dict, lis
         "visible_source_rows": len(rows),
         "lots_captured": len(rows),
         "duplicate_source_rows_not_counted": duplicate_source_rows,
+        "blank_placeholder_rows_not_counted": blank_placeholder_rows,
         "duplicate_lot_numbers": sorted(set(duplicate_lot_numbers)),
         "source_url": event["url"],
         "completion_scope": "all visible rows in the first-party unpaginated result table",

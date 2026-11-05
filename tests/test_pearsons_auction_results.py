@@ -97,3 +97,14 @@ def test_duplicate_exact_source_row_is_deduplicated_without_losing_distinct_lots
     state, rows = parse_result_page(duplicate, event(), {"sha256": "x"})
     assert len(rows) == 2
     assert state["duplicate_source_rows_not_counted"] == 2
+
+
+def test_fully_blank_markup_placeholder_is_not_counted_as_a_property():
+    blank = PAGE.replace(
+        "<tbody>",
+        '<tbody><tr><td class="bold"></td><td></td><td></td></tr>',
+    )
+    state, rows = parse_result_page(blank, event(), {"sha256": "x"})
+    assert len(rows) == 2
+    assert state["blank_placeholder_rows_not_counted"] == 1
+    assert state["catalogue_complete"] is True
