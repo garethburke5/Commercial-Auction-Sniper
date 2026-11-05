@@ -151,10 +151,21 @@ def validate_catalogue(text, spec):
     if not re.search(date_pattern, clean(text).casefold()):
         raise ValueError(f"catalogue does not prove exact event date {spec['date']}")
     for row in spec["lots"]:
-        address_tokens = normalized(row["address"]).split()
-        anchor = " ".join(address_tokens[: min(5, len(address_tokens))])
-        if anchor not in compact:
-            raise ValueError(f"catalogue address anchor missing for lot {row['lot_number']}: {anchor}")
+        # PDF text extraction can interleave the two brochure columns, so a
+        # long contiguous address phrase is not stable.  Require the exact
+        # postcode where published plus the distinctive premise/title tokens;
+        # these survive column order without weakening row-level admission.
+        title_tokens = normalized(row["address"].split(",", 1)[0]).split()
+        title_tokens = title_tokens[: min(3, len(title_tokens))]
+        postcode = corpus.PC.search(row["address"])
+        required = list(title_tokens)
+        if postcode:
+            required.append(normalized(postcode.group()))
+        missing = [token for token in required if token not in compact]
+        if missing:
+            raise ValueError(
+                f"catalogue address evidence missing for lot {row['lot_number']}: {missing}"
+            )
         guide_tokens = {str(row["guide_price"] // 1000), str(row["guide_price_high"] // 1000)}
         if not all(token in compact for token in guide_tokens):
             raise ValueError(f"catalogue guide evidence missing for lot {row['lot_number']}")

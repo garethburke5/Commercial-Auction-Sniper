@@ -16,7 +16,9 @@ def test_catalogue_inventory_has_exact_lot_denominators_and_distinct_guides():
 
 def test_catalogue_validation_requires_date_address_and_guide_evidence():
     spec = {"date": "2019-11-21", "lots": (CATALOGUES[2]["lots"][0],)}
-    text = "21 November 2019 Lot 1 Land at Low Road Wortwell Harleston Norfolk IP20 0HJ Guide 25-30"
+    # Brochure columns can interleave under PDF extraction; exact postcode,
+    # distinctive title tokens and guide evidence must still reconcile.
+    text = "21st November 2019 Lot 1 Land Low Road Guide 25-30 other column at IP20 0HJ"
     assert validate_catalogue(text, spec) is True
 
 
