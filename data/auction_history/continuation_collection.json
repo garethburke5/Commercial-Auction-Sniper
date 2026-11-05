@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Collect the surviving TW Gaze 2019 Land & Property Auction results brochure at https://media.onthemarket.com/properties/7772028/1171489795/document-0.pdf. It publishes nine individual property rows with guide and achieved prices; preserve the brochure snapshot, recover the exact auction date from the document, bank each address once, and then inventory adjacent TW Gaze land/property auction brochures on the same retained media route. Reconcile TWG (1857) Ltd / TW Gaze as one operator and keep national completeness false.",
+  "next_growth_target": "Inventory and bank every individual lot in TW Gaze's retained 15 March 2023 Land & Property Auction brochure at https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf; preserve the first-party PDF, reconcile any result pages by exact event/lot/address, and continue through adjacent TW Gaze brochures. Separately recover the exact events for the still-unmatched Hopton and Kenninghall retrospective result rows. Keep national completeness false.",
   "runs": [
     {
       "source": "edward_mellor_pdfs",
@@ -4172,6 +4172,22 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "tw-gaze",
+      "outcome": "completed",
+      "checked_at": "2026-11-05T10:44:14.282407+00:00",
+      "run_new_appearances": 28,
+      "run_new_dated_twenty_year_address_records": 28,
+      "run_new_commercial_or_mixed": 1,
+      "run_new_guide_prices": 27,
+      "run_new_sale_prices": 8,
+      "newly_covered_source_years": [
+        "2018",
+        "2019"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -4871,23 +4887,36 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "tw-gaze": {
+      "source": "tw-gaze",
+      "outcome": "completed",
+      "checked_at": "2026-11-05T10:44:14.282407+00:00",
+      "run_new_appearances": 28,
+      "run_new_dated_twenty_year_address_records": 28,
+      "run_new_commercial_or_mixed": 1,
+      "run_new_guide_prices": 27,
+      "run_new_sale_prices": 8,
+      "newly_covered_source_years": [
+        "2018",
+        "2019"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "last_automated_growth": {
-    "source": "city-rural-property-auctions",
+    "source": "tw-gaze",
     "outcome": "completed",
-    "checked_at": "2026-11-05T09:34:36.581812+00:00",
-    "run_new_appearances": 166,
-    "run_new_dated_twenty_year_address_records": 166,
-    "run_new_commercial_or_mixed": 23,
-    "run_new_guide_prices": 165,
-    "run_new_sale_prices": 32,
+    "checked_at": "2026-11-05T10:44:14.282407+00:00",
+    "run_new_appearances": 28,
+    "run_new_dated_twenty_year_address_records": 28,
+    "run_new_commercial_or_mixed": 1,
+    "run_new_guide_prices": 27,
+    "run_new_sale_prices": 8,
     "newly_covered_source_years": [
-      "2022",
-      "2023",
-      "2024",
-      "2025",
-      "2026"
+      "2018",
+      "2019"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
@@ -4915,15 +4944,15 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-05T09:34:36.581812+00:00",
-    "source_key_candidate": "tw-gaze-2019-results-brochure",
+    "checked_at": "2026-11-05T10:44:14.282407+00:00",
+    "source_key_candidate": "tw-gaze-2023-03-15-catalogue",
     "auctioneer": "TW Gaze",
     "source_urls": [
-      "https://media.onthemarket.com/properties/7772028/1171489795/document-0.pdf"
+      "https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf"
     ],
-    "source_format": "retained first-party result brochure PDF on a free public media cache",
-    "opportunity": "nine uncaptured individual property rows with both guide and achieved prices",
-    "next_growth_target": "Collect the surviving TW Gaze 2019 Land & Property Auction results brochure at https://media.onthemarket.com/properties/7772028/1171489795/document-0.pdf. It publishes nine individual property rows with guide and achieved prices; preserve the brochure snapshot, recover the exact auction date from the document, bank each address once, and then inventory adjacent TW Gaze land/property auction brochures on the same retained media route. Reconcile TWG (1857) Ltd / TW Gaze as one operator and keep national completeness false.",
+    "source_format": "retained first-party land and property auction brochure PDF",
+    "opportunity": "accessible exact-dated catalogue with uncaptured individual lots",
+    "next_growth_target": "Inventory and bank every individual lot in TW Gaze's retained 15 March 2023 Land & Property Auction brochure at https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf; preserve the first-party PDF, reconcile any result pages by exact event/lot/address, and continue through adjacent TW Gaze brochures. Separately recover the exact events for the still-unmatched Hopton and Kenninghall retrospective result rows. Keep national completeness false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
