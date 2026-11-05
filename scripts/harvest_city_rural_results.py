@@ -17,6 +17,7 @@ import json
 from pathlib import Path
 import re
 import sys
+import time
 from urllib.parse import urlparse
 
 import requests
@@ -52,7 +53,15 @@ def clean(value: object | None) -> str | None:
 
 
 def get(url: str) -> tuple[str, bytes]:
-    response = requests.get(url, headers=HEADERS, timeout=90)
+    response = None
+    for attempt in range(6):
+        response = requests.get(url, headers=HEADERS, timeout=90)
+        if response.status_code != 429:
+            break
+        retry_after = response.headers.get("Retry-After")
+        delay = int(retry_after) if retry_after and retry_after.isdigit() else min(2 ** attempt, 20)
+        time.sleep(max(1, delay))
+    assert response is not None
     response.raise_for_status()
     raw = response.content
     if len(raw) < 500:
@@ -185,6 +194,7 @@ def persist_continuation(summary: dict) -> None:
 
 def parse_event_page(html: str, source_url: str, evidence: dict) -> tuple[dict, list[dict]]:
     auction_date = event_date(source_url)
+    event_key = urlparse(source_url).path.strip("/").split("/")[-1]
     soup = BeautifulSoup(html, "lxml")
     cards = [
         card for card in soup.select("article")
@@ -233,7 +243,7 @@ def parse_event_page(html: str, source_url: str, evidence: dict) -> tuple[dict, 
         guide, guide_high = guide_values(guide_text)
         status, sale_price = outcome_values(outcome_text)
         source_id = hashlib.sha256(f"{auction_date}|{slug}".encode()).hexdigest()[:24]
-        auction_id = f"{SLUG}:{auction_date}"
+        auction_id = f"{SLUG}:{event_key}"
         row = corpus.base_row(SOURCE, auction_id, auction_date, lot_number, source_id, property_url)
         postcode = corpus.PC.search(address)
         row.update(
@@ -270,7 +280,7 @@ def parse_event_page(html: str, source_url: str, evidence: dict) -> tuple[dict, 
         "auctioneer": SOURCE,
         "operator_legal_name": OPERATOR,
         "operator_company_number": COMPANY_NUMBER,
-        "source_auction_id": f"{SLUG}:{auction_date}",
+        "source_auction_id": f"{SLUG}:{event_key}",
         "auction_date": auction_date,
         "auction_date_precision": "day",
         "source_url": source_url,
@@ -288,7 +298,7 @@ def parse_event_page(html: str, source_url: str, evidence: dict) -> tuple[dict, 
     return state, rows
 
 
-def harvest(workers: int = 10) -> dict:
+def harvest(workers: int = 6) -> dict:
     sitemap_url, raw = get(SITEMAP)
     sitemap_sha, retrieved_at = corpus.digest(raw), corpus.now()
     sitemap_snapshot = corpus.DATA / "sources" / SLUG / f"auction-sitemap-{sitemap_sha[:16]}.xml.gz"
@@ -425,6 +435,6 @@ def harvest(workers: int = 10) -> dict:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--workers", type=int, default=10)
+    parser.add_argument("--workers", type=int, default=6)
     args = parser.parse_args()
     harvest(args.workers)

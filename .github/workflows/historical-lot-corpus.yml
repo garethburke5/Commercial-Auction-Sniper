@@ -1019,7 +1019,7 @@ jobs:
         timeout-minutes: 15
         run: |
           python -m pytest -q tests/test_city_rural_results.py
-          python -u scripts/harvest_city_rural_results.py --workers 12
+          python -u scripts/harvest_city_rural_results.py --workers 6
       - name: Collect Robinson & Hall result-sheet archive
         if: startsWith(github.event.head_commit.message, 'Run focused Robinson and Hall archive expansion')
         timeout-minutes: 10

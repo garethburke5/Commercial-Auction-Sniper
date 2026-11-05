@@ -47,6 +47,7 @@ def test_parse_individual_cards_preserves_null_lot_and_source_text():
     state, rows = parse_event_page(html, EVENT_URL, {"sha256": "a" * 64})
     assert state["catalogue_complete"] is True
     assert state["lots_captured"] == 2
+    assert state["source_auction_id"] == "city-rural-property-auctions:live-stream-29-03-2023-1900"
     assert rows[0]["lot_number"] == "1"
     assert rows[0]["guide_price"] == 225000
     assert rows[0]["sale_price"] == 245000
