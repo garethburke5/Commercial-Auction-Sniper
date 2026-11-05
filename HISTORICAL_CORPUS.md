@@ -733,3 +733,44 @@ page-card overlap, and leave national completeness false. This handoff
 supersedes older Bagshaws targets in `continuation_collection.json` and earlier
 sections of this file.
 
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws May 2026)
+
+The retained Bagshaws Bakewell page dated 18 May 2026 has been reparsed from
+its immutable first-party HTML snapshot. Its complete eight-row published
+result list now reconciles five achieved-price sales and three named no-sales.
+Seven rows are net-new appearances. The eighth, Lot 3 Land and Stables at The
+Lodge, Tideswell, exactly matches an existing first-party property card; that
+appearance retained its £100,000 guide and gained the published lot number and
+no-sale outcome instead of being counted twice. Dobbin Lane Lots A and B remain
+separate legal interests under published source Lots 5 and 6.
+
+Net gain: 7 appearances, 7 address records and 7 exact-dated records inside the
+preceding 20-year window. Five are land and two unknown; none are commercial or
+mixed-use. The gain contains 5 achieved prices, no new guides and no rents, with
+no new partial, undated, future-dated or duplicate identities. One exact
+page-card overlap was enriched but excluded from appearance growth. No new
+source-year was opened because Bagshaws 2026 evidence was already present. The
+rebuilt corpus totals are 310,137 appearances, 299,185 address records, 301,876
+in-window appearances, 104,815 in-window guides and 112,032 in-window achieved
+prices. Bagshaws now has 266 appearances. National completeness remains false.
+
+Collection release: `1757d1f7c6904a0d3f8a51a79e03a58b6ed02e4a`;
+successful collection and rebuild run `42070387530`; banked evidence
+`b8c0632d6a76ce7307eac28d511b5a747c67f949`. Publication run
+`42071274657` preserved its first-attempt GitHub Pages deployment failure
+(`Deployment failed, try again later`) and succeeded on a failed-job-only retry
+from the same banked revision, including auctiongeek.co.uk. Separate revalidation
+run `42070387612` was preserved as failed after reclassifying 0 fresh lots:
+Auction House Cumbria and Auction House National Online remain at 50% rich-
+particular coverage against the 60% threshold. It did not affect historical
+collection or publication.
+
+Next concrete growth target: reparse the retained Bagshaws Bakewell page dated
+19 May 2025 (`bakewell-land-property-auction-in-may`) and bank its 13 separable
+named outcomes: six sales with achieved prices, two sold-prior outcomes, one
+sold-after outcome and four unsold interests. Keep Land at Fenny Bentley Lots A
+and B separate, keep every unknown price null, reconcile exact-event overlaps
+and preserve the existing saved snapshot. This handoff supersedes older
+Bagshaws target text in `continuation_collection.json` and earlier sections of
+this file.
+
