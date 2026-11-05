@@ -955,9 +955,9 @@ focused exact-price trigger: `024bd92a46495875a3a50408dd26aebbb142285f`;
 successful collection and rebuild run `42111797463`; banked evidence
 `54dc2d3bbedf1aba8293fcb3ce50e04cf246d784`; verified GitHub Pages and
 auctiongeek.co.uk publication run `42112420882`. Separate live-snapshot
-revalidation run `42111797551` remains active in checkout with production
-skipped; it has written and published nothing. Preserve its eventual checkpoint
-and do not overlap or rerun it.
+revalidation run `42111797551` was cancelled while still in checkout with
+production skipped; it wrote and published nothing, and was preserved without
+retry.
 
 Next concrete growth target: reparse the retained Bagshaws Uttoxeter page dated
 23 September 2020
