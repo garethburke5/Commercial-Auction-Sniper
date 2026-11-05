@@ -222,6 +222,20 @@ RETAINED_NARRATIVE_RESULTS = {
             "sold",
         ),
     ],
+    "uttoxeter-land-and-property-auction-may-2024": [
+        ("Lot 1 equestrian yard at Marston, Stafford extending to 5.06 acres", 242000, "sold"),
+        ("Lot 2 4.76 acres of pastureland at Hayfield Hill Road, Rugeley", 92000, "sold"),
+        ("1.09 acres of land at Tixall", 81000, "sold"),
+    ],
+    "uttoxeter-land-and-property-auction-july-2024-2": [
+        ("Land and Barn at Muckley Corner extending to 9.40 acres", 275000, "sold"),
+        ("Lot 3 commercial property on Mill Street in Cannock", 175000, "sold"),
+    ],
+    "uttoxeter-land-property-auction-october-2024": [
+        ("Land and Buildings at Highfields Farm, Upper Tean extending to 2.59 acres", 150000, "sold"),
+        ("1.95 acres of grassland and woodland copse at Highfields Farm, Upper Tean", 54000, "sold"),
+        ("Lot 6 3.11 acres of paddock land near Stonnall, Aldridge", 114000, "sold"),
+    ],
 }
 
 

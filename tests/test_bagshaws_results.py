@@ -111,6 +111,9 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
     [
         ("bakewell-land-property-auction-2024-march", "2024-03-25", 13, 8, 5),
         ("bakewell-land-property-auction-may-2024", "2024-05-20", 7, 7, 0),
+        ("uttoxeter-land-and-property-auction-may-2024", "2024-05-01", 3, 3, 0),
+        ("uttoxeter-land-and-property-auction-july-2024-2", "2024-07-10", 2, 2, 0),
+        ("uttoxeter-land-property-auction-october-2024", "2024-10-23", 3, 3, 0),
     ],
 )
 def test_retained_2024_narratives_reconcile_only_identified_property_rows(
@@ -134,6 +137,24 @@ def test_retained_2024_narratives_reconcile_only_identified_property_rows(
     assert sum(row["status"] == "sold_prior" for row in narrative_rows) == expected_prior
     assert all(row["record_quality"] == "address_record" for row in narrative_rows)
     assert all(row["auction_date"] == auction_date for row in narrative_rows)
+
+
+def test_uttoxeter_mill_street_result_is_commercial_and_not_duplicated():
+    slug = "uttoxeter-land-and-property-auction-july-2024-2"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    _, rows, _ = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    mill_street = [row for row in rows if "Mill Street" in (row.get("address") or "")]
+
+    assert len(mill_street) == 1
+    assert mill_street[0]["sector"] == "commercial"
+    assert mill_street[0]["sale_price"] == 175000
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
