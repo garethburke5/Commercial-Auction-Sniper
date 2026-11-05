@@ -83,7 +83,7 @@
   "last_growth_attempt": {
     "checked_at": "2026-11-05T07:42:01.048265+00:00",
     "opportunity": "Recover saved first-party Shonki Brothers June 2024 lot 16, omitted only because the retained catalogue printed GUIDE PRICE with a semicolon.",
-    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher\u2019s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
+    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher’s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
     "net_new_appearances": 1,
     "new_address_records": 1,
     "new_partial_lots": 0,
@@ -140,9 +140,9 @@
       "marked_sold_without_sale_price": 43179
     },
     "national_completeness_verified": false,
-    "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
+    "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Inventory and bank every individual lot in TW Gaze's retained 15 March 2023 Land & Property Auction brochure at https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf; preserve the first-party PDF, reconcile any result pages by exact event/lot/address, and continue through adjacent TW Gaze brochures. Separately recover the exact events for the still-unmatched Hopton and Kenninghall retrospective result rows. Keep national completeness false.",
+  "next_growth_target": "Extend the saved-snapshot Bagshaws narrative importer to the retained 25 March and 20 May 2024 pages. At least 20 individually identifiable sold properties survive across those two first-party pages: thirteen on 25 March (including five sold prior) and seven on 20 May. Bank only property-level rows with explicit source text, outcome and price; keep aggregate turnover and per-acre comparables separate; do not invent the unidentified unsold or available rows; reconcile exact date/address overlaps; then continue through the remaining retained 2024 pages. Keep national completeness false.",
   "runs": [
     {
       "source": "anderson_garland_results",
@@ -5051,6 +5051,69 @@
       "cf5090209ee8937c7113d9d43649e46ebc03ad3a",
       "628f8ea3df87df28bf644a495e6c09e6101cfa56"
     ],
+    "national_completeness_verified": false
+  },
+  "bagshaws_saved_narrative_expansion": {
+    "checked_at": "2026-11-05T12:36:58.295574+00:00",
+    "source": "Bagshaws retained first-party auction-page narrative inventories",
+    "saved_pages_reparsed": 9,
+    "event_dates": [
+      "2020-08-10",
+      "2021-05-24",
+      "2021-07-12",
+      "2022-05-23",
+      "2022-07-18",
+      "2023-03-27",
+      "2023-05-22",
+      "2023-07-24",
+      "2024-07-22"
+    ],
+    "source_years_observed": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "newly_covered_source_years": [],
+    "net_new_appearances": 124,
+    "new_address_records": 124,
+    "new_dated_address_records_in_twenty_year_window": 124,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_guide_prices": 0,
+    "new_sale_prices": 99,
+    "new_rent_values": 0,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "duplicate_appearance_ids": 0,
+    "outcome_breakdown": {
+      "sold": 99,
+      "unsold": 16,
+      "postponed": 5,
+      "sold_prior": 2,
+      "sold_after": 1,
+      "withdrawn": 1
+    },
+    "catalogue_scope": "All checked property-level narrative rows preserved on the nine retained pages; original catalogue denominators are unavailable, so event completeness remains false.",
+    "operator_reconciliation": "Bagshaws remains one LLP/operator; offices and branches are attribution and were not counted as additional auctioneers.",
+    "collector_release_commit": "988f579b38a8db77497a13abe220d3ca05826d8f",
+    "collection_run_id": 42028061768,
+    "banked_commit": "a75115e9be8985e1eb3250dde9dbdf946f4d8303",
+    "publication_run_id": 42028870033,
+    "database_rebuild_verified": true,
+    "publication_verified": true,
+    "corpus_after_rebuild": {
+      "appearances": 310079,
+      "address_records": 299127,
+      "in_window_appearances": 301818,
+      "in_window_guide_prices": 104815,
+      "in_window_sale_prices": 111983,
+      "partial": 10952,
+      "undated": 5016,
+      "future_dated": 150
+    },
     "national_completeness_verified": false
   }
 }
