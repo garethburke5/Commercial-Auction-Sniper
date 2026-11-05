@@ -76,3 +76,50 @@ def test_published_available_price_is_not_a_sale_price(monkeypatch):
     assert rows[1]["status"] == "unsold"
     assert rows[1]["available_price"] == 125000
     assert rows[1]["sale_price"] is None
+
+
+def test_fliphtml_page_text_banks_only_retained_individual_lot_pages():
+    pages = [
+        "Wednesday 24 July 2024 at 2.30pm\r\nAUCTION",
+        (
+            "LOT PROPERTY ADDRESS\r\n"
+            "1 55 Mill Street, Ilkeston, Derbyshire DE7 8GQ\r\n"
+            "2 50 Welford Road, Leicester LE2 7AA\r\n"
+            "Order of Sale\r\nAuction: Wednesday 24 July 2024"
+        ),
+        (
+            "COMMERCIAL / RESIDENTIAL\r\nLocation:\r\nExample.\r\n"
+            "Current Rental Income £12,000\r\nLOT\r\n1\r\n"
+            "55 Mill Street, Ilkeston, Derbyshire DE7 8GQ\r\n"
+            "GUIDE PRICE: £70,000 - £75,000"
+        ),
+    ]
+    rows, order = shonki.parse_fliphtml_lot_pages(
+        pages, "2024-07-24", "https://online.fliphtml5.com/example/", {}
+    )
+    assert order == ["1", "2"]
+    assert len(rows) == 1
+    assert rows[0]["address"] == "55 Mill Street, Ilkeston, Derbyshire DE7 8GQ"
+    assert rows[0]["property_type"] == "COMMERCIAL / RESIDENTIAL"
+    assert rows[0]["guide_price"] == 70000
+    assert rows[0]["guide_price_high"] == 75000
+    assert rows[0]["annual_rent"] == 12000
+
+
+def test_fliphtml_wrapped_order_address_is_preserved():
+    pages = [
+        (
+            "LOT PROPERTY ADDRESS\r\n1 Appleton Avenue Maintenance Depot, Rear of 2-14 "
+            "Appleton Avenue,\r\nStocking Farm, Leicester LE4 2GA\r\nOrder of Sale"
+        ),
+        (
+            "RESIDENTIAL DEVELOPMENT\r\nLOT\r\n1\r\nAppleton Avenue Maintenance Depot, "
+            "Rear of 2-14 Appleton Avenue,\r\nStocking Farm, Leicester LE4 2GA\r\n"
+            "Main Buildings\r\nGUIDE PRICE: £200,000 - £210,000 PLUS VAT"
+        ),
+    ]
+    rows, _ = shonki.parse_fliphtml_lot_pages(
+        pages, "2024-02-14", "https://online.fliphtml5.com/example/", {}
+    )
+    assert rows[0]["address"].endswith("Stocking Farm, Leicester LE4 2GA")
+    assert "Main Buildings" not in rows[0]["address"]
