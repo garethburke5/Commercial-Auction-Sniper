@@ -12,6 +12,7 @@ on:
           - bounded
           - all
           - retained-legacy
+          - bid-daig
           - phillip-arnold
           - pugh
           - symonds-sampson
@@ -967,6 +968,10 @@ jobs:
         if: startsWith(github.event.head_commit.message, 'Run focused Purplebricks archive expansion')
         timeout-minutes: 20
         run: python -u scripts/harvest_purplebricks_online_auctions.py
+      - name: Collect Bid and DAIG complete retained property archive
+        if: inputs.focus == 'bid-daig'
+        timeout-minutes: 30
+        run: python -u scripts/harvest_eig_retained_grids.py bid-daig-retained-grid --workers 16
       - name: Collect Robinson & Hall result-sheet archive
         if: startsWith(github.event.head_commit.message, 'Run focused Robinson and Hall archive expansion')
         timeout-minutes: 10

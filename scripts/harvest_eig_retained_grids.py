@@ -102,6 +102,18 @@ SOURCES = {
         "operator_legal_name": "ASTLEY SAMUEL LEEDER LTD",
         "operator_company_number": "03129558",
     },
+    "bid-daig-retained-grid": {
+        "auctioneer": "Bid.",
+        "base": "https://properties.thebid.uk",
+        "archive_path": "/search",
+        "operator_legal_name": "THE DAIG GROUP LIMITED",
+        "operator_company_number": "15608291",
+        "historical_trading_names": ["Bid."],
+        # BID Property Auctions Limited (company 16886131) is a separate
+        # operator. Do not merge that directory entry into this archive.
+        "partner_agents": [],
+        "exclude_exact_cross_source_overlaps": True,
+    },
     "opal-property": {
         "auctioneer": "Opal Property",
         "base": "https://opal-online.eigonlineauctions.com",
@@ -2174,11 +2186,17 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
         auction_date = exact_date(scheduled_end) or exact_date(time_node.get("datetime") if time_node else None)
         address = clean(address_node.get_text(" ", strip=True)) if address_node else None
         card_text = clean(card.get_text(" ", strip=True)) or ""
+        panel_title = card.select_one(".panel-title")
+        panel_title_text = clean(panel_title.get_text(" ", strip=True)) if panel_title else None
         committed_offer = bool(
             re.search(
                 r"\b(?:property\s+)?for sale (?:by|via) committed offer\b",
                 card_text,
                 re.I,
+            )
+            or (
+                not auction_date
+                and (panel_title_text or "").casefold().startswith("committed offer")
             )
             or (
                 re.search(r"\bcommitted offer\b", card_text, re.I)

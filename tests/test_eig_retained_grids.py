@@ -362,6 +362,19 @@ def test_astleys_uses_full_archive_and_distinct_legal_operator():
     }
 
 
+def test_bid_daig_uses_its_own_retained_grid_and_legal_operator():
+    assert grids.SOURCES["bid-daig-retained-grid"] == {
+        "auctioneer": "Bid.",
+        "base": "https://properties.thebid.uk",
+        "archive_path": "/search",
+        "operator_legal_name": "THE DAIG GROUP LIMITED",
+        "operator_company_number": "15608291",
+        "historical_trading_names": ["Bid."],
+        "partner_agents": [],
+        "exclude_exact_cross_source_overlaps": True,
+    }
+
+
 def test_non_auction_property_card_is_reconciled_but_not_banked():
     property_card = """
     <div class="lot-panel">
@@ -380,6 +393,28 @@ def test_non_auction_property_card_is_reconciled_but_not_banked():
         "address": "Cherry Tree Cottage, Durham, DH1 1AA",
         "detail_url": "https://example.test/lot/details/11111111-2222-3333-4444-555555555555",
         "source_lot_id": "11111111-2222-3333-4444-555555555555",
+        "reason": "first-party property/committed-offer card, not an auction lot",
+    }]
+
+
+def test_undated_committed_offer_result_card_is_not_banked_as_an_auction():
+    property_card = """
+    <div class="lot-panel">
+      <h3 class="panel-title">Committed Offer - Unsold</h3>
+      <a href="/lot/details/bbbbbbbb-cccc-dddd-eeee-ffffffffffff">
+        <h3 class="list-address">83 Cranmere Avenue, Wolverhampton, WV6 8TR</h3>
+      </a>
+      <div class="list-guideprice"><h4>Result: Unsold</h4></div>
+    </div>
+    """
+    rows, malformed, excluded = grids.parse_grid(property_card, SOURCE, {})
+    assert rows == []
+    assert malformed == []
+    assert excluded == [{
+        "position": 1,
+        "address": "83 Cranmere Avenue, Wolverhampton, WV6 8TR",
+        "detail_url": "https://example.test/lot/details/bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
+        "source_lot_id": "bbbbbbbb-cccc-dddd-eeee-ffffffffffff",
         "reason": "first-party property/committed-offer card, not an auction lot",
     }]
 
