@@ -931,3 +931,42 @@ no guides, rents, partial, undated, future-dated or duplicate rows. At this
 handoff, the separate live-snapshot revalidation from the September trigger
 remains active in checkout; preserve its eventual checkpoint and do not overlap
 or rerun it. National completeness remains false.
+
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws Uttoxeter May 2023)
+
+The retained Bagshaws Uttoxeter page dated 10 May 2023 has now been reparsed
+and banked from its immutable first-party HTML snapshot. Seven individually
+named properties were added, all sold with achieved prices. The three
+published per-acre comparisons were excluded, and the previously banked
+navigation-derived page card was preserved but excluded from this run's
+growth. No unsupported guide price or rent was inferred.
+
+Net gain: 7 appearances, 7 address records and 7 exact-dated records inside
+the preceding 20-year window. All seven have sector unknown; none are
+commercial or mixed-use. The gain contains 7 achieved prices, no guide prices
+and no rents, with no new partial, undated, future-dated or duplicate result
+identities. No source-year was opened because Bagshaws 2023 was already
+represented. Bagshaws now has 305 appearances. The rebuilt corpus totals are
+310,668 appearances, 299,716 address records, 302,407 in-window appearances,
+104,815 in-window guides and 112,071 in-window achieved prices.
+
+Prepared importer release: `edd3911412f52b1999a0bfad209dfbc6e209b3d9`;
+focused exact-price trigger: `024bd92a46495875a3a50408dd26aebbb142285f`;
+successful collection and rebuild run `42111797463`; banked evidence
+`54dc2d3bbedf1aba8293fcb3ce50e04cf246d784`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42112420882`. Separate live-snapshot
+revalidation run `42111797551` remains active in checkout with production
+skipped; it has written and published nothing. Preserve its eventual checkpoint
+and do not overlap or rerun it.
+
+Next concrete growth target: reparse the retained Bagshaws Uttoxeter page dated
+23 September 2020
+(`uttoxeter-property-auction-for-wednesday-23rd-september-2020`). It names
+seven individual interests: Top House Farm at Prestwood, two distinct Leigh
+Road land parcels, the Ellastone village land and the Hollington land each sold
+with an achieved price; Heathy Grove Farm sold prior with a null price; and the
+Fradley building plot withdrawn with a null price. Exclude all five published
+per-acre comparisons and the previously saved navigation card from net growth.
+Keep the two Leigh Road parcels separate legal interests, preserve the saved
+snapshot and leave the event and national completeness false until its original
+lot inventory reconciles.
