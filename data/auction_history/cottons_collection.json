@@ -1,14 +1,14 @@
 {
-  "checked_at": "2026-11-05T02:53:06.941401+00:00",
+  "checked_at": "2026-11-05T05:30:51.471385+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 135,
-  "result_sheets_complete": 129,
-  "result_sheets_blocked": 3,
+  "result_sheets_complete": 128,
+  "result_sheets_blocked": 6,
   "result_sheets_reused": 128,
   "result_sheets_attempted_this_run": 4,
   "result_sheets_pending": 0,
   "ocr_sheets_attempted_this_run": 3,
-  "ocr_appearances_recovered_this_run": 144,
+  "ocr_appearances_recovered_this_run": 0,
   "appearances_captured": 7474,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
@@ -34,9 +34,9 @@
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-11-05T02:51:43.590936+00:00",
-    "sha256": "0be161863e4c0290367dd9ff5081127e88284c56ed9246ca33e2a1f90630f7fb",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-0be161863e4c0290.json.gz",
+    "retrieved_at": "2026-11-05T05:30:48.296751+00:00",
+    "sha256": "1c432a7d38c87ae1368b687037d4c9ac244d863de09c37199a11d4255299c9d7",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-1c432a7d38c87ae1.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -63,6 +63,30 @@
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained image-only result PDF failed bounded OCR recovery",
       "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: ValueError: duplicate lot labels in result PDF with conflicting evidence; PSM 3: ValueError: duplicate lot labels in result PDF with conflicting evidence; PSM 6: ValueError: result table header is absent; PSM 11: ValueError: result table header is absent; PSM 12: ValueError: result table header is absent"
+    },
+    {
+      "auction_id": "cottons:2016-09-06:a34f0a04cfc6",
+      "auction_date": "2016-09-06",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-6th-Sept-as-of-26th-Sept-2016.pdf",
+      "error": "ValueError: result PDF contains no usable text",
+      "reason": "retained image-only result PDF failed bounded OCR recovery",
+      "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: RuntimeError: OCR requires pdftoppm and tesseract; PSM 3: RuntimeError: OCR requires pdftoppm and tesseract; PSM 6: RuntimeError: OCR requires pdftoppm and tesseract; PSM 11: RuntimeError: OCR requires pdftoppm and tesseract; PSM 12: RuntimeError: OCR requires pdftoppm and tesseract"
+    },
+    {
+      "auction_id": "cottons:2015-09-10:15c6c688fedb",
+      "auction_date": "2015-09-10",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-10th-Sept-15-as-22nd-Jan16.pdf",
+      "error": "ValueError: result PDF contains no usable text",
+      "reason": "retained image-only result PDF failed bounded OCR recovery",
+      "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: RuntimeError: OCR requires pdftoppm and tesseract; PSM 3: RuntimeError: OCR requires pdftoppm and tesseract; PSM 6: RuntimeError: OCR requires pdftoppm and tesseract; PSM 11: RuntimeError: OCR requires pdftoppm and tesseract; PSM 12: RuntimeError: OCR requires pdftoppm and tesseract"
+    },
+    {
+      "auction_id": "cottons:2014-12-04:8226a06bdcf3",
+      "auction_date": "2014-12-04",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-4th-Dec-as-of-20th-Jan15.pdf",
+      "error": "ValueError: result PDF contains no usable text",
+      "reason": "retained image-only result PDF failed bounded OCR recovery",
+      "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: RuntimeError: OCR requires pdftoppm and tesseract; PSM 3: RuntimeError: OCR requires pdftoppm and tesseract; PSM 6: RuntimeError: OCR requires pdftoppm and tesseract; PSM 11: RuntimeError: OCR requires pdftoppm and tesseract; PSM 12: RuntimeError: OCR requires pdftoppm and tesseract"
     }
   ],
   "failures": []

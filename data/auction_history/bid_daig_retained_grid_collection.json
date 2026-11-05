@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-05T02:27:01.593519+00:00",
+  "checked_at": "2026-11-05T05:25:58.293891+00:00",
   "auctioneer": "Bid.",
   "parser_version": 8,
   "source_url": "https://properties.thebid.uk/search",
   "platform_event_id": null,
-  "archive_sha256": "2329bf54c7e7a9d1f00ca6beb2183207aae6b982f4a46040264f900be773e5e7",
+  "archive_sha256": "c95057c6955149f06626ecae1d2aa24ee3edc832c69b5f26ae1d28bb037758e6",
   "archive_page_count": 9,
   "archive_page_rows": [
     20,
@@ -1411,42 +1411,38 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 254,
-  "run_new_appearances": 254,
-  "run_new_address_records": 254,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 254,
-  "run_new_commercial_mixed": 5,
-  "run_new_guide_prices": 249,
-  "run_new_sale_prices": 5,
-  "run_new_rents": 6,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
   "exact_overlap_reconciliation": [],
-  "new_source_years": [
-    2024,
-    2025,
-    2026
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-06-26",
     "2026-06-30"
   ],
   "by_status": {
-    "unsold": 22,
     "sold_prior": 212,
-    "withdrawn": 6,
+    "unsold": 22,
     "sold_after": 11,
-    "sold": 3
+    "sold": 3,
+    "withdrawn": 6
   },
   "by_sector": {
     "residential": 210,
     "unknown": 37,
-    "mixed-use": 1,
     "commercial": 4,
-    "land": 2
+    "land": 2,
+    "mixed-use": 1
   },
   "by_attributed_auctioneer": {
     "Bid.": 254
