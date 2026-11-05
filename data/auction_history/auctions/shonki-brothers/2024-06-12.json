@@ -7,14 +7,12 @@
   "auction_date_precision": "day",
   "source_url": "https://online.fliphtml5.com/bqhel/xjhy/",
   "visible_order_of_sale_lots": 20,
-  "individual_lot_pages": 19,
-  "lots_captured": 19,
-  "catalogue_complete": false,
+  "individual_lot_pages": 20,
+  "lots_captured": 20,
+  "catalogue_complete": true,
   "source_rows_complete": true,
-  "denominator_reconciled": false,
-  "missing_individual_lot_pages": [
-    "16"
-  ],
+  "denominator_reconciled": true,
+  "missing_individual_lot_pages": [],
   "unexpected_individual_lot_pages": [],
   "completion_scope": "every retained individual lot page reconciled to the printed order of sale; missing order entries remain explicit",
   "source_evidence": {
@@ -32,8 +30,6 @@
     "basis": "first-party retained catalogue page-text inventory and book configuration",
     "auction_date": "2024-06-12"
   },
-  "errors": [
-    "printed order lots without individual lot page: ['16']"
-  ],
-  "checked_at": "2026-11-05T07:28:40.533644+00:00"
+  "errors": [],
+  "checked_at": "2026-11-05T07:40:30.539657+00:00"
 }
