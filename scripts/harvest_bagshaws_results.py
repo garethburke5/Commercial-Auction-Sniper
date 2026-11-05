@@ -274,6 +274,17 @@ RETAINED_NARRATIVE_RESULTS = {
         ("Land at Fenny Bentley Lot B", None, "unsold"),
         ("Millers Green Farm, Wirksworth", None, "unsold"),
     ],
+    "bakewell-property-auction-september-2021": [
+        ("Lot 1 Land off New Road", 44000, "sold"),
+        ("Lot 2 Brierlow Bar Wood, Buxton", 24000, "sold"),
+        ("Lot 3 Land and Buildings off Meadow Lane, Tideswell", 83000, "sold"),
+        ("Lot 4 Land off Alabaster Lane at Cromford 3.07 acres", 36000, "sold"),
+        ("Lot 5 Land off Alabaster Lane at Cromford 12.38 acres", 90000, "sold"),
+        ("Lot 6 grassland off Valley Road, Hayfield", 48000, "sold"),
+        ("Lot 7 Denhills, Ashbourne Lane, Chapel en le Frith", 345000, "sold"),
+        ("Lot 8 Brookfield Grove, Ashford in the Water", None, "unsold"),
+        ("Lot 9 Westhaven/The Beeches", None, "postponed"),
+    ],
     "uttoxeter-land-and-property-auction-may-2024": [
         ("Lot 1 equestrian yard at Marston, Stafford extending to 5.06 acres", 242000, "sold"),
         ("Lot 2 4.76 acres of pastureland at Hayfield Hill Road, Rugeley", 92000, "sold"),
