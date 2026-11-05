@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Extend the saved-snapshot Bagshaws narrative importer to the retained 25 March and 20 May 2024 pages. At least 20 individually identifiable sold properties survive across those two first-party pages: thirteen on 25 March (including five sold prior) and seven on 20 May. Bank only property-level rows with explicit source text, outcome and price; keep aggregate turnover and per-acre comparables separate; do not invent the unidentified unsold or available rows; reconcile exact date/address overlaps; then continue through the remaining retained 2024 pages. Keep national completeness false.",
+  "next_growth_target": "Extend the saved-snapshot Bagshaws narrative importer to eight individually priced Uttoxeter appearances across 1 May, 10 July and 23 October 2024: three sold lots on 1 May, two on 10 July (including the commercial Mill Street, Cannock property) and three on 23 October. Preserve the exact dates, individual achieved prices and original saved-page evidence; ignore per-acre comparables; do not invent the unidentified May sold-prior lot or any unidentified unsold lots; reconcile exact date/address overlaps; keep every event incomplete where its published denominator cannot be fully named. Keep national completeness false.",
   "runs": [
     {
       "source": "anderson_garland_results",
@@ -5113,6 +5113,72 @@
       "partial": 10952,
       "undated": 5016,
       "future_dated": 150
+    },
+    "national_completeness_verified": false
+  },
+  "bagshaws_2024_saved_narrative_follow_on": {
+    "checked_at": "2026-11-05T13:08:23.413498+00:00",
+    "source": "Bagshaws retained first-party 25 March and 20 May 2024 auction-page narrative inventories",
+    "saved_pages_reparsed": 2,
+    "event_dates": [
+      "2024-03-25",
+      "2024-05-20"
+    ],
+    "source_years_observed": [
+      2024
+    ],
+    "newly_covered_source_years": [],
+    "net_new_appearances": 20,
+    "new_address_records": 20,
+    "new_dated_address_records_in_twenty_year_window": 20,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_land_appearances": 5,
+    "new_unknown_sector_appearances": 15,
+    "new_guide_prices": 0,
+    "new_sale_prices": 15,
+    "new_rent_values": 0,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "duplicate_appearance_ids": 0,
+    "outcome_breakdown": {
+      "sold": 15,
+      "sold_prior": 5
+    },
+    "newly_inventoried_saved_source_pages": 2,
+    "newly_reconciled_complete_source_event_inventories": 0,
+    "source_scope": {
+      "2024-03-25": "15 lots were offered under the hammer and five additional lots were named as sold prior; eight offered sales and all five named sold-prior properties were banked. Seven offered lots remain individually unidentified.",
+      "2024-05-20": "12 properties were offered; seven individually named sold properties were banked. Five remaining available lots were not individually identified and were not admitted."
+    },
+    "catalogue_completion_claimed": false,
+    "operator_reconciliation": "Bagshaws remains one LLP/operator; offices and branches are attribution and were not counted as additional auctioneers.",
+    "collector_release_commit": "9a8d9a33c1e09d8c11596a34bc54b40bec5dff43",
+    "collection_run_id": 42032552758,
+    "banked_commit": "82584b78530e1e725cbbcdb60ff7e80b459039d8",
+    "publication_run_id": 42033335974,
+    "release_triggered_revalidation": {
+      "run_id": 42032552698,
+      "outcome": "failed without writing or publishing",
+      "blocker": "authoritative live-source rich-particular coverage remained 50% for Auction House Cumbria and Auction House National Online",
+      "retried": false
+    },
+    "database_rebuild_verified": true,
+    "publication_verified": true,
+    "production_domain_verified": true,
+    "corpus_after_rebuild": {
+      "appearances": 310099,
+      "address_records": 299147,
+      "in_window_appearances": 301838,
+      "in_window_guide_prices": 104815,
+      "in_window_sale_prices": 111998,
+      "partial": 10952,
+      "undated": 5016,
+      "future_dated": 150,
+      "complete_catalogue_states": 4507,
+      "incomplete_catalogue_states": 556,
+      "fetch_or_parse_failures": 31
     },
     "national_completeness_verified": false
   }
