@@ -1,0 +1,27 @@
+{
+  "auctioneer": "City & Rural Property Auctions",
+  "operator_legal_name": "CITY & RURAL PROPERTY AUCTIONS LTD",
+  "operator_company_number": "14273913",
+  "source_auction_id": "city-rural-property-auctions:auction-29-01-2025-0000",
+  "auction_date": "2025-01-29",
+  "auction_date_precision": "day",
+  "source_url": "https://cityandruralpropertyauctions.com/auction/auction-29-01-2025-0000/",
+  "visible_property_cards": 0,
+  "lots_captured": 0,
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "denominator_reconciled": false,
+  "published_lot_denominator": null,
+  "completion_scope": "all visible individual property cards on the retained first-party event page",
+  "source_evidence": {
+    "source_url": "https://cityandruralpropertyauctions.com/auction/auction-29-01-2025-0000/",
+    "retrieved_at": "2026-11-05T09:34:24.282227+00:00",
+    "sha256": "990b9fca00f9a544760a02cefdf3ea71d6b9a637b3e7dd8af49ead804102c454",
+    "snapshot_path": "data/auction_history/sources/city-rural-property-auctions/event-2025-01-29-990b9fca00f9a544.html.gz",
+    "basis": "first-party exact-dated auction page with individual property cards"
+  },
+  "errors": [
+    "retained event page exposes no individual property cards"
+  ],
+  "checked_at": "2026-11-05T09:34:24.298749+00:00"
+}

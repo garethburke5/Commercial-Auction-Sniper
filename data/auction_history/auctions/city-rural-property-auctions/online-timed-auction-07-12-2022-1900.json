@@ -1,0 +1,27 @@
+{
+  "auctioneer": "City & Rural Property Auctions",
+  "operator_legal_name": "CITY & RURAL PROPERTY AUCTIONS LTD",
+  "operator_company_number": "14273913",
+  "source_auction_id": "city-rural-property-auctions:online-timed-auction-07-12-2022-1900",
+  "auction_date": "2022-12-07",
+  "auction_date_precision": "day",
+  "source_url": "https://cityandruralpropertyauctions.com/auction/online-timed-auction-07-12-2022-1900/",
+  "visible_property_cards": 0,
+  "lots_captured": 0,
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "denominator_reconciled": false,
+  "published_lot_denominator": null,
+  "completion_scope": "all visible individual property cards on the retained first-party event page",
+  "source_evidence": {
+    "source_url": "https://cityandruralpropertyauctions.com/auction/online-timed-auction-07-12-2022-1900/",
+    "retrieved_at": "2026-11-05T09:34:20.225402+00:00",
+    "sha256": "5c16109cb9e2a96fbd620730e3c9e5817173d58baf1597f9dd23fe88000318ee",
+    "snapshot_path": "data/auction_history/sources/city-rural-property-auctions/event-2022-12-07-5c16109cb9e2a96f.html.gz",
+    "basis": "first-party exact-dated auction page with individual property cards"
+  },
+  "errors": [
+    "retained event page exposes no individual property cards"
+  ],
+  "checked_at": "2026-11-05T09:34:20.361684+00:00"
+}

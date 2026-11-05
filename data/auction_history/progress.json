@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-05T07:42:01.048265+00:00",
-  "individual_lot_records_captured": 309720,
-  "records_with_address": 298768,
+  "generated_at": "2026-11-05T09:36:29.579380+00:00",
+  "individual_lot_records_captured": 309886,
+  "records_with_address": 298934,
   "partial_lot_records": 10952,
-  "exact_address_groups": 166694,
-  "groups_with_repeat_appearances": 42509,
+  "exact_address_groups": 166815,
+  "groups_with_repeat_appearances": 42543,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -66,6 +66,7 @@
     "Brown&Co": 472,
     "Butters John Bee": 1446,
     "Cheffins": 740,
+    "City & Rural Property Auctions": 166,
     "Clarke & Simpson": 168,
     "Clive Emson": 4152,
     "Cottons": 7474,
@@ -143,27 +144,27 @@
     "2019": 7891,
     "2020": 13808,
     "2021": 21108,
-    "2022": 26307,
-    "2023": 32602,
-    "2024": 42080,
-    "2025": 48164,
-    "2026": 46885,
+    "2022": 26327,
+    "2023": 32647,
+    "2024": 42124,
+    "2025": 48188,
+    "2026": 46918,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42499,
-    "land": 18834,
-    "mixed-use": 47400,
-    "residential": 150603,
-    "unknown": 50384
+    "commercial": 42513,
+    "land": 18854,
+    "mixed-use": 47409,
+    "residential": 150713,
+    "unknown": 50397
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4473,
-  "catalogues_incomplete_or_unreconciled": 550,
-  "catalogue_fetch_or_parse_failures": 26,
+  "surviving_catalogues_completely_harvested": 4503,
+  "catalogues_incomplete_or_unreconciled": 555,
+  "catalogue_fetch_or_parse_failures": 31,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -175,13 +176,13 @@
     "through_date": "2026-11-05",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 301461,
-      "auction_ids_observed": 12755,
-      "with_guide_price": 104584,
-      "with_sale_price": 111827,
-      "with_both_prices": 48342,
-      "marked_sold": 154266,
-      "marked_sold_without_sale_price": 43179
+      "lot_appearances": 301627,
+      "auction_ids_observed": 12785,
+      "with_guide_price": 104749,
+      "with_sale_price": 111859,
+      "with_both_prices": 48374,
+      "marked_sold": 154347,
+      "marked_sold_without_sale_price": 43228
     },
     "by_auctioneer_and_year": [
       {
@@ -3890,6 +3891,61 @@
         "with_both_prices": 0,
         "marked_sold": 37,
         "marked_sold_without_sale_price": 10
+      },
+      {
+        "auctioneer": "City & Rural Property Auctions",
+        "year": 2022,
+        "lot_appearances": 20,
+        "auction_ids_observed": 3,
+        "with_guide_price": 20,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "City & Rural Property Auctions",
+        "year": 2023,
+        "lot_appearances": 45,
+        "auction_ids_observed": 8,
+        "with_guide_price": 44,
+        "with_sale_price": 10,
+        "with_both_prices": 10,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "City & Rural Property Auctions",
+        "year": 2024,
+        "lot_appearances": 44,
+        "auction_ids_observed": 7,
+        "with_guide_price": 44,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 16
+      },
+      {
+        "auctioneer": "City & Rural Property Auctions",
+        "year": 2025,
+        "lot_appearances": 24,
+        "auction_ids_observed": 6,
+        "with_guide_price": 24,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 15
+      },
+      {
+        "auctioneer": "City & Rural Property Auctions",
+        "year": 2026,
+        "lot_appearances": 33,
+        "auction_ids_observed": 6,
+        "with_guide_price": 33,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 14,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Clarke & Simpson",
