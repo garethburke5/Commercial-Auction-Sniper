@@ -1040,6 +1040,7 @@ jobs:
       - name: Bank Bagshaws retained narrative result inventories
         if: startsWith(github.event.head_commit.message, 'Run focused Bagshaws saved narrative expansion')
         timeout-minutes: 10
+        # Reparse only immutable saved first-party pages; do not refresh the live archive.
         run: |
           python -m pytest -q tests/test_bagshaws_results.py
           python -u scripts/harvest_bagshaws_results.py --reparse-saved-narratives
