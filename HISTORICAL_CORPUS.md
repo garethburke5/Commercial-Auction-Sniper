@@ -891,3 +891,43 @@ sold properties with seven achieved prices and explicitly reports a 100%
 clearance. Bank those seven rows next, excluding the £/acre comparisons and the
 previously saved navigation card from net growth. Keep both events and national
 coverage incomplete unless their original lot inventories reconcile.
+
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws September 2025)
+
+The retained Bagshaws Bakewell page dated 22 September 2025 has now been
+reparsed and banked from its immutable first-party HTML snapshot. Ten named
+appearances were added: six sold properties with achieved prices, Hollyseat
+Cottage sold prior with a null price, and three available properties whose
+individual outcome remains unknown because the page only says they "did not
+sell or were postponed". That wording is preserved verbatim; no unsupported
+unsold or postponed status was assigned. The £1.85m aggregate was excluded.
+
+Net gain: 10 appearances, 10 address records and 10 exact-dated records inside
+the preceding 20-year window. Two are land and eight unknown; none are
+commercial or mixed-use. The gain contains six achieved prices, no guide prices
+and no rents, with no new partial, undated, future-dated or duplicate result
+identities. No source-year was opened because Bagshaws 2025 was already
+represented. Bagshaws now has 298 appearances. The rebuilt corpus totals are
+310,661 appearances, 299,709 address records, 302,400 in-window appearances,
+104,815 in-window guides and 112,064 in-window achieved prices. An intervening
+bounded run banked 492 records from other sources before this focused run; those
+unrelated rows are deliberately excluded from the Bagshaws gain.
+
+Ambiguity-preserving parser release:
+`ef5696415bea0430ea0d5ee0cf07043884542337`; focused price-evidence trigger
+`f68ec8dd31b6f426b3b6923f8a1414d94528eb1f`; successful collection and rebuild
+run `42109099934`; banked evidence
+`6b94a4582be87708ce227277ee70ac25fe4d82e3`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42109926388`.
+
+Next concrete growth target: run the prepared retained Bagshaws Uttoxeter page
+dated 10 May 2023 (`uttoxeter-land-and-property-auction-may-2023`). Its seven
+named sold appearances have seven individual achieved prices, exact dates and
+original saved-page evidence. Exclude the three published per-acre comparisons
+and the previously saved navigation card from net growth. The importer and 126
+tests are persisted in `edd3911412f52b1999a0bfad209dfbc6e209b3d9`; a local
+saved-snapshot dry run yields seven new address rows, all sector-unknown, with
+no guides, rents, partial, undated, future-dated or duplicate rows. At this
+handoff, the separate live-snapshot revalidation from the September trigger
+remains active in checkout; preserve its eventual checkpoint and do not overlap
+or rerun it. National completeness remains false.
