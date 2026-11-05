@@ -1,5 +1,6 @@
 import pytest
 
+from scripts import harvest_bagshaws_results as bagshaws
 from scripts.harvest_bagshaws_results import (
     parse_archive,
     parse_auction,
@@ -57,6 +58,8 @@ def test_cards_and_results_are_merged_only_on_strict_source_keys():
     assert detail == {
         "property_cards": 2,
         "published_result_rows": 3,
+        "published_table_result_rows": 3,
+        "published_narrative_result_rows": 0,
         "result_rows_matched_to_cards": 2,
         "result_rows_without_matching_card": 1,
     }
@@ -72,6 +75,34 @@ def test_cards_and_results_are_merged_only_on_strict_source_keys():
     assert all(row["record_quality"] == "address_record" for row in rows)
 
 
+def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
+    monkeypatch.setitem(
+        bagshaws.RETAINED_NARRATIVE_RESULTS,
+        "saved-narrative-sale",
+        [
+            ("3.5 acres at Test Lane, Bakewell", 125000, "sold"),
+            ("Old Barn, Test Village", None, "unsold"),
+        ],
+    )
+    html = """
+    <p>This auction was held on Monday 18th July 2022.</p>
+    <p>3.5 acres at Test Lane, Bakewell £125,000</p>
+    <p>Old Barn, Test Village remains unsold.</p>
+    """
+    _, rows, detail = parse_auction(
+        html,
+        "https://www.bagshaws.com/property-auction/saved-narrative-sale/",
+        {"sha256": "saved-source"},
+    )
+    assert detail["published_table_result_rows"] == 0
+    assert detail["published_narrative_result_rows"] == 2
+    by_title = {row["address"]: row for row in rows}
+    assert by_title["3.5 acres at Test Lane, Bakewell"]["sale_price"] == 125000
+    assert by_title["3.5 acres at Test Lane, Bakewell"]["status"] == "sold"
+    assert by_title["Old Barn, Test Village"]["sale_price"] is None
+    assert by_title["Old Barn, Test Village"]["status"] == "unsold"
+
+
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
     date, rows, detail = parse_auction(
         "<p>This auction was held on 18th November 2019.</p><p>Narrative only.</p>",
@@ -82,6 +113,18 @@ def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
     assert rows == []
     assert detail["property_cards"] == 0
     assert detail["published_result_rows"] == 0
+
+
+def test_navigation_property_of_the_week_is_not_a_lot():
+    _, rows, _ = parse_auction(
+        """
+        <p>This auction was held on 18th November 2019.</p>
+        <a href="/property/promotional-property/">Property of the week</a>
+        """,
+        "https://www.bagshaws.com/property-auction/old-sale/",
+        {},
+    )
+    assert rows == []
 
 
 def test_missing_date_and_empty_archive_are_rejected():
