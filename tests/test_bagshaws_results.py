@@ -109,6 +109,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
 @pytest.mark.parametrize(
     ("slug", "auction_date", "expected_rows", "expected_prices", "expected_prior"),
     [
+        ("bagshaws-march-land-property-auction-bakewell", "2026-03-23", 9, 5, 0),
         ("bakewell-land-property-auction-2024-march", "2024-03-25", 13, 8, 5),
         ("bakewell-land-property-auction-may-2024", "2024-05-20", 7, 7, 0),
         ("uttoxeter-land-and-property-auction-may-2024", "2024-05-01", 3, 3, 0),
@@ -507,6 +508,44 @@ def test_uttoxeter_september_2020_keeps_outcomes_and_land_interests_separate():
         {15973, 15275, 40789, 10650}
         & {row["sale_price"] for row in narrative_rows if row["sale_price"] is not None}
     )
+
+
+def test_march_2026_reconciles_all_nine_named_outcomes_without_aggregate_price():
+    slug = "bagshaws-march-land-property-auction-bakewell"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+
+    assert observed_date == "2026-03-23"
+    assert detail == {
+        "property_cards": 0,
+        "published_result_rows": 9,
+        "published_table_result_rows": 0,
+        "published_narrative_result_rows": 9,
+        "result_rows_matched_to_cards": 0,
+        "result_rows_without_matching_card": 9,
+    }
+    assert len(narrative_rows) == 9
+    assert len({row["appearance_id"] for row in narrative_rows}) == 9
+    assert {row["sale_price"] for row in narrative_rows if row["sale_price"] is not None} == {
+        86000,
+        110000,
+        180000,
+        230000,
+        390000,
+    }
+    assert sum(row["sale_price"] or 0 for row in narrative_rows) == 996000
+    assert sum(row["status"] == "sold" for row in narrative_rows) == 5
+    assert sum(row["status"] == "unsold" for row in narrative_rows) == 4
+    assert all(row["sale_price"] is None for row in narrative_rows if row["status"] == "unsold")
+    assert 1000000 not in {row["sale_price"] for row in narrative_rows}
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():

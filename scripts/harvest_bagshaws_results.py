@@ -52,6 +52,17 @@ LOT_RE = re.compile(r"\bLot\s+([A-Za-z0-9]+)\b", re.I)
 # aggregate turnover figures, per-acre comparables and ambiguous related legal
 # interests.
 RETAINED_NARRATIVE_RESULTS = {
+    "bagshaws-march-land-property-auction-bakewell": [
+        ("Land at Haughton, Stafford", 110000, "sold"),
+        ("Land and Buildings off Bonsall Lane, Bonsall, Matlock", 86000, "sold"),
+        ("Homestead Cottage, Alstonefield", 230000, "sold"),
+        ("Moorfield Farm, Charlestown, Glossop", 390000, "sold"),
+        ("23 Church Street, Ashbourne", 180000, "sold"),
+        ("Land at the Gates, Taddington (0.60 acres)", None, "unsold"),
+        ("Land at Tearsall Farm, Bonsall (8.62 acres)", None, "unsold"),
+        ("Toll House Nursery, Mavesyn Ridware, Rugeley", None, "unsold"),
+        ("Northlands, Chelmorton", None, "unsold"),
+    ],
     "bakewell-property-auction-august-2020": [
         ("Lot 1 Farmhouse and 6.54 acres", 400000, "sold"),
         ("Lot 2 Yard, Buildings and 7.29 acres", 315000, "sold"),
