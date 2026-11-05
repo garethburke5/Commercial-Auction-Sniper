@@ -171,7 +171,28 @@
       "marked_sold_without_sale_price": 43179
     },
     "national_completeness_verified": false,
-    "different_next_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false."
+    "different_next_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false.",
+    "post_handoff_zero_growth_checkpoint": {
+      "collection_run_id": 41977332619,
+      "banked_commit": "b202f9a32dba6d6d5acbbfca5b41337c02a3b2c8",
+      "publication_run_id": 41980109647,
+      "net_new_appearances": 0,
+      "new_address_records": 0,
+      "new_dated_address_records_in_twenty_year_window": 0,
+      "new_commercial_appearances": 0,
+      "new_mixed_use_appearances": 0,
+      "new_guide_prices": 0,
+      "new_sale_prices": 0,
+      "new_rent_values": 0,
+      "new_partial_lots": 0,
+      "new_undated_appearances": 0,
+      "new_future_dated_appearances": 0,
+      "blocker": "Changing the historical workflow to add the focused-run guard itself matched that workflow's push paths, launching one bounded rotation. It refreshed generated timestamps and checkpoints but the rebuilt corpus metrics were byte-for-byte equivalent in all requested count dimensions; no collection growth is claimed.",
+      "action": "The run completed as the only writer, its exact unchanged corpus was rebuilt and published, and no additional collector was launched. Future focused Shonki runs now exit both the unrelated Cottons enrichment and bounded rotation guards.",
+      "different_next_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false.",
+      "publication_verified": true,
+      "production_domain_verified": true
+    }
   },
   "next_growth_target": "Collect the seven older first-party FlipHTML5 catalogues linked from Shonki Brothers' official catalogue page, using a materially different retained-page route rather than re-fetching the completed PDFs. Start with https://online.fliphtml5.com/bqhel/btto/ (title: 24th July 2024 Auction Catalogue), then inventory and parse https://online.fliphtml5.com/bqhel/xjhy/ (12th June 2024), https://online.fliphtml5.com/bqhel/ffjt/ (filename evidence points to 17 April 2024), https://online.fliphtml5.com/bqhel/hyte/ (February catalogue; exact day must be extracted), https://online.fliphtml5.com/bqhel/lbbd/ (filename evidence points to 22 November 2023), https://online.fliphtml5.com/bqhel/ogvn/ (September 2023; exact day must be extracted), and https://online.fliphtml5.com/bqhel/bfrt/ (title: July 19th Auction; year must be verified from the catalogue). Retain config/page assets as immutable evidence, reconcile every order-of-sale lot to its individual page, preserve exact dates, guides, rents and original URLs, and exclude exact overlaps with the 300 already banked PDF lots before claiming growth. National completeness remains false.",
   "runs": [
@@ -3758,7 +3779,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 19274,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:05:56.184732+00:00"
     },
     {
@@ -3870,7 +3891,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 19261,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:07:00.622618+00:00"
     },
     {
@@ -3942,7 +3963,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 19267,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:07:32.561616+00:00"
     },
     {
@@ -3990,7 +4011,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 9675,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:07:45.322134+00:00"
     },
     {
@@ -3998,7 +4019,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 9709,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:07:45.331265+00:00"
     },
     {
@@ -4014,7 +4035,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 9714,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:07:52.984322+00:00"
     },
     {
@@ -4022,7 +4043,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 9718,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-05T06:07:52.993216+00:00"
     },
     {
