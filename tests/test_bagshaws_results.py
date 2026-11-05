@@ -114,9 +114,10 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("uttoxeter-land-and-property-auction-may-2024", "2024-05-01", 3, 3, 0),
         ("uttoxeter-land-and-property-auction-july-2024-2", "2024-07-10", 2, 2, 0),
         ("uttoxeter-land-property-auction-october-2024", "2024-10-23", 3, 3, 0),
+        ("bakewell-land-property-auction-in-november", "2025-11-17", 14, 12, 2),
     ],
 )
-def test_retained_2024_narratives_reconcile_only_identified_property_rows(
+def test_retained_narratives_reconcile_only_identified_property_rows(
     slug, auction_date, expected_rows, expected_prices, expected_prior
 ):
     state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
@@ -155,6 +156,38 @@ def test_uttoxeter_mill_street_result_is_commercial_and_not_duplicated():
     assert len(mill_street) == 1
     assert mill_street[0]["sector"] == "commercial"
     assert mill_street[0]["sale_price"] == 175000
+
+
+def test_november_2025_lot_interests_stay_separate_and_sold_prior_prices_are_null():
+    slug = "bakewell-land-property-auction-in-november"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    _, rows, _ = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_address = {row["address"]: row for row in narrative_rows}
+
+    assert [by_address[f"Crowdecote, Longnor Lot {lot}"]["sale_price"] for lot in "ABC"] == [
+        20000,
+        70000,
+        38000,
+    ]
+    assert [by_address[f"Within House Farm, Bradwell Lot {lot}"]["sale_price"] for lot in "ABC"] == [
+        810000,
+        80000,
+        123000,
+    ]
+    sold_prior = [row for row in narrative_rows if row["status"] == "sold_prior"]
+    assert {row["address"] for row in sold_prior} == {
+        "Land off Grin Low, Sheldon",
+        "Little Broadgates Farm, Ashleyhay",
+    }
+    assert all(row["sale_price"] is None for row in sold_prior)
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
