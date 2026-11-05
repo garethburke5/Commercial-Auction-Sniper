@@ -774,3 +774,44 @@ and preserve the existing saved snapshot. This handoff supersedes older
 Bagshaws target text in `continuation_collection.json` and earlier sections of
 this file.
 
+
+
+## Latest persisted collection handoff — 5 November 2026 (Bagshaws May 2025)
+
+The retained Bagshaws Bakewell page dated 19 May 2025 has been reparsed from
+its immutable first-party HTML snapshot. Thirteen individually named outcomes
+were added: six sales with achieved prices, two sold-prior outcomes, one
+sold-after outcome and four unsold interests. Bowling Green Farm Lots A and B
+and Land at Fenny Bentley Lots A and B remain distinct legal interests. Every
+non-priced outcome retains a null sale price. The previously banked navigation-
+derived page card was preserved rather than discarded, but is excluded from
+this run's growth. The source does not publish a complete original catalogue
+denominator, so the event remains incomplete and national completeness remains
+false.
+
+Net gain: 13 appearances, 13 address records and 13 exact-dated records inside
+the preceding 20-year window. Nine are land and four unknown; none are
+commercial or mixed-use. The gain contains 6 achieved prices, no guide prices
+and no rents, with no new partial, undated, future-dated or duplicate result
+identities. No new source-year was opened because Bagshaws 2025 evidence was
+already present. The rebuilt corpus totals are 310,150 appearances, 299,198
+address records, 301,889 in-window appearances, 104,815 in-window guides and
+112,038 in-window achieved prices. Bagshaws now has 279 appearances.
+
+Collection release: `1b4654e684b4d784c9156081a39e50085307231d`;
+successful collection and rebuild run `42081577868`; banked evidence
+`cc1666b567a3cbd68a7110cc2546879f4595301e`; verified GitHub Pages and
+auctiongeek.co.uk publication run `42082542540`. Separate live-snapshot
+revalidation run `42081577877` timed out while still in checkout and was
+preserved as cancelled without collecting, writing or publishing; it was not
+rerun.
+
+Next concrete growth target: reparse the retained Bagshaws Bakewell page dated
+20 September 2021 (`bakewell-property-auction-september-2021`) and bank its
+nine individually named interests: seven sold lots with achieved prices, Lot 8
+Brookfield Grove as unsold and Lot 9 Westhaven/The Beeches as postponed. Keep
+Lots 4 and 5 at Alabaster Lane separate, ignore every per-acre comparison,
+preserve unknown guide and rent values as null, reconcile exact-event overlaps,
+and leave the event incomplete unless its original denominator reconciles.
+This handoff supersedes older Bagshaws target text in
+`continuation_collection.json` and earlier sections of this file.
