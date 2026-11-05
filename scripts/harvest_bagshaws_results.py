@@ -186,6 +186,32 @@ RETAINED_NARRATIVE_RESULTS = {
         ("Agricultural land off Summer Lane, Wirksworth", None, "sold_prior"),
         ("7.95 acres at Heage Road, Ripley", None, "postponed"),
     ],
+    "bakewell-land-property-auction-2023-september": [
+        (
+            "Old Corners Farm at Quarnford",
+            None,
+            "sold",
+            None,
+            "Old Corners Farm and a further 13.24 acres collectively sold for £460,000",
+        ),
+        (
+            "Further 13.24 acres at Quarnford",
+            None,
+            "sold",
+            None,
+            "Old Corners Farm and a further 13.24 acres collectively sold for £460,000",
+        ),
+        ("15.07 acres of land at Freehay, Stoke on Trent", 192000, "sold"),
+        ("Former St John's ambulance site at Hope", 140000, "sold"),
+        ("3.59 acres of grassland off Moor Lane, Elton", 50000, "sold"),
+        (
+            "4 acres off Drovers Way, Bullbridge, with stables and fishing rights",
+            57000,
+            "sold",
+        ),
+        ("28 Frith Street, Leek", 75000, "sold"),
+        ("Residential development site at Moor Edge, Birch Vale", None, "sold_after"),
+    ],
     "bakewell-land-property-auction-may": [
         ("Lot 1 3.67 acres of land and barn at Ashover", 160000, "sold"),
         ("Lot 2 4.15 acres at Ashover", 80000, "sold"),

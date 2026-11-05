@@ -114,6 +114,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("uttoxeter-land-and-property-auction-july-2021", "2021-07-21", 6, 3, 1),
         ("uttoxeter-land-and-property-auction-may-2022", "2022-05-25", 5, 4, 1),
         ("uttoxeter-land-and-property-auction-july-2022", "2022-07-20", 2, 2, 0),
+        ("bakewell-land-property-auction-2023-september", "2023-09-25", 8, 5, 0),
         ("bagshaws-march-land-property-auction-bakewell", "2026-03-23", 9, 5, 0),
         ("bakewell-land-property-auction-2024-march", "2024-03-25", 13, 8, 5),
         ("bakewell-land-property-auction-may-2024", "2024-05-20", 7, 7, 0),
@@ -509,6 +510,52 @@ def test_uttoxeter_2021_and_2022_saved_results_preserve_named_outcomes_only():
     assert "two lots of land at Hixon" not in july_2021
     july_2022 = expected["uttoxeter-land-and-property-auction-july-2022"]
     assert "two paddocks off Gravelly Lane in Stonnall" not in july_2022
+
+
+def test_september_2023_keeps_collective_quarnford_price_off_individual_interests():
+    slug = "bakewell-land-property-auction-2023-september"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_address = {row["address"]: row for row in narrative_rows}
+
+    assert observed_date == "2023-09-25"
+    assert detail["published_narrative_result_rows"] == 8
+    assert len(narrative_rows) == 8
+    assert len({row["appearance_id"] for row in narrative_rows}) == 8
+    assert {
+        address: row["sale_price"]
+        for address, row in by_address.items()
+        if row["sale_price"] is not None
+    } == {
+        "15.07 acres of land at Freehay, Stoke on Trent": 192000,
+        "Former St John's ambulance site at Hope": 140000,
+        "3.59 acres of grassland off Moor Lane, Elton": 50000,
+        "4 acres off Drovers Way, Bullbridge, with stables and fishing rights": 57000,
+        "28 Frith Street, Leek": 75000,
+    }
+
+    quarnford = [
+        by_address["Old Corners Farm at Quarnford"],
+        by_address["Further 13.24 acres at Quarnford"],
+    ]
+    assert all(row["status"] == "sold" for row in quarnford)
+    assert all(row["sale_price"] is None for row in quarnford)
+    assert all("£460,000" in row["result_text"] for row in quarnford)
+    assert by_address["Residential development site at Moor Edge, Birch Vale"]["status"] == (
+        "sold_after"
+    )
+    assert by_address["Residential development site at Moor Edge, Birch Vale"][
+        "sale_price"
+    ] is None
+    assert 460000 not in {row["sale_price"] for row in narrative_rows}
 
 
 def test_uttoxeter_september_2020_keeps_outcomes_and_land_interests_separate():
