@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-05T03:25:06.760402+00:00",
-  "individual_lot_records_captured": 308736,
-  "records_with_address": 297784,
+  "generated_at": "2026-11-05T04:12:58.591359+00:00",
+  "individual_lot_records_captured": 309214,
+  "records_with_address": 298262,
   "partial_lot_records": 10952,
-  "exact_address_groups": 166091,
-  "groups_with_repeat_appearances": 42442,
+  "exact_address_groups": 166287,
+  "groups_with_repeat_appearances": 42468,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -94,6 +94,7 @@
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Pearson Ferrier": 275,
+    "Pearsons Auctions": 478,
     "Phillip Arnold Auctions": 2431,
     "Property Auction Agent": 69,
     "Pugh Auctioneers": 6896,
@@ -140,28 +141,28 @@
     "2018": 8280,
     "2019": 7891,
     "2020": 13808,
-    "2021": 21006,
-    "2022": 26211,
-    "2023": 32497,
-    "2024": 41801,
-    "2025": 47933,
-    "2026": 46714,
+    "2021": 21108,
+    "2022": 26307,
+    "2023": 32541,
+    "2024": 41906,
+    "2025": 48033,
+    "2026": 46745,
     "2027": 4
   },
   "by_sector": {
     "commercial": 42454,
-    "land": 18781,
+    "land": 18795,
     "mixed-use": 47344,
-    "residential": 150233,
-    "unknown": 49924
+    "residential": 150305,
+    "unknown": 50316
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4426,
-  "catalogues_incomplete_or_unreconciled": 544,
-  "catalogue_fetch_or_parse_failures": 23,
+  "surviving_catalogues_completely_harvested": 4452,
+  "catalogues_incomplete_or_unreconciled": 549,
+  "catalogue_fetch_or_parse_failures": 28,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -173,13 +174,13 @@
     "through_date": "2026-11-05",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 300477,
-      "auction_ids_observed": 12702,
+      "lot_appearances": 300955,
+      "auction_ids_observed": 12733,
       "with_guide_price": 104120,
-      "with_sale_price": 111675,
+      "with_sale_price": 111811,
       "with_both_prices": 48342,
-      "marked_sold": 153990,
-      "marked_sold_without_sale_price": 43055
+      "marked_sold": 154245,
+      "marked_sold_without_sale_price": 43174
     },
     "by_auctioneer_and_year": [
       {
@@ -6242,6 +6243,72 @@
         "with_both_prices": 0,
         "marked_sold": 525,
         "marked_sold_without_sale_price": 44
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2021,
+        "lot_appearances": 102,
+        "auction_ids_observed": 7,
+        "with_guide_price": 0,
+        "with_sale_price": 41,
+        "with_both_prices": 0,
+        "marked_sold": 63,
+        "marked_sold_without_sale_price": 22
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2022,
+        "lot_appearances": 96,
+        "auction_ids_observed": 7,
+        "with_guide_price": 0,
+        "with_sale_price": 28,
+        "with_both_prices": 0,
+        "marked_sold": 50,
+        "marked_sold_without_sale_price": 22
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2023,
+        "lot_appearances": 44,
+        "auction_ids_observed": 2,
+        "with_guide_price": 0,
+        "with_sale_price": 9,
+        "with_both_prices": 0,
+        "marked_sold": 23,
+        "marked_sold_without_sale_price": 14
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2024,
+        "lot_appearances": 105,
+        "auction_ids_observed": 6,
+        "with_guide_price": 0,
+        "with_sale_price": 27,
+        "with_both_prices": 0,
+        "marked_sold": 52,
+        "marked_sold_without_sale_price": 25
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2025,
+        "lot_appearances": 100,
+        "auction_ids_observed": 7,
+        "with_guide_price": 0,
+        "with_sale_price": 23,
+        "with_both_prices": 0,
+        "marked_sold": 50,
+        "marked_sold_without_sale_price": 27
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2026,
+        "lot_appearances": 31,
+        "auction_ids_observed": 2,
+        "with_guide_price": 0,
+        "with_sale_price": 8,
+        "with_both_prices": 0,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Phillip Arnold Auctions",

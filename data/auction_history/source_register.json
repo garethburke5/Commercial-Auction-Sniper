@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-05T03:25:28.000501+00:00",
-  "corpus_checkpoint": "2026-11-05T03:25:06.760402+00:00",
+  "generated_at": "2026-11-05T04:13:23.711175+00:00",
+  "corpus_checkpoint": "2026-11-05T04:12:58.591359+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -5033,13 +5033,20 @@
       "name": "Pearsons Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/pearsons-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
+      "matched_corpus_label": "Pearsons Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 478,
+      "years_with_retained_evidence": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
       "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "with_sale_price": 136,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8115,7 +8122,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 476,
+  "directory_entries_not_linked": 475,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8205,6 +8212,7 @@
     "Pattinson Auctions": 449,
     "Paul Fosh Auctions": 5603,
     "Pearson Ferrier": 275,
+    "Pearsons Auctions": 478,
     "Phillip Arnold Auctions": 2431,
     "Property Auction Agent": 69,
     "Pugh Auctioneers": 6896,
@@ -8235,13 +8243,13 @@
     "through_date": "2026-11-05",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 300477,
-      "auction_ids_observed": 12702,
+      "lot_appearances": 300955,
+      "auction_ids_observed": 12733,
       "with_guide_price": 104120,
-      "with_sale_price": 111675,
+      "with_sale_price": 111811,
       "with_both_prices": 48342,
-      "marked_sold": 153990,
-      "marked_sold_without_sale_price": 43055
+      "marked_sold": 154245,
+      "marked_sold_without_sale_price": 43174
     },
     "by_auctioneer_and_year": [
       {
@@ -14306,6 +14314,72 @@
         "marked_sold_without_sale_price": 44
       },
       {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2021,
+        "lot_appearances": 102,
+        "auction_ids_observed": 7,
+        "with_guide_price": 0,
+        "with_sale_price": 41,
+        "with_both_prices": 0,
+        "marked_sold": 63,
+        "marked_sold_without_sale_price": 22
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2022,
+        "lot_appearances": 96,
+        "auction_ids_observed": 7,
+        "with_guide_price": 0,
+        "with_sale_price": 28,
+        "with_both_prices": 0,
+        "marked_sold": 50,
+        "marked_sold_without_sale_price": 22
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2023,
+        "lot_appearances": 44,
+        "auction_ids_observed": 2,
+        "with_guide_price": 0,
+        "with_sale_price": 9,
+        "with_both_prices": 0,
+        "marked_sold": 23,
+        "marked_sold_without_sale_price": 14
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2024,
+        "lot_appearances": 105,
+        "auction_ids_observed": 6,
+        "with_guide_price": 0,
+        "with_sale_price": 27,
+        "with_both_prices": 0,
+        "marked_sold": 52,
+        "marked_sold_without_sale_price": 25
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2025,
+        "lot_appearances": 100,
+        "auction_ids_observed": 7,
+        "with_guide_price": 0,
+        "with_sale_price": 23,
+        "with_both_prices": 0,
+        "marked_sold": 50,
+        "marked_sold_without_sale_price": 27
+      },
+      {
+        "auctioneer": "Pearsons Auctions",
+        "year": 2026,
+        "lot_appearances": 31,
+        "auction_ids_observed": 2,
+        "with_guide_price": 0,
+        "with_sale_price": 8,
+        "with_both_prices": 0,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 9
+      },
+      {
         "auctioneer": "Phillip Arnold Auctions",
         "year": 2007,
         "lot_appearances": 112,
@@ -18759,6 +18833,61 @@
       "checked_at": "2026-10-29T13:53:51.400319+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/pearsons-auctions/2.json",
+      "auctioneer": "Pearsons Auctions",
+      "auction_date": "2021-09-08",
+      "source_url": "https://pearsons.com/property-auction-results/2/september-auction-results",
+      "lots_captured": 19,
+      "errors": [
+        "visible result rows do not equal the first-party published lots-offered count; all individually identified rows retained"
+      ],
+      "checked_at": "2026-11-05T04:11:04.956436+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/pearsons-auctions/4.json",
+      "auctioneer": "Pearsons Auctions",
+      "auction_date": "2021-04-14",
+      "source_url": "https://pearsons.com/property-auction-results/4/april-auction-results",
+      "lots_captured": 13,
+      "errors": [
+        "visible result rows do not equal the first-party published lots-offered count; all individually identified rows retained"
+      ],
+      "checked_at": "2026-11-05T04:11:05.066990+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/pearsons-auctions/1.json",
+      "auctioneer": "Pearsons Auctions",
+      "auction_date": "2021-07-21",
+      "source_url": "https://pearsons.com/property-auction-results/1/july-auction-results",
+      "lots_captured": 18,
+      "errors": [
+        "visible result rows do not equal the first-party published lots-offered count; all individually identified rows retained"
+      ],
+      "checked_at": "2026-11-05T04:11:04.929096+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/pearsons-auctions/5.json",
+      "auctioneer": "Pearsons Auctions",
+      "auction_date": "2021-02-24",
+      "source_url": "https://pearsons.com/property-auction-results/5/february-auction-results",
+      "lots_captured": 18,
+      "errors": [
+        "visible result rows do not equal the first-party published lots-offered count; all individually identified rows retained"
+      ],
+      "checked_at": "2026-11-05T04:11:05.055432+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/pearsons-auctions/3.json",
+      "auctioneer": "Pearsons Auctions",
+      "auction_date": "2021-06-02",
+      "source_url": "https://pearsons.com/property-auction-results/3/june-auction-results",
+      "lots_captured": 10,
+      "errors": [
+        "visible result rows do not equal the first-party published lots-offered count; all individually identified rows retained"
+      ],
+      "checked_at": "2026-11-05T04:11:04.975921+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/auction-house-eastanglia/online-results.json",
       "auctioneer": "Auction House East Anglia",
       "auction_date": null,
@@ -21505,7 +21634,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-05T03:25:27.576510+00:00",
+    "checked_at": "2026-11-05T04:13:23.039320+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
