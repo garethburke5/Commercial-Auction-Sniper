@@ -1984,6 +1984,23 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2026-11-03": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/86733",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 58,
+        "event_advertised_lots": 57,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "boultons-harrisons": {
         "auctioneer": "Boultons Harrisons Ltd",
         "base": "https://www.boultonsauctions.co.uk",
@@ -2690,6 +2707,17 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "archive_page_visible_cards": page_visible_counts,
         "visible_source_rows": len(rows),
         "expected_visible_cards": source.get("expected_visible_cards"),
+        "event_advertised_lots": source.get("event_advertised_lots"),
+        "event_advertised_lot_discrepancy": ({
+            "advertised_event_lots": source["event_advertised_lots"],
+            "visible_result_cards": len(rows),
+            "difference": len(rows) - source["event_advertised_lots"],
+            "treatment": (
+                "preserve both first-party counts; retain every distinct visible result "
+                "card without inventing or deleting a lot"
+            ),
+        } if source.get("event_advertised_lots") is not None
+        and source.get("event_advertised_lots") != len(rows) else None),
         "published_result_count": denominator,
         "distinct_source_identities": len(set(ids)),
         "non_auction_property_cards_excluded": len(excluded_non_auction),

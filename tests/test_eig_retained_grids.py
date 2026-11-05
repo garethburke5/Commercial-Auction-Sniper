@@ -2081,6 +2081,25 @@ def test_auction_house_online_27_october_event_configuration():
         "detail_timeout": 45,
     }
 
+def test_auction_house_online_3_november_event_configuration():
+    assert grids.SOURCES["auction-house-online-2026-11-03"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/86733",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 58,
+        "event_advertised_lots": 57,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    }
+
 def test_auction_house_online_6_october_event_configuration():
     assert grids.SOURCES["auction-house-online-2026-10-06"] == {
         "auctioneer": "Auction House Online",
