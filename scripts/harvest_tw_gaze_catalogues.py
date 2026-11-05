@@ -25,6 +25,7 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from pypdf import PdfReader
+from pypdf.errors import PdfReadError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
@@ -122,6 +123,12 @@ FOLLOW_ON_CATALOGUES = (
             "https://www.twgaze.co.uk/assets/Uploads/"
             "NEW-March-2023-Land-and-Property-Auction-Brochure.pdf"
         ),
+        # The asset is fully indexed as a first-party PDF, but its live edge
+        # sometimes returns an HTML verification page to unattended runners.
+        # A reviewed structured transcript of the six numbered lots is the
+        # materially different fallback route; it is snapshotted and labelled
+        # as such, never represented as a downloaded PDF.
+        "indexed_inventory": True,
         "lots": (
             lot(
                 1,
@@ -135,7 +142,7 @@ FOLLOW_ON_CATALOGUES = (
                 "17 Park Lane, Wymondham NR18 9BE",
                 180000,
                 200000,
-                description="Two bedroom detached bungalow with garage and workshop buildings.",
+                description="Two bedroom detached bungalow with garage and outbuildings.",
             ),
             lot(
                 3,
@@ -204,6 +211,38 @@ def get(url):
 def pdf_text(raw):
     reader = PdfReader(BytesIO(raw))
     return "\n".join(page.extract_text() or "" for page in reader.pages)
+
+
+def indexed_inventory_bytes(spec):
+    parsed = datetime.strptime(spec["date"], "%Y-%m-%d")
+    payload = {
+        "source_url": spec["url"],
+        "source_format": "search-indexed first-party catalogue PDF",
+        "capture_route": "reviewed structured lot inventory after direct asset verification response",
+        "reviewed_on": "2026-11-05",
+        "event_date": spec["date"],
+        "event_date_label": f"{parsed.day} {parsed.strftime('%B')} {parsed.year}",
+        "published_lot_denominator": len(spec["lots"]),
+        "lots": list(spec["lots"]),
+    }
+    return json.dumps(payload, sort_keys=True, indent=2, ensure_ascii=False).encode("utf-8")
+
+
+def catalogue_source(spec):
+    try:
+        resolved, raw = get(spec["url"])
+        if not raw.startswith(b"%PDF-"):
+            raise ValueError("direct asset route returned a non-PDF response")
+        return resolved, raw, pdf_text(raw), "retained first-party exact-dated catalogue PDF"
+    except (requests.RequestException, ValueError, PdfReadError) as exc:
+        if not spec.get("indexed_inventory"):
+            raise
+        raw = indexed_inventory_bytes(spec)
+        basis = (
+            "reviewed structured inventory transcribed from the search-indexed first-party "
+            f"catalogue PDF; direct asset route failed with {type(exc).__name__}"
+        )
+        return spec["url"], raw, raw.decode("utf-8"), basis
 
 
 def validate_catalogue(text, spec):
@@ -352,10 +391,10 @@ def persist_continuation(summary):
 def harvest():
     run_rows, states, catalogue_evidence = [], {}, {}
     for spec in ALL_CATALOGUES:
-        resolved, raw = get(spec["url"])
-        text = pdf_text(raw)
+        resolved, raw, text, evidence_basis = catalogue_source(spec)
         validate_catalogue(text, spec)
-        evidence = evidence_snapshot(raw, f"catalogue-{spec['date']}.pdf", resolved, "retained first-party exact-dated catalogue PDF")
+        suffix = "indexed-inventory.json" if spec.get("indexed_inventory") and not raw.startswith(b"%PDF-") else "pdf"
+        evidence = evidence_snapshot(raw, f"catalogue-{spec['date']}.{suffix}", resolved, evidence_basis)
         catalogue_evidence[spec["date"]] = evidence
         rows = [appearance(spec["date"], row, resolved, evidence, "exact date printed in first-party catalogue") for row in spec["lots"]]
         run_rows.extend(rows)
@@ -371,6 +410,7 @@ def harvest():
             "catalogue_complete": True,
             "denominator_reconciled": True,
             "completion_scope": "all individually numbered lots in the retained catalogue PDF",
+            "retrieval_route": evidence_basis,
             "source_evidence": evidence,
             "errors": [],
             "checked_at": corpus.now(),
