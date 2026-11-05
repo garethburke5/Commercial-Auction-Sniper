@@ -377,6 +377,26 @@ def test_september_2025_available_properties_keep_published_status_ambiguity():
     assert sum(row["sale_price"] is not None for row in narrative_rows) == 6
     assert sum(row["status"] == "sold_prior" for row in narrative_rows) == 1
 
+    priced = {
+        row["address"]: row["sale_price"]
+        for row in narrative_rows
+        if row["sale_price"] is not None
+    }
+    assert priced == {
+        "Broom Vale Farm, Dungworth": 940000,
+        "Palerow Barn, Shottle, Belper": 160000,
+        "Lammas Barn, Shottle, Belper": 150000,
+        "Land and Stables, Barlow": 120000,
+        "Land and Stone Barn, Bradwell": 84000,
+        "Ex Methodist Chapel, Quarnford": 38000,
+    }
+    hollyseat = next(
+        row for row in narrative_rows
+        if row["address"] == "Hollyseat Cottage, Shottle, Belper"
+    )
+    assert hollyseat["status"] == "sold_prior"
+    assert hollyseat["sale_price"] is None
+
     ambiguous = [row for row in narrative_rows if row["status"] == "unknown"]
     assert {row["address"] for row in ambiguous} == {
         "Long Lane Head Barn (Hilderstone)",
@@ -389,7 +409,7 @@ def test_september_2025_available_properties_keep_published_status_ambiguity():
         == "Some properties did not sell or were postponed and remain available"
         for row in ambiguous
     )
-    assert all(row["sale_price"] != 1850000 for row in narrative_rows)
+    assert sum(priced.values()) == 1492000
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():
