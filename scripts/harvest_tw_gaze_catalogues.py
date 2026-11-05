@@ -34,22 +34,25 @@ SOURCE = "TW Gaze"
 SLUG = "tw-gaze"
 OPERATOR = "TWG (1857) LTD"
 COMPANY_NUMBER = "08965732"
-HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
+HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+        "(KHTML, like Gecko) Chrome/131.0 Safari/537.36"
+    ),
+    "Accept": "application/pdf,text/html;q=0.9,*/*;q=0.8",
+}
 RESULT_URL = (
     "https://www.twgaze.co.uk/auctions/catalogues-and-auctions/"
     "httpsauctions-twgaze-co-ukauction-results/land-and-property-auction-3/print/"
 )
 RESULT_FALLBACK_URL = RESULT_URL.removesuffix("print/")
-NEXT_URL = (
-    "https://www.twgaze.co.uk/assets/Uploads/"
-    "NEW-March-2023-Land-and-Property-Auction-Brochure.pdf"
-)
+NEXT_URL = "https://www.twgaze.co.uk/assets/properties/jupix/brochures/101039006398/MED-6398-7930.pdf"
 NEXT_TARGET = (
-    "Inventory and bank every individual lot in TW Gaze's retained 15 March 2023 "
-    f"Land & Property Auction brochure at {NEXT_URL}; preserve the first-party PDF, "
-    "reconcile any result pages by exact event/lot/address, and continue through adjacent "
-    "TW Gaze brochures. Separately recover the exact events for the still-unmatched Hopton "
-    "and Kenninghall retrospective result rows. Keep national completeness false."
+    "Inventory and bank every individual lot in TW Gaze's retained 11 May 2017 "
+    f"Land & Property Auction brochure at {NEXT_URL}; preserve the first-party PDF and "
+    "reconcile any result pages only by exact event, lot and address. Separately recover "
+    "the exact events for the still-unmatched Hopton and Kenninghall retrospective result "
+    "rows. Keep national completeness false."
 )
 
 
@@ -108,6 +111,65 @@ CATALOGUES = (
         ),
     },
 )
+
+# Kept separate so the original retained-catalogue regression inventory stays
+# stable while new exact, reviewed catalogues can be appended without weakening
+# its assertions.  Harvesting and publication use ALL_CATALOGUES.
+FOLLOW_ON_CATALOGUES = (
+    {
+        "date": "2023-03-15",
+        "url": (
+            "https://www.twgaze.co.uk/assets/Uploads/"
+            "NEW-March-2023-Land-and-Property-Auction-Brochure.pdf"
+        ),
+        "lots": (
+            lot(
+                1,
+                "Church Farm House, Church Lane, Bunwell, Norwich NR16 1SL",
+                190000,
+                220000,
+                description="Three bedroom Grade II listed thatched cottage with outbuilding.",
+            ),
+            lot(
+                2,
+                "17 Park Lane, Wymondham NR18 9BE",
+                180000,
+                200000,
+                description="Two bedroom detached bungalow with garage and workshop buildings.",
+            ),
+            lot(
+                3,
+                "Holiday Lodge Development Site, Poplar Farm, Hoxne Road, Denham, Suffolk IP21 5DN",
+                250000,
+                275000,
+                description="Commercial holiday lodge development site with full planning permission for five lodges.",
+            ),
+            lot(
+                4,
+                "The Burrows, 69 The Street, Brockdish, Norfolk IP21 4JX",
+                200000,
+                220000,
+                description="Detached three bedroom bungalow and development opportunity on 1.4 acres.",
+            ),
+            lot(
+                5,
+                "Building Plot at Meadowbank Farm, Westhorpe Road, Finningham IP1 4TN",
+                120000,
+                125000,
+                description="Single residential building plot with full planning permission for a four bedroom house.",
+            ),
+            lot(
+                6,
+                "The Cutting Cottage, Bobby Hill, Wattisfield, Suffolk IP22 1NL",
+                40000,
+                50000,
+                description="Class E commercial unit of approximately 400 square feet.",
+            ),
+        ),
+    },
+)
+
+ALL_CATALOGUES = CATALOGUES + FOLLOW_ON_CATALOGUES
 
 RESULT_ROWS = (
     lot(4, "Former Chapel, Welgate, Mattishall, Norfolk", 110000, 130000, sale=156000),
@@ -289,7 +351,7 @@ def persist_continuation(summary):
 
 def harvest():
     run_rows, states, catalogue_evidence = [], {}, {}
-    for spec in CATALOGUES:
+    for spec in ALL_CATALOGUES:
         resolved, raw = get(spec["url"])
         text = pdf_text(raw)
         validate_catalogue(text, spec)
@@ -374,7 +436,7 @@ def harvest():
     summary = {
         "checked_at": corpus.now(),
         "operator": {"canonical_name": SOURCE, "company_name": OPERATOR, "company_number": COMPANY_NUMBER, "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True},
-        "catalogues_captured": len(CATALOGUES),
+        "catalogues_captured": len(ALL_CATALOGUES),
         "result_events_captured": 1,
         "appearances_captured": total,
         "run_new_appearances": total - len(before),
@@ -401,7 +463,7 @@ def harvest():
     corpus.save_json(corpus.DATA / "tw_gaze_collection.json", summary)
     persist_continuation(summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if len(states) != len(CATALOGUES) + 1:
+    if len(states) != len(ALL_CATALOGUES) + 1:
         raise SystemExit(1)
     return summary
 
