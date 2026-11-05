@@ -110,6 +110,10 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
     ("slug", "auction_date", "expected_rows", "expected_prices", "expected_prior"),
     [
         ("bakewell-property-auction-november-2019", "2019-11-18", 6, 3, 1),
+        ("uttoxeter-property-auction-november-2019", "2019-11-20", 3, 3, 0),
+        ("uttoxeter-land-and-property-auction-july-2021", "2021-07-21", 6, 3, 1),
+        ("uttoxeter-land-and-property-auction-may-2022", "2022-05-25", 5, 4, 1),
+        ("uttoxeter-land-and-property-auction-july-2022", "2022-07-20", 2, 2, 0),
         ("bagshaws-march-land-property-auction-bakewell", "2026-03-23", 9, 5, 0),
         ("bakewell-land-property-auction-2024-march", "2024-03-25", 13, 8, 5),
         ("bakewell-land-property-auction-may-2024", "2024-05-20", 7, 7, 0),
@@ -457,6 +461,56 @@ def test_uttoxeter_may_2023_prices_exclude_per_acre_comparisons():
     assert not ({15236, 14194, 26897} & {row["sale_price"] for row in narrative_rows})
 
 
+def test_uttoxeter_2021_and_2022_saved_results_preserve_named_outcomes_only():
+    expected = {
+        "uttoxeter-land-and-property-auction-july-2021": {
+            "The Borough's Barns": (None, "sold_prior"),
+            "Building plot at Doveridge": (None, "withdrawn"),
+            "Old Offices at Modershall": (330000, "sold"),
+            "50.75 acres of land at Elmhurst, Lichfield": (565000, "sold"),
+            "1.46 acres of land adjoining the Trent at Handsacre": (43000, "sold"),
+            "12.89 acres of pasture land at Rugeley": (None, "unsold"),
+        },
+        "uttoxeter-land-and-property-auction-may-2022": {
+            "5.98 acres off Oldfields Lane, Snelston": (None, "sold_prior"),
+            "Commercial barns at Doveridge (ex agricultural buildings)": (189000, "sold"),
+            "Sweet Meadow Farm, Dagdale (barn conversion)": (340000, "sold"),
+            "28.02 acres off Sides Lane at Snelston": (270000, "sold"),
+            "4.91 acres off Sides Lane at Snelston": (85000, "sold"),
+        },
+        "uttoxeter-land-and-property-auction-july-2022": {
+            "2.54 acres of land off Nabb Lane in Alton": (96000, "sold"),
+            "Crowfoot Farm near Church Broughton with 8.53 acres of land": (530000, "sold"),
+        },
+    }
+
+    for slug, expected_rows in expected.items():
+        state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+        state = json.loads(state_path.read_text(encoding="utf-8"))
+        snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+        with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+            saved = json.load(handle)
+
+        _, rows, _ = parse_auction(
+            saved["html"], state["source_url"], state["source_evidence"]
+        )
+        narrative_rows = [
+            row for row in rows if row["source_lot_id"].startswith("result:")
+        ]
+        observed = {
+            row["address"]: (row["sale_price"], row["status"])
+            for row in narrative_rows
+        }
+
+        assert observed == expected_rows
+        assert len({row["appearance_id"] for row in narrative_rows}) == len(expected_rows)
+
+    july_2021 = expected["uttoxeter-land-and-property-auction-july-2021"]
+    assert "two lots of land at Hixon" not in july_2021
+    july_2022 = expected["uttoxeter-land-and-property-auction-july-2022"]
+    assert "two paddocks off Gravelly Lane in Stonnall" not in july_2022
+
+
 def test_uttoxeter_september_2020_keeps_outcomes_and_land_interests_separate():
     slug = "uttoxeter-property-auction-for-wednesday-23rd-september-2020"
     state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
@@ -594,6 +648,29 @@ def test_next_retained_narrative_batch_preserves_exact_rows_and_prices(
     assert all(row["annual_rent"] is None for row in narrative_rows)
     assert len({row["appearance_id"] for row in narrative_rows}) == len(narrative_rows)
     assert not ({51250, 10000, 11026} & expected_prices)
+
+
+def test_uttoxeter_november_2019_preserves_guide_separately_from_sale_price():
+    slug = "uttoxeter-property-auction-november-2019"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_lot = {row["lot_number"]: row for row in narrative_rows}
+
+    assert observed_date == "2019-11-20"
+    assert detail["published_narrative_result_rows"] == 3
+    assert len(narrative_rows) == 3
+    assert {row["sale_price"] for row in narrative_rows} == {760000, 130000, 44000}
+    assert by_lot["3"]["guide_price"] == 20000
+    assert by_lot["3"]["sale_price"] == 44000
+    assert all(row["guide_price"] is None for lot, row in by_lot.items() if lot != "3")
 
 
 def test_no_property_cards_or_results_is_valid_zero_not_a_synthetic_lot():

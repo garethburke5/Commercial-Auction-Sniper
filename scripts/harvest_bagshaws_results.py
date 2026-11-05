@@ -60,6 +60,30 @@ RETAINED_NARRATIVE_RESULTS = {
         ("6.15 acres at Oughtibridge", None, "unsold"),
         ("Doone at Barn, Two Dales, Matlock", None, "unsold"),
     ],
+    "uttoxeter-property-auction-november-2019": [
+        ("Lot 1 Firs Farm farmhouse, outbuildings and approximately 34 acres", 760000, "sold"),
+        ("Lot 2 Firs Farm pastureland extending to 16.46 acres", 130000, "sold"),
+        ("Lot 3 Firs Farm grassland extending to 2.32 acres", 44000, "sold", "3", None, 20000),
+    ],
+    "uttoxeter-land-and-property-auction-july-2021": [
+        ("The Borough's Barns", None, "sold_prior"),
+        ("Building plot at Doveridge", None, "withdrawn"),
+        ("Old Offices at Modershall", 330000, "sold"),
+        ("50.75 acres of land at Elmhurst, Lichfield", 565000, "sold"),
+        ("1.46 acres of land adjoining the Trent at Handsacre", 43000, "sold"),
+        ("12.89 acres of pasture land at Rugeley", None, "unsold"),
+    ],
+    "uttoxeter-land-and-property-auction-may-2022": [
+        ("5.98 acres off Oldfields Lane, Snelston", None, "sold_prior"),
+        ("Commercial barns at Doveridge (ex agricultural buildings)", 189000, "sold"),
+        ("Sweet Meadow Farm, Dagdale (barn conversion)", 340000, "sold"),
+        ("28.02 acres off Sides Lane at Snelston", 270000, "sold"),
+        ("4.91 acres off Sides Lane at Snelston", 85000, "sold"),
+    ],
+    "uttoxeter-land-and-property-auction-july-2022": [
+        ("2.54 acres of land off Nabb Lane in Alton", 96000, "sold"),
+        ("Crowfoot Farm near Church Broughton with 8.53 acres of land", 530000, "sold"),
+    ],
     "bagshaws-march-land-property-auction-bakewell": [
         ("Land at Haughton, Stafford", 110000, "sold"),
         ("Land and Buildings off Bonsall Lane, Bonsall, Matlock", 86000, "sold"),
@@ -549,10 +573,13 @@ def parse_retained_narrative_results(soup: BeautifulSoup, slug: str) -> list[dic
         title, sale_price, status = checked_row[:3]
         published_lot_number = checked_row[3] if len(checked_row) >= 4 else None
         published_result_text = checked_row[4] if len(checked_row) >= 5 else None
+        published_guide_price = checked_row[5] if len(checked_row) >= 6 else None
         if not narrative_title_is_evidenced(title, page_text):
             raise ValueError(f"checked Bagshaws narrative title missing from source: {title!r}")
         if sale_price is not None and f"{sale_price:,}" not in page_text:
             raise ValueError(f"checked Bagshaws narrative price missing from source: {title!r}")
+        if published_guide_price is not None and f"{published_guide_price:,}" not in page_text:
+            raise ValueError(f"checked Bagshaws narrative guide missing from source: {title!r}")
         lot_match = LOT_RE.search(title)
         results.append({
             "title": title,
@@ -560,6 +587,7 @@ def parse_retained_narrative_results(soup: BeautifulSoup, slug: str) -> list[dic
                 published_lot_number or
                 (lot_match.group(1).upper() if lot_match else None)
             ),
+            "guide_price": published_guide_price,
             "sale_price": sale_price,
             "status": status,
             "result_text": published_result_text or (
@@ -598,7 +626,7 @@ def parse_auction(html: str, source_url: str, evidence: dict) -> tuple[str, list
     for result in [*table_results, *narrative_results]:
         key = (
             title_key(result["title"]), result.get("lot_number"),
-            result.get("status", "sold"), result.get("sale_price"),
+            result.get("status", "sold"), result.get("guide_price"), result.get("sale_price"),
         )
         if key not in seen_results:
             seen_results.add(key)
@@ -638,6 +666,7 @@ def parse_auction(html: str, source_url: str, evidence: dict) -> tuple[str, list
             row = rows[matches[0]]
             row.update(
                 lot_number=result.get("lot_number") or row.get("lot_number"),
+                guide_price=result.get("guide_price") or row.get("guide_price"),
                 status=result.get("status", "sold"),
                 sale_price=result["sale_price"],
                 result_text=result["result_text"],
@@ -664,6 +693,7 @@ def parse_auction(html: str, source_url: str, evidence: dict) -> tuple[str, list
             postcode=postcode_match.group().upper() if postcode_match else None,
             locality=result["title"],
             sector=corpus.sector(result["title"]),
+            guide_price=result.get("guide_price"),
             sale_price=result["sale_price"],
             status=result.get("status", "sold"),
             result_text=result["result_text"],
