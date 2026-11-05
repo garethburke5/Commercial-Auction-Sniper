@@ -1022,3 +1022,23 @@ leave all three events incomplete unless their original lot inventories
 reconcile. A different retained November 2019 Uttoxeter narrative also contains
 guide-price evidence; do not collect it until the narrative importer can carry
 that guide distinctly rather than dropping it.
+
+## 2026-11-05 Bagshaws saved-narrative expansion: 30 banked appearances
+
+Two focused releases converted named property-level results already present in immutable first-party Bagshaws snapshots instead of refreshing exhausted archive routes.
+
+- Release `452053c3170eb385858c4e6710f52a0dfbd4b5e5` banked 14 exact-dated appearances from Bakewell 18 November 2019, Uttoxeter 9 August 2023 and Bakewell 24 March 2025.
+- Release `f7e11dbb438694e1c0d190c1780499cd6ec3d613` added a reusable distinct narrative guide-price field and banked 16 exact-dated appearances from Uttoxeter 20 November 2019, 21 July 2021, 25 May 2022 and 20 July 2022.
+- Combined net gain: 30 appearances, 30 address records and 30 preceding-20-year records; 1 commercial, 0 mixed-use, 11 land and 18 unknown-sector records.
+- Actual new price evidence: 1 guide and 23 achieved prices. Rent evidence: 0. Newly covered source-years: 0.
+- Outcomes: 23 sold, 3 sold-prior, 3 unsold and 1 withdrawn. Unknown prices remain null.
+- Partial, undated, future-dated and duplicate gains: 0 / 0 / 0 / 0.
+- Ambiguous unnamed multi-lot references at Hixon and Gravelly Lane were excluded; per-acre comparisons were not treated as sale prices. Firs Farm and all other separable legal interests retain distinct identities.
+- Canonical collection runs: [42126987471](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42126987471) and [42129101497](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42129101497). Bank commits: `f2629b7109528a8e5381df1b9ed8d40367f9d2d7` and `060da526e265269573032ecdb6af0433bc0a28e8`.
+- Verified publication runs: [42127598918](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42127598918) and [42130640821](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42130640821), including Pages and auctiongeek.co.uk.
+- A temporary fallback branch also triggered the all-branches workflow; repository concurrency kept the intended main run pending, so generated-data writes were not concurrent. Its isolated branch checkpoint is not counted separately.
+- Rebuilt totals: 310,714 appearances, 299,762 address records, 302,453 preceding-20-year appearances, 104,816 guide prices, 112,104 achieved prices and 351 Bagshaws appearances. Partial 10,952; undated 5,016; future-dated 150.
+- National completeness remains false.
+
+Next concrete growth target: the retained Bagshaws Bakewell 25 September 2023 narrative. It identifies eight separable property appearances: two Quarnford interests sharing only an aggregate £460,000 result (individual sale prices must remain null), five individually achieved prices, and the Moor Edge, Birch Vale development site sold immediately after auction. The three unnamed sold-prior lots and unnamed unsold properties must remain excluded.
+
