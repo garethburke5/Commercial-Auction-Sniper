@@ -440,6 +440,7 @@ def test_uttoxeter_may_2023_prices_exclude_per_acre_comparisons():
     assert {row["sale_price"] for row in narrative_rows} == {
         710000, 355000, 88000, 78000, 75000, 800000, 175000,
     }
+    assert sum(row["sale_price"] for row in narrative_rows) == 2281000
     assert all(row["status"] == "sold" for row in narrative_rows)
     assert all(row["guide_price"] is None for row in narrative_rows)
     assert not ({15236, 14194, 26897} & {row["sale_price"] for row in narrative_rows})
