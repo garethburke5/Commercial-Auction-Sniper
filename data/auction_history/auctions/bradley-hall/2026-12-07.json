@@ -1,0 +1,34 @@
+{
+  "auctioneer": "Bradley Hall",
+  "source_auction_id": "bradley-hall:2026-12-07",
+  "auction_date": "2026-12-07",
+  "source_url": "https://auction.bradleyhall.co.uk/search",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://auction.bradleyhall.co.uk/search",
+      "retrieved_at": "2026-11-06T16:32:06.650707+00:00",
+      "sha256": "a4f87eeb5c172ee6806baa5579fb858e2ac6d0178c65dd8089efb01a5f7cee61",
+      "snapshot_path": "data/auction_history/sources/bradley-hall/past-auctions-page-1-a4f87eeb5c172ee6.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 2
+    },
+    {
+      "source_url": "https://auction.bradleyhall.co.uk/search?page=2",
+      "retrieved_at": "2026-11-06T16:32:06.723935+00:00",
+      "sha256": "71513159a27af018c4eca46db709fd048b89e74d05db5167fdda8c98a424c9b0",
+      "snapshot_path": "data/auction_history/sources/bradley-hall/past-auctions-page-2-71513159a27af018.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 2
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-06T16:32:17.173131+00:00"
+}

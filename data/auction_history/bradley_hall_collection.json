@@ -1,43 +1,43 @@
 {
-  "checked_at": "2026-11-06T14:14:27.022066+00:00",
+  "checked_at": "2026-11-06T16:32:17.225843+00:00",
   "auctioneer": "Bradley Hall",
   "parser_version": 8,
   "source_url": "https://auction.bradleyhall.co.uk/search",
   "platform_event_id": null,
-  "archive_sha256": "910efee66f899d5fb9db5b4b3d7f09b5521baea6d57fb19f7212ead90075169f",
+  "archive_sha256": "81ebc36304c20740f1dad8e80f3b58b755f5f6d19aed389e45ea497b6dcdfde8",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
-    25
+    26
   ],
   "archive_page_visible_cards": [
     50,
-    25
+    26
   ],
-  "visible_source_rows": 75,
+  "visible_source_rows": 76,
   "expected_visible_cards": null,
   "event_advertised_lots": null,
   "event_advertised_lot_discrepancy": null,
   "past_results_index_lots": null,
   "past_results_index_discrepancy": null,
-  "published_result_count": 75,
-  "distinct_source_identities": 75,
+  "published_result_count": 76,
+  "distinct_source_identities": 76,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 77,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 78,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 1,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -45,25 +45,25 @@
   "new_source_years": [],
   "date_range": [
     "2025-04-22",
-    "2026-12-01"
+    "2026-12-07"
   ],
   "by_status": {
-    "unknown": 23,
+    "unknown": 24,
     "sold_prior": 21,
     "sold": 32,
     "postponed": 1
   },
   "by_sector": {
-    "residential": 46,
+    "residential": 47,
     "mixed-use": 19,
     "land": 8,
     "commercial": 3,
     "unknown": 1
   },
   "by_attributed_auctioneer": {
-    "Bradley Hall": 77
+    "Bradley Hall": 78
   },
-  "detail_pages_captured": 75,
+  "detail_pages_captured": 76,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
