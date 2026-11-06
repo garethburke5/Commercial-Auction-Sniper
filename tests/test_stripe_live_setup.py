@@ -191,3 +191,71 @@ def test_installed_stripe_sdk_transport_and_pagination():
     result = setup.run(sdk)
     assert result['rates'] == {'uk_inclusive': 'txr_inclusive', 'uk_exclusive': 'txr_exclusive'}
     assert any('starting_after=txr_inclusive' in url for _, url in requests)
+
+
+def business_client(entries=()):
+    c, account, *_ = client()
+    data, writes = list(entries), []
+    account['settings'] = {'invoices': {'default_account_tax_ids': ['txi_other_country']}}
+    def create(params, *, options):
+        writes.append(('create', params))
+        item = dict(params, id='txi_business', livemode=True)
+        data.append(item)
+        return item
+    def update(account_id, params):
+        assert account_id == setup.ACCOUNT
+        writes.append(('update', params))
+        account['settings']['invoices'].update(params['settings']['invoices'])
+    def listing(params):
+        assert params == {'owner': {'type': 'self'}, 'limit': 100}
+        return NS(auto_paging_iter=lambda: iter(data))
+    c.v1.tax_ids = NS(list=listing, create=create,
+                      retrieve=lambda ident: next(item for item in data if item['id'] == ident))
+    c.v1.accounts.update = update
+    return c, account, data, writes
+
+
+def test_business_vat_default_is_read_only():
+    c, _, _, writes = business_client()
+    assert setup.business_vat_id(c) == {
+        'tax_id': None, 'included_on_invoices': False, 'hmrc_verification_claimed': False}
+    assert not writes
+
+
+def test_business_vat_is_idempotent_and_preserves_invoice_defaults():
+    c, account, _, writes = business_client()
+    first = setup.business_vat_id(c, apply=True)
+    assert setup.business_vat_id(c, apply=True) == first
+    assert len(writes) == 2
+    assert first['included_on_invoices'] is True
+    assert account['settings']['invoices']['default_account_tax_ids'] == ['txi_other_country', 'txi_business']
+
+
+def test_other_business_vat_number_is_not_overwritten():
+    c, _, _, writes = business_client([{'id': 'txi_old', 'type': 'gb_vat', 'value': 'GB000000000'}])
+    with pytest.raises(setup.SetupError, match='different business UK VAT'):
+        setup.business_vat_id(c, apply=True)
+    assert not writes
+
+
+@pytest.mark.parametrize('change', [dict(livemode=False), dict(owner={'type': 'customer'}),
+                                  dict(owner={'type': 'account', 'account': 'acct_wrong'})])
+def test_invalid_business_tax_id_never_becomes_invoice_default(change):
+    c, _, _, writes = business_client([dict(id='txi_bad', type='gb_vat', value=setup.BUSINESS_VAT_ID,
+                                          livemode=True, owner={'type': 'self'}) | change])
+    with pytest.raises(setup.SetupError, match='read-back validation'):
+        setup.business_vat_id(c, apply=True)
+    assert not writes
+
+
+def test_invoice_default_failure_does_not_duplicate_business_id_on_retry():
+    c, _, data, writes = business_client()
+    original = c.v1.accounts.update
+    def denied(*args):
+        raise RuntimeError('permission denied')
+    c.v1.accounts.update = denied
+    with pytest.raises(RuntimeError):
+        setup.business_vat_id(c, apply=True)
+    c.v1.accounts.update = original
+    assert setup.business_vat_id(c, apply=True)['included_on_invoices']
+    assert len(data) == 1 and len(writes) == 2

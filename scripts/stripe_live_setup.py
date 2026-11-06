@@ -11,6 +11,7 @@ import os
 
 ACCOUNT = 'acct_1UO227RpkJti4bUn'
 COMPANY = 'Burke Commercial Ltd'
+BUSINESS_VAT_ID = 'GB528469357'
 PRICES = {
     'investor': ('price_1UY2r4RpkJti4bUnTrZsTywn', 1500, True, 'inclusive', 'auctiongeek_investor'),
     'investor_pro': ('price_1UY2rYRpkJti4bUnH2qVC8vI', 2500, True, 'inclusive', 'auctiongeek_investor_pro'),
@@ -108,6 +109,49 @@ def inspect_delivery(client):
         raise SetupError('Live customer portal configuration needs correction; no changes made.')
 
 
+def business_vat_id(client, *, apply=False):
+    """Register the owner's supplied number and preserve other invoice defaults.
+
+    This stores an existing registration in Stripe; it does not register the
+    business with HMRC, enable Stripe Tax, or assert HMRC validation.
+    """
+    inspect_account(client)
+    account = plain(client.v1.accounts.retrieve_current())
+    entries = [plain(item) for item in client.v1.tax_ids.list(
+        {'owner': {'type': 'self'}, 'limit': 100}).auto_paging_iter()]
+    uk = [item for item in entries if item.get('type') == 'gb_vat']
+    if any(str(item.get('value', '')).replace(' ', '').upper() != BUSINESS_VAT_ID for item in uk):
+        raise SetupError('Stripe already holds a different business UK VAT number; review the legal entity before changing it.')
+    matching = sorted(uk, key=lambda item: item['id'])
+    tax_id = matching[0] if matching else None
+    if tax_id is None and apply:
+        created = plain(client.v1.tax_ids.create(
+            {'owner': {'type': 'self'}, 'type': 'gb_vat', 'value': BUSINESS_VAT_ID},
+            options={'idempotency_key': 'auctiongeek-business-gb-vat-528469357-v1'}))
+        tax_id = plain(client.v1.tax_ids.retrieve(created['id']))
+    if tax_id is not None:
+        owner = tax_id.get('owner') or {}
+        owner_ok = owner.get('type') == 'self' or (
+            owner.get('type') == 'account' and owner.get('account') == ACCOUNT)
+        if (not owner_ok or tax_id.get('livemode') is not True
+                or tax_id.get('type') != 'gb_vat'
+                or str(tax_id.get('value', '')).replace(' ', '').upper() != BUSINESS_VAT_ID):
+            raise SetupError('Business VAT ID failed read-back validation; invoice defaults were not changed.')
+    defaults = ((account.get('settings') or {}).get('invoices') or {}).get('default_account_tax_ids') or []
+    defaults = [item['id'] if isinstance(item, dict) else item for item in defaults]
+    if apply and tax_id['id'] not in defaults:
+        client.v1.accounts.update(ACCOUNT, {'settings': {'invoices': {
+            'default_account_tax_ids': defaults + [tax_id['id']]}}})
+        account = plain(client.v1.accounts.retrieve_current())
+        defaults = ((account.get('settings') or {}).get('invoices') or {}).get('default_account_tax_ids') or []
+        defaults = [item['id'] if isinstance(item, dict) else item for item in defaults]
+        if tax_id['id'] not in defaults:
+            raise SetupError('Business VAT ID exists but its invoice default was not confirmed.')
+    return {'tax_id': tax_id['id'] if tax_id else None,
+            'included_on_invoices': bool(tax_id and tax_id['id'] in defaults),
+            'hmrc_verification_claimed': False}
+
+
 def run(client, *, apply=False):
     result = inspect_account(client)
     result['prices'] = inspect_prices(client)
@@ -139,7 +183,7 @@ def run(client, *, apply=False):
     result['remaining'] = [
         'Confirm business VAT ID on Stripe invoices (owner supplied GB528469357).',
         'Complete customer-location and overseas tax treatment before routing report checkout.',
-        'Deploy the saved live key and application changes; Render build allowance is currently exhausted.',
+        'Verify the live deployment and configured VAT rates before enabling checkout.',
         'Verify signed payment fulfilment and customer access end to end.',
     ]
     return result
@@ -149,6 +193,8 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--apply-uk-vat', action='store_true',
                         help='Create missing UK 20%% inclusive/exclusive manual rates after validation.')
+    parser.add_argument('--apply-business-vat-id', action='store_true',
+                        help='Store the owner-supplied business VAT number and include it on invoices.')
     args = parser.parse_args(argv)
     secret = os.environ.get('STRIPE_SECRET_KEY', '')
     if not secret.startswith(('rk_live_', 'sk_live_')):
@@ -158,6 +204,8 @@ def main(argv=None):
         import stripe
         client = stripe.StripeClient(secret)
         result = run(client, apply=args.apply_uk_vat)
+        if args.apply_business_vat_id:
+            result['business_vat'] = business_vat_id(client, apply=True)
     except SetupError as exc:
         print(json.dumps({'error': str(exc)}))
         return 2
