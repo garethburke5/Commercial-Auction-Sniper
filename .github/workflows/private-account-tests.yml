@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['web_platform/**', 'acquisition_provider.py', 'acquisition_source_fetch.py', 'tests/test_acquisition_provider.py', '.github/workflows/private-account-tests.yml']
+    paths: ['web_platform/**', 'acquisition_provider.py', 'acquisition_source_fetch.py', 'tests/test_acquisition_provider.py', 'scripts/stripe_live_setup.py', 'tests/test_stripe_live_setup.py', '.github/workflows/private-account-tests.yml']
 permissions:
   contents: read
 jobs:
@@ -40,6 +40,8 @@ jobs:
         with:
           python-version: '3.12'
       - run: pip install -r web_platform/requirements.txt pytest
+      - name: Check Stripe setup without live credentials or network calls
+        run: python -m pytest tests/test_stripe_live_setup.py -q
       - run: python -m pytest web_platform/tests/test_postgres_accounts.py web_platform/tests/test_search_monitoring.py web_platform/tests/test_scheduled_monitoring.py web_platform/tests/test_monitoring_activation.py tests/test_acquisition_provider.py web_platform/tests/test_private_startup.py -q
         env:
           TEST_ACCOUNT_DATABASE_URL: postgresql://postgres:disposable_ci_admin@127.0.0.1:5432/auction_test

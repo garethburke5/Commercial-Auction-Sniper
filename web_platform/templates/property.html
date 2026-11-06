@@ -19,6 +19,7 @@
   <section class="report-context report-offer" id="full-investment-report" aria-labelledby="report-offer-title">
     <div class="report-offer-heading"><div><p class="eyebrow">{{ 'EXPLORE THE PROPERTY EVIDENCE' if row.archived_listing else 'TAKE A CLOSER LOOK BEFORE YOU BID' }}</p><h2 id="report-offer-title">Full Investment Report</h2></div><div class="report-offer-price"><strong>£{{ plans.one_off_report_gbp }}</strong><span>one-off purchase</span></div></div>
     <p>Understand the rental income, ownership costs and investment risks, with deeper research into this property and relevant market evidence.</p>
+    {% include 'report_price_terms.html' %}
     <ul class="report-offer-benefits"><li>Income and tenancy analysis</li><li>Purchase costs and downside scenarios</li><li>Legal-pack review where supplied</li></ul>
     <div class="report-offer-actions"><a class="button" href="{{ url('/due-diligence/') }}?property={{ row.id }}">Explore the £{{ plans.one_off_report_gbp }} report →</a><span>No subscription required</span></div>
     <p class="report-offer-availability" data-report-availability role="status">Report checkout is currently unavailable. Free Property Snapshots remain available.</p>

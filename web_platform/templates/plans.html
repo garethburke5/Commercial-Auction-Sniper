@@ -1,5 +1,6 @@
 <section class="offer-intro"><p>Research freely. Follow opportunities with membership. Investigate one property when you need a Full Investment Report.</p></section>
 <div class="plan-activation" role="note"><p data-payment-status>Free browsing and accounts are available. Sign in to check current purchase availability.</p></div>
+{% include 'report_price_terms.html' %}
 <div class="plans-grid">
 {% for key in ['free','investor','professional'] %}{% set plan=plans[key] %}
 <article class="plan-card{% if key=='investor' %} premium{% endif %}" id="{{ key }}">
