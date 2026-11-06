@@ -21,7 +21,9 @@ jobs:
   publish:
     if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main')
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    # Pages deployment can exceed the former 15-minute ceiling after a full
+    # historical database export; retain the tested artifact and allow deploy.
+    timeout-minutes: 25
     env:
       PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
     outputs:
