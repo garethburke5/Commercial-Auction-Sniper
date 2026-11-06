@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-05T23:33:45.917690+00:00",
-  "individual_lot_records_captured": 310714,
-  "records_with_address": 299762,
+  "generated_at": "2026-11-06T00:03:20.973302+00:00",
+  "individual_lot_records_captured": 310722,
+  "records_with_address": 299770,
   "partial_lot_records": 10952,
   "exact_address_groups": 166835,
   "groups_with_repeat_appearances": 42582,
@@ -54,7 +54,7 @@
     "Auction North": 37,
     "Auction Works": 651,
     "BTG Eddisons": 2981,
-    "Bagshaws": 351,
+    "Bagshaws": 359,
     "Barnard Marcus Auctions": 6701,
     "Barnett Ross": 7601,
     "Bid.": 254,
@@ -146,7 +146,7 @@
     "2020": 13828,
     "2021": 21138,
     "2022": 26370,
-    "2023": 32703,
+    "2023": 32711,
     "2024": 42166,
     "2025": 48239,
     "2026": 47466,
@@ -154,10 +154,10 @@
   },
   "by_sector": {
     "commercial": 42577,
-    "land": 18984,
+    "land": 18986,
     "mixed-use": 47605,
-    "residential": 150948,
-    "unknown": 50600
+    "residential": 150949,
+    "unknown": 50605
   },
   "date_range": [
     "2002-10-31",
@@ -173,17 +173,17 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "twenty_year_coverage": {
-    "from_date": "2006-11-05",
-    "through_date": "2026-11-05",
+    "from_date": "2006-11-06",
+    "through_date": "2026-11-06",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 302453,
-      "auction_ids_observed": 12794,
-      "with_guide_price": 104816,
-      "with_sale_price": 112104,
+      "lot_appearances": 302466,
+      "auction_ids_observed": 12797,
+      "with_guide_price": 104817,
+      "with_sale_price": 112109,
       "with_both_prices": 48400,
-      "marked_sold": 154621,
-      "marked_sold_without_sale_price": 43257
+      "marked_sold": 154629,
+      "marked_sold_without_sale_price": 43260
     },
     "by_auctioneer_and_year": [
       {
@@ -244,9 +244,9 @@
       {
         "auctioneer": "247 Property Auctions",
         "year": 2026,
-        "lot_appearances": 70,
-        "auction_ids_observed": 70,
-        "with_guide_price": 70,
+        "lot_appearances": 71,
+        "auction_ids_observed": 71,
+        "with_guide_price": 71,
         "with_sale_price": 37,
         "with_both_prices": 37,
         "marked_sold": 37,
@@ -3082,8 +3082,8 @@
       {
         "auctioneer": "Auction Works",
         "year": 2026,
-        "lot_appearances": 50,
-        "auction_ids_observed": 41,
+        "lot_appearances": 53,
+        "auction_ids_observed": 42,
         "with_guide_price": 1,
         "with_sale_price": 35,
         "with_both_prices": 0,
@@ -3159,13 +3159,13 @@
       {
         "auctioneer": "Bagshaws",
         "year": 2023,
-        "lot_appearances": 65,
+        "lot_appearances": 73,
         "auction_ids_observed": 7,
         "with_guide_price": 1,
-        "with_sale_price": 42,
+        "with_sale_price": 47,
         "with_both_prices": 0,
-        "marked_sold": 44,
-        "marked_sold_without_sale_price": 2
+        "marked_sold": 52,
+        "marked_sold_without_sale_price": 5
       },
       {
         "auctioneer": "Bagshaws",
@@ -6855,8 +6855,8 @@
       {
         "auctioneer": "Purplebricks Online Auctions",
         "year": 2026,
-        "lot_appearances": 217,
-        "auction_ids_observed": 132,
+        "lot_appearances": 218,
+        "auction_ids_observed": 133,
         "with_guide_price": 0,
         "with_sale_price": 10,
         "with_both_prices": 0,
@@ -7987,7 +7987,7 @@
       }
     ],
     "undated_appearances": 5016,
-    "future_dated_appearances": 150,
+    "future_dated_appearances": 145,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
