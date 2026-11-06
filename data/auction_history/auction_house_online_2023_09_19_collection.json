@@ -1,0 +1,109 @@
+{
+  "checked_at": "2026-11-06T13:08:50.734445+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/51559?lotResultType=All",
+  "platform_event_id": "51559",
+  "archive_sha256": "76e94634ca3a94bc19afe55fc2a34876c88b92794782353c2800567a09f7ee8e",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    18
+  ],
+  "archive_page_visible_cards": [
+    18
+  ],
+  "visible_source_rows": 18,
+  "expected_visible_cards": 18,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 18,
+  "distinct_source_identities": 18,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 14,
+  "run_new_appearances": 14,
+  "run_new_address_records": 14,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 14,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 14,
+  "run_new_sale_prices": 2,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2023-09-19",
+      "address": "1 Syenite Terrace, Minffordd, Penrhyndeudraeth, Gwynedd, LL48 6HP",
+      "source_lot_id": "51a2399b-33ce-4c78-9d45-231deefc7cfe",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/51a2399b-33ce-4c78-9d45-231deefc7cfe",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-09-19",
+      "address": "148 High Lane East West Hallam, Ilkeston, Derbyshire, DE7 6HY",
+      "source_lot_id": "1a00a68f-b8f7-4167-905b-79af29e53357",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1a00a68f-b8f7-4167-905b-79af29e53357",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-09-19",
+      "address": "23 The Hill, Kirkby in Ashfield, Nottinghamshire, NG17 8JS",
+      "source_lot_id": "8cff740c-51ad-471d-ba8f-9a0fdbed4490",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8cff740c-51ad-471d-ba8f-9a0fdbed4490",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-09-19",
+      "address": "5B Steamer Street, Barrow-in-Furness, Cumbria, LA14 2SG",
+      "source_lot_id": "cb005078-2779-4ac7-9c30-26b28336ecf5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/cb005078-2779-4ac7-9c30-26b28336ecf5",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2023
+  ],
+  "date_range": [
+    "2023-09-12",
+    "2023-09-19"
+  ],
+  "by_status": {
+    "postponed": 3,
+    "unsold": 7,
+    "sold": 2,
+    "sold_prior": 1,
+    "sold_after": 1
+  },
+  "by_sector": {
+    "residential": 6,
+    "land": 2,
+    "unknown": 6
+  },
+  "by_attributed_auctioneer": {
+    "Auction House West Yorkshire": 2,
+    "Auction House Wales - Cardiff": 2,
+    "Auction House London": 2,
+    "Auction House Online": 1,
+    "Auction House Scotland": 3,
+    "Auction House North West": 4
+  },
+  "detail_pages_captured": 18,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
