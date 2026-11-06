@@ -1087,3 +1087,74 @@ Next concrete growth target: the retained Bagshaws Bakewell 22 November 2021 nar
 - Separate revalidation run [42147559449](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42147559449) revalidated 904 published rows but added **0** fresh reclassified lots and failed safely without production publication on the known 60% rich-particular gate: Auction House Cumbria **50.0%** and Auction House National Online **57.1%**. The blocked route was preserved and not retried.
 - Next concrete growth target: run the already configured isolated shared-platform collector for **Auction House Online event 74284, dated 14 October 2025**, whose source contract expects **44 visible first-party cards** at `https://online.auctionhouse.co.uk/past-auctions/74284?lotResultType=All`. Its auction directory is currently absent, so this is a substantial uncollected catalogue rather than a refresh. Preserve individual dates, branch attribution, guides, achieved prices, rents, outcomes, URLs and immutable index/detail snapshots; exclude only exact overlaps.
 - National completeness remains **false** pending source-by-source lot-inventory and auctioneer/branch/trading-name reconciliation.
+
+## 2026-11-06 Auction House Online event reconciliation and November 2023 growth
+
+The run first executed the persisted Auction House Online event `74284`, dated
+14 October 2025. The strict first-party inventory reconciled all **44 of 44**
+visible cards and retained the event index plus all 44 detail snapshots (index
+SHA-256 `72e0205dd64abac17743f28a3bb515040671c38b589c15fba9b43ef6658eeff1`).
+It added **0 net appearances**: 13 source identities were already present and
+the other 31 cards were exact date/address overlaps. Therefore no appearances,
+addresses, in-window addresses, commercial or mixed-use rows, guides, achieved
+prices, rents, partial, undated, future-dated, duplicate identities or new
+source-years are claimed as growth from that event. The complete surviving
+event inventory and overlap evidence remain banked rather than discarded.
+Collector hardening release `32c5b3cfda7be09bf2b756dbaa74aec35ab7edb4`,
+collection run [42154578099](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42154578099),
+bank commit `48d9842aa0660e5af81d59ba7542a1a76da32da3` and publication run
+[42155157418](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42155157418)
+are preserved. Pages and `auctiongeek.co.uk` both succeeded.
+
+The run then moved to a materially different, previously unconfigured catalogue:
+Auction House Online event `53349`, principally dated 21 November 2023. The
+first-party all-results page exposed **31 of 31** property cards. Release
+`f369b78d651132b52cf1802a66735569747c0c6b` added its strict source contract,
+focused regression assertion and isolated workflow trigger; **183 focused tests
+passed** before release. Collection run
+[42156317275](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42156317275)
+reconciled all 31 stable identities and all 31 detail pages with immutable
+snapshots (index SHA-256
+`e3cdce2aec3d01c2ba090d583d6691c8614efc2efd6ad060683d86c562f11bd4`).
+
+Net banked gain after exact-overlap exclusion: **14 appearances**, **14 address
+records** and **14 exact-dated records inside the preceding 20-year window**.
+Seventeen exact date/address overlaps were excluded; duplicate source identities
+were **0**, and no captured record was discarded. The additions comprise **1
+commercial**, **0 mixed-use**, one land, five residential and seven
+unknown-sector appearances. Actual new evidence is **14 guide prices**, **2
+achieved sale prices** and **1 rent value**. Outcomes remain distinct: two sold,
+nine unsold, one postponed and two withdrawn. Partial, undated and future-dated
+gains are all **0**. Individual published dates from 17 to 21 November 2023 are
+retained.
+
+One isolated **Auction House Online / 2023 source-year** is newly reconciled;
+this is not a new legal operator. Auction House North West, South West, East
+Anglia, London, Scotland and Lincolnshire remain branch attribution under
+AUCTION HOUSE UK LIMITED (company 06025583), not additional auctioneers. Bank
+commit: `1d1d0d5577bcc1b82aee50b5cdb2818793617a37`. Publication run
+[42156861250](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42156861250)
+completed successfully for both Pages and `auctiongeek.co.uk`.
+
+Rebuilt corpus totals are **310,750 appearances**, **299,798 address records**,
+**302,494 in-window appearances**, **104,831 in-window guides** and **112,112
+in-window achieved prices**. Remaining classifications are **10,952 partial**,
+**5,016 undated** and **145 future-dated**; complete surviving catalogue states
+are **4,510**, incomplete/unreconciled states **556**, and fetch/parse failures
+**31**. National completeness remains **false**.
+
+The release-triggered revalidation runs
+[42154578208](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42154578208)
+and [42156317292](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42156317292)
+were preserved as cancelled during checkout with production skipped. Neither
+revalidated, wrote historical evidence or published, and neither was retried.
+
+Next concrete growth target: Auction House Online event
+[`53159`](https://online.auctionhouse.co.uk/past-auctions/53159?lotResultType=All),
+principally dated 14 November 2023. The surviving first-party page reports
+**41 of 41 property cards** with individual dates from 6 to 14 November 2023,
+including commercial investments, land, guides, achieved prices and rent
+evidence. Add one strict 41-card source contract and isolated trigger after
+writer clearance, preserve each individual date/outcome/price/rent and immutable
+index/detail snapshot, and exclude exact overlaps before claiming growth.
+
