@@ -430,7 +430,10 @@ SOURCES = {
         # The surviving first-party all-results page exposes all 69 property
         # cards. Preserve each card's actual end date, result, price evidence
         # and detail-derived regional branch under the shared legal operator.
-        "archive_path": "/past-auctions/50662?lotResultType=All",
+        # The query-form all-results URL timed out across three 90-second
+        # attempts on 6 November 2026. The canonical event page exposes the
+        # same complete 69-card default inventory through a distinct route.
+        "archive_path": "/past-auctions/50662",
         "archive_attempts": 3,
         "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",
