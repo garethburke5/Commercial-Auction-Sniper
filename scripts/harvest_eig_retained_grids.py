@@ -424,6 +424,24 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2023-11-28": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The surviving first-party all-results page exposes all 27 property
+        # cards, principally dated 27-28 November 2023, with result evidence.
+        "archive_path": "/past-auctions/53377?lotResultType=All",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 27,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2023-11-14": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
