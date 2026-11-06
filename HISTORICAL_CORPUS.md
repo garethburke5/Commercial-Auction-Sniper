@@ -1043,3 +1043,20 @@ Two focused releases converted named property-level results already present in i
 
 Next concrete growth target: the retained Bagshaws Bakewell 25 September 2023 narrative. It identifies eight separable property appearances: two Quarnford interests sharing only an aggregate £460,000 result (individual sale prices must remain null), five individually achieved prices, and the Moor Edge, Birch Vale development site sold immediately after auction. The three unnamed sold-prior lots and unnamed unsold properties must remain excluded.
 
+## 2026-11-06 Bagshaws Bakewell 25 September 2023 saved narrative
+
+- Focused release `0ea157b89c11111734f5e43e1282fdbe415c9824` parsed eight separable, exact-dated property appearances from the retained first-party page.
+- Canonical collection run [42133502833](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42133502833) banked 8 appearances, 8 address records and 8 newly captured preceding-20-year records. Bank commit: `7e1c0fd3c85cecb7885e9af3553beb67d5c88fc9`.
+- Net sector gain: 0 commercial, 0 mixed-use, 2 land, 1 residential and 5 unknown.
+- Actual new price evidence: 0 guides, 5 achieved prices and 0 rents. Newly covered source-years: 0.
+- Outcomes: seven sold and one sold-after. The two Quarnford interests share only an aggregate £460,000 result, so each individual sale price remains null while the collective figure is preserved in result text.
+- Three unnamed sold-prior lots and unnamed unsold properties were excluded. Partial, undated, future-dated and duplicate gains are 0 / 0 / 0 / 0; the event remains an incomplete inventory.
+- Validation passed 171 focused tests.
+- Publication run [42134181583](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42134181583) successfully deployed both Pages and auctiongeek.co.uk.
+- Rebuilt totals: 310,722 appearances, 299,770 address records, 302,466 preceding-20-year appearances, 104,817 in-window guides, 112,109 in-window achieved prices and 359 Bagshaws appearances. Partial 10,952; undated 5,016; future-dated 145.
+- The calendar rollover to 6 November moved five pre-existing records out of the future-dated bucket and into the 20-year reporting window, including one pre-existing guide. Those changes are not attributed to this collection gain.
+- Separate revalidation run [42133502795](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42133502795) failed safely without publishing: Auction House Cumbria remains at 50.0% and Auction House National Online at 57.1% rich-particular coverage against the 60% gate. Production was skipped and the known route was not retried.
+- National completeness remains false.
+
+Next concrete growth target: the retained Bagshaws Bakewell 22 November 2021 narrative. It identifies nine separable appearances: three sold land interests whose published amounts are per-acre comparisons rather than individual achieved prices, two named sold-prior properties, 1 Pomeroy Cottages sold after auction, Brierlow Bar Farm postponed, and Ellergreaves Farm plus Westhaven/The Beeches unsold. Unknown individual prices must remain null.
+
