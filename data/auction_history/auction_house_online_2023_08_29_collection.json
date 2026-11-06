@@ -1,0 +1,117 @@
+{
+  "checked_at": "2026-11-06T17:07:08.047569+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/51014?lotResultType=All",
+  "platform_event_id": "51014",
+  "archive_sha256": "523faf01ed922a4b7d92c4e42d5a1597c22c5826e51c4a3cde54eb0841ddbc3c",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    13
+  ],
+  "archive_page_visible_cards": [
+    13
+  ],
+  "visible_source_rows": 13,
+  "expected_visible_cards": 13,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 13,
+  "distinct_source_identities": 13,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 7,
+  "run_new_appearances": 7,
+  "run_new_address_records": 7,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 7,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 7,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2023-08-29",
+      "address": "10 Coughton Lane, Coughton, Alcester, Warwickshire, B49 5HN",
+      "source_lot_id": "27a17aaa-a25b-4d7d-a3f9-4484462b95c2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/27a17aaa-a25b-4d7d-a3f9-4484462b95c2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-08-29",
+      "address": "9 Ward Street, Kirkham, Preston, Lancashire, PR4 2DA",
+      "source_lot_id": "5eb97942-92c5-40d4-bce8-6b88eab591ad",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5eb97942-92c5-40d4-bce8-6b88eab591ad",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-08-29",
+      "address": "Room 26 Flat 4 2 Hallgate, Bradford, West Yorkshire, BD1 4NN",
+      "source_lot_id": "ad698ab1-19c0-4b79-9ae4-c1826929bfba",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ad698ab1-19c0-4b79-9ae4-c1826929bfba",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-08-29",
+      "address": "139 Grimsby Road, Cleethorpes, South Humberside, DN35 7DG",
+      "source_lot_id": "de7a85fa-2a9f-4dc9-884c-c5757cf4df46",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/de7a85fa-2a9f-4dc9-884c-c5757cf4df46",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-08-29",
+      "address": "84 Oak Street, Colne, Lancashire, BB8 0BA",
+      "source_lot_id": "c3b0017e-84ad-4a97-b99d-304b4fe4e61d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c3b0017e-84ad-4a97-b99d-304b4fe4e61d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-08-29",
+      "address": "10 Elizabeth Street Goldthorpe, Rotherham, South Yorkshire, S63 9NA",
+      "source_lot_id": "e7a9162a-d864-40a1-a74e-5f15fb112850",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e7a9162a-d864-40a1-a74e-5f15fb112850",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2023
+  ],
+  "date_range": [
+    "2023-08-29",
+    "2023-08-29"
+  ],
+  "by_status": {
+    "unsold": 7
+  },
+  "by_sector": {
+    "land": 1,
+    "unknown": 2,
+    "residential": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 1,
+    "Auction House Birmingham": 2,
+    "Auction House Scotland": 1,
+    "Auction House Sussex & Hampshire": 3
+  },
+  "detail_pages_captured": 13,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
