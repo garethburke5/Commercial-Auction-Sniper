@@ -1158,3 +1158,17 @@ evidence. Add one strict 41-card source contract and isolated trigger after
 writer clearance, preserve each individual date/outcome/price/rent and immutable
 index/detail snapshot, and exclude exact overlaps before claiming growth.
 
+
+
+## 2026-11-06 Auction House Online 14 November 2023 catalogue
+
+- Growth opportunity executed: previously unconfigured Auction House Online event `53159`, principally dated 14 November 2023. Release `c79a76da9051c1db6b2d2609c22d930bc408dade` added a strict 41-card first-party source contract, regression assertion and isolated workflow step. The focused collector/workflow suite passed **155 tests** before release.
+- Collection run [42160308539](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42160308539) reconciled **41 of 41** visible cards and all 41 detail pages without failures. The immutable index snapshot has SHA-256 `4f4d81019af7e80e99ae60151d3d73f04989e9dd939084da713d42d2fd1b2892`; bank commit: `a17eb78788c66b593f8ca77e7dc47198992540bb`.
+- Net newly banked growth after exact-overlap exclusion: **21 appearances**, **21 address records** and **21 exact-dated address records inside the current 20-year window**. Twenty exact date/address overlaps were excluded; duplicate source identities were **0** and no evidence was discarded.
+- Net sectors: **1 commercial**, **0 mixed-use**, 3 land, 6 residential and 11 unknown. Branch attribution remains under AUCTION HOUSE UK LIMITED (company 06025583) rather than creating new auctioneers.
+- Actual new evidence: **21 guide prices**, **1 achieved sale price** and **1 rent value**. Outcomes remain separate: one sold, one sold after, one sold prior, 14 unsold, three withdrawn and one postponed. Partial, undated and future-dated gains are all **0**; individual dates from 6 to 14 November 2023 are retained.
+- The collector's event-level summary reports `new_source_years: [2023]`, but Auction House Online/2023 was already represented by event 53349. Therefore this handoff counts **0 genuinely new operator source-years** and one additional fully reconciled 2023 source-event, avoiding source-year inflation.
+- Rebuilt totals: **310,771 appearances**, **299,819 address records**, **302,515 in-window appearances**, **104,852 in-window guides** and **112,113 in-window achieved prices**. Remaining classifications: **10,952 partial**, **5,016 undated** and **145 future-dated**. National completeness remains **false**.
+- Publication run [42160689232](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42160689232) completed successfully for both Pages and `auctiongeek.co.uk`. No collector or generated-data writer remained active at handoff.
+
+Next concrete growth target: add a strict isolated contract for Auction House Online event [`53377`](https://online.auctionhouse.co.uk/past-auctions/53377?lotResultType=All), principally dated 28 November 2023. Its surviving first-party page reports **27 of 27 property cards**, with individual dates, guides and numerous achieved prices, and the event is absent from the collector configuration. Preserve all detail-derived branch attribution, dates, outcomes, guides, achieved prices, rents, original URLs and immutable snapshots; exclude exact date/address overlaps before claiming growth.
