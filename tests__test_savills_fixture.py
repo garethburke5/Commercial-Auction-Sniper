@@ -1,7 +1,7 @@
 
 import re
 from bs4 import BeautifulSoup
-from collectors.core import norm, parse_guide, parse_rent
+from collectors__core import norm, parse_guide, parse_rent
 
 FIXTURE = """
 <div>Lot 73</div><div>Guide Price £135,000</div>
