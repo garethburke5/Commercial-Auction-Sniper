@@ -462,6 +462,43 @@ RETAINED_NARRATIVE_RESULTS = {
         ("1.95 acres of grassland and woodland copse at Highfields Farm, Upper Tean", 54000, "sold"),
         ("Lot 6 3.11 acres of paddock land near Stonnall, Aldridge", 114000, "sold"),
     ],
+    "bagshaws-land-and-property-auction-uttoxeter": [
+        (
+            "Lot 6 4.27 acres off Woodhouses Road, Burntwood",
+            162000,
+            "sold",
+            "6",
+            "sold for £162,000 (£37,939 per acre)",
+        ),
+        (
+            "Lot 3 Land at Blunts Hollow (Lot B)",
+            None,
+            "unsold",
+            "3",
+            "now offered for sale by Private Treaty",
+        ),
+        (
+            "Lot 4 36a Heath Road",
+            None,
+            "unsold",
+            "4",
+            "now offered for sale by Private Treaty",
+        ),
+        (
+            "Lot 5 Buildings Plot at Pipehill",
+            None,
+            "unsold",
+            "5",
+            "now offered for sale by Private Treaty",
+        ),
+        (
+            "Lot 1 Land off Commonside, Gentleshaw, Rugeley",
+            None,
+            "postponed",
+            "1",
+            "will be entered into the next property auction",
+        ),
+    ],
     "bakewell-land-property-auction-in-march": [
         ("Land off Sherwood Road, Tideswell", 21500, "sold"),
         ("Land off Over Lane, Baslow", 126000, "sold"),

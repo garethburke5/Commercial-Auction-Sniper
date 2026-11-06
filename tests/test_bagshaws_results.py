@@ -122,6 +122,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("uttoxeter-land-and-property-auction-may-2024", "2024-05-01", 3, 3, 0),
         ("uttoxeter-land-and-property-auction-july-2024-2", "2024-07-10", 2, 2, 0),
         ("uttoxeter-land-property-auction-october-2024", "2024-10-23", 3, 3, 0),
+        ("bagshaws-land-and-property-auction-uttoxeter", "2025-04-30", 5, 1, 0),
         ("bakewell-land-property-auction-in-july", "2025-07-21", 9, 9, 3),
         ("bakewell-land-property-auction-in-may", "2025-05-19", 13, 6, 2),
         ("bakewell-land-property-auction-in-september", "2025-09-22", 10, 6, 1),
@@ -600,6 +601,34 @@ def test_november_2021_preserves_outcomes_without_promoting_per_acre_comparisons
         for address, amount in per_acre.items()
     )
     assert not (set(per_acre.values()) & {row["sale_price"] for row in narrative_rows})
+
+
+def test_uttoxeter_april_2025_preserves_named_results_and_excludes_per_acre_price():
+    slug = "bagshaws-land-and-property-auction-uttoxeter"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_lot = {row["lot_number"]: row for row in narrative_rows}
+
+    assert observed_date == "2025-04-30"
+    assert detail["published_narrative_result_rows"] == 5
+    assert len(narrative_rows) == 5
+    assert len({row["appearance_id"] for row in narrative_rows}) == 5
+    assert set(by_lot) == {"1", "3", "4", "5", "6"}
+    assert by_lot["6"]["status"] == "sold"
+    assert by_lot["6"]["sale_price"] == 162000
+    assert "£37,939 per acre" in by_lot["6"]["result_text"]
+    assert {by_lot[lot]["status"] for lot in ("3", "4", "5")} == {"unsold"}
+    assert all(by_lot[lot]["sale_price"] is None for lot in ("1", "3", "4", "5"))
+    assert by_lot["1"]["status"] == "postponed"
+    assert 37939 not in {row["sale_price"] for row in narrative_rows}
 
 
 def test_uttoxeter_september_2020_keeps_outcomes_and_land_interests_separate():
