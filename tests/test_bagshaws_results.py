@@ -112,6 +112,7 @@ def test_checked_narrative_rows_bank_prices_and_non_sale_outcomes(monkeypatch):
         ("bakewell-property-auction-november-2019", "2019-11-18", 6, 3, 1),
         ("uttoxeter-property-auction-november-2019", "2019-11-20", 3, 3, 0),
         ("uttoxeter-land-and-property-auction-july-2021", "2021-07-21", 6, 3, 1),
+        ("bakewell-land-and-property-auction-november-2021", "2021-11-22", 9, 0, 2),
         ("uttoxeter-land-and-property-auction-may-2022", "2022-05-25", 5, 4, 1),
         ("uttoxeter-land-and-property-auction-july-2022", "2022-07-20", 2, 2, 0),
         ("bakewell-land-property-auction-2023-september", "2023-09-25", 8, 5, 0),
@@ -556,6 +557,49 @@ def test_september_2023_keeps_collective_quarnford_price_off_individual_interest
         "sale_price"
     ] is None
     assert 460000 not in {row["sale_price"] for row in narrative_rows}
+
+
+def test_november_2021_preserves_outcomes_without_promoting_per_acre_comparisons():
+    slug = "bakewell-land-and-property-auction-november-2021"
+    state_path = bagshaws.corpus.DATA / "auctions/bagshaws" / f"{slug}.json"
+    state = json.loads(state_path.read_text(encoding="utf-8"))
+    snapshot_path = bagshaws.corpus.ROOT / state["source_evidence"]["snapshot_path"]
+    with gzip.open(snapshot_path, "rt", encoding="utf-8") as handle:
+        saved = json.load(handle)
+
+    observed_date, rows, detail = parse_auction(
+        saved["html"], state["source_url"], state["source_evidence"]
+    )
+    narrative_rows = [row for row in rows if row["source_lot_id"].startswith("result:")]
+    by_address = {row["address"]: row for row in narrative_rows}
+
+    assert observed_date == "2021-11-22"
+    assert detail["published_narrative_result_rows"] == 9
+    assert len(narrative_rows) == 9
+    assert len({row["appearance_id"] for row in narrative_rows}) == 9
+    assert all(row["sale_price"] is None for row in narrative_rows)
+    assert {row["status"] for row in narrative_rows} == {
+        "sold", "sold_prior", "sold_after", "postponed", "unsold"
+    }
+    assert {
+        row["address"] for row in narrative_rows if row["status"] == "sold_prior"
+    } == {"Land at Sheldon", "The Old Cheese Factory, Grangemill"}
+    assert {
+        row["address"] for row in narrative_rows if row["status"] == "unsold"
+    } == {"Ellergreaves Farm, Ashbourne", "Westhaven/The Beeches, Chelmorton"}
+    assert by_address["Brierlow Bar Farm"]["status"] == "postponed"
+    assert by_address["1 Pomeroy Cottages"]["status"] == "sold_after"
+    per_acre = {
+        "14.11 acres at Robin Hood, Baslow": 13820,
+        "8.8 acres of land and building at Great Longstone": 21818,
+        "14.43 acres at Hulme End": 10602,
+    }
+    assert all(by_address[address]["status"] == "sold" for address in per_acre)
+    assert all(
+        f"£{amount:,}" in by_address[address]["result_text"]
+        for address, amount in per_acre.items()
+    )
+    assert not (set(per_acre.values()) & {row["sale_price"] for row in narrative_rows})
 
 
 def test_uttoxeter_september_2020_keeps_outcomes_and_land_interests_separate():
