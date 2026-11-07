@@ -1231,6 +1231,8 @@ def test_retained_grid_manifest_does_not_launch_current_snapshot_writer():
         / "workflows"
         / "auction-sniper-publish-now.yml"
     ).read_text()
+    assert "- '!config/retained_grid_batch.json'" in current_workflow
+    assert "- '!config/retained_grid_batch_next.json'" in current_workflow
     assert (
         "historical_manifests = {'config/retained_grid_batch.json', "
         "'config/retained_grid_batch_next.json'}"
