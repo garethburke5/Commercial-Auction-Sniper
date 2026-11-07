@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-11-07T11:13:12.752992+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/39292",
+  "platform_event_id": "39292",
+  "archive_sha256": "de25b51695a649cbc2c18ba30251e2e306d889825cef96730343ab9360d01154",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-06-21",
+      "address": "1 Birrell Street, Gainsborough, Lincolnshire, DN21 2PF",
+      "source_lot_id": "62c6c1cb-6693-44a7-bf34-0d76d1b750f4",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/62c6c1cb-6693-44a7-bf34-0d76d1b750f4",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-06-21",
+      "address": "158 Columbia Road, Grimsby, South Humberside, DN32 8EE",
+      "source_lot_id": "c05a1364-292b-4dd0-8862-d13931b0a54d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c05a1364-292b-4dd0-8862-d13931b0a54d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-06-21",
+      "address": "118 Schofield Street, Mexborough, South Yorkshire, S64 9NH",
+      "source_lot_id": "318d8a29-ebca-4e45-9d6a-5512514b3377",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/318d8a29-ebca-4e45-9d6a-5512514b3377",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-06-21",
+    "2022-06-21"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

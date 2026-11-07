@@ -1,0 +1,119 @@
+{
+  "checked_at": "2026-11-07T11:12:13.894518+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/40009",
+  "platform_event_id": "40009",
+  "archive_sha256": "63ab6080b882204d18f008ec3ca1d76de331dbf59d40d4f9ce999d9355061781",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    12
+  ],
+  "archive_page_visible_cards": [
+    12
+  ],
+  "visible_source_rows": 12,
+  "expected_visible_cards": 12,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 12,
+  "distinct_source_identities": 12,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 6,
+  "run_new_appearances": 6,
+  "run_new_address_records": 6,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 6,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 6,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-07-26",
+      "address": "Section/Strip of Freehold Land Conisbrough, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "993bcc01-74f5-4a9c-96b7-249c451ed57d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/993bcc01-74f5-4a9c-96b7-249c451ed57d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-07-26",
+      "address": "44 Kentwood Road, Nottingham, Nottinghamshire, NG2 4FL",
+      "source_lot_id": "41b2b695-0032-4eb1-ad1c-c6709bfd7bfb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/41b2b695-0032-4eb1-ad1c-c6709bfd7bfb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-07-26",
+      "address": "29 Station Road Thurnscoe, Rotherham, South Yorkshire, S63 0JR",
+      "source_lot_id": "47fa131a-27af-404b-b6d8-27189c98d716",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/47fa131a-27af-404b-b6d8-27189c98d716",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-07-26",
+      "address": "21 Charles Street, Doncaster, South Yorkshire, DN1 2RZ",
+      "source_lot_id": "809526e4-62e0-42b6-bc9d-d5490ef5bac5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/809526e4-62e0-42b6-bc9d-d5490ef5bac5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-07-26",
+      "address": "Freehold Land Plots 19 and 20 Conisbrough, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "27553f1a-a9ba-4edc-a3f6-e34235e87370",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/27553f1a-a9ba-4edc-a3f6-e34235e87370",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-07-26",
+      "address": "46 The Crescent Dunscroft, Doncaster, South Yorkshire, DN7 4EW",
+      "source_lot_id": "460a7d24-cdb9-4d86-9ffb-e5ec94a45cca",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/460a7d24-cdb9-4d86-9ffb-e5ec94a45cca",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-07-25",
+    "2022-07-26"
+  ],
+  "by_status": {
+    "sold_prior": 1,
+    "unsold": 5
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 3,
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Wales - Cardiff": 2,
+    "Auction House North West": 1,
+    "Auction House Online": 1,
+    "Auction House Cheshire": 1,
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 12,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
