@@ -157,3 +157,13 @@ net persisted lots and price evidence, not catalogue pages or successful job cou
 - Corpus totals are now 311,308 appearances, 300,355 addresses and 303,043 in-window appearances; source states are 4,653 complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
 - **Next target:** eight official catalogues from 4 October–22 November 2022 expose **127 cards**. Contracts, assertions and the untriggered manifest are persisted in commits `ec066d41ac1785e606929dcc9ae8ded847c43d49`, `ccdab7efc2db79a2262000ec760082b089c62ed9` and `0fba710a7879e8a0e84359b9a4214cdbb4d15f48`. It remains serial and untriggered pending the next active-writer check.
 - All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
+
+
+## 09:28 UTC — 127-card October–November 2022 batch banked and published
+
+- Historical run [42357831601](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42357831601) reconciled all 127 advertised cards and detail pages across eight Auction House Online catalogues. Bank commit `e876b509a1dd7c9d767ad8bccc6e054d9907e1ee` passed exact public and production publication in run [42358407773](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42358407773).
+- Net growth: **57 appearances**, **57 dated addresses inside the rolling 20-year window**, **0 commercial and 0 mixed-use**, **57 guides**, **6 achieved prices** and **1 rent**. Seventy exact overlaps were excluded.
+- The gain contains 0 partial, undated, future-dated or duplicate source identities. It adds eight reconciled source-events but 0 genuine operator source-years because AUCTION HOUSE UK LIMITED was already represented in 2022.
+- Corpus totals are now 311,365 appearances, 300,412 addresses and 303,100 in-window appearances; source states are 4,672 complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
+- **Next target:** seven official catalogues from 16 August–27 September 2022 expose **62 cards**. Contracts, assertions and an untriggered manifest are persisted on main. Scheduled continuation [42358682725](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42358682725) produced zero new appearances; exact-revision publication [42360482546](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42360482546) completed both public and production jobs. The batch remains untriggered pending one fresh active-writer check.
+- All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
