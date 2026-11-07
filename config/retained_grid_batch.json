@@ -170,5 +170,13 @@
     "failed_url": "https://online.auctionhouse.co.uk/past-auctions/17911",
     "failure": "Three bounded 90-second reads timed out before any event output.",
     "change": "Use the explicit all-results route and move this source after the other 23 catalogues."
+  },
+  "trigger": {
+    "requested_at": "2026-11-07T22:44:00Z",
+    "mode": "manifest_only_recovery",
+    "accepted_workflow_prefix": "Rebuild historical database from banked records and collect retained-grid batch",
+    "previous_failed_run": 42414020394,
+    "previous_skipped_run": 42414934444,
+    "recovery_route": "event 17911 uses ?lotResultType=All and runs last; other 23 events bank first"
   }
 }
