@@ -23,6 +23,8 @@ on:
       - 'collectors/**'
       - 'tests/**'
       - 'config/**'
+      - '!config/retained_grid_batch.json'
+      - '!config/retained_grid_batch_next.json'
       - '.github/workflows/auction-sniper-publish-now.yml'
       - '.github/workflows/auction-sniper-scan.yml'
 
