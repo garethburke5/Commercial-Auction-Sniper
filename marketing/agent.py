@@ -145,6 +145,7 @@ def perform(mode, *, store=None, client=None, now=None):
         rows,rejected=candidates(snapshot,now,config)
         permissions=json.loads(Path('marketing/photo_permissions.json').read_text())
         for service,channel in channels.items():
+            if channel.get('isQueuePaused') or channel.get('isLocked') or channel.get('isDisconnected'):continue
             zone=ZoneInfo(channel['timezone'])
             def week(d):return d.astimezone(zone).isocalendar()[:2]
             def district(address):
@@ -176,7 +177,8 @@ def perform(mode, *, store=None, client=None, now=None):
                 due=stamp(old['due_at']); seen=occupied.setdefault(week(due),set())
                 area=district((old.get('evidence',{}).get('facts') or {}).get('address'))
                 if (old.get('schedule_origin')=='agent' and old['status']=='scheduled'
-                        and due>now+timedelta(hours=1) and (old.get('kind')=='education' or (area and area in seen))):
+                        and due>now+timedelta(hours=1) and due.date()<date.fromisoformat(config['key_expires_on'])
+                        and (old.get('kind')=='education' or (area and area in seen))):
                     replacements.append((old,due));continue
                 if area:seen.add(area)
             for old,due in replacements:
@@ -188,7 +190,8 @@ def perform(mode, *, store=None, client=None, now=None):
                         if live['id']==old['buffer_id']:live['status']='draft'
                     old.update(status='draft',hold_reason='Alternative property selected for weekly variety')
                     store.write(STATE,state)
-            for due in available_slots(channel,remote,now,config):
+            reserved=[{'channelId':channel['id'],'status':'scheduled','dueAt':p['due_at']} for p in prepared if p['service']==service]
+            for due in available_slots(channel,remote+reserved,now,config):
                 if due.date()>=date.fromisoformat(config['key_expires_on']) or any(p['service']==service and p['due_at']==due.isoformat() for p in prepared):continue
                 proposal=choose(due)
                 if proposal:prepare(proposal,due)
