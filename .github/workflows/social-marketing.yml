@@ -51,7 +51,11 @@ jobs:
           EVENT_NAME: ${{ github.event_name }}
         run: |
           if [ "$EVENT_NAME" = push ]; then
-            python -m marketing.agent --mode drafts
+            if [ "$SOCIAL_PUBLISHING_ENABLED" = true ]; then
+              python -m marketing.agent --mode run
+            else
+              python -m marketing.agent --mode drafts
+            fi
           elif [ "$EVENT_NAME" = workflow_dispatch ]; then
             python -m marketing.agent --mode "$REQUESTED_MODE"
           else
