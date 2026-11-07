@@ -3765,3 +3765,36 @@ def test_auction_house_online_august_to_october_2021_batch_configuration():
         assert source["detail_timeout"] == 45
     assert sum(cards for _, cards in expected.values()) == 58
 
+def test_auction_house_online_may_to_july_2021_batch_configuration():
+    expected = {
+        "auction-house-online-2021-07-27": ("/past-auctions/29594", 17),
+        "auction-house-online-2021-07-20": ("/past-auctions/29593", 4),
+        "auction-house-online-2021-07-13": ("/past-auctions/29592", 2),
+        "auction-house-online-2021-07-06": ("/past-auctions/29327", 1),
+        "auction-house-online-2021-06-29": ("/past-auctions/28285", 11),
+        "auction-house-online-2021-06-22": ("/past-auctions/28284", 4),
+        "auction-house-online-2021-06-15": ("/past-auctions/28283", 7),
+        "auction-house-online-2021-06-08": ("/past-auctions/28282", 3),
+        "auction-house-online-2021-06-01": ("/past-auctions/28281", 2),
+        "auction-house-online-2021-05-25": ("/past-auctions/27930", 5),
+        "auction-house-online-2021-05-18": ("/past-auctions/27708", 3),
+        "auction-house-online-2021-05-11": ("/past-auctions/27698", 3),
+    }
+    for source_name, (archive_path, visible_cards) in expected.items():
+        source = grids.SOURCES[source_name]
+        assert source["auctioneer"] == "Auction House Online"
+        assert source["base"] == "https://online.auctionhouse.co.uk"
+        assert source["archive_path"] == archive_path
+        assert source["archive_attempts"] == 3
+        assert source["archive_timeout"] == 90
+        assert source["operator_legal_name"] == "AUCTION HOUSE UK LIMITED"
+        assert source["operator_company_number"] == "06025583"
+        assert source["auctioneer_from_detail"] is True
+        assert source["unpaginated_event"] is True
+        assert source["expected_visible_cards"] == visible_cards
+        assert source["exclude_exact_cross_source_overlaps"] is True
+        assert source["allow_incomplete_detail_recovery"] is True
+        assert source["detail_attempts"] == 2
+        assert source["detail_timeout"] == 45
+    assert sum(cards for _, cards in expected.values()) == 62
+
