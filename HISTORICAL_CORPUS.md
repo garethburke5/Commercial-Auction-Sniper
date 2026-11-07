@@ -1565,3 +1565,13 @@ are in commits `d64e334b4fb5ac8b2e1042a708b2b1dbb37660b5`,
 `bc06bbf9d4e47c0a01cc9f25f0db1145ad664321`. This remains all-sector permanent
 capture; the commercial website filter is a separate presentation decision. National
 completeness remains **false**.
+
+
+## 2026-11-07 06:17 UTC — active-writer deferment and 120-card follow-on preparation
+
+- **Writer protection:** scheduled current all-sector scan [42344862311](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42344862311) remained inside production collectors after passing its regression gate. It had not reached validation, publication or permanent-history banking. The ready 112-card historical batch was therefore not promoted and no concurrent generated-data writer was launched.
+- **Bounded Savills outcome:** scheduled Savills bulk run [42344581580](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42344581580) completed successfully but emitted `CORPUS_RECORDS=30 DISCOVERED=0 PAGES=1 BLOCKERS=1` and committed no corpus change. This is **0 collection growth**; the blocked route was not retried.
+- **Measured corpus growth this checkpoint:** 0 appearances, 0 addresses, 0 exact-dated in-window addresses, 0 commercial, 0 mixed-use, 0 guides, 0 achieved prices, 0 rents, 0 partial, 0 undated, 0 future-dated, 0 duplicate identities and 0 new operator source-years. Existing totals remain 311,200 appearances, 300,247 addresses, 302,935 in-window appearances, 105,269 guides and 112,161 achieved prices.
+- **Reusable collector improvement:** the official first-party archive index exposes a further eight substantial catalogues from 31 January 2023 back to 29 November 2022 with **120 advertised cards** in total: 14, 5, 10, 14, 10, 18, 14 and 35. Strict source definitions and literal denominator assertions were added in commits `cd683ca567e6035f1710288392ccb103a1845e2d` and `61fc5af77f2a20da9d3084b831585a21b0d75d6a`. The untriggered follow-on manifest is preserved in `config/retained_grid_batch_followon.json` by commit `778cb08e88522342c6207b154da5c658e2fbb039`.
+- **Next concrete action:** once current scan 42344862311 and its downstream permanent-history bank/publication chain clear, promote the already prepared **112-card** 14 March–7 February 2023 batch as one serial manifest run. Only after its bank and exact-revision publication succeed should the new 120-card follow-on be promoted.
+- All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false**.
