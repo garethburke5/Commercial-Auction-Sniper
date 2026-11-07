@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-11-07T12:13:46.953179+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/38394",
+  "platform_event_id": "38394",
+  "archive_sha256": "b3c39263862bfe925ba429907bb98b701f804cb7aad3e9eb92c9139e1ff8898c",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-05-24",
+      "address": "Apartment 331 The Printworks, Sheffield, South Yorkshire, S3 7BF",
+      "source_lot_id": "7f17cadd-206c-4608-b60a-7b21f3e05e29",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7f17cadd-206c-4608-b60a-7b21f3e05e29",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-05-24",
+      "address": "44 Trent Street, Retford, Nottinghamshire, DN22 6NQ",
+      "source_lot_id": "2144c07c-0bff-48ea-a663-fdaaf8085d43",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2144c07c-0bff-48ea-a663-fdaaf8085d43",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-05-24",
+      "address": "Apartment 102 Pearl Works, Sheffield, South Yorkshire, S1 2FT",
+      "source_lot_id": "3c5954d6-dc5b-4d74-84de-fa17f80b8b29",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3c5954d6-dc5b-4d74-84de-fa17f80b8b29",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-05-06",
+    "2022-05-06"
+  ],
+  "by_status": {
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

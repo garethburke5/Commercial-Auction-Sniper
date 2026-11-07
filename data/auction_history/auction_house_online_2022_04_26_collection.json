@@ -1,0 +1,110 @@
+{
+  "checked_at": "2026-11-07T12:14:46.911378+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/37722",
+  "platform_event_id": "37722",
+  "archive_sha256": "a200fd1795e20f1ae5e502142a131264b2137843737227f063ea2be09451183e",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    15
+  ],
+  "archive_page_visible_cards": [
+    15
+  ],
+  "visible_source_rows": 15,
+  "expected_visible_cards": 15,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 15,
+  "distinct_source_identities": 15,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 10,
+  "run_new_appearances": 10,
+  "run_new_address_records": 10,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 10,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 10,
+  "run_new_sale_prices": 3,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-04-26",
+      "address": "49 Rotherham Road Great Houghton, Barnsley, South Yorkshire, S72 0DG",
+      "source_lot_id": "e587fbf6-ef67-4e89-9f43-433fa04fc494",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e587fbf6-ef67-4e89-9f43-433fa04fc494",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-26",
+      "address": "78 Victoria Road, Mexborough, South Yorkshire, S64 9BU",
+      "source_lot_id": "1feb0806-c4d3-4eab-9349-abe35d4a6df0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1feb0806-c4d3-4eab-9349-abe35d4a6df0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-26",
+      "address": "63-67 Pasture Street, Grimsby, South Humberside, DN32 9AB",
+      "source_lot_id": "e17cb9b0-ba4c-4cb1-8910-b4f66f589302",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e17cb9b0-ba4c-4cb1-8910-b4f66f589302",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-26",
+      "address": "24 Cambria Mews, Nottingham, Nottinghamshire, NG3 4GZ",
+      "source_lot_id": "199adf2d-510a-43d6-8481-52cdebcf7c36",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/199adf2d-510a-43d6-8481-52cdebcf7c36",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-26",
+      "address": "10 Dukeries Crescent, Worksop, Nottinghamshire, S80 2QW",
+      "source_lot_id": "6a950aed-7144-4566-b095-d799daa4b5b2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6a950aed-7144-4566-b095-d799daa4b5b2",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-04-22",
+    "2022-04-26"
+  ],
+  "by_status": {
+    "sold": 3,
+    "unsold": 5,
+    "withdrawn": 2
+  },
+  "by_sector": {
+    "land": 6,
+    "residential": 2,
+    "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire": 8,
+    "Auction House Notts & Derby": 2
+  },
+  "detail_pages_captured": 15,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
