@@ -15,7 +15,7 @@ def available_slots(channel, posts, now, config):
         value=p.get('dueAt') or p.get('createdAt')
         if not value:raise ValueError('Cannot establish occupied queue slots')
         dt=stamp(value).astimezone(zone);week=dt.isocalendar()[:2]
-        counts[week]=counts.get(week,0)+1;occupied.add(dt)
+        counts[week]=counts.get(week,0)+1;occupied.add(dt.date())
     slots=[]
     for offset in range(8):
         day=local.date()+timedelta(days=offset)
@@ -25,9 +25,9 @@ def available_slots(channel, posts, now, config):
             hour,minute=map(int,value.split(':'))
             dt=datetime(day.year,day.month,day.day,hour,minute,tzinfo=zone)
             week=dt.isocalendar()[:2]
-            if dt<=now+timedelta(minutes=30) or dt>now+timedelta(days=7) or dt in occupied:continue
+            if dt<=now+timedelta(minutes=30) or dt>now+timedelta(days=7) or day in occupied:continue
             if counts.get(week,0)>=min(3,config['max_posts_per_channel_per_week']):continue
-            slots.append(dt.astimezone(timezone.utc));counts[week]=counts.get(week,0)+1
+            occupied.add(day);slots.append(dt.astimezone(timezone.utc));counts[week]=counts.get(week,0)+1
             if len(slots)+len(queued)>=min(10,config['max_queue_per_channel']):return slots
     return slots
 
