@@ -1,0 +1,99 @@
+{
+  "checked_at": "2026-11-07T15:06:24.298330+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/32644",
+  "platform_event_id": "32644",
+  "archive_sha256": "96f35a525b7377eae377c946b2d35fc0915e085c3e2b83340f4404d95b96822f",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 6,
+  "run_new_appearances": 6,
+  "run_new_address_records": 6,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 6,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 6,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-11-30",
+      "address": "11 Morton Close, Barnsley, South Yorkshire, S71 2QB",
+      "source_lot_id": "364d6067-3e50-441e-af7a-cbca2f1a81db",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/364d6067-3e50-441e-af7a-cbca2f1a81db",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-30",
+      "address": "20 Victoria Street Goldthorpe, Rotherham, South Yorkshire, S63 9HS",
+      "source_lot_id": "c04caf21-2dea-40cc-9aa6-dafe721faf4a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c04caf21-2dea-40cc-9aa6-dafe721faf4a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-30",
+      "address": "Land at Moor Sherd Wookey, Wells, Somerset, BA5 1QB",
+      "source_lot_id": "538d2fd6-4e1e-468f-81f7-780d3ce98037",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/538d2fd6-4e1e-468f-81f7-780d3ce98037",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-11-24",
+    "2021-11-30"
+  ],
+  "by_status": {
+    "unsold": 4,
+    "withdrawn": 1,
+    "postponed": 1
+  },
+  "by_sector": {
+    "commercial": 1,
+    "residential": 2,
+    "land": 1,
+    "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 2,
+    "Auction House South Yorkshire": 2,
+    "Auction House North East": 1,
+    "Auction House Coventry and Warwickshire": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

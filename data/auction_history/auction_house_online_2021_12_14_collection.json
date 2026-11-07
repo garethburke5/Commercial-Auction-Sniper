@@ -1,0 +1,108 @@
+{
+  "checked_at": "2026-11-07T15:05:44.718491+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/33234",
+  "platform_event_id": "33234",
+  "archive_sha256": "9452f3340e88a531c7cb4539b856bb070a8970782b831b7ade2432056687dd4f",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 4,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-12-14",
+      "address": "14a Alexandra Road May Bank, Newcastle, Staffordshire, ST5 9PL",
+      "source_lot_id": "24289821-afdd-48ca-bbbc-7a81889b6e1f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/24289821-afdd-48ca-bbbc-7a81889b6e1f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-12-14",
+      "address": "Ground Floor 226 Hainton Avenue, Grimsby, South Humberside, DN32 9LJ",
+      "source_lot_id": "d55d3001-b936-4ab9-859e-4df8d680615d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d55d3001-b936-4ab9-859e-4df8d680615d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-12-14",
+      "address": "16 Cecilly Street Cheadle, Stoke-On-Trent, Staffordshire, ST10 1DF",
+      "source_lot_id": "4540bd4c-dfbf-4764-a776-169b4657bbeb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4540bd4c-dfbf-4764-a776-169b4657bbeb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-12-14",
+      "address": "5 Eastgate, Worksop, Nottinghamshire, S80 1RH",
+      "source_lot_id": "6021ea3f-fbb5-4d29-a2d7-7e0fc9d3d686",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6021ea3f-fbb5-4d29-a2d7-7e0fc9d3d686",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-12-14",
+      "address": "30A Montgomery House, Manchester, Lancashire, M16 8PH",
+      "source_lot_id": "237899c3-4613-45be-9367-da771652ecb2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/237899c3-4613-45be-9367-da771652ecb2",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-12-02",
+    "2021-12-14"
+  ],
+  "by_status": {
+    "unsold": 3,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Notts & Derby": 2,
+    "Auction House North West": 1,
+    "Auction House South Yorkshire": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

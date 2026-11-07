@@ -1,0 +1,108 @@
+{
+  "checked_at": "2026-11-07T15:07:22.307121+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/32641",
+  "platform_event_id": "32641",
+  "archive_sha256": "291c558a1ea03ad4db9b56fb52516404d89c2c57ce42ac2184f633a812a7cd13",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-11-09",
+      "address": "Room 609, Flat 17 Colonnade House, 201 Sunbridge Road, Bradford, West Yorkshire, BD1 2HQ",
+      "source_lot_id": "b135a491-63d0-425e-8b33-421369d74d11",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b135a491-63d0-425e-8b33-421369d74d11",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-09",
+      "address": "8 Ancona Street, Sunderland, Tyne and Wear, SR4 6TJ",
+      "source_lot_id": "918bbcb6-29bf-485d-a812-85588d9acdda",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/918bbcb6-29bf-485d-a812-85588d9acdda",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-09",
+      "address": "131 Bower Street, Derby, Derbyshire, DE24 8RS",
+      "source_lot_id": "6bd6bd3d-4bc9-44f0-aa52-736a8e69e191",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6bd6bd3d-4bc9-44f0-aa52-736a8e69e191",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-09",
+      "address": "79 Hoefield Crescent Bulwell, Nottingham, Nottinghamshire, NG6 8AZ",
+      "source_lot_id": "6eb05d68-edae-47fd-b369-336fe1b6170c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6eb05d68-edae-47fd-b369-336fe1b6170c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-09",
+      "address": "18 Water Street, Manchester, Lancashire, M9 5US",
+      "source_lot_id": "582ebb24-0cf2-4974-a51f-f89602269b32",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/582ebb24-0cf2-4974-a51f-f89602269b32",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-11-09",
+    "2021-11-09"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Online": 1,
+    "Auction House North East": 1
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

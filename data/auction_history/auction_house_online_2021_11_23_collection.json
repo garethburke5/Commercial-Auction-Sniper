@@ -1,0 +1,76 @@
+{
+  "checked_at": "2026-11-07T15:06:43.652202+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/32643",
+  "platform_event_id": "32643",
+  "archive_sha256": "d5a4797b5a335bbc8882b3c45413969e2d1a0627a22b3d54dce3d0fd92065c9a",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    2
+  ],
+  "archive_page_visible_cards": [
+    2
+  ],
+  "visible_source_rows": 2,
+  "expected_visible_cards": 2,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 2,
+  "distinct_source_identities": 2,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 0,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-11-23",
+      "address": "17 Hockett Street Cheylesmore, Coventry, West Midlands, CV3 5FR",
+      "source_lot_id": "fb1f077a-7683-4c7b-abc7-6ed9eb67a9ad",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fb1f077a-7683-4c7b-abc7-6ed9eb67a9ad",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-11-23",
+      "address": "23 Goldsmith Street, Mansfield, Nottinghamshire, NG18 5PF",
+      "source_lot_id": "36439fbb-f4a8-46ed-9c62-65826697a377",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/36439fbb-f4a8-46ed-9c62-65826697a377",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [],
+  "date_range": [
+    null,
+    null
+  ],
+  "by_status": {},
+  "by_sector": {},
+  "by_attributed_auctioneer": {},
+  "detail_pages_captured": 2,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

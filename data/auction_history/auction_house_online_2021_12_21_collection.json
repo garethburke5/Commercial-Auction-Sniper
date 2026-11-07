@@ -1,0 +1,87 @@
+{
+  "checked_at": "2026-11-07T15:05:25.254759+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/33996",
+  "platform_event_id": "33996",
+  "archive_sha256": "6de2c67e8f4071eed93afa6477a407f2baa673a3298a0406064e365eb085c411",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-12-21",
+      "address": "6 Ousterne Lane Fillongley, Coventry, West Midlands, CV7 8EU",
+      "source_lot_id": "54ee6ff9-5d94-4b5d-8a55-1a4eb06a981f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/54ee6ff9-5d94-4b5d-8a55-1a4eb06a981f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-12-21",
+      "address": "Unit 69 200 Norfolk Park Road, Sheffield, South Yorkshire, S2 2UA",
+      "source_lot_id": "25f1caad-c025-4af8-a099-db4acd3d8a00",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/25f1caad-c025-4af8-a099-db4acd3d8a00",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-12-21",
+    "2021-12-21"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1,
+    "commercial": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1,
+    "Auction House Online": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
