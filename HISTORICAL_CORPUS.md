@@ -1458,3 +1458,48 @@ Next concrete growth target: add a strict isolated contract for Auction House On
 - **Publication:** run [42332577003](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42332577003) completed successfully on both GitHub Pages and `auctiongeek.co.uk`, including live property-data and indexing verification.
 - **Next concrete growth target:** the manifest in `config/retained_grid_batch_next.json` is ready but deliberately untriggered. It covers four first-party Auction House Online catalogues: 6 June (24 cards), 30 May (20), 23 May (16) and 16 May 2023 (25), **85 visible cards** in total. Start it only after the active current-scan workflow, its permanent-history bank and publication chain clear; then capture all cards/details, preserve actual dates and field evidence, and exclude exact overlaps before claiming growth.
 - National completeness remains **false** until source-by-source lot inventories and genuine auctioneer coverage reconcile.
+
+
+## 2026-11-07 04:50 UTC — 85-card May/June retained-grid batch
+
+The reusable manifest runner reconciled 85/85 first-party cards and 85/85 detail
+pages from Auction House Online events 48400, 48304, 47939 and 47463. Immutable
+index/detail evidence and original lot URLs were banked before rebuild.
+
+| Source event | Captured | Net appearances | Exact overlaps excluded | Commercial / mixed | Land / residential / unknown | Guides | Achieved prices | Rents |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 6 June 2023 | 24/24 | 15 | 9 | 1 / 0 | 2 / 4 / 8 | 15 | 1 | 1 |
+| 30 May 2023 | 20/20 | 5 | 15 | 0 / 0 | 0 / 2 / 3 | 5 | 0 | 0 |
+| 23 May 2023 | 16/16 | 8 | 8 | 0 / 0 | 0 / 6 / 2 | 8 | 1 | 0 |
+| 16 May 2023 | 25/25 | 4 | 21 | 0 / 0 | 0 / 1 / 3 | 4 | 0 | 0 |
+| **Batch** | **85/85** | **32** | **53** | **1 / 0** | **2 / 13 / 16** | **32** | **2** | **1** |
+
+All 32 additions have addresses, exact individual dates and dates inside the
+twenty-year window. New partial, undated, future-dated and duplicate source
+identities are 0. The batch reconciles four source-events and eleven complete
+catalogue/date states; Auction House regional names remain branch/trading-name
+attributions under Auction House UK Limited, so genuine new operator source-years
+are 0.
+
+Bank commit `48c1080b8de55eb4d220e3cef354bdd1f1f9e00d` rebuilt the corpus to:
+
+- 311,150 appearances; 300,197 address records; 302,885 in-window appearances.
+- 105,219 in-window guides and 112,150 in-window achieved prices.
+- 42,591 commercial, 19,028 land, 47,608 mixed-use, 151,099 residential and
+  50,824 unknown-sector appearances.
+- 10,953 partial, 5,018 undated and 152 future-dated appearances.
+- 4,601 complete catalogue states, 556 incomplete/unreconciled and 31 failures.
+
+Historical run 42338076003 passed 175 tests and banked the evidence. Exact-revision
+publication run 42338549825 succeeded on GitHub Pages and `auctiongeek.co.uk`,
+including live property-data and indexing verification. A separate current-history
+bank caused by the earlier manifest wrapper added 0 properties and 0 events and is
+not counted as growth.
+
+Manifest-only pushes are now excluded at the current workflow trigger, with a
+regression assertion, so future batch promotions do not launch the current scanner
+or revalidation writer. The 79-card 9 May–18 April batch is queued as historical
+run 42339578763 behind bounded continuation 42339526658 and must not be duplicated.
+The next unwatched target is the 67-card 11 April–21 March 2023 batch (events 47008,
+46885, 46723 and 46417), persisted in `config/retained_grid_batch_next.json` with
+collector and regression contracts. National completeness remains false.
