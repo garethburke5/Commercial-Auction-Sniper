@@ -4,6 +4,44 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 7 November 2026 — April-June 2022 retained-grid batch
+
+Run [42371351914](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371351914)
+reconciled all 44 visible cards and detail pages across eight first-party Auction
+House Online events dated 26 April-14 June 2022. Bank commit
+[fb9837e](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/fb9837e80b8e709b8c0f07e6d7e9b0c8e60eeb87)
+added 18 net property appearances, all address-bearing and individually dated inside
+the current twenty-year window. It added 18 guide-price fields, three achieved
+prices and two rent fields; one new appearance was commercial/mixed-use. Twenty-six
+exact date/address overlaps were excluded. Partial, undated, future-dated and
+duplicate-source-identity additions were zero.
+
+The batch added eight previously unbanked source-event/year inventories, all in
+2022, and ten complete catalogue/date states (4,699 to 4,709). It did not add a
+new operator-year because Auction House Online 2022 was already represented.
+Individual lot dates ranging from 22 April through 14 June were preserved even
+when they differed from the catalogue container label. The 31 May event's two
+cards were exact overlaps and contributed no claimed growth.
+
+Initial run [42371001260](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371001260)
+produced zero growth because the promoted manifest reached `main` before its tested
+source definitions. The safeguard banked unchanged data and failed closed. Commit
+[26aaa5e](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/26aaa5ec80c52e07e228498face3e201ba29047b)
+merged the definitions and assertions atomically; the successful rerun above is the
+materially different route, so the blocked path is not being repeated.
+
+Exact-revision publication
+[42371824997](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371824997)
+passed tests, GitHub Pages deployment and production-domain verification. Corpus
+totals are 311,440 appearances, 300,487 address records, 303,175 in-window
+appearances, 105,509 guides and 112,183 achieved prices. Partial, undated and
+future-dated totals remain 10,953, 5,018 and 152.
+
+Next serial growth target: six first-party catalogues dated 15 March-19 April 2022,
+41 visible cards in total, persisted untriggered in
+`config/retained_grid_batch_next.json`. Promote it only after a fresh writer and
+publisher check. National completeness remains false.
+
 ## 7 November 2026 — June-August 2022 retained-grid batch
 
 Run [42367031951](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42367031951)

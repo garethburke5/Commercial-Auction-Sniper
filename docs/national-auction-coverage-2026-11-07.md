@@ -8,6 +8,50 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — 12:17 UTC
+
+The reusable retained-grid runner reconciled eight Auction House Online events and
+all 44 visible cards/details from 26 April through 14 June 2022. Bank commit
+[fb9837e](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/fb9837e80b8e709b8c0f07e6d7e9b0c8e60eeb87)
+added 18 net appearances and 18 exact-dated address records inside the twenty-year
+window. One was commercial/mixed-use. It added 18 guides, three achieved prices
+and two rents. Twenty-six exact date/address overlaps were excluded; partial,
+undated, future-dated and duplicate-identity gains were zero.
+
+Eight previously unbanked source-event/year inventories (all 2022) and ten complete
+catalogue/date states were added. No new operator-year was claimed because Auction
+House Online 2022 was already represented. The two-card 31 May event was wholly
+duplicate and therefore added no appearances.
+
+Initial run [42371001260](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371001260)
+failed closed with zero growth because the manifest reached `main` before its
+source definitions. Commit
+[26aaa5e](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/26aaa5ec80c52e07e228498face3e201ba29047b)
+merged definitions and assertions atomically; successful run
+[42371351914](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371351914)
+then banked the evidence. This is recorded as a corrected integration route, not
+growth attributed to the failed run.
+
+Exact-revision publication
+[42371824997](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371824997)
+passed GitHub Pages and `auctiongeek.co.uk` verification. Totals are now 311,440
+appearances, 300,487 address records, 303,175 in-window appearances, 105,509 guides,
+112,183 achieved prices and 4,709 complete catalogue/date states.
+
+Next target: the persisted, untriggered 41-card batch across six first-party
+catalogues dated 15 March-19 April 2022. National completeness remains false.
+
+Writer-protection check: restarted current scan
+[42344862311](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42344862311)
+completed successfully and revalidated 913 published rows with zero fresh
+reclassifications; the retained snapshot reports 913 published and 1,787 historical
+properties. History-bank run
+[42371537066](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371537066)
+also completed successfully. No duplicate scan or bank job was launched. The separate
+commercial-filter freshness failure remains a source-warning checkpoint, not evidence
+that all-sector banked appearances were lost; intentional residential/land exclusions
+and stale-date rows remain distinct from missing source URLs.
+
 ## Persisted historical gain — 11:25 UTC
 
 The reusable retained-grid runner reconciled eight Auction House Online events and
