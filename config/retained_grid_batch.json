@@ -1,73 +1,168 @@
 {
-  "batch_id": "auction-house-online-2020-07-02-to-2020-10-29",
-  "prepared_at": "2026-11-07",
-  "sources": [
-    "auction-house-online-2020-10-29",
-    "auction-house-online-2020-10-22",
-    "auction-house-online-2020-10-15",
-    "auction-house-online-2020-10-08-a",
-    "auction-house-online-2020-10-08-b",
-    "auction-house-online-2020-10-01",
-    "auction-house-online-2020-09-24",
-    "auction-house-online-2020-09-10",
-    "auction-house-online-2020-09-03",
-    "auction-house-online-2020-08-27",
-    "auction-house-online-2020-08-20",
-    "auction-house-online-2020-08-13",
-    "auction-house-online-2020-08-06",
-    "auction-house-online-2020-07-30",
-    "auction-house-online-2020-07-23",
-    "auction-house-online-2020-07-16",
-    "auction-house-online-2020-07-09",
-    "auction-house-online-2020-07-02"
-  ],
-  "published_visible_cards": 71,
-  "source_urls": [
-    "https://online.auctionhouse.co.uk/past-auctions/20882",
-    "https://online.auctionhouse.co.uk/past-auctions/20881",
-    "https://online.auctionhouse.co.uk/past-auctions/20880",
-    "https://online.auctionhouse.co.uk/past-auctions/20781",
-    "https://online.auctionhouse.co.uk/past-auctions/20879",
-    "https://online.auctionhouse.co.uk/past-auctions/20780",
-    "https://online.auctionhouse.co.uk/past-auctions/20009",
-    "https://online.auctionhouse.co.uk/past-auctions/20007",
-    "https://online.auctionhouse.co.uk/past-auctions/20006",
-    "https://online.auctionhouse.co.uk/past-auctions/19289",
-    "https://online.auctionhouse.co.uk/past-auctions/19288",
-    "https://online.auctionhouse.co.uk/past-auctions/19287",
-    "https://online.auctionhouse.co.uk/past-auctions/19286",
-    "https://online.auctionhouse.co.uk/past-auctions/18653",
-    "https://online.auctionhouse.co.uk/past-auctions/18652",
-    "https://online.auctionhouse.co.uk/past-auctions/18651",
-    "https://online.auctionhouse.co.uk/past-auctions/18327",
-    "https://online.auctionhouse.co.uk/past-auctions/18326"
-  ],
-  "per_event_visible_cards": [
-    2,
-    7,
-    7,
-    1,
-    5,
-    3,
-    2,
-    1,
-    2,
-    4,
-    8,
-    5,
-    5,
-    9,
-    2,
-    3,
-    3,
-    2
-  ],
-  "note": "Eighteen canonical first-party event pages expose 71 cards from 2 July to 29 October 2020, including two distinct 8 October event IDs. The official archive's 17 September N/A shell has no lot link and is excluded. Preserve each card's individual published date, every sector, guides, achieved prices, rents, outcomes, original URLs and immutable source evidence.",
+  "batch_id": "auction-house-online-2020-01-23-to-2020-06-25",
   "status": "ready_but_not_triggered",
-  "ready_after_batch_id": "auction-house-online-2020-11-05-to-2021-02-18",
-  "publication_gate_status": "passed_both_publication_lanes",
-  "hold_reason": "Historical run 42404024426 banked commit 73fc06877eefd4df90c836e10eb8f8a521c93b04. Exact-revision publication run 42404818965 passed both Pages and auctiongeek.co.uk verification. This tested 71-card follow-on remains deliberately untriggered pending a fresh active-writer check in the next serial run.",
-  "preceding_batch_run": 42404024426,
-  "preceding_batch_bank_commit": "73fc06877eefd4df90c836e10eb8f8a521c93b04",
-  "publication_gate_run": 42404818965
+  "publication_gate_status": "passed",
+  "hold_reason": "Passed collection and exact-bank publication for the preceding July-October 2020 batch. Promote only after a fresh active-writer check.",
+  "ready_after_batch_id": "auction-house-online-2020-07-02-to-2020-10-29",
+  "sources": [
+    "auction-house-online-2020-06-25",
+    "auction-house-online-2020-06-18",
+    "auction-house-online-2020-06-11",
+    "auction-house-online-2020-06-04",
+    "auction-house-online-2020-05-28",
+    "auction-house-online-2020-05-21",
+    "auction-house-online-2020-05-20",
+    "auction-house-online-2020-05-14",
+    "auction-house-online-2020-05-07",
+    "auction-house-online-2020-04-30",
+    "auction-house-online-2020-04-23",
+    "auction-house-online-2020-04-16",
+    "auction-house-online-2020-04-09",
+    "auction-house-online-2020-04-02",
+    "auction-house-online-2020-03-26",
+    "auction-house-online-2020-03-19",
+    "auction-house-online-2020-03-12",
+    "auction-house-online-2020-03-05",
+    "auction-house-online-2020-02-27",
+    "auction-house-online-2020-02-20",
+    "auction-house-online-2020-02-13",
+    "auction-house-online-2020-02-06",
+    "auction-house-online-2020-01-30",
+    "auction-house-online-2020-01-23"
+  ],
+  "published_visible_cards": 140,
+  "excluded_archive_rows": [
+    {
+      "date": "2020-01-09",
+      "reason": "First-party archive row is an N/A shell with no linked event catalogue and no visible lot denominator."
+    }
+  ],
+  "source_events": [
+    {
+      "source": "auction-house-online-2020-06-25",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17911",
+      "published_visible_cards": 3
+    },
+    {
+      "source": "auction-house-online-2020-06-18",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17539",
+      "published_visible_cards": 7
+    },
+    {
+      "source": "auction-house-online-2020-06-11",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17538",
+      "published_visible_cards": 2
+    },
+    {
+      "source": "auction-house-online-2020-06-04",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17515",
+      "published_visible_cards": 9
+    },
+    {
+      "source": "auction-house-online-2020-05-28",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17009",
+      "published_visible_cards": 12
+    },
+    {
+      "source": "auction-house-online-2020-05-21",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17008",
+      "published_visible_cards": 9
+    },
+    {
+      "source": "auction-house-online-2020-05-20",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17805",
+      "published_visible_cards": 1
+    },
+    {
+      "source": "auction-house-online-2020-05-14",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17007",
+      "published_visible_cards": 6
+    },
+    {
+      "source": "auction-house-online-2020-05-07",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/16540",
+      "published_visible_cards": 5
+    },
+    {
+      "source": "auction-house-online-2020-04-30",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/16103",
+      "published_visible_cards": 10
+    },
+    {
+      "source": "auction-house-online-2020-04-23",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/16102",
+      "published_visible_cards": 10
+    },
+    {
+      "source": "auction-house-online-2020-04-16",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/16101",
+      "published_visible_cards": 12
+    },
+    {
+      "source": "auction-house-online-2020-04-09",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/15999",
+      "published_visible_cards": 6
+    },
+    {
+      "source": "auction-house-online-2020-04-02",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/15821",
+      "published_visible_cards": 15
+    },
+    {
+      "source": "auction-house-online-2020-03-26",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/15501",
+      "published_visible_cards": 4
+    },
+    {
+      "source": "auction-house-online-2020-03-19",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/15498",
+      "published_visible_cards": 3
+    },
+    {
+      "source": "auction-house-online-2020-03-12",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/15252",
+      "published_visible_cards": 3
+    },
+    {
+      "source": "auction-house-online-2020-03-05",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14174",
+      "published_visible_cards": 5
+    },
+    {
+      "source": "auction-house-online-2020-02-27",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14553",
+      "published_visible_cards": 5
+    },
+    {
+      "source": "auction-house-online-2020-02-20",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14547",
+      "published_visible_cards": 7
+    },
+    {
+      "source": "auction-house-online-2020-02-13",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14549",
+      "published_visible_cards": 1
+    },
+    {
+      "source": "auction-house-online-2020-02-06",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14548",
+      "published_visible_cards": 1
+    },
+    {
+      "source": "auction-house-online-2020-01-30",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14181",
+      "published_visible_cards": 1
+    },
+    {
+      "source": "auction-house-online-2020-01-23",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/14180",
+      "published_visible_cards": 3
+    }
+  ],
+  "notes": "Reusable first-party batch for all 24 linked Auction House Online event catalogues from 23 January through 25 June 2020. The 9 January N/A shell is excluded without being counted as an event or property.",
+  "preceding_batch_run": {
+    "collection_run_id": 42409397176,
+    "bank_commit": "94e613912413ec791f213c2870a6e54be42c3d21",
+    "publication_run_id": 42410265037
+  }
 }
