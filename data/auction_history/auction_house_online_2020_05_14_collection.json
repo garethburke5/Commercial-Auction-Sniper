@@ -1,0 +1,100 @@
+{
+  "checked_at": "2026-11-07T22:42:19.515139+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/17007",
+  "platform_event_id": "17007",
+  "archive_sha256": "1c3f653c86e6754611121250e100e66b5d789be21deb9776402c742ab6dccf3b",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    6
+  ],
+  "archive_page_visible_cards": [
+    6
+  ],
+  "visible_source_rows": 6,
+  "expected_visible_cards": 6,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 6,
+  "distinct_source_identities": 6,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-05-14",
+      "address": "107 Collingwood Court, Washington, Tyne and Wear, NE37 3EF",
+      "source_lot_id": "50f2655c-2f40-4315-b4f2-ed8f5b96dff3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/50f2655c-2f40-4315-b4f2-ed8f5b96dff3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-14",
+      "address": "Former Mowbray Arms, 5 Lily Street, Bradford, West Yorkshire, BD8 7PQ",
+      "source_lot_id": "38c7d114-44d8-416c-b536-dc3df41333a6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/38c7d114-44d8-416c-b536-dc3df41333a6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-14",
+      "address": "17 Cromwell Road, Mexborough, South Yorkshire, S64 9BB",
+      "source_lot_id": "0a796be9-476e-4c1a-9fe4-8b0157e14a68",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/0a796be9-476e-4c1a-9fe4-8b0157e14a68",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-14",
+      "address": "19 Queens Crescent, Edlington, Doncaster, South Yorkshire, DN12 1BE",
+      "source_lot_id": "57c363ce-0286-49a3-a3ff-6adf05d87f74",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/57c363ce-0286-49a3-a3ff-6adf05d87f74",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-05-07",
+    "2020-05-13"
+  ],
+  "by_status": {
+    "withdrawn": 2
+  },
+  "by_sector": {
+    "residential": 1,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire, Staffordshire & Shropshire": 1,
+    "Auction House South Yorkshire": 1
+  },
+  "detail_pages_captured": 6,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

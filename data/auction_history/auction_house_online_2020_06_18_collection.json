@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-11-07T22:40:22.364472+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/17539",
+  "platform_event_id": "17539",
+  "archive_sha256": "6464380bbc56c5dc1ff47d73d26134a83a4d261de579bfb223aba3de5bb4af76",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-06-18",
+      "address": "25 Joshua Court Gregory Street, Longton, Stoke-On-Trent, Staffordshire, ST3 2LG",
+      "source_lot_id": "7c48d48b-3f5a-47d3-b004-a61faae33013",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7c48d48b-3f5a-47d3-b004-a61faae33013",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-18",
+      "address": "33 Manor Road, Askern, Doncaster, South Yorkshire, DN6 0AS",
+      "source_lot_id": "c44f2729-223d-4f13-a1a6-c0c3fa9ee005",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c44f2729-223d-4f13-a1a6-c0c3fa9ee005",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-18",
+      "address": "68 Fairfax Avenue, Drighlington, Bradford, West Yorkshire, BD11 1DN",
+      "source_lot_id": "7001ce13-4ee2-4e14-832c-4b51fac07389",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7001ce13-4ee2-4e14-832c-4b51fac07389",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-18",
+      "address": "39 Piccadilly, Hanley, Stoke-On-Trent, Staffordshire, ST1 1EN",
+      "source_lot_id": "5ec7d7b1-716a-4cb9-aa6e-fdc386a0533d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5ec7d7b1-716a-4cb9-aa6e-fdc386a0533d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-18",
+      "address": "Land at A41/Heath Road, Whitchurch, Shropshire, SY13 2AA",
+      "source_lot_id": "39d2d954-08e5-482f-9d7c-8ba20647b1cb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/39d2d954-08e5-482f-9d7c-8ba20647b1cb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-18",
+      "address": "4A Pump Hollow Lane, Mansfield, Nottinghamshire, NG18 3DU",
+      "source_lot_id": "63c55b38-a0bb-47dd-9f93-d9a920fdc250",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/63c55b38-a0bb-47dd-9f93-d9a920fdc250",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-06-18",
+    "2020-06-18"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Symonds & Sampson": 1
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

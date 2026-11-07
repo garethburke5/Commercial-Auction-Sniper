@@ -1,0 +1,88 @@
+{
+  "checked_at": "2026-11-07T22:45:33.808858+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/14174",
+  "platform_event_id": "14174",
+  "archive_sha256": "17808e64cc7332809fe79ba98f85cd3522e5a6cfb5018ea2f2e35e44ca9c7728",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    5
+  ],
+  "archive_page_visible_cards": [
+    5
+  ],
+  "visible_source_rows": 5,
+  "expected_visible_cards": 5,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 5,
+  "distinct_source_identities": 5,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-03-05",
+      "address": "55 Queensway, Houghton le Spring, Tyne and Wear, DH5 8EW",
+      "source_lot_id": "8dc02d12-f6c6-4f78-a265-e86b3882cf5e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8dc02d12-f6c6-4f78-a265-e86b3882cf5e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-03-05",
+      "address": "2 Medway House Samuel Street, Preston, Lancashire, PR1 4YJ",
+      "source_lot_id": "2424615c-059c-42ae-a458-45931844c1a1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2424615c-059c-42ae-a458-45931844c1a1",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-02-28",
+    "2020-03-05"
+  ],
+  "by_status": {
+    "sold_prior": 2,
+    "unsold": 1
+  },
+  "by_sector": {
+    "commercial": 1,
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Wales - Cardiff": 1,
+    "Auction House North West": 1,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1
+  },
+  "detail_pages_captured": 5,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

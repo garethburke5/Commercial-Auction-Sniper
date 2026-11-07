@@ -1,0 +1,93 @@
+{
+  "checked_at": "2026-11-07T22:42:38.813033+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/16540",
+  "platform_event_id": "16540",
+  "archive_sha256": "406006be96820f1e65d51768422d14bdd6c5492ee3521f1fa42adc96b08b6801",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    5
+  ],
+  "archive_page_visible_cards": [
+    5
+  ],
+  "visible_source_rows": 5,
+  "expected_visible_cards": 5,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 5,
+  "distinct_source_identities": 5,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-05-07",
+      "address": "5 Blucher Street, Bradford, West Yorkshire, BD4 8BP",
+      "source_lot_id": "24fc4974-f82a-4d5a-875c-c5e6370d1575",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/24fc4974-f82a-4d5a-875c-c5e6370d1575",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-07",
+      "address": "71 Willans Avenue, Rothwell, Leeds, West Yorkshire, LS26 0NF",
+      "source_lot_id": "57d96e59-a413-4e45-80e1-c518d0bb47a8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/57d96e59-a413-4e45-80e1-c518d0bb47a8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-07",
+      "address": "Flats 1,2 and 3, 24 Hart Road, Wolverhampton, West Midlands, WV11 3QJ",
+      "source_lot_id": "50d76b15-cd0f-4e9d-8000-1561f0c202a9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/50d76b15-cd0f-4e9d-8000-1561f0c202a9",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-05-04",
+    "2020-05-07"
+  ],
+  "by_status": {
+    "sold_prior": 1,
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House West Yorkshire": 1,
+    "Auction House Northants, Beds & Bucks": 1
+  },
+  "detail_pages_captured": 5,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

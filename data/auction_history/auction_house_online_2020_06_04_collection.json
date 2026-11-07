@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-11-07T22:41:01.611779+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/17515",
+  "platform_event_id": "17515",
+  "archive_sha256": "fd7adb34931bf19c8627f32f35af6f939af04b220bbec832a7cf5fb5c91f18d5",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 5,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-06-04",
+      "address": "6 Hopewell Street, Barnsley, South Yorkshire, S70 3ET",
+      "source_lot_id": "46e48307-8166-41ef-a9bb-c21395ec1bd8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/46e48307-8166-41ef-a9bb-c21395ec1bd8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-04",
+      "address": "30 Orchard Street, Wombwell, Barnsley, South Yorkshire, S73 8HQ",
+      "source_lot_id": "2c6a9ed6-a2d4-48d9-8e0f-84ab1f4805d6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2c6a9ed6-a2d4-48d9-8e0f-84ab1f4805d6",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-04",
+      "address": "26 & 26b Eleanor Street, Grimsby, South Humberside, DN32 9EA",
+      "source_lot_id": "96533c6a-6073-4d8b-967d-76711327a30a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/96533c6a-6073-4d8b-967d-76711327a30a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-06-04",
+      "address": "97 & 97a, Eleanor Street, Grimsby, South Humberside, DN32 8AL",
+      "source_lot_id": "614695fb-b215-4a51-acae-217df671c52d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/614695fb-b215-4a51-acae-217df671c52d",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-06-03",
+    "2020-06-04"
+  ],
+  "by_status": {
+    "unsold": 4,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 4,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Wales - Cardiff": 3,
+    "Auction House Lincolnshire": 2
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

@@ -1,0 +1,104 @@
+{
+  "checked_at": "2026-11-07T22:41:41.018964+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/17008",
+  "platform_event_id": "17008",
+  "archive_sha256": "ea4dd37e6afa8816a17b93ea81ea9ecc5292417726f2f6875b8691867e8961e0",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 5,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-05-21",
+      "address": "17 Hawkshead Drive, Bradford, West Yorkshire, BD5 0TJ",
+      "source_lot_id": "6f4e8efa-518e-49db-a5e9-a69b25f81187",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6f4e8efa-518e-49db-a5e9-a69b25f81187",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-21",
+      "address": "33 Albert Road, Mexborough, South Yorkshire, S64 9BZ",
+      "source_lot_id": "61c61cb2-5cfc-4363-91bc-295cb3fd3115",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/61c61cb2-5cfc-4363-91bc-295cb3fd3115",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-21",
+      "address": "Flat 3, 12 Stead Street, Shipley, West Yorkshire, BD17 7BW",
+      "source_lot_id": "91bff47d-a394-4602-9cfd-e8e34facea39",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/91bff47d-a394-4602-9cfd-e8e34facea39",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-05-21",
+      "address": "Land off Promenade Gardens Promenade Gardens,, Aigburth, Liverpool, L17 2EP",
+      "source_lot_id": "be9620a2-a5cc-49f8-a4b7-5986f0443e54",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/be9620a2-a5cc-49f8-a4b7-5986f0443e54",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-05-11",
+    "2020-05-21"
+  ],
+  "by_status": {
+    "withdrawn": 3,
+    "unsold": 1,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 4,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Kent": 1,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1,
+    "Auction House Northants, Beds & Bucks": 1,
+    "Auction House West Yorkshire": 2
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

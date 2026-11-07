@@ -1,0 +1,97 @@
+{
+  "checked_at": "2026-11-07T22:43:17.793748+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/16102",
+  "platform_event_id": "16102",
+  "archive_sha256": "29f2903f3322cf5d1a1de11656b9e34bfce3edb85eaeae9543fad85df3a5999e",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    10
+  ],
+  "archive_page_visible_cards": [
+    10
+  ],
+  "visible_source_rows": 10,
+  "expected_visible_cards": 10,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 10,
+  "distinct_source_identities": 10,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 7,
+  "run_new_appearances": 7,
+  "run_new_address_records": 7,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 7,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 7,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-04-23",
+      "address": "Apartment 7 Gillstead House, Kingsdale Court, Leeds, West Yorkshire, LS14 1PY",
+      "source_lot_id": "71d1da71-d6e1-40ee-b3e9-3fc44cad699f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/71d1da71-d6e1-40ee-b3e9-3fc44cad699f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-04-23",
+      "address": "19 Goldthorpe Road, Goldthorpe, Rotherham, South Yorkshire, S63 9ER",
+      "source_lot_id": "e0f097a3-44b8-4df2-9fcd-1540918d2517",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e0f097a3-44b8-4df2-9fcd-1540918d2517",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-04-23",
+      "address": "23 Druid Street, Hinckley, Leicestershire, LE10 1QG",
+      "source_lot_id": "72e8a0f5-b4ce-4363-9630-c9c0e3f674cb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/72e8a0f5-b4ce-4363-9630-c9c0e3f674cb",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-04-17",
+    "2020-04-23"
+  ],
+  "by_status": {
+    "unsold": 2,
+    "withdrawn": 5
+  },
+  "by_sector": {
+    "residential": 5,
+    "unknown": 1,
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 4,
+    "Auction House South Yorkshire": 1,
+    "Auction House Lincolnshire": 1,
+    "Auction House Coventry and Warwickshire": 1
+  },
+  "detail_pages_captured": 10,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

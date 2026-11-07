@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-11-07T22:46:23.143736+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/14547",
+  "platform_event_id": "14547",
+  "archive_sha256": "a616da2f4a40837d21b12e3aa6e63ad3da6ef247dd05f97f8d0613e77a217bd5",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-02-20",
+      "address": "Apartment 38 5 The Decks, Runcorn, Cheshire, WA7 1GJ",
+      "source_lot_id": "2c6b0b2c-1581-45b2-9ba5-4569b74a943b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2c6b0b2c-1581-45b2-9ba5-4569b74a943b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-02-20",
+      "address": "3 Wingfield Street, Bradford, West Yorkshire, BD3 0AH",
+      "source_lot_id": "dcf7f858-84e6-4455-825b-f0e5318fac12",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/dcf7f858-84e6-4455-825b-f0e5318fac12",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-02-20",
+      "address": "Apt. 106 The Woodlands, Stamford Street East, Ashton-under-Lyne, Lancashire, OL6 6QG",
+      "source_lot_id": "dde0bdbb-d8fc-468c-a353-599f2d54bf3e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/dde0bdbb-d8fc-468c-a353-599f2d54bf3e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-02-20",
+      "address": "Apartment 11 Delamere House 79 Fluin Lane, Frodsham, Cheshire, WA6 7QU",
+      "source_lot_id": "0cd69a5f-9157-44df-8ddd-9c38146a39dc",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/0cd69a5f-9157-44df-8ddd-9c38146a39dc",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-02-20",
+      "address": "1A Jasmine Grove Stoke Aldermoor, Coventry, West Midlands, CV3 1EA",
+      "source_lot_id": "c26585eb-fa86-4bea-bd99-87c5878fac1e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c26585eb-fa86-4bea-bd99-87c5878fac1e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-02-20",
+      "address": "Land, St. Lukes Way Stockingford, Nuneaton, Warwickshire, CV10 8RF",
+      "source_lot_id": "fd4ae7ee-944a-4576-b567-4312f05ed2d7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fd4ae7ee-944a-4576-b567-4312f05ed2d7",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-02-20",
+    "2020-02-20"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 1
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

@@ -1,0 +1,105 @@
+{
+  "checked_at": "2026-11-07T22:43:37.483073+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/16101",
+  "platform_event_id": "16101",
+  "archive_sha256": "f30796c9aab4704c985b97cf9b6f5d9d572396c49475bbca410c353fb4da07dd",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    12
+  ],
+  "archive_page_visible_cards": [
+    12
+  ],
+  "visible_source_rows": 12,
+  "expected_visible_cards": 12,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 12,
+  "distinct_source_identities": 12,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 8,
+  "run_new_appearances": 8,
+  "run_new_address_records": 8,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 8,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 8,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-04-16",
+      "address": "Land and pond, Gorcott Hill, Beoley, Redditch, Worcestershire, B98 9EN",
+      "source_lot_id": "3030f650-4690-49b9-9d6d-a10ce3c6d57d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3030f650-4690-49b9-9d6d-a10ce3c6d57d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-04-16",
+      "address": "13 Lime Tree Avenue, Congleton, Cheshire, CW12 4EX",
+      "source_lot_id": "8591c7a5-0466-4851-8c8a-2606cf34c866",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8591c7a5-0466-4851-8c8a-2606cf34c866",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-04-16",
+      "address": "12 Langley Mount, Leeds, West Yorkshire, LS13 1AZ",
+      "source_lot_id": "4870cb3c-ec2d-4a40-89e1-6cd3e2f83ae1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4870cb3c-ec2d-4a40-89e1-6cd3e2f83ae1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-04-16",
+      "address": "Land, accessed off Clark Street Bell Green, Coventry, West Midlands, CV6 7HE",
+      "source_lot_id": "8bbcbafb-38d1-48e5-896c-666284367356",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8bbcbafb-38d1-48e5-896c-666284367356",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-04-14",
+    "2020-04-16"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 4,
+    "sold_prior": 2,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "land": 1,
+    "unknown": 3,
+    "residential": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Beds & Bucks": 1,
+    "Auction House Cheshire, Staffordshire & Shropshire": 6,
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 12,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
