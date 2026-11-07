@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-11-07T09:04:32.674494+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/42082",
+  "platform_event_id": "42082",
+  "archive_sha256": "871ce2ba5aebcc47bb16f1c00a09e04238631ec3176bfed74337ad17bdb67943",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    10
+  ],
+  "archive_page_visible_cards": [
+    10
+  ],
+  "visible_source_rows": 10,
+  "expected_visible_cards": 10,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 10,
+  "distinct_source_identities": 10,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 5,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-10-04",
+      "address": "12 Hawthorne Terrace, Nuneaton, Warwickshire, CV10 9BH",
+      "source_lot_id": "3c988f51-17ce-441b-ad55-2a5399adcd5a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3c988f51-17ce-441b-ad55-2a5399adcd5a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-10-04",
+      "address": "36 Lawson Avenue, Grimsby, South Humberside, DN31 2EN",
+      "source_lot_id": "95c5cd91-4c51-459b-85b7-49244cc2749c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/95c5cd91-4c51-459b-85b7-49244cc2749c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-10-04",
+      "address": "28 Portsea Close, Coventry, West Midlands, CV3 5JQ",
+      "source_lot_id": "8098efbf-332a-468a-8ee0-68aaf15accc1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8098efbf-332a-468a-8ee0-68aaf15accc1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-10-04",
+      "address": "89 Staveley Street Edlington, Doncaster, South Yorkshire, DN12 1BW",
+      "source_lot_id": "d22c5f40-2ae5-4bb3-9fcb-57c896cd4ce0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d22c5f40-2ae5-4bb3-9fcb-57c896cd4ce0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-10-04",
+      "address": "24 Princes Crescent Edlington, Doncaster, South Yorkshire, DN12 1BB",
+      "source_lot_id": "b78fbbc4-4a28-4f8d-83dd-1c493908a899",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b78fbbc4-4a28-4f8d-83dd-1c493908a899",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-09-28",
+    "2022-10-04"
+  ],
+  "by_status": {
+    "unsold": 1,
+    "withdrawn": 1,
+    "sold_prior": 2,
+    "postponed": 1
+  },
+  "by_sector": {
+    "residential": 1,
+    "unknown": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Hull & East Yorkshire": 1,
+    "Auction House Cheshire": 1,
+    "Auction House Lincolnshire": 2,
+    "Auction House Coventry and Warwickshire": 1
+  },
+  "detail_pages_captured": 10,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

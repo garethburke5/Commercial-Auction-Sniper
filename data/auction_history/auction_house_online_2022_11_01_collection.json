@@ -1,0 +1,87 @@
+{
+  "checked_at": "2026-11-07T09:03:13.391441+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/42777",
+  "platform_event_id": "42777",
+  "archive_sha256": "7851f511c284335777467dc9b086f269e7367fb380e19a8e8233b40b30a3319e",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    5
+  ],
+  "archive_page_visible_cards": [
+    5
+  ],
+  "visible_source_rows": 5,
+  "expected_visible_cards": 5,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 5,
+  "distinct_source_identities": 5,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-11-01",
+      "address": "19 Alexandra Street Pelton, Chester le Street, County Durham, DH2 1NT",
+      "source_lot_id": "29d57fd5-429f-42d0-844d-b7a19056ad7e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/29d57fd5-429f-42d0-844d-b7a19056ad7e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-11-01",
+      "address": "1 Rose Hill St. Blazey, Par, Cornwall, PL24 2LQ",
+      "source_lot_id": "bdf6f715-f676-4385-9f38-1f176e94d851",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/bdf6f715-f676-4385-9f38-1f176e94d851",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-10-27",
+    "2022-10-28"
+  ],
+  "by_status": {
+    "withdrawn": 1,
+    "postponed": 2
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire": 1,
+    "Auction House Online": 2
+  },
+  "detail_pages_captured": 5,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
