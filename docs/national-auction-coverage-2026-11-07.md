@@ -35,6 +35,14 @@ collectors.
 Next target: the persisted, untriggered 44-card batch across eight first-party
 catalogues dated 26 April-14 June 2022. National completeness remains false.
 
+Current commercial-filter freshness run
+[42364875201](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42364875201)
+failed independently: Allsop, Clive Emson, Barnard Marcus, Knight Frank, Under The
+Hammer, Maggs & Allen, Prime Property Auctions, Shonki Bros, Agents Property
+Auction and Greenslade Taylor Hunt lacked a successful current collection or showed
+a candidate/publication drop. This is a current-filter warning, not a loss of the
+all-sector permanent history bank, and it is not treated as historical growth.
+
 ## Verified holdings before this repair
 
 - Historical corpus generated 2026-11-07 00:09 UTC: 311,078 appearances,
