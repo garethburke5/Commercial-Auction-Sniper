@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-11-07T09:51:51.341046+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/40674",
+  "platform_event_id": "40674",
+  "archive_sha256": "5a344978e6de86387afaa41a1b71ab0c7d300c63ee5955d7d355e0e15477bad5",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    11
+  ],
+  "archive_page_visible_cards": [
+    11
+  ],
+  "visible_source_rows": 11,
+  "expected_visible_cards": 11,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 11,
+  "distinct_source_identities": 11,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 5,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-08-16",
+      "address": "Plots 28 and 30, Land Denby Line, Garden Lane, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "b71389c7-6232-4655-854a-a8e9b42b2c9b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b71389c7-6232-4655-854a-a8e9b42b2c9b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-08-16",
+      "address": "Plots 32 and 34, Land Denby Line, Garden Lane, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "61fb2cc8-c841-46cd-a735-42758d140425",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/61fb2cc8-c841-46cd-a735-42758d140425",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-08-16",
+      "address": "Flat 1 and Flat 2 238 Cromwell Road, Newport, Gwent, NP19 0HS",
+      "source_lot_id": "fcefc20e-6a07-475f-a80b-bedb6011adaf",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/fcefc20e-6a07-475f-a80b-bedb6011adaf",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-08-16",
+      "address": "Plots 36 and 38, Land Denby Line, Garden Lane, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "ad3da54b-ca8b-4435-b037-807cdfcd431f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ad3da54b-ca8b-4435-b037-807cdfcd431f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-08-16",
+      "address": "3 Royal Oak Terrace Johnstown, Carmarthen, Dyfed, SA31 3NA",
+      "source_lot_id": "9314d5d2-9709-4df8-8e8f-01a0691d9692",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/9314d5d2-9709-4df8-8e8f-01a0691d9692",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-08-16",
+      "address": "8 Station Road Treeton, Rotherham, South Yorkshire, S60 5PN",
+      "source_lot_id": "1828ecb6-76ea-4526-b54d-af0d7e8ef2f3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1828ecb6-76ea-4526-b54d-af0d7e8ef2f3",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-08-11",
+    "2022-08-16"
+  ],
+  "by_status": {
+    "unsold": 4,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "unknown": 4,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Wales - Cardiff": 3,
+    "Auction House South West": 2
+  },
+  "detail_pages_captured": 11,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
