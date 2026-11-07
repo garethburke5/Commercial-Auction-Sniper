@@ -3863,3 +3863,42 @@ def test_auction_house_online_november_2020_to_february_2021_batch_configuration
         assert source["detail_attempts"] == 2
         assert source["detail_timeout"] == 45
     assert sum(cards for _, cards in expected.values()) == 73
+
+def test_auction_house_online_july_to_october_2020_batch_configuration():
+    expected = {
+        "auction-house-online-2020-10-29": ("/past-auctions/20882", 2),
+        "auction-house-online-2020-10-22": ("/past-auctions/20881", 7),
+        "auction-house-online-2020-10-15": ("/past-auctions/20880", 7),
+        "auction-house-online-2020-10-08-a": ("/past-auctions/20781", 1),
+        "auction-house-online-2020-10-08-b": ("/past-auctions/20879", 5),
+        "auction-house-online-2020-10-01": ("/past-auctions/20780", 3),
+        "auction-house-online-2020-09-24": ("/past-auctions/20009", 2),
+        "auction-house-online-2020-09-10": ("/past-auctions/20007", 1),
+        "auction-house-online-2020-09-03": ("/past-auctions/20006", 2),
+        "auction-house-online-2020-08-27": ("/past-auctions/19289", 4),
+        "auction-house-online-2020-08-20": ("/past-auctions/19288", 8),
+        "auction-house-online-2020-08-13": ("/past-auctions/19287", 5),
+        "auction-house-online-2020-08-06": ("/past-auctions/19286", 5),
+        "auction-house-online-2020-07-30": ("/past-auctions/18653", 9),
+        "auction-house-online-2020-07-23": ("/past-auctions/18652", 2),
+        "auction-house-online-2020-07-16": ("/past-auctions/18651", 3),
+        "auction-house-online-2020-07-09": ("/past-auctions/18327", 3),
+        "auction-house-online-2020-07-02": ("/past-auctions/18326", 2),
+    }
+    for source_name, (archive_path, visible_cards) in expected.items():
+        source = grids.SOURCES[source_name]
+        assert source["auctioneer"] == "Auction House Online"
+        assert source["base"] == "https://online.auctionhouse.co.uk"
+        assert source["archive_path"] == archive_path
+        assert source["archive_attempts"] == 3
+        assert source["archive_timeout"] == 90
+        assert source["operator_legal_name"] == "AUCTION HOUSE UK LIMITED"
+        assert source["operator_company_number"] == "06025583"
+        assert source["auctioneer_from_detail"] is True
+        assert source["unpaginated_event"] is True
+        assert source["expected_visible_cards"] == visible_cards
+        assert source["exclude_exact_cross_source_overlaps"] is True
+        assert source["allow_incomplete_detail_recovery"] is True
+        assert source["detail_attempts"] == 2
+        assert source["detail_timeout"] == 45
+    assert sum(cards for _, cards in expected.values()) == 71
