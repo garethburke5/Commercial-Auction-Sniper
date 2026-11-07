@@ -7,6 +7,34 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+
+## Persisted historical gain — 11:25 UTC
+
+The reusable retained-grid runner reconciled eight Auction House Online events and
+all 67 visible cards/details from 21 June through 9 August 2022. Bank commit
+[502a671](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/502a67172395483fba29b9465f20f7ee614cda1d)
+added 34 net appearances and 34 exact-dated address records inside the twenty-year
+window: two commercial, zero mixed-use, five land, ten residential and seventeen
+unknown. It added 34 guides, two achieved prices and three rents. Thirty-three exact
+overlaps were excluded; partial, undated, future-dated and duplicate-identity gains
+were zero. Eight source-events and 18 complete catalogue/date states were added;
+the Auction House Online 2022 operator-year was already represented.
+
+Publication run
+[42367413004](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42367413004)
+passed GitHub Pages and `auctiongeek.co.uk` verification for the exact bank
+revision. Totals are now 311,422 appearances, 300,469 address records, 303,157
+in-window appearances, 105,491 guides, 112,180 achieved prices and 4,699 complete
+catalogue/date states.
+
+The preceding preparation-branch continuation banked source snapshots but added
+zero appearances. It is recorded as a non-growth route, and historical push
+collection is now restricted to `main` so preparation branches cannot launch
+collectors.
+
+Next target: the persisted, untriggered 44-card batch across eight first-party
+catalogues dated 26 April-14 June 2022. National completeness remains false.
+
 ## Verified holdings before this repair
 
 - Historical corpus generated 2026-11-07 00:09 UTC: 311,078 appearances,
