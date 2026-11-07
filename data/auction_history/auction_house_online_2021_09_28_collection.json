@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-11-07T16:32:44.385582+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/31327",
+  "platform_event_id": "31327",
+  "archive_sha256": "6244db2abf59dc2f91098cbe84d008afb8c42e52e974aab18ea73dd1ff375a2f",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-09-28",
+      "address": "60 Sydney Street, Boston, Lincolnshire, PE21 8NY",
+      "source_lot_id": "bb8d31f5-953a-47cc-8c04-e46364c64cfe",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/bb8d31f5-953a-47cc-8c04-e46364c64cfe",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-09-28",
+      "address": "103 Anthea Drive, York, YO31 9DQ",
+      "source_lot_id": "f5dc7f7b-2b58-46db-b88e-6a81c8714092",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f5dc7f7b-2b58-46db-b88e-6a81c8714092",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-09-28",
+      "address": "12/2 Croft Road, Hawick, Roxburghshire, TD9 9RD",
+      "source_lot_id": "37997a68-2bc8-4239-98a6-21df12733b63",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/37997a68-2bc8-4239-98a6-21df12733b63",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-09-28",
+      "address": "20 Earsham Street, Bungay, Suffolk, NR35 1AG",
+      "source_lot_id": "8ac5bc37-3dbb-4044-aaa6-29d1f34b3450",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8ac5bc37-3dbb-4044-aaa6-29d1f34b3450",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-09-28",
+      "address": "55 and 55A Main Street, Mexborough, South Yorkshire, S64 9LU",
+      "source_lot_id": "3d75ff5d-90c8-4bf3-97bb-3564acbd3319",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3d75ff5d-90c8-4bf3-97bb-3564acbd3319",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-09-28",
+      "address": "58C Stortford Street, Grimsby, South Humberside, DN31 2QZ",
+      "source_lot_id": "20923714-4173-4ca6-8142-fd6e704a14a5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/20923714-4173-4ca6-8142-fd6e704a14a5",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-09-20",
+    "2021-09-28"
+  ],
+  "by_status": {
+    "unsold": 2,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "unknown": 3
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South Yorkshire": 1,
+    "Auction House North East": 1,
+    "Auction House North West": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

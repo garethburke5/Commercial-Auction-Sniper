@@ -1,0 +1,79 @@
+{
+  "checked_at": "2026-11-07T16:32:24.948882+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/31889",
+  "platform_event_id": "31889",
+  "archive_sha256": "b4875d187b34ccaf7aae011a238a5453e98b2e20b97aa814b61fc0c7dc864c55",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 1,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 1,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-10-05",
+      "address": "82 New Lodge Crescent, Barnsley, South Yorkshire, S71 1SH",
+      "source_lot_id": "35f579fa-57c4-4c3e-b877-e25f54bd8efc",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/35f579fa-57c4-4c3e-b877-e25f54bd8efc",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-10-05",
+    "2021-10-05"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 1
+  },
+  "by_sector": {
+    "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1,
+    "Auction House South Yorkshire": 1
+  },
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

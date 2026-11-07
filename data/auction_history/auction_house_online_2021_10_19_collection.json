@@ -1,0 +1,122 @@
+{
+  "checked_at": "2026-11-07T16:31:27.554810+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/31578",
+  "platform_event_id": "31578",
+  "archive_sha256": "6afff489eb55c3ab550f152bdd0e985c4fe51585d514af890a780b1064f168d3",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    10
+  ],
+  "archive_page_visible_cards": [
+    10
+  ],
+  "visible_source_rows": 10,
+  "expected_visible_cards": 10,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 10,
+  "distinct_source_identities": 10,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 7,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 7,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-10-19",
+      "address": "37 Beaufort Street, Gainsborough, Lincolnshire, DN21 2RT",
+      "source_lot_id": "944da85d-e2ef-4522-81da-a78e481250d3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/944da85d-e2ef-4522-81da-a78e481250d3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-10-19",
+      "address": "82 Newcombe Road Earlsdon, Coventry, West Midlands, CV5 6NL",
+      "source_lot_id": "6af9394c-7c1b-48a9-b300-6254cfa5022c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6af9394c-7c1b-48a9-b300-6254cfa5022c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-10-19",
+      "address": "35 Franklin Road, Attleborough, Nuneaton, Warwickshire, CV11 4QN",
+      "source_lot_id": "6a95f274-7820-4724-81f8-93d886e20567",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6a95f274-7820-4724-81f8-93d886e20567",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-10-19",
+      "address": "22 Linnet Close Willenhall, Coventry, West Midlands, CV3 3EX",
+      "source_lot_id": "d81da5e0-4da2-4420-a201-2c2bca8733ad",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d81da5e0-4da2-4420-a201-2c2bca8733ad",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-10-19",
+      "address": "287 Whitworth Avenue Stoke Aldermoor, Coventry, West Midlands, CV3 1FB",
+      "source_lot_id": "2cf07af5-6ec5-4825-b120-1db5c516a2d8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2cf07af5-6ec5-4825-b120-1db5c516a2d8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-10-19",
+      "address": "15 Triumph Close Wyken, Coventry, West Midlands, CV2 5AQ",
+      "source_lot_id": "10edd29b-0265-48b8-adf6-7e87e642a27d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/10edd29b-0265-48b8-adf6-7e87e642a27d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-10-19",
+      "address": "Holmcroft Great North Road, Bawtry, Doncaster, South Yorkshire, DN10 6DF",
+      "source_lot_id": "c0ca87e9-2a11-4320-bf8f-94013dd3c31c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c0ca87e9-2a11-4320-bf8f-94013dd3c31c",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-10-15",
+    "2021-10-19"
+  ],
+  "by_status": {
+    "sold_prior": 1,
+    "unsold": 2
+  },
+  "by_sector": {
+    "unknown": 2,
+    "commercial": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South Yorkshire": 2,
+    "Auction House North West": 1
+  },
+  "detail_pages_captured": 10,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

@@ -1,0 +1,103 @@
+{
+  "checked_at": "2026-11-07T16:34:20.724663+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/30437",
+  "platform_event_id": "30437",
+  "archive_sha256": "9157e66895e49455d667840605bc801f5f3a95c641f530730c2620f2193aed0d",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    8
+  ],
+  "archive_page_visible_cards": [
+    8
+  ],
+  "visible_source_rows": 8,
+  "expected_visible_cards": 8,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 8,
+  "distinct_source_identities": 8,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 4,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-08-17",
+      "address": "28 Thoresby Avenue, Doncaster, South Yorkshire, DN4 5BQ",
+      "source_lot_id": "6729f638-51b0-4855-97dd-40c39ae7330e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6729f638-51b0-4855-97dd-40c39ae7330e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-08-17",
+      "address": "3 St. Aidans Street Tunstall, Stoke-On-Trent, Staffordshire, ST6 5HQ",
+      "source_lot_id": "c2c9af77-d6aa-4141-b843-ac864f706d8a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c2c9af77-d6aa-4141-b843-ac864f706d8a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-08-17",
+      "address": "9 Bodlewell House High Street East, Sunderland, Tyne and Wear, SR1 2AS",
+      "source_lot_id": "055427fe-0fd5-4ce0-ab15-1098de2d7a2e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/055427fe-0fd5-4ce0-ab15-1098de2d7a2e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-08-17",
+      "address": "25A Bowes Street, Blyth, Northumberland, NE24 1BD",
+      "source_lot_id": "a4a159b9-291d-483b-93ce-3774b3d5522f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a4a159b9-291d-483b-93ce-3774b3d5522f",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-08-11",
+    "2021-08-17"
+  ],
+  "by_status": {
+    "sold_prior": 1,
+    "withdrawn": 2,
+    "unsold": 1
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 1,
+    "Auction House Tees Valley": 1,
+    "Auction House North West": 2
+  },
+  "detail_pages_captured": 8,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
