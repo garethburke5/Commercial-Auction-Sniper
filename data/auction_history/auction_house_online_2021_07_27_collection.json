@@ -1,0 +1,96 @@
+{
+  "checked_at": "2026-11-07T17:04:50.726354+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/29594",
+  "platform_event_id": "29594",
+  "archive_sha256": "bd40e6cef5e39aef407cab8cdd72cc2a425b63a85858536184e34f52590cbffd",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    17
+  ],
+  "archive_page_visible_cards": [
+    17
+  ],
+  "visible_source_rows": 17,
+  "expected_visible_cards": 17,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 17,
+  "distinct_source_identities": 17,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 14,
+  "run_new_appearances": 14,
+  "run_new_address_records": 14,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 14,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 14,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-07-27",
+      "address": "60 Thrumpton Lane, Retford, Nottinghamshire, DN22 6HW",
+      "source_lot_id": "cdfcfc84-fb99-4891-96c7-00db1dd130c9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/cdfcfc84-fb99-4891-96c7-00db1dd130c9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-07-27",
+      "address": "14 Alexandra Road May Bank, Newcastle, Staffordshire, ST5 9PL",
+      "source_lot_id": "255aad2b-ea4d-411f-9948-a677be415b25",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/255aad2b-ea4d-411f-9948-a677be415b25",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-07-27",
+      "address": "25 Princess Road Goldthorpe, Rotherham, South Yorkshire, S63 9NP",
+      "source_lot_id": "6a8507fc-1ad9-4e18-93c6-b7452721e1fd",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6a8507fc-1ad9-4e18-93c6-b7452721e1fd",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-07-21",
+    "2021-07-27"
+  ],
+  "by_status": {
+    "unsold": 11,
+    "sold_prior": 1,
+    "withdrawn": 2
+  },
+  "by_sector": {
+    "residential": 2,
+    "unknown": 1,
+    "land": 11
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South Yorkshire": 2,
+    "Auction House North West": 12
+  },
+  "detail_pages_captured": 17,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

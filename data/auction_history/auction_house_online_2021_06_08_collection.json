@@ -1,0 +1,83 @@
+{
+  "checked_at": "2026-11-07T17:06:57.962844+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/28282",
+  "platform_event_id": "28282",
+  "archive_sha256": "cf39ae81bda8d385748ad3f004aa6b9638acd746e98941a78929c996a249392a",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 0,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-06-08",
+      "address": "36 Gordon Street, Gainsborough, Lincolnshire, DN21 1DJ",
+      "source_lot_id": "8c95e932-8ce8-4ae4-9998-f271271883e9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8c95e932-8ce8-4ae4-9998-f271271883e9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-08",
+      "address": "43 Crossley Street, Ripley, DE5 3EE",
+      "source_lot_id": "417b340f-db44-42cc-8a76-7ee0b1b7d45f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/417b340f-db44-42cc-8a76-7ee0b1b7d45f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-08",
+      "address": "1 Parish Mews, Gainsborough, Lincolnshire, DN21 2HN",
+      "source_lot_id": "c586e4fa-8552-4e01-9097-d7e60d02afc2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c586e4fa-8552-4e01-9097-d7e60d02afc2",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [],
+  "date_range": [
+    null,
+    null
+  ],
+  "by_status": {},
+  "by_sector": {},
+  "by_attributed_auctioneer": {},
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

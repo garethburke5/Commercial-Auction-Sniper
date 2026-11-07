@@ -1,0 +1,84 @@
+{
+  "checked_at": "2026-11-07T17:07:52.511034+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/27708",
+  "platform_event_id": "27708",
+  "archive_sha256": "7424d04ee861b740bf47c4c758427e40f5f8330134e84b08497db87647094da1",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-05-18",
+      "address": "25 Sharrard Grove, Sheffield, S12 2FD",
+      "source_lot_id": "64350fbb-6656-4db5-aff0-7551a0eee916",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/64350fbb-6656-4db5-aff0-7551a0eee916",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-05-18",
+      "address": "29 Beaufort Street, Gainsborough, Lincolnshire, DN21 2RT",
+      "source_lot_id": "3afacac2-1207-4c18-ad2f-3bb4c10b844c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3afacac2-1207-4c18-ad2f-3bb4c10b844c",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-04-26",
+    "2021-04-26"
+  ],
+  "by_status": {
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

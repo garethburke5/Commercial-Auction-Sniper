@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-11-07T17:06:39.905641+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/28283",
+  "platform_event_id": "28283",
+  "archive_sha256": "402b71d83a9bfdcc95a1f1e7b031623374406c071710e34067352850f6e06c28",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-06-15",
+      "address": "164 Rutland Street, Grimsby, DN32 7ND",
+      "source_lot_id": "82933dd2-61d4-4bed-9be5-435b2ec464fd",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/82933dd2-61d4-4bed-9be5-435b2ec464fd",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-15",
+      "address": "47 Glencoe Road Stoke, Coventry, CV3 1GJ",
+      "source_lot_id": "509ac024-fc41-46e6-8150-554b5e198ee3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/509ac024-fc41-46e6-8150-554b5e198ee3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-15",
+      "address": "50 Sydenham Road, Hartlepool, TS25 1PZ",
+      "source_lot_id": "651a84a1-b172-4e5b-a53a-9e4489e39551",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/651a84a1-b172-4e5b-a53a-9e4489e39551",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-15",
+      "address": "Land off Spinney Lane Whittleford, Nuneaton, CV10 9JA",
+      "source_lot_id": "c6224cb0-a5a3-437c-84a7-08cfefeae175",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c6224cb0-a5a3-437c-84a7-08cfefeae175",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-06-09",
+    "2021-06-15"
+  ],
+  "by_status": {
+    "sold_prior": 2,
+    "unsold": 1
+  },
+  "by_sector": {
+    "unknown": 2,
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 1,
+    "Auction House Coventry and Warwickshire": 2
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

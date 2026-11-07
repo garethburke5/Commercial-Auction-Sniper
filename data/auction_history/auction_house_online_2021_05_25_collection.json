@@ -1,0 +1,86 @@
+{
+  "checked_at": "2026-11-07T17:07:34.455776+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/27930",
+  "platform_event_id": "27930",
+  "archive_sha256": "0a4452149f18c786528f1c27b47e152f966a339fa8710c0b87b311e1edffbe89",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    5
+  ],
+  "archive_page_visible_cards": [
+    5
+  ],
+  "visible_source_rows": 5,
+  "expected_visible_cards": 5,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 5,
+  "distinct_source_identities": 5,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-05-25",
+      "address": "49 South End Thorne, Doncaster, DN8 5QN",
+      "source_lot_id": "169d541d-5969-4579-8356-13450a51e0c8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/169d541d-5969-4579-8356-13450a51e0c8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-05-25",
+      "address": "126 Sheriff Street, Hartlepool, TS26 8EN",
+      "source_lot_id": "6f7ca139-fa66-43eb-bd0e-87600579fd72",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6f7ca139-fa66-43eb-bd0e-87600579fd72",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-05-25",
+    "2021-05-25"
+  ],
+  "by_status": {
+    "unsold": 3
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South Yorkshire": 2,
+    "Auction House Manchester": 1
+  },
+  "detail_pages_captured": 5,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

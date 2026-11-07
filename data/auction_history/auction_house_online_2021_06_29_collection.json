@@ -1,0 +1,117 @@
+{
+  "checked_at": "2026-11-07T17:06:03.064113+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/28285",
+  "platform_event_id": "28285",
+  "archive_sha256": "bdc8fe52ce3571031a62c04374785784d8b865f2c1f727c16cc701ed54d85b41",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    11
+  ],
+  "archive_page_visible_cards": [
+    11
+  ],
+  "visible_source_rows": 11,
+  "expected_visible_cards": 11,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 11,
+  "distinct_source_identities": 11,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 5,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-06-29",
+      "address": "46 Sydenham Road, Hartlepool, TS25 1PZ",
+      "source_lot_id": "aa54544b-a4d1-4290-a643-e5bbac1e09ec",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/aa54544b-a4d1-4290-a643-e5bbac1e09ec",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-29",
+      "address": "3 Poplar Avenue, Rotherham, S63 9NN",
+      "source_lot_id": "dac4f992-fbfb-4249-87d7-cf6a689c5447",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/dac4f992-fbfb-4249-87d7-cf6a689c5447",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-29",
+      "address": "68 Cliff Closes Road, Scunthorpe, DN15 7HU",
+      "source_lot_id": "a6c9e687-4fea-4b0f-8f46-64e37051a0d5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a6c9e687-4fea-4b0f-8f46-64e37051a0d5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-29",
+      "address": "4 Brandon Road, Plymouth, PL3 6AT",
+      "source_lot_id": "764485f5-e648-4979-b658-801a2e782b41",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/764485f5-e648-4979-b658-801a2e782b41",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-29",
+      "address": "2 Bosorne Road, St. Just, Penzance, TR19 7JL",
+      "source_lot_id": "5028cd73-8c77-4d86-987e-fe2bb38ba847",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/5028cd73-8c77-4d86-987e-fe2bb38ba847",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-29",
+      "address": "Llun Yr Afon Penrhiw, St Dogmaels, Pembrokeshire, SA43 3HH",
+      "source_lot_id": "272ae938-fff1-45e6-965b-81319102dd14",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/272ae938-fff1-45e6-965b-81319102dd14",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-06-21",
+    "2021-06-29"
+  ],
+  "by_status": {
+    "unsold": 3,
+    "sold_prior": 1,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "land": 1,
+    "unknown": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1,
+    "Auction House South Yorkshire": 3,
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 11,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

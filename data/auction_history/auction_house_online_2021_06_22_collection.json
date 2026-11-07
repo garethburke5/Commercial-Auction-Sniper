@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-11-07T17:06:21.702601+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/28284",
+  "platform_event_id": "28284",
+  "archive_sha256": "3d69b70c92352cd92a0209236332a0906b7cd2eaa33e45521c1d07d1ca4213fb",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-06-22",
+      "address": "24 Flowitt Street, Mexborough, South Yorkshire, S64 9NN",
+      "source_lot_id": "70415c8b-f331-4c69-8d7c-eacef33e6e0c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/70415c8b-f331-4c69-8d7c-eacef33e6e0c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-22",
+      "address": "5 Zetland House Broadway West, Redcar, TS10 5AY",
+      "source_lot_id": "cbdc9d7b-2481-48fd-9102-08ec8ae4a88c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/cbdc9d7b-2481-48fd-9102-08ec8ae4a88c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-06-22",
+      "address": "9 George Street, Barton-Upon-Humber, DN18 5ES",
+      "source_lot_id": "838a1f11-42f6-4905-a1dd-8e8abfc9c94f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/838a1f11-42f6-4905-a1dd-8e8abfc9c94f",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-06-22",
+    "2021-06-22"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
