@@ -214,7 +214,11 @@ def prepare_publication(snapshot):
             item['source_brands']=brands
         kept[key] = item
     snapshot['properties'] = list(kept.values())
-    snapshot['excluded_properties'] = list({(x.get('source'), canonical_url(x.get('url'))):x for x in excluded}.values())
+    # Auctioneers reuse a URL when reoffering a property. Keep each dated lot,
+    # including non-commercial records awaiting permanent history banking.
+    snapshot['excluded_properties'] = list({
+        (x.get('source'), canonical_url(x.get('url')), x.get('auction_date'), x.get('lot_number')): x
+        for x in excluded}.values())
     integrity = snapshot.setdefault('integrity', {})
     integrity['residential_rows_excluded'] = {source:n for (source,reason),n in counts.items() if reason == 'Pure residential'}
     integrity['non_property_rows_excluded'] = {source:n for (source,reason),n in counts.items() if reason != 'Pure residential'}

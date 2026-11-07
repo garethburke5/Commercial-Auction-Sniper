@@ -19,13 +19,22 @@ def audit(snapshot,history,registry):
             'checked_on':item.get('checked_on'),'canonical_source':canonical,
             'observed_health':observed.get('status') if observed else None,
             'scope':item.get('scope'),'remaining':item.get('failure_reason')})
+    sources=source_metrics(snapshot,history,registry)
+    comparable=[s for s in sources if s.get('official_commercial_lots') is not None]
     return {'checked_at':datetime.now(timezone.utc).isoformat(),
         'national_coverage_verified':False,'national_auctioneer_denominator':None,
         'current':{'snapshot_generated_at':snapshot.get('generated_at'),
             'published_current_rows':sum(current_board_row(r) for r in snapshot.get('properties',[])),
             'retained_archive_rows':len(snapshot.get('archive',[])),
             'reported_sources':len(health),'health_counts':dict(Counter(r['status'] for r in health)),
-            'sources':source_metrics(snapshot,history,registry)},
+            'sources':sources,
+            'sources_with_reconciled_denominators':len(comparable),
+            'sources_without_reconciled_denominators':len(sources)-len(comparable),
+            'unmatched_catalogue_lots':sum(len(s.get('missing_lots') or []) for s in comparable),
+            'stale_sources':[s['source'] for s in sources if s.get('stale')],
+            'retained_noncommercial_rows':sum(str(r.get('publication_exclusion') or '').startswith(
+                ('Pure residential:', 'Unverified commercial use:')) for r in snapshot.get('excluded_properties',[])),
+            'all_sector_current_coverage_verified':False},
         'historical':{k:history.get(k) for k in ('generated_at','individual_lot_records_captured',
             'records_with_address','partial_lot_records','exact_address_groups',
             'groups_with_repeat_appearances','by_auctioneer','by_sector','by_year',

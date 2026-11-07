@@ -19,6 +19,20 @@ def test_actual_november_houses_are_retained_but_not_published_as_commercial(row
     assert snapshot['excluded_properties'][0]['description'] == row['description']
 
 
+def test_noncommercial_reoffers_survive_reused_source_urls():
+    from collectors.publication_quality import prepare_publication
+    from scripts.update_history_database import snapshot_history_rows
+    old = dict(RESIDENTIAL_CASES[0], auction_date='2026-10-01', guide_price=150000,
+               publication_exclusion='Pure residential: no commercial or mixed-use particulars')
+    new = dict(old, auction_date='2026-11-01', guide_price=125000)
+    snapshot = {'properties':[new], 'excluded_properties':[old]}
+    prepare_publication(snapshot)
+    rows = snapshot_history_rows(snapshot)
+    assert [(r['auction_date'],r['guide_price']) for r in rows] == [('2026-10-01',150000),('2026-11-01',125000)]
+    prepare_publication(snapshot)
+    assert len(snapshot_history_rows(snapshot)) == 2
+
+
 @pytest.mark.parametrize('description',[
     'A ground floor shop and two flats. Offered in association with Example Estate Agents.',
     'Situation: Opposite a restaurant. Description: Retail unit with an upper flat.',
