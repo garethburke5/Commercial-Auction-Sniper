@@ -1,0 +1,94 @@
+{
+  "checked_at": "2026-11-07T19:04:01.019896+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/22919",
+  "platform_event_id": "22919",
+  "archive_sha256": "90cd221dd5263aa3a8fe2af2735582684d078e39d3fe9e77edc863370a5bc6dc",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    6
+  ],
+  "archive_page_visible_cards": [
+    6
+  ],
+  "visible_source_rows": 6,
+  "expected_visible_cards": 6,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 6,
+  "distinct_source_identities": 6,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 2,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-12-17",
+      "address": "33 Trinity Lane, Louth, Lincolnshire, LN11 8DL",
+      "source_lot_id": "ffa031e5-d2cc-4259-9fb6-2a78651563f2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ffa031e5-d2cc-4259-9fb6-2a78651563f2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-12-17",
+      "address": "1 Lampton Grove, Grimsby, South Humberside, DN32 0HU",
+      "source_lot_id": "2a69cbe1-d61f-491e-8561-7de55726be89",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2a69cbe1-d61f-491e-8561-7de55726be89",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-12-17",
+      "address": "Flat 1 47 Fore Street, Pool, Redruth, Cornwall, TR15 3DY",
+      "source_lot_id": "f6b4b6c8-2007-4d40-8d3c-f977be7e2e73",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f6b4b6c8-2007-4d40-8d3c-f977be7e2e73",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-12-15",
+    "2020-12-17"
+  ],
+  "by_status": {
+    "sold": 2,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "residential": 2,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 2,
+    "Auction House Bristol": 1
+  },
+  "detail_pages_captured": 6,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

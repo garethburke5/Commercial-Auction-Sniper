@@ -1,0 +1,98 @@
+{
+  "checked_at": "2026-11-07T19:03:22.706326+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/24175",
+  "platform_event_id": "24175",
+  "archive_sha256": "a19e1eb190c508f151e0089bdc545e5c33d002ac8ddc0538e3b370698ef779f8",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    5
+  ],
+  "archive_page_visible_cards": [
+    5
+  ],
+  "visible_source_rows": 5,
+  "expected_visible_cards": 5,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 5,
+  "distinct_source_identities": 5,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-01-21",
+      "address": "The Stannary Ludgvan, Penzance, Cornwall, TR20 8AJ",
+      "source_lot_id": "f35e8cfb-4e68-4799-9e2b-7f566c87c14c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f35e8cfb-4e68-4799-9e2b-7f566c87c14c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-01-21",
+      "address": "11 Waterfield Road East Sleekburn, Bedlington, Northumberland, NE22 7BH",
+      "source_lot_id": "c9e8a100-5e27-4035-b121-f6aa08b9af6b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c9e8a100-5e27-4035-b121-f6aa08b9af6b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-01-21",
+      "address": "2 George Avenue, Keadby, Scunthorpe, South Humberside, DN17 3DE",
+      "source_lot_id": "1d869ce5-3a98-472d-8b56-fa3a393c91fa",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1d869ce5-3a98-472d-8b56-fa3a393c91fa",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-01-21",
+      "address": "Lockup Garages to the rear of: Wall Street, Gainsborough, Lincolnshire, DN21 1HZ",
+      "source_lot_id": "b6ce090e-8f5e-43bb-8ace-c2a4680de655",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b6ce090e-8f5e-43bb-8ace-c2a4680de655",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-01-19",
+    "2021-01-19"
+  ],
+  "by_status": {
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 5,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

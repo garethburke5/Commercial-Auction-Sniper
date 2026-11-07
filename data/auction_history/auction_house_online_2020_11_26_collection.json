@@ -1,0 +1,110 @@
+{
+  "checked_at": "2026-11-07T19:04:59.364269+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/22571",
+  "platform_event_id": "22571",
+  "archive_sha256": "8f63a5535fa9b6df64c8d5a704727a9a6097e44162617631ec34f3c27073221f",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 4,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-11-26",
+      "address": "Flat 4 Merrivale House Crapstone Road, Yelverton, Devon, PL20 6BT",
+      "source_lot_id": "ec0a5af8-349a-4164-8038-ac70e00894bb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ec0a5af8-349a-4164-8038-ac70e00894bb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-26",
+      "address": "6 George Street, Gainsborough, Lincolnshire, DN21 2PU",
+      "source_lot_id": "503a1c9b-1c71-4eba-8f7b-980c5f39bca9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/503a1c9b-1c71-4eba-8f7b-980c5f39bca9",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-26",
+      "address": "Land at Plot 4 Poucher Street, Rotherham, South Yorkshire, S61 2ET",
+      "source_lot_id": "3e2e6e5d-3404-4fca-a759-ef3b90b83b13",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3e2e6e5d-3404-4fca-a759-ef3b90b83b13",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-26",
+      "address": "8 Browns Hill, Dartmouth, Devon, TQ6 9NU",
+      "source_lot_id": "04ad875e-b7bd-4e02-84b7-171592e56633",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/04ad875e-b7bd-4e02-84b7-171592e56633",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-26",
+      "address": "34 Flowitt Street, Mexborough, South Yorkshire, S64 9NN",
+      "source_lot_id": "c9ccb48f-c8a6-4324-88a5-69ac098aad83",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c9ccb48f-c8a6-4324-88a5-69ac098aad83",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-11-16",
+    "2020-11-26"
+  ],
+  "by_status": {
+    "unsold": 3,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 1,
+    "land": 1,
+    "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1,
+    "Auction House Lincolnshire": 2,
+    "Auction House Cumbria": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

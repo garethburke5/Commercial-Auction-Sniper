@@ -1,0 +1,107 @@
+{
+  "checked_at": "2026-11-07T19:05:38.405472+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/22368",
+  "platform_event_id": "22368",
+  "archive_sha256": "2c1a7973e2b676dde79166f36b8c751fac6f33ae61025083533833acf984a06d",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 4,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-11-12",
+      "address": "24 North Marsh Road, Gainsborough, Lincolnshire, DN21 2RN",
+      "source_lot_id": "c5fe337f-445d-4406-a662-e1566dca4ef1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c5fe337f-445d-4406-a662-e1566dca4ef1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-12",
+      "address": "Land at Plot 1 Poucher Street, Rotherham, South Yorkshire, S61 2ET",
+      "source_lot_id": "392b2c9e-a2df-4bac-bf0e-f908f5352fcc",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/392b2c9e-a2df-4bac-bf0e-f908f5352fcc",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-12",
+      "address": "Land at Plot 2 Poucher Street, Rotherham, South Yorkshire, S61 2ET",
+      "source_lot_id": "55b30a87-7190-42c8-bbb5-96d7e7ebf9a5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/55b30a87-7190-42c8-bbb5-96d7e7ebf9a5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-12",
+      "address": "Land at Plot 3 Poucher Street, Rotherham, South Yorkshire, S61 2ET",
+      "source_lot_id": "0296b18b-20f8-4399-a497-4933a4f575b0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/0296b18b-20f8-4399-a497-4933a4f575b0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-11-12",
+      "address": "21 Imperial Buildings High Street, Rotherham, South Yorkshire, S60 1FF",
+      "source_lot_id": "72b172b2-b752-4206-b03e-70b193fe8275",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/72b172b2-b752-4206-b03e-70b193fe8275",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-11-05",
+    "2020-11-12"
+  ],
+  "by_status": {
+    "unsold": 3,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "residential": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South Yorkshire": 3,
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

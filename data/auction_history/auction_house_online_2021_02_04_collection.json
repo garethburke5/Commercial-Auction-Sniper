@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-11-07T19:02:44.106163+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/24925",
+  "platform_event_id": "24925",
+  "archive_sha256": "1b764d1a7458d9e31663dedfb63ce24a457207af9709aafdd75b653367a01c1a",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 1,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 1,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-02-04",
+      "address": "78 Seventh Street, Horden, County Durham, SR8 4LX",
+      "source_lot_id": "f63801fd-0adc-4680-9d35-0dce8fd6b51b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f63801fd-0adc-4680-9d35-0dce8fd6b51b",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-02-01",
+    "2021-02-04"
+  ],
+  "by_status": {
+    "unsold": 1,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "residential": 1,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Leicestershire": 1,
+    "Auction House North East": 1
+  },
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
