@@ -1,29 +1,44 @@
 {
-  "batch_id": "auction-house-online-2023-02-07-to-03-14",
+  "batch_id": "auction-house-online-2022-04-26-to-2022-06-14",
   "prepared_at": "2026-11-07",
   "sources": [
-    "auction-house-online-2023-03-14",
-    "auction-house-online-2023-03-07",
-    "auction-house-online-2023-02-28",
-    "auction-house-online-2023-02-21",
-    "auction-house-online-2023-02-14",
-    "auction-house-online-2023-02-07"
+    "auction-house-online-2022-06-14",
+    "auction-house-online-2022-06-07",
+    "auction-house-online-2022-05-31",
+    "auction-house-online-2022-05-24",
+    "auction-house-online-2022-05-17",
+    "auction-house-online-2022-05-10",
+    "auction-house-online-2022-05-03",
+    "auction-house-online-2022-04-26"
   ],
-  "published_visible_cards": 112,
+  "published_visible_cards": 44,
   "source_urls": [
-    "https://online.auctionhouse.co.uk/past-auctions/46416",
-    "https://online.auctionhouse.co.uk/past-auctions/46261",
-    "https://online.auctionhouse.co.uk/past-auctions/45572",
-    "https://online.auctionhouse.co.uk/past-auctions/45571",
-    "https://online.auctionhouse.co.uk/past-auctions/45509",
-    "https://online.auctionhouse.co.uk/past-auctions/45405"
+    "https://online.auctionhouse.co.uk/past-auctions/39117",
+    "https://online.auctionhouse.co.uk/past-auctions/39062",
+    "https://online.auctionhouse.co.uk/past-auctions/38395",
+    "https://online.auctionhouse.co.uk/past-auctions/38394",
+    "https://online.auctionhouse.co.uk/past-auctions/38393",
+    "https://online.auctionhouse.co.uk/past-auctions/37920",
+    "https://online.auctionhouse.co.uk/past-auctions/37919",
+    "https://online.auctionhouse.co.uk/past-auctions/37722"
   ],
-  "note": "Prepared as the next reusable six-catalogue batch. Promote only after the protected 67-card March-April batch banks and its exact bank publication succeeds; reconcile all 112 cards/details and preserve individual dates, guides, achieved prices, rents, outcomes, original URLs and immutable evidence.",
+  "per_event_visible_cards": [
+    13,
+    3,
+    2,
+    4,
+    3,
+    2,
+    2,
+    15
+  ],
+  "note": "Prepared behind the 67-card 21 June-9 August 2022 batch. Eight canonical first-party event pages expose 44 cards, including land, commercial, mixed-use, rent, guide and achieved-price evidence. Preserve every card's individual published date because retained grids include stale-date outcomes; reconcile all cards and details before claiming growth.",
   "status": "ready_but_not_triggered",
-  "ready_after_batch_run": 42342889781,
-  "collector_contract_commit": "d64e334b4fb5ac8b2e1042a708b2b1dbb37660b5",
-  "regression_contract_commit": "d13c59c3f984d41cf509379c29e714d41902e111",
-  "hold_reason": "The preceding 67-card bank and exact publication have cleared. Keep this manifest untriggered as the next serial growth target; before promotion, re-check that no historical collector or publisher is active, then run all six catalogues in one batch.",
-  "publication_gate_run": 42343377705,
-  "publication_gate_status": "passed_pages_and_production"
+  "ready_after_batch_id": "auction-house-online-2022-06-21-to-2022-08-09",
+  "preceding_batch_branch": "prepared/auction-house-online-2022-06-21-to-2022-08-09",
+  "publication_gate_status": "passed_pages_and_production",
+  "hold_reason": "The 67-card June-August 2022 batch banked 34 net-new appearances and its exact revision passed both Pages and production verification. Keep this 44-card eight-catalogue batch untriggered until a fresh active-writer check.",
+  "preceding_batch_run": 42367031951,
+  "preceding_batch_bank_commit": "502a67172395483fba29b9465f20f7ee614cda1d",
+  "publication_gate_run": 42367413004
 }
