@@ -37,6 +37,6 @@
   "ready_after_batch_id": "auction-house-online-2022-08-16-to-2022-09-27",
   "preceding_batch_bank_commit": "8493c56059ab4068b795b9c7b8b90fa028ccd48e",
   "publication_gate_run": 42361647719,
-  "publication_gate_status": "in_progress_pages_deployment",
-  "hold_reason": "Exact-revision publication is still active. Promote only after both public and production jobs finish and a fresh active-writer check confirms no current, historical or publication writer is active or queued."
+  "publication_gate_status": "pages_deployment_timed_out_and_cancelled_production_skipped",
+  "hold_reason": "Exact-revision publication run 42361647719 timed out in actions/deploy-pages and cancelled deployment 8493c56059ab4068b795b9c7b8b90fa028ccd48e; production was skipped. Preserve this checkpoint and do not launch the 67-card batch until a later materially distinct publication recovery succeeds and all writer lanes are clear."
 }
