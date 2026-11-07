@@ -1,32 +1,41 @@
 {
-  "batch_id": "auction-house-online-2022-03-15-to-2022-04-19",
+  "batch_id": "auction-house-online-2022-01-18-to-2022-03-08",
   "prepared_at": "2026-11-07",
   "sources": [
-    "auction-house-online-2022-04-19",
-    "auction-house-online-2022-04-12",
-    "auction-house-online-2022-04-05",
-    "auction-house-online-2022-03-29",
-    "auction-house-online-2022-03-22",
-    "auction-house-online-2022-03-15"
+    "auction-house-online-2022-03-08",
+    "auction-house-online-2022-03-01",
+    "auction-house-online-2022-02-22",
+    "auction-house-online-2022-02-15",
+    "auction-house-online-2022-02-08",
+    "auction-house-online-2022-02-01-a",
+    "auction-house-online-2022-02-01-b",
+    "auction-house-online-2022-01-25",
+    "auction-house-online-2022-01-18"
   ],
-  "published_visible_cards": 41,
+  "published_visible_cards": 43,
   "source_urls": [
-    "https://online.auctionhouse.co.uk/past-auctions/37721",
-    "https://online.auctionhouse.co.uk/past-auctions/36472",
-    "https://online.auctionhouse.co.uk/past-auctions/36129",
-    "https://online.auctionhouse.co.uk/past-auctions/35905",
-    "https://online.auctionhouse.co.uk/past-auctions/35904",
-    "https://online.auctionhouse.co.uk/past-auctions/35726"
+    "https://online.auctionhouse.co.uk/past-auctions/35603",
+    "https://online.auctionhouse.co.uk/past-auctions/35134",
+    "https://online.auctionhouse.co.uk/past-auctions/34715",
+    "https://online.auctionhouse.co.uk/past-auctions/34710",
+    "https://online.auctionhouse.co.uk/past-auctions/34711",
+    "https://online.auctionhouse.co.uk/past-auctions/34712",
+    "https://online.auctionhouse.co.uk/past-auctions/35032",
+    "https://online.auctionhouse.co.uk/past-auctions/34417",
+    "https://online.auctionhouse.co.uk/past-auctions/34260"
   ],
   "per_event_visible_cards": [
+    1,
+    12,
+    9,
+    1,
+    2,
+    1,
+    1,
     4,
-    6,
-    8,
-    4,
-    6,
-    13
+    12
   ],
-  "note": "Prepared behind the banked 44-card 26 April-14 June 2022 batch. Six canonical first-party event pages expose 41 cards. Preserve every card's individual published date because retained grids include stale-date outcomes; retain all sectors, prices, rents, outcomes and immutable source evidence; reconcile exact date/address overlaps before claiming growth.",
-  "triggered_at": "2026-11-07T12:38:18.872Z",
-  "trigger_reason": "The preceding 44-card 26 April-14 June 2022 batch banked 18 net-new appearances and exact-revision publication run 42371824997 passed both Pages and production. A fresh workflow inventory found no current scan, history-bank, historical collector or publication writer active or queued."
+  "note": "Nine canonical first-party event pages expose 43 cards from 18 January to 8 March 2022. The two 1 February catalogues are distinct event IDs and remain separate inventories; exact lot/date/address overlaps are excluded at banking. Preserve every card's individual published date because retained grids include stale-date outcomes, plus all sectors, guides, achieved prices, rents, outcomes, original URLs and immutable source evidence.",
+  "triggered_at": "2026-11-07T13:59:00Z",
+  "trigger_reason": "Exact-revision publication run 42373710828 passed both Pages source-to-live and auctiongeek.co.uk live-data/indexing verification for the preceding batch. Scheduled current scan 42374875039, permanent-history bank 42377207197, gallery refresh 42377207253 and publication runs 42377207179 and 42377448578 all completed successfully; a fresh workflow inventory found no collection or publication writer active or queued."
 }
