@@ -1770,3 +1770,29 @@ completeness remains **false**.
 - **Corpus totals after banking:** 311,460 appearances, 300,507 with addresses and 303,195 exact-dated appearances inside 7 November 2006–7 November 2026. Window evidence totals are 105,528 guides and 112,183 achieved prices. Sector totals are 42,601 commercial, 47,610 mixed-use, 19,055 land, 151,189 residential and 51,005 unknown. Source states are 4,719 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; retained exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
 - **Next concrete growth target prepared:** nine distinct official catalogues from 18 January to 8 March 2022 expose **43 cards** (1, 12, 9, 1, 2, 1, 1, 4 and 12). The two 1 February catalogues are separate event IDs. Collector definitions, literal denominator assertions and the untriggered manifest are persisted in `config/retained_grid_batch_next.json`; promote once in the next serial run only after a fresh active-writer check.
 - All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
+
+
+## 2026-11-07 — Auction House Online January–March 2022 batch banked
+
+- **Specific growth opportunity executed:** historical run [42379602051](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42379602051) processed nine accessible first-party catalogues from 18 January to 8 March 2022 through the reusable manifest runner. All **43/43 advertised cards** and **43/43 detail pages** reconciled without a source failure.
+- **Immutable evidence and publication:** permanent bank commit `c2da6199470905b48e7ba26066bbfc722b6cef3a` preserves original URLs, individual published dates, guide and achieved prices, outcomes and immutable source snapshots. Exact-revision run [42380214634](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42380214634) passed both Pages source-to-live verification and `auctiongeek.co.uk` live property-data/code/indexing verification.
+- **Measured net gain:** **22** newly banked appearances, **22** address records and **22** exact-dated appearances inside the rolling 20-year window; **0 commercial and 0 mixed-use**; **22 guide-price observations**, **5 achieved-price observations** and **0 rent observations**.
+- **Sector detail:** land 6, residential 6 and unknown 10. Unknown classifications remain null/unknown rather than inferred.
+- **Exceptions:** 21 exact date/address overlaps were preserved as source evidence but excluded from growth. The gain contains 0 partial, 0 undated, 0 future-dated and 0 duplicate source identities. Nine source-event inventories and 13 complete catalogue/date states were newly reconciled, but the genuine legal-operator source-year gain is **0** because Auction House Online / AUCTION HOUSE UK LIMITED 2022 was already represented.
+
+| Event | Cards/details | Net appearances | Commercial / mixed-use | Guides | Achieved prices | Rents | Exact overlaps |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 8 Mar 2022 / 35603 | 1/1 | 1 | 0 / 0 | 1 | 0 | 0 | 0 |
+| 1 Mar 2022 / 35134 | 12/12 | 8 | 0 / 0 | 8 | 1 | 0 | 4 |
+| 22 Feb 2022 / 34715 | 9/9 | 3 | 0 / 0 | 3 | 2 | 0 | 6 |
+| 15 Feb 2022 / 34710 | 1/1 | 0 | 0 / 0 | 0 | 0 | 0 | 1 |
+| 8 Feb 2022 / 34711 | 2/2 | 1 | 0 / 0 | 1 | 0 | 0 | 1 |
+| 1 Feb 2022 / 34712 | 1/1 | 1 | 0 / 0 | 1 | 0 | 0 | 0 |
+| 1 Feb 2022 / 35032 | 1/1 | 1 | 0 / 0 | 1 | 0 | 0 | 0 |
+| 25 Jan 2022 / 34417 | 4/4 | 4 | 0 / 0 | 4 | 0 | 0 | 0 |
+| 18 Jan 2022 / 34260 | 12/12 | 3 | 0 / 0 | 3 | 2 | 0 | 9 |
+| **Total** | **43/43** | **22** | **0 / 0** | **22** | **5** | **0** | **21** |
+
+- **Corpus totals after banking:** 311,482 appearances, 300,529 with addresses and 303,217 exact-dated appearances inside 7 November 2006–7 November 2026. Window evidence totals are 105,550 guides and 112,188 achieved prices. Corpus-wide exceptions remain 10,953 partial, 5,018 undated and 152 future-dated records. National completeness remains **false**.
+- **Next concrete growth target prepared:** nine canonical first-party catalogues from 2 November 2021 to 11 January 2022 expose **44 cards** (2, 4, 9, 6, 9, 2, 3, 7 and 2). The empty 21 December archive shell is excluded; the distinct four-card event is retained. Collector definitions, live denominator checks and an untriggered manifest are persisted in `config/retained_grid_batch_next.json`. The preceding publication gate has passed; promote only after a fresh active-writer check in the next serial run.
+- All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
