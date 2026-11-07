@@ -1,0 +1,101 @@
+{
+  "checked_at": "2026-11-07T18:07:26.242674+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/26482",
+  "platform_event_id": "26482",
+  "archive_sha256": "9cd83fe50d587e34cd1f57e61aed27f3766ce16e01ffb120463e7abffce12c6c",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-04-08",
+      "address": "22 Whinmoor Road, High Green, Sheffield, South Yorkshire, S35 4LJ",
+      "source_lot_id": "0e16796c-8ddc-44a4-8ce9-2518f0ba8d2f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/0e16796c-8ddc-44a4-8ce9-2518f0ba8d2f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-08",
+      "address": "26 Grove Road Stockingford, Nuneaton, Warwickshire, CV10 8JR",
+      "source_lot_id": "9ade4638-4a7a-4a73-829a-1f25c158487f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/9ade4638-4a7a-4a73-829a-1f25c158487f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-08",
+      "address": "66 Waterworks Street, Gainsborough, Lincolnshire, DN21 1LA",
+      "source_lot_id": "9a25293d-8f61-4cc5-8e56-fb8a6a12f2c3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/9a25293d-8f61-4cc5-8e56-fb8a6a12f2c3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-08",
+      "address": "55 Hipswell Highway Wyken, Coventry, West Midlands, CV2 5FL",
+      "source_lot_id": "14c5a6e2-44cf-4af3-ab72-97e295e02b4b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/14c5a6e2-44cf-4af3-ab72-97e295e02b4b",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-03-11",
+    "2021-04-08"
+  ],
+  "by_status": {
+    "sold_prior": 2,
+    "unsold": 1
+  },
+  "by_sector": {
+    "commercial": 1,
+    "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 1,
+    "Auction House Coventry and Warwickshire": 2
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

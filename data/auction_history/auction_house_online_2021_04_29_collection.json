@@ -1,0 +1,113 @@
+{
+  "checked_at": "2026-11-07T18:06:27.586691+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/27022",
+  "platform_event_id": "27022",
+  "archive_sha256": "093b2ddc2b99efeb43795f6a336ea8e111dbecca5e74fae366e4cb237af85b4c",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    12
+  ],
+  "archive_page_visible_cards": [
+    12
+  ],
+  "visible_source_rows": 12,
+  "expected_visible_cards": 12,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 12,
+  "distinct_source_identities": 12,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 7,
+  "run_new_appearances": 7,
+  "run_new_address_records": 7,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 7,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 7,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-04-29",
+      "address": "10 Nelson Avenue Nelson Village, Cramlington, Northumberland, NE23 1HG",
+      "source_lot_id": "e3b7e065-ef13-490b-9a10-57b7e91fb189",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e3b7e065-ef13-490b-9a10-57b7e91fb189",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-29",
+      "address": "11 Claycliffe Terrace, Rotherham, South Yorkshire, S63 9HW",
+      "source_lot_id": "157539fb-fa6c-487f-ae9e-1c34ab5127ba",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/157539fb-fa6c-487f-ae9e-1c34ab5127ba",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-29",
+      "address": "9 Victoria Street, Rotherham, South Yorkshire, S63 9HS",
+      "source_lot_id": "32de4ecd-74ce-4f26-b2a1-203aa92d94d2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/32de4ecd-74ce-4f26-b2a1-203aa92d94d2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-29",
+      "address": "70B Gilbey Road, Grimsby, South Humberside, DN31 2RN",
+      "source_lot_id": "7c045493-ac4e-4866-b1ab-574742712250",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7c045493-ac4e-4866-b1ab-574742712250",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-04-29",
+      "address": "10 Davy Street, Ferryhill, County Durham, DL17 8PN",
+      "source_lot_id": "e47f2b76-534f-40f9-b42c-5f92e93ac57c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e47f2b76-534f-40f9-b42c-5f92e93ac57c",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-04-23",
+    "2021-04-29"
+  ],
+  "by_status": {
+    "sold_prior": 3,
+    "unsold": 2,
+    "withdrawn": 2
+  },
+  "by_sector": {
+    "residential": 2,
+    "commercial": 1,
+    "unknown": 4
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 2,
+    "Auction House South Yorkshire": 1,
+    "Auction House North West": 1,
+    "Auction House Coventry and Warwickshire": 2,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1
+  },
+  "detail_pages_captured": 12,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

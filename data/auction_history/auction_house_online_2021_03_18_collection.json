@@ -1,0 +1,86 @@
+{
+  "checked_at": "2026-11-07T18:08:24.482167+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/26112",
+  "platform_event_id": "26112",
+  "archive_sha256": "e999a83b719b17f0bfc5304cd0096bfcc50b6a3bc64bdc378fa4be82b10114c8",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2021-03-18",
+      "address": "175 Church Way, Doncaster, South Yorkshire, DN1 2SD",
+      "source_lot_id": "978967d4-6760-4c7e-bbc5-f66f35dd1205",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/978967d4-6760-4c7e-bbc5-f66f35dd1205",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2021-03-18",
+      "address": "25 Huntilee Road Tunstall, Stoke-On-Trent, Staffordshire, ST6 6EP",
+      "source_lot_id": "e58693c6-c41b-4a28-ad84-5f82c1dad8d7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e58693c6-c41b-4a28-ad84-5f82c1dad8d7",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2021
+  ],
+  "date_range": [
+    "2021-03-05",
+    "2021-03-18"
+  ],
+  "by_status": {
+    "sold_prior": 1,
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Online": 1,
+    "Auction House Cheshire, Staffordshire & Shropshire": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
