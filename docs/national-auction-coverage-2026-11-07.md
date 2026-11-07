@@ -137,3 +137,13 @@ net persisted lots and price evidence, not catalogue pages or successful job cou
 - This checkpoint therefore adds 0 appearances, 0 addresses, 0 exact-dated in-window addresses, 0 commercial/mixed-use records, 0 guide/sale-price/rent evidence, 0 partial/undated/future/duplicate identities and 0 operator source-years. Historical totals remain 311,200 appearances, 300,247 addresses and 302,935 in-window appearances.
 - A different, substantial follow-on is now prepared: eight first-party Auction House Online catalogues from 31 January 2023 to 29 November 2022, **120 advertised cards** total. Source contracts and denominator assertions are in commits `cd683ca567e6035f1710288392ccb103a1845e2d` and `61fc5af77f2a20da9d3084b831585a21b0d75d6a`; untriggered manifest commit `778cb08e88522342c6207b154da5c658e2fbb039` keeps it behind the existing 112-card February-March target.
 - Next action remains the 112-card batch after the current scan, permanent bank and publication chain clear. National completeness remains **false**.
+
+
+## 07:12 UTC — six-catalogue retained-grid gain banked and published
+
+- Historical run [42349187635](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42349187635) reconciled all 112 advertised cards across six Auction House Online catalogues dated 7 February–14 March 2023. Permanent bank commit `1231e7a49a058ade571807aefedd4c5b6b3f27ce` was then published by exact-revision run [42349583662](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42349583662); both public and production jobs succeeded.
+- Net banked gain: **48 appearances**, **48 dated addresses inside the rolling 20-year window**, **4 commercial/mixed-use** (4 commercial, 0 mixed-use), **48 guide prices**, **5 achieved prices** and **3 rents**. The remaining 64 cards were exact overlaps and were excluded from growth.
+- The gain has 0 partial, undated, future-dated or duplicate source identities. It reconciles six source-event inventories but adds 0 operator source-years because Auction House Online / AUCTION HOUSE UK LIMITED 2023 was already represented.
+- Totals are now 311,248 appearances, 300,295 addresses and 302,983 in-window appearances; 4,637 source entries are complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
+- **Next target:** the tested eight-catalogue, 120-card manifest covering 29 November 2022–31 January 2023 is ready in `config/retained_grid_batch_followon.json` for the next serial run after an active-writer recheck. It has not been launched in parallel.
+- All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
