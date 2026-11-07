@@ -854,6 +854,26 @@
       "schedule_origin": "agent",
       "due_at": "2026-11-12T09:39:00.000Z",
       "buffer_id": "6aefa61751492b796e03400e"
+    },
+    "facebook:education:lease-break": {
+      "service": "facebook",
+      "channel_id": "6adb59c3778b240e2f9cee6d",
+      "kind": "education",
+      "property_id": null,
+      "caption_hash": "bf6a91d3f1cb08e265a268d5304f5e3d5b451935c9ebeec2cb5d4f764cf545bc",
+      "fingerprint": "aae621fa36d1d2fa12393c65f3f95643f119aca6ed78fa92a2b0e005ed79e528",
+      "asset_key": null,
+      "status": "pending",
+      "created_at": "2026-11-07T22:27:57.054298+00:00",
+      "topic_key": "facebook:education:lease-break",
+      "evidence": {
+        "basis": "Editorial explainer; hypothetical numbers explicitly labelled"
+      },
+      "editorial_interest": null,
+      "caption": "Read beyond the lease expiry date\n\nA tenant break clause may allow a tenant to leave before the lease expires. Check the earliest break date, the notice period and the conditions attached to it.\n\nWhen comparing investments, consider how long it could take to find another tenant and what costs would continue while the property is empty.\n\nExplore commercial auctions and free property snapshots on Auction Geek:\nhttps://auctiongeek.co.uk/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_research&utm_content=lease-break",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/b38ce1df157817119cb53401.jpg",
+      "schedule_origin": "agent",
+      "due_at": "2026-11-13T08:58:00+00:00"
     }
   },
   "attempts": [
@@ -1033,6 +1053,12 @@
       "at": "2026-11-07T22:27:57.054298+00:00",
       "action": "schedule",
       "result": "scheduled"
+    },
+    {
+      "key": "facebook:education:lease-break",
+      "at": "2026-11-07T22:27:57.054298+00:00",
+      "action": "schedule",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-11-07T22:26:46.381314+00:00"
