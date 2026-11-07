@@ -1648,3 +1648,27 @@ completeness remains **false**.
 - **Corpus totals after banking:** 311,365 appearances, 300,412 with addresses and 303,100 exact-dated appearances inside 7 November 2006–7 November 2026. Window price totals are 105,434 guides and 112,175 achieved prices. Source states are 4,672 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; corpus-wide exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
 - **Next concrete growth target prepared:** seven canonical Auction House Online catalogues from 16 August to 27 September 2022 expose **62 cards** (11, 10, 9, 4, 8, 9 and 11). Collector contracts, literal denominator assertions and an untriggered manifest are persisted on main. Scheduled continuation run 42358682725 produced zero new appearances, and exact-revision publication run 42360482546 completed both public and production jobs; promote only after a fresh active-writer check.
 - All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
+
+
+## 2026-11-07 — Auction House Online August–September 2022 batch banked
+
+- **Specific growth opportunity executed:** historical run [42361312678](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42361312678) processed seven accessible first-party catalogues from 16 August to 27 September 2022 through the reusable manifest runner. All **62/62 advertised cards** and **62/62 detail pages** reconciled without collector failures.
+- **Immutable evidence:** permanent bank commit `8493c56059ab4068b795b9c7b8b90fa028ccd48e` preserves original URLs, exact published dates, outcomes and immutable source snapshots. Exact-revision publication run [42361647719](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42361647719) passed tests, export and artifact checks but timed out in the provider-side Pages deployment. The failed checkpoint remains preserved. Recovery commit `1df885c4bd997195d424f0968b879172c5ccc0f0` extended the documented Pages deployment allowance and decoupled production from a provider timeout; recovery run [42363056519](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42363056519) then passed both Pages and production verification for the exact bank revision.
+- **Measured net gain:** **23** newly banked appearances, **23** address records and **23** exact-dated appearances inside the rolling 20-year window; **1** commercial and **0** mixed-use; **23** guide-price observations; **3** achieved-price observations; and **1** rent observation.
+- **Sector detail:** commercial 1, land 1, residential 6 and unknown 15. Unknown classifications remain null/unknown rather than inferred.
+- **Exceptions:** 39 exact date/address overlaps were excluded. The gain contains 0 partial, 0 undated, 0 future-dated and 0 duplicate source identities. Seven source-event inventories and nine catalogue/date states were reconciled, but Auction House Online / AUCTION HOUSE UK LIMITED already had 2022 operator coverage, so the genuine new operator source-year gain is **0**.
+
+| Event | Cards/details | Net appearances | Commercial / mixed-use | Guides | Achieved prices | Rents | Exact overlaps |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 27 Sep 2022 / 42017 | 11/11 | 7 | 1 / 0 | 7 | 2 | 1 | 4 |
+| 20 Sep 2022 / 41782 | 10/10 | 3 | 0 / 0 | 3 | 0 | 0 | 7 |
+| 13 Sep 2022 / 41594 | 9/9 | 0 | 0 / 0 | 0 | 0 | 0 | 9 |
+| 6 Sep 2022 / 41104 | 4/4 | 1 | 0 / 0 | 1 | 1 | 0 | 3 |
+| 30 Aug 2022 / 40879 | 8/8 | 5 | 0 / 0 | 5 | 0 | 0 | 3 |
+| 23 Aug 2022 / 40880 | 9/9 | 2 | 0 / 0 | 2 | 0 | 0 | 7 |
+| 16 Aug 2022 / 40674 | 11/11 | 5 | 0 / 0 | 5 | 0 | 0 | 6 |
+| **Total** | **62/62** | **23** | **1 / 0** | **23** | **3** | **1** | **39** |
+
+- **Corpus totals after banking:** 311,388 appearances, 300,435 with addresses and 303,123 exact-dated appearances inside 7 November 2006–7 November 2026. Window price totals are 105,457 guides and 112,178 achieved prices. Source states are 4,681 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; corpus-wide exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
+- **Next concrete growth target prepared:** eight canonical Auction House Online catalogues from 21 June to 9 August 2022 expose **67 cards** (14, 4, 12, 3, 19, 5, 6 and 4). Collector contracts, literal denominator assertions and an untriggered manifest are ready for one serial run after the successful recovery gate and a fresh active-writer check.
+- All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
