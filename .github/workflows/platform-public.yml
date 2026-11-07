@@ -1,5 +1,5 @@
 name: Public platform foundation
-# Publication retry checkpoint: historical bank 1f411ea1 (2026-11-06)
+# Publication recovery checkpoint: historical bank 8493c560 (2026-11-07)
 on:
   workflow_dispatch:
   push:
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Pages deployment can exceed the former 15-minute ceiling after a full
     # historical database export; retain the tested artifact and allow deploy.
-    timeout-minutes: 25
+    timeout-minutes: 40
     env:
       PAGES_ARTIFACT_NAME: github-pages-${{ github.run_id }}-${{ github.run_attempt }}
     outputs:
@@ -123,8 +123,12 @@ jobs:
             throw new Error('Uploaded Pages artifact is not visible yet; retry this job');
       - uses: actions/deploy-pages@v4
         id: deployment
+        timeout-minutes: 32
         with:
           artifact_name: ${{ env.PAGES_ARTIFACT_NAME }}
+          # The action default is 10 minutes; large historical exports can
+          # remain queued at the Pages provider longer without being corrupt.
+          timeout: 1800000
       - name: Verify source-to-live publication
         run: python scripts/verify_live_platform.py --origin "$SITE_ORIGIN"
         env:
@@ -138,6 +142,9 @@ jobs:
   cloudflare:
     name: Deploy auctiongeek.co.uk
     needs: publish
+    # A Pages-provider timeout must not suppress production after this exact
+    # revision has already passed tests, export and artifact checks.
+    if: ${{ always() && needs.publish.result != 'cancelled' && needs.publish.outputs.tested_commit != '' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
