@@ -147,3 +147,13 @@ net persisted lots and price evidence, not catalogue pages or successful job cou
 - Totals are now 311,248 appearances, 300,295 addresses and 302,983 in-window appearances; 4,637 source entries are complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
 - **Next target:** the tested eight-catalogue, 120-card manifest covering 29 November 2022–31 January 2023 is ready in `config/retained_grid_batch_followon.json` for the next serial run after an active-writer recheck. It has not been launched in parallel.
 - All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
+
+
+## 08:22 UTC — 120-card November 2022–January 2023 batch banked and published
+
+- Historical run [42353744821](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42353744821) reconciled all 120 advertised cards and detail pages across eight Auction House Online catalogues. Bank commit `7063e9d9b1e9a0508a55d18429e41b991eb606a1` passed exact public and production publication in run [42354279444](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42354279444).
+- Net growth: **60 appearances**, **60 dated addresses inside the rolling 20-year window**, **1 commercial and 1 mixed-use**, **60 guides**, **3 achieved prices** and **13 rents**. Sixty exact overlaps were excluded.
+- The gain contains 0 partial, undated, future-dated or duplicate source identities. It adds eight reconciled source-events but 0 genuine operator source-years because AUCTION HOUSE UK LIMITED was already represented in 2022 and 2023.
+- Corpus totals are now 311,308 appearances, 300,355 addresses and 303,043 in-window appearances; source states are 4,653 complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
+- **Next target:** eight official catalogues from 4 October–22 November 2022 expose **127 cards**. Contracts, assertions and the untriggered manifest are persisted in commits `ec066d41ac1785e606929dcc9ae8ded847c43d49`, `ccdab7efc2db79a2262000ec760082b089c62ed9` and `0fba710a7879e8a0e84359b9a4214cdbb4d15f48`. It remains serial and untriggered pending the next active-writer check.
+- All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
