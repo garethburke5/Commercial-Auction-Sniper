@@ -29,6 +29,7 @@ on:
           - dawsons
           - bagshaws-saved-narratives
   push:
+    branches: [main]
     paths:
       - data/auction_history/appearances/**
       - scripts/resume_history_batch.py
