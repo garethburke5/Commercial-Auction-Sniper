@@ -1,44 +1,39 @@
 {
-  "batch_id": "auction-house-online-2022-10-04-to-2022-11-22",
+  "batch_id": "auction-house-online-2022-08-16-to-2022-09-27",
   "prepared_at": "2026-11-07",
   "sources": [
-    "auction-house-online-2022-11-22",
-    "auction-house-online-2022-11-15",
-    "auction-house-online-2022-11-08",
-    "auction-house-online-2022-11-01",
-    "auction-house-online-2022-10-25",
-    "auction-house-online-2022-10-18",
-    "auction-house-online-2022-10-11",
-    "auction-house-online-2022-10-04"
+    "auction-house-online-2022-09-27",
+    "auction-house-online-2022-09-20",
+    "auction-house-online-2022-09-13",
+    "auction-house-online-2022-09-06",
+    "auction-house-online-2022-08-30",
+    "auction-house-online-2022-08-23",
+    "auction-house-online-2022-08-16"
   ],
-  "published_visible_cards": 127,
+  "published_visible_cards": 62,
   "source_urls": [
-    "https://online.auctionhouse.co.uk/past-auctions/43210",
-    "https://online.auctionhouse.co.uk/past-auctions/43209",
-    "https://online.auctionhouse.co.uk/past-auctions/43208",
-    "https://online.auctionhouse.co.uk/past-auctions/42777",
-    "https://online.auctionhouse.co.uk/past-auctions/42447",
-    "https://online.auctionhouse.co.uk/past-auctions/42446",
-    "https://online.auctionhouse.co.uk/past-auctions/42234",
-    "https://online.auctionhouse.co.uk/past-auctions/42082"
+    "https://online.auctionhouse.co.uk/past-auctions/42017",
+    "https://online.auctionhouse.co.uk/past-auctions/41782",
+    "https://online.auctionhouse.co.uk/past-auctions/41594",
+    "https://online.auctionhouse.co.uk/past-auctions/41104",
+    "https://online.auctionhouse.co.uk/past-auctions/40879",
+    "https://online.auctionhouse.co.uk/past-auctions/40880",
+    "https://online.auctionhouse.co.uk/past-auctions/40674"
   ],
   "per_event_visible_cards": [
-    19,
-    36,
-    16,
-    5,
-    21,
+    11,
+    10,
+    9,
     4,
-    16,
-    10
+    8,
+    9,
+    11
   ],
-  "note": "Prepared follow-on after the 120-card November 2022-January 2023 batch. Eight canonical first-party event pages expose 127 cards. Preserve every individual published date because some retained grids contain earlier or later-dated card outcomes; reconcile all cards and details before claiming growth.",
+  "note": "Prepared follow-on after the 127-card October-November 2022 batch. Seven canonical first-party event pages expose 62 cards. Preserve each card's individual published date because retained grids can contain earlier or later outcomes; reconcile every card and detail before claiming growth.",
   "status": "ready_for_next_serial_run_not_triggered",
-  "ready_after_batch_id": "auction-house-online-2022-11-29-to-2023-01-31",
-  "collector_contract_commit": "ec066d41ac1785e606929dcc9ae8ded847c43d49",
-  "regression_contract_commit": "ccdab7efc2db79a2262000ec760082b089c62ed9",
-  "preceding_batch_bank_commit": "7063e9d9b1e9a0508a55d18429e41b991eb606a1",
-  "publication_gate_run": 42354279444,
+  "ready_after_batch_id": "auction-house-online-2022-10-04-to-2022-11-22",
+  "preceding_batch_bank_commit": "e876b509a1dd7c9d767ad8bccc6e054d9907e1ee",
+  "publication_gate_run": 42358407773,
   "publication_gate_status": "publish_and_production_succeeded",
-  "hold_reason": "Promote only as the next serial historical run after rechecking that current scan, permanent-history, historical collection and publication writers are inactive. The preceding 120-card batch banked and passed exact public and production publication."
+  "hold_reason": "Scheduled continuation run 42358682725 owns the main data-writing lane. Promote only after that run and any exact-revision publication chain finish, then recheck current, historical and publication writers."
 }
