@@ -3,6 +3,44 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+
+## 7 November 2026 — June-August 2022 retained-grid batch
+
+Run [42367031951](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42367031951)
+reconciled all 67 visible cards and detail pages across eight first-party Auction
+House Online events dated 21 June-9 August 2022. Bank commit
+[502a671](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/502a67172395483fba29b9465f20f7ee614cda1d)
+added 34 net property appearances, all address-bearing and individually dated inside
+the current twenty-year window. It added 34 guide-price fields, two achieved prices
+and three rent fields. The sector split was two commercial, zero mixed-use, five
+land, ten residential and seventeen unknown. Thirty-three exact date/address
+overlaps were excluded; partial, undated, future-dated and duplicate-source-identity
+additions were all zero.
+
+This reconciled eight source-events and increased complete catalogue/date states by
+18 (4,681 to 4,699), without adding a new operator-year. Auction House regional
+attributions remain branches/trading names of AUCTION HOUSE UK LIMITED, not new
+auctioneers. Two retained-grid cards carried individual dates different from their
+container label; the individual published lot dates were preserved.
+
+Exact-revision publication
+[42367413004](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42367413004)
+passed tests, GitHub Pages deployment and production-domain verification. Corpus
+totals are 311,422 appearances, 300,469 address records, 303,157 in-window
+appearances, 105,491 guides and 112,180 achieved prices. Partial, undated and
+future-dated totals remain 10,953, 5,018 and 152.
+
+The immediately preceding preparation-branch continuation
+[42363214099](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42363214099)
+banked immutable source snapshots but reported `run_new_appearances: 0`; it is not
+claimed as corpus growth and is not a route to repeat. Historical push collection is
+now restricted to `main`.
+
+Next serial growth target: eight first-party catalogues dated 26 April-14 June 2022,
+44 visible cards in total, persisted untriggered in
+`config/retained_grid_batch_next.json`. Promote it only after a fresh writer and
+publisher check. National completeness remains false.
+
 ## Run
 
 ```sh
