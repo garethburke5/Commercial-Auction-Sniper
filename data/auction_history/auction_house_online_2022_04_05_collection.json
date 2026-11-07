@@ -1,0 +1,109 @@
+{
+  "checked_at": "2026-11-07T12:40:15.342528+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/36129",
+  "platform_event_id": "36129",
+  "archive_sha256": "0f7e6886c9f44d75294c43411254b84db80bb36b71416dd8871ba82fbe52399e",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    8
+  ],
+  "archive_page_visible_cards": [
+    8
+  ],
+  "visible_source_rows": 8,
+  "expected_visible_cards": 8,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 8,
+  "distinct_source_identities": 8,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-04-05",
+      "address": "7 Speedwell Place, Worksop, Nottinghamshire, S80 1UH",
+      "source_lot_id": "702c067d-fe82-4c39-92b5-a2b0be2bc073",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/702c067d-fe82-4c39-92b5-a2b0be2bc073",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-05",
+      "address": "65 Crusader House Thurland Street, Nottingham, Nottinghamshire, NG1 3BT",
+      "source_lot_id": "07d32297-b026-4c08-a96b-5610ac40b5a3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/07d32297-b026-4c08-a96b-5610ac40b5a3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-05",
+      "address": "225 Ropery Road, Gainsborough, Lincolnshire, DN21 2PD",
+      "source_lot_id": "8c85b299-30c2-4692-8849-fd57abf75db8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/8c85b299-30c2-4692-8849-fd57abf75db8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-05",
+      "address": "28 Circuit Close, Willenhall, West Midlands, WV13 1EB",
+      "source_lot_id": "e03914a9-b1be-4821-9c70-65b0c1b7eb53",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e03914a9-b1be-4821-9c70-65b0c1b7eb53",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-05",
+      "address": "3 Biggar Road Cleland, Motherwell, Lanarkshire, ML1 5PB",
+      "source_lot_id": "66a8ffda-e575-4e11-bca2-b82909ed3ca5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/66a8ffda-e575-4e11-bca2-b82909ed3ca5",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-03-22",
+    "2022-04-05"
+  ],
+  "by_status": {
+    "unsold": 2,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Lincolnshire": 1,
+    "Auction House Scotland": 1,
+    "Auction House Birmingham": 1
+  },
+  "detail_pages_captured": 8,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

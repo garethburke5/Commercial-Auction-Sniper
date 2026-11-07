@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-11-07T12:40:26.642904+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/35905",
+  "platform_event_id": "35905",
+  "archive_sha256": "57e60b30bc376fcf56efcd31aeb9a585d732f412d069a77bb1b8203310424781",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-03-29",
+      "address": "Building Plot Mill Close, Blyton, Gainsborough, Lincolnshire, DN21 3LR",
+      "source_lot_id": "57e07a54-27c9-4565-a599-7b2731c6e33e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/57e07a54-27c9-4565-a599-7b2731c6e33e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-29",
+      "address": "Apartment 207 Pearl Works, Sheffield, South Yorkshire, S1 2FT",
+      "source_lot_id": "c971a5a1-b2e7-4c58-94be-c431d60dce69",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c971a5a1-b2e7-4c58-94be-c431d60dce69",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-29",
+      "address": "31 Morton Terrace, Gainsborough, Lincolnshire, DN21 2RF",
+      "source_lot_id": "b6cd8f06-4a4b-493f-87d0-978a95b56cb7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b6cd8f06-4a4b-493f-87d0-978a95b56cb7",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-03-29",
+    "2022-03-29"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

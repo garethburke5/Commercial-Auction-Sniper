@@ -1,0 +1,88 @@
+{
+  "checked_at": "2026-11-07T12:40:03.677163+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/36472",
+  "platform_event_id": "36472",
+  "archive_sha256": "dce592f056d6661d854f250ed76be28374f7eabdb9d591594a49f1296c8da732",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    6
+  ],
+  "archive_page_visible_cards": [
+    6
+  ],
+  "visible_source_rows": 6,
+  "expected_visible_cards": 6,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 6,
+  "distinct_source_identities": 6,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 4,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-04-12",
+      "address": "Apartment 18, Millennium Heights Lune Street, Lancaster, Lancashire, LA1 2AT",
+      "source_lot_id": "e83baa75-9206-42b4-99a4-330acb0b4b7a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e83baa75-9206-42b4-99a4-330acb0b4b7a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-04-12",
+      "address": "Flat 4 15 Front Street, Leadgate, Consett, County Durham, DH8 7SA",
+      "source_lot_id": "601d73ff-3e33-42ec-bf0c-0ef2d346dd8c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/601d73ff-3e33-42ec-bf0c-0ef2d346dd8c",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-04-11",
+    "2022-04-12"
+  ],
+  "by_status": {
+    "unsold": 3,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "residential": 2,
+    "unknown": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 2,
+    "Auction House Cheshire": 1,
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 6,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

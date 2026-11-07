@@ -1,0 +1,112 @@
+{
+  "checked_at": "2026-11-07T12:40:50.351637+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/35726",
+  "platform_event_id": "35726",
+  "archive_sha256": "fdef119b5a5fabfc1882b691107099e26db0e69be6eec735e738ec2802a6292a",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    13
+  ],
+  "archive_page_visible_cards": [
+    13
+  ],
+  "visible_source_rows": 13,
+  "expected_visible_cards": 13,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 13,
+  "distinct_source_identities": 13,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 8,
+  "run_new_appearances": 8,
+  "run_new_address_records": 8,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 8,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 8,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-03-15",
+      "address": "20 Stoneclose Avenue, Doncaster, South Yorkshire, DN4 0BA",
+      "source_lot_id": "74b4ebb5-8a7a-42ee-b863-948b893d95dd",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/74b4ebb5-8a7a-42ee-b863-948b893d95dd",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-15",
+      "address": "113 Strauss Crescent Maltby, Rotherham, South Yorkshire, S66 7QL",
+      "source_lot_id": "41074a6f-ab03-4715-9be8-faf63443360b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/41074a6f-ab03-4715-9be8-faf63443360b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-15",
+      "address": "4 Reservoir Way Woodville, Swadlincote, Derbyshire, DE11 8BP",
+      "source_lot_id": "b9fc0a76-39ca-4228-b57e-05d1f4f59076",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b9fc0a76-39ca-4228-b57e-05d1f4f59076",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-15",
+      "address": "115 Strauss Crescent Maltby, Rotherham, South Yorkshire, S66 7QL",
+      "source_lot_id": "f917909a-4bf1-4647-b878-f3ac704c82b2",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f917909a-4bf1-4647-b878-f3ac704c82b2",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-15",
+      "address": "Apartment 104 Pearl Works, Sheffield, South Yorkshire, S1 2FT",
+      "source_lot_id": "77da558d-13ed-4259-b8fd-40667fcbbd06",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/77da558d-13ed-4259-b8fd-40667fcbbd06",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-02-23",
+    "2022-03-15"
+  ],
+  "by_status": {
+    "unsold": 7,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "land": 4,
+    "unknown": 3,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Notts & Derby": 2,
+    "Auction House Cheshire": 3,
+    "Auction House South West": 1,
+    "Auction House North East": 1,
+    "Auction House South Yorkshire": 1
+  },
+  "detail_pages_captured": 13,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

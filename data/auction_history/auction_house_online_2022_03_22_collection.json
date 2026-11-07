@@ -1,0 +1,100 @@
+{
+  "checked_at": "2026-11-07T12:40:38.504466+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/35904",
+  "platform_event_id": "35904",
+  "archive_sha256": "3f9fa842a87246e5cbb51cb0cc2a534beda89fd24294c4224337549ca82a164d",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    6
+  ],
+  "archive_page_visible_cards": [
+    6
+  ],
+  "visible_source_rows": 6,
+  "expected_visible_cards": 6,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 6,
+  "distinct_source_identities": 6,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-03-22",
+      "address": "21 Alpine Crescent The Elms, Torksey, Lincoln, Lincolnshire, LN1 2EX",
+      "source_lot_id": "76f63aa0-c609-4e41-b19a-492806bc6cf5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/76f63aa0-c609-4e41-b19a-492806bc6cf5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-22",
+      "address": "202 Lea Road, Gainsborough, Lincolnshire, DN21 1AP",
+      "source_lot_id": "b2325187-fb19-438b-92e8-1ef55c26992e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b2325187-fb19-438b-92e8-1ef55c26992e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-22",
+      "address": "Apartment 311 Pearl Works, Sheffield, South Yorkshire, S1 2FT",
+      "source_lot_id": "f7de06cd-bde0-41a9-b8fd-7794381926db",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f7de06cd-bde0-41a9-b8fd-7794381926db",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-22",
+      "address": "29 Spansyke Street, Doncaster, South Yorkshire, DN4 0AX",
+      "source_lot_id": "71c64863-ee95-4ae6-8a59-f91f240e3eea",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/71c64863-ee95-4ae6-8a59-f91f240e3eea",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-03-22",
+    "2022-03-22"
+  ],
+  "by_status": {
+    "unsold": 2
+  },
+  "by_sector": {
+    "residential": 1,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North East": 1,
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 6,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
