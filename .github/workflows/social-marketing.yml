@@ -39,7 +39,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install 'Pillow>=10,<12' requests beautifulsoup4 pytest
+      - run: pip install 'Pillow>=10,<12' requests beautifulsoup4 'pypdf>=5.0' pytest
       - name: Test selection, publishing gates and duplicate protection
         run: python -m pytest marketing/tests -q
       - name: Run review-first social agent
