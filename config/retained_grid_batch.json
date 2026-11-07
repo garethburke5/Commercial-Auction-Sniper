@@ -1,20 +1,20 @@
 {
-  "batch_id": "auction-house-online-2023-06-13-to-07-04",
+  "batch_id": "auction-house-online-2023-05-16-to-06-06",
   "prepared_at": "2026-11-07",
   "sources": [
-    "auction-house-online-2023-07-04",
-    "auction-house-online-2023-06-27",
-    "auction-house-online-2023-06-20",
-    "auction-house-online-2023-06-13"
+    "auction-house-online-2023-06-06",
+    "auction-house-online-2023-05-30",
+    "auction-house-online-2023-05-23",
+    "auction-house-online-2023-05-16"
   ],
-  "published_visible_cards": 111,
+  "published_visible_cards": 85,
   "source_urls": [
-    "https://online.auctionhouse.co.uk/past-auctions/49566",
-    "https://online.auctionhouse.co.uk/past-auctions/49395",
-    "https://online.auctionhouse.co.uk/past-auctions/49048",
-    "https://online.auctionhouse.co.uk/past-auctions/48888"
+    "https://online.auctionhouse.co.uk/past-auctions/48400",
+    "https://online.auctionhouse.co.uk/past-auctions/48304",
+    "https://online.auctionhouse.co.uk/past-auctions/47939",
+    "https://online.auctionhouse.co.uk/past-auctions/47463"
   ],
-  "note": "One protected batch; preserve every card's individual date and detail evidence, then exclude exact overlaps before claiming growth.",
-  "triggered_at": "2026-11-07T03:03:00Z",
-  "trigger_reason": "All current scan, permanent-history bank, historical continuation and publication lanes verified clear; execute the protected four-catalogue batch once."
+  "note": "One protected manifest batch after all current scan, permanent-history bank and publication lanes cleared; preserve each card's individual date and detail evidence, then exclude exact overlaps before claiming growth.",
+  "triggered_at": "2026-11-07T04:20:00Z",
+  "trigger_reason": "The superseding current publication succeeded on GitHub Pages and auctiongeek.co.uk; the manifest-isolation guard prevents this historical trigger from launching a duplicate current collector or snapshot writer."
 }
