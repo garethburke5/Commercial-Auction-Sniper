@@ -185,7 +185,7 @@ def perform(mode, *, store=None, client=None, now=None):
                 item=choose(due)
                 if item and publishing_allowed(store.read('marketing/config.json'),store.read(STATE,state),os.environ):
                     prepare(item,due)
-                    client.to_draft(old['buffer_id'])
+                    client.edit_draft(old['buffer_id'],{**old,'media_evidence':{'alt':old['caption'].splitlines()[0]}})
                     for live in remote:
                         if live['id']==old['buffer_id']:live['status']='draft'
                     old.update(status='draft',hold_reason='Alternative property selected for weekly variety')
