@@ -1575,3 +1575,26 @@ completeness remains **false**.
 - **Reusable collector improvement:** the official first-party archive index exposes a further eight substantial catalogues from 31 January 2023 back to 29 November 2022 with **120 advertised cards** in total: 14, 5, 10, 14, 10, 18, 14 and 35. Strict source definitions and literal denominator assertions were added in commits `cd683ca567e6035f1710288392ccb103a1845e2d` and `61fc5af77f2a20da9d3084b831585a21b0d75d6a`. The untriggered follow-on manifest is preserved in `config/retained_grid_batch_followon.json` by commit `778cb08e88522342c6207b154da5c658e2fbb039`.
 - **Next concrete action:** once current scan 42344862311 and its downstream permanent-history bank/publication chain clear, promote the already prepared **112-card** 14 March–7 February 2023 batch as one serial manifest run. Only after its bank and exact-revision publication succeed should the new 120-card follow-on be promoted.
 - All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false**.
+
+
+## 2026-11-07 — Auction House Online February–March 2023 retained-grid batch banked
+
+- **Specific growth opportunity executed:** the serial retained-grid runner processed six accessible Auction House Online catalogues from 7 February to 14 March 2023 in one manifest run, rather than adding six dated workflow steps. Historical run [42349187635](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42349187635) completed successfully; all 112 advertised cards and their detail pages were reconciled. Tests passed (474 broad, 175 focused).
+- **Immutable bank/publication checkpoint:** permanent bank commit `1231e7a49a058ade571807aefedd4c5b6b3f27ce` preserves records, original source URLs and source snapshots. Exact-revision public run [42349583662](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42349583662) completed both `publish` and `Deploy auctiongeek.co.uk` successfully before any follow-on was made ready.
+- **Measured net gain:** **48** newly banked individual appearances; **48** newly dated address records; **48** exact-dated appearances inside the rolling 20-year window; **4** commercial/mixed-use records (4 commercial, 0 mixed-use); **48** new guide-price observations; **5** new achieved-price observations; and **3** new rent observations.
+- **Sector detail for the 48 new appearances:** commercial 4, land 1, residential 15, mixed-use 0 and unknown 28. Unknown classifications remain unknown; none was inferred to improve a coverage label.
+- **Exceptions:** 64 exact overlaps were excluded before claiming growth. The gain contains 0 partial, 0 undated, 0 future-dated and 0 duplicate source identities. The six newly reconciled source-event inventories all sit inside the already represented Auction House Online / AUCTION HOUSE UK LIMITED 2023 operator source-year, so the honest operator source-year gain is **0** (not six).
+
+| Event | Advertised cards | Net appearances | Commercial / mixed-use | Guides | Achieved prices | Rents | Exact overlaps excluded |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 14 Mar 2023 / 46416 | 18 | 10 | 0 / 0 | 10 | 2 | 0 | 8 |
+| 7 Mar 2023 / 46261 | 24 | 15 | 1 / 0 | 15 | 2 | 1 | 9 |
+| 28 Feb 2023 / 45572 | 33 | 13 | 2 / 0 | 13 | 0 | 1 | 20 |
+| 21 Feb 2023 / 45571 | 9 | 4 | 1 / 0 | 4 | 1 | 1 | 5 |
+| 14 Feb 2023 / 45509 | 12 | 3 | 0 / 0 | 3 | 0 | 0 | 9 |
+| 7 Feb 2023 / 45405 | 16 | 3 | 0 / 0 | 3 | 0 | 0 | 13 |
+| **Total** | **112** | **48** | **4 / 0** | **48** | **5** | **3** | **64** |
+
+- **Corpus totals after banking:** 311,248 individual appearances, 300,295 with addresses and 302,983 exact-dated appearances inside 7 November 2006–7 November 2026. Price totals inside that window are 105,317 guides and 112,166 achieved prices. Source states are 4,637 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; the global partial-record count remains 10,953.
+- **Next concrete growth target:** promote the already tested eight-catalogue, **120-card** Auction House Online manifest covering 29 November 2022–31 January 2023 from `config/retained_grid_batch_followon.json` in the next serial collection run, after rechecking there are no active current, historical or publication writers. Reconcile every card and detail, exclude exact overlaps and bank before publication.
+- All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
