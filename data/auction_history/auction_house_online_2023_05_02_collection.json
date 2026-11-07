@@ -1,0 +1,95 @@
+{
+  "checked_at": "2026-11-07T05:09:18.456240+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/47768",
+  "platform_event_id": "47768",
+  "archive_sha256": "71b40f042f88bdc34b64123a5e4666d497f5d4952e2ab7c9bcd7b4be98a2ca7a",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    6
+  ],
+  "archive_page_visible_cards": [
+    6
+  ],
+  "visible_source_rows": 6,
+  "expected_visible_cards": 6,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 6,
+  "distinct_source_identities": 6,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2023-05-02",
+      "address": "38 Victoria Street Goldthorpe, Rotherham, South Yorkshire, S63 9HS",
+      "source_lot_id": "a8f8a48e-84ee-475a-a6b5-3d048d925729",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a8f8a48e-84ee-475a-a6b5-3d048d925729",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-05-02",
+      "address": "Freeholds of 2-2A York Street Wombwell, Barnsley, South Yorkshire, S73 8JB",
+      "source_lot_id": "2f9b4a2a-534e-41b3-9847-82d6c0d539bb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2f9b4a2a-534e-41b3-9847-82d6c0d539bb",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-05-02",
+      "address": "14 Dundonald Avenue, Abergele, Clwyd, LL22 7LH",
+      "source_lot_id": "6d7b6744-cc76-49c8-a473-858aeaf5183d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/6d7b6744-cc76-49c8-a473-858aeaf5183d",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2023
+  ],
+  "date_range": [
+    "2023-04-26",
+    "2023-05-02"
+  ],
+  "by_status": {
+    "sold": 1,
+    "postponed": 2
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire": 1,
+    "Auction House West Yorkshire": 1,
+    "Auction House Coventry and Warwickshire": 1
+  },
+  "detail_pages_captured": 6,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
