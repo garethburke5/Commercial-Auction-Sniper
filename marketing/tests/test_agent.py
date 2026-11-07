@@ -124,8 +124,8 @@ def test_verified_identical_scope_allows_factual_guide_comparison():
     assert 'not sale results' in property_post(new,'facebook',[old])['caption']
 
 @pytest.mark.parametrize('config,state,env',[
-    (CFG,{},{}),({**CFG,'publishing_approved':True},{},{}),
-    (CFG,{}, {'SOCIAL_PUBLISHING_ENABLED':'true'}),
+    ({**CFG,'publishing_approved':False},{},{}),({**CFG,'publishing_approved':True},{},{}),
+    ({**CFG,'publishing_approved':False},{}, {'SOCIAL_PUBLISHING_ENABLED':'true'}),
     ({**CFG,'publishing_approved':True,'paused':True},{},{'SOCIAL_PUBLISHING_ENABLED':'true'}),
     ({**CFG,'publishing_approved':True},{'paused':True},{'SOCIAL_PUBLISHING_ENABLED':'true'}),
 ])
