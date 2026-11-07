@@ -180,6 +180,7 @@ on:
       - web_platform/tests/test_acuitus_admission.py
       - .github/workflows/historical-lot-corpus.yml
       - config/source_registry.json
+      - config/retained_grid_batch.json
       - config/historical_auctioneer_directory.json
       - data/historical_source_corpus/**
       - data/source_corpus_shards/**
@@ -798,6 +799,10 @@ jobs:
         if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 14 October 2025')
         timeout-minutes: 20
         run: python -u scripts/harvest_eig_retained_grids.py auction-house-online-2025-10-14 --workers 16
+      - name: Collect manifest-defined retained-grid batch
+        if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect retained-grid batch')
+        timeout-minutes: 45
+        run: python -u scripts/harvest_eig_retained_grids.py --manifest config/retained_grid_batch.json --workers 16
       - name: Collect Auction House Online 11 July 2023 shared-platform event
         if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Online 11 July 2023')
         timeout-minutes: 20
