@@ -3902,3 +3902,48 @@ def test_auction_house_online_july_to_october_2020_batch_configuration():
         assert source["detail_attempts"] == 2
         assert source["detail_timeout"] == 45
     assert sum(cards for _, cards in expected.values()) == 71
+
+def test_auction_house_online_january_to_june_2020_batch_configuration():
+    expected = {
+        "auction-house-online-2020-06-25": ("/past-auctions/17911", 3),
+        "auction-house-online-2020-06-18": ("/past-auctions/17539", 7),
+        "auction-house-online-2020-06-11": ("/past-auctions/17538", 2),
+        "auction-house-online-2020-06-04": ("/past-auctions/17515", 9),
+        "auction-house-online-2020-05-28": ("/past-auctions/17009", 12),
+        "auction-house-online-2020-05-21": ("/past-auctions/17008", 9),
+        "auction-house-online-2020-05-20": ("/past-auctions/17805", 1),
+        "auction-house-online-2020-05-14": ("/past-auctions/17007", 6),
+        "auction-house-online-2020-05-07": ("/past-auctions/16540", 5),
+        "auction-house-online-2020-04-30": ("/past-auctions/16103", 10),
+        "auction-house-online-2020-04-23": ("/past-auctions/16102", 10),
+        "auction-house-online-2020-04-16": ("/past-auctions/16101", 12),
+        "auction-house-online-2020-04-09": ("/past-auctions/15999", 6),
+        "auction-house-online-2020-04-02": ("/past-auctions/15821", 15),
+        "auction-house-online-2020-03-26": ("/past-auctions/15501", 4),
+        "auction-house-online-2020-03-19": ("/past-auctions/15498", 3),
+        "auction-house-online-2020-03-12": ("/past-auctions/15252", 3),
+        "auction-house-online-2020-03-05": ("/past-auctions/14174", 5),
+        "auction-house-online-2020-02-27": ("/past-auctions/14553", 5),
+        "auction-house-online-2020-02-20": ("/past-auctions/14547", 7),
+        "auction-house-online-2020-02-13": ("/past-auctions/14549", 1),
+        "auction-house-online-2020-02-06": ("/past-auctions/14548", 1),
+        "auction-house-online-2020-01-30": ("/past-auctions/14181", 1),
+        "auction-house-online-2020-01-23": ("/past-auctions/14180", 3),
+    }
+    for source_name, (archive_path, visible_cards) in expected.items():
+        source = grids.SOURCES[source_name]
+        assert source["auctioneer"] == "Auction House Online"
+        assert source["base"] == "https://online.auctionhouse.co.uk"
+        assert source["archive_path"] == archive_path
+        assert source["archive_attempts"] == 3
+        assert source["archive_timeout"] == 90
+        assert source["operator_legal_name"] == "AUCTION HOUSE UK LIMITED"
+        assert source["operator_company_number"] == "06025583"
+        assert source["auctioneer_from_detail"] is True
+        assert source["unpaginated_event"] is True
+        assert source["expected_visible_cards"] == visible_cards
+        assert source["exclude_exact_cross_source_overlaps"] is True
+        assert source["allow_incomplete_detail_recovery"] is True
+        assert source["detail_attempts"] == 2
+        assert source["detail_timeout"] == 45
+    assert sum(cards for _, cards in expected.values()) == 140
