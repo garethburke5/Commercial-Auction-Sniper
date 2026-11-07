@@ -701,6 +701,49 @@
       "schedule_origin": "agent",
       "due_at": "2026-11-09T08:30:00.000Z",
       "buffer_id": "6aefa5ffd6bbae6fa1b4145d"
+    },
+    "instagram:89258c2c1bb5817a02d6": {
+      "service": "instagram",
+      "channel_id": "6adb7e1c778b240e2f9ee041",
+      "kind": "property",
+      "property_id": "89258c2c1bb5817a02d6",
+      "caption_hash": "1a80cb5c73932a13d0cf3fbccc2061ebccc17ea9c7da065be431b574794795e3",
+      "fingerprint": "672aea5de4e3052797c14a1c9756e9594893f6f1a73bbee2e82af4a913597c5c",
+      "asset_key": "36 market square shipley west yorkshire bd18 3qh|leasehold",
+      "status": "pending",
+      "created_at": "2026-11-07T22:27:57.054298+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "http://auctions.savills.co.uk/auctions/24--25-november-2026-246/36-market-square-shipley-west-yorkshire-bd18-3qh-26236",
+        "observed_at": "2026-11-07T21:55:53.262711+00:00",
+        "facts": {
+          "address": "36 Market Square, Shipley, West Yorkshire BD18 3QH",
+          "auction_date": "2026-11-25",
+          "guide_price": 180000.0,
+          "guide_price_upper": null,
+          "annual_rent": 23950.0,
+          "tenure": "Leasehold",
+          "status": "CURRENT",
+          "source_availability": null
+        },
+        "history": [],
+        "source_text_sha256": "098454d4845effd931dd93cb127419c964b67b8b8b17a3f4b0b372df3d945de2",
+        "calculation": "23950.0 / 180000.0 * 100"
+      },
+      "editorial_interest": {
+        "eligible": true,
+        "score": 32.43518518518518,
+        "reasons": [
+          "accessible guide price",
+          "high gross yield at guide"
+        ],
+        "question": "At this guide price, what would you examine first: the lease terms or the building’s running costs?",
+        "details": []
+      },
+      "caption": "36 Market Square, Shipley, West Yorkshire BD18 3QH\n\nSavills Auctions · 25 November 2026 · Guide £180,000\n\nThe advertised annual rent of £23,950 produces a 13.31% gross yield at the guide price, before purchase and running costs.\n\nThe property includes space let to William Hill Organization Limited, a long-standing occupier of 15+ years,.\n\nTenure: Leasehold.\n\nAt this guide price, what would you examine first: the lease terms or the building’s running costs?\n\nCheck the tenancy terms, buyer’s fees and legal pack when assessing your bid.\n\nExplore this property on Auction Geek via the website link in our profile. Search for 36 Market Square.\n\n#AuctionGeek #CommercialProperty #PropertyAuctions",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/b1e28abb4d18e05cb4c99848.jpg",
+      "schedule_origin": "agent",
+      "due_at": "2026-11-11T09:37:00+00:00"
     }
   },
   "attempts": [
@@ -856,6 +899,12 @@
       "at": "2026-11-07T22:27:57.054298+00:00",
       "action": "schedule",
       "result": "scheduled"
+    },
+    {
+      "key": "instagram:89258c2c1bb5817a02d6",
+      "at": "2026-11-07T22:27:57.054298+00:00",
+      "action": "schedule",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-11-07T22:26:46.381314+00:00"
