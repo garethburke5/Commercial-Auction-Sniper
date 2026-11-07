@@ -1,0 +1,83 @@
+{
+  "checked_at": "2026-11-07T20:09:45.095656+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/20780",
+  "platform_event_id": "20780",
+  "archive_sha256": "77dc68a503ababd09e6eaa44f9eb136b25a10b35b9c022052c33f0a552491d85",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 0,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-10-01",
+      "address": "107 Ollerton Road, Barnsley, South Yorkshire, S71 3DP",
+      "source_lot_id": "f76de221-d2b6-4da2-84b7-f2de681ca84a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f76de221-d2b6-4da2-84b7-f2de681ca84a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-10-01",
+      "address": "215A and 215B Wath Road, Brampton, Barnsley, South Yorkshire, S73 0XF",
+      "source_lot_id": "76b7f348-f8c4-4576-a2e3-3a61daa561df",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/76b7f348-f8c4-4576-a2e3-3a61daa561df",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-10-01",
+      "address": "26 Spencer Court Walbottle, Newcastle upon Tyne, Tyne and Wear, NE15 8HB",
+      "source_lot_id": "208304fd-48f2-4b64-974b-0125a52bc65c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/208304fd-48f2-4b64-974b-0125a52bc65c",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [],
+  "date_range": [
+    null,
+    null
+  ],
+  "by_status": {},
+  "by_sector": {},
+  "by_attributed_auctioneer": {},
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

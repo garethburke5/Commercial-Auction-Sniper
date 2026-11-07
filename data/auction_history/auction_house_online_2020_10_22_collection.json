@@ -1,0 +1,88 @@
+{
+  "checked_at": "2026-11-07T20:08:33.681001+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/20881",
+  "platform_event_id": "20881",
+  "archive_sha256": "82f80183b4015de44fb075753dca8e873c04cd398c01f44fa8b218f7ff241420",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 5,
+  "run_new_appearances": 5,
+  "run_new_address_records": 5,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 5,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-10-22",
+      "address": "79 Smith Street Foleshill, Coventry, West Midlands, CV6 5EH",
+      "source_lot_id": "917b0d10-2ae7-4794-b36a-bfa5a5673d85",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/917b0d10-2ae7-4794-b36a-bfa5a5673d85",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-10-22",
+      "address": "23 The Albany, 240 London Road, Stoneygate, Leicester, Leicestershire, LE2 1RH",
+      "source_lot_id": "58e386b4-06b0-415f-b3e0-6c148642adc5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/58e386b4-06b0-415f-b3e0-6c148642adc5",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-10-14",
+    "2020-10-22"
+  ],
+  "by_status": {
+    "withdrawn": 4,
+    "unsold": 1
+  },
+  "by_sector": {
+    "unknown": 3,
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Coventry and Warwickshire": 3,
+    "Auction House Bristol": 1,
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

@@ -1,0 +1,97 @@
+{
+  "checked_at": "2026-11-07T20:12:09.421301+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/18653",
+  "platform_event_id": "18653",
+  "archive_sha256": "4fbbf398bb122f56144fb678edccaee68333ca300e84774679591ddfbbbb9b17",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 6,
+  "run_new_appearances": 6,
+  "run_new_address_records": 6,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 6,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 6,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-07-30",
+      "address": "8 Preston Street, Abertillery, Gwent, NP13 1QL",
+      "source_lot_id": "21f2828f-7799-49d1-8c05-30ad5e658fd0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/21f2828f-7799-49d1-8c05-30ad5e658fd0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-07-30",
+      "address": "15 Crown Street, Morriston, West Glamorgan, SA6 8BD",
+      "source_lot_id": "0de1b1d2-c2da-41a9-aacf-dba781bae43e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/0de1b1d2-c2da-41a9-aacf-dba781bae43e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-07-30",
+      "address": "28 Capel Street, Bargoed, Mid Glamorgan, CF81 8RY",
+      "source_lot_id": "778bcba1-d8f7-4657-902d-fce14a666982",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/778bcba1-d8f7-4657-902d-fce14a666982",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-07-17",
+    "2020-07-30"
+  ],
+  "by_status": {
+    "unsold": 4,
+    "sold_prior": 1,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "residential": 3,
+    "unknown": 2,
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House South West": 3,
+    "Auction House Coventry and Warwickshire": 1,
+    "Auction House Lincolnshire": 2
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

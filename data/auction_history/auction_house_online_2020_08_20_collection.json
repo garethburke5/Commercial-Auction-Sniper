@@ -1,0 +1,106 @@
+{
+  "checked_at": "2026-11-07T20:11:15.182715+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/19288",
+  "platform_event_id": "19288",
+  "archive_sha256": "e356760a5d5e473551fbe069a1b9ee3cf291f251d10747b20a8531d7557849ae",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    8
+  ],
+  "archive_page_visible_cards": [
+    8
+  ],
+  "visible_source_rows": 8,
+  "expected_visible_cards": 8,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 8,
+  "distinct_source_identities": 8,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 5,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 5,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2020-08-20",
+      "address": "Church Cottage King Street, Thorne, Doncaster, South Yorkshire, DN8 5BA",
+      "source_lot_id": "809cc89c-b16d-4963-8a7b-2e73e8b47f87",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/809cc89c-b16d-4963-8a7b-2e73e8b47f87",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-08-20",
+      "address": "Flat 5, 105 Park Road, Peterborough, Cambridgeshire, PE1 2TR",
+      "source_lot_id": "ca4ef3e5-e2f9-4257-8255-d347f38ebdd0",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ca4ef3e5-e2f9-4257-8255-d347f38ebdd0",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-08-20",
+      "address": "7 Edith Terrace, Bishop Auckland, County Durham, DL14 9JT",
+      "source_lot_id": "09beb95b-380a-4ffa-bde4-4a3daf49eaf3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/09beb95b-380a-4ffa-bde4-4a3daf49eaf3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-08-20",
+      "address": "22 Waller Terrace, Houghton le Spring, Tyne and Wear, DH5 8LE",
+      "source_lot_id": "38a335e6-5daa-43ae-b7d4-c0851fe02785",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/38a335e6-5daa-43ae-b7d4-c0851fe02785",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2020-08-20",
+      "address": "20 Chaffinch Close Hednesford, Cannock, Staffordshire, WS12 1UH",
+      "source_lot_id": "d84f440c-a703-44c2-97cb-bf1b3ad402a6",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d84f440c-a703-44c2-97cb-bf1b3ad402a6",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2020
+  ],
+  "date_range": [
+    "2020-08-20",
+    "2020-08-20"
+  ],
+  "by_status": {
+    "unsold": 3
+  },
+  "by_sector": {
+    "residential": 3
+  },
+  "by_attributed_auctioneer": {
+    "Auction House London": 2,
+    "Auction House Sussex & Hampshire": 1
+  },
+  "detail_pages_captured": 8,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
