@@ -1,0 +1,122 @@
+{
+  "checked_at": "2026-11-07T08:05:16.669861+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/44022",
+  "platform_event_id": "44022",
+  "archive_sha256": "f0ad141aa3d1151e142ba3a47b2dce1ed64de050ebd3feda4f8e40974707a744",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    10
+  ],
+  "archive_page_visible_cards": [
+    10
+  ],
+  "visible_source_rows": 10,
+  "expected_visible_cards": 10,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 10,
+  "distinct_source_identities": 10,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 7,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 7,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-12-20",
+      "address": "Plots 40 and 42, Land Denby Line, Garden Lane, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "7473f412-701d-4d36-8bc8-2b2e3de86b7f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7473f412-701d-4d36-8bc8-2b2e3de86b7f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-12-20",
+      "address": "Plots 44 and 46, Land Denby Line, Garden Lane, Doncaster, South Yorkshire, DN5 7SN",
+      "source_lot_id": "2c25c01e-2375-46fb-816b-9f01979bec6f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2c25c01e-2375-46fb-816b-9f01979bec6f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-12-20",
+      "address": "49 Hemper Lane, Sheffield, South Yorkshire, S8 7FA",
+      "source_lot_id": "1123c5f3-3b37-4264-98cf-95fb709091b5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1123c5f3-3b37-4264-98cf-95fb709091b5",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-12-20",
+      "address": "30 Doe Quarry Terrace Dinnington, Sheffield, South Yorkshire, S25 2NP",
+      "source_lot_id": "f796dec6-5406-4822-9480-552a12b99792",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f796dec6-5406-4822-9480-552a12b99792",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-12-20",
+      "address": "47 Staveley Street Edlington, Doncaster, South Yorkshire, DN12 1BW",
+      "source_lot_id": "ecac833d-b00a-4ea6-9136-538c11a0cacd",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/ecac833d-b00a-4ea6-9136-538c11a0cacd",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-12-20",
+      "address": "Chalet 1 Overstones Farm, Hope Valley, Derbyshire, S32 1BR",
+      "source_lot_id": "c635adf5-59e9-4da8-878a-bb16376d4a77",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/c635adf5-59e9-4da8-878a-bb16376d4a77",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-12-20",
+      "address": "11 Elizabeth Street Goldthorpe, Rotherham, South Yorkshire, S63 9NA",
+      "source_lot_id": "cde929b7-3908-441d-9cf7-cb00236dbbfc",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/cde929b7-3908-441d-9cf7-cb00236dbbfc",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-12-20",
+    "2022-12-20"
+  ],
+  "by_status": {
+    "sold": 1,
+    "unsold": 2
+  },
+  "by_sector": {
+    "unknown": 2,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Scotland": 2,
+    "Auction House Hull & East Yorkshire": 1
+  },
+  "detail_pages_captured": 10,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
