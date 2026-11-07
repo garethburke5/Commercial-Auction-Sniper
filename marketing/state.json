@@ -923,6 +923,57 @@
       "schedule_origin": "agent",
       "due_at": "2026-11-11T09:37:00.000Z",
       "buffer_id": "6aefa6d79214322f681c5fe6"
+    },
+    "instagram:27bfb32d670128a6865b": {
+      "service": "instagram",
+      "channel_id": "6adb7e1c778b240e2f9ee041",
+      "kind": "property",
+      "property_id": "27bfb32d670128a6865b",
+      "caption_hash": "61a72b9880dbdcfc20da1ad9ca3f1463e3624476b175ad4c442d4d4ef1e467de",
+      "fingerprint": "bd3b3eb48dcf7b4d5febba18f69e95fadaea0a87a4ee891d64d268716d1d2e41",
+      "asset_key": "ground floor and basement 393 harrow road maida hill london w9 3nf|long leasehold",
+      "status": "pending",
+      "created_at": "2026-11-07T22:31:26.720355+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "http://auctions.savills.co.uk/auctions/24--25-november-2026-246/ground-floor-and-basement-393-harrow-road-maida-hill-london-w9-3nf-25382",
+        "observed_at": "2026-11-07T21:55:20.366818+00:00",
+        "facts": {
+          "address": "Ground Floor and Basement, 393 Harrow Road, Maida Hill, London W9 3NF",
+          "auction_date": "2026-11-25",
+          "guide_price": 180000.0,
+          "guide_price_upper": null,
+          "annual_rent": 20500.0,
+          "tenure": "Long Leasehold",
+          "status": "CURRENT",
+          "source_availability": null
+        },
+        "history": [
+          {
+            "auction_date": "2026-09-16",
+            "source": "Savills Auctions",
+            "url": "http://auctions.savills.co.uk/auctions/15--16-september-2026-242/ground-floor-and-basement-393-harrow-road-maida-hill-london-w9-3nf-24602",
+            "kind": "previous_appearance",
+            "price_comparable": false
+          }
+        ],
+        "source_text_sha256": "3c2e93769276b604b1cfe86852c4e0f30bf0e7f363ca4171483ca147aa336793",
+        "calculation": "20500.0 / 180000.0 * 100"
+      },
+      "editorial_interest": {
+        "eligible": true,
+        "score": 31.796296296296298,
+        "reasons": [
+          "accessible guide price",
+          "high gross yield at guide"
+        ],
+        "question": "At this guide price, what would you examine first: the lease terms or the building’s running costs?",
+        "details": []
+      },
+      "caption": "Ground Floor and Basement, 393 Harrow Road, Maida Hill, London W9 3NF\n\nSavills Auctions · 25 November 2026 · Guide £180,000\n\nThe advertised annual rent of £20,500 produces a 11.39% gross yield at the guide price, before purchase and running costs.\n\nThe property includes space let to Scrivens Limited.\n\nTenure: Long Leasehold.\n\nAn earlier auction appearance is recorded with Savills Auctions on 16 September 2026.\n\nAt this guide price, what would you examine first: the lease terms or the building’s running costs?\n\nCheck the tenancy terms, buyer’s fees and legal pack when assessing your bid.\n\nExplore this property on Auction Geek via the website link in our profile. Search for Ground Floor and Basement.\n\n#AuctionGeek #CommercialProperty #PropertyAuctions",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/f1d000bb03e75a367d74e99f.jpg",
+      "schedule_origin": "agent",
+      "due_at": "2026-11-13T08:30:00+00:00"
     }
   },
   "attempts": [
@@ -1114,6 +1165,12 @@
       "at": "2026-11-07T22:31:26.720355+00:00",
       "action": "schedule",
       "result": "scheduled"
+    },
+    {
+      "key": "instagram:27bfb32d670128a6865b",
+      "at": "2026-11-07T22:31:26.720355+00:00",
+      "action": "schedule",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-11-07T22:27:57.054298+00:00"
