@@ -335,19 +335,22 @@ def test_authorised_scheduling_uses_exact_slot_and_checks_saved_due_time():
 def test_full_approved_run_schedules_without_duplicates(tmp_path,monkeypatch):
     from marketing.agent import perform
     setup_files(tmp_path,monkeypatch,[])
-    (tmp_path/'data/properties.json').write_text(json.dumps({'properties':[row()],'archive':[],'generated_at':NOW.isoformat()}))
+    rows=[row(address=addr,url=f'https://example.com/lot/{i}') for i,addr in enumerate([
+        '1 High Street, York YO1 1AA','3 High Street, York YO1 1AB','8 Bridge Road, Leeds LS1 2AB','9 Church Lane, Derby DE1 3AB'])]
+    (tmp_path/'data/properties.json').write_text(json.dumps({'properties':rows,'archive':[],'generated_at':NOW.isoformat()}))
     (tmp_path/'marketing/photo_permissions.json').write_text('{"images":{}}')
     monkeypatch.setenv('SOCIAL_PUBLISHING_ENABLED','true')
-    monkeypatch.setattr('marketing.agent.candidates',lambda *args:([row()],{}))
+    monkeypatch.setattr('marketing.agent.candidates',lambda *args:(rows,{}))
     def build_posts(posts,*args):
         for p in posts:p.update(image_url='https://example.com/owned.jpg',image_file='owned.jpg')
         return posts
     monkeypatch.setattr('marketing.agent.build',build_posts)
     store=MemoryStore({**CFG,'publishing_approved':True});client=FakeBuffer()
     perform('run',store=store,client=client,now=NOW)
-    assert len(client.created)==2 and all(not p['draft'] and p['approved'] and p['due'] for p in client.created)
+    assert len(client.created)==6 and all(not p['draft'] and p['approved'] and p['due'] for p in client.created)
+    assert not any('3 High Street' in p['text'] for p in client.remote)
     perform('run',store=store,client=client,now=NOW)
-    assert len(client.created)==2
+    assert len(client.created)==6
 
 def test_educational_bank_rotates_after_90_days_without_reposting_recent_topics():
     from marketing.agent import educational_choice
