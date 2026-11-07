@@ -725,6 +725,70 @@ def test_auction_house_online_event_uses_branch_attribution_and_strict_dedup():
         "detail_attempts": 2,
         "detail_timeout": 45,
     }
+    assert grids.SOURCES["auction-house-online-2023-07-04"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/49566",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 14,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    }
+    assert grids.SOURCES["auction-house-online-2023-06-27"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/49395",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 29,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    }
+    assert grids.SOURCES["auction-house-online-2023-06-20"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/49048",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 37,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    }
+    assert grids.SOURCES["auction-house-online-2023-06-13"] == {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/48888",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 31,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    }
     assert grids.SOURCES["auction-house-online-2023-07-11"] == {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
@@ -2582,3 +2646,21 @@ def test_retained_event_id_is_preserved_only_for_numbered_event_routes():
     assert grids.retained_event_id(
         "https://propertyauctions.lsh.co.uk/past-auctions?page=1&lotResultType=All"
     ) is None
+
+def test_select_targets_loads_a_deduplicated_manifest_batch(tmp_path):
+    manifest = tmp_path / "retained-grid-batch.json"
+    manifest.write_text(
+        '{"sources":['
+        '"auction-house-online-2023-07-04",'
+        '"auction-house-online-2023-06-27",'
+        '"auction-house-online-2023-07-04"]}',
+        encoding="utf-8",
+    )
+    assert grids.select_targets([], manifest) == [
+        "auction-house-online-2023-07-04",
+        "auction-house-online-2023-06-27",
+    ]
+    assert grids.select_targets(["auction-house-online-2023-06-20"]) == [
+        "auction-house-online-2023-06-20"
+    ]
+
