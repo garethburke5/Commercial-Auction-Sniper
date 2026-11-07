@@ -36,6 +36,7 @@ jobs:
     timeout-minutes: 5
     outputs:
       collect: ${{ steps.scope.outputs.collect }}
+      historical_manifest_only: ${{ steps.scope.outputs.historical_manifest_only }}
     steps:
       - id: scope
         env:
@@ -48,26 +49,34 @@ jobs:
           python - <<'PYTHON'
           import os, json, urllib.request
           full = os.environ['EVENT_NAME'] != 'push'
+          historical_manifest_only = False
           if not full:
               url = 'https://api.github.com/repos/'+os.environ['REPOSITORY']+'/compare/'+os.environ['BEFORE']+'...'+os.environ['AFTER']
               request = urllib.request.Request(url, headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'})
               with urllib.request.urlopen(request,timeout=30) as response:
                   files = [f['filename'] for f in json.load(response)['files']]
               derivation_only = {'collectors/core.py','collectors/financials.py','collectors/publication_quality.py'}
-              # GitHub caps comparison files at 300: use a full scan if truncated.
-              full = len(files)>=300 or any((p.startswith('collectors/') and p not in derivation_only) or p.startswith(('run_collectors','config/')) or p in {'.github/workflows/auction-sniper-publish-now.yml', '.github/workflows/auction-sniper-scan.yml'} for p in files)
+              historical_manifests = {'config/retained_grid_batch.json', 'config/retained_grid_batch_next.json'}
+              historical_manifest_only = bool(files) and set(files).issubset(historical_manifests)
+              # Historical manifest promotion has its own protected collector and
+              # must not launch a duplicate current scan or snapshot writer.
+              if not historical_manifest_only:
+                  # GitHub caps comparison files at 300: use a full scan if truncated.
+                  full = len(files)>=300 or any((p.startswith('collectors/') and p not in derivation_only) or p.startswith(('run_collectors','config/')) or p in {'.github/workflows/auction-sniper-publish-now.yml', '.github/workflows/auction-sniper-scan.yml'} for p in files)
           with open(os.environ['GITHUB_OUTPUT'],'a') as f:
               f.write('collect='+str(full).lower()+'\n')
+              f.write('historical_manifest_only='+str(historical_manifest_only).lower()+'\n')
           print('Fresh source collection required:', full)
+          print('Historical manifest only:', historical_manifest_only)
           PYTHON
   repair_published_snapshot:
     needs: collection_scope
-    if: needs.collection_scope.outputs.collect != 'true'
+    if: needs.collection_scope.outputs.historical_manifest_only != 'true' && needs.collection_scope.outputs.collect != 'true'
     uses: ./.github/workflows/auction-sniper-revalidate.yml
   production:
     # New collectors must produce their telemetry before the scan validates it.
     # Revalidating yesterday's snapshot first deadlocks newly enabled sources.
     needs: collection_scope
-    if: needs.collection_scope.outputs.collect == 'true'
+    if: needs.collection_scope.outputs.historical_manifest_only != 'true' && needs.collection_scope.outputs.collect == 'true'
     uses: ./.github/workflows/auction-sniper-scan.yml
     secrets: inherit
