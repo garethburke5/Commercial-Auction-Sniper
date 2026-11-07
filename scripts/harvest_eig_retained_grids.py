@@ -2742,7 +2742,9 @@ SOURCES = {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
         # The canonical first-party event page exposes all 3 result cards.
-        "archive_path": "/past-auctions/17911",
+        # The canonical no-query route timed out before capture on run 42414020394;
+        # use the explicit all-results route and process this event last.
+        "archive_path": "/past-auctions/17911?lotResultType=All",
         "archive_attempts": 3,
         "archive_timeout": 90,
         "operator_legal_name": "AUCTION HOUSE UK LIMITED",

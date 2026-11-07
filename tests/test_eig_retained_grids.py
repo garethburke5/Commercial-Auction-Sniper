@@ -3905,7 +3905,7 @@ def test_auction_house_online_july_to_october_2020_batch_configuration():
 
 def test_auction_house_online_january_to_june_2020_batch_configuration():
     expected = {
-        "auction-house-online-2020-06-25": ("/past-auctions/17911", 3),
+        "auction-house-online-2020-06-25": ("/past-auctions/17911?lotResultType=All", 3),
         "auction-house-online-2020-06-18": ("/past-auctions/17539", 7),
         "auction-house-online-2020-06-11": ("/past-auctions/17538", 2),
         "auction-house-online-2020-06-04": ("/past-auctions/17515", 9),

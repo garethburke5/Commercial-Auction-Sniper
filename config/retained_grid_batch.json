@@ -1,11 +1,10 @@
 {
   "batch_id": "auction-house-online-2020-01-23-to-2020-06-25",
-  "status": "ready_but_not_triggered",
+  "status": "recovery_ready",
   "publication_gate_status": "passed",
   "hold_reason": "Passed collection and exact-bank publication for the preceding July-October 2020 batch. Promote only after a fresh active-writer check.",
   "ready_after_batch_id": "auction-house-online-2020-07-02-to-2020-10-29",
   "sources": [
-    "auction-house-online-2020-06-25",
     "auction-house-online-2020-06-18",
     "auction-house-online-2020-06-11",
     "auction-house-online-2020-06-04",
@@ -28,7 +27,8 @@
     "auction-house-online-2020-02-13",
     "auction-house-online-2020-02-06",
     "auction-house-online-2020-01-30",
-    "auction-house-online-2020-01-23"
+    "auction-house-online-2020-01-23",
+    "auction-house-online-2020-06-25"
   ],
   "published_visible_cards": 140,
   "excluded_archive_rows": [
@@ -38,11 +38,6 @@
     }
   ],
   "source_events": [
-    {
-      "source": "auction-house-online-2020-06-25",
-      "url": "https://online.auctionhouse.co.uk/past-auctions/17911",
-      "published_visible_cards": 3
-    },
     {
       "source": "auction-house-online-2020-06-18",
       "url": "https://online.auctionhouse.co.uk/past-auctions/17539",
@@ -157,6 +152,11 @@
       "source": "auction-house-online-2020-01-23",
       "url": "https://online.auctionhouse.co.uk/past-auctions/14180",
       "published_visible_cards": 3
+    },
+    {
+      "source": "auction-house-online-2020-06-25",
+      "url": "https://online.auctionhouse.co.uk/past-auctions/17911?lotResultType=All",
+      "published_visible_cards": 3
     }
   ],
   "notes": "Reusable first-party batch for all 24 linked Auction House Online event catalogues from 23 January through 25 June 2020. The 9 January N/A shell is excluded without being counted as an event or property.",
@@ -164,5 +164,11 @@
     "collection_run_id": 42409397176,
     "bank_commit": "94e613912413ec791f213c2870a6e54be42c3d21",
     "publication_run_id": 42410265037
+  },
+  "recovery_route": {
+    "failed_run_id": 42414020394,
+    "failed_url": "https://online.auctionhouse.co.uk/past-auctions/17911",
+    "failure": "Three bounded 90-second reads timed out before any event output.",
+    "change": "Use the explicit all-results route and move this source after the other 23 catalogues."
   }
 }
