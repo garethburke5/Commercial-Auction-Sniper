@@ -353,3 +353,12 @@ Historical collection run [42409397176](https://github.com/garethburke5/Commerci
 - **Publication:** exact-revision publication run [42410265037](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42410265037) passed both `publish` and `Deploy auctiongeek.co.uk`.
 - **Next concrete growth target prepared:** 24 linked official catalogues from 23 January to 25 June 2020 expose **140 cards** (3, 7, 2, 9, 12, 9, 1, 6, 5, 10, 10, 12, 6, 15, 4, 3, 3, 5, 5, 7, 1, 1, 1 and 3). The archive's 9 January N/A shell has no lot link and is excluded. Collector definitions, literal denominator assertions and an untriggered reusable manifest are persisted in `config/retained_grid_batch_next.json`; promote only after a fresh active-writer check in the next serial run.
 - National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
+
+## 7 November 2026 — 2020 retained-grid recovery checkpoint
+
+Auction House Online January–June 2020 is now reconciled at card level: 24 linked event inventories and 140/140 published cards. The bank gained 73 exact-dated appearances (2 commercial, 0 mixed-use), 73 guides, 2 achieved prices and 4 rents; 67 exact overlaps were excluded. Partial, undated, future-dated and duplicate-identity additions were all zero. Legal-operator source-year growth is zero because AUCTION HOUSE UK LIMITED 2020 was already represented.
+
+The initial event-17911 timeout and the subsequent manifest-admission skip are recorded as zero-growth checkpoints. The successful recovery changed retrieval to the all-results URL and moved that event last. Bank: `f7ed1c77620eadcfa09056ad4cb9a49e635ad498`; publication: run `42422552763`, both lanes successful.
+
+The next serial target is persisted but untriggered: 29 linked 2019 catalogues, 112 visible cards, with nine linkless N/A/DEAD archive rows explicitly excluded. National completeness remains **false** until source-by-source inventories and genuine auctioneer/operator coverage reconcile.
+

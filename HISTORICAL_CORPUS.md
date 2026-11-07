@@ -1887,3 +1887,22 @@ Historical collection run [42409397176](https://github.com/garethburke5/Commerci
 - **Publication:** exact-revision publication run [42410265037](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42410265037) passed both `publish` and `Deploy auctiongeek.co.uk`.
 - **Next concrete growth target prepared:** 24 linked official catalogues from 23 January to 25 June 2020 expose **140 cards** (3, 7, 2, 9, 12, 9, 1, 6, 5, 10, 10, 12, 6, 15, 4, 3, 3, 5, 5, 7, 1, 1, 1 and 3). The archive's 9 January N/A shell has no lot link and is excluded. Collector definitions, literal denominator assertions and an untriggered reusable manifest are persisted in `config/retained_grid_batch_next.json`; promote only after a fresh active-writer check in the next serial run.
 - National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
+
+## 7 November 2026 — Auction House Online January–June 2020 recovered and banked
+
+The reusable retained-grid runner reconciled all 140 published cards across 24 linked first-party catalogues dated 23 January–25 June 2020. Recovery run [42421546885](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42421546885) banked [f7ed1c77620eadcfa09056ad4cb9a49e635ad498](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/f7ed1c77620eadcfa09056ad4cb9a49e635ad498); exact-revision publication [42422552763](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42422552763) passed both Pages and production-domain jobs.
+
+- Net new appearances / addresses / exact-dated in-window addresses: **73 / 73 / 73**
+- Sectors: **2 commercial, 0 mixed-use, 2 land, 42 residential, 27 unknown**
+- New evidence: **73 guides, 2 achieved prices, 4 rents**
+- Exact source overlaps excluded from growth: **67**
+- Partial / undated / future-dated / duplicate-identity additions: **0 / 0 / 0 / 0**
+- Reconciled source-events: **24**; complete catalogue/date states: **+35**
+- Newly covered legal-operator source-years: **0** (AUCTION HOUSE UK LIMITED 2020 already existed)
+
+The first attempt, run 42414020394, timed out three times on event 17911 before collection and added zero properties. Run 42414934444 then refreshed bounded snapshots but skipped the manifest because its commit title did not meet the manifest admission rule, also adding zero. The successful materially different route used `/past-auctions/17911?lotResultType=All` and processed that catalogue last, so it could not block the other 23 events.
+
+Corpus totals after rebuild are **311,740 appearances**, **300,787 addressed records**, **303,475 in-window appearances**, **105,806 guides**, and **112,202 achieved prices**. National completeness remains **false**.
+
+Next concrete target: the 2019 first-party archive batch in `config/retained_grid_batch_next.json` covers **29 linked catalogues and 112 visible cards**. Nine unlinked N/A/DEAD rows remain explicitly excluded and are not counted as property appearances or source-events.
+
