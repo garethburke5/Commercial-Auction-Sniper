@@ -5,6 +5,8 @@ from hashlib import sha256
 from html import escape
 import json
 import os
+import re
+from zoneinfo import ZoneInfo
 from pathlib import Path
 import urllib.request
 from .buffer import Buffer,BufferError
@@ -143,22 +145,53 @@ def perform(mode, *, store=None, client=None, now=None):
         rows,rejected=candidates(snapshot,now,config)
         permissions=json.loads(Path('marketing/photo_permissions.json').read_text())
         for service,channel in channels.items():
+            zone=ZoneInfo(channel['timezone'])
+            def week(d):return d.astimezone(zone).isocalendar()[:2]
+            def district(address):
+                m=re.search(r'\b([A-Z]{1,2}\d[A-Z\d]?)\s*\d[A-Z]{2}\b',str(address).upper())
+                return m.group(1) if m else None
+            occupied={}
+            def choose(due):
+                seen=occupied.setdefault(week(due),set())
+                for row in rows:
+                    area=district(row.get('address'))
+                    if area and area in seen:continue
+                    if reject_reason(row,now,config,due=due):continue
+                    item=property_post(row,service,snapshot.get('archive',[]),config)
+                    if not duplicate(item,state,remote,prepared,now):return item
+                return None
+            def prepare(item,due):
+                area=district(item['address'])
+                if area:occupied.setdefault(week(due),set()).add(area)
+                item['due_at']=due.isoformat()
+                build([item],'marketing/media',permissions,config['image_origin'])
+                prepared.append(item)
+            # Keep independent/manual posts and the earliest agent pick. Replace a
+            # later similar pick or explainer only if an eligible alternative exists.
+            booked=sorted((p for p in state['posts'].values() if p.get('service')==service
+                           and p.get('status') in {'scheduled','sent','sending'} and p.get('due_at')),
+                          key=lambda p:(p.get('schedule_origin')=='agent',p['due_at']))
+            replacements=[]
+            for old in booked:
+                due=stamp(old['due_at']); seen=occupied.setdefault(week(due),set())
+                area=district((old.get('evidence',{}).get('facts') or {}).get('address'))
+                if (old.get('schedule_origin')=='agent' and old['status']=='scheduled'
+                        and due>now+timedelta(hours=1) and (old.get('kind')=='education' or (area and area in seen))):
+                    replacements.append((old,due));continue
+                if area:seen.add(area)
+            for old,due in replacements:
+                item=choose(due)
+                if item and publishing_allowed(store.read('marketing/config.json'),store.read(STATE,state),os.environ):
+                    prepare(item,due)
+                    client.to_draft(old['buffer_id'])
+                    for live in remote:
+                        if live['id']==old['buffer_id']:live['status']='draft'
+                    old.update(status='draft',hold_reason='Alternative property selected for weekly variety')
+                    store.write(STATE,state)
             for due in available_slots(channel,remote,now,config):
-                if due.date()>=date.fromisoformat(config['key_expires_on']):continue
-                # One educational item after five property items, rotated and
-                # never repeated within 90 days on the same channel.
-                past=[p for p in state['posts'].values() if p['service']==service and p.get('status') in {'sent','scheduled'}]
-                proposal=None
-                if (len(past)+sum(p['service']==service for p in prepared))%6==5:
-                    proposal=educational_choice(service,state,prepared,now)
-                if proposal is None:
-                    for row in rows:
-                        item=property_post(row,service,snapshot.get('archive',[]),config)
-                        if duplicate(item,state,remote,prepared,now):continue
-                        if reject_reason(row,now,config,due=due):continue
-                        proposal=item;break
-                if proposal:
-                    proposal['due_at']=due.isoformat();build([proposal],'marketing/media',permissions,config['image_origin']);prepared.append(proposal)
+                if due.date()>=date.fromisoformat(config['key_expires_on']) or any(p['service']==service and p['due_at']==due.isoformat() for p in prepared):continue
+                proposal=choose(due)
+                if proposal:prepare(proposal,due)
     if state.get('paused') or config.get('paused'):prepared=[]
     created_this_run=[]
     for post in prepared:
