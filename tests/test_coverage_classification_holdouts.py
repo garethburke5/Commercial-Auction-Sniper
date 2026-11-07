@@ -7,6 +7,26 @@ from collectors.core import clean_description
 from scripts.revalidate_snapshot import restore_reclassified_current_lots
 
 CASES=json.loads((Path(__file__).parent/'fixtures/commercial_coverage_holdouts.json').read_text())
+RESIDENTIAL_CASES=json.loads((Path(__file__).parent/'fixtures/auction_house_residential_2026_11.json').read_text())
+
+
+@pytest.mark.parametrize('row',RESIDENTIAL_CASES,ids=[r['address'] for r in RESIDENTIAL_CASES])
+def test_actual_november_houses_are_retained_but_not_published_as_commercial(row):
+    from collectors.publication_quality import prepare_publication
+    snapshot = {'properties': [row]}
+    prepare_publication(snapshot)
+    assert snapshot['properties'] == []
+    assert snapshot['excluded_properties'][0]['description'] == row['description']
+
+
+@pytest.mark.parametrize('description',[
+    'A ground floor shop and two flats. Offered in association with Example Estate Agents.',
+    'Situation: Opposite a restaurant. Description: Retail unit with an upper flat.',
+    'An estate agency investment let to Example Estate Agents at £20,000 per annum.',
+    'A restaurant with a three bedroom flat above, next door to a shop.',
+])
+def test_asset_occupiers_survive_removal_of_agent_and_neighbour_prose(description):
+    assert commercial_decision({'description':description}) is True
 
 @pytest.mark.parametrize('row',CASES,ids=[r['address'] for r in CASES])
 def test_existing_commercial_accommodation_survives_residential_proposals(row):

@@ -12,11 +12,31 @@ SNAPSHOT = Path("data/properties.json")
 HISTORY = Path("data/property_history.json")
 
 
+def snapshot_history_rows(snapshot):
+    """Publication filters must not erase genuine non-commercial auction lots.
+
+    Interface/search rows remain excluded. Prefer the most recent observation
+    when a lot has moved between the commercial board and the retained bank.
+    """
+    excluded = [r for r in snapshot.get('excluded_properties', [])
+                if str(r.get('publication_exclusion') or '').startswith(
+                    ('Pure residential:', 'Unverified commercial use:'))]
+    rows = {}
+    for row in excluded + list(snapshot.get('archive') or []) + list(snapshot.get('properties') or []):
+        if not row.get('source') or not row.get('url') or not row.get('address'):
+            continue
+        key = tuple(str(row.get(k) or '') for k in ('source', 'url', 'auction_date', 'lot_number'))
+        old = rows.get(key)
+        if old is None or str(row.get('collected_at') or '') >= str(old.get('collected_at') or ''):
+            rows[key] = row
+    return list(rows.values())
+
+
 def main():
     if not SNAPSHOT.exists():
         raise SystemExit("data/properties.json not found")
     snapshot = json.loads(SNAPSHOT.read_text(encoding="utf-8"))
-    rows = list(snapshot.get("properties") or []) + list(snapshot.get("archive") or [])
+    rows = snapshot_history_rows(snapshot)
     db = update_history_database(rows, path=HISTORY)
     stats = db.get("stats") or {}
     print(

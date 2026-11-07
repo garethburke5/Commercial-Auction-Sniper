@@ -7,6 +7,27 @@ from unittest.mock import patch
 from history_database import match_score, update_history_database
 
 
+def test_snapshot_banks_noncommercial_lots_without_interface_rows_or_stale_updates(tmp_path):
+    from scripts.update_history_database import snapshot_history_rows
+    base = dict(source='Example', url='https://example.test/lot/1', address='1 High Street AB1 2CD',
+                auction_date='2026-11-10', lot_number='1', collected_at='2026-11-07T00:00:00Z',
+                guide_price=90000, status='CURRENT')
+    residential = dict(base, publication_exclusion='Pure residential: no commercial or mixed-use particulars')
+    stale = dict(residential, collected_at='2026-11-06T00:00:00Z', guide_price=100000)
+    invalid = dict(base, url='https://example.test/search', address='Property search',
+                   publication_exclusion='Catalogue/search page: not an individual property')
+    snapshot = {'properties':[base], 'archive':[], 'excluded_properties':[stale,invalid]}
+    rows = snapshot_history_rows(snapshot)
+    assert rows == [base]
+    snapshot = {'properties':[], 'archive':[], 'excluded_properties':[residential,invalid]}
+    rows = snapshot_history_rows(snapshot)
+    assert rows == [residential]
+    first = update_history_database(rows, path=tmp_path/'history.json')
+    second = update_history_database(rows, path=tmp_path/'history.json')
+    assert first['stats']['auction_event_count'] == second['stats']['auction_event_count'] == 1
+    assert second['auction_events'][0]['guide_price'] == 90000
+
+
 class HistoryDatabaseTests(unittest.TestCase):
     def test_corrupt_history_is_not_silently_replaced(self):
         with tempfile.TemporaryDirectory() as td:

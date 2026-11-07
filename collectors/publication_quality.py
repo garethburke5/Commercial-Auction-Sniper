@@ -20,6 +20,8 @@ def asset_text(description):
     # Credits can follow a catalogue addendum. Anchoring this at the start
     # misclassified ordinary houses advertised by "Logic Estate Agents".
     text = re.sub(r'\bJoint Agents?\s*:\s*.*?(?=\s(?:A|An|The|This)\s|[.;]|$)', ' ', text, flags=re.I)
+    # Agent credits and bidding/enquiry widgets are not occupational tenants.
+    text = re.split(r'\bOffered in association with\b|\bImportant Notice to Prospective Buyers\b|\bMake An Enquiry\b', text, flags=re.I)[0]
     text = re.split(r'\b(?:Our Nearest Office|Important notices?|For more property information|Popular Searches)\b|\b(?:Viewings?|To view)\s*:', text, flags=re.I)[0]
     text = re.sub(r'\b(?:It is a (?:small )?village|The village)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     # Unheaded location prose can name the village rather than say "the village".
@@ -28,6 +30,9 @@ def asset_text(description):
                   ' ', text, flags=re.I)
     # A named neighbouring hotel is not part of the land being sold.
     text = re.sub(r'\b(?:adjoining|adjoins|adjacent to)\s+[^.;]{0,90}\bhotel\b', ' ', text, flags=re.I)
+    text = re.sub(r'\b(?:next door to|opposite)\s+[^.;]{0,120}\b(?:restaurant|shop|hotel|public house)\b', ' ', text, flags=re.I)
+    # A town's shopping centre or amenities within a mile do not belong to the lot.
+    text = re.sub(r'(?<![^.;])[^.;]*\b(?:among the town[’\']s attractions|within (?:a|one|\d+) miles? of the property)\b[^.;]*(?:[.;]|$)', ' ', text, flags=re.I)
     text = re.sub(r'\b(?:Conveniently located for|(?:well )?(?:serviced|served) by|(?:a (?:good |further )?range of )?amenities (?:including|such as)|adjoins the)\b[^.;]*(?:[.;]|$)',
                   ' ',text,flags=re.I)
     # Local amenities are not part of the lot, even without a Location heading.
@@ -46,6 +51,7 @@ def asset_text(description):
     # Brochure SITUATION sections describe nearby shops/cafes and cannot turn a
     # flat or house into a commercial asset. Later factual sections remain.
     text = re.sub(r'\b(?:SITUATION|STIUATION|LOCATION)\b.*?(?=\b(?:DIRECTIONS|SERVICES|LOCAL AUTHORITY|TENURE|ENERGY PERFORMANCE|EPC|SOLICITORS?)\b|$)', ' ', text)
+    text = re.sub(r'\bSituation\s*:.*?(?=\bDescription\s*:|$)', ' ', text, flags=re.I)
     # Nearby shops and the auctioneer's office do not describe the asset for sale.
     return re.sub(
         r'\b(?i:nearby occupiers|local amenities|close to|(?:within )?walking distance (?:of|to)|nearby shops)\b'
