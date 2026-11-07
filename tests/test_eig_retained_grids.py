@@ -3798,3 +3798,34 @@ def test_auction_house_online_may_to_july_2021_batch_configuration():
         assert source["detail_timeout"] == 45
     assert sum(cards for _, cards in expected.values()) == 62
 
+def test_auction_house_online_february_to_april_2021_batch_configuration():
+    expected = {
+        "auction-house-online-2021-04-29": ("/past-auctions/27022", 12),
+        "auction-house-online-2021-04-22": ("/past-auctions/26822", 1),
+        "auction-house-online-2021-04-15": ("/past-auctions/26799", 4),
+        "auction-house-online-2021-04-08": ("/past-auctions/26482", 7),
+        "auction-house-online-2021-04-01": ("/past-auctions/26111", 3),
+        "auction-house-online-2021-03-25": ("/past-auctions/26110", 3),
+        "auction-house-online-2021-03-18": ("/past-auctions/26112", 4),
+        "auction-house-online-2021-03-11": ("/past-auctions/25583", 10),
+        "auction-house-online-2021-03-04": ("/past-auctions/25411", 5),
+        "auction-house-online-2021-02-25": ("/past-auctions/25242", 9),
+    }
+    for source_name, (archive_path, visible_cards) in expected.items():
+        source = grids.SOURCES[source_name]
+        assert source["auctioneer"] == "Auction House Online"
+        assert source["base"] == "https://online.auctionhouse.co.uk"
+        assert source["archive_path"] == archive_path
+        assert source["archive_attempts"] == 3
+        assert source["archive_timeout"] == 90
+        assert source["operator_legal_name"] == "AUCTION HOUSE UK LIMITED"
+        assert source["operator_company_number"] == "06025583"
+        assert source["auctioneer_from_detail"] is True
+        assert source["unpaginated_event"] is True
+        assert source["expected_visible_cards"] == visible_cards
+        assert source["exclude_exact_cross_source_overlaps"] is True
+        assert source["allow_incomplete_detail_recovery"] is True
+        assert source["detail_attempts"] == 2
+        assert source["detail_timeout"] == 45
+    assert sum(cards for _, cards in expected.values()) == 58
+
