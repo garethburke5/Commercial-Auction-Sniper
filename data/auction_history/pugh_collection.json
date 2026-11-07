@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-07T11:01:56.001734+00:00",
+  "checked_at": "2026-11-07T21:18:42.073467+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7236,
+  "published_property_rows": 7213,
   "observed_property_ids": 6907,
   "observed_source_ids": [
     "10088",
@@ -6912,7 +6912,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 362,
+  "pages_expected": 361,
   "pages_captured_this_run": [
     1,
     2,
@@ -8066,7 +8066,7 @@
       "error": "ValueError: detail page has no exact lot and auction date"
     }
   ],
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "property_appearances_captured": 6894,
   "canonical_shard_rows": 6894,
   "legacy_rows_enriched": 0,
@@ -8074,5 +8074,11 @@
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": []
+  "failures": [
+    {
+      "kind": "grid_tail_growth_recovery",
+      "url": "https://www.pugh-auctions.com/property-search?order-results=date-desc&show-results=80&include-sold=on&page=1",
+      "error": "ValueError: Published result count changed in grid fallback"
+    }
+  ]
 }
