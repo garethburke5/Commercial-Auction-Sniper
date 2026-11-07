@@ -1,23 +1,23 @@
 {
-  "batch_id": "auction-house-online-2023-04-18-to-05-09",
+  "batch_id": "auction-house-online-2023-03-21-to-04-11",
   "prepared_at": "2026-11-07",
   "sources": [
-    "auction-house-online-2023-05-09",
-    "auction-house-online-2023-05-02",
-    "auction-house-online-2023-04-25",
-    "auction-house-online-2023-04-18"
+    "auction-house-online-2023-04-11",
+    "auction-house-online-2023-04-04",
+    "auction-house-online-2023-03-28",
+    "auction-house-online-2023-03-21"
   ],
-  "published_visible_cards": 79,
+  "published_visible_cards": 67,
   "source_urls": [
-    "https://online.auctionhouse.co.uk/past-auctions/47887",
-    "https://online.auctionhouse.co.uk/past-auctions/47768",
-    "https://online.auctionhouse.co.uk/past-auctions/47254",
-    "https://online.auctionhouse.co.uk/past-auctions/47237"
+    "https://online.auctionhouse.co.uk/past-auctions/47008",
+    "https://online.auctionhouse.co.uk/past-auctions/46885",
+    "https://online.auctionhouse.co.uk/past-auctions/46723",
+    "https://online.auctionhouse.co.uk/past-auctions/46417"
   ],
-  "note": "Prepared and intentionally unwatched. Run as one protected batch after publication of the preceding 85-card bank clears; reconcile all cards and detail pages, preserve individual dates and outcomes, and exclude only exact date/address overlaps before claiming growth.",
+  "note": "Prepared and intentionally unwatched. Promote only after the 79-card April-May batch banks or records a bounded blocker and its publication lane clears; reconcile all cards/details and preserve individual dates, outcomes and immutable evidence.",
   "status": "ready_but_not_triggered",
-  "ready_after_bank_commit": "48c1080b8de55eb4d220e3cef354bdd1f1f9e00d",
-  "collector_contract_commit": "3ed452d0b7b187bcfd1e778e62eb59919498ae9e",
-  "regression_contract_commit": "110ee81ddeefb51ec54f8541bb2ca72b2659a370",
-  "hold_reason": "Exact bank revision 48c1080b8de55eb4d220e3cef354bdd1f1f9e00d is still queued for protected publication; do not start another historical writer until that Pages and custom-domain run resolves."
+  "ready_after_batch_run": 42339578763,
+  "collector_contract_commit": "0739303e581ef78d71b8fbe6ae241f5ccb50adbf",
+  "regression_contract_commit": "2055754ab3aeb42b5a87eb905038e6166cb66be0",
+  "hold_reason": "The protected 79-card April-May batch is queued behind a non-collecting manifest wrapper run; do not start another historical writer or publisher until it completes and its bank/publication results are verified."
 }
