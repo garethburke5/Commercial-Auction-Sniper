@@ -1623,3 +1623,28 @@ completeness remains **false**.
 - **Corpus totals after banking:** 311,308 appearances, 300,355 with addresses and 303,043 exact-dated appearances inside 7 November 2006–7 November 2026. Window price totals are 105,377 guides and 112,169 achieved prices. Source states are 4,653 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; corpus-wide exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
 - **Next concrete growth target prepared:** eight canonical Auction House Online catalogues from 4 October to 22 November 2022 expose **127 cards** (10, 16, 4, 21, 5, 16, 36 and 19). Collector contracts, literal denominator assertions and an untriggered follow-on manifest are persisted in commits `ec066d41ac1785e606929dcc9ae8ded847c43d49`, `ccdab7efc2db79a2262000ec760082b089c62ed9` and `0fba710a7879e8a0e84359b9a4214cdbb4d15f48`. Promote it only after another active-writer check.
 - All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
+
+
+## 2026-11-07 — Auction House Online October–November 2022 batch banked
+
+- **Specific growth opportunity executed:** historical run [42357831601](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42357831601) processed eight accessible first-party catalogues from 4 October to 22 November 2022 through the reusable manifest runner. All **127/127 advertised cards** and **127/127 detail pages** reconciled without collector failures.
+- **Immutable evidence and publication:** permanent bank commit `e876b509a1dd7c9d767ad8bccc6e054d9907e1ee` preserves original URLs, exact published dates, all outcomes and immutable source snapshots. Exact-revision run [42358407773](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42358407773) completed both public and production publication successfully.
+- **Measured net gain:** **57** newly banked appearances, **57** address records and **57** exact-dated appearances inside the rolling 20-year window; **0** commercial/mixed-use records; **57** guide-price observations; **6** achieved-price observations; and **1** rent observation.
+- **Sector detail:** residential 15 and unknown 42. Unknown classifications remain null/unknown rather than inferred.
+- **Exceptions:** 70 exact date/address overlaps were excluded. The gain contains 0 partial, 0 undated, 0 future-dated and 0 duplicate source identities. Eight source-event inventories were reconciled, but Auction House Online / AUCTION HOUSE UK LIMITED already had 2022 operator coverage, so the genuine new operator source-year gain is **0**.
+
+| Event | Cards/details | Net appearances | Commercial / mixed-use | Guides | Achieved prices | Rents | Exact overlaps |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 22 Nov 2022 / 43210 | 19/19 | 10 | 0 / 0 | 10 | 1 | 0 | 9 |
+| 15 Nov 2022 / 43209 | 36/36 | 25 | 0 / 0 | 25 | 4 | 0 | 11 |
+| 8 Nov 2022 / 43208 | 16/16 | 4 | 0 / 0 | 4 | 0 | 1 | 12 |
+| 1 Nov 2022 / 42777 | 5/5 | 3 | 0 / 0 | 3 | 0 | 0 | 2 |
+| 25 Oct 2022 / 42447 | 21/21 | 4 | 0 / 0 | 4 | 0 | 0 | 17 |
+| 18 Oct 2022 / 42446 | 4/4 | 3 | 0 / 0 | 3 | 1 | 0 | 1 |
+| 11 Oct 2022 / 42234 | 16/16 | 3 | 0 / 0 | 3 | 0 | 0 | 13 |
+| 4 Oct 2022 / 42082 | 10/10 | 5 | 0 / 0 | 5 | 0 | 0 | 5 |
+| **Total** | **127/127** | **57** | **0 / 0** | **57** | **6** | **1** | **70** |
+
+- **Corpus totals after banking:** 311,365 appearances, 300,412 with addresses and 303,100 exact-dated appearances inside 7 November 2006–7 November 2026. Window price totals are 105,434 guides and 112,175 achieved prices. Source states are 4,672 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; corpus-wide exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
+- **Next concrete growth target prepared:** seven canonical Auction House Online catalogues from 16 August to 27 September 2022 expose **62 cards** (11, 10, 9, 4, 8, 9 and 11). Collector contracts, literal denominator assertions and an untriggered manifest are persisted on main. Scheduled continuation run 42358682725 produced zero new appearances, and exact-revision publication run 42360482546 completed both public and production jobs; promote only after a fresh active-writer check.
+- All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
