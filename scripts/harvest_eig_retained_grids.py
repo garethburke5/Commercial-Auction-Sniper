@@ -424,6 +424,76 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2023-07-04": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The canonical first-party event page exposes all 14 result cards.
+        # Keep the event in a manifest batch so adjacent accessible catalogues
+        # can be banked in one protected collection and rebuild.
+        "archive_path": "/past-auctions/49566",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 14,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
+    "auction-house-online-2023-06-27": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The canonical first-party event page exposes all 29 result cards.
+        "archive_path": "/past-auctions/49395",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 29,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
+    "auction-house-online-2023-06-20": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The canonical first-party event page exposes all 37 result cards.
+        "archive_path": "/past-auctions/49048",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 37,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
+    "auction-house-online-2023-06-13": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The canonical first-party event page exposes all 31 result cards.
+        "archive_path": "/past-auctions/48888",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 31,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2023-07-11": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
@@ -3220,14 +3290,58 @@ def harvest(slug: str, workers: int = 10) -> dict:
     return summary
 
 
+def select_targets(source_args=None, manifest_path=None):
+    """Resolve one, several or a manifest-defined bounded source batch."""
+    selected = list(source_args or [])
+    if manifest_path is not None:
+        if selected:
+            raise ValueError("positional sources cannot be combined with --manifest")
+        payload = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+        selected = payload.get("sources")
+        if not isinstance(selected, list) or not selected or not all(
+            isinstance(slug, str) and slug for slug in selected
+        ):
+            raise ValueError("batch manifest must contain a non-empty string sources list")
+    if not selected or selected == ["all"]:
+        return list(SOURCES)
+    if "all" in selected:
+        raise ValueError("'all' cannot be combined with individual source slugs")
+    unknown = [slug for slug in selected if slug not in SOURCES]
+    if unknown:
+        raise ValueError(f"unknown retained-grid sources: {', '.join(unknown)}")
+    return list(dict.fromkeys(selected))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("source", choices=["all", *SOURCES], nargs="?", default="all")
+    parser.add_argument("sources", choices=["all", *SOURCES], nargs="*")
+    parser.add_argument("--manifest", type=Path)
     parser.add_argument("--workers", type=int, default=10)
     args = parser.parse_args()
-    targets = list(SOURCES) if args.source == "all" else [args.source]
+    try:
+        targets = select_targets(args.sources, args.manifest)
+    except (OSError, ValueError) as exc:
+        parser.error(str(exc))
     results = [harvest(slug, args.workers) for slug in targets]
-    print(json.dumps({"sources": targets, "run_new_appearances": sum(value.get("run_new_appearances", 0) for value in results)}, indent=2))
+    print(json.dumps({
+        "sources": targets,
+        "source_count": len(targets),
+        "run_new_appearances": sum(value.get("run_new_appearances", 0) for value in results),
+        "run_new_address_records": sum(value.get("run_new_address_records", 0) for value in results),
+        "run_new_dated_twenty_year_address_records": sum(
+            value.get("run_new_dated_twenty_year_address_records", 0) for value in results
+        ),
+        "run_new_commercial_mixed": sum(value.get("run_new_commercial_mixed", 0) for value in results),
+        "run_new_guide_prices": sum(value.get("run_new_guide_prices", 0) for value in results),
+        "run_new_sale_prices": sum(value.get("run_new_sale_prices", 0) for value in results),
+        "run_new_rents": sum(value.get("run_new_rents", 0) for value in results),
+        "run_new_partial_lots": sum(value.get("run_new_partial_lots", 0) for value in results),
+        "run_new_undated": sum(value.get("run_new_undated", 0) for value in results),
+        "run_new_future_dated": sum(value.get("run_new_future_dated", 0) for value in results),
+        "duplicate_source_evidence_excluded": sum(
+            value.get("run_duplicate_source_evidence_excluded", 0) for value in results
+        ),
+    }, indent=2))
 
 
 if __name__ == "__main__":
