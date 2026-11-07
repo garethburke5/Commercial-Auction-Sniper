@@ -3672,3 +3672,30 @@ def test_select_targets_loads_a_deduplicated_manifest_batch(tmp_path):
         "auction-house-online-2023-06-20"
     ]
 
+
+def test_auction_house_online_early_2022_batch_configuration():
+    expected = {
+        "auction-house-online-2022-03-08": ("/past-auctions/35603", 1),
+        "auction-house-online-2022-03-01": ("/past-auctions/35134", 12),
+        "auction-house-online-2022-02-22": ("/past-auctions/34715", 9),
+        "auction-house-online-2022-02-15": ("/past-auctions/34710", 1),
+        "auction-house-online-2022-02-08": ("/past-auctions/34711", 2),
+        "auction-house-online-2022-02-01-a": ("/past-auctions/34712", 1),
+        "auction-house-online-2022-02-01-b": ("/past-auctions/35032", 1),
+        "auction-house-online-2022-01-25": ("/past-auctions/34417", 4),
+        "auction-house-online-2022-01-18": ("/past-auctions/34260", 12),
+    }
+    for source_name, (archive_path, visible_cards) in expected.items():
+        source = grids.SOURCES[source_name]
+        assert source["auctioneer"] == "Auction House Online"
+        assert source["base"] == "https://online.auctionhouse.co.uk"
+        assert source["archive_path"] == archive_path
+        assert source["operator_legal_name"] == "AUCTION HOUSE UK LIMITED"
+        assert source["operator_company_number"] == "06025583"
+        assert source["auctioneer_from_detail"] is True
+        assert source["unpaginated_event"] is True
+        assert source["expected_visible_cards"] == visible_cards
+        assert source["exclude_exact_cross_source_overlaps"] is True
+        assert source["allow_incomplete_detail_recovery"] is True
+    assert sum(cards for _, cards in expected.values()) == 43
+

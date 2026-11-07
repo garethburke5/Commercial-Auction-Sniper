@@ -1748,3 +1748,25 @@ completeness remains **false**.
 - **Corpus totals after banking:** 311,388 appearances, 300,435 with addresses and 303,123 exact-dated appearances inside 7 November 2006–7 November 2026. Window price totals are 105,457 guides and 112,178 achieved prices. Source states are 4,681 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; corpus-wide exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
 - **Next concrete growth target prepared:** eight canonical Auction House Online catalogues from 21 June to 9 August 2022 expose **67 cards** (14, 4, 12, 3, 19, 5, 6 and 4). Collector contracts, literal denominator assertions and an untriggered manifest are ready for one serial run after the successful recovery gate and a fresh active-writer check.
 - All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.
+
+
+## 2026-11-07 — Auction House Online March–April 2022 batch banked and published
+
+- **Specific growth opportunity executed:** historical run [42373375014](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42373375014) processed six accessible first-party catalogues from 15 March to 19 April 2022 through the reusable manifest runner. All **41/41 advertised cards** and their detail pages reconciled; archive pagination and detail recovery were complete.
+- **Immutable evidence and publication:** bank commit `ca64e31e9a783a248024ca292c43e144f3eb6a05` preserves individual dates, original URLs, guides, outcomes, rent evidence and immutable source snapshots. Exact-revision run [42373710828](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42373710828) passed Pages source-to-live verification and `auctiongeek.co.uk` live property-data/code/indexing verification.
+- **Measured net gain:** **20** newly banked individual appearances, **20** address records and **20** exact-dated address records inside the rolling twenty-year window; **0 commercial and 0 mixed-use**; **19 guide-price observations**, **0 achieved sale-price observations** and **1 rent observation**.
+- **Exceptions:** 21 exact date/address overlaps were preserved as source evidence but excluded from growth. The gain contains 0 partial, 0 undated, 0 future-dated and 0 duplicate source identities. Six source-event inventories and ten complete catalogue/date states were newly reconciled, but the genuine legal-operator source-year gain is **0** because Auction House Online / AUCTION HOUSE UK LIMITED 2022 was already represented.
+
+| Event | Cards/details | Net appearances | Guides | Achieved prices | Rents | Exact overlaps |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 19 Apr 2022 / 37721 | 4/4 | 2 | 2 | 0 | 0 | 2 |
+| 12 Apr 2022 / 36472 | 6/6 | 4 | 4 | 0 | 1 | 2 |
+| 5 Apr 2022 / 36129 | 8/8 | 3 | 3 | 0 | 0 | 5 |
+| 29 Mar 2022 / 35905 | 4/4 | 1 | 1 | 0 | 0 | 3 |
+| 22 Mar 2022 / 35904 | 6/6 | 2 | 1 | 0 | 0 | 4 |
+| 15 Mar 2022 / 35726 | 13/13 | 8 | 8 | 0 | 0 | 5 |
+| **Total** | **41/41** | **20** | **19** | **0** | **1** | **21** |
+
+- **Corpus totals after banking:** 311,460 appearances, 300,507 with addresses and 303,195 exact-dated appearances inside 7 November 2006–7 November 2026. Window evidence totals are 105,528 guides and 112,183 achieved prices. Sector totals are 42,601 commercial, 47,610 mixed-use, 19,055 land, 151,189 residential and 51,005 unknown. Source states are 4,719 complete, 556 incomplete/unreconciled and 31 fetch/parse failures; retained exceptions remain 10,953 partial, 5,018 undated and 152 future-dated.
+- **Next concrete growth target prepared:** nine distinct official catalogues from 18 January to 8 March 2022 expose **43 cards** (1, 12, 9, 1, 2, 1, 1, 4 and 12). The two 1 February catalogues are separate event IDs. Collector definitions, literal denominator assertions and the untriggered manifest are persisted in `config/retained_grid_batch_next.json`; promote once in the next serial run only after a fresh active-writer check.
+- All-sector permanent banking remains separate from the commercial website filter. National completeness remains **false** until source-by-source lot inventories and auctioneer/branch/trading-name coverage reconcile.

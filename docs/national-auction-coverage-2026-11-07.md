@@ -257,3 +257,14 @@ net persisted lots and price evidence, not catalogue pages or successful job cou
 - Corpus totals are now 311,388 appearances, 300,435 addresses and 303,123 in-window appearances; source states are 4,681 complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
 - **Next target:** eight official catalogues from 21 June–9 August 2022 expose **67 cards**. Contracts, assertions and an untriggered manifest are ready for one serial run after a fresh active-writer check; no duplicate collector was launched.
 - All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
+
+
+## 12:53 UTC — 41-card March–April 2022 batch banked and published
+
+- Historical run [42373375014](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42373375014) reconciled all **41 advertised cards and detail pages** across six Auction House Online catalogues dated 15 March–19 April 2022. Archive pagination and detail recovery completed without a source failure.
+- Permanent bank commit `ca64e31e9a783a248024ca292c43e144f3eb6a05` passed exact-revision publication [42373710828](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42373710828): both Pages/source-to-live and `auctiongeek.co.uk` live property-data/code/indexing jobs succeeded.
+- Net growth is **20 appearances**, **20 addresses** and **20 exact-dated in-window addresses**; commercial/mixed-use is **0/0**. Actual evidence growth is **19 guides**, **0 achieved sale prices** and **1 rent**.
+- Twenty-one exact date/address overlaps were retained as evidence but excluded from growth. The gain contains 0 partial, undated, future-dated or duplicate source identities. Six event inventories and ten complete catalogue/date states were added, but genuine operator source-years added are **0** because Auction House Online / AUCTION HOUSE UK LIMITED 2022 was already represented.
+- Corpus totals are now 311,460 appearances, 300,507 addresses and 303,195 in-window appearances; 105,528 in-window records have guide evidence and 112,183 have achieved-price evidence. Source states are 4,719 complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
+- **Next target:** nine official catalogues from 18 January–8 March 2022 expose **43 cards**, including two distinct 1 February event IDs. Collector contracts, strict denominators and an untriggered serial manifest are persisted in `config/retained_grid_batch_next.json`; no next collector was launched beside publication.
+- All-sector permanent banking remains distinct from the commercial website filter. National completeness remains **false**.
