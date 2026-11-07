@@ -144,6 +144,13 @@ def test_slots_observe_london_dst_and_weekly_cap():
     assert len(slots)==3
     assert slots[0].isoformat()=='2026-10-26T08:30:00+00:00'
 
+def test_multiple_daily_buffer_slots_respect_manual_post_day():
+    ch=channel()
+    for rule in ch['postingSchedule']:rule['times']=['08:30','12:00','18:30']
+    manual=[{'channelId':'c','status':'scheduled','dueAt':'2026-10-26T12:00:00Z'}]
+    slots=available_slots(ch,manual,NOW,CFG)
+    assert [s.date().isoformat() for s in slots]==['2026-10-28','2026-10-30']
+
 def test_queue_limit_and_existing_manual_posts():
     posts=[{'channelId':'c','status':'scheduled','dueAt':f'2026-10-{d}T08:30:00Z'} for d in (26,28,30)]
     assert available_slots(channel(),posts,NOW,CFG)==[]
