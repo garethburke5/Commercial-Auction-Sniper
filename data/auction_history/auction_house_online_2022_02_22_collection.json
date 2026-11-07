@@ -1,0 +1,115 @@
+{
+  "checked_at": "2026-11-07T14:04:22.528030+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/34715",
+  "platform_event_id": "34715",
+  "archive_sha256": "a1e72665d700ab2e6cf17a59d7b9351f2dd20190c29ffcac89fa70faf99572f4",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    9
+  ],
+  "archive_page_visible_cards": [
+    9
+  ],
+  "visible_source_rows": 9,
+  "expected_visible_cards": 9,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 9,
+  "distinct_source_identities": 9,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 2,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-02-22",
+      "address": "36 Rugeley Avenue, Willenhall, West Midlands, WV12 5LB",
+      "source_lot_id": "38e47e64-7837-4ef7-ac0a-9943139de8ec",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/38e47e64-7837-4ef7-ac0a-9943139de8ec",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-02-22",
+      "address": "56 Nora Street, South Shields, Tyne and Wear, NE34 0RB",
+      "source_lot_id": "33c2f999-97b6-489c-bf4f-c48b883b242e",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/33c2f999-97b6-489c-bf4f-c48b883b242e",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-02-22",
+      "address": "85 Church Street, Gainsborough, Lincolnshire, DN21 2JX",
+      "source_lot_id": "d72e578e-45e5-459f-96da-1325e1cdaabc",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d72e578e-45e5-459f-96da-1325e1cdaabc",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-02-22",
+      "address": "The Buttercross Hall Burwell, Louth, Lincolnshire, LN11 8PR",
+      "source_lot_id": "7293ff3a-d56b-4aa2-af3e-4ccd5da1e752",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/7293ff3a-d56b-4aa2-af3e-4ccd5da1e752",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-02-22",
+      "address": "Apartment 107 Pearl Works, Sheffield, South Yorkshire, S1 2FT",
+      "source_lot_id": "1ab79523-79fa-440a-9bc5-1e44eb7e86a7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1ab79523-79fa-440a-9bc5-1e44eb7e86a7",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-02-22",
+      "address": "67 West Carr Road, Retford, Nottinghamshire, DN22 7NW",
+      "source_lot_id": "b2c210be-1c6d-4742-b843-0117770ffc7b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b2c210be-1c6d-4742-b843-0117770ffc7b",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-02-17",
+    "2022-02-22"
+  ],
+  "by_status": {
+    "sold": 2,
+    "sold_prior": 1
+  },
+  "by_sector": {
+    "land": 2,
+    "unknown": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Cheshire": 2,
+    "Auction House Scotland": 1
+  },
+  "detail_pages_captured": 9,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-07T12:41:55.960732+00:00",
-  "individual_lot_records_captured": 311460,
-  "records_with_address": 300507,
+  "generated_at": "2026-11-07T14:07:30.788528+00:00",
+  "individual_lot_records_captured": 311482,
+  "records_with_address": 300529,
   "partial_lot_records": 10953,
-  "exact_address_groups": 167285,
-  "groups_with_repeat_appearances": 42781,
+  "exact_address_groups": 167296,
+  "groups_with_repeat_appearances": 42787,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -18,12 +18,13 @@
     "Auction House Beds & Bucks": 29,
     "Auction House Birmingham": 111,
     "Auction House Birmingham & Black Country": 112,
-    "Auction House Cheshire": 64,
+    "Auction House Bristol": 1,
+    "Auction House Cheshire": 70,
     "Auction House Cheshire, Staffordshire & Shropshire": 254,
     "Auction House Chesterfield & North Derbyshire": 1,
     "Auction House Chesterfield and North Derbyshire": 4,
     "Auction House Coventry & Warwickshire": 157,
-    "Auction House Coventry and Warwickshire": 75,
+    "Auction House Coventry and Warwickshire": 76,
     "Auction House Cumbria": 28,
     "Auction House East Anglia": 319,
     "Auction House Essex": 17,
@@ -31,24 +32,24 @@
     "Auction House Hull & East Yorkshire": 190,
     "Auction House Kent": 188,
     "Auction House Leicestershire": 57,
-    "Auction House Lincolnshire": 311,
+    "Auction House Lincolnshire": 312,
     "Auction House Lincolnshire, North Notts & South Yorks": 922,
     "Auction House London": 19911,
     "Auction House Manchester": 139,
-    "Auction House North East": 738,
+    "Auction House North East": 743,
     "Auction House North West": 741,
     "Auction House North Yorkshire & Tees Valley": 37,
     "Auction House Northants, Beds & Bucks": 44,
     "Auction House Northern Ireland": 9,
     "Auction House Notts & Derby": 460,
     "Auction House Online": 42,
-    "Auction House Scotland": 221,
+    "Auction House Scotland": 224,
     "Auction House South West": 472,
-    "Auction House South Yorkshire": 2179,
+    "Auction House South Yorkshire": 2181,
     "Auction House Sussex & Hampshire": 121,
     "Auction House Tees Valley": 21,
     "Auction House Wales": 486,
-    "Auction House Wales - Cardiff": 233,
+    "Auction House Wales - Cardiff": 236,
     "Auction House Wales - Colwyn Bay": 36,
     "Auction House West Yorkshire": 213,
     "Auction North": 37,
@@ -145,7 +146,7 @@
     "2019": 7917,
     "2020": 13828,
     "2021": 21147,
-    "2022": 26566,
+    "2022": 26588,
     "2023": 33226,
     "2024": 42166,
     "2025": 48244,
@@ -154,16 +155,16 @@
   },
   "by_sector": {
     "commercial": 42601,
-    "land": 19055,
+    "land": 19061,
     "mixed-use": 47610,
-    "residential": 151189,
-    "unknown": 51005
+    "residential": 151195,
+    "unknown": 51015
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4719,
+  "surviving_catalogues_completely_harvested": 4732,
   "catalogues_incomplete_or_unreconciled": 556,
   "catalogue_fetch_or_parse_failures": 31,
   "limits": [
@@ -177,13 +178,13 @@
     "through_date": "2026-11-07",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303195,
-      "auction_ids_observed": 13229,
-      "with_guide_price": 105528,
-      "with_sale_price": 112183,
-      "with_both_prices": 48461,
-      "marked_sold": 154782,
-      "marked_sold_without_sale_price": 43339
+      "lot_appearances": 303217,
+      "auction_ids_observed": 13245,
+      "with_guide_price": 105550,
+      "with_sale_price": 112188,
+      "with_both_prices": 48466,
+      "marked_sold": 154794,
+      "marked_sold_without_sale_price": 43346
     },
     "by_auctioneer_and_year": [
       {
@@ -1078,14 +1079,25 @@
         "marked_sold_without_sale_price": 5
       },
       {
+        "auctioneer": "Auction House Bristol",
+        "year": 2022,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Auction House Cheshire",
         "year": 2022,
-        "lot_appearances": 35,
-        "auction_ids_observed": 19,
-        "with_guide_price": 35,
-        "with_sale_price": 5,
-        "with_both_prices": 5,
-        "marked_sold": 9,
+        "lot_appearances": 41,
+        "auction_ids_observed": 22,
+        "with_guide_price": 41,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 11,
         "marked_sold_without_sale_price": 4
       },
       {
@@ -1333,13 +1345,13 @@
       {
         "auctioneer": "Auction House Coventry and Warwickshire",
         "year": 2022,
-        "lot_appearances": 1,
-        "auction_ids_observed": 1,
-        "with_guide_price": 1,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
         "with_sale_price": 0,
         "with_both_prices": 0,
-        "marked_sold": 1,
-        "marked_sold_without_sale_price": 1
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Auction House Coventry and Warwickshire",
@@ -1795,9 +1807,9 @@
       {
         "auctioneer": "Auction House Lincolnshire",
         "year": 2022,
-        "lot_appearances": 17,
-        "auction_ids_observed": 16,
-        "with_guide_price": 17,
+        "lot_appearances": 18,
+        "auction_ids_observed": 17,
+        "with_guide_price": 18,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 5,
@@ -2191,13 +2203,13 @@
       {
         "auctioneer": "Auction House North East",
         "year": 2022,
-        "lot_appearances": 11,
-        "auction_ids_observed": 10,
-        "with_guide_price": 11,
+        "lot_appearances": 16,
+        "auction_ids_observed": 13,
+        "with_guide_price": 16,
         "with_sale_price": 7,
         "with_both_prices": 7,
-        "marked_sold": 8,
-        "marked_sold_without_sale_price": 1
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Auction House North East",
@@ -2532,13 +2544,13 @@
       {
         "auctioneer": "Auction House Scotland",
         "year": 2022,
-        "lot_appearances": 29,
-        "auction_ids_observed": 17,
-        "with_guide_price": 28,
+        "lot_appearances": 32,
+        "auction_ids_observed": 20,
+        "with_guide_price": 31,
         "with_sale_price": 8,
         "with_both_prices": 8,
-        "marked_sold": 11,
-        "marked_sold_without_sale_price": 3
+        "marked_sold": 14,
+        "marked_sold_without_sale_price": 6
       },
       {
         "auctioneer": "Auction House Scotland",
@@ -2719,13 +2731,13 @@
       {
         "auctioneer": "Auction House South Yorkshire",
         "year": 2022,
-        "lot_appearances": 158,
-        "auction_ids_observed": 47,
-        "with_guide_price": 158,
+        "lot_appearances": 160,
+        "auction_ids_observed": 49,
+        "with_guide_price": 160,
         "with_sale_price": 137,
         "with_both_prices": 137,
-        "marked_sold": 156,
-        "marked_sold_without_sale_price": 19
+        "marked_sold": 158,
+        "marked_sold_without_sale_price": 21
       },
       {
         "auctioneer": "Auction House South Yorkshire",
@@ -2972,12 +2984,12 @@
       {
         "auctioneer": "Auction House Wales - Cardiff",
         "year": 2022,
-        "lot_appearances": 20,
-        "auction_ids_observed": 13,
-        "with_guide_price": 20,
-        "with_sale_price": 1,
-        "with_both_prices": 1,
-        "marked_sold": 5,
+        "lot_appearances": 23,
+        "auction_ids_observed": 15,
+        "with_guide_price": 23,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 7,
         "marked_sold_without_sale_price": 4
       },
       {

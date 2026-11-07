@@ -1,0 +1,107 @@
+{
+  "checked_at": "2026-11-07T14:04:06.993247+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/35134",
+  "platform_event_id": "35134",
+  "archive_sha256": "1e8fdf92c934a777926fbcaa9077e20fb88086e3968f354a76d003334ead4830",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    12
+  ],
+  "archive_page_visible_cards": [
+    12
+  ],
+  "visible_source_rows": 12,
+  "expected_visible_cards": 12,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 12,
+  "distinct_source_identities": 12,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 8,
+  "run_new_appearances": 8,
+  "run_new_address_records": 8,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 8,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 8,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2022-03-01",
+      "address": "81 Blythe Road Hillfields, Coventry, West Midlands, CV1 5AU",
+      "source_lot_id": "57428531-adc7-4150-a9fa-190a0bf97c42",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/57428531-adc7-4150-a9fa-190a0bf97c42",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-01",
+      "address": "14 Sandsfield Lane, Gainsborough, Lincolnshire, DN21 1BG",
+      "source_lot_id": "d27d507d-2393-4374-83b5-55eabdeabf8f",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/d27d507d-2393-4374-83b5-55eabdeabf8f",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-01",
+      "address": "21A Mulliner Street Foleshill, Coventry, West Midlands, CV6 5ET",
+      "source_lot_id": "1be81f20-5694-472a-bb59-7971caa65bcf",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/1be81f20-5694-472a-bb59-7971caa65bcf",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2022-03-01",
+      "address": "176 Widdrington Road Radford, Coventry, West Midlands, CV1 4DY",
+      "source_lot_id": "aaeaebaf-cfe8-4ed3-a795-4e6a628b17d7",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/aaeaebaf-cfe8-4ed3-a795-4e6a628b17d7",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2022
+  ],
+  "date_range": [
+    "2022-02-25",
+    "2022-03-01"
+  ],
+  "by_status": {
+    "sold_prior": 1,
+    "sold": 1,
+    "unsold": 3,
+    "postponed": 3
+  },
+  "by_sector": {
+    "unknown": 4,
+    "residential": 1,
+    "land": 3
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Coventry and Warwickshire": 1,
+    "Auction House Wales - Cardiff": 2,
+    "Auction House Cheshire": 3,
+    "Auction House North East": 1,
+    "Auction House Lincolnshire": 1
+  },
+  "detail_pages_captured": 12,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
