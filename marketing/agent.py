@@ -135,7 +135,11 @@ def perform(mode, *, store=None, client=None, now=None):
                 print('::warning::'+entry['review_warning']+': '+key)
             continue
         if stop:
-            client.to_draft(entry['buffer_id']);entry['status']='draft';entry['hold_reason']='paused, stale or changed property evidence'
+            if entry.get('caption') and entry.get('image_url'):
+                client.edit_draft(entry['buffer_id'],{**entry,'media_evidence':{'alt':entry['caption'].splitlines()[0]}})
+            else:
+                client.to_draft(entry['buffer_id'])
+            entry['status']='draft';entry['hold_reason']='paused, stale or changed property evidence'
             store.write(STATE,state)
     authorised=publishing_allowed(config,state,os.environ)
     prepared=[]
