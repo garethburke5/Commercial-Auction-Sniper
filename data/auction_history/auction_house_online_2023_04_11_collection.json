@@ -1,0 +1,125 @@
+{
+  "checked_at": "2026-11-07T05:31:17.779876+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/47008",
+  "platform_event_id": "47008",
+  "archive_sha256": "15bc5c07fd709f12730fec1179f8394b85046108691515af0167439e2905f990",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    13
+  ],
+  "archive_page_visible_cards": [
+    13
+  ],
+  "visible_source_rows": 13,
+  "expected_visible_cards": 13,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 13,
+  "distinct_source_identities": 13,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 6,
+  "run_new_appearances": 6,
+  "run_new_address_records": 6,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 6,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 6,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 7,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 7,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2023-04-11",
+      "address": "12 Inholms Gardens, Flintham, Newark, Nottinghamshire, NG23 5LQ",
+      "source_lot_id": "059a5b51-8b2c-46bd-a7d7-46789f89795c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/059a5b51-8b2c-46bd-a7d7-46789f89795c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-04-11",
+      "address": "52 Rutland House Rutland Street, Leicester, LE1 1SF",
+      "source_lot_id": "f56d8258-7f32-4925-8b8c-1be3e5fc8cbf",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f56d8258-7f32-4925-8b8c-1be3e5fc8cbf",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-04-11",
+      "address": "21 Penare Road, Penzance, Cornwall, TR18 3AJ",
+      "source_lot_id": "3cc3e40f-8f7e-4c60-8e91-313e44760719",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3cc3e40f-8f7e-4c60-8e91-313e44760719",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-04-11",
+      "address": "40 King Street Thurnscoe, Rotherham, South Yorkshire, S63 0JW",
+      "source_lot_id": "407dbf79-f0fe-4812-990b-ee8d0cbd3cb8",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/407dbf79-f0fe-4812-990b-ee8d0cbd3cb8",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-04-11",
+      "address": "10 and 10A Winstanley Street, Wigan, Lancashire, WN5 9AW",
+      "source_lot_id": "373240ad-4cd5-4085-a811-cd1f457389a1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/373240ad-4cd5-4085-a811-cd1f457389a1",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-04-11",
+      "address": "75 Cairo Street, Sunderland, Tyne and Wear, SR2 8QL",
+      "source_lot_id": "b8c3a9af-bf0b-410b-aa64-8d33b2eb8593",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b8c3a9af-bf0b-410b-aa64-8d33b2eb8593",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2023-04-11",
+      "address": "167 St. Leonard Street, Sunderland, Tyne and Wear, SR2 8PZ",
+      "source_lot_id": "488e48b8-9b2a-4c8c-88fd-fd051613e8e9",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/488e48b8-9b2a-4c8c-88fd-fd051613e8e9",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2023
+  ],
+  "date_range": [
+    "2023-04-06",
+    "2023-04-11"
+  ],
+  "by_status": {
+    "sold_prior": 2,
+    "unsold": 4
+  },
+  "by_sector": {
+    "unknown": 4,
+    "land": 1,
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House East Anglia": 1,
+    "Auction House Wales - Cardiff": 3,
+    "Auction House Scotland": 1,
+    "Auction House South West": 1
+  },
+  "detail_pages_captured": 13,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
