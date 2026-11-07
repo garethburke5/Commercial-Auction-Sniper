@@ -1223,3 +1223,27 @@ def test_focused_auction_house_online_28_july_expansion_is_isolated():
     ocr_end = WORKFLOW.index("- name:", ocr_start + 10)
     assert "Run focused Auction House Online 28 July 2026 expansion" in WORKFLOW[ocr_start:ocr_end]
 
+
+def test_retained_grid_manifest_does_not_launch_current_snapshot_writer():
+    current_workflow = (
+        Path(__file__).resolve().parents[1]
+        / ".github"
+        / "workflows"
+        / "auction-sniper-publish-now.yml"
+    ).read_text()
+    assert (
+        "historical_manifests = {'config/retained_grid_batch.json', "
+        "'config/retained_grid_batch_next.json'}"
+        in current_workflow
+    )
+    assert "historical_manifest_only = bool(files) and set(files).issubset(historical_manifests)" in current_workflow
+    assert (
+        "if: needs.collection_scope.outputs.historical_manifest_only != 'true' "
+        "&& needs.collection_scope.outputs.collect != 'true'"
+        in current_workflow
+    )
+    assert (
+        "if: needs.collection_scope.outputs.historical_manifest_only != 'true' "
+        "&& needs.collection_scope.outputs.collect == 'true'"
+        in current_workflow
+    )
