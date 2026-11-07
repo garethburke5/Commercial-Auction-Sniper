@@ -1503,3 +1503,65 @@ run 42339578763 behind bounded continuation 42339526658 and must not be duplicat
 The next unwatched target is the 67-card 11 April–21 March 2023 batch (events 47008,
 46885, 46723 and 46417), persisted in `config/retained_grid_batch_next.json` with
 collector and regression contracts. National completeness remains false.
+
+
+## 2026-11-07 05:47 UTC — April-May and March-April retained-grid batches
+
+Two protected manifest runs completed serially and reconciled all **146/146 first-party
+cards and 146/146 detail pages** across eight Auction House Online catalogues. Original
+event and lot URLs, immutable index/detail snapshots, individual dates, guides, achieved
+prices, rents and published outcomes were banked before each rebuild.
+
+| Source event | Cards/details | Net appearances | Exact overlaps excluded | Commercial / mixed | Land / residential / unknown | Guides | Achieved prices | Rents |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| 9 May 2023, event 47887 | 10/10 | 2 | 8 | 0 / 0 | 2 / 0 / 0 | 2 | 0 | 0 |
+| 2 May 2023, event 47768 | 6/6 | 3 | 3 | 0 / 0 | 0 / 1 / 2 | 3 | 1 | 0 |
+| 25 April 2023, event 47254 | 49/49 | 20 | 29 | 2 / 0 | 2 / 3 / 13 | 20 | 0 | 1 |
+| 18 April 2023, event 47237 | 14/14 | 4 | 10 | 0 / 0 | 0 / 1 / 3 | 4 | 1 | 0 |
+| 11 April 2023, event 47008 | 13/13 | 6 | 7 | 0 / 0 | 1 / 1 / 4 | 6 | 0 | 0 |
+| 4 April 2023, event 46885 | 20/20 | 5 | 15 | 0 / 0 | 1 / 0 / 4 | 5 | 1 | 0 |
+| 28 March 2023, event 46723 | 19/19 | 6 | 13 | 0 / 0 | 0 / 2 / 4 | 6 | 1 | 0 |
+| 21 March 2023, event 46417 | 15/15 | 4 | 11 | 0 / 0 | 1 / 0 / 3 | 4 | 1 | 0 |
+| **Combined** | **146/146** | **50** | **96** | **2 / 0** | **7 / 8 / 33** | **50** | **5** | **1** |
+
+All **50** additions have addresses, exact individual dates and dates inside the rolling
+twenty-year window. New partial, undated, future-dated and duplicate source-identity
+records are 0. The batches add eight reconciled source-events and 20 complete surviving
+catalogue/date states, but **0 genuinely new legal-operator source-years**: regional
+labels remain branch/trading-name attribution under AUCTION HOUSE UK LIMITED (company
+06025583), and that operator/year was already represented.
+
+The bounded continuation run
+[42339526658](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42339526658)
+added 0 appearances and is not claimed as collection growth; it did add **6 achieved-price
+values to existing records**. Therefore the full checkpoint's measured evidence gain is
+**+50 guides, +11 achieved prices** (5 on new appearances and 6 enrichments) and **+1
+rent**.
+
+The 79-card run
+[42339578763](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42339578763)
+banked commit `e728bf938a701230b8351c51d75a86878d4aaef0`; exact-revision publication
+[42341809259](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42341809259)
+passed both Pages and `auctiongeek.co.uk`. The 67-card run
+[42342889781](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42342889781)
+banked commit `2b6e5b2e19cf75c2c910bb4a7d5cc76fd718503d`; exact-revision publication
+[42343377705](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42343377705)
+passed Pages, production live-property data and production code/indexing verification.
+Both collection runs passed 175 tests.
+
+The rebuilt corpus now contains **311,200 appearances**, **300,247 address records** and
+**302,935 in-window appearances**. In-window evidence totals are 105,269 guides and
+112,161 achieved prices. Sector totals are 42,593 commercial, 19,035 land, 47,608
+mixed-use, 151,107 residential and 50,857 unknown. Retained exceptions remain 10,953
+partial, 5,018 undated and 152 future-dated records. Source-state totals are 4,621
+complete, 556 incomplete/unreconciled and 31 fetch/parse failures.
+
+The next concrete target is persisted but untriggered in
+`config/retained_grid_batch_next.json`: six first-party catalogues from 14 March to
+7 February 2023 (events 46416, 46261, 45572, 45571, 45509 and 45405), **112 visible
+cards** in total. Collector definitions, expected denominators and regression contracts
+are in commits `d64e334b4fb5ac8b2e1042a708b2b1dbb37660b5`,
+`d13c59c3f984d41cf509379c29e714d41902e111` and
+`bc06bbf9d4e47c0a01cc9f25f0db1145ad664321`. This remains all-sector permanent
+capture; the commercial website filter is a separate presentation decision. National
+completeness remains **false**.
