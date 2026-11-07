@@ -75,3 +75,15 @@ failed candidate artifact and resolve its actual gate failure.
 
 The existing hourly historical task remains enabled with this follow-through. Report
 net persisted lots and price evidence, not catalogue pages or successful job counts.
+
+## 01:00 UTC follow-through checkpoint
+
+- Permanent current-history bank run [42320434706](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42320434706) safely added **45 property identities and 51 auction events**, with 2,593 existing events updated from retained source facts. Bank commit: `17e515d6e725f11631f9f98321a0cceaf1e2c3f1`.
+- The serial follow-up bank [42321141420](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42321141420) added **0** properties and **0** events and re-applied 2,644 updated facts in commit `9fee23196e574aba116b65adcbff9908c47650e2`. It is an idempotency check, not a second collection gain. The bank job did not emit sector, date-window or price-field deltas, so none are inferred.
+- Snapshot-repair run [42320435220](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42320435220) passed checkout, regression tests and candidate recovery, found no newer production candidate, revalidated the 906-row snapshot, and then stopped on the explicit freshness gate because its source timestamp remained 2 November 2026. It published nothing and is not retried.
+- Fresh all-sector scan [42279226136](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42279226136) remains inside production collectors. Follow-up scan [42321141418](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42321141418) remains pending behind the production concurrency lock. Their results must be verified before another current-data writer starts.
+- Historical collector improvement commit `9e106594863a28e88054b6f4062678ca7c980133` adds a reusable manifest-driven multi-source runner and aggregate per-field gain reporting. Regression commit `2036afb95e1f0f534d3b7687c240a9c423987c6b` covers source contracts and ordered manifest deduplication; workflow commit `955799f0d18530adaa83c43bae8d3127cdfa5b93` adds one generic batch step rather than one step per auction date.
+- Prepared manifest commit `a4c14f29eeea621e977a0360b25fd2f1e6040265` targets four accessible Auction House Online catalogues: 4 July, 27 June, 20 June and 13 June 2023, with **111 published visible cards** in total. It remains deliberately dormant while current collection is active; no historical appearance growth is claimed from the manifest yet.
+- Next concrete historical action after current lanes clear: trigger this one protected manifest batch, verify each catalogue/card/detail denominator, merge and rebuild once, publish once, and report exact appearances, in-window dated addresses, commercial/mixed-use, guides, achieved prices, rents, partial/undated/future rows and excluded overlaps.
+- National completeness remains **false**.
+
