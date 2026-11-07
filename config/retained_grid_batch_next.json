@@ -14,5 +14,8 @@
     "https://online.auctionhouse.co.uk/past-auctions/47939",
     "https://online.auctionhouse.co.uk/past-auctions/47463"
   ],
-  "note": "Prepared but intentionally unwatched. Promote only after the 111-card July/June batch is banked or records a bounded blocker; preserve actual lot dates and exclude exact overlaps before claiming growth."
+  "note": "Prepared but intentionally unwatched. Promote only after the 111-card July/June batch is banked or records a bounded blocker; preserve actual lot dates and exclude exact overlaps before claiming growth.",
+  "status": "ready_but_not_triggered",
+  "ready_after_bank_commit": "9b3ac73fbe418db392c7157f6d174c5e3bcb7068",
+  "hold_reason": "The current-scan workflow from the preceding manifest trigger is still collecting; do not start another historical writer until that scan, its permanent-history bank and publication lanes clear."
 }
