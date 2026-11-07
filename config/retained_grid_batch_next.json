@@ -23,5 +23,7 @@
   "ready_after_batch_run": 42342889781,
   "collector_contract_commit": "d64e334b4fb5ac8b2e1042a708b2b1dbb37660b5",
   "regression_contract_commit": "d13c59c3f984d41cf509379c29e714d41902e111",
-  "hold_reason": "The protected 67-card March-April batch is still collecting/banking. Do not promote or launch this batch until that run completes and its exact bank commit has passed both Pages and production publication."
+  "hold_reason": "The preceding 67-card bank and exact publication have cleared. Keep this manifest untriggered as the next serial growth target; before promotion, re-check that no historical collector or publisher is active, then run all six catalogues in one batch.",
+  "publication_gate_run": 42343377705,
+  "publication_gate_status": "passed_pages_and_production"
 }
