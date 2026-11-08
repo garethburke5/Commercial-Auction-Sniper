@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-07T22:49:48.783988+00:00",
+  "generated_at": "2026-11-08T00:17:39.447925+00:00",
   "individual_lot_records_captured": 311740,
   "records_with_address": 300787,
   "partial_lot_records": 10953,
@@ -167,7 +167,7 @@
   ],
   "surviving_catalogues_completely_harvested": 4882,
   "catalogues_incomplete_or_unreconciled": 556,
-  "catalogue_fetch_or_parse_failures": 32,
+  "catalogue_fetch_or_parse_failures": 31,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -175,16 +175,16 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "twenty_year_coverage": {
-    "from_date": "2006-11-07",
-    "through_date": "2026-11-07",
+    "from_date": "2006-11-08",
+    "through_date": "2026-11-08",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303475,
-      "auction_ids_observed": 13442,
+      "lot_appearances": 303450,
+      "auction_ids_observed": 13441,
       "with_guide_price": 105806,
-      "with_sale_price": 112202,
+      "with_sale_price": 112184,
       "with_both_prices": 48479,
-      "marked_sold": 154863,
+      "marked_sold": 154845,
       "marked_sold_without_sale_price": 43401
     },
     "by_auctioneer_and_year": [
@@ -3678,12 +3678,12 @@
       {
         "auctioneer": "Barnett Ross",
         "year": 2006,
-        "lot_appearances": 104,
-        "auction_ids_observed": 2,
+        "lot_appearances": 79,
+        "auction_ids_observed": 1,
         "with_guide_price": 0,
-        "with_sale_price": 76,
+        "with_sale_price": 58,
         "with_both_prices": 0,
-        "marked_sold": 84,
+        "marked_sold": 66,
         "marked_sold_without_sale_price": 8
       },
       {
@@ -8440,7 +8440,7 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-07T21:24:46.923601+00:00",
+    "checked_at": "2026-11-08T00:05:02.215703+00:00",
     "lots_captured": 5603,
     "current_run_unique_lots": 5601,
     "expected_public_results": 5601,
