@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-08T01:19:49.089121+00:00",
-  "corpus_checkpoint": "2026-11-08T01:19:27.612218+00:00",
+  "generated_at": "2026-11-08T01:39:10.949327+00:00",
+  "corpus_checkpoint": "2026-11-08T01:38:45.492798+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -283,13 +283,15 @@
       "name": "Auction Agent",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/auction-agent",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Auction Agent",
+      "match_basis": "exact label",
+      "retained_appearances": 25,
+      "years_with_retained_evidence": [
+        2026
+      ],
+      "with_guide_price": 14,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8153,7 +8155,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 473,
+  "directory_entries_not_linked": 472,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8162,6 +8164,7 @@
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
     "Astleys": 27,
+    "Auction Agent": 25,
     "Auction Estates": 2072,
     "Auction Hammer Midlands": 128,
     "Auction House Beds & Bucks": 35,
@@ -8279,13 +8282,13 @@
     "through_date": "2026-11-08",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303514,
-      "auction_ids_observed": 13491,
-      "with_guide_price": 105870,
+      "lot_appearances": 303528,
+      "auction_ids_observed": 13492,
+      "with_guide_price": 105884,
       "with_sale_price": 112192,
       "with_both_prices": 48487,
-      "marked_sold": 154863,
-      "marked_sold_without_sale_price": 43411
+      "marked_sold": 154877,
+      "marked_sold_without_sale_price": 43425
     },
     "by_auctioneer_and_year": [
       {
@@ -8848,6 +8851,17 @@
         "with_both_prices": 1,
         "marked_sold": 1,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Agent",
+        "year": 2026,
+        "lot_appearances": 14,
+        "auction_ids_observed": 1,
+        "with_guide_price": 14,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 14,
+        "marked_sold_without_sale_price": 14
       },
       {
         "auctioneer": "Auction Estates",
@@ -16639,7 +16653,7 @@
       }
     ],
     "undated_appearances": 5018,
-    "future_dated_appearances": 152,
+    "future_dated_appearances": 163,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -22220,6 +22234,15 @@
       "checked_at": "2026-11-08T00:00:52.443141+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/auction-agent/sanity-public-corpus.json",
+      "auctioneer": "Auction Agent",
+      "auction_date": null,
+      "source_url": "https://www.auctionagent.co.uk/sold-properties",
+      "lots_captured": 25,
+      "errors": [],
+      "checked_at": "2026-11-08T01:36:58.083987+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/maggs_allen/april-2025.json",
       "auctioneer": "Maggs & Allen",
       "auction_date": null,
@@ -22443,7 +22466,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-08T01:19:48.630001+00:00",
+    "checked_at": "2026-11-08T01:39:10.237093+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
