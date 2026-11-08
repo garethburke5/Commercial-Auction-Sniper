@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-08T01:38:45.492798+00:00",
-  "individual_lot_records_captured": 311829,
-  "records_with_address": 300876,
+  "generated_at": "2026-11-08T02:54:09.264796+00:00",
+  "individual_lot_records_captured": 312008,
+  "records_with_address": 301055,
   "partial_lot_records": 10953,
   "exact_address_groups": 167528,
   "groups_with_repeat_appearances": 42878,
@@ -88,6 +88,7 @@
     "LSH Auctions": 593,
     "Landmark Auctions": 69,
     "Landwood Property Auctions": 2736,
+    "Lextons Auctions Ltd": 179,
     "Lot9 Auction House": 34,
     "Loveitts": 582,
     "Maggs & Allen": 108,
@@ -127,7 +128,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 5018,
+    "null": 5071,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -147,27 +148,27 @@
     "2018": 8294,
     "2019": 7978,
     "2020": 13957,
-    "2021": 21274,
-    "2022": 26589,
-    "2023": 33226,
-    "2024": 42166,
-    "2025": 48244,
-    "2026": 47503,
+    "2021": 21276,
+    "2022": 26621,
+    "2023": 33244,
+    "2024": 42179,
+    "2025": 48267,
+    "2026": 47541,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42618,
-    "land": 19099,
-    "mixed-use": 47618,
-    "residential": 151348,
-    "unknown": 51146
+    "commercial": 42620,
+    "land": 19101,
+    "mixed-use": 47647,
+    "residential": 151486,
+    "unknown": 51154
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
   "surviving_catalogues_completely_harvested": 4915,
-  "catalogues_incomplete_or_unreconciled": 557,
+  "catalogues_incomplete_or_unreconciled": 558,
   "catalogue_fetch_or_parse_failures": 31,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -180,13 +181,13 @@
     "through_date": "2026-11-08",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303528,
-      "auction_ids_observed": 13492,
-      "with_guide_price": 105884,
+      "lot_appearances": 303645,
+      "auction_ids_observed": 13524,
+      "with_guide_price": 106001,
       "with_sale_price": 112192,
       "with_both_prices": 48487,
-      "marked_sold": 154877,
-      "marked_sold_without_sale_price": 43425
+      "marked_sold": 154994,
+      "marked_sold_without_sale_price": 43542
     },
     "by_auctioneer_and_year": [
       {
@@ -6251,6 +6252,72 @@
         "marked_sold_without_sale_price": 92
       },
       {
+        "auctioneer": "Lextons Auctions Ltd",
+        "year": 2021,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Lextons Auctions Ltd",
+        "year": 2022,
+        "lot_appearances": 32,
+        "auction_ids_observed": 6,
+        "with_guide_price": 32,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 32,
+        "marked_sold_without_sale_price": 32
+      },
+      {
+        "auctioneer": "Lextons Auctions Ltd",
+        "year": 2023,
+        "lot_appearances": 18,
+        "auction_ids_observed": 7,
+        "with_guide_price": 18,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 18,
+        "marked_sold_without_sale_price": 18
+      },
+      {
+        "auctioneer": "Lextons Auctions Ltd",
+        "year": 2024,
+        "lot_appearances": 13,
+        "auction_ids_observed": 5,
+        "with_guide_price": 13,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 13
+      },
+      {
+        "auctioneer": "Lextons Auctions Ltd",
+        "year": 2025,
+        "lot_appearances": 23,
+        "auction_ids_observed": 5,
+        "with_guide_price": 23,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 23,
+        "marked_sold_without_sale_price": 23
+      },
+      {
+        "auctioneer": "Lextons Auctions Ltd",
+        "year": 2026,
+        "lot_appearances": 29,
+        "auction_ids_observed": 7,
+        "with_guide_price": 29,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 29,
+        "marked_sold_without_sale_price": 29
+      },
+      {
         "auctioneer": "Lot9 Auction House",
         "year": 2022,
         "lot_appearances": 4,
@@ -8550,8 +8617,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5018,
-    "future_dated_appearances": 163,
+    "undated_appearances": 5071,
+    "future_dated_appearances": 172,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
