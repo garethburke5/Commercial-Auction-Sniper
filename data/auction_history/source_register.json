@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-08T07:40:29.862237+00:00",
-  "corpus_checkpoint": "2026-11-08T07:40:08.170315+00:00",
+  "generated_at": "2026-11-08T07:51:30.204102+00:00",
+  "corpus_checkpoint": "2026-11-08T07:51:04.821554+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8230,6 +8230,7 @@
     "City & Rural Property Auctions": 166,
     "Clarke & Simpson": 169,
     "Clive Emson": 4152,
+    "Cooper and Tanner": 4,
     "Cottons": 7513,
     "Dawsons": 138,
     "Dedman Gray": 2851,
@@ -8290,12 +8291,12 @@
     "through_date": "2026-11-08",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303759,
-      "auction_ids_observed": 13541,
-      "with_guide_price": 106026,
-      "with_sale_price": 112227,
-      "with_both_prices": 48501,
-      "marked_sold": 155087,
+      "lot_appearances": 303763,
+      "auction_ids_observed": 13544,
+      "with_guide_price": 106030,
+      "with_sale_price": 112228,
+      "with_both_prices": 48502,
+      "marked_sold": 155088,
       "marked_sold_without_sale_price": 43600
     },
     "by_auctioneer_and_year": [
@@ -12742,6 +12743,28 @@
         "with_both_prices": 0,
         "marked_sold": 731,
         "marked_sold_without_sale_price": 208
+      },
+      {
+        "auctioneer": "Cooper and Tanner",
+        "year": 2025,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Cooper and Tanner",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 3,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Cottons",
@@ -22592,7 +22615,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-08T07:40:29.402389+00:00",
+    "checked_at": "2026-11-08T07:51:29.449404+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

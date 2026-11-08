@@ -1,0 +1,84 @@
+{
+  "checked_at": "2026-11-08T07:49:17.278664+00:00",
+  "parser_version": 1,
+  "source_url": "https://www.cooperandtanner.co.uk/previous-land-and-property-results",
+  "result_pdfs_discovered": 12,
+  "result_pdfs_banked": 3,
+  "result_pdfs_completed_this_run": 3,
+  "result_pdfs_pending": 9,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_guide_prices": 4,
+  "run_new_sale_prices": 1,
+  "by_status": {
+    "unsold": 2,
+    "sold": 1,
+    "withdrawn": 1
+  },
+  "by_sector": {
+    "unknown": 3,
+    "land": 1
+  },
+  "completed_source_urls": [
+    "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6907/7811/Auction_Results_-_November_2025.pdf",
+    "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6976/0616/April_2026_Results.pdf",
+    "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6987/8219/Auction_Results_-_14th_May_2026.pdf"
+  ],
+  "index_evidence": {
+    "source_url": "https://www.cooperandtanner.co.uk/previous-land-and-property-results",
+    "retrieved_at": "2026-11-08T07:49:14.299372+00:00",
+    "snapshot_path": null,
+    "basis": "exact first-party PDF URLs retained from the official results index",
+    "access_error": "HTTPError: 403 Client Error: Forbidden for url: https://www.cooperandtanner.co.uk/previous-land-and-property-results",
+    "fallback_catalogues": 12
+  },
+  "failures": [
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7127/9532/Auction_Results_-_29th_October_2026.pdf",
+      "label": "October 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7102/6487/Auction_Results_-_23rd_September_2026.pdf",
+      "label": "September 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/1977/Auction_Results_-_13th_August_2026.pdf",
+      "label": "August 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7041/4551/Auction_Results_-_16th_July_2026.pdf",
+      "label": "July 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/2366/June_2026_Results.pdf",
+      "label": "June 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6984/0259/Auction_Results_-_5th_May_2026.pdf",
+      "label": "5th May 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6959/2678/March_2026_Results.pdf",
+      "label": "March 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6948/6598/February_Results_2026.pdf",
+      "label": "February 2026",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    },
+    {
+      "url": "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6916/9913/Auction_Results_-_December_2025.pdf",
+      "label": "December 2025",
+      "error": "ValueError: result PDF contains no evidenced result panels"
+    }
+  ]
+}

@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-08T07:40:08.170315+00:00",
-  "individual_lot_records_captured": 312097,
-  "records_with_address": 301140,
+  "generated_at": "2026-11-08T07:51:04.821554+00:00",
+  "individual_lot_records_captured": 312101,
+  "records_with_address": 301144,
   "partial_lot_records": 10957,
-  "exact_address_groups": 167528,
+  "exact_address_groups": 167531,
   "groups_with_repeat_appearances": 42878,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -72,6 +72,7 @@
     "City & Rural Property Auctions": 166,
     "Clarke & Simpson": 169,
     "Clive Emson": 4152,
+    "Cooper and Tanner": 4,
     "Cottons": 7513,
     "Dawsons": 138,
     "Dedman Gray": 2851,
@@ -152,22 +153,22 @@
     "2022": 26645,
     "2023": 33278,
     "2024": 42189,
-    "2025": 48290,
-    "2026": 47544,
+    "2025": 48291,
+    "2026": 47547,
     "2027": 4
   },
   "by_sector": {
     "commercial": 42622,
-    "land": 19107,
+    "land": 19108,
     "mixed-use": 47647,
     "residential": 151487,
-    "unknown": 51234
+    "unknown": 51237
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4915,
+  "surviving_catalogues_completely_harvested": 4918,
   "catalogues_incomplete_or_unreconciled": 559,
   "catalogue_fetch_or_parse_failures": 31,
   "limits": [
@@ -181,12 +182,12 @@
     "through_date": "2026-11-08",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303759,
-      "auction_ids_observed": 13541,
-      "with_guide_price": 106026,
-      "with_sale_price": 112227,
-      "with_both_prices": 48501,
-      "marked_sold": 155087,
+      "lot_appearances": 303763,
+      "auction_ids_observed": 13544,
+      "with_guide_price": 106030,
+      "with_sale_price": 112228,
+      "with_both_prices": 48502,
+      "marked_sold": 155088,
       "marked_sold_without_sale_price": 43600
     },
     "by_auctioneer_and_year": [
@@ -4633,6 +4634,28 @@
         "with_both_prices": 0,
         "marked_sold": 731,
         "marked_sold_without_sale_price": 208
+      },
+      {
+        "auctioneer": "Cooper and Tanner",
+        "year": 2025,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Cooper and Tanner",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 2,
+        "with_guide_price": 3,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Cottons",
