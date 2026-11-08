@@ -1906,3 +1906,17 @@ Corpus totals after rebuild are **311,740 appearances**, **300,787 addressed rec
 
 Next concrete target: the 2019 first-party archive batch in `config/retained_grid_batch_next.json` covers **29 linked catalogues and 112 visible cards**. Nine unlinked N/A/DEAD rows remain explicitly excluded and are not counted as property appearances or source-events.
 
+## 8 November 2026 — Cooper & Tanner saved-result recovery
+
+Focused run `42462239019` used the twelve immutable first-party result PDFs retained from Cooper & Tanner's official results index and reconciled all **125 outcome-labelled property panels** across twelve exact-dated events from November 2025 to October 2026. Bank `d42a46debf5880edc3a2e4373ee050b7f4b3af30` and publication `42462633101` completed successfully.
+
+- Net from the pre-source baseline: **125 appearances / 125 addresses / 125 in-window exact dates**
+- Sectors: **0 commercial / 0 mixed-use / 46 land / 5 residential / 74 unknown**
+- Evidence: **125 guides / 76 achieved prices / 0 rents**
+- Exceptions added: **0 partial / 0 undated / 0 future-dated / 0 duplicate**
+- Coverage: **12 complete event inventories and 2 newly represented source-years (2025, 2026)**
+
+Parser v1's four malformed card associations were superseded by parser v2; their IDs remain in the collection summary and their prior rows remain in repository history. The final repair added 121 net records over that partial checkpoint without changing the immutable source snapshots.
+
+The bounded Auction House South West / Bristol & West route exposes no pre-2018 individual-lot inventory and is not to be refreshed again without a new route. The next serial growth target is Kivells 2023: its first-party annual review reports more than 100 results. Recover address-level result/listing evidence and exact event dates before admission, then batch the analogous 2024 and 2025 pages through the same reusable runner. National completeness remains **false**.
+
