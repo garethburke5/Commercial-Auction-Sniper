@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-08T00:41:49.601797+00:00",
-  "corpus_checkpoint": "2026-11-08T00:41:28.149086+00:00",
+  "generated_at": "2026-11-08T01:19:49.089121+00:00",
+  "corpus_checkpoint": "2026-11-08T01:19:27.612218+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -341,8 +341,9 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Auction House Beds & Bucks",
       "match_basis": "exact label",
-      "retained_appearances": 33,
+      "retained_appearances": 35,
       "years_with_retained_evidence": [
+        2018,
         2019,
         2020,
         2021,
@@ -350,8 +351,8 @@
         2025,
         2026
       ],
-      "with_guide_price": 33,
-      "with_sale_price": 17,
+      "with_guide_price": 35,
+      "with_sale_price": 19,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -731,8 +732,9 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Auction House Online",
       "match_basis": "exact label",
-      "retained_appearances": 51,
+      "retained_appearances": 52,
       "years_with_retained_evidence": [
+        2018,
         2019,
         2021,
         2022,
@@ -741,8 +743,8 @@
         2025,
         2026
       ],
-      "with_guide_price": 51,
-      "with_sale_price": 6,
+      "with_guide_price": 52,
+      "with_sale_price": 7,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8162,7 +8164,7 @@
     "Astleys": 27,
     "Auction Estates": 2072,
     "Auction Hammer Midlands": 128,
-    "Auction House Beds & Bucks": 33,
+    "Auction House Beds & Bucks": 35,
     "Auction House Birmingham": 111,
     "Auction House Birmingham & Black Country": 112,
     "Auction House Bristol": 9,
@@ -8189,7 +8191,7 @@
     "Auction House Northants, Beds & Bucks": 46,
     "Auction House Northern Ireland": 9,
     "Auction House Notts & Derby": 462,
-    "Auction House Online": 51,
+    "Auction House Online": 52,
     "Auction House Scotland": 244,
     "Auction House South West": 487,
     "Auction House South Yorkshire": 2217,
@@ -8277,12 +8279,12 @@
     "through_date": "2026-11-08",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 303511,
-      "auction_ids_observed": 13488,
-      "with_guide_price": 105867,
-      "with_sale_price": 112189,
-      "with_both_prices": 48484,
-      "marked_sold": 154860,
+      "lot_appearances": 303514,
+      "auction_ids_observed": 13491,
+      "with_guide_price": 105870,
+      "with_sale_price": 112192,
+      "with_both_prices": 48487,
+      "marked_sold": 154863,
       "marked_sold_without_sale_price": 43411
     },
     "by_auctioneer_and_year": [
@@ -9010,6 +9012,17 @@
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction House Beds & Bucks",
+        "year": 2018,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -10782,6 +10795,17 @@
         "with_both_prices": 42,
         "marked_sold": 82,
         "marked_sold_without_sale_price": 40
+      },
+      {
+        "auctioneer": "Auction House Online",
+        "year": 2018,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Auction House Online",
@@ -22419,7 +22443,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-08T00:41:49.140356+00:00",
+    "checked_at": "2026-11-08T01:19:48.630001+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
