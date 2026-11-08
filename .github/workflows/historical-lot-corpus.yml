@@ -27,6 +27,7 @@ on:
           - online-state-reconciliation
           - sdl-terminal-reconciliation
           - edward-mellor-pdfs
+          - cooper-tanner-results
           - clive-emson-legacy
           - rebuild
           - dawsons
@@ -90,6 +91,7 @@ on:
       - scripts/harvest_anderson_garland_results.py
       - scripts/harvest_edward_mellor_results.py
       - scripts/harvest_edward_mellor_pdfs.py
+      - scripts/harvest_cooper_tanner_results.py
       - scripts/harvest_sdl_legacy_catalogues.py
       - scripts/harvest_sdl_kinetic_2026.py
       - scripts/harvest_smith_sons_results.py
@@ -147,6 +149,7 @@ on:
       - tests/test_anderson_garland_results.py
       - tests/test_edward_mellor_results.py
       - tests/test_edward_mellor_pdfs.py
+      - tests/test_cooper_tanner_results.py
       - tests/test_sdl_legacy_catalogues.py
       - tests/test_sdl_kinetic_2026.py
       - tests/test_smith_sons_results.py
@@ -243,6 +246,10 @@ jobs:
             echo "System OCR setup is not required for this focused collection"
             exit 0
           fi
+          if [[ "${{ inputs.focus }}" == "cooper-tanner-results" || "${{ startsWith(github.event.head_commit.message, 'Run focused Cooper and Tanner result PDF expansion') }}" == "true" ]]; then
+            echo "System PDF and OCR tools are not required for this pdfplumber collection"
+            exit 0
+          fi
           if [[ "${{ inputs.focus }}" == "pearson-ferrier" || "${{ inputs.focus }}" == "pearsons-auctions" || "${{ inputs.focus }}" == "shonki-brothers" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearson Ferrier result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearsons Auctions result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Shonki Brothers catalogue expansion') }}" == "true" ]]; then
             echo "PDF and OCR setup is not required for this focused HTML collection"
             exit 0
@@ -253,7 +260,7 @@ jobs:
           fi
       - name: Verify admission, identities and completeness rules
         if: inputs.focus != 'retained-legacy' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
-        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bamboo_auctioneer.py tests/test_sanity_auctioneer.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_edward_mellor_pdfs.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_goldings_cached_catalogue.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sw_property_auctions.py tests/test_eig_retained_grids.py tests/test_pearson_ferrier_results.py tests/test_pearsons_auction_results.py tests/test_loveitts_archive.py tests/test_butters_john_bee_archive.py tests/test_robinson_hall_results.py tests/test_auction_hammer_midlands.py tests/test_sharpes_results.py tests/test_seel_catalogues.py tests/test_harvest_bond_wolfe_history.py tests/test_harvest_savills_legacy_result_grid.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
+        run: python -m pytest -q tests/test_historical_corpus.py tests/test_historical_allsop.py tests/test_clive_emson_canonical.py tests/test_barnett_ross_history.py tests/test_pugh_history.py tests/test_symonds_sampson_history.py tests/test_bamboo_auctioneer.py tests/test_sanity_auctioneer.py tests/test_bidx1_history.py tests/test_strettons_results.py tests/test_cheffins_history.py tests/test_btg_eddisons_catalogues.py tests/test_anderson_garland_results.py tests/test_edward_mellor_results.py tests/test_edward_mellor_pdfs.py tests/test_cooper_tanner_results.py tests/test_sdl_legacy_catalogues.py tests/test_smith_sons_results.py tests/test_town_country_results.py tests/test_brown_co_results.py tests/test_bagshaws_results.py tests/test_auction_house_northeast.py tests/test_auction_house_south_yorkshire.py tests/test_auction_house_north_west.py tests/test_auction_house_south_west.py tests/test_auction_house_east_anglia.py tests/test_auction_house_national.py tests/test_auction_house_regions.py tests/test_network_auctions.py tests/test_cottons_results.py tests/test_pattinson_history.py tests/test_harman_healy_history.py tests/test_lsh_history.py tests/test_goldings_results.py tests/test_goldings_cached_catalogue.py tests/test_maggs_allen_results.py tests/test_sutton_kersh_results.py tests/test_knight_frank_history.py tests/test_auction_estates_history.py tests/test_hollis_morgan_history.py tests/test_dedman_gray_results.py tests/test_john_francis_results.py tests/test_swift_property_auctions.py tests/test_sw_property_auctions.py tests/test_eig_retained_grids.py tests/test_pearson_ferrier_results.py tests/test_pearsons_auction_results.py tests/test_loveitts_archive.py tests/test_butters_john_bee_archive.py tests/test_robinson_hall_results.py tests/test_auction_hammer_midlands.py tests/test_sharpes_results.py tests/test_seel_catalogues.py tests/test_harvest_bond_wolfe_history.py tests/test_harvest_savills_legacy_result_grid.py tests/test_future_property_auctions.py web_platform/tests/test_acuitus_admission.py
       - name: Verify Lextons archive admission rules
         if: always()
         run: python -m pytest -q tests/test_lextons_archive.py tests/test_lextons_results.py
@@ -1371,6 +1378,10 @@ jobs:
         timeout-minutes: 15
         continue-on-error: true
         run: python -u scripts/harvest_edward_mellor_pdfs.py 8
+      - name: Bank Cooper and Tanner retained result PDFs
+        if: inputs.focus == 'all' || inputs.focus == 'cooper-tanner-results' || startsWith(github.event.head_commit.message, 'Run focused Cooper and Tanner result PDF expansion')
+        timeout-minutes: 15
+        run: python -u scripts/harvest_cooper_tanner_results.py 20
       - name: Bank Future Property Auctions archived catalogues
         if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 30
