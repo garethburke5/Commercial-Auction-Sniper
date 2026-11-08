@@ -3998,3 +3998,27 @@ def test_auction_house_online_2019_linked_catalogue_batch_configuration():
         assert source["detail_attempts"] == 2
         assert source["detail_timeout"] == 45
     assert sum(cards for _, cards in expected.values()) == 112
+
+
+def test_auction_house_online_2018_linked_catalogue_batch_configuration():
+    expected = {
+        "auction-house-online-2018-12-14": ("/past-auctions/7962", 3),
+        "auction-house-online-2018-02-16": ("/past-auctions/4359", 1),
+    }
+    for source_name, (archive_path, visible_cards) in expected.items():
+        source = grids.SOURCES[source_name]
+        assert source["auctioneer"] == "Auction House Online"
+        assert source["base"] == "https://online.auctionhouse.co.uk"
+        assert source["archive_path"] == archive_path
+        assert source["archive_attempts"] == 3
+        assert source["archive_timeout"] == 90
+        assert source["operator_legal_name"] == "AUCTION HOUSE UK LIMITED"
+        assert source["operator_company_number"] == "06025583"
+        assert source["auctioneer_from_detail"] is True
+        assert source["unpaginated_event"] is True
+        assert source["expected_visible_cards"] == visible_cards
+        assert source["exclude_exact_cross_source_overlaps"] is True
+        assert source["allow_incomplete_detail_recovery"] is True
+        assert source["detail_attempts"] == 2
+        assert source["detail_timeout"] == 45
+    assert sum(cards for _, cards in expected.values()) == 4

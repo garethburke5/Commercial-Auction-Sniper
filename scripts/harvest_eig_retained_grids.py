@@ -3641,6 +3641,42 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
+    "auction-house-online-2018-12-14": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The official archive index exposes the complete surviving December
+        # catalogue as three result cards, including the sold-prior lot.
+        "archive_path": "/past-auctions/7962",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 3,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
+    "auction-house-online-2018-02-16": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        # The only other linked 2018 first-party archive row exposes one result
+        # card; archive directory entries are not counted as properties.
+        "archive_path": "/past-auctions/4359",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 1,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
     "auction-house-online-2023-01-31": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",

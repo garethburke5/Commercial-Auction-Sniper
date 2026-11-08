@@ -4463,3 +4463,17 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Terminal blocker: do not retry either Auction House Online event-57095 route unless a saved-file, cache, mirror or other materially different recovery surface becomes available.
 - Different next concrete target: extend the existing SDL Property Auctions collector to its first-party 2026 archive. The archive exposes ten dated live-stream catalogues from 29 January to 22 October 2026, while retained SDL evidence currently covers 2022-2025 but not 2026. Follow catalogue/PDF links because the rendered January event grid is empty. Preserve guides, realised prices, rents, outcomes and immutable snapshots; reconcile SDL Property Auctions as a trading name of Eddisons Commercial Limited (company 03280893), not a new legal operator.
 - National completeness remains **false**.
+
+
+## 8 November 2026 — 2019 linked Auction House Online catalogue batch
+
+- A scheduled bounded continuation (run `42427313593`) completed first and banked refreshed immutable source snapshots but added **zero** property appearances; its concrete blocker was that the bounded rotation exposed only already-banked property identities. It was not repeated.
+- The materially different retained-grid manifest then reconciled **29 linked 2019 catalogues and 112/112 cards/detail pages** in run `42430045059`.
+- Bank commit `fd76b5f3862291fa4c8896589417412b94d02e41` adds **61 appearances**, **61 addressed records**, and **61 exact-dated records inside the 20-year window**.
+- Sector gain: **1 commercial, 0 mixed-use, 5 land, 33 residential, 22 unknown**.
+- Evidence gain: **61 guide prices, 5 achieved prices, 2 rents**. Unknown values remain null and all published outcome text remains distinct from numeric sale prices.
+- **51 exact date/address overlaps** were reconciled and excluded from growth. Added partial, undated, future-dated and duplicate-source identities are all **zero**.
+- Coverage gain is **29 source-event inventories** and **30 complete catalogue/date states**. The legal operator's 2019 source-year already existed, so new operator source-years are **zero**.
+- Corpus totals are **311,801 appearances**, **300,848 addressed records**, **303,511 in-window appearances**, **105,867 guides**, and **112,189 achieved prices**. National completeness remains false.
+- Exact-revision publication run `42431017499` passed before the next target was persisted.
+- Next target: the complete surviving linked 2018 Auction House Online archive, **2 catalogues / 4 cards**. This is a small year-completion checkpoint; the following run must switch to a different uncovered source/year.
