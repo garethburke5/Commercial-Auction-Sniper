@@ -376,3 +376,13 @@ The next serial target is persisted but untriggered: 29 linked 2019 catalogues, 
 - Corpus totals are **311,801 appearances**, **300,848 addressed records**, **303,511 in-window appearances**, **105,867 guides**, and **112,189 achieved prices**. National completeness remains false.
 - Exact-revision publication run `42431017499` passed before the next target was persisted.
 - Next target: the complete surviving linked 2018 Auction House Online archive, **2 catalogues / 4 cards**. This is a small year-completion checkpoint; the following run must switch to a different uncovered source/year.
+
+## 8 November 2026 — 2018 checkpoint and source switch
+
+- Historical run `42433440313` reconciled both surviving linked 2018 Auction House Online catalogues and all **4/4 published cards/detail pages**. Bank commit `084f78579e70901ba97cd3d8279b7ea5e3a526d7` added **3 appearances**, **3 addresses** and **3 exact-dated records inside the rolling 20-year window**.
+- The additions are all residential and add **3 guide prices** and **3 achieved prices**; commercial, mixed-use, rent, partial, undated and future-dated gains are all zero. One exact date/address overlap was retained as evidence and excluded from growth; duplicate source identities are zero.
+- Two source-event inventories became complete. Auction House Online 2018 is one newly represented operator source-year; branch attribution remains separate from legal-operator counting.
+- Corpus totals are **311,804 appearances**, **300,851 addressed records**, **303,514 in-window appearances**, **105,870 in-window guides** and **112,192 in-window achieved prices**. Exact-revision publication run `42433865791` passed both Pages and `auctiongeek.co.uk` verification.
+- The required source switch is prepared as reusable collection rather than another dated event step. Auction Agent's first-party Sanity dataset currently reconciles **25 stable property documents**: **14 historical dated records**, **11 future-dated records**, **25 address records**, **25 guide observations**, **0 published achieved prices**, and **12 commercial/mixed-use records**. The reusable collector preserves stable document ids, original property URLs and immutable structured snapshots; unknown achieved prices remain null.
+- Auction Agent remains incomplete historically even after this surviving dataset is banked: the public dataset is only its current retained corpus, and the earlier/removed platform archive is not reconciled. The collector and its focused source-level workflow input are tested but must be released only after a fresh writer check.
+- National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
