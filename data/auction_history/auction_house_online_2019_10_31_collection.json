@@ -1,0 +1,104 @@
+{
+  "checked_at": "2026-11-08T00:34:38.346533+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/13053",
+  "platform_event_id": "13053",
+  "archive_sha256": "abc6ba07c758e3d46f92e8ab78ff68abdccb60ef83435d968534420218f28f47",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    6
+  ],
+  "archive_page_visible_cards": [
+    6
+  ],
+  "visible_source_rows": 6,
+  "expected_visible_cards": 6,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 6,
+  "distinct_source_identities": 6,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 0,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 6,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2019-10-31",
+      "address": "10 Orange Grove Annitsford, Cramlington, Northumberland, NE23 7QT",
+      "source_lot_id": "310bb139-a582-4267-8431-5f63016a038b",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/310bb139-a582-4267-8431-5f63016a038b",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-10-31",
+      "address": "5 Salthill Road, Clitheroe, Lancashire, BB7 1NU",
+      "source_lot_id": "e54cb7c7-7d6b-4b61-8c9c-448aeae9ba6d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/e54cb7c7-7d6b-4b61-8c9c-448aeae9ba6d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-10-31",
+      "address": "11 Shuttleworth Street Rishton, Blackburn, Lancashire, BB1 4LX",
+      "source_lot_id": "f373cfa8-9e21-4bf2-bb17-4aef09b2f6d3",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/f373cfa8-9e21-4bf2-bb17-4aef09b2f6d3",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-10-31",
+      "address": "24 Norbreck Close, Birmingham, West Midlands, B43 5SF",
+      "source_lot_id": "03fe7843-637e-42a9-88a3-d013572d623a",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/03fe7843-637e-42a9-88a3-d013572d623a",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-10-31",
+      "address": "3 Alcott Close Stoke Heath, Coventry, West Midlands, CV2 3QL",
+      "source_lot_id": "51830612-fe11-424f-adfd-6c56a7c22bad",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/51830612-fe11-424f-adfd-6c56a7c22bad",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-10-31",
+      "address": "A9 Langdale Grove, Corby, Northamptonshire, NN17 2DG",
+      "source_lot_id": "85996b3f-f098-42af-b6e1-62fa7732a094",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/85996b3f-f098-42af-b6e1-62fa7732a094",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [],
+  "date_range": [
+    null,
+    null
+  ],
+  "by_status": {},
+  "by_sector": {},
+  "by_attributed_auctioneer": {},
+  "detail_pages_captured": 6,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

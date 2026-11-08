@@ -1,0 +1,91 @@
+{
+  "checked_at": "2026-11-08T00:36:10.027259+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/11404",
+  "platform_event_id": "11404",
+  "archive_sha256": "6d76621edd51a9dfddbc242f80e1cca68b919bf2be4dd4db5b6f6ca818ca5579",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 3,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 3,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2019-09-19",
+      "address": "163 Cornbrook, Skelmersdale, Lancashire, WN8 9AG",
+      "source_lot_id": "4e249a50-ab49-4990-aeec-9c314bcf6b49",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/4e249a50-ab49-4990-aeec-9c314bcf6b49",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-09-19",
+      "address": "500 Leigh Road, Westhoughton, Bolton, Lancashire, BL5 2JX",
+      "source_lot_id": "b33e533c-e537-4ad6-9da2-f1923631b0ca",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/b33e533c-e537-4ad6-9da2-f1923631b0ca",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-09-19",
+      "address": "3 Green Lane Wardle, Nantwich, Cheshire, CW5 6DB",
+      "source_lot_id": "29d2590a-bdab-4b97-92db-ac02fe65f382",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/29d2590a-bdab-4b97-92db-ac02fe65f382",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2019
+  ],
+  "date_range": [
+    "2019-09-19",
+    "2019-09-19"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House West Yorkshire": 1
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

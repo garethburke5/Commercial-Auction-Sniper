@@ -1,0 +1,102 @@
+{
+  "checked_at": "2026-11-08T00:37:26.975219+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/11403",
+  "platform_event_id": "11403",
+  "archive_sha256": "c5a2b345220697675c224c008b3f41970ac54d7624d7a579fcadc114ba7b3cb5",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    7
+  ],
+  "archive_page_visible_cards": [
+    7
+  ],
+  "visible_source_rows": 7,
+  "expected_visible_cards": 7,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 7,
+  "distinct_source_identities": 7,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 3,
+  "run_new_appearances": 3,
+  "run_new_address_records": 3,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 3,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 3,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 4,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 4,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2019-08-08",
+      "address": "34 Leicester Court Craggs Row, Preston, Lancashire, PR1 1JD",
+      "source_lot_id": "719d624f-60bc-4eb8-a9b2-f85ba48e109d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/719d624f-60bc-4eb8-a9b2-f85ba48e109d",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-08-08",
+      "address": "12 Norbreck Drive, Ashton-on-Ribble, Preston, Lancashire, PR2 1LQ",
+      "source_lot_id": "3e99a175-52ad-43e5-a369-ed743d054435",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/3e99a175-52ad-43e5-a369-ed743d054435",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-08-08",
+      "address": "41 Salmesbury Avenue, Blackpool, Lancashire, FY2 0PR",
+      "source_lot_id": "a1e47ec5-eec3-427b-bb6d-b80f2e5adc70",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/a1e47ec5-eec3-427b-bb6d-b80f2e5adc70",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-08-08",
+      "address": "3 March Road Guyhirn, Wisbech, Cambridgeshire, PE13 4DA",
+      "source_lot_id": "19616f85-4c76-4d2a-9787-c8ca538d96a1",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/19616f85-4c76-4d2a-9787-c8ca538d96a1",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2019
+  ],
+  "date_range": [
+    "2019-08-08",
+    "2019-08-08"
+  ],
+  "by_status": {
+    "unsold": 3
+  },
+  "by_sector": {
+    "residential": 1,
+    "unknown": 1,
+    "land": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 1,
+    "Auction House Wales - Cardiff": 1,
+    "Auction House Essex & Kent": 1
+  },
+  "detail_pages_captured": 7,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

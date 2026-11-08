@@ -1,0 +1,84 @@
+{
+  "checked_at": "2026-11-08T00:38:27.487921+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/10353",
+  "platform_event_id": "10353",
+  "archive_sha256": "6eac43c5622e0c4415419d8c470d06db850d6d646dfbf05955de5724d91e1eb6",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    4
+  ],
+  "archive_page_visible_cards": [
+    4
+  ],
+  "visible_source_rows": 4,
+  "expected_visible_cards": 4,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 4,
+  "distinct_source_identities": 4,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2019-06-13",
+      "address": "Land to Rear of Westleton House The Street, Westleton, Saxmundham, Suffolk, IP17 3AA",
+      "source_lot_id": "9481d95d-80eb-49a0-b60c-a026f8ff2a98",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/9481d95d-80eb-49a0-b60c-a026f8ff2a98",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-06-13",
+      "address": "Land accessed by Flowerdale Drive Wyken, Coventry, West Midlands, CV2 3PQ",
+      "source_lot_id": "77e68515-2fd9-4087-bc47-28da6059abc5",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/77e68515-2fd9-4087-bc47-28da6059abc5",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2019
+  ],
+  "date_range": [
+    "2019-06-13",
+    "2019-06-13"
+  ],
+  "by_status": {
+    "unsold": 2
+  },
+  "by_sector": {
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North East": 2
+  },
+  "detail_pages_captured": 4,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

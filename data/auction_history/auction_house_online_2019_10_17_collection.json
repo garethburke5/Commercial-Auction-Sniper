@@ -1,0 +1,77 @@
+{
+  "checked_at": "2026-11-08T00:35:08.832670+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/12522",
+  "platform_event_id": "12522",
+  "archive_sha256": "44d2fb61b378090a6d51a445d5e4c931a61c7c1f843650db1954dd690d5c303d",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 2,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 1,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 1,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2019-10-17",
+      "address": "30 Lower Ford Street, Coventry, West Midlands, CV1 5PW",
+      "source_lot_id": "787ad0e7-4968-423c-801a-78e06ddc29eb",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/787ad0e7-4968-423c-801a-78e06ddc29eb",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2019
+  ],
+  "date_range": [
+    "2019-10-17",
+    "2019-10-17"
+  ],
+  "by_status": {
+    "sold_after": 2
+  },
+  "by_sector": {
+    "residential": 2
+  },
+  "by_attributed_auctioneer": {
+    "Auction House Online": 2
+  },
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

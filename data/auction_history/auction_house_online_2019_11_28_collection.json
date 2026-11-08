@@ -1,0 +1,84 @@
+{
+  "checked_at": "2026-11-08T00:33:37.041313+00:00",
+  "auctioneer": "Auction House Online",
+  "parser_version": 8,
+  "source_url": "https://online.auctionhouse.co.uk/past-auctions/13275",
+  "platform_event_id": "13275",
+  "archive_sha256": "361e78ba69500ae131809711e2f08965c99b7b7037acd19e477efb2ca4d0060d",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    3
+  ],
+  "archive_page_visible_cards": [
+    3
+  ],
+  "visible_source_rows": 3,
+  "expected_visible_cards": 3,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 3,
+  "distinct_source_identities": 3,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 1,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 1,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 2,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 2,
+  "exact_overlap_reconciliation": [
+    {
+      "auction_date": "2019-11-28",
+      "address": "126 Centenary Mill Court New Hall Lane, Preston, Lancashire, PR1 5JH",
+      "source_lot_id": "2332d6df-61cf-4b7c-86cc-1cdf4593010c",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/2332d6df-61cf-4b7c-86cc-1cdf4593010c",
+      "existing_match_count": 1
+    },
+    {
+      "auction_date": "2019-11-28",
+      "address": "686 Chorley Road, Westhoughton, Lancashire, BL5 3NL",
+      "source_lot_id": "113b5a28-7f60-4f95-9117-b5dbf1fc0f7d",
+      "original_url": "https://online.auctionhouse.co.uk/lot/details/113b5a28-7f60-4f95-9117-b5dbf1fc0f7d",
+      "existing_match_count": 1
+    }
+  ],
+  "new_source_years": [
+    2019
+  ],
+  "date_range": [
+    "2019-11-28",
+    "2019-11-28"
+  ],
+  "by_status": {
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 1
+  },
+  "by_attributed_auctioneer": {
+    "Auction House North West": 1
+  },
+  "detail_pages_captured": 3,
+  "detail_recovery_complete": true,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+  "operator_company_number": "06025583",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
