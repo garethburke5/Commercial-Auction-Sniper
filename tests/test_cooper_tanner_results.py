@@ -1,5 +1,6 @@
 from scripts.harvest_cooper_tanner_results import (
     build_rows, discover_result_pdfs, parse_exact_date, parse_page_words,
+    seeded_result_pdfs,
 )
 
 
@@ -23,6 +24,14 @@ def test_discovers_result_pdfs_only():
     found = discover_result_pdfs(html)
     assert len(found) == 1
     assert found[0]["label"] == "November 2025"
+
+
+def test_seeded_fallback_is_the_finite_official_pdf_inventory():
+    found = seeded_result_pdfs()
+    assert len(found) == 12
+    assert len({item["url"] for item in found}) == 12
+    assert all(item["url"].startswith("https://mr1.homeflow-assets.co.uk/") for item in found)
+    assert {item["label"] for item in found} >= {"November 2025", "October 2026"}
 
 
 def test_parses_exact_heading_date():

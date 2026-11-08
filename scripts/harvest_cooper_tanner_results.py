@@ -29,6 +29,20 @@ import historical_corpus as corpus
 INDEX = "https://www.cooperandtanner.co.uk/previous-land-and-property-results"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 PARSER_VERSION = 1
+SEEDED_RESULT_PDFS = (
+    ("October 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7127/9532/Auction_Results_-_29th_October_2026.pdf"),
+    ("September 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7102/6487/Auction_Results_-_23rd_September_2026.pdf"),
+    ("August 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/1977/Auction_Results_-_13th_August_2026.pdf"),
+    ("July 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7041/4551/Auction_Results_-_16th_July_2026.pdf"),
+    ("June 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/2366/June_2026_Results.pdf"),
+    ("14th May 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6987/8219/Auction_Results_-_14th_May_2026.pdf"),
+    ("5th May 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6984/0259/Auction_Results_-_5th_May_2026.pdf"),
+    ("April 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6976/0616/April_2026_Results.pdf"),
+    ("March 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6959/2678/March_2026_Results.pdf"),
+    ("February 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6948/6598/February_Results_2026.pdf"),
+    ("December 2025", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6916/9913/Auction_Results_-_December_2025.pdf"),
+    ("November 2025", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6907/7811/Auction_Results_-_November_2025.pdf"),
+)
 DATE_RE = re.compile(
     r"\b(\d{1,2})\s*(?:st|nd|rd|th)?\s+"
     r"(January|February|March|April|May|June|July|August|September|October|November|December)"
@@ -72,6 +86,11 @@ def discover_result_pdfs(html: str) -> list[dict]:
     if not found:
         raise ValueError("results index contains no PDF result sheets")
     return sorted(found.values(), key=lambda item: item["url"])
+
+
+def seeded_result_pdfs() -> list[dict]:
+    """Return the finite first-party PDF set retained from the official index."""
+    return [{"label": label, "url": url} for label, url in SEEDED_RESULT_PDFS]
 
 
 def parse_exact_date(text: str) -> str:
@@ -299,19 +318,34 @@ def build_rows(cards: list[dict], auction_date: str, source_url: str, evidence: 
 
 
 def harvest(limit: int = 20) -> None:
-    index_response = get(INDEX)
-    index_raw = index_response.content
-    index_sha = corpus.digest(index_raw)
-    index_snapshot = corpus.DATA / "sources/cooper-tanner-results" / f"index-{index_sha[:16]}.json.gz"
-    index_evidence = {
-        "source_url": index_response.url, "retrieved_at": corpus.now(),
-        "sha256": index_sha, "snapshot_path": str(index_snapshot.relative_to(corpus.ROOT)),
-        "basis": "first-party previous land and property auction results index",
-    }
-    corpus.save_gzip(index_snapshot, {
-        "evidence": index_evidence, "html": index_raw.decode("utf-8", "replace"),
-    })
-    discovered = discover_result_pdfs(index_raw.decode("utf-8", "replace"))
+    try:
+        index_response = get(INDEX)
+        index_raw = index_response.content
+        index_sha = corpus.digest(index_raw)
+        index_snapshot = corpus.DATA / "sources/cooper-tanner-results" / f"index-{index_sha[:16]}.json.gz"
+        index_evidence = {
+            "source_url": index_response.url, "retrieved_at": corpus.now(),
+            "sha256": index_sha, "snapshot_path": str(index_snapshot.relative_to(corpus.ROOT)),
+            "basis": "first-party previous land and property auction results index",
+        }
+        corpus.save_gzip(index_snapshot, {
+            "evidence": index_evidence, "html": index_raw.decode("utf-8", "replace"),
+        })
+        discovered = discover_result_pdfs(index_raw.decode("utf-8", "replace"))
+    except (requests.RequestException, ValueError) as exc:
+        # The first-party HTML index returns HTTP 403 to GitHub Actions while
+        # its linked first-party Homeflow PDFs remain public.  Preserve the
+        # bounded access failure and use the exact official PDF URLs retained
+        # from that index rather than abandoning twelve accessible catalogues.
+        discovered = seeded_result_pdfs()
+        index_evidence = {
+            "source_url": INDEX,
+            "retrieved_at": corpus.now(),
+            "snapshot_path": None,
+            "basis": "exact first-party PDF URLs retained from the official results index",
+            "access_error": f"{type(exc).__name__}: {exc}"[:500],
+            "fallback_catalogues": len(discovered),
+        }
     summary_path = corpus.DATA / "cooper_tanner_results_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     completed = set(previous.get("completed_source_urls") or [])
@@ -334,7 +368,8 @@ def harvest(limit: int = 20) -> None:
             evidence = {
                 "source_url": response.url, "retrieved_at": corpus.now(), "sha256": sha,
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
-                "index_snapshot_path": index_evidence["snapshot_path"],
+                "index_snapshot_path": index_evidence.get("snapshot_path"),
+                "index_source_url": INDEX,
                 "basis": "first-party complete land and property auction result PDF",
             }
             auction_date, cards, counts = extract_pdf(raw)

@@ -246,10 +246,6 @@ jobs:
             echo "System OCR setup is not required for this focused collection"
             exit 0
           fi
-          if [[ "${{ inputs.focus }}" == "cooper-tanner-results" || "${{ startsWith(github.event.head_commit.message, 'Run focused Cooper and Tanner result PDF expansion') }}" == "true" ]]; then
-            echo "System PDF and OCR tools are not required for this pdfplumber collection"
-            exit 0
-          fi
           if [[ "${{ inputs.focus }}" == "pearson-ferrier" || "${{ inputs.focus }}" == "pearsons-auctions" || "${{ inputs.focus }}" == "shonki-brothers" || "${{ startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearson Ferrier result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Pearsons Auctions result-table expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Shonki Brothers catalogue expansion') }}" == "true" ]]; then
             echo "PDF and OCR setup is not required for this focused HTML collection"
             exit 0
@@ -1190,6 +1186,10 @@ jobs:
         timeout-minutes: 22
         # Attempt the full rotation while retaining the same 20-minute budget.
         run: |
+          if [[ "${{ inputs.focus }}" == "cooper-tanner-results" || "${{ startsWith(github.event.head_commit.message, 'Run focused Cooper and Tanner result PDF expansion') }}" == "true" ]]; then
+            echo "Bounded rotation is excluded from this focused collection run"
+            exit 0
+          fi
           if [[ "${{ startsWith(github.event.head_commit.message, 'Run focused Auction Agent Sanity archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Lextons archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Lextons result-sheet expansion') }}" == "true" || "${{ inputs.focus }}" == "lextons-auctions" || "${{ inputs.focus }}" == "lextons-results" ]]; then
             echo "Bounded rotation is excluded from this focused collection run"
             exit 0
