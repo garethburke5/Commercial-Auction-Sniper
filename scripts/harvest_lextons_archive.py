@@ -393,6 +393,7 @@ def harvest(workers=8):
         "search_pages_captured": max_page,
         "published_property_denominator": len(all_urls),
         "properties_captured": len(run_rows),
+        "lots_captured": len(run_rows),
         "properties_admitted": len(admissible),
         "catalogue_complete": False,
         "source_inventory_complete": True,
