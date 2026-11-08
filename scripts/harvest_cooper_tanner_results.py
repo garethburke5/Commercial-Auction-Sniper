@@ -14,6 +14,7 @@ import gzip
 import hashlib
 import json
 import re
+import statistics
 import sys
 from pathlib import Path
 from urllib.parse import urljoin
@@ -28,20 +29,20 @@ import historical_corpus as corpus
 
 INDEX = "https://www.cooperandtanner.co.uk/previous-land-and-property-results"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-PARSER_VERSION = 1
+PARSER_VERSION = 2
 SEEDED_RESULT_PDFS = (
-    ("October 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7127/9532/Auction_Results_-_29th_October_2026.pdf"),
-    ("September 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7102/6487/Auction_Results_-_23rd_September_2026.pdf"),
-    ("August 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/1977/Auction_Results_-_13th_August_2026.pdf"),
-    ("July 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7041/4551/Auction_Results_-_16th_July_2026.pdf"),
-    ("June 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/2366/June_2026_Results.pdf"),
-    ("14th May 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6987/8219/Auction_Results_-_14th_May_2026.pdf"),
-    ("5th May 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6984/0259/Auction_Results_-_5th_May_2026.pdf"),
-    ("April 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6976/0616/April_2026_Results.pdf"),
-    ("March 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6959/2678/March_2026_Results.pdf"),
-    ("February 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6948/6598/February_Results_2026.pdf"),
-    ("December 2025", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6916/9913/Auction_Results_-_December_2025.pdf"),
-    ("November 2025", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6907/7811/Auction_Results_-_November_2025.pdf"),
+    ("October 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7127/9532/Auction_Results_-_29th_October_2026.pdf", "2026-10-29"),
+    ("September 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7102/6487/Auction_Results_-_23rd_September_2026.pdf", "2026-09-23"),
+    ("August 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/1977/Auction_Results_-_13th_August_2026.pdf", "2026-08-13"),
+    ("July 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7041/4551/Auction_Results_-_16th_July_2026.pdf", "2026-07-16"),
+    ("June 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/7067/2366/June_2026_Results.pdf", "2026-06-11"),
+    ("14th May 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6987/8219/Auction_Results_-_14th_May_2026.pdf", "2026-05-14"),
+    ("5th May 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6984/0259/Auction_Results_-_5th_May_2026.pdf", "2026-05-05"),
+    ("April 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6976/0616/April_2026_Results.pdf", "2026-04-23"),
+    ("March 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6959/2678/March_2026_Results.pdf", "2026-03-19"),
+    ("February 2026", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6948/6598/February_Results_2026.pdf", "2026-02-26"),
+    ("December 2025", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6916/9913/Auction_Results_-_December_2025.pdf", "2025-12-16"),
+    ("November 2025", "https://mr1.homeflow-assets.co.uk/files/site_asset/image/6907/7811/Auction_Results_-_November_2025.pdf", "2025-11-20"),
 )
 DATE_RE = re.compile(
     r"\b(\d{1,2})\s*(?:st|nd|rd|th)?\s+"
@@ -90,7 +91,10 @@ def discover_result_pdfs(html: str) -> list[dict]:
 
 def seeded_result_pdfs() -> list[dict]:
     """Return the finite first-party PDF set retained from the official index."""
-    return [{"label": label, "url": url} for label, url in SEEDED_RESULT_PDFS]
+    return [
+        {"label": label, "url": url, "auction_date": auction_date}
+        for label, url, auction_date in SEEDED_RESULT_PDFS
+    ]
 
 
 def parse_exact_date(text: str) -> str:
@@ -139,7 +143,11 @@ def _guide_columns(words: list[dict], page_width: float) -> list[float]:
 
 
 def _status(value: str) -> str | None:
-    match = STATUS_RE.search(value)
+    match = re.search(
+        r"\b(Sold\s+Post(?:[- ]Auction)?|Sold\s+Prior|Sold|Unsold|Withdrawn|Postponed)\b",
+        value,
+        re.I,
+    )
     if not match:
         return None
     result = match.group(1).casefold()
@@ -158,7 +166,18 @@ def parse_page_words(words: list[dict], page_width: float) -> tuple[list[dict], 
     columns = _guide_columns(words, page_width)
     if not columns:
         raise ValueError("result PDF page contains no Guide Price panels")
-    bounds = [0.0] + [(left + right) / 2 for left, right in zip(columns, columns[1:])] + [page_width]
+    if len(columns) > 1:
+        step = statistics.median(right - left for left, right in zip(columns, columns[1:]))
+        # The card's outcome sits left of its guide, so the guide x-coordinate
+        # is not the card centre.  Shift the centres before deriving bounds;
+        # otherwise the next card's status leaks into the previous card.
+        centres = [column - step * .30 for column in columns]
+        bounds = [0.0] + [
+            (left + right) / 2 for left, right in zip(centres, centres[1:])
+        ] + [page_width]
+    else:
+        step = page_width
+        bounds = [0.0, page_width]
     cards = []
     guide_panels = 0
     outcome_anchors = 0
@@ -171,50 +190,51 @@ def parse_page_words(words: list[dict], page_width: float) -> tuple[list[dict], 
         guide_panels += len(guide_indices)
         previous_guide = -1
         for guide_index in guide_indices:
-            segment = lines[previous_guide + 1:guide_index + 3]
+            segment = lines[previous_guide + 1:guide_index + 2]
             previous_guide = guide_index
             guide_line = lines[guide_index]
-            before_guide = [line for line in segment if line["top"] < guide_line["top"] - 1]
-            statuses = [(position, _status(line["text"])) for position, line in enumerate(before_guide)]
-            statuses = [(position, status) for position, status in statuses if status]
+            statuses = [
+                (line, _status(line["text"])) for line in segment
+                if abs(line["top"] - guide_line["top"]) <= 12 and _status(line["text"])
+            ]
             if not statuses:
                 # "Coming Soon" panels on the same result sheet are not past
                 # property appearances and must not inflate capture.
                 continue
             outcome_anchors += 1
-            status_position, status = statuses[-1]
-            status_line = before_guide[status_position]
-            outcome_lines = [status_line["text"]]
-            address_lines = []
-            for line in before_guide[status_position + 1:]:
-                text = line["text"]
-                if line["top"] - status_line["top"] <= 45 and (
-                    MONEY_RE.search(text) or DATE_RE.fullmatch(text)
-                ):
-                    outcome_lines.append(text)
-                if MONEY_RE.search(text) or STATUS_RE.search(text):
-                    continue
-                if DATE_RE.fullmatch(text):
-                    continue
-                if status == "sold_after" and text.casefold() == "auction":
-                    continue
-                if re.search(r"(?:www\.|Land and Property Auction Results|Coming Soon)", text, re.I):
-                    continue
-                address_lines.append(text)
-            address = clean(" ".join(address_lines))
-            guide_text = clean(" ".join(
+            status_line, status = statuses[-1]
+            address_lines = [
                 line["text"] for line in segment
-                if guide_line["top"] - 1 <= line["top"] <= guide_line["top"] + 35
-            ))
+                if guide_line["top"] - 60 <= line["top"] < guide_line["top"] - 1
+                and not MONEY_RE.search(line["text"])
+                and not _status(line["text"])
+                and not re.search(
+                    r"(?:\bGuide(?:\s+Price)?\b|www\.|Land and Property|Coming Soon|^[“”\"]$)",
+                    line["text"],
+                    re.I,
+                )
+            ]
+            address = clean(" ".join(address_lines))
+            guide_x = columns[index]
+            outcome_boundary = guide_x - min(50.0, step * .30)
+            price_words = [
+                word for word in column_words
+                if guide_line["top"] - 2 <= word["top"] <= guide_line["top"] + 28
+            ]
+            guide_words = [
+                word["text"] for word in sorted(price_words, key=lambda value: (value["top"], value["x0"]))
+                if (word["x0"] + word.get("x1", word["x0"])) / 2 >= outcome_boundary
+            ]
+            outcome_words = [
+                word["text"] for word in sorted(price_words, key=lambda value: (value["top"], value["x0"]))
+                if (word["x0"] + word.get("x1", word["x0"])) / 2 < outcome_boundary
+            ]
+            guide_text = clean(" ".join(guide_words))
             guide_values = [int(round(float(value.replace(",", ""))))
                             for value in MONEY_RE.findall(guide_text or "")]
             sale_price = None
             if status == "sold":
-                sale_candidates = []
-                for line in before_guide[status_position:]:
-                    if line["top"] - status_line["top"] > 45:
-                        break
-                    sale_candidates.extend(MONEY_RE.findall(line["text"]))
+                sale_candidates = MONEY_RE.findall(" ".join(outcome_words))
                 if sale_candidates:
                     sale_price = int(round(float(sale_candidates[0].replace(",", ""))))
             cards.append({
@@ -224,7 +244,7 @@ def parse_page_words(words: list[dict], page_width: float) -> tuple[list[dict], 
                 "guide_price_text": guide_text,
                 "sale_price": sale_price,
                 "status": status,
-                "source_result_text": clean(" ".join(outcome_lines)),
+                "source_result_text": clean(" ".join(outcome_words)) or status_line["text"],
                 "top": status_line["top"],
                 "column": index,
             })
@@ -317,63 +337,101 @@ def build_rows(cards: list[dict], auction_date: str, source_url: str, evidence: 
     return state, rows
 
 
-def harvest(limit: int = 20) -> None:
-    try:
-        index_response = get(INDEX)
-        index_raw = index_response.content
-        index_sha = corpus.digest(index_raw)
-        index_snapshot = corpus.DATA / "sources/cooper-tanner-results" / f"index-{index_sha[:16]}.json.gz"
-        index_evidence = {
-            "source_url": index_response.url, "retrieved_at": corpus.now(),
-            "sha256": index_sha, "snapshot_path": str(index_snapshot.relative_to(corpus.ROOT)),
-            "basis": "first-party previous land and property auction results index",
-        }
-        corpus.save_gzip(index_snapshot, {
-            "evidence": index_evidence, "html": index_raw.decode("utf-8", "replace"),
-        })
-        discovered = discover_result_pdfs(index_raw.decode("utf-8", "replace"))
-    except (requests.RequestException, ValueError) as exc:
-        # The first-party HTML index returns HTTP 403 to GitHub Actions while
-        # its linked first-party Homeflow PDFs remain public.  Preserve the
-        # bounded access failure and use the exact official PDF URLs retained
-        # from that index rather than abandoning twelve accessible catalogues.
+def harvest(limit: int = 20, saved_only: bool = False) -> None:
+    summary_path = corpus.DATA / "cooper_tanner_results_collection.json"
+    previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
+    if saved_only:
         discovered = seeded_result_pdfs()
-        index_evidence = {
+        index_evidence = previous.get("index_evidence") or {
             "source_url": INDEX,
             "retrieved_at": corpus.now(),
             "snapshot_path": None,
             "basis": "exact first-party PDF URLs retained from the official results index",
-            "access_error": f"{type(exc).__name__}: {exc}"[:500],
-            "fallback_catalogues": len(discovered),
         }
-    summary_path = corpus.DATA / "cooper_tanner_results_collection.json"
-    previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
-    completed = set(previous.get("completed_source_urls") or [])
+    else:
+        try:
+            index_response = get(INDEX)
+            index_raw = index_response.content
+            index_sha = corpus.digest(index_raw)
+            index_snapshot = corpus.DATA / "sources/cooper-tanner-results" / f"index-{index_sha[:16]}.json.gz"
+            index_evidence = {
+                "source_url": index_response.url, "retrieved_at": corpus.now(),
+                "sha256": index_sha, "snapshot_path": str(index_snapshot.relative_to(corpus.ROOT)),
+                "basis": "first-party previous land and property auction results index",
+            }
+            corpus.save_gzip(index_snapshot, {
+                "evidence": index_evidence, "html": index_raw.decode("utf-8", "replace"),
+            })
+            discovered = discover_result_pdfs(index_raw.decode("utf-8", "replace"))
+        except (requests.RequestException, ValueError) as exc:
+            # The first-party HTML index returns HTTP 403 to GitHub Actions while
+            # its linked first-party Homeflow PDFs remain public.  Preserve the
+            # bounded access failure and use the exact official PDF URLs retained
+            # from that index rather than abandoning twelve accessible catalogues.
+            discovered = seeded_result_pdfs()
+            index_evidence = {
+                "source_url": INDEX,
+                "retrieved_at": corpus.now(),
+                "snapshot_path": None,
+                "basis": "exact first-party PDF URLs retained from the official results index",
+                "access_error": f"{type(exc).__name__}: {exc}"[:500],
+                "fallback_catalogues": len(discovered),
+            }
+    completed = (
+        set(previous.get("completed_source_urls") or [])
+        if previous.get("parser_version") == PARSER_VERSION and not saved_only else set()
+    )
     appearances_path = corpus.DATA / "appearances/cooper-tanner-results/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearances_path)) if appearances_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
+    before_counts = {
+        "address": sum(bool(row.get("address")) for row in existing),
+        "partial": sum(not row.get("address") for row in existing),
+        "guide": sum(row.get("guide_price") is not None for row in existing),
+        "sale": sum(row.get("sale_price") is not None for row in existing),
+    }
     merged = {row["appearance_id"]: row for row in existing}
     failures = []
     completed_this_run = []
+    superseded = []
+    saved_by_date = {}
+    if saved_only:
+        snapshot_root = corpus.DATA / "sources/cooper-tanner-results/results"
+        for snapshot in sorted(snapshot_root.glob("*.pdf.gz")):
+            raw = gzip.decompress(snapshot.read_bytes())
+            auction_date, _, _ = extract_pdf(raw)
+            saved_by_date[auction_date] = (snapshot, raw)
 
     for item in [value for value in discovered if value["url"] not in completed][:max(0, limit)]:
         try:
-            response = get(item["url"])
-            raw = response.content
-            if not raw.startswith(b"%PDF-"):
-                raise ValueError("result link did not return a PDF")
+            if saved_only:
+                snapshot, raw = saved_by_date[item["auction_date"]]
+                source_url = item["url"]
+                retrieved_at = previous.get("checked_at") or corpus.now()
+            else:
+                response = get(item["url"])
+                raw = response.content
+                if not raw.startswith(b"%PDF-"):
+                    raise ValueError("result link did not return a PDF")
+                sha = corpus.digest(raw)
+                snapshot = corpus.DATA / "sources/cooper-tanner-results/results" / f"{sha[:16]}.pdf.gz"
+                corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
+                source_url = response.url
+                retrieved_at = corpus.now()
             sha = corpus.digest(raw)
-            snapshot = corpus.DATA / "sources/cooper-tanner-results/results" / f"{sha[:16]}.pdf.gz"
-            corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
             evidence = {
-                "source_url": response.url, "retrieved_at": corpus.now(), "sha256": sha,
+                "source_url": source_url, "retrieved_at": retrieved_at, "sha256": sha,
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "index_snapshot_path": index_evidence.get("snapshot_path"),
                 "index_source_url": INDEX,
                 "basis": "first-party complete land and property auction result PDF",
             }
             auction_date, cards, counts = extract_pdf(raw)
-            state, rows = build_rows(cards, auction_date, response.url, evidence)
+            if item.get("auction_date") and auction_date != item["auction_date"]:
+                raise ValueError(
+                    f"saved PDF date {auction_date} does not match seeded date {item['auction_date']}"
+                )
+            state, rows = build_rows(cards, auction_date, source_url, evidence)
             state.update(counts)
             state["catalogue_complete"] = (
                 counts.get("visible_result_panels") == len(rows)
@@ -386,6 +444,12 @@ def harvest(limit: int = 20) -> None:
             corpus.save_json(
                 corpus.DATA / "auctions/cooper-tanner-results" / f"{auction_date}-{sha[:12]}.json", state,
             )
+            prior_source_rows = [
+                row for row in merged.values() if row.get("original_url") == source_url
+            ]
+            superseded.extend(prior_source_rows)
+            for row in prior_source_rows:
+                merged.pop(row["appearance_id"], None)
             for row in rows:
                 merged[row["appearance_id"]] = row
             completed.add(item["url"])
@@ -397,20 +461,43 @@ def harvest(limit: int = 20) -> None:
                 "error": f"{type(exc).__name__}: {exc}"[:500],
             })
 
-    total = corpus.write_rows("cooper-tanner-results/canonical", list(merged.values()))
-    added = [row for key, row in merged.items() if key not in before_ids]
+    # Parser-version repairs deliberately replace this one source shard after
+    # every saved PDF has reconciled.  The displaced extraction artefacts are
+    # retained in a repair audit below, while the canonical shard contains only
+    # the evidenced result panels.
+    total = corpus.write_rows(
+        "cooper-tanner-results/canonical", list(merged.values()), preserve_existing=False,
+    )
+    after_counts = {
+        "address": sum(bool(row.get("address")) for row in merged.values()),
+        "partial": sum(not row.get("address") for row in merged.values()),
+        "guide": sum(row.get("guide_price") is not None for row in merged.values()),
+        "sale": sum(row.get("sale_price") is not None for row in merged.values()),
+    }
+    if superseded:
+        corpus.save_json(corpus.DATA / "repairs/cooper_tanner_parser_v2.json", {
+            "recorded_at": corpus.now(),
+            "reason": "parser v1 card boundaries associated result text with neighbouring panels",
+            "replacement_parser_version": PARSER_VERSION,
+            "superseded_rows": sorted(superseded, key=lambda row: row["appearance_id"]),
+        })
     summary = {
         "checked_at": corpus.now(), "parser_version": PARSER_VERSION,
+        "retrieval_route": "saved_immutable_snapshots" if saved_only else "live_first_party_pdfs",
         "source_url": INDEX, "result_pdfs_discovered": len(discovered),
         "result_pdfs_banked": len(completed),
         "result_pdfs_completed_this_run": len(completed_this_run),
         "result_pdfs_pending": sum(item["url"] not in completed for item in discovered),
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
-        "run_new_address_records": sum(bool(row.get("address")) for row in added),
-        "run_new_partial_lots": sum(not row.get("address") for row in added),
-        "run_new_guide_prices": sum(row.get("guide_price") is not None for row in added),
-        "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
+        "run_new_address_records": after_counts["address"] - before_counts["address"],
+        "run_new_partial_lots": after_counts["partial"] - before_counts["partial"],
+        "run_new_guide_prices": after_counts["guide"] - before_counts["guide"],
+        "run_new_sale_prices": after_counts["sale"] - before_counts["sale"],
+        "run_superseded_parser_rows": len(superseded),
+        "superseded_appearance_ids": sorted({
+            row["appearance_id"] for row in superseded
+        }),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "completed_source_urls": sorted(completed), "index_evidence": index_evidence,
@@ -423,4 +510,7 @@ def harvest(limit: int = 20) -> None:
 
 
 if __name__ == "__main__":
-    harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 20)
+    if "--reparse-saved" in sys.argv:
+        harvest(20, saved_only=True)
+    else:
+        harvest(int(sys.argv[1]) if len(sys.argv) > 1 else 20)

@@ -1,5 +1,8 @@
+import gzip
+from pathlib import Path
+
 from scripts.harvest_cooper_tanner_results import (
-    build_rows, discover_result_pdfs, parse_exact_date, parse_page_words,
+    build_rows, discover_result_pdfs, extract_pdf, parse_exact_date, parse_page_words,
     seeded_result_pdfs,
 )
 
@@ -41,24 +44,26 @@ def test_parses_exact_heading_date():
 
 def test_coordinate_parser_keeps_columns_separate_and_excludes_promotional_panels():
     source = []
-    # First column: sold panel, then an unsold panel.
+    # First column: sold panel, then an unsold panel.  Outcome and guide
+    # occupy separate horizontal regions on the same row, as in the PDFs.
     for text, y in [
-        ("Sold", 100), ("£110,000", 112), ("3 Fortescue Road", 140),
-        ("Radstock, BA3 3PH", 152), ("Guide Price", 172),
-        ("£70,000 to £90,000", 184),
-        ("Unsold", 230), ("The Baptist Chapel", 258),
-        ("Yarnbrook, BA14 6AG", 270), ("Guide", 290),
-        ("£80,000 to £120,000", 302),
+        ("3 Fortescue Road", 140), ("Radstock, BA3 3PH", 152),
+        ("The Baptist Chapel", 258), ("Yarnbrook, BA14 6AG", 270),
     ]:
         source += words(text, 10, y)
+    source += words("Sold", 10, 172) + words("Guide Price", 100, 172)
+    source += words("£110,000", 10, 184) + words("£70,000 to £90,000", 100, 184)
+    source += words("Unsold", 10, 290) + words("Guide", 100, 290)
+    source += words("£80,000 to £120,000", 100, 302)
     # Second column: a sold-prior result and a Coming Soon promotion without outcome.
     for text, y in [
-        ("Sold Prior", 100), ("Rose Cottage", 140), ("Frome, BA11 1AA", 152),
-        ("Guide Price", 172), ("£200,000 to £240,000", 184),
+        ("Rose Cottage", 140), ("Frome, BA11 1AA", 152),
         ("Coming Soon", 230), ("Future Cottage", 258),
-        ("Guide Price", 290), ("£300,000", 302),
     ]:
         source += words(text, 310, y)
+    source += words("Sold Prior", 310, 172) + words("Guide Price", 460, 172)
+    source += words("£200,000 to £240,000", 460, 184)
+    source += words("Guide Price", 460, 290) + words("£300,000", 460, 302)
 
     cards, counts = parse_page_words(source, 600)
     assert counts == {
@@ -81,3 +86,17 @@ def test_coordinate_parser_keeps_columns_separate_and_excludes_promotional_panel
     assert rows[0]["guide_price"] == 70000
     assert rows[0]["sale_price"] == 110000
     assert rows[1]["status"] == "sold_prior"
+
+
+def test_reparses_all_banked_first_party_pdfs_without_losing_panels():
+    root = Path("data/auction_history/sources/cooper-tanner-results/results")
+    snapshots = sorted(root.glob("*.pdf.gz"))
+    assert len(snapshots) == 12
+    cards = []
+    for snapshot in snapshots:
+        _, extracted, _ = extract_pdf(gzip.decompress(snapshot.read_bytes()))
+        cards.extend(extracted)
+    assert len(cards) == 125
+    assert all(card["address"] for card in cards)
+    assert sum(card["guide_price"] is not None for card in cards) == 125
+    assert sum(card["sale_price"] is not None for card in cards) == 76
