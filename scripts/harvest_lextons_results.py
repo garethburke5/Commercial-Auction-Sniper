@@ -632,6 +632,7 @@ def harvest(workers=6):
         "published_result_cards": 188,
         "non_property_cards_excluded": 1,
         "property_result_rows_captured": len(observed),
+        "lots_captured": len(observed),
         "matched_to_existing_property_pages": len(matches),
         "unmatched_result_rows": len(unmatched),
         "ambiguous_existing_evidence_matches": len(ambiguous),
