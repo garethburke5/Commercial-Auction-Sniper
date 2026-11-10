@@ -6,8 +6,8 @@
   "source_rows_complete": false,
   "denominator_reconciled": false,
   "archive_pagination_complete": false,
-  "lots_captured": 417,
-  "current_archive_rows": 368,
+  "lots_captured": 423,
+  "current_archive_rows": 380,
   "completion_scope": "all rows across every retained first-party online-results page",
   "source_property_ids": [
     "100121",
@@ -307,21 +307,28 @@
     "359803",
     "359885",
     "360005",
+    "360044",
     "360600",
     "360653",
+    "360695",
     "360784",
     "360786",
     "361061",
     "361448",
+    "361465",
     "361485",
+    "362073",
+    "362356",
     "363457",
     "363780",
     "363828",
     "364293",
+    "364375",
     "364996",
     "366952",
     "366953",
     "366997",
+    "368091",
     "368882",
     "368902",
     "369178",
@@ -344,13 +351,18 @@
     "371587",
     "371607",
     "371661",
+    "371684",
     "371961",
     "372100",
     "372108",
     "372195",
+    "372243",
     "373083",
     "373336",
     "373350",
+    "374010",
+    "374789",
+    "374790",
     "81487",
     "81495",
     "89221",
@@ -382,7 +394,7 @@
   "reconciliation_note": {
     "kind": "original_event_denominator_unavailable",
     "retained_scope": "individual online lot endings",
-    "retained_rows": 417
+    "retained_rows": 423
   },
   "errors": [
     {
@@ -391,5 +403,5 @@
       "error": "ValueError: source identity drift for lot 366952"
     }
   ],
-  "checked_at": "2026-11-10T10:32:38.209825+00:00"
+  "checked_at": "2026-11-10T18:29:08.364357+00:00"
 }

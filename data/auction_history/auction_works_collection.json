@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-10T10:24:08.402120+00:00",
+  "checked_at": "2026-11-10T18:22:14.851118+00:00",
   "auctioneer": "Auction Works",
   "parser_version": 8,
   "source_url": "https://www.auctionworks.co.uk/search",
   "platform_event_id": null,
-  "archive_sha256": "db0353b96e2dda6b3a898082044142ca1f2373937863885aeb2c5c0bb3f2a1d4",
+  "archive_sha256": "9bc63f03aa67a24f0341e7fb26e49b4e952a4103b5106415fb85bddfb3253451",
   "archive_page_count": 13,
   "archive_page_rows": [
     50,
@@ -19,7 +19,7 @@
     50,
     50,
     50,
-    48
+    49
   ],
   "archive_page_visible_cards": [
     50,
@@ -34,32 +34,32 @@
     50,
     50,
     50,
-    48
+    49
   ],
-  "visible_source_rows": 648,
+  "visible_source_rows": 649,
   "expected_visible_cards": null,
   "event_advertised_lots": null,
   "event_advertised_lot_discrepancy": null,
   "past_results_index_lots": null,
   "past_results_index_discrepancy": null,
-  "published_result_count": 648,
-  "distinct_source_identities": 648,
+  "published_result_count": 649,
+  "distinct_source_identities": 649,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 651,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 652,
+  "run_new_appearances": 1,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 1,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -67,10 +67,10 @@
   "new_source_years": [],
   "date_range": [
     "2020-10-07",
-    "2026-11-24"
+    "2026-12-17"
   ],
   "by_status": {
-    "unsold": 93,
+    "unsold": 94,
     "sold": 530,
     "unknown": 18,
     "withdrawn": 9,
@@ -78,15 +78,15 @@
   },
   "by_sector": {
     "unknown": 393,
-    "residential": 241,
+    "residential": 242,
     "land": 10,
     "commercial": 6,
     "mixed-use": 1
   },
   "by_attributed_auctioneer": {
-    "Auction Works": 651
+    "Auction Works": 652
   },
-  "detail_pages_captured": 648,
+  "detail_pages_captured": 649,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
