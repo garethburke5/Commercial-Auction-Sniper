@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-09T18:08:22.473333+00:00",
+  "checked_at": "2026-11-10T02:07:30.263117+00:00",
   "source_url": "https://www.philliparnoldauctions.co.uk/previous-results",
   "result_pages_discovered": 121,
   "result_pages_captured": 121,
@@ -18,37 +18,12 @@
   },
   "archive_evidence": {
     "source_url": "https://www.philliparnoldauctions.co.uk/previous-results",
-    "retrieved_at": "2026-11-09T18:04:44.692887+00:00",
-    "sha256": "dd1fe5667b1dd68174bc745a2077185a6b690fa5eb0577ba9ba9cb54a5f4f194",
-    "snapshot_path": "data/auction_history/sources/phillip-arnold/previous-results-dd1fe5667b1dd681.json.gz",
+    "retrieved_at": "2026-11-10T02:03:44.906129+00:00",
+    "sha256": "73e36fc94bdbdbd2a17ec64688fe2e5d73ec14ba3e6e7cdc9ad8e8cc4be2e7d5",
+    "snapshot_path": "data/auction_history/sources/phillip-arnold/previous-results-73e36fc94bdbdbd2.json.gz",
     "basis": "first-party previous-results index"
   },
   "auctions": {
-    "-32": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-32",
-      "auction_date": "2007-09-05",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 25,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 31,
-      "source_row_denominator": 31,
-      "lots_captured": 31,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-32",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 25,
-        "visible_source_rows": 31,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:04:46.009247+00:00"
-    },
     "-33": {
       "auctioneer": "Phillip Arnold Auctions",
       "source_auction_id": "phillip-arnold:-33",
@@ -72,7 +47,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:46.027305+00:00"
+      "checked_at": "2026-11-10T02:03:46.208987+00:00"
+    },
+    "-32": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-32",
+      "auction_date": "2007-09-05",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 25,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 31,
+      "source_row_denominator": 31,
+      "lots_captured": 31,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-32",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 25,
+        "visible_source_rows": 31,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:03:46.248838+00:00"
     },
     "-30": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -97,7 +97,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:47.160263+00:00"
+      "checked_at": "2026-11-10T02:03:47.388178+00:00"
     },
     "-31": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -122,32 +122,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:47.243104+00:00"
-    },
-    "-29": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-29",
-      "auction_date": "2008-04-16",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 19,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 24,
-      "source_row_denominator": 24,
-      "lots_captured": 24,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-29",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 19,
-        "visible_source_rows": 24,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:04:48.347382+00:00"
+      "checked_at": "2026-11-10T02:03:47.524665+00:00"
     },
     "-28": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -172,32 +147,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:48.435969+00:00"
+      "checked_at": "2026-11-10T02:03:48.061462+00:00"
     },
-    "-26": {
+    "-29": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-26",
-      "auction_date": "2008-10-22",
+      "source_auction_id": "phillip-arnold:-29",
+      "auction_date": "2008-04-16",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 24,
+      "published_lots_offered": 19,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 31,
-      "source_row_denominator": 31,
-      "lots_captured": 31,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-26",
+      "visible_source_rows": 24,
+      "source_row_denominator": 24,
+      "lots_captured": 24,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-29",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 24,
-        "visible_source_rows": 31,
+        "published_lots_offered": 19,
+        "visible_source_rows": 24,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:49.065200+00:00"
+      "checked_at": "2026-11-10T02:03:48.564197+00:00"
     },
     "-27": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -222,7 +197,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:49.871179+00:00"
+      "checked_at": "2026-11-10T02:03:49.238234+00:00"
+    },
+    "-26": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-26",
+      "auction_date": "2008-10-22",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 24,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 31,
+      "source_row_denominator": 31,
+      "lots_captured": 31,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-26",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 24,
+        "visible_source_rows": 31,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:03:50.024329+00:00"
     },
     "-25": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -247,7 +247,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:50.150285+00:00"
+      "checked_at": "2026-11-10T02:03:50.379658+00:00"
     },
     "-24": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -272,7 +272,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:50.989754+00:00"
+      "checked_at": "2026-11-10T02:03:51.149584+00:00"
     },
     "-23": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -297,7 +297,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:51.230604+00:00"
+      "checked_at": "2026-11-10T02:03:51.503166+00:00"
     },
     "-22": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -322,7 +322,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:51.516659+00:00"
+      "checked_at": "2026-11-10T02:03:52.482500+00:00"
     },
     "-21": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -347,7 +347,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:52.352797+00:00"
+      "checked_at": "2026-11-10T02:03:52.632877+00:00"
     },
     "-20": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -372,7 +372,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:52.570968+00:00"
+      "checked_at": "2026-11-10T02:03:53.141581+00:00"
     },
     "-19": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -397,7 +397,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:53.340909+00:00"
+      "checked_at": "2026-11-10T02:03:53.757593+00:00"
     },
     "-18": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -422,32 +422,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:53.659403+00:00"
-    },
-    "-17": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-17",
-      "auction_date": "2010-07-20",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 8,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 19,
-      "source_row_denominator": 19,
-      "lots_captured": 19,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-17",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 8,
-        "visible_source_rows": 19,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:04:54.388704+00:00"
+      "checked_at": "2026-11-10T02:03:53.786296+00:00"
     },
     "-16": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -472,7 +447,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:54.742456+00:00"
+      "checked_at": "2026-11-10T02:03:54.889962+00:00"
+    },
+    "-17": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-17",
+      "auction_date": "2010-07-20",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 8,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 19,
+      "source_row_denominator": 19,
+      "lots_captured": 19,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-17",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 8,
+        "visible_source_rows": 19,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:03:54.981512+00:00"
     },
     "-15": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -497,32 +497,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:55.374228+00:00"
-    },
-    "-13": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-13",
-      "auction_date": "2011-05-10",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 49,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 53,
-      "source_row_denominator": 53,
-      "lots_captured": 53,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-13",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 49,
-        "visible_source_rows": 53,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:04:56.046246+00:00"
+      "checked_at": "2026-11-10T02:03:56.014403+00:00"
     },
     "-14": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -547,7 +522,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:56.175277+00:00"
+      "checked_at": "2026-11-10T02:03:56.053732+00:00"
+    },
+    "-13": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-13",
+      "auction_date": "2011-05-10",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 49,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 53,
+      "source_row_denominator": 53,
+      "lots_captured": 53,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-13",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 49,
+        "visible_source_rows": 53,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:03:57.726568+00:00"
     },
     "-12": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -572,32 +572,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:57.254839+00:00"
-    },
-    "-11": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-11",
-      "auction_date": "2011-07-19",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 17,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 25,
-      "source_row_denominator": 25,
-      "lots_captured": 25,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-11",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 17,
-        "visible_source_rows": 25,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:04:57.583998+00:00"
+      "checked_at": "2026-11-10T02:03:57.805486+00:00"
     },
     "-10": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -622,57 +597,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:58.514732+00:00"
+      "checked_at": "2026-11-10T02:03:58.764134+00:00"
     },
-    "-9": {
+    "-11": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-9",
-      "auction_date": "2011-11-22",
+      "source_auction_id": "phillip-arnold:-11",
+      "auction_date": "2011-07-19",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 14,
+      "published_lots_offered": 17,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 20,
-      "source_row_denominator": 20,
-      "lots_captured": 20,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-9",
+      "visible_source_rows": 25,
+      "source_row_denominator": 25,
+      "lots_captured": 25,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-11",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 14,
-        "visible_source_rows": 20,
+        "published_lots_offered": 17,
+        "visible_source_rows": 25,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:58.588165+00:00"
-    },
-    "-7": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-7",
-      "auction_date": "2012-05-08",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 13,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 14,
-      "source_row_denominator": 14,
-      "lots_captured": 14,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-7",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 13,
-        "visible_source_rows": 14,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:04:59.067308+00:00"
+      "checked_at": "2026-11-10T02:03:58.812700+00:00"
     },
     "-8": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -697,32 +647,57 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:04:59.675747+00:00"
+      "checked_at": "2026-11-10T02:03:59.297497+00:00"
     },
-    "-5": {
+    "-9": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-5",
-      "auction_date": "2012-09-19",
+      "source_auction_id": "phillip-arnold:-9",
+      "auction_date": "2011-11-22",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 20,
+      "published_lots_offered": 14,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 22,
-      "source_row_denominator": 22,
-      "lots_captured": 22,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-5",
+      "visible_source_rows": 20,
+      "source_row_denominator": 20,
+      "lots_captured": 20,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-9",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 20,
-        "visible_source_rows": 22,
+        "published_lots_offered": 14,
+        "visible_source_rows": 20,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:00.146267+00:00"
+      "checked_at": "2026-11-10T02:03:59.969764+00:00"
+    },
+    "-7": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:-7",
+      "auction_date": "2012-05-08",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 13,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 14,
+      "source_row_denominator": 14,
+      "lots_captured": 14,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-7",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 13,
+        "visible_source_rows": 14,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:00.569416+00:00"
     },
     "-6": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -747,32 +722,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:00.275554+00:00"
+      "checked_at": "2026-11-10T02:04:01.223957+00:00"
     },
-    "-3": {
+    "-5": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:-3",
-      "auction_date": "2013-02-20",
+      "source_auction_id": "phillip-arnold:-5",
+      "auction_date": "2012-09-19",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 14,
+      "published_lots_offered": 20,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 21,
-      "source_row_denominator": 21,
-      "lots_captured": 21,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-3",
+      "visible_source_rows": 22,
+      "source_row_denominator": 22,
+      "lots_captured": 22,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-5",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 14,
-        "visible_source_rows": 21,
+        "published_lots_offered": 20,
+        "visible_source_rows": 22,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:01.359281+00:00"
+      "checked_at": "2026-11-10T02:04:01.693321+00:00"
     },
     "-4": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -797,32 +772,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:01.413762+00:00"
+      "checked_at": "2026-11-10T02:04:01.972115+00:00"
     },
-    "32": {
+    "-3": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:32",
-      "auction_date": "2013-07-03",
+      "source_auction_id": "phillip-arnold:-3",
+      "auction_date": "2013-02-20",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
       "published_lots_offered": 14,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 32,
-      "source_row_denominator": 32,
-      "lots_captured": 32,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/32",
+      "visible_source_rows": 21,
+      "source_row_denominator": 21,
+      "lots_captured": 21,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/-3",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
         "published_lots_offered": 14,
-        "visible_source_rows": 32,
+        "visible_source_rows": 21,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:02.049510+00:00"
+      "checked_at": "2026-11-10T02:04:03.033525+00:00"
     },
     "-2": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -847,32 +822,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:02.522930+00:00"
+      "checked_at": "2026-11-10T02:04:03.108183+00:00"
     },
-    "34": {
+    "32": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:34",
-      "auction_date": "2013-11-20",
+      "source_auction_id": "phillip-arnold:32",
+      "auction_date": "2013-07-03",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 12,
+      "published_lots_offered": 14,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 17,
-      "source_row_denominator": 17,
-      "lots_captured": 17,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/34",
+      "visible_source_rows": 32,
+      "source_row_denominator": 32,
+      "lots_captured": 32,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/32",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 12,
-        "visible_source_rows": 17,
+        "published_lots_offered": 14,
+        "visible_source_rows": 32,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:03.129472+00:00"
+      "checked_at": "2026-11-10T02:04:04.208458+00:00"
     },
     "33": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -897,7 +872,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:03.310963+00:00"
+      "checked_at": "2026-11-10T02:04:04.240626+00:00"
+    },
+    "34": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:34",
+      "auction_date": "2013-11-20",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 12,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 17,
+      "source_row_denominator": 17,
+      "lots_captured": 17,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/34",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 12,
+        "visible_source_rows": 17,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:05.335240+00:00"
     },
     "35": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -922,7 +922,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:04.409094+00:00"
+      "checked_at": "2026-11-10T02:04:05.352724+00:00"
     },
     "36": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -947,32 +947,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:04.479140+00:00"
-    },
-    "38": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:38",
-      "auction_date": "2014-06-03",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 15,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 23,
-      "source_row_denominator": 23,
-      "lots_captured": 23,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/38",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 15,
-        "visible_source_rows": 23,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:05.628636+00:00"
+      "checked_at": "2026-11-10T02:04:06.552768+00:00"
     },
     "37": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -997,32 +972,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:05.659721+00:00"
-    },
-    "40": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:40",
-      "auction_date": "2014-09-23",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 21,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 33,
-      "source_row_denominator": 33,
-      "lots_captured": 33,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/40",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 21,
-        "visible_source_rows": 33,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:06.746654+00:00"
+      "checked_at": "2026-11-10T02:04:06.616346+00:00"
     },
     "39": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1047,7 +997,57 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:06.775021+00:00"
+      "checked_at": "2026-11-10T02:04:07.153752+00:00"
+    },
+    "38": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:38",
+      "auction_date": "2014-06-03",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 15,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 23,
+      "source_row_denominator": 23,
+      "lots_captured": 23,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/38",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 15,
+        "visible_source_rows": 23,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:07.757567+00:00"
+    },
+    "40": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:40",
+      "auction_date": "2014-09-23",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 21,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 33,
+      "source_row_denominator": 33,
+      "lots_captured": 33,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/40",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 21,
+        "visible_source_rows": 33,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:08.176249+00:00"
     },
     "42": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1072,7 +1072,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:07.884022+00:00"
+      "checked_at": "2026-11-10T02:04:08.839800+00:00"
     },
     "41": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1097,32 +1097,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:08.146096+00:00"
-    },
-    "43": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:43",
-      "auction_date": "2015-02-19",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 10,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 12,
-      "source_row_denominator": 12,
-      "lots_captured": 12,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/43",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 10,
-        "visible_source_rows": 12,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:08.875422+00:00"
+      "checked_at": "2026-11-10T02:04:09.175226+00:00"
     },
     "44": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1147,7 +1122,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:09.268476+00:00"
+      "checked_at": "2026-11-10T02:04:09.935632+00:00"
+    },
+    "43": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:43",
+      "auction_date": "2015-02-19",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 10,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 12,
+      "source_row_denominator": 12,
+      "lots_captured": 12,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/43",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 10,
+        "visible_source_rows": 12,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:10.135298+00:00"
     },
     "45": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1172,7 +1172,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:09.858080+00:00"
+      "checked_at": "2026-11-10T02:04:10.940985+00:00"
     },
     "46": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1197,32 +1197,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:10.004505+00:00"
-    },
-    "48": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:48",
-      "auction_date": "2015-10-27",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 12,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 13,
-      "source_row_denominator": 13,
-      "lots_captured": 13,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/48",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 12,
-        "visible_source_rows": 13,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:10.974067+00:00"
+      "checked_at": "2026-11-10T02:04:11.394442+00:00"
     },
     "47": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1247,7 +1222,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:11.669719+00:00"
+      "checked_at": "2026-11-10T02:04:12.245082+00:00"
+    },
+    "48": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:48",
+      "auction_date": "2015-10-27",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 12,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 13,
+      "source_row_denominator": 13,
+      "lots_captured": 13,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/48",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 12,
+        "visible_source_rows": 13,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:12.633769+00:00"
     },
     "49": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1272,32 +1272,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:11.945931+00:00"
-    },
-    "51": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:51",
-      "auction_date": "2016-04-13",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 16,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 22,
-      "source_row_denominator": 22,
-      "lots_captured": 22,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/51",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 16,
-        "visible_source_rows": 22,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:12.719477+00:00"
+      "checked_at": "2026-11-10T02:04:13.515061+00:00"
     },
     "50": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1322,7 +1297,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:13.055732+00:00"
+      "checked_at": "2026-11-10T02:04:13.943729+00:00"
+    },
+    "51": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:51",
+      "auction_date": "2016-04-13",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 16,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 22,
+      "source_row_denominator": 22,
+      "lots_captured": 22,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/51",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 16,
+        "visible_source_rows": 22,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:14.493225+00:00"
     },
     "52": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1347,32 +1347,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:13.689712+00:00"
-    },
-    "53": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:53",
-      "auction_date": "2016-07-20",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 10,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 16,
-      "source_row_denominator": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/53",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 10,
-        "visible_source_rows": 16,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:14.052831+00:00"
+      "checked_at": "2026-11-10T02:04:14.901275+00:00"
     },
     "54": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1397,7 +1372,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:14.826756+00:00"
+      "checked_at": "2026-11-10T02:04:15.435549+00:00"
+    },
+    "53": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:53",
+      "auction_date": "2016-07-20",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 10,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 16,
+      "source_row_denominator": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/53",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 10,
+        "visible_source_rows": 16,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:15.805903+00:00"
     },
     "55": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1422,7 +1422,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:15.284554+00:00"
+      "checked_at": "2026-11-10T02:04:16.550571+00:00"
     },
     "56": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1447,7 +1447,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:15.797796+00:00"
+      "checked_at": "2026-11-10T02:04:17.071061+00:00"
     },
     "57": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1472,7 +1472,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:16.407002+00:00"
+      "checked_at": "2026-11-10T02:04:17.613825+00:00"
     },
     "58": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1497,7 +1497,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:16.545652+00:00"
+      "checked_at": "2026-11-10T02:04:17.910699+00:00"
     },
     "59": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1522,32 +1522,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:17.033106+00:00"
-    },
-    "61": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:61",
-      "auction_date": "2017-09-15",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 17,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 24,
-      "source_row_denominator": 24,
-      "lots_captured": 24,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/61",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 17,
-        "visible_source_rows": 24,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:17.517894+00:00"
+      "checked_at": "2026-11-10T02:04:18.401461+00:00"
     },
     "60": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1572,7 +1547,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:17.636629+00:00"
+      "checked_at": "2026-11-10T02:04:19.357320+00:00"
+    },
+    "61": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:61",
+      "auction_date": "2017-09-15",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 17,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 24,
+      "source_row_denominator": 24,
+      "lots_captured": 24,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/61",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 17,
+        "visible_source_rows": 24,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:19.777312+00:00"
     },
     "62": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1597,7 +1597,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:18.182109+00:00"
+      "checked_at": "2026-11-10T02:04:20.493732+00:00"
     },
     "63": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1622,7 +1622,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:18.208526+00:00"
+      "checked_at": "2026-11-10T02:04:21.026169+00:00"
     },
     "64": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1647,7 +1647,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:19.428866+00:00"
+      "checked_at": "2026-11-10T02:04:21.746950+00:00"
     },
     "65": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1672,7 +1672,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:19.592837+00:00"
+      "checked_at": "2026-11-10T02:04:22.447061+00:00"
     },
     "66": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1697,7 +1697,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:20.448020+00:00"
+      "checked_at": "2026-11-10T02:04:23.020405+00:00"
     },
     "67": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1722,7 +1722,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:20.524465+00:00"
+      "checked_at": "2026-11-10T02:04:23.541301+00:00"
     },
     "68": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1747,7 +1747,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:21.055611+00:00"
+      "checked_at": "2026-11-10T02:04:24.297216+00:00"
     },
     "69": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1772,7 +1772,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:21.677300+00:00"
+      "checked_at": "2026-11-10T02:04:24.840457+00:00"
     },
     "70": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1797,7 +1797,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:22.143468+00:00"
+      "checked_at": "2026-11-10T02:04:25.045810+00:00"
     },
     "71": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1822,7 +1822,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:22.720814+00:00"
+      "checked_at": "2026-11-10T02:04:25.666129+00:00"
     },
     "72": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1847,7 +1847,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:23.244164+00:00"
+      "checked_at": "2026-11-10T02:04:25.950207+00:00"
     },
     "73": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1872,32 +1872,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:23.736233+00:00"
-    },
-    "76": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:76",
-      "auction_date": "2019-11-01",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 15,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 29,
-      "source_row_denominator": 29,
-      "lots_captured": 29,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/76",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 15,
-        "visible_source_rows": 29,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:24.375070+00:00"
+      "checked_at": "2026-11-10T02:04:26.636312+00:00"
     },
     "74": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1922,32 +1897,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:24.396964+00:00"
+      "checked_at": "2026-11-10T02:04:27.213256+00:00"
     },
-    "77": {
+    "76": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:77",
-      "auction_date": "2019-12-06",
+      "source_auction_id": "phillip-arnold:76",
+      "auction_date": "2019-11-01",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 10,
+      "published_lots_offered": 15,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 15,
-      "source_row_denominator": 15,
-      "lots_captured": 15,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/77",
+      "visible_source_rows": 29,
+      "source_row_denominator": 29,
+      "lots_captured": 29,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/76",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 10,
-        "visible_source_rows": 15,
+        "published_lots_offered": 15,
+        "visible_source_rows": 29,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:25.345635+00:00"
+      "checked_at": "2026-11-10T02:04:27.253407+00:00"
     },
     "78": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -1972,32 +1947,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:25.518271+00:00"
+      "checked_at": "2026-11-10T02:04:28.376530+00:00"
     },
-    "79": {
+    "77": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:79",
-      "auction_date": "2020-04-03",
+      "source_auction_id": "phillip-arnold:77",
+      "auction_date": "2019-12-06",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 7,
+      "published_lots_offered": 10,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 23,
-      "source_row_denominator": 23,
-      "lots_captured": 23,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/79",
+      "visible_source_rows": 15,
+      "source_row_denominator": 15,
+      "lots_captured": 15,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/77",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 7,
-        "visible_source_rows": 23,
+        "published_lots_offered": 10,
+        "visible_source_rows": 15,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:26.481539+00:00"
+      "checked_at": "2026-11-10T02:04:28.471833+00:00"
     },
     "80": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2022,7 +1997,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:26.610173+00:00"
+      "checked_at": "2026-11-10T02:04:29.588265+00:00"
+    },
+    "79": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:79",
+      "auction_date": "2020-04-03",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 7,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 23,
+      "source_row_denominator": 23,
+      "lots_captured": 23,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/79",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 7,
+        "visible_source_rows": 23,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:29.736610+00:00"
     },
     "81": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2047,7 +2047,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:27.527439+00:00"
+      "checked_at": "2026-11-10T02:04:30.609572+00:00"
     },
     "82": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2072,7 +2072,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:28.156173+00:00"
+      "checked_at": "2026-11-10T02:04:31.307403+00:00"
     },
     "83": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2097,7 +2097,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:28.769107+00:00"
+      "checked_at": "2026-11-10T02:04:31.716317+00:00"
     },
     "84": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2122,7 +2122,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:29.546593+00:00"
+      "checked_at": "2026-11-10T02:04:32.761810+00:00"
     },
     "85": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2147,7 +2147,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:30.011002+00:00"
+      "checked_at": "2026-11-10T02:04:32.977110+00:00"
     },
     "86": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2172,7 +2172,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:30.947759+00:00"
+      "checked_at": "2026-11-10T02:04:33.667187+00:00"
     },
     "88": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2197,32 +2197,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:40.080136+00:00"
-    },
-    "89": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:89",
-      "auction_date": "2021-10-27",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 10,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 15,
-      "source_row_denominator": 15,
-      "lots_captured": 15,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/89",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 10,
-        "visible_source_rows": 15,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:05:49.732038+00:00"
+      "checked_at": "2026-11-10T02:04:40.581747+00:00"
     },
     "87": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2247,32 +2222,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:50.695743+00:00"
+      "checked_at": "2026-11-10T02:04:46.094451+00:00"
     },
-    "91": {
+    "89": {
       "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:91",
-      "auction_date": "2022-02-17",
+      "source_auction_id": "phillip-arnold:89",
+      "auction_date": "2021-10-27",
       "catalogue_complete": true,
       "source_rows_complete": true,
       "pagination_reconciled": true,
-      "published_lots_offered": 7,
+      "published_lots_offered": 10,
       "published_lots_offered_matches_visible_rows": false,
       "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 10,
-      "source_row_denominator": 10,
-      "lots_captured": 10,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/91",
+      "visible_source_rows": 15,
+      "source_row_denominator": 15,
+      "lots_captured": 15,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/89",
       "completion_scope": "all visible rows in the first-party unpaginated result table",
       "denominator_reconciled": true,
       "reconciliation_note": {
         "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 7,
-        "visible_source_rows": 10,
+        "published_lots_offered": 10,
+        "visible_source_rows": 15,
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:57.776098+00:00"
+      "checked_at": "2026-11-10T02:04:48.599343+00:00"
     },
     "90": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2297,7 +2272,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:05:58.185364+00:00"
+      "checked_at": "2026-11-10T02:04:54.775265+00:00"
+    },
+    "91": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:91",
+      "auction_date": "2022-02-17",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 7,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 10,
+      "source_row_denominator": 10,
+      "lots_captured": 10,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/91",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 7,
+        "visible_source_rows": 10,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:04:55.914202+00:00"
     },
     "93": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2322,32 +2322,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:01.979251+00:00"
-    },
-    "94": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:94",
-      "auction_date": "2022-07-14",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 11,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 13,
-      "source_row_denominator": 13,
-      "lots_captured": 13,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/94",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 11,
-        "visible_source_rows": 13,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:06:08.363073+00:00"
+      "checked_at": "2026-11-10T02:05:00.384828+00:00"
     },
     "92": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2372,7 +2347,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:08.480053+00:00"
+      "checked_at": "2026-11-10T02:05:07.401748+00:00"
+    },
+    "94": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:94",
+      "auction_date": "2022-07-14",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 11,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 13,
+      "source_row_denominator": 13,
+      "lots_captured": 13,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/94",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 11,
+        "visible_source_rows": 13,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:05:10.594956+00:00"
     },
     "96": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2397,7 +2397,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:18.662904+00:00"
+      "checked_at": "2026-11-10T02:05:18.987447+00:00"
     },
     "95": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2422,7 +2422,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:23.576072+00:00"
+      "checked_at": "2026-11-10T02:05:21.357387+00:00"
     },
     "97": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2447,7 +2447,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:27.165245+00:00"
+      "checked_at": "2026-11-10T02:05:27.364693+00:00"
     },
     "98": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2472,7 +2472,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:30.564861+00:00"
+      "checked_at": "2026-11-10T02:05:27.736395+00:00"
     },
     "100": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2497,7 +2497,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:40.160960+00:00"
+      "checked_at": "2026-11-10T02:05:36.964756+00:00"
     },
     "99": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2522,32 +2522,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:40.727147+00:00"
-    },
-    "102": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:102",
-      "auction_date": "2023-09-14",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 7,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 11,
-      "source_row_denominator": 11,
-      "lots_captured": 11,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/102",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 7,
-        "visible_source_rows": 11,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:06:48.104396+00:00"
+      "checked_at": "2026-11-10T02:05:39.509946+00:00"
     },
     "101": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2572,7 +2547,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:06:50.159367+00:00"
+      "checked_at": "2026-11-10T02:05:44.460637+00:00"
+    },
+    "102": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:102",
+      "auction_date": "2023-09-14",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 7,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 11,
+      "source_row_denominator": 11,
+      "lots_captured": 11,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/102",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 7,
+        "visible_source_rows": 11,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:05:46.266929+00:00"
     },
     "103": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2597,7 +2597,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:00.101101+00:00"
+      "checked_at": "2026-11-10T02:05:54.882239+00:00"
     },
     "104": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2622,7 +2622,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:04.285649+00:00"
+      "checked_at": "2026-11-10T02:05:58.134371+00:00"
     },
     "105": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2647,7 +2647,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:12.506658+00:00"
+      "checked_at": "2026-11-10T02:06:08.035820+00:00"
     },
     "106": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2672,7 +2672,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:16.238732+00:00"
+      "checked_at": "2026-11-10T02:06:10.665584+00:00"
     },
     "108": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2697,7 +2697,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:21.172989+00:00"
+      "checked_at": "2026-11-10T02:06:16.745551+00:00"
     },
     "107": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2722,7 +2722,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:24.028177+00:00"
+      "checked_at": "2026-11-10T02:06:20.904105+00:00"
     },
     "109": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2747,7 +2747,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:28.722349+00:00"
+      "checked_at": "2026-11-10T02:06:24.493948+00:00"
     },
     "110": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2772,7 +2772,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:29.431341+00:00"
+      "checked_at": "2026-11-10T02:06:26.258791+00:00"
     },
     "112": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2797,7 +2797,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:38.352923+00:00"
+      "checked_at": "2026-11-10T02:06:36.408321+00:00"
     },
     "111": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2822,32 +2822,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:40.106877+00:00"
-    },
-    "113": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:113",
-      "auction_date": "2025-06-12",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 11,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 16,
-      "source_row_denominator": 16,
-      "lots_captured": 16,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/113",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 11,
-        "visible_source_rows": 16,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:07:49.916581+00:00"
+      "checked_at": "2026-11-10T02:06:36.447994+00:00"
     },
     "114": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2872,7 +2847,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:51.017300+00:00"
+      "checked_at": "2026-11-10T02:06:48.050914+00:00"
+    },
+    "113": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:113",
+      "auction_date": "2025-06-12",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 11,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 16,
+      "source_row_denominator": 16,
+      "lots_captured": 16,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/113",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 11,
+        "visible_source_rows": 16,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:06:49.656784+00:00"
     },
     "115": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2897,7 +2897,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:55.635553+00:00"
+      "checked_at": "2026-11-10T02:06:54.377294+00:00"
     },
     "116": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2922,32 +2922,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:07:56.758988+00:00"
-    },
-    "117": {
-      "auctioneer": "Phillip Arnold Auctions",
-      "source_auction_id": "phillip-arnold:117",
-      "auction_date": "2026-02-26",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "pagination_reconciled": true,
-      "published_lots_offered": 6,
-      "published_lots_offered_matches_visible_rows": false,
-      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
-      "visible_source_rows": 8,
-      "source_row_denominator": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/117",
-      "completion_scope": "all visible rows in the first-party unpaginated result table",
-      "denominator_reconciled": true,
-      "reconciliation_note": {
-        "kind": "published_outcome_count_not_source_row_denominator",
-        "published_lots_offered": 6,
-        "visible_source_rows": 8,
-        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
-      },
-      "errors": [],
-      "checked_at": "2026-11-09T18:08:01.362884+00:00"
+      "checked_at": "2026-11-10T02:06:55.698099+00:00"
     },
     "118": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2972,7 +2947,32 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:08:04.137119+00:00"
+      "checked_at": "2026-11-10T02:07:01.102904+00:00"
+    },
+    "117": {
+      "auctioneer": "Phillip Arnold Auctions",
+      "source_auction_id": "phillip-arnold:117",
+      "auction_date": "2026-02-26",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "pagination_reconciled": true,
+      "published_lots_offered": 6,
+      "published_lots_offered_matches_visible_rows": false,
+      "published_lots_offered_semantics": "first-party auction outcome statistic; not the retained result-table row denominator",
+      "visible_source_rows": 8,
+      "source_row_denominator": 8,
+      "lots_captured": 8,
+      "source_url": "https://www.philliparnoldauctions.co.uk/auction-results/117",
+      "completion_scope": "all visible rows in the first-party unpaginated result table",
+      "denominator_reconciled": true,
+      "reconciliation_note": {
+        "kind": "published_outcome_count_not_source_row_denominator",
+        "published_lots_offered": 6,
+        "visible_source_rows": 8,
+        "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
+      },
+      "errors": [],
+      "checked_at": "2026-11-10T02:07:01.129945+00:00"
     },
     "119": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -2997,7 +2997,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:08:15.432603+00:00"
+      "checked_at": "2026-11-10T02:07:14.212892+00:00"
     },
     "120": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -3022,7 +3022,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:08:16.261763+00:00"
+      "checked_at": "2026-11-10T02:07:15.320399+00:00"
     },
     "121": {
       "auctioneer": "Phillip Arnold Auctions",
@@ -3047,7 +3047,7 @@
         "note": "all unique source-table rows are retained; the separate Lots Offered statistic may exclude withdrawn, reoffered, sold-prior or subsequently unavailable rows"
       },
       "errors": [],
-      "checked_at": "2026-11-09T18:08:22.328698+00:00"
+      "checked_at": "2026-11-10T02:07:30.080348+00:00"
     }
   },
   "failures": []
