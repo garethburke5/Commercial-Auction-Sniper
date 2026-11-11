@@ -44,3 +44,41 @@ def test_evidenced_operator_and_brand_aliases_share_one_corpus_label():
         'Purplebricks Online Auctions'
     }
     assert {row['retained_appearances'] for row in result['directory_entries']} == {2750}
+
+
+def test_kivells_directory_trading_name_maps_to_retained_corpus_label():
+    progress = {
+        'by_auctioneer': {'Kivells': 74},
+        'twenty_year_coverage': {
+            'by_auctioneer_and_year': [
+                {
+                    'auctioneer': 'Kivells',
+                    'year': 2025,
+                    'with_guide_price': 74,
+                    'with_sale_price': 53,
+                }
+            ]
+        },
+    }
+    registry = {
+        'sources': [
+            {
+                'brand': 'Kivells Auctions',
+                'source': 'Kivells',
+                'relationship_evidence': 'https://www.kivells.com/property-auctions',
+            }
+        ]
+    }
+    result = build(
+        progress,
+        [{'name': 'Kivells Auctions'}],
+        registry,
+        {},
+        [],
+    )
+    row = result['directory_entries'][0]
+    assert result['directory_entries_not_linked'] == 0
+    assert row['matched_corpus_label'] == 'Kivells'
+    assert row['retained_appearances'] == 74
+    assert row['years_with_retained_evidence'] == [2025]
+    assert row['match_basis'] == 'existing evidenced source registry'
