@@ -301,6 +301,19 @@ def test_complete_ocr_state_is_refreshed_when_ocr_parser_version_changes():
     ) is True
 
 
+def test_complete_cross_publication_catalogue_state_is_not_overwritten_by_result_retry():
+    rows = [{"appearance_id": f"catalogue-{number}", "catalogue_only": True}
+            for number in range(1, 51)]
+    state = {
+        "catalogue_complete": True,
+        "source_rows_complete": False,
+        "combined_publications_complete": True,
+        "denominator_reconciled": True,
+        "lots_captured": 50,
+    }
+    assert result_state_reusable(state, rows) is True
+
+
 def test_bounded_ocr_selects_largest_strict_candidate(monkeypatch):
     texts = {
         4: "Auction : 25 February 2014 Results Sheet\nno table heading",

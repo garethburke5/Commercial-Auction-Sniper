@@ -9,6 +9,9 @@ import re
 import sys
 import subprocess
 import tempfile
+from concurrent.futures import ThreadPoolExecutor
+from collections import Counter
+from datetime import date
 from io import BytesIO
 from pathlib import Path
 from urllib.parse import urljoin
@@ -24,10 +27,24 @@ from scripts.harvest_cottons_results import ARCHIVE, get, parse_date
 
 ORDER_TYPE_RE = re.compile(
     r"^(?P<address>.+?)\s+(?P<property_type>"
-    r"(?:Established\s+)?(?:Freehold|Leasehold)\s+.+?)\s*$",
+    r"(?:Established\s+)?(?:Freehold(?:/Leasehold)?|Leasehold)\s+.+?)\s*$",
     re.I,
 )
 RESULT_ALIAS_RE = re.compile(r"^LOT\s*(\d+[A-Z])\s*[-:]\s*", re.I)
+NEXT_GROWTH_TARGET = (
+    "Inventory and batch every individual lot in TW Gaze's retained first-party "
+    "11 May 2017 Land & Property Auction brochure at "
+    "https://www.twgaze.co.uk/assets/properties/jupix/brochures/101039006398/"
+    "MED-6398-7930.pdf; reconcile any result evidence only by exact event, lot and "
+    "address, preserve the immutable PDF, and keep national completeness false."
+)
+
+
+def clean_order_property_type(value):
+    """Discard unrelated right-column prose after a completed type phrase."""
+    value = re.split(r"\s{4,}", value, maxsplit=1)[0]
+    value = re.sub(r"\s{2,}\d+\s*$", "", value)
+    return re.sub(r"\s+", " ", value).strip()
 
 
 def extract_layout(raw):
@@ -94,29 +111,60 @@ def parse_order_of_sale(text):
     if start is None:
         raise ValueError("Catalogue order of sale is absent")
     rows = {}
+    pending = {}
     for line in lines[start + 1 :]:
         # The nominal second column begins at character 110, but older PDFs
         # can shift it one or two places. Find the first standalone lot label
         # after the left column's property-type area instead of slicing a
         # digit from labels such as 52.
-        right = re.search(r"(?<!\S)(\d+[A-Z]?)\s+", line[95:], re.I)
+        right = None
+        for candidate in re.finditer(r"(?<!\S)(\d+[A-Z]?)\s+", line[70:], re.I):
+            possible = line[70 + candidate.start():]
+            possible_lot = re.match(r"^\s*(\d+[A-Z]?)\s+(.+?)\s*$", possible, re.I)
+            if possible_lot and ORDER_TYPE_RE.match(possible_lot.group(2)):
+                right = candidate
+                break
         if right:
-            boundary = 95 + right.start()
+            boundary = 70 + right.start()
             segments = (line[:boundary], line[boundary:])
         else:
             segments = (line,)
-        for segment in segments:
+        for column, segment in enumerate(segments):
+            # Text from the catalogue's right-hand notices can share a line
+            # with the left inventory column.  Keep the inventory column's
+            # fixed width even when that prose does not begin with a lot
+            # number, otherwise payment instructions become property type.
             match = re.match(r"^\s*(\d+[A-Z]?)\s+(.+?)\s*$", segment, re.I)
             if not match:
+                continuation_text = segment[:95] if column == 0 else segment
+                continuation = re.match(
+                    r"^\s*((?:Established\s+)?(?:Freehold(?:/Leasehold)?|Leasehold)\s+.+?)\s*$",
+                    continuation_text,
+                    re.I,
+                )
+                if continuation and column in pending:
+                    label, body = pending.pop(column)
+                    detail = ORDER_TYPE_RE.match(f"{body} {continuation.group(1)}")
+                    if detail:
+                        property_type = clean_order_property_type(
+                            detail.group("property_type")
+                        )
+                        address = re.sub(r"\s+", " ", detail.group("address")).strip(" ,")
+                        rows[label] = {
+                            "address": address,
+                            "property_type": property_type,
+                            "tenure": parse_tenure(property_type),
+                        }
                 continue
             label, body = match.groups()
             detail = ORDER_TYPE_RE.match(body)
             if not detail:
+                pending[column] = (label.upper(), body)
                 continue
             label = label.upper()
             if label in rows:
                 raise ValueError("Repeated order-of-sale lot label")
-            property_type = re.sub(r"\s+", " ", detail.group("property_type")).strip()
+            property_type = clean_order_property_type(detail.group("property_type"))
             address = re.sub(r"\s+", " ", detail.group("address")).strip(" ,")
             rows[label] = {
                 "address": address,
@@ -183,7 +231,7 @@ def ocr_catalogue_page(raw, page):
         subprocess.run(
             [
                 "pdftoppm", "-f", str(page), "-l", str(page), "-jpeg", "-gray",
-                "-scale-to", "2400", str(source), str(prefix),
+                "-scale-to", "1800", str(source), str(prefix),
             ],
             check=True,
             timeout=90,
@@ -218,6 +266,53 @@ def targeted_catalogue_guide(raw, label, total):
         if record:
             return record
     return None
+
+
+def batch_catalogue_guides(raw, labels):
+    """Rasterise one catalogue once, then OCR its detail pages concurrently."""
+    labels = set(labels)
+    if not labels:
+        return {}
+    pages = len(PdfReader(BytesIO(raw)).pages)
+    terminal_detail = max(3, pages - 6)
+    with tempfile.TemporaryDirectory(prefix="cottons-guide-batch-") as tmp:
+        work = Path(tmp)
+        source = work / "source.pdf"
+        prefix = work / "page"
+        source.write_bytes(raw)
+        subprocess.run(
+            [
+                "pdftoppm", "-f", "3", "-l", str(terminal_detail), "-jpeg", "-gray",
+                "-scale-to", "2400", str(source), str(prefix),
+            ],
+            check=True,
+            timeout=180,
+            capture_output=True,
+        )
+        images = sorted(work.glob("page-*.jpg"))
+        if not images:
+            raise ValueError("Batch catalogue page rasterisation failed")
+
+        def recognise(image):
+            completed = subprocess.run(
+                ["tesseract", str(image), "stdout", "--psm", "6"],
+                check=True,
+                timeout=120,
+                capture_output=True,
+                text=True,
+            )
+            page_match = re.search(r"(\d+)$", image.stem)
+            return int(page_match.group(1)), completed.stdout
+
+        guides = {}
+        with ThreadPoolExecutor(max_workers=2) as pool:
+            page_texts = list(pool.map(recognise, images))
+        for page, text in page_texts:
+            for label in labels - set(guides):
+                record = parse_targeted_guide_text(text, label, page)
+                if record:
+                    guides[label] = record
+        return guides
 
 
 def catalogue_only_row(item, source_auction_id, label, inventory, evidence, guide=None):
@@ -266,6 +361,48 @@ def catalogue_only_row(item, source_auction_id, label, inventory, evidence, guid
     return row
 
 
+def persist_continuation(summary):
+    path = corpus.DATA / "continuation_collection.json"
+    if not path.exists() or not summary.get("run_new_appearances"):
+        return
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    checkpoint = {
+        "source": "cottons-catalogue-inventory-recovery",
+        "outcome": "completed",
+        "checked_at": summary["checked_at"],
+        "run_new_appearances": summary["run_new_appearances"],
+        "run_new_dated_twenty_year_address_records": summary[
+            "run_new_dated_twenty_year_address_records"
+        ],
+        "run_new_commercial_or_mixed": summary["run_new_commercial_or_mixed"],
+        "run_new_guide_prices": summary["run_new_guide_prices"],
+        "run_new_sale_prices": summary["run_new_sale_prices"],
+        "newly_covered_source_years": summary["newly_covered_source_years"],
+        "duplicate_source_evidence_excluded": 0,
+        "national_completeness_verified": False,
+    }
+    payload.setdefault("runs", []).append(checkpoint)
+    payload.setdefault("latest_by_source", {})[checkpoint["source"]] = checkpoint
+    payload["last_automated_growth"] = checkpoint
+    payload["cottons_catalogue_inventory_recovery"] = summary
+    payload["next_growth_target"] = NEXT_GROWTH_TARGET
+    payload["prepared_follow_on_target"] = {
+        "checked_at": summary["checked_at"],
+        "source_key_candidate": "tw-gaze-2017-05-11-catalogue",
+        "auctioneer": "TW Gaze",
+        "source_urls": [
+            "https://www.twgaze.co.uk/assets/properties/jupix/brochures/"
+            "101039006398/MED-6398-7930.pdf"
+        ],
+        "source_format": "retained first-party land and property auction brochure PDF",
+        "opportunity": "accessible exact-dated catalogue with uncaptured individual lots",
+        "next_growth_target": NEXT_GROWTH_TARGET,
+        "national_completeness_verified": False,
+    }
+    payload["national_completeness_verified"] = False
+    corpus.save_json(path, payload)
+
+
 def reconcile_event_state(source_auction_id, result_rows, event_rows, missing, aliases,
                           evidence, total):
     state_path = corpus.DATA / "auctions/cottons" / (
@@ -280,7 +417,7 @@ def reconcile_event_state(source_auction_id, result_rows, event_rows, missing, a
     state.update(
         auctioneer="Cottons",
         source_auction_id=source_auction_id,
-        auction_date=result_rows[0]["auction_date"],
+        auction_date=event_rows[0]["auction_date"],
         catalogue_complete=True,
         source_rows_complete=False,
         combined_publications_complete=True,
@@ -294,11 +431,19 @@ def reconcile_event_state(source_auction_id, result_rows, event_rows, missing, a
         denominator_reconciled=True,
         denominator_basis=(
             "complete first-party catalogue order-of-sale inventory reconciled "
-            "with the retained first-party result table and explicit lot aliases"
+            + (
+                "with the retained first-party result table and explicit lot aliases"
+                if result_rows
+                else "against the retained unreadable first-party result sheet"
+            )
         ),
         completion_scope="every property identity in the retained result and catalogue publications",
         catalogue_gap_reconciliation={
-            "kind": "catalogue_identity_absent_from_result_table",
+            "kind": (
+                "catalogue_identity_absent_from_result_table"
+                if result_rows
+                else "catalogue_inventory_substitutes_unreadable_result_sheet"
+            ),
             "catalogue_source_url": evidence["source_url"],
             "catalogue_sha256": evidence["sha256"],
             "catalogue_snapshot_path": evidence["snapshot_path"],
@@ -410,6 +555,11 @@ def enrich(limit=2):
     if not path.exists():
         raise ValueError("Bank result records before enriching guides")
     rows = list(corpus.iter_rows(path))
+    existing_years = {
+        row["auction_date"][:4]
+        for row in rows
+        if row.get("auction_date") and len(row["auction_date"]) >= 4
+    }
     links = catalogue_links(get(ARCHIVE).text)
     # Put saved incomplete event states ahead of ordinary guide enrichment.
     # This converts already retained source evidence into property growth
@@ -418,21 +568,27 @@ def enrich(limit=2):
     for row in rows:
         row_counts[row.get("auction_date")] = row_counts.get(row.get("auction_date"), 0) + 1
     incomplete_dates = set()
+    event_states = {}
     for state_path in (corpus.DATA / "auctions/cottons").glob("*.json"):
         try:
             state = json.loads(state_path.read_text())
         except (OSError, json.JSONDecodeError):
             continue
-        if not state.get("catalogue_complete") and row_counts.get(state.get("auction_date")):
+        state_key = (state.get("auction_date"), state.get("source_url"))
+        if all(state_key):
+            event_states[state_key] = state
+        if not state.get("catalogue_complete") and state.get("source_auction_id"):
             incomplete_dates.add(state.get("auction_date"))
     links.sort(
         key=lambda item: (
             item["auction_date"] not in incomplete_dates,
+            bool(row_counts.get(item["auction_date"], 0)),
             -row_counts.get(item["auction_date"], 0),
             item["auction_date"],
         ),
     )
     done = []
+    added_rows = []
     errors = []
     attempted = 0
     for item in links:
@@ -442,10 +598,26 @@ def enrich(limit=2):
             if row.get("auction_date") == item["auction_date"]
             and row.get("original_url") == item["result_url"]
         ]
-        if not matching or all(
+        state = event_states.get((item["auction_date"], item["result_url"]))
+        source_auction_id = (
+            matching[0]["source_auction_id"]
+            if matching
+            else (state or {}).get("source_auction_id")
+        )
+        if not source_auction_id:
+            continue
+        existing_catalogue_rows = [
+            row for row in rows
+            if row.get("source_auction_id") == source_auction_id
+            and row.get("catalogue_only")
+        ]
+        event_rows_before = matching + existing_catalogue_rows
+        if event_rows_before and all(
             row.get("catalogue_guide_checked") or row.get("catalogue_inventory_checked")
-            for row in matching
+            for row in event_rows_before
         ):
+            continue
+        if not event_rows_before and (state or {}).get("catalogue_complete"):
             continue
         if attempted >= limit:
             break
@@ -472,12 +644,6 @@ def enrich(limit=2):
             layout = extract_layout(raw)
             order_rows = parse_order_of_sale(layout)
             total = catalogue_total(layout)
-            source_auction_id = matching[0]["source_auction_id"]
-            existing_catalogue_rows = [
-                row for row in rows
-                if row.get("source_auction_id") == source_auction_id
-                and row.get("catalogue_only")
-            ]
             aliases, missing = reconcile_catalogue_identities(
                 matching, existing_catalogue_rows, order_rows
             )
@@ -497,15 +663,19 @@ def enrich(limit=2):
                             "guide_price_text": row.get("guide_price_text"),
                             "page": (row.get("guide_evidence") or {}).get("page"),
                         }
+            batch_guides = batch_catalogue_guides(raw, missing) if len(missing) > 4 else {}
             new_catalogue_rows = []
             for label in missing:
-                targeted = targeted_catalogue_guide(raw, label, total)
+                targeted = batch_guides.get(label)
+                if targeted is None and len(missing) <= 4:
+                    targeted = targeted_catalogue_guide(raw, label, total)
                 row = catalogue_only_row(
                     item, source_auction_id, label, order_rows[label], evidence, targeted
                 )
                 rows.append(row)
                 existing_catalogue_rows.append(row)
                 new_catalogue_rows.append(row)
+                added_rows.append(row)
                 if targeted:
                     guides[label] = targeted
             event_rows = matching + existing_catalogue_rows
@@ -579,9 +749,46 @@ def enrich(limit=2):
         "records_with_catalogue_guides": sum(bool(row.get("guide_evidence")) for row in rows),
         "failures": errors,
     }
+    cutoff = date.today().replace(year=date.today().year - 20).isoformat()
+    sectors = Counter(row.get("sector") or "unknown" for row in added_rows)
+    summary.update(
+        run_new_appearances=len(added_rows),
+        run_new_address_records=sum(bool(row.get("address")) for row in added_rows),
+        run_new_dated_twenty_year_address_records=sum(
+            bool(row.get("address")) and cutoff <= row.get("auction_date", "") <= date.today().isoformat()
+            for row in added_rows
+        ),
+        run_new_partial_lots=sum(not row.get("address") for row in added_rows),
+        run_new_undated_appearances=sum(not row.get("auction_date") for row in added_rows),
+        run_new_future_dated_appearances=sum(
+            bool(row.get("auction_date")) and row["auction_date"] > date.today().isoformat()
+            for row in added_rows
+        ),
+        run_new_commercial_or_mixed=sectors.get("commercial", 0) + sectors.get("mixed-use", 0),
+        sector_breakdown=dict(sectors),
+        run_new_guide_prices=sum(row.get("guide_price") is not None for row in added_rows),
+        run_new_sale_prices=sum(row.get("sale_price") is not None for row in added_rows),
+        run_new_rent_values=sum(row.get("rent") is not None for row in added_rows),
+        newly_covered_source_years=sorted(
+            {
+                row["auction_date"][:4]
+                for row in added_rows
+                if row.get("auction_date") and row["auction_date"][:4] not in existing_years
+            }
+        ),
+        newly_reconciled_complete_source_event_inventories=len(done),
+        duplicate_source_evidence_excluded=0,
+        national_completeness_verified=False,
+        next_growth_target=NEXT_GROWTH_TARGET,
+    )
     corpus.save_json(corpus.DATA / "cottons_guide_collection.json", summary)
+    persist_continuation(summary)
     print(json.dumps(summary, indent=2))
-    if errors:
+    # One malformed historical catalogue must not suppress already banked
+    # property evidence from another complete event in the same bounded run.
+    # Persist the per-event failures and fail only when the whole batch made
+    # no admitted progress.
+    if errors and not done:
         raise SystemExit(1)
 
 

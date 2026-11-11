@@ -129,6 +129,34 @@ def test_order_of_sale_recovers_two_columns_and_reconciles_explicit_alias():
     assert missing == ['3']
 
 
+def test_order_of_sale_handles_wrapped_type_and_ignores_right_hand_notice():
+    text = (
+        'A Collective Auction Sale of 2 Lots\n'
+        'Order of Sale\n'
+        '1  1 HIGH STREET, BIRMINGHAM B1 1AA  Freehold/Leasehold Mixed Use\n'
+        '2  2 LONG ROAD, WALSALL WS1 1AA\n'
+        + ' ' * 50
+        + 'Freehold Commercial Pt. Investment'
+        + ' ' * 18
+        + 'Please note we only accept Visa and MasterCard\n'
+    )
+    order = parse_order_of_sale(text)
+    assert set(order) == {'1', '2'}
+    assert order['1']['property_type'] == 'Freehold/Leasehold Mixed Use'
+    assert order['2']['property_type'] == 'Freehold Commercial Pt. Investment'
+    assert 'Visa' not in order['2']['property_type']
+
+
+def test_order_of_sale_handles_compact_two_column_inventory():
+    left = '1  1 HIGH STREET, DUDLEY DY1 1AA  Freehold Vacant Residential'.ljust(80)
+    right = '2  2 HIGH STREET, DUDLEY DY1 1AB  Leasehold Vacant Flats'
+    text = 'A Collective Auction Sale of 2 Lots\nOrder of Sale\n' + left + right + '\n'
+    order = parse_order_of_sale(text)
+    assert set(order) == {'1', '2'}
+    assert order['1']['address'] == '1 HIGH STREET, DUDLEY DY1 1AA'
+    assert order['2']['property_type'] == 'Leasehold Vacant Flats'
+
+
 def test_targeted_ocr_guide_and_catalogue_only_row_keep_result_fields_null():
     guide = parse_targeted_guide_text(
         'Leasehold Vacant Possession\nLOT 54 *Guide Price: £42,000 - £46,000\n',

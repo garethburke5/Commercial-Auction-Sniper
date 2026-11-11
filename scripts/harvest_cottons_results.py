@@ -302,14 +302,24 @@ def repair_sequential_ocr_row_start(
 
 def result_state_reusable(state: dict | None, saved_rows: list[dict]) -> bool:
     """Return whether a saved state was produced by the active parser paths."""
-    return bool(
+    catalogue_reconciled = bool(
         state
-        and state.get("catalogue_complete")
+        and state.get("combined_publications_complete")
+        and state.get("denominator_reconciled")
         and saved_rows
-        and state.get("result_parser_version", 0) >= RESULT_PARSER_VERSION
-        and (not state.get("ocr_recovered")
-             or state.get("ocr_version", 0) >= OCR_VERSION)
         and state.get("lots_captured") == len(saved_rows)
+    )
+    return bool(
+        catalogue_reconciled
+        or (
+            state
+            and state.get("catalogue_complete")
+            and saved_rows
+            and state.get("result_parser_version", 0) >= RESULT_PARSER_VERSION
+            and (not state.get("ocr_recovered")
+                 or state.get("ocr_version", 0) >= OCR_VERSION)
+            and state.get("lots_captured") == len(saved_rows)
+        )
     )
 
 
