@@ -1,9 +1,15 @@
+import json
+from pathlib import Path
+
 from scripts.harvest_durrants_results import (
     discover_result_pdfs,
     outcome_values,
     parse_date,
     parse_result_text,
 )
+
+
+ROOT = Path(__file__).resolve().parents[1]
 
 
 def test_discovery_keeps_only_first_party_result_pdfs():
@@ -44,3 +50,18 @@ def test_parse_numbered_rows_preserves_guides_results_and_null_sale():
     assert rows[0]["status"] == "unsold"
     assert rows[1]["guide_price_high"] == 220000
     assert rows[1]["sale_price"] == 231000
+
+
+def test_durrants_checkpoint_files_remain_utf8_json():
+    continuation = json.loads(
+        (ROOT / "data/auction_history/continuation_collection.json").read_text(encoding="utf-8")
+    )
+    source_register = json.loads(
+        (ROOT / "data/auction_history/source_register.json").read_text(encoding="utf-8")
+    )
+
+    assert "Durrants" in continuation["next_growth_target"]
+    assert source_register["corpus_labels"]["Durrants"] == 23
+    durrants = source_register["latest_collector_attempts"]["durrants"]
+    assert durrants["run_new_appearances"] == 23
+    assert durrants["newly_covered_source_years"] == ["2024", "2025", "2026"]
