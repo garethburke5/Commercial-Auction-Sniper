@@ -1,11 +1,11 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
-    build_fliphtml_rows, build_may_rows, build_rows, extract_may_review,
-    fliphtml_pages, is_address, money, public_fliphtml_pages,
-    parse_may_event_page, parse_text, saved_snapshot_dates,
-    snapshot_metadata_path, status_from_text,
+    DEFAULT_FLIPHTML_2023_SEED, EVENTS, FLIPHTML_2023_EVENTS,
+    MAY_EVENT, MAY_RESULTS, build_fliphtml_rows, build_may_rows, build_rows,
+    extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
+    public_fliphtml_pages, parse_may_event_page, parse_text,
+    saved_snapshot_dates, snapshot_metadata_path, status_from_text,
 )
 
 
@@ -60,10 +60,22 @@ def test_2023_fliphtml_batch_reconciles_all_ten_event_denominators():
         "2023-05-24", "2023-06-21", "2023-07-26", "2023-09-13",
         "2023-10-18", "2023-11-22",
     ]
-    assert sum(item["expected_numbered_result_cards"] for item in FLIPHTML_2023_EVENTS) == 133
-    assert sum(item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS) == 111
+    assert sum(item["expected_numbered_result_cards"] for item in FLIPHTML_2023_EVENTS) == 129
+    assert sum(item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS) == 107
     assert all(item["source_url"].startswith("https://online.fliphtml5.com/hoau/") for item in FLIPHTML_2023_EVENTS)
     assert all(item["article_url"].startswith("https://www.kivells.com/") for item in FLIPHTML_2023_EVENTS)
+
+
+def test_browser_retained_2023_seed_matches_all_result_book_denominators():
+    seed = load_fliphtml_seed(DEFAULT_FLIPHTML_2023_SEED)
+    books = seed["books"]
+    assert len(books) == 10
+    assert sum(item["expected_numbered_result_cards"] for item in books) == 129
+    assert sum(item["expected_sold_cards"] for item in books) == 107
+    assert sum(item["annual_review_offered_lots"] for item in books) == 133
+    assert sum(item["annual_review_sold_lots"] for item in books) == 111
+    assert all(item["search_config_sha256"] for item in books)
+    assert all(item["config_sha256"] for item in books)
 
 
 def test_public_fliphtml_accessible_page_text_is_a_complete_fallback():

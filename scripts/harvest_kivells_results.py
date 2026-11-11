@@ -31,6 +31,10 @@ DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-result-books.json.gz"
 )
+DEFAULT_FLIPHTML_2023_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2023-result-books.json.gz"
+)
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
 ANNUAL_2023_REVIEW_URL = "https://fliphtml5.com/hoau/vcml/Kivells_Collective_Property_Auction_Full_Year_Review_2023_/"
@@ -81,7 +85,7 @@ FLIPHTML_2023_EVENTS = (
         "public_text_url": "https://fliphtml5.com/hoau/ujli/Kivells_May_2023_Auction_Results/",
         "search_config_url": "https://online.fliphtml5.com/hoau/ujli/javascript/search_config.js",
         "config_url": "https://online.fliphtml5.com/hoau/ujli/javascript/config.js",
-        "expected_numbered_result_cards": 7, "expected_sold_cards": 6,
+        "expected_numbered_result_cards": 6, "expected_sold_cards": 5,
         "article_url": ANNUAL_2023_ARTICLE_URL,
         "annual_review_url": ANNUAL_2023_REVIEW_URL,
     },
@@ -111,7 +115,7 @@ FLIPHTML_2023_EVENTS = (
         "public_text_url": "https://fliphtml5.com/hoau/pufw/Kivells_September_2023_Auction_Results/",
         "search_config_url": "https://online.fliphtml5.com/hoau/pufw/javascript/search_config.js",
         "config_url": "https://online.fliphtml5.com/hoau/pufw/javascript/config.js",
-        "expected_numbered_result_cards": 15, "expected_sold_cards": 15,
+        "expected_numbered_result_cards": 16, "expected_sold_cards": 16,
         "article_url": ANNUAL_2023_ARTICLE_URL,
         "annual_review_url": ANNUAL_2023_REVIEW_URL,
     },
@@ -121,7 +125,7 @@ FLIPHTML_2023_EVENTS = (
         "public_text_url": "https://fliphtml5.com/hoau/ulyl/Kivells_October_2023_Auction_Results/",
         "search_config_url": "https://online.fliphtml5.com/hoau/ulyl/javascript/search_config.js",
         "config_url": "https://online.fliphtml5.com/hoau/ulyl/javascript/config.js",
-        "expected_numbered_result_cards": 16, "expected_sold_cards": 11,
+        "expected_numbered_result_cards": 16, "expected_sold_cards": 10,
         "article_url": ANNUAL_2023_ARTICLE_URL,
         "annual_review_url": ANNUAL_2023_REVIEW_URL,
     },
@@ -131,7 +135,7 @@ FLIPHTML_2023_EVENTS = (
         "public_text_url": "https://fliphtml5.com/hoau/keyr/Kivells_November_2023_Auction_Results/",
         "search_config_url": "https://online.fliphtml5.com/hoau/keyr/javascript/search_config.js",
         "config_url": "https://online.fliphtml5.com/hoau/keyr/javascript/config.js",
-        "expected_numbered_result_cards": 25, "expected_sold_cards": 20,
+        "expected_numbered_result_cards": 21, "expected_sold_cards": 17,
         "article_url": ANNUAL_2023_ARTICLE_URL,
         "annual_review_url": ANNUAL_2023_REVIEW_URL,
     },
@@ -1042,7 +1046,17 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     seed_books = []
     if fliphtml_seed_path.exists():
         seed_books = load_fliphtml_seed(fliphtml_seed_path)["books"]
-    fliphtml_manifest = list(seed_books) + [dict(item) for item in FLIPHTML_2023_EVENTS]
+    browser_seed_books = []
+    if DEFAULT_FLIPHTML_2023_SEED.exists():
+        browser_seed_books = load_fliphtml_seed(DEFAULT_FLIPHTML_2023_SEED)["books"]
+
+    # Keep one manifest row per retained book. The browser seed is an immutable
+    # retrieval input for the same 2023 books, not a second source inventory.
+    manifest_by_url = {
+        item["source_url"]: dict(item)
+        for item in [*seed_books, *FLIPHTML_2023_EVENTS]
+    }
+    fliphtml_manifest = list(manifest_by_url.values())
     fliphtml_books = list(seed_books)
     if saved_only:
         saved_by_url = {item["source_url"]: item for item in saved_fliphtml_books()}
@@ -1056,8 +1070,15 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                     "error": "FileNotFoundError: no immutable saved FlipHTML5 snapshot metadata",
                 })
     else:
+        browser_seed_by_url = {
+            item["source_url"]: item for item in browser_seed_books
+        }
+        fliphtml_books.extend(browser_seed_by_url.values())
         for spec in FLIPHTML_2023_EVENTS:
-            if spec["source_url"] in completed:
+            if (
+                spec["source_url"] in completed
+                or spec["source_url"] in browser_seed_by_url
+            ):
                 continue
             try:
                 fliphtml_books.append(fetch_fliphtml_book(spec))
@@ -1171,7 +1192,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
             "saved_immutable_first_party_event_result_pdfs_and_fliphtml5_page_text"
             if saved_only else (
                 "first_party_event_result_pdfs_and_fliphtml5_page_text_with_"
-                "accessible_public_html_fallback"
+                "browser_retained_seed_or_accessible_public_html_fallback"
             )
         ),
         "event_pdfs_in_manifest": len(EVENTS),
@@ -1191,7 +1212,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "fliphtml5_2023_result_books_banked": sum(
             item["source_url"] in completed for item in FLIPHTML_2023_EVENTS
         ),
-        "fliphtml5_2023_offered_cards_reconciled": sum(
+        "fliphtml5_2023_result_cards_reconciled": sum(
             item["expected_numbered_result_cards"] for item in FLIPHTML_2023_EVENTS
             if item["source_url"] in completed
         ),
