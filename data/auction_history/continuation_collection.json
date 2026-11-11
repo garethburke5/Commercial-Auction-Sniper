@@ -83,7 +83,7 @@
   "last_growth_attempt": {
     "checked_at": "2026-11-05T07:42:01.048265+00:00",
     "opportunity": "Recover saved first-party Shonki Brothers June 2024 lot 16, omitted only because the retained catalogue printed GUIDE PRICE with a semicolon.",
-    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher\u2019s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
+    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher’s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
     "net_new_appearances": 1,
     "new_address_records": 1,
     "new_partial_lots": 0,
@@ -140,9 +140,9 @@
       "marked_sold_without_sale_price": 43179
     },
     "national_completeness_verified": false,
-    "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
+    "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Recover Durrants' 31 July and 30 October 2024 catalogues from a byte-accessible retained publisher route (the indexed Rightmove copies currently return 404 outside search caches), then search retained platform copies for the exact 2021-2022 calendar dates. Batch additions through this reusable manifest runner and keep national completeness false.",
+  "next_growth_target": "Search retained publisher and platform copies for Durrants' exact 2021-2022 calendar dates, then rotate to another uncovered high-yield auctioneer/source-year if no individual catalogue inventory survives. Batch additions through this reusable manifest runner and keep national completeness false.",
   "runs": [
     {
       "source": "auction_house_east_anglia",
@@ -4159,6 +4159,19 @@
       "diagnostic_tail": "lt_count\": 138,\n  \"distinct_source_identities\": 132,\n  \"non_auction_property_cards_excluded\": 6,\n  \"non_auction_exclusions\": [\n    {\n      \"page\": 1,\n      \"position\": 21,\n      \"address\": \"Apartment 21 Portland House, 58-60 The Kingsway, Swansea, West Glamorgan, SA1 5HN\",\n      \"detail_url\": \"https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/cfb5436c-f26e-4880-8318-4b1d576226cc\",\n      \"source_lot_id\": \"cfb5436c-f26e-4880-8318-4b1d576226cc\",\n      \"reason\": \"first-party property/committed-offer card, not an auction lot\"\n    },\n    {\n      \"page\": 1,\n      \"position\": 22,\n      \"address\": \"62 Brunswick Street, Swansea, West Glamorgan, SA1 4JR\",\n      \"detail_url\": \"https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/a7d13f65-a396-441c-bf21-d64c53d4bdee\",\n      \"source_lot_id\": \"a7d13f65-a396-441c-bf21-d64c53d4bdee\",\n      \"reason\": \"first-party property/committed-offer card, not an auction lot\"\n    },\n    {\n      \"page\": 1,\n      \"position\": 23,\n      \"address\": \"57 Summerland Park, Upper Killay, Swansea, West Glamorgan, SA2 7HY\",\n      \"detail_url\": \"https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/7009a1b4-ecbd-4335-991a-f8983cb036fe\",\n      \"source_lot_id\": \"7009a1b4-ecbd-4335-991a-f8983cb036fe\",\n      \"reason\": \"first-party property/committed-offer card, not an auction lot\"\n    },\n    {\n      \"page\": 1,\n      \"position\": 24,\n      \"address\": \"88 Terrace Road, Swansea, West Glamorgan, SA1 6HU\",\n      \"detail_url\": \"https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/821adf98-2bbf-4f99-97d6-c8a6bd9e8f0d\",\n      \"source_lot_id\": \"821adf98-2bbf-4f99-97d6-c8a6bd9e8f0d\",\n      \"reason\": \"first-party property/committed-offer card, not an auction lot\"\n    },\n    {\n      \"page\": 1,\n      \"position\": 25,\n      \"address\": \"54-55 Water Street, Carmarthen, Dyfed, SA31 1RH\",\n      \"detail_url\": \"https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/b23024b4-10e2-4f79-9a11-df49ac2e983d\",\n      \"source_lot_id\": \"b23024b4-10e2-4f79-9a11-df49ac2e983d\",\n      \"reason\": \"first-party property/committed-offer card, not an auction lot\"\n    },\n    {\n      \"page\": 1,\n      \"position\": 48,\n      \"address\": \"13 Bridgend Road, Aberkenfig, Bridgend, Mid Glamorgan, CF32 9BN\",\n      \"detail_url\": \"https://thepropertyauctionhouse.eigonlineauctions.com/lot/details/d76059cc-a476-4d5b-b482-7374f064be1c\",\n      \"source_lot_id\": \"d76059cc-a476-4d5b-b482-7374f064be1c\",\n      \"reason\": \"first-party property/committed-offer card, not an auction lot\"\n    }\n  ],\n  \"archive_pagination_complete\": true,\n  \"archive_visible_inventory_reconciled\": true,\n  \"archive_reconciliation_note\": null,\n  \"appearances_captured\": 132,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_identity_exclusions\": 0,\n  \"exact_date_address_overlap_exclusions\": 0,\n  \"exact_overlap_reconciliation\": [],\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2022-01-26\",\n    \"2027-01-14\"\n  ],\n  \"by_status\": {\n    \"sold_prior\": 79,\n    \"sold\": 23,\n    \"sold_after\": 10,\n    \"unknown\": 20\n  },\n  \"by_sector\": {\n    \"residential\": 126,\n    \"land\": 4,\n    \"commercial\": 2\n  },\n  \"by_attributed_auctioneer\": {\n    \"The Property Auction House\": 132\n  },\n  \"detail_pages_captured\": 132,\n  \"detail_recovery_complete\": true,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-11-11T19:13:25.326122+00:00\",\n  \"auctioneer\": \"Property Auction Agent\",\n  \"parser_version\": 8,\n  \"source_url\": \"https://propertyauctionagent.eigonlineauctions.com/search\",\n  \"platform_event_id\": null,\n  \"archive_sha256\": \"4992a7aeb8817dd9146b5baf3b80a454ba720398a4c32c5e7a0091576fabc043\",\n  \"archive_page_count\": 2,\n  \"archive_page_rows\": [\n    50,\n    17\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    17\n  ],\n  \"visible_source_rows\": 67,\n  \"expected_visible_cards\": null,\n  \"event_advertised_lots\": null,\n  \"event_advertised_lot_discrepancy\": null,\n  \"past_results_index_lots\": null,\n  \"past_results_index_discrepancy\": null,\n  \"published_result_count\": 67,\n  \"distinct_source_identities\": 67,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"archive_visible_inventory_reconciled\": true,\n  \"archive_reconciliation_note\": null,\n  \"appearances_captured\": 70,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_identity_exclusions\": 0,\n  \"exact_date_address_overlap_exclusions\": 0,\n  \"exact_overlap_reconciliation\": [],\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2023-11-06\",\n    \"2027-01-07\"\n  ],\n  \"by_status\": {\n    \"sold_prior\": 55,\n    \"unknown\": 8,\n    \"withdrawn\": 4,\n    \"sold\": 2,\n    \"postponed\": 1\n  },\n  \"by_sector\": {\n    \"residential\": 60,\n    \"land\": 3,\n    \"commercial\": 5,\n    \"mixed-use\": 2\n  },\n  \"by_attributed_auctioneer\": {\n    \"Property Auction Agent\": 70\n  },\n  \"detail_pages_captured\": 67,\n  \"detail_recovery_complete\": true,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n",
       "duration_seconds": 189.73,
       "checked_at": "2026-11-11T19:13:35.146217+00:00"
+    },
+    {
+      "source": "durrants",
+      "outcome": "completed",
+      "checked_at": "2026-11-11T19:28:00.876583+00:00",
+      "run_new_appearances": 5,
+      "run_new_dated_twenty_year_address_records": 5,
+      "run_new_commercial_or_mixed": 0,
+      "run_new_guide_prices": 5,
+      "run_new_sale_prices": 0,
+      "newly_covered_source_years": [],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -4912,15 +4925,13 @@
     "durrants": {
       "source": "durrants",
       "outcome": "completed",
-      "checked_at": "2026-11-11T18:23:00.816140+00:00",
-      "run_new_appearances": 9,
-      "run_new_dated_twenty_year_address_records": 9,
-      "run_new_commercial_or_mixed": 1,
-      "run_new_guide_prices": 9,
+      "checked_at": "2026-11-11T19:28:00.876583+00:00",
+      "run_new_appearances": 5,
+      "run_new_dated_twenty_year_address_records": 5,
+      "run_new_commercial_or_mixed": 0,
+      "run_new_guide_prices": 5,
       "run_new_sale_prices": 0,
-      "newly_covered_source_years": [
-        "2023"
-      ],
+      "newly_covered_source_years": [],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     }
@@ -4928,15 +4939,13 @@
   "last_automated_growth": {
     "source": "durrants",
     "outcome": "completed",
-    "checked_at": "2026-11-11T18:23:00.816140+00:00",
-    "run_new_appearances": 9,
-    "run_new_dated_twenty_year_address_records": 9,
-    "run_new_commercial_or_mixed": 1,
-    "run_new_guide_prices": 9,
+    "checked_at": "2026-11-11T19:28:00.876583+00:00",
+    "run_new_appearances": 5,
+    "run_new_dated_twenty_year_address_records": 5,
+    "run_new_commercial_or_mixed": 0,
+    "run_new_guide_prices": 5,
     "run_new_sale_prices": 0,
-    "newly_covered_source_years": [
-      "2023"
-    ],
+    "newly_covered_source_years": [],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
   },
@@ -5213,7 +5222,7 @@
     "national_completeness_verified": false
   },
   "city_rural_catalogue_followup": {
-    "checked_at": "2026-11-11T18:23:00.816140+00:00",
+    "checked_at": "2026-11-11T19:28:00.876583+00:00",
     "outcome": "zero_new_appearances",
     "route": "indexed March 2023 first-party catalogue PDF",
     "evidence": "all eight catalogue lots already banked from the exact-dated event page; direct catalogue host timed out",
