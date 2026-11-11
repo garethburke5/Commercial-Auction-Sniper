@@ -27,7 +27,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m pip install pytest\n      - name: Reassemble and verify exact checkpoint bytes
+      - run: python -m pip install pytest
+      - name: Reassemble and verify exact checkpoint bytes
         run: |
           python - <<'PY'
           import base64
