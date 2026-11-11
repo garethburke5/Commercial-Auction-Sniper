@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Extend the reusable Kivells saved-result-PDF runner to the accessible 2024 first-party event inventory. Start with the proven exact-dated 12 June 2024 result PDF (13 numbered lots), then inventory and batch the official result PDFs linked from the 17 January, 21 February, 20 March, 17 April, 15 May, 24 July, 4 September, 9 October and 13 November 2024 event articles. Preserve every published outcome and exact event date, collapse only exact repeated source cards, retain locality-only lots as partial records, and use annual or half-year review totals only for discovery. Reconcile Kivells Auctions to Kivells as one trading-name/operator lineage and keep national completeness false.",
+  "next_growth_target": "Batch Kivells' four surviving January-April 2024 first-party FlipHTML result books through one reusable decoder/OCR runner: 17 January (9 published lots, book hoau/hhtw), 21 February (16, hoau/eiks), 20 March (12, hoau/ymbq) and 17 April (14, hoau/tbiv), for 51 published individual result cards. Snapshot each public config and every resolved page asset before OCR, require exact printed event dates and contiguous lot inventories, preserve guides and achieved prices separately, and collapse only exact repeated source cards. Then treat the exact-dated 15 May first-party 14-lot event-page inventory as a separate catalogue-only route with unknown outcomes/prices left null unless a result sheet is found. The June-November PDF inventory is reconciled and must not be refreshed. Kivells Auctions remains the Kivells trading-name/operator lineage; national completeness remains false.",
   "runs": [
     {
       "source": "dedman_gray_results",
@@ -4895,17 +4895,32 @@
     }
   },
   "last_automated_growth": {
-    "source": "lextons-result-sheets-2021-2026",
+    "source": "kivells-result-pdfs-2024",
     "outcome": "completed",
-    "checked_at": "2026-11-08T04:44:25.236096+00:00",
-    "run_new_appearances": 89,
-    "run_new_dated_twenty_year_address_records": 85,
-    "run_existing_appearances_newly_dated": 25,
-    "run_new_commercial_or_mixed": 2,
-    "run_new_guide_prices": 0,
-    "run_new_sale_prices": 36,
-    "newly_covered_source_years": [],
-    "duplicate_source_evidence_excluded": 0,
+    "checked_at": "2026-11-11T10:47:02.943694+00:00",
+    "run_new_appearances": 63,
+    "run_new_dated_twenty_year_address_records": 1,
+    "run_new_partial_lots": 62,
+    "run_existing_appearances_newly_dated": 0,
+    "run_new_commercial_or_mixed": 10,
+    "run_new_guide_prices": 63,
+    "run_new_sale_prices": 41,
+    "run_new_rent_values": 0,
+    "newly_covered_source_years": [
+      2024
+    ],
+    "newly_reconciled_complete_source_event_inventories": 5,
+    "duplicate_source_evidence_excluded": 29,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "collection_run_ids": [
+      43004491044,
+      43006013384
+    ],
+    "banked_commits": [
+      "944b967bb4c1e142fd01b762e48ef5aa3f796228",
+      "cf8fcb0e49df0648b4b4c9d7506c2cd484447d5b"
+    ],
     "national_completeness_verified": false
   },
   "latest_deferred_launch": {
