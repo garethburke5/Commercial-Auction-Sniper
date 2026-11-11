@@ -1,31 +1,31 @@
 {
-  "checked_at": "2026-11-11T10:34:55.042161+00:00",
+  "checked_at": "2026-11-11T10:45:48.068978+00:00",
   "parser_version": 2,
-  "retrieval_route": "direct_first_party_event_result_pdfs",
+  "retrieval_route": "saved_immutable_first_party_event_result_pdfs",
   "event_pdfs_in_manifest": 11,
-  "event_pdfs_banked": 10,
-  "event_pdfs_completed_this_run": 4,
-  "event_pdfs_pending": 1,
-  "appearances_captured": 127,
-  "run_new_appearances": 53,
-  "run_new_address_records": 1,
-  "run_new_partial_lots": 52,
-  "run_new_guide_prices": 53,
-  "run_new_sale_prices": 36,
-  "exact_source_card_duplicates_collapsed": 59,
+  "event_pdfs_banked": 11,
+  "event_pdfs_completed_this_run": 11,
+  "event_pdfs_pending": 0,
+  "appearances_captured": 137,
+  "run_new_appearances": 10,
+  "run_new_address_records": 0,
+  "run_new_partial_lots": 10,
+  "run_new_guide_prices": 10,
+  "run_new_sale_prices": 5,
+  "exact_source_card_duplicates_collapsed": 63,
   "by_status": {
-    "sold": 84,
-    "unsold": 31,
-    "sold_prior": 6,
-    "postponed": 2,
-    "withdrawn": 4
+    "sold": 86,
+    "unsold": 34,
+    "sold_prior": 9,
+    "withdrawn": 6,
+    "postponed": 2
   },
   "by_sector": {
-    "land": 43,
-    "unknown": 38,
-    "residential": 27,
-    "commercial": 13,
-    "mixed-use": 6
+    "residential": 30,
+    "unknown": 40,
+    "land": 46,
+    "mixed-use": 6,
+    "commercial": 15
   },
   "covered_source_years": [
     "2024",
@@ -37,17 +37,12 @@
     "https://www.kivells.com/media/Auctions/Kivells%20July%202025%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20June%202024%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20June%202025%20Auction%20Results.pdf",
+    "https://www.kivells.com/media/Auctions/Kivells%20November%202024%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20November%202025%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20October%202024%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20October%202025%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20September%202024%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf"
   ],
-  "failures": [
-    {
-      "auction_date": "2024-11-13",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20November%202024%20Auction%20Results.pdf",
-      "error": "ValueError: lot 4 has no published outcome"
-    }
-  ]
+  "failures": []
 }
