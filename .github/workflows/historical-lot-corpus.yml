@@ -1580,6 +1580,11 @@ jobs:
         continue-on-error: true
         run: python -u scripts/harvest_phillip_arnold_results.py 8
 
+      - name: Collect Durrants retained results and catalogue batch
+        if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Durrants catalogues')
+        timeout-minutes: 15
+        run: python -u scripts/harvest_durrants_results.py
+
       - name: Bank newly saved source-corpus lots
         if: always()
         timeout-minutes: 5

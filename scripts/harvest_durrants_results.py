@@ -1,9 +1,12 @@
-"""Bank Durrants' retained first-party property-auction result sheets.
+"""Bank Durrants' retained property-auction result sheets and catalogues.
 
 The official auction calendar is the event inventory.  Its retained result
 links are exact-dated, finite PDF sheets containing numbered property rows,
 guide prices and published outcomes.  One reusable run discovers and parses
-every linked sheet; the calendar and each PDF are kept as immutable evidence.
+every linked sheet.  A small manifest extends the same run across retained
+catalogues whose URLs are no longer linked from the calendar.  Every source
+object is kept as immutable evidence and result rows always take precedence
+over overlapping catalogue evidence.
 """
 from __future__ import annotations
 
@@ -30,6 +33,7 @@ import historical_corpus as corpus
 SOURCE = "Durrants"
 SLUG = "durrants"
 ARCHIVE = "https://durrants.com/property-auctions/auctions-calendar/"
+CATALOGUE_MANIFEST = corpus.DATA / "durrants_catalogue_manifest.json"
 OPERATOR = "GEORGE DURRANT & SONS LIMITED"
 COMPANY_NUMBER = "02892242"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
@@ -46,10 +50,10 @@ GUIDE_RE = re.compile(
 )
 MONEY_RE = re.compile(r"£\s*([\d,]+)")
 NEXT_TARGET = (
-    "Recover Durrants' currently unlinked 2021-2025 property-auction events listed on the "
-    "official calendar by inventorying retained WordPress catalogue/result assets for those "
-    "exact dates. Batch the surviving PDFs through this reusable runner, preserve each source "
-    "object, and reconcile branches as one Durrants operator. Keep national completeness false."
+    "Recover Durrants' 31 July and 30 October 2024 catalogues from a byte-accessible retained "
+    "publisher route (the indexed Rightmove copies currently return 404 outside search caches), "
+    "then search retained platform copies for the exact 2021-2022 calendar dates. Batch additions "
+    "through this reusable manifest runner and keep national completeness false."
 )
 
 
@@ -232,6 +236,130 @@ def parse_result_pdf(raw, source_url, evidence):
     return parse_result_text(text, source_url, evidence)
 
 
+def parse_catalogue_date(text):
+    match = re.search(
+        r"(?:Wednesday\s+)?(\d{1,2})(?:st|nd|rd|th)?\s+"
+        r"(January|February|March|April|May|June|July|August|September|October|November|December)\s+"
+        r"(20\d{2})",
+        clean(text) or "",
+        re.I,
+    )
+    if not match:
+        raise ValueError("catalogue has no exact auction date")
+    day, month, year = match.groups()
+    return datetime.strptime(f"{day} {month} {year}", "%d %B %Y").date().isoformat()
+
+
+def parse_catalogue_text(text, config, source_url, evidence):
+    """Validate and materialise catalogue-only rows from a finite manifest.
+
+    The manifest is declarative because multi-column historic catalogues do not
+    have a stable text order.  The runner verifies the printed date, lot marker,
+    postcode, guide and a source-title fragment before a row can be banked.
+    """
+    auction_date = parse_catalogue_date(text)
+    if auction_date != config["auction_date"]:
+        raise ValueError(f"catalogue date {auction_date} does not match manifest {config['auction_date']}")
+    folded = clean(text).casefold()
+    compact = normalized_address(text)
+    rows = []
+    tier = config.get("source_tier", "first_party")
+    for position, item in enumerate(config["lots"], 1):
+        lot_number = str(item["lot_number"]).upper()
+        if not re.search(rf"\bLOT\s+{re.escape(lot_number)}\b", text, re.I):
+            raise ValueError(f"catalogue is missing lot marker {lot_number}")
+        validation_text = clean(item.get("validation_text") or item["address"])
+        if normalized_address(validation_text) not in compact:
+            raise ValueError(f"catalogue is missing validation text for lot {lot_number}")
+        postcode = corpus.PC.search(item["address"])
+        if postcode and postcode.group().casefold() not in folded:
+            raise ValueError(f"catalogue is missing postcode for lot {lot_number}")
+        guide = int(item["guide_price"])
+        if f"{guide:,}" not in text:
+            raise ValueError(f"catalogue is missing guide for lot {lot_number}")
+        guide_high = item.get("guide_price_high")
+        if guide_high is not None and f"{int(guide_high):,}" not in text:
+            raise ValueError(f"catalogue is missing high guide for lot {lot_number}")
+        auction_id = f"{SLUG}:{auction_date}"
+        source_id = hashlib.sha256(
+            f"{auction_date}|{lot_number}|{normalized_address(item['address'])}".encode()
+        ).hexdigest()[:24]
+        row = corpus.base_row(SOURCE, auction_id, auction_date, lot_number, source_id, source_url)
+        row.update(
+            appearance_id=f"{SOURCE}|{auction_id}|lot:{lot_number}",
+            address=item["address"],
+            postcode=postcode.group().upper() if postcode else None,
+            locality=item["address"],
+            property_type=item.get("property_type"),
+            tenure=item.get("tenure"),
+            sector=item.get("sector") or corpus.sector(item["address"]),
+            status=item.get("status", "unknown"),
+            guide_price=guide,
+            guide_price_high=int(guide_high) if guide_high is not None else None,
+            sale_price=None,
+            annual_rent=item.get("annual_rent"),
+            description=item.get("description"),
+            property_id=None,
+            identity_method=(
+                "first_party_exact_event_date_lot_number_and_address"
+                if tier == "first_party"
+                else "retained_publisher_catalogue_exact_event_date_lot_number_and_address"
+            ),
+            record_quality="address_record",
+            source_position=position,
+            source_guide_text=item.get("source_guide_text"),
+            source_outcome_text=None,
+            source_event_url=source_url,
+            source_property_url=None,
+            auction_date_precision="day",
+            auction_date_basis="exact date printed on retained Durrants catalogue",
+            source_platform=(
+                "Durrants first-party retained property auction catalogue"
+                if tier == "first_party"
+                else "Durrants catalogue retained by OnTheMarket media"
+            ),
+            operator_legal_name=OPERATOR,
+            operator_company_number=COMPANY_NUMBER,
+            trading_name=SOURCE,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+    state = {
+        "auctioneer": SOURCE,
+        "operator_legal_name": OPERATOR,
+        "operator_company_number": COMPANY_NUMBER,
+        "source_auction_id": f"{SLUG}:{auction_date}",
+        "auction_date": auction_date,
+        "auction_date_precision": "day",
+        "source_url": source_url,
+        "lots_captured": len(rows),
+        "catalogue_complete": bool(config.get("catalogue_complete", True)),
+        "source_rows_complete": True,
+        "denominator_reconciled": True,
+        "published_lot_denominator": int(config["published_lot_denominator"]),
+        "completion_scope": config["completion_scope"],
+        "source_evidence": evidence,
+        "errors": [],
+        "checked_at": corpus.now(),
+    }
+    return state, rows
+
+
+def parse_catalogue_pdf(raw, config, source_url, evidence):
+    if not raw.startswith(b"%PDF-"):
+        raise ValueError("catalogue link did not return a PDF")
+    text = "\n".join(page.extract_text() or "" for page in PdfReader(BytesIO(raw)).pages)
+    return parse_catalogue_text(text, config, source_url, evidence)
+
+
+def load_catalogue_manifest(path=CATALOGUE_MANIFEST):
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    catalogues = payload.get("catalogues", [])
+    if not catalogues:
+        raise ValueError("Durrants catalogue manifest is empty")
+    return catalogues
+
+
 def global_exact_appearances():
     values = defaultdict(list)
     for path in (corpus.DATA / "appearances").glob("*/*.jsonl.gz"):
@@ -315,6 +443,50 @@ def harvest():
         except Exception as exc:
             failures.append({"url": url, "error": f"{type(exc).__name__}: {exc}"[:500]})
 
+    catalogue_states = {}
+    catalogue_configs = load_catalogue_manifest()
+    for position, config in enumerate(catalogue_configs, 1):
+        url = config["source_url"]
+        try:
+            resolved, raw = get(url)
+            sha, captured_at = corpus.digest(raw), corpus.now()
+            snapshot = corpus.DATA / "sources" / SLUG / f"catalogue-{sha[:20]}.pdf.gz"
+            if not snapshot.exists():
+                corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
+            tier = config.get("source_tier", "first_party")
+            evidence = {
+                "source_url": resolved,
+                "retrieved_at": captured_at,
+                "sha256": sha,
+                "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+                "basis": (
+                    "retained first-party exact-dated property-auction catalogue PDF"
+                    if tier == "first_party"
+                    else "Durrants-issued exact-dated catalogue retained by OnTheMarket media"
+                ),
+                "source_tier": tier,
+            }
+            state, rows = parse_catalogue_pdf(raw, config, resolved, evidence)
+            event_date = state["auction_date"]
+            catalogue_states[event_date] = state
+            if event_date in states:
+                result_state = states[event_date]
+                result_state["catalogue_source_url"] = resolved
+                result_state["catalogue_evidence"] = evidence
+                result_state["published_lot_denominator"] = max(
+                    result_state["published_lot_denominator"], state["published_lot_denominator"]
+                )
+                result_state["lots_captured"] += len(rows)
+                result_state["completion_scope"] = config["completion_scope"]
+                corpus.save_json(corpus.DATA / "auctions" / SLUG / f"{event_date}.json", result_state)
+            else:
+                states[event_date] = state
+                corpus.save_json(corpus.DATA / "auctions" / SLUG / f"{event_date}.json", state)
+            run_rows.extend(rows)
+            print("DURRANTS", position, "/", len(catalogue_configs), "catalogues", len(run_rows), "lots", flush=True)
+        except Exception as exc:
+            failures.append({"url": url, "error": f"{type(exc).__name__}: {exc}"[:500]})
+
     overlaps, admissible = [], []
     global_exact = global_exact_appearances()
     for row in run_rows:
@@ -342,7 +514,11 @@ def harvest():
         "source_url": ARCHIVE,
         "operator": {"canonical_name": SOURCE, "company_name": OPERATOR, "company_number": COMPANY_NUMBER, "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True},
         "result_sheets_discovered": len(pdf_urls),
-        "result_sheets_captured": len(states),
+        "result_sheets_captured": len(pdf_urls) - sum(
+            failure["url"] in pdf_urls for failure in failures
+        ),
+        "catalogues_configured": len(catalogue_configs),
+        "catalogues_captured": len(catalogue_states),
         "appearances_captured": total,
         "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
@@ -368,7 +544,7 @@ def harvest():
     corpus.save_json(corpus.DATA / "durrants_collection.json", summary)
     persist_continuation(summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if failures or len(states) != len(pdf_urls):
+    if failures or len(catalogue_states) != len(catalogue_configs):
         raise SystemExit(1)
     return summary
 

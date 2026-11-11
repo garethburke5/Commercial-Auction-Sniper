@@ -4,6 +4,7 @@ from pathlib import Path
 from scripts.harvest_durrants_results import (
     discover_result_pdfs,
     outcome_values,
+    parse_catalogue_text,
     parse_date,
     parse_result_text,
 )
@@ -52,6 +53,38 @@ def test_parse_numbered_rows_preserves_guides_results_and_null_sale():
     assert rows[1]["sale_price"] == 231000
 
 
+def test_manifest_catalogue_row_is_validated_and_keeps_unknown_outcome_null():
+    text = """
+    Online Land and Property Auction Wednesday 27 August 2025
+    WALNUT FARM, LOW ROAD, LOWER THURLTON, NORWICH, NR14 6PZ
+    LOT 1
+    Guide Price £280,000 - £300,000
+    """
+    config = {
+        "auction_date": "2025-08-27",
+        "source_tier": "first_party",
+        "published_lot_denominator": 1,
+        "completion_scope": "sole catalogue row",
+        "lots": [{
+            "lot_number": "1",
+            "address": "Walnut Farm, Low Road, Lower Thurlton, Norwich, NR14 6PZ",
+            "validation_text": "Walnut Farm, Low Road, Lower Thurlton, Norwich, NR14 6PZ",
+            "guide_price": 280000,
+            "guide_price_high": 300000,
+            "source_guide_text": "Guide Price £280,000 - £300,000",
+            "sector": "mixed",
+        }],
+    }
+    state, rows = parse_catalogue_text(
+        text, config, "https://durrants.com/catalogue.pdf", {"sha256": "b" * 64}
+    )
+    assert state["published_lot_denominator"] == 1
+    assert rows[0]["guide_price"] == 280000
+    assert rows[0]["guide_price_high"] == 300000
+    assert rows[0]["sale_price"] is None
+    assert rows[0]["status"] == "unknown"
+
+
 def test_durrants_checkpoint_files_remain_utf8_json():
     continuation = json.loads(
         (ROOT / "data/auction_history/continuation_collection.json").read_text(encoding="utf-8")
@@ -61,10 +94,13 @@ def test_durrants_checkpoint_files_remain_utf8_json():
     )
 
     assert continuation["national_completeness_verified"] is False
+    summary = json.loads(
+        (ROOT / "data/auction_history/durrants_collection.json").read_text(encoding="utf-8")
+    )
     assert source_register["national_completeness_verified"] is False
     assert "Durrants" in continuation["next_growth_target"]
-    assert source_register["corpus_labels"]["Durrants"] == 23
+    assert source_register["corpus_labels"]["Durrants"] == summary["appearances_captured"]
     durrants = source_register["latest_collector_attempts"]["durrants"]
     assert durrants["national_completeness_verified"] is False
-    assert durrants["run_new_appearances"] == 23
-    assert durrants["newly_covered_source_years"] == ["2024", "2025", "2026"]
+    assert durrants["run_new_appearances"] == summary["run_new_appearances"]
+    assert durrants["newly_covered_source_years"] == summary["newly_covered_source_years"]
