@@ -4,6 +4,44 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 11 November 2026 — Kivells January-April FlipHTML result books
+
+Historical collection run [43010626319](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43010626319)
+batched four surviving first-party Kivells FlipHTML result books through one reusable
+collector and banked their public page-text configuration as immutable source
+evidence. Bank commit
+[a252b8f](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/a252b8fbaee91601711544ef6bada0b2f7208435)
+added 53 net individually dated property appearances: 9 on 17 January, 16 on
+21 February, 12 on 20 March and 16 on 17 April 2024. The last denominator is 16,
+not the earlier estimate of 14, because the printed book contains two distinct
+properties carrying lot label 15.
+
+All 53 additions fall inside the twenty-year window and are locality-only partial
+records, so newly dated full-address records are zero. The sector split is seven
+commercial, zero mixed-use, 30 land, five residential and 11 unknown. The batch
+added 53 published guide texts, 52 structured guide-low values, 40 achieved prices
+and no rent values. It added no undated or future-dated records and collapsed no
+exact repeated source cards. A malformed printed February guide remains preserved
+verbatim rather than being normalised into an invented value.
+
+This reconciled four complete event inventories inside the already represented
+Kivells 2024 source-year; newly covered source-years and newly counted auctioneers
+are therefore both zero. `Kivells Auctions` remains the existing Kivells trading-name
+and operator lineage. Exact-revision publication run
+[43011285818](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43011285818)
+passed the export, Pages deployment and production-domain verification. Rebuilt
+corpus totals are 312,572 appearances, 301,426 full-address records, 11,146 partial
+records, 304,261 in-window appearances, 106,501 in-window guides and 112,475
+in-window achieved prices. Undated and future-dated totals are 5,046 and 145.
+
+Next serial growth target: reconcile Kivells' exact-dated 15 May 2024 first-party
+14-lot event-page running order against the official review's 13-offered-lot result
+denominator. Bank the 14 appearances once, attach guides and achieved prices only
+where the review identifies an exact lot, and leave the unmatched result null rather
+than inflating 13 result cards to 14. Then move to the substantial uncovered Kivells
+2023 catalogue set or a different high-yield uncovered source/year. National
+completeness remains false.
+
 ## 7 November 2026 — April-June 2022 retained-grid batch
 
 Run [42371351914](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42371351914)

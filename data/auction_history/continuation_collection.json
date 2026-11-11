@@ -83,7 +83,7 @@
   "last_growth_attempt": {
     "checked_at": "2026-11-05T07:42:01.048265+00:00",
     "opportunity": "Recover saved first-party Shonki Brothers June 2024 lot 16, omitted only because the retained catalogue printed GUIDE PRICE with a semicolon.",
-    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher\u2019s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
+    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher’s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
     "net_new_appearances": 1,
     "new_address_records": 1,
     "new_partial_lots": 0,
@@ -140,9 +140,9 @@
       "marked_sold_without_sale_price": 43179
     },
     "national_completeness_verified": false,
-    "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
+    "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Batch Kivells' four surviving January-April 2024 first-party FlipHTML result books through one reusable decoder/OCR runner: 17 January (9 published lots, book hoau/hhtw), 21 February (16, hoau/eiks), 20 March (12, hoau/ymbq) and 17 April (14, hoau/tbiv), for 51 published individual result cards. Snapshot each public config and every resolved page asset before OCR, require exact printed event dates and contiguous lot inventories, preserve guides and achieved prices separately, and collapse only exact repeated source cards. Then treat the exact-dated 15 May first-party 14-lot event-page inventory as a separate catalogue-only route with unknown outcomes/prices left null unless a result sheet is found. The June-November PDF inventory is reconciled and must not be refreshed. Kivells Auctions remains the Kivells trading-name/operator lineage; national completeness remains false.",
+  "next_growth_target": "Reconcile the exact-dated 15 May 2024 Kivells first-party 14-lot event-page running order against the official half-year and annual-review result evidence, whose published denominator is 13 offered lots. Snapshot the event page and review PDF before parsing; bank each of the 14 evidenced appearances once; enrich only matched lots with their separately published guide, outcome and achieved price; and leave the omitted, withdrawn or otherwise unmatched lot's result fields null unless first-party evidence identifies it. Do not claim 14 result cards from a 13-lot result denominator. Kivells Auctions remains the existing Kivells trading-name/operator lineage, so this is an event-inventory checkpoint rather than a new auctioneer or source-year. After banking May, move to the substantial uncovered Kivells 2023 catalogue set or a different high-yield uncovered source/year register target. National completeness remains false.",
   "runs": [
     {
       "source": "dedman_gray_results",
@@ -157,7 +157,7 @@
       "outcome": "completed",
       "exit_code": 0,
       "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-08T19:58:59.547609+00:00\",\n  \"source_url\": \"https://www.johnfrancis.co.uk/pages/past_auctions\",\n  \"archive_available\": false,\n  \"catalogue_discovery_basis\": \"saved_first_party_catalogue_states_after_archive_failure\",\n  \"catalogues_discovered\": 80,\n  \"catalogues_captured\": 80,\n  \"catalogues_complete\": 80,\n  \"appearances_captured\": 1407,\n  \"address_records\": 1407,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2013-09-26\",\n    \"2025-11-11\"\n  ],\n  \"by_sector\": {\n    \"unknown\": 1160,\n    \"land\": 131,\n    \"residential\": 82,\n    \"commercial\": 28,\n    \"mixed-use\": 6\n  },\n  \"by_status\": {\n    \"sold\": 580,\n    \"unsold\": 116,\n    \"withdrawn\": 79,\n    \"unknown\": 521,\n    \"sold_prior\": 57,\n    \"sold_after\": 49,\n    \"postponed\": 5\n  },\n  \"refresh_blockers\": [\n    {\n      \"source_id\": \"archive\",\n      \"source_url\": \"https://www.johnfrancis.co.uk/pages/past_auctions\",\n      \"error\": \"failed to fetch https://www.johnfrancis.co.uk/pages/past_auctions: 403 Client Error: Forbidden for url: https://www.johnfrancis.co.uk/pages/past_auctions\"\n    }\n  ],\n  \"failures\": [],\n  \"complete\": true\n}\n",
-      "duration_seconds": 16.0,
+      "duration_seconds": 16,
       "checked_at": "2026-11-08T19:58:59.617513+00:00"
     },
     {
@@ -205,7 +205,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 5875,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-08T19:59:04.766130+00:00"
     },
     {
@@ -277,7 +277,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 5872,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-08T19:59:38.150473+00:00"
     },
     {
@@ -325,7 +325,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 5867,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-08T20:00:05.899146+00:00"
     },
     {
@@ -333,7 +333,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 5896,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-08T20:00:05.912161+00:00"
     },
     {
@@ -349,7 +349,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 5900,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-08T20:00:13.563398+00:00"
     },
     {
@@ -357,7 +357,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 5903,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-08T20:00:13.573937+00:00"
     },
     {
@@ -1173,7 +1173,7 @@
       "outcome": "completed",
       "exit_code": 0,
       "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-09T07:11:35.469117+00:00\",\n  \"seed_auctions\": 43,\n  \"catalogues_complete\": 43,\n  \"property_appearances_captured\": 294,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"detail_pages_reused_after_live_index_reconciliation\": 294,\n  \"by_sector\": {\n    \"commercial\": 130,\n    \"residential\": 164\n  },\n  \"auctions\": {\n    \"4561\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"6854\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7260\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7445\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2838\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"3184\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3185\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3200\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3182\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"5857\": {\n      \"published_result_count\": 24,\n      \"lots_captured\": 24,\n      \"catalogue_complete\": true\n    },\n    \"7569\": {\n      \"published_result_count\": 4,\n      \"lots_captured\": 4,\n      \"catalogue_complete\": true\n    },\n    \"7593\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2221\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"2454\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"2767\": {\n      \"published_result_count\": 5,\n      \"lots_captured\": 5,\n      \"catalogue_complete\": true\n    },\n    \"2808\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2852\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2860\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2886\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2916\": {\n      \"published_result_count\": 2,\n      \"lots_captured\": 2,\n      \"catalogue_complete\": true\n    },\n    \"2936\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3083\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4321\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4451\": {\n      \"published_result_count\": 9,\n      \"lots_captured\": 9,\n      \"catalogue_complete\": true\n    },\n    \"4506\": {\n      \"published_result_count\": 2,\n      \"lots_captured\": 2,\n      \"catalogue_complete\": true\n    },\n    \"4547\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4553\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"5711\": {\n      \"published_result_count\": 15,\n      \"lots_captured\": 15,\n      \"catalogue_complete\": true\n    },\n    \"5969\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"6016\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6024\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6293\": {\n      \"published_result_count\": 23,\n      \"lots_captured\": 23,\n      \"catalogue_complete\": true\n    },\n    \"6366\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6378\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7024\": {\n      \"published_result_count\": 29,\n      \"lots_captured\": 29,\n      \"catalogue_complete\": true\n    },\n    \"7147\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7215\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7263\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7269\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7379\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"7386\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7432\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7455\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 20.0,
+      "duration_seconds": 20,
       "checked_at": "2026-11-09T07:11:35.520284+00:00"
     },
     {
@@ -3397,7 +3397,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 1799,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-10T23:56:22.832641+00:00"
     },
     {
@@ -3509,7 +3509,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1811,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-10T23:57:08.818489+00:00"
     },
     {
@@ -3581,7 +3581,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 1813,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-10T23:57:44.219079+00:00"
     },
     {
@@ -4895,32 +4895,58 @@
     }
   },
   "last_automated_growth": {
-    "source": "kivells-result-pdfs-2024",
+    "source": "kivells-fliphtml-results-2024-01-to-04",
     "outcome": "completed",
-    "checked_at": "2026-11-11T10:47:02.943694+00:00",
-    "run_new_appearances": 63,
-    "run_new_dated_twenty_year_address_records": 1,
-    "run_new_partial_lots": 62,
+    "checked_at": "2026-11-11T11:21:17.178008+00:00",
+    "run_new_appearances": 53,
+    "run_new_dated_twenty_year_address_records": 0,
+    "run_new_dated_twenty_year_partial_records": 53,
+    "run_new_partial_lots": 53,
     "run_existing_appearances_newly_dated": 0,
-    "run_new_commercial_or_mixed": 10,
-    "run_new_guide_prices": 63,
-    "run_new_sale_prices": 41,
+    "run_new_commercial_or_mixed": 7,
+    "run_new_commercial_appearances": 7,
+    "run_new_mixed_use_appearances": 0,
+    "run_new_land_appearances": 30,
+    "run_new_residential_appearances": 5,
+    "run_new_unknown_sector_appearances": 11,
+    "run_new_guide_prices": 52,
+    "run_new_guide_evidence": 53,
+    "run_new_sale_prices": 40,
     "run_new_rent_values": 0,
-    "newly_covered_source_years": [
-      2024
-    ],
-    "newly_reconciled_complete_source_event_inventories": 5,
-    "duplicate_source_evidence_excluded": 29,
+    "newly_covered_source_years": [],
+    "new_calendar_source_years": 0,
+    "newly_reconciled_complete_source_event_inventories": 4,
+    "event_card_denominators": {
+      "2024-01-17": 9,
+      "2024-02-21": 16,
+      "2024-03-20": 12,
+      "2024-04-17": 16
+    },
+    "duplicate_appearance_ids": 0,
+    "duplicate_source_evidence_excluded": 0,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
     "collection_run_ids": [
-      43004491044,
-      43006013384
+      43010626319
     ],
     "banked_commits": [
-      "944b967bb4c1e142fd01b762e48ef5aa3f796228",
-      "cf8fcb0e49df0648b4b4c9d7506c2cd484447d5b"
+      "a252b8fbaee91601711544ef6bada0b2f7208435"
     ],
+    "publication_run_ids": [
+      43011285818
+    ],
+    "publication_verified": true,
+    "production_domain_verified": true,
+    "corpus_after_target_rebuild": {
+      "appearances": 312572,
+      "address_records": 301426,
+      "partial": 11146,
+      "in_window_appearances": 304261,
+      "in_window_guide_prices": 106501,
+      "in_window_sale_prices": 112475,
+      "undated": 5046,
+      "future_dated": 145
+    },
     "national_completeness_verified": false
   },
   "latest_deferred_launch": {
