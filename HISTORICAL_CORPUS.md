@@ -4,6 +4,48 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 11 November 2026 — Kivells 2022 retained result-book batch
+
+Historical collection run [43047973493](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43047973493)
+banked three surviving first-party Kivells result books through the reusable
+FlipHTML page-text runner: 12 cards dated 27 July, 10 dated 7 September and 18
+dated 16 November 2022. Bank commit
+[8ec8b74](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/8ec8b7465738b25043726fb8b9059c467b9e74d1)
+adds **40 net individual appearances**, all exact-dated inside the twenty-year
+window. The source descriptions are locality-only, so the gain is **0 full-address
+records and 40 partial records** rather than invented addresses.
+
+The sector split is two commercial, three mixed-use, 18 land, eight residential
+and nine unknown. The batch adds **40 guide-price observations, 34 achieved-price
+observations and 0 rents**. Published outcomes are 33 sold, six unsold and one
+sold prior. Ten exact repeated source-card renderings were collapsed before growth
+was claimed; no duplicate identity, undated record or future-dated record was
+admitted.
+
+The three event-card denominators reconcile completely and establish **Kivells
+2022 as one newly covered source-year**. Original viewer, accessible-page and
+per-page URLs, exact evidence-bearing HTML nodes, viewer configurations and source
+checksums are retained immutably. `Kivells Auctions` remains the existing Kivells
+operator/trading-name lineage and is not counted as another auctioneer.
+
+The first run, [43046927204](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43046927204),
+failed its admission suite because the binary seed was truncated during transfer;
+it did not run the Kivells collector and added zero properties. The recovery used
+a compact checksum-preserving seed, passed all 515 admission tests, banked the
+three books and rebuilt successfully. Rebuilt totals are **312,755 appearances,
+301,441 full-address records, 11,314 partial records and 304,444 in-window
+appearances**, including **106,680 in-window guides and 112,626 in-window achieved
+prices**. Undated and future-dated totals remain 5,046 and 145.
+
+Next serial growth target: parse the retained first-party 2022 half-year review
+as one bounded four-event batch. Reconcile the 7/7 cards dated 26 January, 13/14
+dated 23 February, 7/7 dated 30 March and 13/15 dated 4 May: **40 individually
+identifiable sold cards against 43 offered lots**. Preserve each guide, achieved
+price, outcome, exact event date and original page evidence, but leave the three
+unidentified offered outcomes null and do not substitute the annual denominator
+for individual properties. National completeness remains false.
+
+
 ## 11 November 2026 — Kivells 2023 retained result-book batch
 
 Historical collection run [43041273146](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43041273146)

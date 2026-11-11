@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Use the reusable browser-retained Kivells result-book seed runner to inventory the retained 2022 monthly books from publisher profile https://fliphtml5.com/home/hoau, reconcile each exact-dated book's unique outcome cards against its own result-card denominator, preserve separate annual-review statistics, and bank all individually evidenced properties. Do not count Kivells or Kivells Auctions aliases, branches or trading names as new auctioneers; keep annual totals as discovery evidence only; move to a different uncovered source/year if no 2022 result-book assets survive. National completeness remains false.",
+  "next_growth_target": "Use the retained first-party Kivells 2022 half-year review at https://fliphtml5.com/hoau/uzqf/basic as one bounded four-event batch: reconcile 7/7 sold cards dated 26 January, 13/14 dated 23 February, 7/7 dated 30 March and 13/15 dated 4 May, for 40 individually identifiable sold cards against 43 offered lots. Preserve each exact event date, address/location, guide, achieved price, outcome, original URL and immutable page evidence; leave the three unidentified offered outcomes null and do not count annual denominators, Kivells aliases, branches or trading names as new properties or auctioneers. Move to a different uncovered source/year if the individual review cards fail strict parsing. National completeness remains false.",
   "runs": [
     {
       "source": "dedman_gray_results",
@@ -4895,53 +4895,65 @@
     }
   },
   "last_automated_growth": {
-    "source": "kivells-2023-browser-retained-result-books",
+    "source": "kivells-2022-retained-result-books",
     "outcome": "completed",
-    "checked_at": "2026-11-11T14:46:34.049840+00:00",
-    "run_new_appearances": 129,
-    "run_new_dated_twenty_year_address_records": 1,
-    "run_new_dated_twenty_year_partial_records": 128,
-    "run_new_partial_lots": 128,
+    "checked_at": "2026-11-11T15:27:03.996871+00:00",
+    "run_new_appearances": 40,
+    "run_new_dated_twenty_year_address_records": 0,
+    "run_new_dated_twenty_year_partial_records": 40,
+    "run_new_partial_lots": 40,
     "run_existing_appearances_newly_dated": 0,
-    "run_new_commercial_or_mixed": 17,
-    "run_new_commercial_appearances": 9,
-    "run_new_mixed_use_appearances": 8,
-    "run_new_land_appearances": 64,
-    "run_new_residential_appearances": 14,
-    "run_new_unknown_sector_appearances": 34,
-    "run_new_guide_prices": 129,
-    "run_new_guide_evidence": 129,
-    "run_new_sale_prices": 107,
+    "run_new_commercial_or_mixed": 5,
+    "run_new_commercial_appearances": 2,
+    "run_new_mixed_use_appearances": 3,
+    "run_new_land_appearances": 18,
+    "run_new_residential_appearances": 8,
+    "run_new_unknown_sector_appearances": 9,
+    "run_new_guide_prices": 40,
+    "run_new_guide_evidence": 40,
+    "run_new_sale_prices": 34,
     "run_new_rent_values": 0,
     "newly_covered_source_years": [
-      2023
+      2022
     ],
     "new_calendar_source_years": 1,
-    "newly_reconciled_complete_source_event_inventories": 10,
-    "result_card_denominator": 129,
-    "published_sold_result_cards": 107,
-    "annual_review_offered_lots_different_scope": 133,
-    "annual_review_sold_lots_different_scope": 111,
-    "exact_source_background_duplicates_collapsed": 24,
+    "newly_reconciled_complete_source_event_inventories": 3,
+    "result_card_denominator": 40,
+    "published_sold_result_cards": 34,
+    "published_outcomes": {
+      "sold": 33,
+      "sold_prior": 1,
+      "unsold": 6
+    },
+    "exact_source_background_duplicates_collapsed": 10,
     "duplicate_appearance_ids": 0,
-    "duplicate_source_evidence_excluded": 24,
+    "duplicate_source_evidence_excluded": 10,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
+    "initial_failed_run": {
+      "run_id": 43046927204,
+      "blocker": "binary seed blob was truncated during transfer; admission failed before the Kivells collector and added zero properties",
+      "recovery_route": "compact checksum-preserving first-party HTML-node seed"
+    },
     "collection_run_ids": [
-      43041273146
+      43047973493
+    ],
+    "collector_release_commits": [
+      "2cf757ed7bf506c669d2e5495a02237125e739c7",
+      "e45ce19c7282d3f2eaff3c5bd10bb574c52a73cc"
     ],
     "banked_commits": [
-      "2d7af34418f36e7b3d4ddbfee4a935588c610610"
+      "8ec8b7465738b25043726fb8b9059c467b9e74d1"
     ],
     "publication_verified": true,
     "database_rebuild_verified": true,
     "corpus_after_target_rebuild": {
-      "appearances": 312715,
+      "appearances": 312755,
       "address_records": 301441,
-      "partial": 11274,
-      "in_window_appearances": 304404,
-      "in_window_guide_prices": 106640,
-      "in_window_sale_prices": 112592,
+      "partial": 11314,
+      "in_window_appearances": 304444,
+      "in_window_guide_prices": 106680,
+      "in_window_sale_prices": 112626,
       "undated": 5046,
       "future_dated": 145
     },
