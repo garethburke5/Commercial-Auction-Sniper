@@ -65,5 +65,6 @@ def test_durrants_checkpoint_files_remain_utf8_json():
     assert "Durrants" in continuation["next_growth_target"]
     assert source_register["corpus_labels"]["Durrants"] == 23
     durrants = source_register["latest_collector_attempts"]["durrants"]
+    assert durrants["national_completeness_verified"] is False
     assert durrants["run_new_appearances"] == 23
     assert durrants["newly_covered_source_years"] == ["2024", "2025", "2026"]
