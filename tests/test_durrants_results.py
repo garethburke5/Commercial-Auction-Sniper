@@ -60,6 +60,8 @@ def test_durrants_checkpoint_files_remain_utf8_json():
         (ROOT / "data/auction_history/source_register.json").read_text(encoding="utf-8")
     )
 
+    assert continuation["national_completeness_verified"] is False
+    assert source_register["national_completeness_verified"] is False
     assert "Durrants" in continuation["next_growth_target"]
     assert source_register["corpus_labels"]["Durrants"] == 23
     durrants = source_register["latest_collector_attempts"]["durrants"]
