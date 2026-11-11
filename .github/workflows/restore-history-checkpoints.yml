@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   restore:
-    if: startsWith(github.event.head_commit.message, 'Bank historical auction lot records: stage byte-exact checkpoint repair')
+    if: "\${{ startsWith(github.event.head_commit.message, 'Bank historical auction lot records: stage byte-exact checkpoint repair') }}"
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
