@@ -85,6 +85,8 @@ SOLD: £140,000
 
 def test_locality_only_cards_remain_partial():
     assert is_address("Chillaton, Lifton") is False
+    assert is_address("Widecombe-in-the-Moor") is False
+    assert is_address("Bray Shop, Callington") is False
     assert is_address("12 Fore Street, Launceston") is True
     assert is_address("Land at Chillaton, Lifton") is True
     assert money("Guide £295.000") == 295000

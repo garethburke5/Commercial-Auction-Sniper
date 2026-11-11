@@ -89,8 +89,8 @@ OUTCOME_RE = re.compile(
 )
 ADDRESS_CUE_RE = re.compile(
     r"\b(?:farm|farmhouse|house|cottage|bungalow|flat|apartment|land|field|"
-    r"woodland|moor|building\s+plot|development\s+site|plot|barn|garage|yard|"
-    r"shop|unit|premises|hotel|inn|chapel|church|property)\b",
+    r"woodland|building\s+plot|development\s+site|plot|barn|garage|yard|"
+    r"unit|premises|hotel|inn|chapel|church)\b",
     re.I,
 )
 
@@ -275,7 +275,9 @@ def get_pdf(url: str) -> requests.Response:
 def harvest(saved_only: bool = False) -> None:
     summary_path = corpus.DATA / "kivells_results_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
-    completed = set(previous.get("completed_source_urls") or [])
+    completed = (
+        set() if saved_only else set(previous.get("completed_source_urls") or [])
+    )
     appearances_path = corpus.DATA / "appearances/kivells-results/canonical.jsonl.gz"
     existing = list(corpus.iter_rows(appearances_path)) if appearances_path.exists() else []
     before_ids = {row["appearance_id"] for row in existing}
