@@ -93,6 +93,8 @@ on:
       - scripts/harvest_edward_mellor_pdfs.py
       - scripts/harvest_cooper_tanner_results.py
       - scripts/harvest_kivells_results.py
+      - scripts/harvest_durrants_results.py
+      - data/auction_history/durrants_catalogue_manifest.json
       - scripts/harvest_sdl_legacy_catalogues.py
       - scripts/harvest_sdl_kinetic_2026.py
       - scripts/harvest_smith_sons_results.py
@@ -152,6 +154,7 @@ on:
       - tests/test_edward_mellor_pdfs.py
       - tests/test_cooper_tanner_results.py
       - tests/test_kivells_results.py
+      - tests/test_durrants_results.py
       - tests/test_sdl_legacy_catalogues.py
       - tests/test_sdl_kinetic_2026.py
       - tests/test_smith_sons_results.py
