@@ -1,8 +1,11 @@
 from scripts.harvest_tw_gaze_catalogues import (
     CATALOGUES,
+    NARRATIVE_RESULT_ROWS,
     RESULT_ROWS,
     appearance,
+    narrative_appearance,
     validate_catalogue,
+    validate_narrative_result_page,
     validate_result_page,
 )
 
@@ -45,3 +48,34 @@ def test_appearance_preserves_guide_and_achieved_price_separately():
     assert value["status"] == "sold"
     assert value["record_quality"] == "address_record"
     assert value["auction_date_precision"] == "day"
+
+
+def test_narrative_result_rows_preserve_partial_locations_and_price_semantics():
+    html = """
+      <h1>Land &amp; Property Report</h1>
+      <p>Land and Property Auction on 11 May 2017.</p>
+      <p>Lot 5, a single block of land of 1.84ac, achieved £102,000
+         against a guide of £40,000-£60,000.</p>
+      <p>9.63ac of Woodland at Green Street, Hoxne, with a guide of
+         £40,000-£60,000, reached a final bid of £142,000.</p>
+      <p>Stanton Manor achieved £540,000 against a guide of £400,000+.</p>
+    """
+    assert validate_narrative_result_page(html) is True
+    assert len(NARRATIVE_RESULT_ROWS) == 3
+    assert sum(row["record_quality"] == "partial_address" for row in NARRATIVE_RESULT_ROWS) == 2
+    assert all(row["guide_price"] is not None for row in NARRATIVE_RESULT_ROWS)
+    assert all(row["sale_price"] is not None for row in NARRATIVE_RESULT_ROWS)
+
+    value = narrative_appearance(
+        NARRATIVE_RESULT_ROWS[1],
+        "https://example.test/first-party-result-report",
+        {"sha256": "b" * 64},
+    )
+    assert value["appearance_id"] == (
+        "TW Gaze|tw-gaze:2017-05-11|narrative:woodland-green-street-hoxne"
+    )
+    assert value["address"] == "Woodland at Green Street, Hoxne"
+    assert value["guide_price"] == 40000
+    assert value["guide_price_high"] == 60000
+    assert value["sale_price"] == 142000
+    assert value["status"] == "sold"

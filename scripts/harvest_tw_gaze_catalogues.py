@@ -47,6 +47,10 @@ RESULT_URL = (
     "httpsauctions-twgaze-co-ukauction-results/land-and-property-auction-3/print/"
 )
 RESULT_FALLBACK_URL = RESULT_URL.removesuffix("print/")
+NARRATIVE_RESULT_URL = (
+    "https://www.twgaze.co.uk/about-us/news/"
+    "duis-vehicula-placerat-massa-non-rhoncus/"
+)
 NEXT_URL = "https://www.twgaze.co.uk/assets/properties/jupix/brochures/101039006398/MED-6398-7930.pdf"
 NEXT_TARGET = (
     "Inventory and bank every individual lot in TW Gaze's retained 11 May 2017 "
@@ -185,6 +189,43 @@ RESULT_ROWS = (
     lot(9, "The Bungalow, Thornham Magna, Eye, Suffolk", None, None, sale=300000),
 )
 
+# The first-party report names three distinct appearances from the exact-dated
+# 11 May 2017 event.  It is not a catalogue denominator, so the two records
+# without a complete location remain explicitly partial and no other lots are
+# inferred.  The final lot's number is not published and stays null.
+NARRATIVE_RESULT_ROWS = (
+    {
+        "identity_key": "lot-5-location-unpublished",
+        "lot_number": "5",
+        "address": None,
+        "description": "Single block of land of 1.84 acres with redundant buildings",
+        "guide_price": 40000,
+        "guide_price_high": 60000,
+        "sale_price": 102000,
+        "record_quality": "partial_address",
+    },
+    {
+        "identity_key": "woodland-green-street-hoxne",
+        "lot_number": None,
+        "address": "Woodland at Green Street, Hoxne",
+        "description": "9.63 acres of woodland",
+        "guide_price": 40000,
+        "guide_price_high": 60000,
+        "sale_price": 142000,
+        "record_quality": "address_record",
+    },
+    {
+        "identity_key": "stanton-manor-location-unpublished",
+        "lot_number": None,
+        "address": "Stanton Manor",
+        "description": "1960s house requiring complete refurbishment",
+        "guide_price": 400000,
+        "guide_price_high": None,
+        "sale_price": 540000,
+        "record_quality": "partial_address",
+    },
+)
+
 
 def clean(value):
     return re.sub(r"\s+", " ", str(value or "")).strip(" ,\xa0") or None
@@ -287,6 +328,21 @@ def validate_result_page(html):
     return True
 
 
+def validate_narrative_result_page(html):
+    text = normalized(BeautifulSoup(html, "lxml").get_text(" ", strip=True))
+    if "land and property auction on 11 may 2017" not in text:
+        raise ValueError("narrative result page does not prove 11 May 2017")
+    checks = (
+        ("lot 5", "1 84ac", "40 000 60 000", "102 000"),
+        ("woodland at green street hoxne", "9 63ac", "40 000 60 000", "142 000"),
+        ("stanton manor", "400 000", "540 000"),
+    )
+    for phrases in checks:
+        if not all(phrase in text for phrase in phrases):
+            raise ValueError(f"narrative result evidence missing: {phrases}")
+    return True
+
+
 def evidence_snapshot(raw, name, source_url, basis):
     sha = hashlib.sha256(raw).hexdigest()
     path = corpus.DATA / "sources" / SLUG / f"{name}-{sha[:16]}.gz"
@@ -331,6 +387,52 @@ def appearance(event_date, row, original_url, evidence, source_basis):
         auction_date_precision="day",
         auction_date_basis=source_basis,
         source_platform="TW Gaze first-party land and property archive",
+        operator_legal_name=OPERATOR,
+        operator_company_number=COMPANY_NUMBER,
+        trading_name=SOURCE,
+        source_evidence=evidence,
+    )
+    return value
+
+
+def narrative_appearance(row, original_url, evidence):
+    event_date = "2017-05-11"
+    auction_id = f"{SLUG}:{event_date}"
+    value = corpus.base_row(
+        SOURCE, auction_id, event_date, row["lot_number"], None, original_url
+    )
+    address = row["address"]
+    postcode = corpus.PC.search(address or "")
+    guide_text = f"Guide £{row['guide_price']:,}"
+    if row["guide_price_high"] is not None:
+        guide_text += f"–£{row['guide_price_high']:,}"
+    value.update(
+        appearance_id=f"{SOURCE}|{auction_id}|narrative:{row['identity_key']}",
+        address=address,
+        postcode=postcode.group().upper() if postcode else None,
+        locality=address,
+        description=row["description"],
+        sector=corpus.sector(" ".join(filter(None, [address, row["description"]]))),
+        guide_price=row["guide_price"],
+        guide_price_high=row["guide_price_high"],
+        sale_price=row["sale_price"],
+        status="sold",
+        identity_method=(
+            "first_party_exact_event_date_explicit_lot_number_and_distinctive_description"
+            if row["lot_number"]
+            else "first_party_exact_event_date_and_distinctive_named_property"
+        ),
+        record_quality=row["record_quality"],
+        address_basis=(
+            "verbatim named location in first-party result narrative"
+            if address
+            else "location absent from first-party result narrative"
+        ),
+        source_guide_text=guide_text,
+        source_outcome_text=f"Achieved £{row['sale_price']:,}",
+        auction_date_precision="day",
+        auction_date_basis="exact event date stated in first-party result narrative",
+        source_platform="TW Gaze first-party land and property news archive",
         operator_legal_name=OPERATOR,
         operator_company_number=COMPANY_NUMBER,
         trading_name=SOURCE,
@@ -451,6 +553,46 @@ def harvest():
     corpus.save_json(corpus.DATA / "auctions" / SLUG / "2018-03-21.json", result_state)
     states["2018-03-21"] = result_state
 
+    narrative_resolved, narrative_raw = get(NARRATIVE_RESULT_URL)
+    narrative_html = narrative_raw.decode("utf-8", "replace")
+    validate_narrative_result_page(narrative_html)
+    narrative_evidence = evidence_snapshot(
+        narrative_raw,
+        "result-narrative-2017-05-11.html",
+        narrative_resolved,
+        "first-party result narrative with exact event date, named properties, guides and achieved prices",
+    )
+    narrative_rows = [
+        narrative_appearance(row, narrative_resolved, narrative_evidence)
+        for row in NARRATIVE_RESULT_ROWS
+    ]
+    run_rows.extend(narrative_rows)
+    narrative_state = {
+        "auctioneer": SOURCE,
+        "operator_legal_name": OPERATOR,
+        "operator_company_number": COMPANY_NUMBER,
+        "source_auction_id": f"{SLUG}:2017-05-11",
+        "auction_date": "2017-05-11",
+        "source_url": narrative_resolved,
+        "published_named_result_denominator": len(NARRATIVE_RESULT_ROWS),
+        "lots_captured": len(narrative_rows),
+        "catalogue_complete": False,
+        "event_inventory_complete": False,
+        "source_rows_complete": True,
+        "denominator_reconciled": True,
+        "completion_scope": "every individually named 11 May 2017 result appearance in the retained narrative; not the full event",
+        "partial_location_rows": sum(
+            row["record_quality"] != "address_record" for row in narrative_rows
+        ),
+        "source_evidence": narrative_evidence,
+        "errors": [],
+        "checked_at": corpus.now(),
+    }
+    corpus.save_json(
+        corpus.DATA / "auctions" / SLUG / "2017-05-11.json", narrative_state
+    )
+    states["2017-05-11"] = narrative_state
+
     exact = global_exact_appearances()
     overlaps, admissible = [], []
     for row in run_rows:
@@ -477,13 +619,15 @@ def harvest():
         "checked_at": corpus.now(),
         "operator": {"canonical_name": SOURCE, "company_name": OPERATOR, "company_number": COMPANY_NUMBER, "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True},
         "catalogues_captured": len(ALL_CATALOGUES),
-        "result_events_captured": 1,
+        "result_events_captured": 2,
         "appearances_captured": total,
         "run_new_appearances": total - len(before),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_exact_dated_address_records": sum(bool(row.get("address") and row.get("auction_date")) for row in added),
         "run_new_dated_twenty_year_address_records": len(dated),
-        "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "run_new_partial_lots": sum(
+            row.get("record_quality") != "address_record" for row in added
+        ),
         "run_new_undated_lots": sum(not row.get("auction_date") for row in added),
         "run_new_future_dated_lots": sum(row.get("auction_date", today) > today for row in added),
         "run_new_guide_prices": sum(row.get("guide_price") is not None for row in added),
@@ -503,7 +647,7 @@ def harvest():
     corpus.save_json(corpus.DATA / "tw_gaze_collection.json", summary)
     persist_continuation(summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if len(states) != len(ALL_CATALOGUES) + 1:
+    if len(states) != len(ALL_CATALOGUES) + 2:
         raise SystemExit(1)
     return summary
 
