@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-10T18:27:19.879178+00:00",
+  "checked_at": "2026-11-11T07:23:33.480896+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7267,
-  "observed_property_ids": 6916,
+  "published_property_rows": 7312,
+  "observed_property_ids": 6918,
   "observed_source_ids": [
     "10088",
     "10113",
@@ -3168,6 +3168,8 @@
     "202610231356sq_k82d",
     "202610261515sq_bo77",
     "202610271431sq_q2w0",
+    "202611051415sq_6wqb",
+    "202611051623sq_x313",
     "20268",
     "20269",
     "20272",
@@ -6921,7 +6923,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 364,
+  "pages_expected": 366,
   "pages_captured_this_run": [
     1,
     2,
@@ -8077,7 +8079,7 @@
       "error": "ValueError: detail page has no exact lot and auction date"
     }
   ],
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "property_appearances_captured": 6894,
   "canonical_shard_rows": 6894,
   "legacy_rows_enriched": 0,
@@ -8085,5 +8087,21 @@
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": []
+  "failures": [
+    {
+      "page": 2,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=2",
+      "error": "ValueError: Published result count changed during traversal"
+    },
+    {
+      "page": 3,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=3",
+      "error": "ValueError: Published result count changed during traversal"
+    },
+    {
+      "kind": "grid_tail_growth_recovery",
+      "url": "https://www.pugh-auctions.com/property-search?order-results=date-desc&show-results=80&include-sold=on&page=1",
+      "error": "ValueError: Published result count changed in grid fallback"
+    }
+  ]
 }

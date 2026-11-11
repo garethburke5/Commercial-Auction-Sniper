@@ -3,11 +3,11 @@
   "source_auction_id": "pugh:property-search-archive",
   "auction_date": null,
   "catalogue_complete": false,
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "lots_captured": 6894,
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "pages_expected": 364,
-  "published_property_rows": 7267,
+  "pages_expected": 366,
+  "published_property_rows": 7312,
   "published_rows_reconciled": 7267,
   "source_rows_reconciled_complete": true,
   "grid_tail_source_rows": 327,
@@ -444,6 +444,22 @@
     }
   ],
   "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
-  "errors": [],
-  "checked_at": "2026-11-10T18:27:19.882621+00:00"
+  "errors": [
+    {
+      "page": 2,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=2",
+      "error": "ValueError: Published result count changed during traversal"
+    },
+    {
+      "page": 3,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=3",
+      "error": "ValueError: Published result count changed during traversal"
+    },
+    {
+      "kind": "grid_tail_growth_recovery",
+      "url": "https://www.pugh-auctions.com/property-search?order-results=date-desc&show-results=80&include-sold=on&page=1",
+      "error": "ValueError: Published result count changed in grid fallback"
+    }
+  ],
+  "checked_at": "2026-11-11T07:23:33.484885+00:00"
 }
