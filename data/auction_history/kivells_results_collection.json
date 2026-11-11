@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-11T11:19:16.135526+00:00",
-  "parser_version": 2,
+  "checked_at": "2026-11-11T13:09:32.487024+00:00",
+  "parser_version": 3,
   "retrieval_route": "first_party_event_result_pdfs_and_fliphtml5_page_text",
   "event_pdfs_in_manifest": 11,
   "event_pdfs_banked": 11,
@@ -8,29 +8,36 @@
   "event_pdfs_pending": 0,
   "fliphtml5_result_books_in_manifest": 4,
   "fliphtml5_result_books_banked": 4,
-  "fliphtml5_result_books_completed_this_run": 4,
+  "fliphtml5_result_books_completed_this_run": 0,
   "fliphtml5_result_cards_reconciled": 53,
-  "appearances_captured": 190,
-  "run_new_appearances": 53,
-  "run_new_address_records": 0,
-  "run_new_partial_lots": 53,
-  "run_new_guide_prices": 52,
-  "run_new_guide_evidence": 53,
-  "run_new_sale_prices": 40,
+  "event_page_review_inventories_in_manifest": 1,
+  "event_page_review_inventories_banked": 1,
+  "event_page_review_inventories_completed_this_run": 1,
+  "may_running_order_lots_reconciled": 14,
+  "may_offered_lot_denominator": 13,
+  "may_published_sold_result_cards": 10,
+  "appearances_captured": 204,
+  "run_new_appearances": 14,
+  "run_new_address_records": 14,
+  "run_new_partial_lots": 0,
+  "run_new_guide_prices": 10,
+  "run_new_guide_evidence": 10,
+  "run_new_sale_prices": 10,
   "run_new_rents": 0,
   "exact_source_card_duplicates_collapsed": 63,
   "by_status": {
+    "sold": 135,
     "unsold": 47,
-    "sold": 125,
     "sold_prior": 10,
     "withdrawn": 6,
-    "postponed": 2
+    "postponed": 2,
+    "unknown": 4
   },
   "by_sector": {
-    "land": 76,
+    "land": 86,
     "unknown": 51,
-    "commercial": 22,
-    "residential": 35,
+    "residential": 38,
+    "commercial": 23,
     "mixed-use": 6
   },
   "covered_source_years": [
@@ -52,7 +59,8 @@
     "https://www.kivells.com/media/Auctions/Kivells%20October%202024%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20October%202025%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20September%202024%20Auction%20Results.pdf",
-    "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf"
+    "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf",
+    "https://www.kivells.com/property-sales/property-auctions/15-may-kivells-collective-property-auction-may-2024"
   ],
   "failures": []
 }
