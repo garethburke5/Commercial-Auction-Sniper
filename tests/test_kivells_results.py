@@ -1,5 +1,8 @@
+import json
+
 from scripts.harvest_kivells_results import (
-    EVENTS, build_rows, is_address, money, parse_text, status_from_text,
+    EVENTS, build_rows, is_address, money, parse_text, saved_snapshot_dates,
+    snapshot_metadata_path, status_from_text,
 )
 
 
@@ -18,11 +21,37 @@ UNSOLD
 """
 
 
-def test_manifest_is_six_distinct_first_party_2025_events():
-    assert len(EVENTS) == 6
-    assert len({event["pdf_url"] for event in EVENTS}) == 6
-    assert all(event["auction_date"].startswith("2025-") for event in EVENTS)
+def test_manifest_is_eleven_distinct_first_party_events_across_two_years():
+    assert len(EVENTS) == 11
+    assert len({event["pdf_url"] for event in EVENTS}) == 11
+    assert {event["auction_date"][:4] for event in EVENTS} == {"2024", "2025"}
+    assert sum(event["auction_date"].startswith("2024-") for event in EVENTS) == 5
+    assert sum(event["auction_date"].startswith("2025-") for event in EVENTS) == 6
     assert all(event["pdf_url"].startswith("https://www.kivells.com/media/Auctions/") for event in EVENTS)
+
+
+def test_saved_snapshot_recovery_is_multi_year_and_metadata_backed(monkeypatch, tmp_path):
+    monkeypatch.setattr("scripts.harvest_kivells_results.corpus.DATA", tmp_path)
+    source_dir = tmp_path / "sources/kivells-results/results"
+    source_dir.mkdir(parents=True)
+    snapshot = source_dir / "abc.pdf.gz"
+    snapshot.write_bytes(b"saved")
+    metadata = snapshot_metadata_path(snapshot)
+    assert metadata.name == "abc.json"
+    metadata.write_text(json.dumps({
+        "auction_date": "2024-06-12",
+        "snapshot_path": "data/auction_history/sources/kivells-results/results/abc.pdf.gz",
+    }))
+    existing = [{
+        "auction_date": "2025-01-15",
+        "source_evidence": {
+            "snapshot_path": "data/auction_history/sources/kivells-results/results/old.pdf.gz",
+        },
+    }]
+    assert saved_snapshot_dates(existing) == {
+        "data/auction_history/sources/kivells-results/results/abc.pdf.gz": "2024-06-12",
+        "data/auction_history/sources/kivells-results/results/old.pdf.gz": "2025-01-15",
+    }
 
 
 def test_parses_complete_numbered_result_cards_and_prices():
@@ -38,6 +67,22 @@ def test_parses_complete_numbered_result_cards_and_prices():
     assert cards[2]["address"] is None
     assert cards[2]["location"] == "Chillaton, Lifton"
     assert cards[2]["status"] == "unsold"
+
+
+def test_bare_published_achieved_price_is_preserved_as_sold():
+    source = """
+    Wednesday 12th June 2024
+    LOT 1 | Upton Cross
+    Guide: £150,000 - £175,000 | £197,000
+    Offered to the market for the first time in its history.
+    """
+    auction_date, cards = parse_text(source, "2024-06-12")
+    assert auction_date == "2024-06-12"
+    assert cards[0]["guide_price"] == 150000
+    assert cards[0]["guide_price_high"] == 175000
+    assert cards[0]["sale_price"] == 197000
+    assert cards[0]["status"] == "sold"
+    assert cards[0]["source_result_text"] == "£197,000"
 
 
 def test_rejects_date_mismatch_and_noncontiguous_lot_inventory():
@@ -95,7 +140,8 @@ def test_locality_only_cards_remain_partial():
 
 def test_build_rows_preserves_exact_date_prices_and_partial_quality():
     _, cards = parse_text(SAMPLE, "2025-06-18")
-    event = dict(EVENTS[1])
+    event = next(event for event in EVENTS if event["auction_date"] == "2025-06-18")
+    event = dict(event)
     event["published_lot_count"] = 3
     state, rows = build_rows(cards, event, event["pdf_url"], {"sha256": "abc"})
     assert state["catalogue_complete"] is True

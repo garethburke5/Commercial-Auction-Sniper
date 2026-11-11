@@ -1391,7 +1391,13 @@ jobs:
       - name: Bank Kivells exact-dated result PDF batch
         if: inputs.focus == 'all' || startsWith(github.event.head_commit.message, 'Run focused Kivells result PDF expansion')
         timeout-minutes: 20
-        run: python -u scripts/harvest_kivells_results.py --reparse-saved
+        run: |
+          python -m pytest -q tests/test_kivells_results.py
+          if [[ "${{ startsWith(github.event.head_commit.message, 'Run focused Kivells result PDF expansion') }}" == "true" ]]; then
+            python -u scripts/harvest_kivells_results.py
+          else
+            python -u scripts/harvest_kivells_results.py --reparse-saved
+          fi
       - name: Bank Future Property Auctions archived catalogues
         if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 30

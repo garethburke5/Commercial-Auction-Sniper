@@ -24,9 +24,39 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 1
+PARSER_VERSION = 2
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 EVENTS = (
+    {
+        "auction_date": "2024-06-12",
+        "article_url": "https://www.kivells.com/residentialsales/auctions/news/kivells-continues-to-generate-remarkable-auction-results-with-sales-topping-1-2-million-at-june-s-auction",
+        "pdf_url": "https://www.kivells.com/media/Auctions/Kivells%20June%202024%20Auction%20Results.pdf",
+        "published_lot_count": 13,
+    },
+    {
+        "auction_date": "2024-07-24",
+        "article_url": "https://www.kivells.com/residentialsales/auctions/news",
+        "pdf_url": "https://www.kivells.com/media/Auctions/Kivells%20July%202024%20Auction%20Results.pdf",
+        "published_lot_count": 14,
+    },
+    {
+        "auction_date": "2024-09-04",
+        "article_url": "https://www.kivells.com/residentialsales/auctions/news/-1",
+        "pdf_url": "https://www.kivells.com/media/Auctions/Kivells%20September%202024%20Auction%20Results.pdf",
+        "published_lot_count": 14,
+    },
+    {
+        "auction_date": "2024-10-09",
+        "article_url": "https://www.kivells.com/residentialsales/auctions/news/-16",
+        "pdf_url": "https://www.kivells.com/media/Auctions/Kivells%20October%202024%20Auction%20Results.pdf",
+        "published_lot_count": 10,
+    },
+    {
+        "auction_date": "2024-11-13",
+        "article_url": "https://www.kivells.com/residentialsales/auctions/news/over-1-3-million-worth-of-property-sells-at-kivells-november-auction",
+        "pdf_url": "https://www.kivells.com/media/Auctions/Kivells%20November%202024%20Auction%20Results.pdf",
+        "published_lot_count": None,
+    },
     {
         "auction_date": "2025-01-15",
         "article_url": "https://www.kivells.com/residentialsales/auctions/news/-18",
@@ -85,6 +115,11 @@ GUIDE_RE = re.compile(
 OUTCOME_RE = re.compile(
     r"\b(Sold\s+Post(?:[- ]Auction)?|Sold\s+After|Sold\s+Prior|Sold|Unsold|"
     r"Withdrawn|Postponed|Available)\b\s*:?[ \t]*(£\s*[\d][\d,.]*)?",
+    re.I,
+)
+BARE_SALE_RE = re.compile(
+    r"\bGuide(?:\s+Price)?\s*:?[ \t]*£\s*[\d][\d,.]*"
+    r"(?:\s*(?:-|–|to)\s*£\s*[\d][\d,.]*)?\s*\|\s*(£\s*[\d][\d,.]*)",
     re.I,
 )
 ADDRESS_CUE_RE = re.compile(
@@ -157,11 +192,16 @@ def parse_text(text: str, expected_date: str) -> tuple[str, list[dict]]:
             raise ValueError(f"lot {lot_number} has no published location")
         guide_match = GUIDE_RE.search(block)
         outcome_match = OUTCOME_RE.search(block)
-        if not outcome_match:
+        bare_sale_match = BARE_SALE_RE.search(block) if not outcome_match else None
+        if not outcome_match and not bare_sale_match:
             raise ValueError(f"lot {lot_number} has no published outcome")
         guide_low = money(guide_match.group(1)) if guide_match else None
         guide_high = money(guide_match.group(2)) if guide_match and guide_match.group(2) else None
-        outcome_label = clean(outcome_match.group(1))
+        outcome_label = clean(outcome_match.group(1)) if outcome_match else "Sold"
+        sale_price_text = (
+            outcome_match.group(2) if outcome_match and outcome_match.group(2)
+            else bare_sale_match.group(1) if bare_sale_match else None
+        )
         cards.append({
             "lot_number": str(lot_number),
             "location": location,
@@ -169,9 +209,11 @@ def parse_text(text: str, expected_date: str) -> tuple[str, list[dict]]:
             "guide_price": guide_low,
             "guide_price_high": guide_high,
             "guide_price_text": clean(guide_match.group(0)) if guide_match else None,
-            "sale_price": money(outcome_match.group(2)) if outcome_match.group(2) else None,
+            "sale_price": money(sale_price_text),
             "status": status_from_text(outcome_label),
-            "source_result_text": clean(outcome_match.group(0)),
+            "source_result_text": clean(
+                outcome_match.group(0) if outcome_match else bare_sale_match.group(1)
+            ),
             "source_card_text": clean(block),
         })
     # Kivells' PDFs reuse the preceding spread as a page background, so text
@@ -272,6 +314,34 @@ def get_pdf(url: str) -> requests.Response:
     return response
 
 
+def snapshot_metadata_path(snapshot: Path) -> Path:
+    return snapshot.with_suffix("").with_suffix(".json")
+
+
+def saved_snapshot_dates(existing: list[dict]) -> dict[str, str]:
+    """Resolve saved PDFs without guessing a single collection year.
+
+    New downloads get an adjacent metadata record before parsing. Existing
+    snapshots are reconciled from their permanently banked row evidence, which
+    keeps the multi-year saved-only recovery route deterministic.
+    """
+    dates = {}
+    for row in existing:
+        evidence = row.get("source_evidence") or {}
+        snapshot_path = evidence.get("snapshot_path")
+        auction_date = row.get("auction_date")
+        if snapshot_path and auction_date:
+            dates[snapshot_path] = auction_date
+    source_dir = corpus.DATA / "sources/kivells-results/results"
+    for metadata_path in sorted(source_dir.glob("*.json")):
+        metadata = json.loads(metadata_path.read_text())
+        snapshot_path = metadata.get("snapshot_path")
+        auction_date = metadata.get("auction_date")
+        if snapshot_path and auction_date:
+            dates[snapshot_path] = auction_date
+    return dates
+
+
 def harvest(saved_only: bool = False) -> None:
     summary_path = corpus.DATA / "kivells_results_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
@@ -292,11 +362,13 @@ def harvest(saved_only: bool = False) -> None:
     completed_this_run = []
     saved_by_date = {}
     if saved_only:
+        known_snapshot_dates = saved_snapshot_dates(existing)
         for snapshot in sorted((corpus.DATA / "sources/kivells-results/results").glob("*.pdf.gz")):
             raw = gzip.decompress(snapshot.read_bytes())
-            reader = PdfReader(BytesIO(raw))
-            text = "\n".join(page.extract_text() or "" for page in reader.pages)
-            saved_by_date[parse_printed_date(text, 2025)] = (snapshot, raw)
+            relative_path = str(snapshot.relative_to(corpus.ROOT))
+            auction_date = known_snapshot_dates.get(relative_path)
+            if auction_date:
+                saved_by_date[auction_date] = (snapshot, raw)
     for event in EVENTS:
         if event["pdf_url"] in completed:
             continue
@@ -314,6 +386,15 @@ def harvest(saved_only: bool = False) -> None:
             if not saved_only:
                 snapshot = corpus.DATA / "sources/kivells-results/results" / f"{sha[:16]}.pdf.gz"
                 corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
+                corpus.save_json(snapshot_metadata_path(snapshot), {
+                    "auction_date": event["auction_date"],
+                    "article_url": event["article_url"],
+                    "pdf_url": event["pdf_url"],
+                    "resolved_source_url": source_url,
+                    "retrieved_at": retrieved_at,
+                    "sha256": sha,
+                    "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+                })
             evidence = {
                 "source_url": source_url, "article_url": event["article_url"],
                 "retrieved_at": retrieved_at, "sha256": sha,
