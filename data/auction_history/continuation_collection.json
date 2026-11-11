@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Reconcile the exact-dated 15 May 2024 Kivells first-party 14-lot event-page running order against the official half-year and annual-review result evidence, whose published denominator is 13 offered lots. Snapshot the event page and review PDF before parsing; bank each of the 14 evidenced appearances once; enrich only matched lots with their separately published guide, outcome and achieved price; and leave the omitted, withdrawn or otherwise unmatched lot's result fields null unless first-party evidence identifies it. Do not claim 14 result cards from a 13-lot result denominator. Kivells Auctions remains the existing Kivells trading-name/operator lineage, so this is an event-inventory checkpoint rather than a new auctioneer or source-year. After banking May, move to the substantial uncovered Kivells 2023 catalogue set or a different high-yield uncovered source/year register target. National completeness remains false.",
+  "next_growth_target": "Batch the Kivells 2023 annual-review source through one reusable runner: reconcile its ten exact-dated events and 110 individually published sold result cards against the stated denominator of 133 offered lots; snapshot the first-party annual-review page and public FlipHTML source immutably; preserve each exact address, date, guide, achieved price and outcome; and keep the 23 offered-but-unidentified outcomes null unless complete first-party running orders are recovered. Do not admit an annual summary as property evidence, do not count Kivells Auctions again as a new auctioneer, and do not claim a new source-year until individual 2023 cards are banked. National completeness remains false.",
   "runs": [
     {
       "source": "dedman_gray_results",
@@ -4895,55 +4895,53 @@
     }
   },
   "last_automated_growth": {
-    "source": "kivells-fliphtml-results-2024-01-to-04",
+    "source": "kivells-may-2024-event-page-and-half-year-review",
     "outcome": "completed",
-    "checked_at": "2026-11-11T11:21:17.178008+00:00",
-    "run_new_appearances": 53,
-    "run_new_dated_twenty_year_address_records": 0,
-    "run_new_dated_twenty_year_partial_records": 53,
-    "run_new_partial_lots": 53,
+    "checked_at": "2026-11-11T13:09:32.487024+00:00",
+    "run_new_appearances": 14,
+    "run_new_dated_twenty_year_address_records": 14,
+    "run_new_dated_twenty_year_partial_records": 0,
+    "run_new_partial_lots": 0,
     "run_existing_appearances_newly_dated": 0,
-    "run_new_commercial_or_mixed": 7,
-    "run_new_commercial_appearances": 7,
+    "run_new_commercial_or_mixed": 1,
+    "run_new_commercial_appearances": 1,
     "run_new_mixed_use_appearances": 0,
-    "run_new_land_appearances": 30,
-    "run_new_residential_appearances": 5,
-    "run_new_unknown_sector_appearances": 11,
-    "run_new_guide_prices": 52,
-    "run_new_guide_evidence": 53,
-    "run_new_sale_prices": 40,
+    "run_new_land_appearances": 10,
+    "run_new_residential_appearances": 3,
+    "run_new_unknown_sector_appearances": 0,
+    "run_new_guide_prices": 10,
+    "run_new_guide_evidence": 10,
+    "run_new_sale_prices": 10,
     "run_new_rent_values": 0,
     "newly_covered_source_years": [],
     "new_calendar_source_years": 0,
-    "newly_reconciled_complete_source_event_inventories": 4,
-    "event_card_denominators": {
-      "2024-01-17": 9,
-      "2024-02-21": 16,
-      "2024-03-20": 12,
-      "2024-04-17": 16
-    },
+    "newly_reconciled_complete_source_event_inventories": 1,
+    "event_running_order_denominator": 14,
+    "event_offered_denominator": 13,
+    "published_sold_result_cards": 10,
+    "unmatched_outcome_price_fields_left_null": 4,
     "duplicate_appearance_ids": 0,
     "duplicate_source_evidence_excluded": 0,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
     "collection_run_ids": [
-      43010626319
+      43026178805
     ],
     "banked_commits": [
-      "a252b8fbaee91601711544ef6bada0b2f7208435"
+      "ace8676c5e474dbad899f46f396f8717d6fa12cc"
     ],
     "publication_run_ids": [
-      43011285818
+      43027060875
     ],
     "publication_verified": true,
     "production_domain_verified": true,
     "corpus_after_target_rebuild": {
-      "appearances": 312572,
-      "address_records": 301426,
+      "appearances": 312586,
+      "address_records": 301440,
       "partial": 11146,
-      "in_window_appearances": 304261,
-      "in_window_guide_prices": 106501,
-      "in_window_sale_prices": 112475,
+      "in_window_appearances": 304275,
+      "in_window_guide_prices": 106511,
+      "in_window_sale_prices": 112485,
       "undated": 5046,
       "future_dated": 145
     },
