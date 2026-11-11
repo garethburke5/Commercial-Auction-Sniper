@@ -58,6 +58,7 @@ OCR_PSM_MODES = (4, 3, 6, 11, 12)
 # equality alone is not enough to reuse states parsed by an older algorithm.
 RESULT_PARSER_VERSION = 2
 CATALOGUE_ENRICHMENT_FIELDS = (
+    "catalogue_inventory_checked",
     "catalogue_guide_checked",
     "guide_price",
     "guide_price_high",
