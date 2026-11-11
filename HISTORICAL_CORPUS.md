@@ -4,6 +4,43 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 11 November 2026 — Kivells 2023 retained result-book batch
+
+Historical collection run [43041273146](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43041273146)
+banked ten retained first-party Kivells 2023 result books through one reusable
+browser-retained FlipHTML seed runner after the publisher's public text endpoints
+returned HTTP 403 to the normal collector. The immutable books reconcile 129
+individual result cards, of which 107 publish sold outcomes. Bank commit
+[2d7af34](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/2d7af34418f36e7b3d4ddbfee4a935588c610610)
+added all 129 as net new exact-dated appearances inside the twenty-year window.
+
+One addition is a full-address record and 128 are locality-only partial records.
+The sector split is nine commercial, eight mixed-use, 64 land, 14 residential and
+34 unknown, so the commercial/mixed-use subset is 17. The batch added 129 guide
+texts and 107 achieved prices, with no rent evidence and no undated or future-dated
+records. It establishes Kivells 2023 as one newly covered source-year and reconciles
+ten exact-dated source-event inventories. Twenty-four exact repeated source-background
+cards were collapsed before growth was claimed; no duplicate appearance ID was
+admitted.
+
+The annual review's different-scope totals of 133 offered and 111 sold remain
+discovery and denominator evidence only. They are not substituted for the 129
+individually evidenced cards or used to invent four unidentified offered lots or
+four unidentified sold outcomes. `Kivells Auctions` remains the existing Kivells
+trading-name/operator lineage rather than a newly counted auctioneer. Rebuilt corpus
+totals are 312,715 appearances, 301,441 full-address records, 11,274 partial records,
+304,404 in-window appearances, 106,640 in-window guides and 112,592 in-window
+achieved prices. Undated and future-dated totals remain 5,046 and 145.
+
+Next serial growth target: use the same reusable browser-retained result-book runner
+to inventory the surviving Kivells 2022 monthly books from the publisher profile,
+reconcile each exact-dated book against its own individual-card denominator, and
+bank every evidenced address, date, guide, achieved price and outcome. Keep annual
+summary totals separate from individual property evidence, do not count Kivells or
+its branches/trading names again, and move to a different uncovered source/year if
+no 2022 result-book assets survive. National completeness remains false.
+
+
 ## 11 November 2026 — Kivells 15 May running-order and review reconciliation
 
 Historical collection run [43026178805](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43026178805)
