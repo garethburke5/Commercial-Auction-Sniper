@@ -6,19 +6,28 @@
   "auction_date": "2026-02-25",
   "auction_date_precision": "day",
   "source_url": "https://durrants.com/wp-content/uploads/2026/02/RESULTS-FOR-WEB-February-2026.pdf",
-  "lots_captured": 3,
+  "lots_captured": 4,
   "catalogue_complete": true,
   "source_rows_complete": true,
   "denominator_reconciled": true,
-  "published_lot_denominator": 3,
-  "completion_scope": "all numbered rows on retained first-party result sheet",
+  "published_lot_denominator": 4,
+  "completion_scope": "three result-sheet rows plus catalogue-only lot 4; the four-lot denominator is reconciled",
   "source_evidence": {
     "source_url": "https://durrants.com/wp-content/uploads/2026/02/RESULTS-FOR-WEB-February-2026.pdf",
-    "retrieved_at": "2026-11-11T16:44:56.397084+00:00",
+    "retrieved_at": "2026-11-11T18:22:32.889691+00:00",
     "sha256": "a6da01fe881a05e7c089d9bcaf8a30f1dfc4ffa7a3d3ed288cb95722650a2159",
     "snapshot_path": "data/auction_history/sources/durrants/result-a6da01fe881a05e7c089.pdf.gz",
     "basis": "retained first-party exact-dated property-auction result PDF"
   },
   "errors": [],
-  "checked_at": "2026-11-11T16:44:56.437285+00:00"
+  "checked_at": "2026-11-11T18:22:32.930392+00:00",
+  "catalogue_source_url": "https://durrants.com/wp-content/uploads/2026/02/Durrants-Property-Auction-Catalogue-Feb26-v7.pdf",
+  "catalogue_evidence": {
+    "source_url": "https://durrants.com/wp-content/uploads/2026/02/Durrants-Property-Auction-Catalogue-Feb26-v7.pdf",
+    "retrieved_at": "2026-11-11T18:22:48.235947+00:00",
+    "sha256": "e592e74c78f8da885ac3d355433445fd109740221e62b22c1cafa44efe1a8ff8",
+    "snapshot_path": "data/auction_history/sources/durrants/catalogue-e592e74c78f8da885ac3.pdf.gz",
+    "basis": "retained first-party exact-dated property-auction catalogue PDF",
+    "source_tier": "first_party"
+  }
 }
