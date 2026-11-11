@@ -53,7 +53,7 @@ class Billing:
             return self.portal(user)
         session=self.client.v1.checkout.sessions.create({'customer':customer,'mode':'subscription',
             'custom_text':{'submit':{'message':'Your membership includes unlimited Premium Property History & Intelligence at no extra charge. Your published monthly Investment Report allowance remains separate.'}},
-            'line_items':[{'price':self.prices[plan],'quantity':1,**({'tax_rates':tax_rates} if tax_rates else {})}],'client_reference_id':user,
+            'line_items':[{'price':self.prices[plan],'quantity':1,**({'dynamic_tax_rates':tax_rates} if tax_rates else {})}],'client_reference_id':user,'billing_address_collection':'required',
             'integration_identifier':'auction_geek_membership_abkqmfzt',
             'success_url':self.origin+'/account/?checkout=returned','cancel_url':self.origin+'/account/'},
             options={'idempotency_key':f'checkout-{user}-{plan}-{int(time.time())//1800}'})
@@ -74,6 +74,7 @@ class Billing:
         if not rate_id:raise HTTPException(503,'Billing VAT rate is not configured')
         rate=plain(self.client.v1.tax_rates.retrieve(rate_id))
         if (not rate.get('active') or not rate.get('inclusive')
+                or rate.get('country')!='GB' or rate.get('percentage')!=20 or rate.get('state')
                 or bool(rate.get('livemode'))!=live):
             raise HTTPException(503,'Billing requires an active inclusive tax rate in this environment')
         return [rate_id]
@@ -184,7 +185,7 @@ class Billing:
                 order={'order_id':uuid.uuid4().hex,'price_id':price_id}
                 db.execute('INSERT INTO purchases(order_id,user_id,product,property_id,price_id,status,created_at) VALUES (?,?,?,?,?,?,?)',(order['order_id'],user,product,property_id,order['price_id'],'pending',int(time.time())))
         session=self.client.v1.checkout.sessions.create({'customer':customer,'mode':'payment',
-            'line_items':[{'price':order['price_id'],'quantity':1,**({'tax_rates':tax_rates} if tax_rates else {})}],'client_reference_id':user,
+            'line_items':[{'price':order['price_id'],'quantity':1,**({'dynamic_tax_rates':tax_rates} if tax_rates else {})}],'client_reference_id':user,'billing_address_collection':'required',
             'metadata':{'order_id':order['order_id']},'payment_intent_data':{'metadata':{'order_id':order['order_id']}},
             'integration_identifier':'auction_geek_report_cvnpwksx',
             'success_url':self.origin+'/account/?purchase=returned','cancel_url':self.origin+'/account/'},

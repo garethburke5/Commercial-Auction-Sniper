@@ -55,13 +55,13 @@ def test_inclusive_tax_requires_configured_rate():
     assert availability(env)['report_checkout_available']
 
 
-@pytest.mark.parametrize('changes', [{'inclusive':False}, {'active':False}, {'livemode':False}])
+@pytest.mark.parametrize('changes', [{'inclusive':False}, {'active':False}, {'livemode':False}, {'country':'US'}, {'country':None}, {'percentage':5}, {'state':'CA'}])
 def test_live_vat_rejects_exclusive_inactive_or_test_rate(monkeypatch,changes):
     from types import SimpleNamespace
     monkeypatch.setenv('BILLING_TAX_MODE','inclusive_manual')
     monkeypatch.setenv('STRIPE_TAX_RATE','txr_fixture')
     billing=Billing.__new__(Billing);billing.secret='rk_live_fixture'
-    rate={'active':True,'inclusive':True,'livemode':True}
+    rate={'active':True,'inclusive':True,'livemode':True,'country':'GB','percentage':20}
     billing.client=SimpleNamespace(v1=SimpleNamespace(tax_rates=SimpleNamespace(retrieve=lambda _:rate)))
     assert billing._tax_rates()==['txr_fixture']
     rate.update(changes)

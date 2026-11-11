@@ -38,7 +38,7 @@ def purchase(billing,user,product,row,*,sandbox=False):
         tax_id=os.getenv('HISTORY_STRIPE_TAX_RATE','')
         if not tax_id:raise HTTPException(503,'History tax rate is not configured')
         tax=plain(billing.client.v1.tax_rates.retrieve(tax_id))
-        if not tax.get('active') or not tax.get('inclusive') or tax.get('livemode',False)==test:
+        if not tax.get('active') or not tax.get('inclusive') or tax.get('country')!='GB' or tax.get('percentage')!=20 or tax.get('state') or tax.get('livemode',False)==test:
             raise HTTPException(503,'History requires an active inclusive tax rate in this environment')
         tax_rates=[tax_id]
     billing.accounts.ensure(user)
@@ -74,9 +74,9 @@ def purchase(billing,user,product,row,*,sandbox=False):
                        (order_id,key,offer['amount_pence'],offer['duration_seconds'],'history-2026-10-20'))
     # Commit the order before contacting Stripe. A lost response must reuse it.
     line={'price':price_id,'quantity':1}
-    if tax_rates:line['tax_rates']=tax_rates
+    if tax_rates:line['dynamic_tax_rates']=tax_rates
     session=billing.client.v1.checkout.sessions.create({
-        'customer':customer,'mode':'payment','line_items':[line], 'client_reference_id':user,
+        'customer':customer,'mode':'payment','line_items':[line], 'client_reference_id':user,'billing_address_collection':'required',
         'custom_text':{'submit':{'message':'Active Investor and Investor Pro members already have unlimited Premium Property History & Intelligence included. Do not purchase additional history access if your membership already covers it.'}},
         'metadata':{'order_id':order_id}, 'payment_intent_data':{'metadata':{'order_id':order_id}},
         'integration_identifier':'auction_geek_history_qmztbskv',
