@@ -1,7 +1,7 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    DEFAULT_FLIPHTML_2023_SEED, EVENTS, FLIPHTML_2023_EVENTS,
+    DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED, EVENTS, FLIPHTML_2023_EVENTS,
     MAY_EVENT, MAY_RESULTS, build_fliphtml_rows, build_may_rows, build_rows,
     extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
     public_fliphtml_pages, parse_may_event_page, parse_text,
@@ -77,6 +77,32 @@ def test_browser_retained_2023_seed_matches_all_result_book_denominators():
     assert all(item["search_config_sha256"] for item in books)
     assert all(item["config_sha256"] for item in books)
     assert all("browser" in item["recovery_route"] for item in books)
+
+
+def test_accessible_2022_seed_batches_three_books_and_reconciles_denominators():
+    books = [
+        item for item in load_fliphtml_seed(DEFAULT_FLIPHTML_SEED)["books"]
+        if item["auction_date"].startswith("2022-")
+    ]
+    assert [item["book_slug"] for item in books] == ["xnbb", "qjez", "wais"]
+    assert sum(item["expected_numbered_result_cards"] for item in books) == 40
+    assert sum(item["expected_sold_cards"] for item in books) == 34
+    assert all(item["public_text_html"] for item in books)
+    assert all(item["page_source_urls"] for item in books)
+    assert all("accessible HTML" in item["recovery_route"] for item in books)
+
+
+def test_public_basic_text_fallback_handles_adjacent_two_column_cards():
+    raw = b"""
+    <html><body><p class="basic-text">Wednesday 27th July 2022</p>
+    <p class="basic-text">LOT 1 | Camelford Guide: &pound;50,000 | SOLD &pound;75,000
+    LOT 2 | North Tamerton Guide: &pound;625,000 | &pound;720,000</p></body></html>
+    """
+    pages = public_fliphtml_pages(raw, "https://fliphtml5.com/hoau/xnbb/basic")
+    _, cards = parse_text("\n".join(pages), "2022-07-27")
+    assert [card["location"] for card in cards] == ["Camelford", "North Tamerton"]
+    assert [card["guide_price"] for card in cards] == [50000, 625000]
+    assert [card["sale_price"] for card in cards] == [75000, 720000]
 
 
 def test_public_fliphtml_accessible_page_text_is_a_complete_fallback():

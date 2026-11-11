@@ -25,7 +25,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 4
+PARSER_VERSION = 5
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
@@ -369,6 +369,17 @@ def is_address(location: str) -> bool:
 def parse_text(text: str, expected_date: str) -> tuple[str, list[dict]]:
     normalized = text.replace("\u00ad", "").replace("\r", "\n")
     normalized = re.sub(r"[ \t]+", " ", normalized)
+    # FlipHTML's accessible text version may place both cards from a printed
+    # two-column spread on one logical line. Restore a stable boundary before
+    # every numbered card so the same parser works for viewer JS, PDF text and
+    # public basic-text snapshots.
+    normalized = re.sub(r"(?<!\n)(LOT\s+\d+\s*[|:])", r"\n\1", normalized)
+    normalized = re.sub(
+        r"(?<!\n)((?:Auction\s+)?Guide(?:\s+Price)?\s*:?)",
+        r"\n\1",
+        normalized,
+        flags=re.I,
+    )
     auction_date = parse_printed_date(normalized, int(expected_date[:4]))
     if auction_date != expected_date:
         raise ValueError(f"printed date {auction_date} does not match expected {expected_date}")
@@ -381,11 +392,18 @@ def parse_text(text: str, expected_date: str) -> tuple[str, list[dict]]:
         block = normalized[anchor.start(): anchors[index + 1].start() if index + 1 < len(anchors) else None]
         lot_number = int(anchor.group(1))
         location = clean(anchor.group(2))
+        location = clean(re.sub(
+            r"\s+(?:SOLD(?:\s+(?:PRIOR|AFTER|POST[- ]AUCTION))?|UNSOLD|"
+            r"WITHDRAWN|POSTPONED|AVAILABLE|USOLD)\s*$",
+            "",
+            location or "",
+            flags=re.I,
+        ))
         if not location:
             raise ValueError(f"lot {lot_number} has no published location")
         guide_match = GUIDE_RE.search(block)
         outcome_match = OUTCOME_RE.search(block)
-        bare_sale_match = BARE_SALE_RE.search(block) if not outcome_match else None
+        bare_sale_match = BARE_SALE_RE.search(block)
         if not outcome_match and not bare_sale_match:
             raise ValueError(f"lot {lot_number} has no published outcome")
         guide_low = money(guide_match.group(1)) if guide_match else None
@@ -511,6 +529,10 @@ def load_fliphtml_seed(path: Path = DEFAULT_FLIPHTML_SEED) -> dict:
 def public_fliphtml_pages(raw: bytes, source_url: str) -> list[str]:
     soup = BeautifulSoup(raw, "html.parser")
     containers = soup.select(".flip-basic-text")
+    if not containers:
+        # Older retained books expose the same accessible page inventory as
+        # one p.basic-text node per page rather than the newer wrapper class.
+        containers = soup.select("p.basic-text")
     pages = []
     for container in containers:
         text = container.get_text("\n", strip=True)
@@ -665,11 +687,14 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
         "annual_review_url": item.get("annual_review_url"),
         "article_url": item.get("article_url"),
         "original_urls": [
-            value for value in (
+            *[
+                value for value in (
                 item["source_url"], item["search_config_url"], item["config_url"],
                 item.get("public_text_url"), item.get("annual_review_url"),
                 item.get("article_url"),
-            ) if value
+                ) if value
+            ],
+            *(item.get("page_source_urls") or []),
         ],
         "retrieved_at": item["retrieved_at"],
         "search_config_sha256": search_sha,
@@ -679,10 +704,11 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
         "public_text_sha256": public_sha,
         "public_text_snapshot_path": public_snapshot_path,
         "page_assets": page_assets,
-        "basis": (
+        "basis": " ".join(filter(None, (
             "complete first-party FlipHTML5 result-book page-text inventory and "
-            "viewer config, with accessible public page text retained when used"
-        ),
+            "viewer config, with accessible public page text retained when used.",
+            item.get("recovery_route"),
+        ))),
     }
     corpus.save_json(
         prefix / f"{slug}-metadata.json",
