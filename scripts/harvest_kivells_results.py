@@ -26,6 +26,10 @@ import historical_corpus as corpus
 
 PARSER_VERSION = 2
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
+DEFAULT_FLIPHTML_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-result-books.json.gz"
+)
 EVENTS = (
     {
         "auction_date": "2024-06-12",
@@ -139,7 +143,14 @@ def money(value: str | None) -> int | None:
     match = MONEY_RE.search(value or "")
     if not match:
         return None
-    digits = re.sub(r"\D", "", match.group(1))
+    printed = match.group(1)
+    if ("," in printed or "." in printed) and not re.fullmatch(
+        r"\d{1,3}(?:[,.]\d{3})+", printed
+    ):
+        # Keep malformed source text verbatim but do not turn a dropped digit
+        # such as £330,00 into a fabricated structured guide price.
+        return None
+    digits = re.sub(r"\D", "", printed)
     return int(digits) if digits else None
 
 
@@ -306,6 +317,105 @@ def build_rows(cards: list[dict], event: dict, source_url: str, evidence: dict) 
     return state, rows
 
 
+def load_fliphtml_seed(path: Path = DEFAULT_FLIPHTML_SEED) -> dict:
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        seed = json.load(handle)
+    if seed.get("schema_version") != 1 or not seed.get("books"):
+        raise ValueError("Kivells FlipHTML5 seed has no recognised result books")
+    return seed
+
+
+def fliphtml_pages(item: dict) -> list[str]:
+    match = re.fullmatch(
+        r"\s*var\s+textForPages\s*=\s*(\[[\s\S]*\])\s*;?\s*",
+        item["search_config_js"],
+    )
+    if not match:
+        raise ValueError(f"unrecognised FlipHTML5 page inventory: {item['source_url']}")
+    pages = json.loads(match.group(1))
+    if not isinstance(pages, list) or not pages:
+        raise ValueError(f"empty FlipHTML5 page inventory: {item['source_url']}")
+    return pages
+
+
+def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
+    search_raw = item["search_config_js"].encode("utf-8")
+    config_raw = item["config_js"].encode("utf-8")
+    search_sha = corpus.digest(search_raw)
+    config_sha = corpus.digest(config_raw)
+    if search_sha != item["search_config_sha256"] or len(search_raw) != item["search_config_size_bytes"]:
+        raise ValueError("FlipHTML5 page inventory checksum/size mismatch")
+    if config_sha != item["config_sha256"] or len(config_raw) != item["config_size_bytes"]:
+        raise ValueError("FlipHTML5 viewer config checksum/size mismatch")
+    prefix = corpus.DATA / "sources/kivells-results/fliphtml5"
+    slug = item["book_slug"]
+    search_path = prefix / f"{slug}-search-{search_sha[:16]}.js.gz"
+    config_path = prefix / f"{slug}-config-{config_sha[:16]}.js.gz"
+    if not search_path.exists():
+        corpus.atomic(search_path, gzip.compress(search_raw, mtime=0))
+    if not config_path.exists():
+        corpus.atomic(config_path, gzip.compress(config_raw, mtime=0))
+    page_assets = []
+    for page_number, page in enumerate(pages, 1):
+        raw = page.encode("utf-8")
+        sha = corpus.digest(raw)
+        path = prefix / f"{slug}-page-{page_number:02d}-{sha[:16]}.txt.gz"
+        if not path.exists():
+            corpus.atomic(path, gzip.compress(raw, mtime=0))
+        page_assets.append(
+            {
+                "page_number": page_number,
+                "sha256": sha,
+                "source_size_bytes": len(raw),
+                "snapshot_path": str(path.relative_to(corpus.ROOT)),
+            }
+        )
+    return {
+        "source_url": item["source_url"],
+        "search_config_url": item["search_config_url"],
+        "config_url": item["config_url"],
+        "retrieved_at": item["retrieved_at"],
+        "search_config_sha256": search_sha,
+        "search_config_snapshot_path": str(search_path.relative_to(corpus.ROOT)),
+        "config_sha256": config_sha,
+        "config_snapshot_path": str(config_path.relative_to(corpus.ROOT)),
+        "page_assets": page_assets,
+        "basis": "complete first-party FlipHTML5 result-book page-text inventory and viewer config",
+    }
+
+
+def build_fliphtml_rows(item: dict, pages: list[str], evidence: dict) -> tuple[dict, list[dict]]:
+    auction_date, cards = parse_text("\n".join(pages), item["auction_date"])
+    expected = item["expected_numbered_result_cards"]
+    if len(cards) != expected:
+        raise ValueError(
+            f"{auction_date} publishes {len(cards)} result cards, expected {expected}"
+        )
+    event = {
+        "auction_date": auction_date,
+        "article_url": item["source_url"],
+        "published_lot_count": expected,
+    }
+    state, rows = build_rows(cards, event, item["source_url"], evidence)
+    state.update(
+        parser_version=PARSER_VERSION,
+        source_format="FlipHTML5 page-text inventory",
+        source_url=item["source_url"],
+        numbered_result_cards_in_book=len(rows),
+        numbered_lots_in_pdf=None,
+        published_lot_count_from_event_page=None,
+        published_result_card_denominator=expected,
+        denominator_basis=(
+            "every unique outcome-bearing card in the complete retained first-party result book; "
+            "distinct properties sharing a printed lot label remain separate"
+        ),
+        completion_scope="all numbered result cards across every retained book page",
+        page_assets_snapshotted=len(pages),
+        article_url=None,
+    )
+    return state, rows
+
+
 def get_pdf(url: str) -> requests.Response:
     response = requests.get(url, headers=HEADERS, timeout=120)
     response.raise_for_status()
@@ -342,7 +452,7 @@ def saved_snapshot_dates(existing: list[dict]) -> dict[str, str]:
     return dates
 
 
-def harvest(saved_only: bool = False) -> None:
+def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTML_SEED) -> None:
     summary_path = corpus.DATA / "kivells_results_collection.json"
     previous = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     completed = (
@@ -356,10 +466,18 @@ def harvest(saved_only: bool = False) -> None:
         partial=sum(not row.get("address") for row in existing),
         guide=sum(row.get("guide_price") is not None for row in existing),
         sale=sum(row.get("sale_price") is not None for row in existing),
+        guide_evidence=sum(
+            row.get("guide_price") is not None
+            or row.get("guide_price_high") is not None
+            or bool(row.get("guide_price_text"))
+            for row in existing
+        ),
+        rent=sum(row.get("annual_rent") is not None for row in existing),
     )
     merged = {row["appearance_id"]: row for row in existing}
     failures = []
     completed_this_run = []
+    completed_fliphtml_this_run = []
     saved_by_date = {}
     if saved_only:
         known_snapshot_dates = saved_snapshot_dates(existing)
@@ -421,6 +539,44 @@ def harvest(saved_only: bool = False) -> None:
                 "error": f"{type(exc).__name__}: {exc}"[:500],
             })
 
+    fliphtml_books = []
+    if fliphtml_seed_path.exists():
+        fliphtml_books = load_fliphtml_seed(fliphtml_seed_path)["books"]
+    for item in fliphtml_books:
+        if item["source_url"] in completed and not saved_only:
+            continue
+        try:
+            pages = fliphtml_pages(item)
+            evidence = snapshot_fliphtml_book(item, pages)
+            state, rows = build_fliphtml_rows(item, pages, evidence)
+            sha = evidence["search_config_sha256"]
+            corpus.save_json(
+                corpus.DATA / "auctions/kivells-results" / f"{item['auction_date']}-{sha[:12]}.json",
+                state,
+            )
+            prior = [
+                row for row in merged.values()
+                if row.get("auction_date") == item["auction_date"]
+            ]
+            for row in prior:
+                merged.pop(row["appearance_id"], None)
+            for row in rows:
+                merged[row["appearance_id"]] = row
+            completed.add(item["source_url"])
+            completed_fliphtml_this_run.append(item["source_url"])
+            print(
+                "KIVELLS FLIPHTML", item["auction_date"], len(rows),
+                "numbered result cards", flush=True,
+            )
+        except Exception as exc:
+            failures.append(
+                {
+                    "auction_date": item.get("auction_date"),
+                    "url": item.get("source_url"),
+                    "error": f"{type(exc).__name__}: {exc}"[:500],
+                }
+            )
+
     total = corpus.write_rows(
         "kivells-results/canonical", list(merged.values()), preserve_existing=False,
     )
@@ -429,21 +585,40 @@ def harvest(saved_only: bool = False) -> None:
         partial=sum(not row.get("address") for row in merged.values()),
         guide=sum(row.get("guide_price") is not None for row in merged.values()),
         sale=sum(row.get("sale_price") is not None for row in merged.values()),
+        guide_evidence=sum(
+            row.get("guide_price") is not None
+            or row.get("guide_price_high") is not None
+            or bool(row.get("guide_price_text"))
+            for row in merged.values()
+        ),
+        rent=sum(row.get("annual_rent") is not None for row in merged.values()),
     )
     summary = {
         "checked_at": corpus.now(), "parser_version": PARSER_VERSION,
         "retrieval_route": (
-            "saved_immutable_first_party_event_result_pdfs" if saved_only
-            else "direct_first_party_event_result_pdfs"
+            "saved_immutable_first_party_event_result_pdfs_and_fliphtml5_page_text"
+            if saved_only else "first_party_event_result_pdfs_and_fliphtml5_page_text"
         ),
-        "event_pdfs_in_manifest": len(EVENTS), "event_pdfs_banked": len(completed),
+        "event_pdfs_in_manifest": len(EVENTS),
+        "event_pdfs_banked": sum(event["pdf_url"] in completed for event in EVENTS),
         "event_pdfs_completed_this_run": len(completed_this_run),
         "event_pdfs_pending": sum(event["pdf_url"] not in completed for event in EVENTS),
+        "fliphtml5_result_books_in_manifest": len(fliphtml_books),
+        "fliphtml5_result_books_banked": sum(
+            item["source_url"] in completed for item in fliphtml_books
+        ),
+        "fliphtml5_result_books_completed_this_run": len(completed_fliphtml_this_run),
+        "fliphtml5_result_cards_reconciled": sum(
+            item["expected_numbered_result_cards"] for item in fliphtml_books
+            if item["source_url"] in completed
+        ),
         "appearances_captured": total, "run_new_appearances": total - len(before_ids),
         "run_new_address_records": after_counts["address"] - before_counts["address"],
         "run_new_partial_lots": after_counts["partial"] - before_counts["partial"],
         "run_new_guide_prices": after_counts["guide"] - before_counts["guide"],
+        "run_new_guide_evidence": after_counts["guide_evidence"] - before_counts["guide_evidence"],
         "run_new_sale_prices": after_counts["sale"] - before_counts["sale"],
+        "run_new_rents": after_counts["rent"] - before_counts["rent"],
         "exact_source_card_duplicates_collapsed": sum(
             row.get("source_duplicate_count", 0) for row in merged.values()
         ),
@@ -456,6 +631,12 @@ def harvest(saved_only: bool = False) -> None:
     print(json.dumps(summary, indent=2), flush=True)
     # Preserve and publish successful catalogues even if another event is
     # temporarily inaccessible; only a wholly zero-growth run is fatal.
+    fliphtml_failures = {
+        failure.get("url") for failure in failures
+        if failure.get("url") in {item["source_url"] for item in fliphtml_books}
+    }
+    if fliphtml_books and fliphtml_failures and not completed_fliphtml_this_run:
+        raise SystemExit(1)
     if failures and not completed_this_run and not completed:
         raise SystemExit(1)
 

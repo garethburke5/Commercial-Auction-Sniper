@@ -1,8 +1,9 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    EVENTS, build_rows, is_address, money, parse_text, saved_snapshot_dates,
-    snapshot_metadata_path, status_from_text,
+    EVENTS, build_fliphtml_rows, build_rows, fliphtml_pages, is_address,
+    money, parse_text, saved_snapshot_dates, snapshot_metadata_path,
+    status_from_text,
 )
 
 
@@ -148,6 +149,7 @@ def test_locality_only_cards_remain_partial():
     assert is_address("12 Fore Street, Launceston") is True
     assert is_address("Land at Chillaton, Lifton") is True
     assert money("Guide £295.000") == 295000
+    assert money("Guide £330,00") is None
     assert status_from_text("Sold Post Auction") == "sold_after"
 
 
@@ -166,3 +168,44 @@ def test_build_rows_preserves_exact_date_prices_and_partial_quality():
     assert rows[2]["address"] is None
     assert rows[2]["record_quality"] == "partial_lot"
     assert rows[2]["locality"] == "Chillaton, Lifton"
+
+
+def test_fliphtml_page_inventory_preserves_distinct_reused_lot_labels():
+    pages = [
+        "Collective Property Auction April 2024 Results",
+        "Wednesday 17th April\n"
+        "LOT 1 | Lamerton, Tavistock\nGuide: £215,000 | SOLD: £355,000\n"
+        "LOT 2 | Sydenham Damerel\nGuide: £450,000 | UNSOLD\n"
+        "LOT 3 | Port Isaac\nGuide: £325,000 | SOLD: £358,000\n"
+        "LOT 4 | Plymouth\nGuide: £550,000 | SOLD: £525,000\n"
+        "LOT 5 | Plymouth\nGuide: £180,000 | SOLD: £310,000\n"
+        "LOT 6 | Plymouth\nGuide: £450,000 | SOLD: £450,000\n"
+        "LOT 7 | Plymouth\nGuide: £850,000 | SOLD: £815,000\n"
+        "LOT 8 | Umberleigh\nGuide: £70,000 | SOLD: £90,000\n"
+        "LOT 9 | Hallworthy\nGuide: £135,000 | SOLD: £160,000\n"
+        "LOT 10 | Hallworthy\nGuide: £100,000 | SOLD: £100,000\n"
+        "LOT 11 | Shop, Bude\nGuide: £15,000 | UNSOLD\n"
+        "LOT 12 | Shop, Bude\nGuide: £15,000 | UNSOLD\n"
+        "LOT 13 | Shop, Bude\nGuide: £15,000 | UNSOLD\n"
+        "LOT 14 | Bondleigh\nGuide: £375,000 | SOLD: £440,000\n"
+        "LOT 15 | Widemouth Bay, Bude\nGuide: £360,000 | SOLD: £380,000\n"
+        "LOT 15 | Pillaton, Saltash\nGuide: £350,000 | SOLD PRIOR: £415,000",
+    ]
+    item = {
+        "auction_date": "2024-04-17",
+        "source_url": "https://online.fliphtml5.com/hoau/tbiv/",
+        "expected_numbered_result_cards": 16,
+    }
+    state, rows = build_fliphtml_rows(item, pages, {"sha256": "abc"})
+    assert len(rows) == 16
+    assert sum(row["lot_number"] == "15" for row in rows) == 2
+    assert len({row["appearance_id"] for row in rows}) == 16
+    assert state["published_result_card_denominator"] == 16
+
+
+def test_fliphtml_search_config_is_literal_page_inventory():
+    item = {
+        "source_url": "https://online.fliphtml5.com/hoau/hhtw/",
+        "search_config_js": 'var textForPages =["page one","page two"];',
+    }
+    assert fliphtml_pages(item) == ["page one", "page two"]
