@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-11T16:14:58.065364+00:00",
-  "individual_lot_records_captured": 312795,
-  "records_with_address": 301479,
+  "generated_at": "2026-11-11T16:47:30.861631+00:00",
+  "individual_lot_records_captured": 312818,
+  "records_with_address": 301502,
   "partial_lot_records": 11316,
-  "exact_address_groups": 167678,
+  "exact_address_groups": 167699,
   "groups_with_repeat_appearances": 42922,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -76,6 +76,7 @@
     "Cottons": 7513,
     "Dawsons": 138,
     "Dedman Gray": 2851,
+    "Durrants": 23,
     "Edward Mellor": 10268,
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
@@ -153,23 +154,23 @@
     "2021": 21296,
     "2022": 26725,
     "2023": 33407,
-    "2024": 42319,
-    "2025": 48381,
-    "2026": 47812,
+    "2024": 42322,
+    "2025": 48389,
+    "2026": 47824,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42703,
-    "land": 19355,
+    "commercial": 42704,
+    "land": 19370,
     "mixed-use": 47635,
-    "residential": 151627,
-    "unknown": 51475
+    "residential": 151628,
+    "unknown": 51481
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4963,
+  "surviving_catalogues_completely_harvested": 4973,
   "catalogues_incomplete_or_unreconciled": 561,
   "catalogue_fetch_or_parse_failures": 34,
   "limits": [
@@ -183,13 +184,13 @@
     "through_date": "2026-11-11",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 304484,
-      "auction_ids_observed": 13617,
-      "with_guide_price": 106720,
-      "with_sale_price": 112666,
-      "with_both_prices": 48921,
-      "marked_sold": 155542,
-      "marked_sold_without_sale_price": 43616
+      "lot_appearances": 304507,
+      "auction_ids_observed": 13627,
+      "with_guide_price": 106743,
+      "with_sale_price": 112682,
+      "with_both_prices": 48937,
+      "marked_sold": 155559,
+      "marked_sold_without_sale_price": 43617
     },
     "by_auctioneer_and_year": [
       {
@@ -5086,6 +5087,39 @@
         "with_both_prices": 0,
         "marked_sold": 208,
         "marked_sold_without_sale_price": 38
+      },
+      {
+        "auctioneer": "Durrants",
+        "year": 2024,
+        "lot_appearances": 3,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Durrants",
+        "year": 2025,
+        "lot_appearances": 8,
+        "auction_ids_observed": 3,
+        "with_guide_price": 8,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Durrants",
+        "year": 2026,
+        "lot_appearances": 12,
+        "auction_ids_observed": 6,
+        "with_guide_price": 12,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 1
       },
       {
         "auctioneer": "Edward Mellor",
