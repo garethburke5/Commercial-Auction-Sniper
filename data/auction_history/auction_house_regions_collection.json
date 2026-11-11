@@ -1,36 +1,36 @@
 {
-  "checked_at": "2026-11-11T00:00:50.701948+00:00",
+  "checked_at": "2026-11-11T18:54:17.833577+00:00",
   "regions_requested": 19,
   "regions_complete": 19,
   "regions_blocked": 0,
-  "pages_captured": 96,
-  "source_rows": 2607,
-  "overlapping_existing_rows": 2607,
-  "run_new_appearances": 0,
+  "pages_captured": 98,
+  "source_rows": 2631,
+  "overlapping_existing_rows": 2590,
+  "run_new_appearances": 41,
   "failures": [],
   "blocked_pages": [],
   "regions": [
     {
       "auctioneer": "Auction House Wales",
       "source_url": "https://www.auctionhouse.co.uk/wales/auction/past-auctions",
-      "pages_expected": 15,
-      "pages_captured": 15,
-      "current_archive_rows": 443,
+      "pages_expected": 17,
+      "pages_captured": 17,
+      "current_archive_rows": 484,
       "overlapping_existing_rows": 443,
-      "run_new_appearances": 0,
-      "property_appearances_captured": 487,
-      "address_records": 487,
+      "run_new_appearances": 41,
+      "property_appearances_captured": 528,
+      "address_records": 528,
       "partial_lots": 0,
       "earliest_lot_end_date": "2020-03-05",
       "latest_lot_end_date": "2026-11-11",
       "by_status": {
-        "sold": 273,
-        "sold_prior": 82,
+        "sold": 283,
+        "sold_prior": 84,
         "sold_after": 69,
-        "no_bids": 14,
-        "withdrawn": 1,
-        "postponed": 21,
-        "last_bid": 27
+        "no_bids": 17,
+        "withdrawn": 2,
+        "postponed": 36,
+        "last_bid": 37
       },
       "page_counts": {
         "1": 30,
@@ -47,7 +47,9 @@
         "12": 30,
         "13": 30,
         "14": 30,
-        "15": 23
+        "15": 30,
+        "16": 30,
+        "17": 4
       },
       "failures": [],
       "blocked_pages": [],
@@ -58,8 +60,8 @@
       "source_url": "https://www.auctionhouse.co.uk/nottsandderby/auction/past-auctions",
       "pages_expected": 9,
       "pages_captured": 9,
-      "current_archive_rows": 253,
-      "overlapping_existing_rows": 253,
+      "current_archive_rows": 248,
+      "overlapping_existing_rows": 248,
       "run_new_appearances": 0,
       "property_appearances_captured": 310,
       "address_records": 310,
@@ -84,7 +86,7 @@
         "6": 30,
         "7": 30,
         "8": 30,
-        "9": 13
+        "9": 8
       },
       "failures": [],
       "blocked_pages": [],
@@ -95,8 +97,8 @@
       "source_url": "https://www.auctionhouse.co.uk/staffordshire/auction/past-auctions",
       "pages_expected": 5,
       "pages_captured": 5,
-      "current_archive_rows": 150,
-      "overlapping_existing_rows": 150,
+      "current_archive_rows": 149,
+      "overlapping_existing_rows": 149,
       "run_new_appearances": 0,
       "property_appearances_captured": 181,
       "address_records": 181,
@@ -117,7 +119,7 @@
         "2": 30,
         "3": 30,
         "4": 30,
-        "5": 30
+        "5": 29
       },
       "failures": [],
       "blocked_pages": [],
@@ -128,8 +130,8 @@
       "source_url": "https://www.auctionhouse.co.uk/birmingham/auction/past-auctions",
       "pages_expected": 4,
       "pages_captured": 4,
-      "current_archive_rows": 110,
-      "overlapping_existing_rows": 110,
+      "current_archive_rows": 109,
+      "overlapping_existing_rows": 109,
       "run_new_appearances": 0,
       "property_appearances_captured": 116,
       "address_records": 116,
@@ -148,7 +150,7 @@
         "1": 30,
         "2": 30,
         "3": 30,
-        "4": 20
+        "4": 19
       },
       "failures": [],
       "blocked_pages": [],
@@ -159,8 +161,8 @@
       "source_url": "https://www.auctionhouse.co.uk/kent/auction/past-auctions",
       "pages_expected": 4,
       "pages_captured": 4,
-      "current_archive_rows": 103,
-      "overlapping_existing_rows": 103,
+      "current_archive_rows": 102,
+      "overlapping_existing_rows": 102,
       "run_new_appearances": 0,
       "property_appearances_captured": 107,
       "address_records": 107,
@@ -180,7 +182,7 @@
         "1": 30,
         "2": 30,
         "3": 30,
-        "4": 13
+        "4": 12
       },
       "failures": [],
       "blocked_pages": [],
@@ -191,8 +193,8 @@
       "source_url": "https://www.auctionhouse.co.uk/westyorkshire/auction/past-auctions",
       "pages_expected": 4,
       "pages_captured": 4,
-      "current_archive_rows": 119,
-      "overlapping_existing_rows": 119,
+      "current_archive_rows": 118,
+      "overlapping_existing_rows": 118,
       "run_new_appearances": 0,
       "property_appearances_captured": 122,
       "address_records": 122,
@@ -212,7 +214,7 @@
         "1": 30,
         "2": 30,
         "3": 30,
-        "4": 29
+        "4": 28
       },
       "failures": [],
       "blocked_pages": [],
@@ -223,8 +225,8 @@
       "source_url": "https://www.auctionhouse.co.uk/lincolnshire/auction/past-auctions",
       "pages_expected": 31,
       "pages_captured": 31,
-      "current_archive_rows": 921,
-      "overlapping_existing_rows": 921,
+      "current_archive_rows": 919,
+      "overlapping_existing_rows": 919,
       "run_new_appearances": 0,
       "property_appearances_captured": 923,
       "address_records": 923,
@@ -269,7 +271,7 @@
         "28": 30,
         "29": 30,
         "30": 30,
-        "31": 21
+        "31": 19
       },
       "failures": [],
       "blocked_pages": [],
@@ -280,8 +282,8 @@
       "source_url": "https://www.auctionhouse.co.uk/hullandeastyorkshire/auction/past-auctions",
       "pages_expected": 4,
       "pages_captured": 4,
-      "current_archive_rows": 104,
-      "overlapping_existing_rows": 104,
+      "current_archive_rows": 102,
+      "overlapping_existing_rows": 102,
       "run_new_appearances": 0,
       "property_appearances_captured": 108,
       "address_records": 108,
@@ -301,7 +303,7 @@
         "1": 30,
         "2": 30,
         "3": 30,
-        "4": 14
+        "4": 12
       },
       "failures": [],
       "blocked_pages": [],
@@ -312,8 +314,8 @@
       "source_url": "https://www.auctionhouse.co.uk/coventryandwarwickshire/auction/past-auctions",
       "pages_expected": 6,
       "pages_captured": 6,
-      "current_archive_rows": 155,
-      "overlapping_existing_rows": 155,
+      "current_archive_rows": 154,
+      "overlapping_existing_rows": 154,
       "run_new_appearances": 0,
       "property_appearances_captured": 157,
       "address_records": 157,
@@ -334,7 +336,7 @@
         "3": 30,
         "4": 30,
         "5": 30,
-        "6": 5
+        "6": 4
       },
       "failures": [],
       "blocked_pages": [],
@@ -345,8 +347,8 @@
       "source_url": "https://www.auctionhouse.co.uk/manchester/auction/past-auctions",
       "pages_expected": 3,
       "pages_captured": 3,
-      "current_archive_rows": 72,
-      "overlapping_existing_rows": 72,
+      "current_archive_rows": 71,
+      "overlapping_existing_rows": 71,
       "run_new_appearances": 0,
       "property_appearances_captured": 72,
       "address_records": 72,
@@ -363,7 +365,7 @@
       "page_counts": {
         "1": 30,
         "2": 30,
-        "3": 12
+        "3": 11
       },
       "failures": [],
       "blocked_pages": [],
@@ -429,8 +431,8 @@
       "source_url": "https://www.auctionhouse.co.uk/sussexandhampshire/auction/past-auctions",
       "pages_expected": 2,
       "pages_captured": 2,
-      "current_archive_rows": 42,
-      "overlapping_existing_rows": 42,
+      "current_archive_rows": 41,
+      "overlapping_existing_rows": 41,
       "run_new_appearances": 0,
       "property_appearances_captured": 45,
       "address_records": 45,
@@ -447,7 +449,7 @@
       },
       "page_counts": {
         "1": 30,
-        "2": 12
+        "2": 11
       },
       "failures": [],
       "blocked_pages": [],
@@ -458,8 +460,8 @@
       "source_url": "https://www.auctionhouse.co.uk/essex/auction/past-auctions",
       "pages_expected": 1,
       "pages_captured": 1,
-      "current_archive_rows": 16,
-      "overlapping_existing_rows": 16,
+      "current_archive_rows": 15,
+      "overlapping_existing_rows": 15,
       "run_new_appearances": 0,
       "property_appearances_captured": 17,
       "address_records": 17,
@@ -475,7 +477,7 @@
         "withdrawn": 1
       },
       "page_counts": {
-        "1": 16
+        "1": 15
       },
       "failures": [],
       "blocked_pages": [],
