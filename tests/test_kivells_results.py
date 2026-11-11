@@ -85,6 +85,19 @@ def test_bare_published_achieved_price_is_preserved_as_sold():
     assert cards[0]["source_result_text"] == "£197,000"
 
 
+def test_saved_pdf_usold_text_layer_loss_is_conservatively_unsold():
+    source = """
+    Wednesday 13th November 2024
+    LOT 1 | Germansweek
+    Guide £75,000 - £95,000 | USOLD
+    Approximately 12 acres of pasture land.
+    """
+    _, cards = parse_text(source, "2024-11-13")
+    assert cards[0]["status"] == "unsold"
+    assert cards[0]["sale_price"] is None
+    assert cards[0]["source_result_text"] == "USOLD"
+
+
 def test_rejects_date_mismatch_and_noncontiguous_lot_inventory():
     try:
         parse_text(SAMPLE, "2025-06-19")

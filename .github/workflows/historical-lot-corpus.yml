@@ -1196,6 +1196,10 @@ jobs:
             echo "Bounded rotation is excluded from this focused collection run"
             exit 0
           fi
+          if [[ "${{ startsWith(github.event.head_commit.message, 'Run focused Kivells saved result recovery') }}" == "true" ]]; then
+            echo "Bounded rotation is excluded from this focused saved-evidence recovery run"
+            exit 0
+          fi
           if [[ "${{ startsWith(github.event.head_commit.message, 'Run focused Auction Agent Sanity archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Lextons archive expansion') }}" == "true" || "${{ startsWith(github.event.head_commit.message, 'Run focused Lextons result-sheet expansion') }}" == "true" || "${{ inputs.focus }}" == "lextons-auctions" || "${{ inputs.focus }}" == "lextons-results" ]]; then
             echo "Bounded rotation is excluded from this focused collection run"
             exit 0
@@ -1389,7 +1393,7 @@ jobs:
         timeout-minutes: 15
         run: python -u scripts/harvest_cooper_tanner_results.py --reparse-saved
       - name: Bank Kivells exact-dated result PDF batch
-        if: inputs.focus == 'all' || startsWith(github.event.head_commit.message, 'Run focused Kivells result PDF expansion')
+        if: inputs.focus == 'all' || startsWith(github.event.head_commit.message, 'Run focused Kivells result PDF expansion') || startsWith(github.event.head_commit.message, 'Run focused Kivells saved result recovery')
         timeout-minutes: 20
         run: |
           python -m pytest -q tests/test_kivells_results.py

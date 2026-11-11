@@ -114,7 +114,7 @@ GUIDE_RE = re.compile(
 )
 OUTCOME_RE = re.compile(
     r"\b(Sold\s+Post(?:[- ]Auction)?|Sold\s+After|Sold\s+Prior|Sold|Unsold|"
-    r"Withdrawn|Postponed|Available)\b\s*:?[ \t]*(£\s*[\d][\d,.]*)?",
+    r"Withdrawn|Postponed|Available|Usold)\b\s*:?[ \t]*(£\s*[\d][\d,.]*)?",
     re.I,
 )
 BARE_SALE_RE = re.compile(
@@ -159,7 +159,7 @@ def status_from_text(value: str | None) -> str:
     if normalized.startswith("sold prior"):
         return "sold_prior"
     return {
-        "sold": "sold", "unsold": "unsold", "withdrawn": "withdrawn",
+        "sold": "sold", "unsold": "unsold", "usold": "unsold", "withdrawn": "withdrawn",
         "postponed": "postponed", "available": "available",
     }.get(normalized, "unknown")
 
