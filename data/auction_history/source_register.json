@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-11T15:28:22.450341+00:00",
-  "corpus_checkpoint": "2026-11-11T15:28:05.997969+00:00",
+  "generated_at": "2026-11-11T16:15:19.526057+00:00",
+  "corpus_checkpoint": "2026-11-11T16:14:58.065364+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4079,15 +4079,15 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Kivells",
       "match_basis": "existing evidenced source registry",
-      "retained_appearances": 373,
+      "retained_appearances": 413,
       "years_with_retained_evidence": [
         2022,
         2023,
         2024,
         2025
       ],
-      "with_guide_price": 368,
-      "with_sale_price": 285,
+      "with_guide_price": 408,
+      "with_sale_price": 325,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8248,7 +8248,7 @@
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
-    "Kivells": 373,
+    "Kivells": 413,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 593,
     "Landmark Auctions": 71,
@@ -8297,12 +8297,12 @@
     "through_date": "2026-11-11",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 304444,
-      "auction_ids_observed": 13613,
-      "with_guide_price": 106680,
-      "with_sale_price": 112626,
-      "with_both_prices": 48881,
-      "marked_sold": 155502,
+      "lot_appearances": 304484,
+      "auction_ids_observed": 13617,
+      "with_guide_price": 106720,
+      "with_sale_price": 112666,
+      "with_both_prices": 48921,
+      "marked_sold": 155542,
       "marked_sold_without_sale_price": 43616
     },
     "by_auctioneer_and_year": [
@@ -14084,12 +14084,12 @@
       {
         "auctioneer": "Kivells",
         "year": 2022,
-        "lot_appearances": 40,
-        "auction_ids_observed": 3,
-        "with_guide_price": 40,
-        "with_sale_price": 34,
-        "with_both_prices": 34,
-        "marked_sold": 34,
+        "lot_appearances": 80,
+        "auction_ids_observed": 7,
+        "with_guide_price": 80,
+        "with_sale_price": 74,
+        "with_both_prices": 74,
+        "marked_sold": 74,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -19387,6 +19387,24 @@
       "checked_at": "2026-11-11T00:00:40.758396+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/kivells-results/2022-02-23-63babcc5e610-review.json",
+      "auctioneer": "Kivells",
+      "auction_date": "2022-02-23",
+      "source_url": "https://online.fliphtml5.com/hoau/uzqf/",
+      "lots_captured": 13,
+      "errors": [],
+      "checked_at": "2026-11-11T16:13:30.026309+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/kivells-results/2022-05-04-63babcc5e610-review.json",
+      "auctioneer": "Kivells",
+      "auction_date": "2022-05-04",
+      "source_url": "https://online.fliphtml5.com/hoau/uzqf/",
+      "lots_captured": 13,
+      "errors": [],
+      "checked_at": "2026-11-11T16:13:30.026727+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/cheffins/catalogue-552.json",
       "auctioneer": "Cheffins",
       "auction_date": "2020-03-18",
@@ -22681,7 +22699,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-11T15:28:22.138152+00:00",
+    "checked_at": "2026-11-11T16:15:19.062658+00:00",
     "sha256": "ca8c6827b2533aa965db57b601cf0b68c77d0b0a13ec2f646275a65ae384c0e9",
     "status": "retrieved"
   }
