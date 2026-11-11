@@ -76,6 +76,7 @@ def test_browser_retained_2023_seed_matches_all_result_book_denominators():
     assert sum(item["annual_review_sold_lots"] for item in books) == 111
     assert all(item["search_config_sha256"] for item in books)
     assert all(item["config_sha256"] for item in books)
+    assert all("browser" in item["recovery_route"] for item in books)
 
 
 def test_public_fliphtml_accessible_page_text_is_a_complete_fallback():
