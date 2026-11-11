@@ -1,6 +1,6 @@
 from scripts.harvest_cheffins_history import (
-    addendum_rows, denominator_gap_rows, discover_catalogues, parse_addendum,
-    parse_catalogue, status_and_price,
+    addendum_rows, catalogue_pdf_rows_from_pages, denominator_gap_rows,
+    discover_catalogues, parse_addendum, parse_catalogue, status_and_price,
 )
 
 
@@ -131,3 +131,41 @@ def test_denominator_gap_rows_refuse_zero_card_and_lettered_sequences():
     assert denominator_gap_rows(catalogue, "2019-06-19", {}, []) == []
     assert denominator_gap_rows(catalogue, "2019-06-19", {},
                                 [{"lot_number": "1"}, {"lot_number": "2A"}]) == []
+
+
+def test_complete_catalogue_pdf_recovers_addresses_guides_and_rents():
+    catalogue = {"catalogue_id": "549", "published_lots": 2,
+        "url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2019_549.htm"}
+    evidence = {"source_url": "https://www.cheffins.co.uk/catalogue.pdf"}
+    pages = [
+        """Description An opportunity to buy grazing land. Location Waterbeach.
+        Rental income of £250 per annum. LOT 1 3.40 acres of Land at Town Holt East,
+        Waterbeach, Cambridge, CB25 9ND Not to scale. TENURE: Freehold.
+        Guide Price* £25,000+""",
+        """Description A prominent retail building with a flat above. Location Ely.
+        Rental income £42,000 per annum. LOT 2 8 Forehill, Ely, Cambridgeshire,
+        CB7 4AF Approved plans. TENURE: Freehold. Guide Price* £225,000-£250,000""",
+    ]
+    rows = catalogue_pdf_rows_from_pages(pages, catalogue, "2019-06-19", evidence)
+    assert [row["lot_number"] for row in rows] == ["1", "2"]
+    assert rows[0]["address"].endswith("CB25 9ND")
+    assert rows[0]["guide_price"] == 25000
+    assert rows[0]["guide_price_high"] is None
+    assert rows[0]["annual_rent"] == 250
+    assert rows[1]["guide_price"] == 225000
+    assert rows[1]["guide_price_high"] == 250000
+    assert rows[1]["annual_rent"] == 42000
+    assert rows[1]["sector"] == "mixed-use"
+    assert all(row["record_quality"] == "address_record" for row in rows)
+
+
+def test_catalogue_pdf_refuses_partial_inventory():
+    catalogue = {"catalogue_id": "549", "published_lots": 2, "url": "x"}
+    page = "LOT 1 1 Test Road, Ely, CB7 4AA TENURE: Freehold Guide Price £100,000+"
+    try:
+        catalogue_pdf_rows_from_pages([page], catalogue, "2019-06-19",
+                                      {"source_url": "https://example.test/catalogue.pdf"})
+    except ValueError as exc:
+        assert "yielded 1 unique lots; expected 2" in str(exc)
+    else:
+        raise AssertionError("partial catalogue PDF was accepted")

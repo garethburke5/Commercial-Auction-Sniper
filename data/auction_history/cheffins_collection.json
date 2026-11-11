@@ -1,21 +1,21 @@
 {
-  "checked_at": "2026-11-11T07:24:03.016193+00:00",
+  "checked_at": "2026-11-11T23:10:38.501414+00:00",
   "source_url": "https://www.cheffins.co.uk/property-auctions/results.htm",
   "catalogues_discovered": 46,
   "catalogues_captured": 46,
-  "catalogues_complete": 29,
-  "catalogues_partial": 17,
+  "catalogues_complete": 30,
+  "catalogues_partial": 16,
   "catalogues_reused": 46,
   "published_lots": 761,
-  "appearances_captured": 740,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 761,
+  "run_new_appearances": 21,
+  "run_new_address_records": 21,
   "run_new_partial_lots": 0,
   "by_sector": {
-    "land": 188,
-    "residential": 314,
-    "mixed-use": 103,
-    "commercial": 62,
+    "land": 192,
+    "residential": 327,
+    "mixed-use": 104,
+    "commercial": 65,
     "unknown": 73
   },
   "index_evidence": {
@@ -494,24 +494,34 @@
       "auctioneer": "Cheffins",
       "source_auction_id": "cheffins:549",
       "auction_date": "2019-06-19",
-      "catalogue_complete": false,
+      "catalogue_complete": true,
       "source_rows_complete": true,
       "published_lots_offered": 21,
-      "visible_source_rows": 0,
-      "lots_captured": 0,
+      "visible_source_rows": 21,
+      "lots_captured": 21,
       "source_url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2019_549.htm",
       "pagination_reconciled": true,
-      "denominator_reconciled": false,
+      "denominator_reconciled": true,
       "denominator_basis": "published Number of lots on first-party result archive",
-      "completion_scope": "all retained cards on the first-party unpaginated catalogue page",
-      "partial_reason": "published denominator 21 exceeds 0 retained source cards",
+      "completion_scope": "all numbered lots in the first-party complete catalogue PDF",
+      "partial_reason": null,
       "auction_date_basis": "exact date and lot count on first-party sale preview",
       "addendum_recovery_version": 2,
       "addendum_lots_recovered": 0,
       "source_sha256": "9deead44c164f29558eb805118612c359e47640a0b7b2d0c1ae1b5de6df5e62a",
       "errors": [],
-      "checked_at": "2026-10-07T04:12:35.957680+00:00",
-      "inferred_gap_lots_banked": 0
+      "checked_at": "2026-11-11T23:10:38.499351+00:00",
+      "inferred_gap_lots_banked": 0,
+      "catalogue_pdf_recovery_version": 1,
+      "catalogue_pdf_lots_recovered": 21,
+      "catalogue_pdf_source_evidence": {
+        "source_url": "https://www.cheffins.co.uk/ugc-1/1/2/0/property_auction_catalogue_june_2019.pdf",
+        "catalogue_url": "https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2019_549.htm",
+        "retrieved_at": "2026-11-11T23:10:35.655930+00:00",
+        "sha256": "61fa1ed18a33b76b9ab39f2241a6cc3d13c993d0f5928848b11d27c229076145",
+        "snapshot_path": "data/auction_history/sources/cheffins/catalogue-549-original-catalogue-61fa1ed18a33b76b.pdf.gz",
+        "basis": "first-party complete property-auction catalogue PDF"
+      }
     },
     "550": {
       "auctioneer": "Cheffins",
@@ -1153,5 +1163,8 @@
       "checked_at": "2026-10-03T21:36:50.409707+00:00"
     }
   },
-  "failures": []
+  "failures": [],
+  "run_new_guide_prices": 21,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 5
 }
