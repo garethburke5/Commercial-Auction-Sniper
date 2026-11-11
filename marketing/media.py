@@ -74,13 +74,14 @@ def photo_card(post, data, grant, destination):
 
 def render(post, destination, permissions, *, today=None):
     grant=permission(post,permissions,today or date.today())
-    if post.get('require_photo') and not grant:raise ValueError('No recorded image-use instruction')
+    photo_required = post.get('kind') == 'property' or post.get('require_photo')
+    if photo_required and not grant:raise ValueError('No recorded image-use instruction')
     if grant:
         try:
             data=download_photo(post['image_source'],time.monotonic()+15)
             return photo_card(post,data,grant,destination)
         except (OSError,ValueError):
-            if post.get('require_photo'):raise
+            if photo_required:raise
     canvas=Image.new('RGB',(1080,1080),PAPER);draw=ImageDraw.Draw(canvas)
     draw.rectangle((0,0,1080,122),fill=NAVY)
     draw.rectangle((64,43,72,80),fill=TEAL)
