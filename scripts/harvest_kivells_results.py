@@ -529,16 +529,21 @@ def extract_may_review(raw: bytes) -> dict[str, dict]:
     reader = PdfReader(BytesIO(raw))
     text = "\n".join(page.extract_text() or "" for page in reader.pages)
     normalized = re.sub(r"\s+", " ", text).strip()
-    section_match = re.search(
+    section_matches = list(re.finditer(
         r"15th\s+May(?P<section>[\s\S]+?)12th\s+June", normalized, re.I,
-    )
-    if not section_match:
+    ))
+    if not section_matches:
         raise ValueError("review PDF has no bounded 15 May result section")
-    section = section_match.group("section")
-    if not re.search(r"10\s*/\s*13", section):
+    section = next(
+        (
+            match.group("section") for match in section_matches
+            if re.search(r"10\s*/\s*13", match.group("section"))
+            and "£1,295,000" in match.group("section")
+        ),
+        None,
+    )
+    if section is None:
         raise ValueError("review PDF does not preserve the 10/13 offered denominator")
-    if "£1,295,000" not in section:
-        raise ValueError("review PDF does not preserve the £1,295,000 value sold")
     results = {}
     for result in MAY_RESULTS:
         location = re.sub(r"\s+", " ", result["review_location"]).strip()

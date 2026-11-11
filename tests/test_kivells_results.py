@@ -269,6 +269,7 @@ def test_may_review_requires_bounded_denominators_titles_and_prices(monkeypatch)
         for item in MAY_RESULTS
     )
     review_text = (
+        "2024 auction dates 15th May 12th June\n"
         "15th May Lots sold: 10/13 Value Sold: £1,295,000\n"
         f"{review_cards}\n12th June"
     )
