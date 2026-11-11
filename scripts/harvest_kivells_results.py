@@ -19,12 +19,13 @@ from pathlib import Path
 
 from pypdf import PdfReader
 import requests
+from bs4 import BeautifulSoup
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 2
+PARSER_VERSION = 3
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
@@ -99,6 +100,77 @@ EVENTS = (
     },
 )
 
+MAY_EVENT = {
+    "auction_date": "2024-05-15",
+    "event_url": "https://www.kivells.com/property-sales/property-auctions/15-may-kivells-collective-property-auction-may-2024",
+    "review_pdf_url": "https://www.kivells.com/media/Auctions/Kivells%20Collective%20Property%20Auction%20Half%20Year%20Review%202024%20for%20web.pdf",
+    "running_order_lot_count": 14,
+    "offered_lot_count": 13,
+    "published_sold_result_count": 10,
+    "published_value_sold": 1295000,
+}
+
+# The review publishes only the ten sold properties.  Its 10/13 offered-lot
+# denominator does not identify the three unsold lots, while the event page has
+# a 14-lot running order.  Keep the four unmatched outcomes null rather than
+# assigning an unsupported result to the omitted/withdrawn lot.
+MAY_RESULTS = (
+    {
+        "lot_number": "1", "event_location": "2.51 acres of woodland at Lanivet, Bodmin",
+        "review_location": "Woodland at Lanivet, Bodmin", "guide_price": 25000,
+        "sale_price": 30000, "sector": "land",
+    },
+    {
+        "lot_number": "2", "event_location": "45 Higher Glen Park, Pensilva, Liskeard",
+        "review_location": "45 Higher Glen Park, Pensilva, Liskeard", "guide_price": 160000,
+        "sale_price": 178000, "sector": "residential",
+    },
+    {
+        "lot_number": "4", "event_location": "3.40 acres of land adjacent to St. Eval, Wadebridge",
+        "review_location": "Land Adjacent to St. Eval Church, St. Eval", "guide_price": 40000,
+        "sale_price": 45000, "sector": "land",
+    },
+    {
+        "lot_number": "6", "event_location": "5.66 acres of land on Robins Hill, Cookbury, Holsworthy",
+        "review_location": "Land at Robins Hill, Cookbury", "guide_price": 40000,
+        "sale_price": 56000, "sector": "land",
+    },
+    {
+        "lot_number": "7", "event_location": "3.99 acres of woodland at Pillaton, Saltash",
+        "review_location": "Land at Pillaton, Saltash", "guide_price": 35000,
+        "sale_price": 35000, "sector": "land",
+    },
+    {
+        "lot_number": "8", "event_location": "The Old Manor House, The Bridge, Boscastle",
+        "review_location": "The Old Manor House, Boscastle", "guide_price": 375000,
+        "sale_price": 410000, "sector": "commercial",
+        "review_description": (
+            "The Old Manor House Restaurant, Takeaway and Tea Garden is a landmark "
+            "Grade II listed property in the heart of Boscastle Harbour."
+        ),
+    },
+    {
+        "lot_number": "9", "event_location": "4.95 acres of land at Tartan Down, Landrake, Saltash",
+        "review_location": "Land at Tartendown, Landrake", "guide_price": 60000,
+        "sale_price": 100000, "sector": "land",
+    },
+    {
+        "lot_number": "10", "event_location": "The Posting House, Treworld, Boscastle",
+        "review_location": "The Posting House, Treworld, Boscastle", "guide_price": 300000,
+        "sale_price": 330000, "sector": "residential",
+    },
+    {
+        "lot_number": "12", "event_location": "10.32 acres of land at Bude Farm, Exbourne, Okehampton",
+        "review_location": "Land at Exbourne, Okehampton", "guide_price": 70000,
+        "sale_price": 65000, "sector": "land",
+    },
+    {
+        "lot_number": "13", "event_location": "1.58 acres of land at Golberdon, Callington",
+        "review_location": "Land at Golberdon, Callington", "guide_price": 20000,
+        "sale_price": 46000, "sector": "land",
+    },
+)
+
 MONTHS = {name.lower(): number for number, name in enumerate(
     ("January", "February", "March", "April", "May", "June", "July",
      "August", "September", "October", "November", "December"), 1
@@ -132,6 +204,7 @@ ADDRESS_CUE_RE = re.compile(
     r"unit|premises|hotel|inn|chapel|church)\b",
     re.I,
 )
+EVENT_PAGE_LOT_RE = re.compile(r"(?im)^\s*Lot\s+(\d+)\s*[\-–—]\s*(.+?)\s*$")
 
 
 def clean(value) -> str | None:
@@ -416,6 +489,182 @@ def build_fliphtml_rows(item: dict, pages: list[str], evidence: dict) -> tuple[d
     return state, rows
 
 
+def parse_may_event_page(raw: bytes) -> list[dict]:
+    text = BeautifulSoup(raw, "html.parser").get_text("\n")
+    text = text.replace("\xa0", " ")
+    if not re.search(r"\b15(?:th)?\s+May(?:\s+2024)?\b", text, re.I):
+        raise ValueError("May event page has no exact 15 May 2024 date")
+    by_lot = {}
+    for match in EVENT_PAGE_LOT_RE.finditer(text):
+        lot_number = str(int(match.group(1)))
+        location = clean(match.group(2))
+        if not location:
+            raise ValueError(f"May event lot {lot_number} has no location")
+        card = {
+            "lot_number": lot_number,
+            "location": location,
+            "address": location if is_address(location) else None,
+            "guide_price": None,
+            "guide_price_high": None,
+            "guide_price_text": None,
+            "sale_price": None,
+            "status": "unknown",
+            "source_result_text": None,
+            "source_card_text": f"Lot {lot_number} – {location}",
+            "source_duplicate_count": 0,
+        }
+        prior = by_lot.get(lot_number)
+        if prior and prior["location"] != location:
+            raise ValueError(f"May event lot {lot_number} has conflicting locations")
+        by_lot[lot_number] = card
+    cards = sorted(by_lot.values(), key=lambda card: int(card["lot_number"]))
+    numbers = [int(card["lot_number"]) for card in cards]
+    expected = MAY_EVENT["running_order_lot_count"]
+    if numbers != list(range(1, expected + 1)):
+        raise ValueError(f"May event running order is not exactly 1-{expected}: {numbers}")
+    return cards
+
+
+def extract_may_review(raw: bytes) -> dict[str, dict]:
+    reader = PdfReader(BytesIO(raw))
+    text = "\n".join(page.extract_text() or "" for page in reader.pages)
+    normalized = re.sub(r"\s+", " ", text).strip()
+    section_matches = list(re.finditer(
+        r"15th\s+May(?P<section>[\s\S]+?)12th\s+June", normalized, re.I,
+    ))
+    if not section_matches:
+        raise ValueError("review PDF has no bounded 15 May result section")
+    section = next(
+        (
+            match.group("section") for match in section_matches
+            if re.search(r"10\s*/\s*13", match.group("section"))
+            and "£1,295,000" in match.group("section")
+        ),
+        None,
+    )
+    if section is None:
+        raise ValueError("review PDF does not preserve the 10/13 offered denominator")
+    results = {}
+    for result in MAY_RESULTS:
+        location = re.sub(r"\s+", " ", result["review_location"]).strip()
+        if location.casefold() not in section.casefold():
+            raise ValueError(f"review PDF is missing May result card: {location}")
+        guide_text = f"£{result['guide_price']:,}"
+        sale_text = f"£{result['sale_price']:,}"
+        if guide_text not in section or sale_text not in section:
+            raise ValueError(f"review PDF is missing prices for May lot {result['lot_number']}")
+        results[result["lot_number"]] = dict(result)
+    if len(results) != MAY_EVENT["published_sold_result_count"]:
+        raise ValueError("review PDF result-card denominator mismatch")
+    if sum(item["sale_price"] for item in results.values()) != MAY_EVENT["published_value_sold"]:
+        raise ValueError("review PDF result cards do not reconcile to published value sold")
+    return results
+
+
+def build_may_rows(cards: list[dict], results: dict[str, dict], evidence: dict) -> tuple[dict, list[dict]]:
+    by_lot = {card["lot_number"]: dict(card) for card in cards}
+    for lot_number, result in results.items():
+        card = by_lot[lot_number]
+        if clean(card["location"]).casefold() != clean(result["event_location"]).casefold():
+            raise ValueError(f"May lot {lot_number} event-page identity changed")
+        card.update(
+            guide_price=result["guide_price"],
+            guide_price_text=f"Guide £{result['guide_price']:,}",
+            sale_price=result["sale_price"],
+            status="sold",
+            source_result_text=f"SOLD £{result['sale_price']:,}",
+            source_card_text=(
+                f"{card['source_card_text']} | review title: {result['review_location']} | "
+                f"Guide £{result['guide_price']:,} | SOLD £{result['sale_price']:,}" +
+                (f" | {result['review_description']}" if result.get("review_description") else "")
+            ),
+        )
+    event = {
+        "auction_date": MAY_EVENT["auction_date"],
+        "article_url": MAY_EVENT["event_url"],
+        "published_lot_count": MAY_EVENT["running_order_lot_count"],
+    }
+    state, rows = build_rows(
+        list(by_lot.values()), event, MAY_EVENT["event_url"], evidence,
+    )
+    result_by_lot = {item["lot_number"]: item for item in results.values()}
+    for row in rows:
+        row["identity_method"] = "exact_event_date_lot_number_and_first_party_running_order"
+        row["auction_date_basis"] = "exact date and lot number published on first-party event page"
+        result = result_by_lot.get(row["lot_number"])
+        if result:
+            row["sector"] = result["sector"]
+        elif "woodland" in (row.get("locality") or "").casefold():
+            row["sector"] = "land"
+    state.update(
+        parser_version=PARSER_VERSION,
+        source_format="first-party event page plus half-year review PDF",
+        source_url=MAY_EVENT["event_url"],
+        review_pdf_url=MAY_EVENT["review_pdf_url"],
+        event_page_lot_denominator=MAY_EVENT["running_order_lot_count"],
+        offered_lot_denominator=MAY_EVENT["offered_lot_count"],
+        published_sold_result_denominator=MAY_EVENT["published_sold_result_count"],
+        published_value_sold=MAY_EVENT["published_value_sold"],
+        result_cards_matched=len(results),
+        unmatched_result_fields_null=len(cards) - len(results),
+        result_inventory_complete=False,
+        denominator_basis=(
+            "all 14 first-party running-order lots retained; official review publishes ten "
+            "sold cards and states 10/13 offered, so four unmatched outcomes remain null"
+        ),
+        completion_scope="complete event-page running order with partial published result enrichment",
+        event_page_count_note="14 running-order lots; 13 offered; 10 individually published sold results",
+    )
+    return state, rows
+
+
+def get_html(url: str) -> requests.Response:
+    response = requests.get(url, headers=HEADERS, timeout=120)
+    response.raise_for_status()
+    if b"<html" not in response.content[:1000].lower():
+        raise ValueError("event URL did not return HTML")
+    return response
+
+
+def may_snapshot_metadata_path() -> Path:
+    return corpus.DATA / "sources/kivells-results/may-2024/metadata.json"
+
+
+def load_or_fetch_may_sources(saved_only: bool) -> tuple[bytes, bytes, dict]:
+    metadata_path = may_snapshot_metadata_path()
+    if saved_only:
+        metadata = json.loads(metadata_path.read_text())
+        event_path = corpus.ROOT / metadata["event_page_snapshot_path"]
+        review_path = corpus.ROOT / metadata["review_pdf_snapshot_path"]
+        return gzip.decompress(event_path.read_bytes()), gzip.decompress(review_path.read_bytes()), metadata
+
+    event_response = get_html(MAY_EVENT["event_url"])
+    review_response = get_pdf(MAY_EVENT["review_pdf_url"])
+    event_raw, review_raw = event_response.content, review_response.content
+    event_sha, review_sha = corpus.digest(event_raw), corpus.digest(review_raw)
+    prefix = corpus.DATA / "sources/kivells-results/may-2024"
+    event_path = prefix / f"event-page-{event_sha[:16]}.html.gz"
+    review_path = prefix / f"half-year-review-{review_sha[:16]}.pdf.gz"
+    if not event_path.exists():
+        corpus.atomic(event_path, gzip.compress(event_raw, mtime=0))
+    if not review_path.exists():
+        corpus.atomic(review_path, gzip.compress(review_raw, mtime=0))
+    metadata = {
+        "auction_date": MAY_EVENT["auction_date"],
+        "event_page_url": MAY_EVENT["event_url"],
+        "resolved_event_page_url": event_response.url,
+        "event_page_sha256": event_sha,
+        "event_page_snapshot_path": str(event_path.relative_to(corpus.ROOT)),
+        "review_pdf_url": MAY_EVENT["review_pdf_url"],
+        "resolved_review_pdf_url": review_response.url,
+        "review_pdf_sha256": review_sha,
+        "review_pdf_snapshot_path": str(review_path.relative_to(corpus.ROOT)),
+        "retrieved_at": corpus.now(),
+    }
+    corpus.save_json(metadata_path, metadata)
+    return event_raw, review_raw, metadata
+
+
 def get_pdf(url: str) -> requests.Response:
     response = requests.get(url, headers=HEADERS, timeout=120)
     response.raise_for_status()
@@ -478,6 +727,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     failures = []
     completed_this_run = []
     completed_fliphtml_this_run = []
+    completed_may_this_run = []
     saved_by_date = {}
     if saved_only:
         known_snapshot_dates = saved_snapshot_dates(existing)
@@ -577,6 +827,52 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 }
             )
 
+    if MAY_EVENT["event_url"] not in completed or saved_only:
+        try:
+            event_raw, review_raw, metadata = load_or_fetch_may_sources(saved_only)
+            cards = parse_may_event_page(event_raw)
+            results = extract_may_review(review_raw)
+            evidence = {
+                "source_url": metadata["resolved_event_page_url"],
+                "retrieved_at": metadata["retrieved_at"],
+                "sha256": metadata["event_page_sha256"],
+                "snapshot_path": metadata["event_page_snapshot_path"],
+                "review_pdf_url": metadata["resolved_review_pdf_url"],
+                "review_pdf_sha256": metadata["review_pdf_sha256"],
+                "review_snapshot_path": metadata["review_pdf_snapshot_path"],
+                "original_urls": [MAY_EVENT["event_url"], MAY_EVENT["review_pdf_url"]],
+                "basis": (
+                    "complete first-party exact-dated running order enriched only by "
+                    "individually published sold cards in the official review PDF"
+                ),
+            }
+            state, rows = build_may_rows(cards, results, evidence)
+            combined_sha = corpus.digest(event_raw + b"\0" + review_raw)
+            corpus.save_json(
+                corpus.DATA / "auctions/kivells-results" / f"{MAY_EVENT['auction_date']}-{combined_sha[:12]}.json",
+                state,
+            )
+            prior = [
+                row for row in merged.values()
+                if row.get("auction_date") == MAY_EVENT["auction_date"]
+            ]
+            for row in prior:
+                merged.pop(row["appearance_id"], None)
+            for row in rows:
+                merged[row["appearance_id"]] = row
+            completed.add(MAY_EVENT["event_url"])
+            completed_may_this_run.append(MAY_EVENT["event_url"])
+            print(
+                "KIVELLS MAY", MAY_EVENT["auction_date"], len(rows),
+                "running-order lots and", len(results), "published sold results", flush=True,
+            )
+        except Exception as exc:
+            failures.append({
+                "auction_date": MAY_EVENT["auction_date"],
+                "url": MAY_EVENT["event_url"],
+                "error": f"{type(exc).__name__}: {exc}"[:500],
+            })
+
     total = corpus.write_rows(
         "kivells-results/canonical", list(merged.values()), preserve_existing=False,
     )
@@ -612,6 +908,18 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
             item["expected_numbered_result_cards"] for item in fliphtml_books
             if item["source_url"] in completed
         ),
+        "event_page_review_inventories_in_manifest": 1,
+        "event_page_review_inventories_banked": int(MAY_EVENT["event_url"] in completed),
+        "event_page_review_inventories_completed_this_run": len(completed_may_this_run),
+        "may_running_order_lots_reconciled": (
+            MAY_EVENT["running_order_lot_count"] if MAY_EVENT["event_url"] in completed else 0
+        ),
+        "may_offered_lot_denominator": (
+            MAY_EVENT["offered_lot_count"] if MAY_EVENT["event_url"] in completed else 0
+        ),
+        "may_published_sold_result_cards": (
+            MAY_EVENT["published_sold_result_count"] if MAY_EVENT["event_url"] in completed else 0
+        ),
         "appearances_captured": total, "run_new_appearances": total - len(before_ids),
         "run_new_address_records": after_counts["address"] - before_counts["address"],
         "run_new_partial_lots": after_counts["partial"] - before_counts["partial"],
@@ -636,6 +944,9 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         if failure.get("url") in {item["source_url"] for item in fliphtml_books}
     }
     if fliphtml_books and fliphtml_failures and not completed_fliphtml_this_run:
+        raise SystemExit(1)
+    may_failed = any(failure.get("url") == MAY_EVENT["event_url"] for failure in failures)
+    if may_failed and not completed_may_this_run:
         raise SystemExit(1)
     if failures and not completed_this_run and not completed:
         raise SystemExit(1)

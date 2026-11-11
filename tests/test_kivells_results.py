@@ -1,9 +1,10 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    EVENTS, build_fliphtml_rows, build_rows, fliphtml_pages, is_address,
-    money, parse_text, saved_snapshot_dates, snapshot_metadata_path,
-    status_from_text,
+    EVENTS, MAY_EVENT, MAY_RESULTS, build_fliphtml_rows, build_may_rows,
+    build_rows, extract_may_review, fliphtml_pages, is_address, money,
+    parse_may_event_page, parse_text, saved_snapshot_dates,
+    snapshot_metadata_path, status_from_text,
 )
 
 
@@ -19,6 +20,25 @@ SOLD: £254,000
 LOT 3 | Chillaton, Lifton
 Guide £90,000
 UNSOLD
+"""
+
+MAY_HTML = """
+<html><body><h1>15 May 2024</h1><h2>AUCTION RUNNING ORDER</h2><ul>
+<li>Lot 1 – 2.51 acres of woodland at Lanivet, Bodmin</li>
+<li>Lot 2 – 45 Higher Glen Park, Pensilva, Liskeard</li>
+<li>Lot 3 – 0.87 acres of woodland at Herodsfoot, Liskeard</li>
+<li>Lot 4 – 3.40 acres of land adjacent to St. Eval, Wadebridge</li>
+<li>Lot 5 – 4.63 acres of land at Marhamchurch, Bude</li>
+<li>Lot 6 – 5.66 acres of land on Robins Hill, Cookbury, Holsworthy</li>
+<li>Lot 7 – 3.99 acres of woodland at Pillaton, Saltash</li>
+<li>Lot 8 – The Old Manor House, The Bridge, Boscastle</li>
+<li>Lot 9 – 4.95 acres of land at Tartan Down, Landrake, Saltash</li>
+<li>Lot 10 – The Posting House, Treworld, Boscastle</li>
+<li>Lot 11 – 76.53 acres of land at Waterhouse Hill, Northlew, Okehampton</li>
+<li>Lot 12 – 10.32 acres of land at Bude Farm, Exbourne, Okehampton</li>
+<li>Lot 13 – 1.58 acres of land at Golberdon, Callington</li>
+<li>Lot 14 – Flat 8, Old School House, Chapel Street, Holsworthy</li>
+</ul></body></html>
 """
 
 
@@ -209,3 +229,72 @@ def test_fliphtml_search_config_is_literal_page_inventory():
         "search_config_js": 'var textForPages =["page one","page two"];',
     }
     assert fliphtml_pages(item) == ["page one", "page two"]
+
+
+def test_may_event_page_preserves_complete_fourteen_lot_running_order():
+    cards = parse_may_event_page(MAY_HTML.encode())
+    assert [card["lot_number"] for card in cards] == [str(number) for number in range(1, 15)]
+    assert cards[1]["location"] == "45 Higher Glen Park, Pensilva, Liskeard"
+    assert cards[8]["location"] == "4.95 acres of land at Tartan Down, Landrake, Saltash"
+    assert all(card["status"] == "unknown" for card in cards)
+    assert all(card["guide_price"] is None and card["sale_price"] is None for card in cards)
+
+
+def test_may_result_contract_reconciles_ten_of_thirteen_without_inventing_four_outcomes():
+    cards = parse_may_event_page(MAY_HTML.encode())
+    results = {item["lot_number"]: dict(item) for item in MAY_RESULTS}
+    state, rows = build_may_rows(cards, results, {"sha256": "event", "review_pdf_sha256": "review"})
+    assert len(rows) == MAY_EVENT["running_order_lot_count"] == 14
+    assert sum(row["status"] == "sold" for row in rows) == 10
+    assert sum(row["status"] == "unknown" for row in rows) == 4
+    assert sum(row["sale_price"] or 0 for row in rows) == 1295000
+    assert sum(row["sector"] == "commercial" for row in rows) == 1
+    assert sum(row["sector"] == "residential" for row in rows) == 3
+    assert sum(row["sector"] == "land" for row in rows) == 10
+    assert state["offered_lot_denominator"] == 13
+    assert state["published_sold_result_denominator"] == 10
+    assert state["unmatched_result_fields_null"] == 4
+    lot_nine = next(row for row in rows if row["lot_number"] == "9")
+    assert lot_nine["locality"] == "4.95 acres of land at Tartan Down, Landrake, Saltash"
+    assert lot_nine["sale_price"] == 100000
+    unmatched = next(row for row in rows if row["lot_number"] == "3")
+    assert unmatched["guide_price"] is None
+    assert unmatched["sale_price"] is None
+    assert unmatched["source_result_text"] is None
+
+
+def test_may_review_requires_bounded_denominators_titles_and_prices(monkeypatch):
+    review_cards = "\n".join(
+        f"SOLD £{item['sale_price']:,} Guide £{item['guide_price']:,} {item['review_location']}"
+        for item in MAY_RESULTS
+    )
+    review_text = (
+        "2024 auction dates 15th May 12th June\n"
+        "15th May Lots sold: 10/13 Value Sold: £1,295,000\n"
+        f"{review_cards}\n12th June"
+    )
+
+    class Page:
+        def extract_text(self):
+            return review_text
+
+    class Reader:
+        pages = [Page()]
+
+    monkeypatch.setattr("scripts.harvest_kivells_results.PdfReader", lambda _: Reader())
+    results = extract_may_review(b"saved first-party review")
+    assert sorted(results, key=int) == ["1", "2", "4", "6", "7", "8", "9", "10", "12", "13"]
+    assert sum(result["sale_price"] for result in results.values()) == 1295000
+
+
+def test_may_event_page_rejects_missing_running_order_lot():
+    broken = MAY_HTML.replace(
+        "<li>Lot 11 – 76.53 acres of land at Waterhouse Hill, Northlew, Okehampton</li>\n",
+        "",
+    )
+    try:
+        parse_may_event_page(broken.encode())
+    except ValueError as exc:
+        assert "not exactly 1-14" in str(exc)
+    else:
+        raise AssertionError("incomplete May running order was admitted")
