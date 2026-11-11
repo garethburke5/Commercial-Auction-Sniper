@@ -1,9 +1,10 @@
-"""Bank Kivells' exact-dated, first-party property-auction result PDFs.
+"""Bank Kivells' exact-dated, first-party property-auction result evidence.
 
-The annual review is discovery evidence only.  This collector admits only the
-numbered lot cards in complete event result PDFs, verifies their printed event
-date, and keeps locality-only cards as partial lots rather than inventing an
-address.
+The collector admits complete numbered result books and individually
+identifiable review cards only.  Review denominators without an identifiable
+property remain denominator-only, dates printed inconsistently by the source
+are preserved as conflicts, and locality-only cards remain partial rather than
+being promoted to invented addresses.
 """
 from __future__ import annotations
 
@@ -25,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 5
+PARSER_VERSION = 6
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
@@ -34,6 +35,10 @@ DEFAULT_FLIPHTML_SEED = (
 DEFAULT_FLIPHTML_2023_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-2023-result-books.json.gz"
+)
+DEFAULT_HALF_YEAR_2022_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2022-half-year-review.json.gz"
 )
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
@@ -681,7 +686,7 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
 
     evidence = {
         "source_url": item["source_url"],
-        "search_config_url": item["search_config_url"],
+        "search_config_url": item.get("search_config_url"),
         "config_url": item["config_url"],
         "public_text_url": item.get("public_text_url"),
         "annual_review_url": item.get("annual_review_url"),
@@ -689,7 +694,7 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
         "original_urls": [
             *[
                 value for value in (
-                item["source_url"], item["search_config_url"], item["config_url"],
+                item["source_url"], item.get("search_config_url"), item["config_url"],
                 item.get("public_text_url"), item.get("annual_review_url"),
                 item.get("article_url"),
                 ) if value
@@ -767,6 +772,139 @@ def build_fliphtml_rows(item: dict, pages: list[str], evidence: dict) -> tuple[d
         article_url=None,
     )
     return state, rows
+
+
+def load_half_year_review_seed(path: Path = DEFAULT_HALF_YEAR_2022_SEED) -> dict:
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        seed = json.load(handle)
+    item = seed.get("book")
+    if seed.get("schema_version") != 1 or not item:
+        raise ValueError("Kivells half-year review seed is not recognised")
+    if item.get("book_slug") != "uzqf" or len(item.get("review_cards") or []) != 40:
+        raise ValueError("Kivells half-year review seed has no 40-card inventory")
+    return item
+
+
+def build_half_year_review_rows(
+    item: dict, pages: list[str], evidence: dict,
+) -> list[tuple[dict, list[dict]]]:
+    """Validate and build the four event inventories published in the review.
+
+    The review has no printed lot numbers.  Stable review-card identifiers
+    preserve each separately illustrated legal interest without pretending
+    that the three unidentified unsold offerings are property records.
+    """
+    events = item["review_events"]
+    cards = item["review_cards"]
+    if len(pages) != item["page_count"]:
+        raise ValueError(f"half-year review has {len(pages)} pages, expected {item['page_count']}")
+    if len({card["card_id"] for card in cards}) != len(cards):
+        raise ValueError("half-year review card identifiers are not unique")
+    if sum(event["offered_lots"] for event in events) != 43:
+        raise ValueError("half-year review offered-lot denominator is not 43")
+    if sum(event["sold_cards"] for event in events) != len(cards):
+        raise ValueError("half-year review sold-card denominator is not 40")
+    if sum(event["value_sold"] for event in events) != 8240500:
+        raise ValueError("half-year review grand value sold is not £8,240,500")
+
+    card_dates = Counter(card["auction_date"] for card in cards)
+    card_values = Counter()
+    for card in cards:
+        page_number = card["source_page_number"]
+        if not 1 <= page_number <= len(pages):
+            raise ValueError(f"review card {card['card_id']} has an invalid source page")
+        page = clean(pages[page_number - 1]) or ""
+        title = clean(card["location"]) or ""
+        if title.casefold() not in page.casefold():
+            raise ValueError(f"review page {page_number} is missing card title: {title}")
+        for field in ("guide_price", "sale_price"):
+            price_text = f"£{card[field]:,}"
+            if price_text not in page:
+                raise ValueError(
+                    f"review page {page_number} is missing {field} for {card['card_id']}"
+                )
+        card_values[card["auction_date"]] += card["sale_price"]
+
+    for event in events:
+        event_date = event["auction_date"]
+        if card_dates[event_date] != event["sold_cards"]:
+            raise ValueError(f"{event_date} sold-card denominator does not reconcile")
+        if card_values[event_date] != event["value_sold"]:
+            raise ValueError(f"{event_date} sold-card values do not reconcile")
+    may_section = re.sub(r"\s+", "", pages[27]).casefold()
+    all_pages = re.sub(r"\s+", "", "\n".join(pages)).casefold()
+    if "5thmay" not in may_section or "wednesday4thmay" not in all_pages:
+        raise ValueError("May review date conflict is not preserved in the source inventory")
+
+    results = []
+    cards_by_date = {
+        event["auction_date"]: [
+            card for card in cards if card["auction_date"] == event["auction_date"]
+        ]
+        for event in events
+    }
+    for event in events:
+        event_date = event["auction_date"]
+        source_cards = []
+        for card in cards_by_date[event_date]:
+            description = clean(card.get("description"))
+            source_cards.append({
+                "lot_number": card["card_id"],
+                "location": card["location"],
+                "address": card["location"] if is_address(card["location"]) else None,
+                "guide_price": card["guide_price"],
+                "guide_price_high": card.get("guide_price_high"),
+                "guide_price_text": card.get("guide_price_text") or f"Guide £{card['guide_price']:,}",
+                "sale_price": card["sale_price"],
+                "status": "sold",
+                "source_result_text": f"SOLD £{card['sale_price']:,}",
+                "source_card_text": " | ".join(filter(None, (
+                    card["location"], description,
+                    card.get("guide_price_text") or f"Guide £{card['guide_price']:,}",
+                    f"SOLD £{card['sale_price']:,}",
+                ))),
+                "source_duplicate_count": 0,
+                "source_page_number": card["source_page_number"],
+            })
+        base_event = {
+            "auction_date": event_date,
+            "article_url": item["source_url"],
+            "published_lot_count": event["sold_cards"],
+        }
+        state, rows = build_rows(source_cards, base_event, item["source_url"], evidence)
+        for position, (row, card) in enumerate(zip(rows, cards_by_date[event_date]), 1):
+            row.update(
+                identity_method="exact_event_date_and_individually_illustrated_review_card",
+                auction_date_basis=event["date_basis"],
+                source_position=position,
+                source_page_number=card["source_page_number"],
+                source_date_conflict=event.get("source_date_conflict"),
+            )
+            if card.get("sector"):
+                row["sector"] = card["sector"]
+        state.update(
+            parser_version=PARSER_VERSION,
+            source_format="first-party FlipHTML5 half-year review card inventory",
+            catalogue_complete=event["offered_lots"] == event["sold_cards"],
+            source_rows_complete=True,
+            numbered_lots_in_pdf=None,
+            individually_published_sold_cards=event["sold_cards"],
+            offered_lot_denominator=event["offered_lots"],
+            unmatched_offered_outcomes_null=event["offered_lots"] - event["sold_cards"],
+            published_value_sold=event["value_sold"],
+            result_inventory_complete=event["offered_lots"] == event["sold_cards"],
+            denominator_basis=(
+                "every individually illustrated sold property card retained; the published "
+                "offered denominator is preserved without creating unidentified unsold lots"
+            ),
+            completion_scope="all individually identifiable sold cards in the retained review section",
+            date_basis=event["date_basis"],
+            source_date_conflict=event.get("source_date_conflict"),
+            page_assets_snapshotted=len(pages),
+            article_url=None,
+        )
+        results.append((state, rows))
+    return results
 
 
 def parse_may_event_page(raw: bytes) -> list[dict]:
@@ -1007,6 +1145,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     failures = []
     completed_this_run = []
     completed_fliphtml_this_run = []
+    completed_half_year_review_this_run = []
     completed_may_this_run = []
     saved_by_date = {}
     if saved_only:
@@ -1150,6 +1289,43 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 }
             )
 
+    half_year_review_url = None
+    if DEFAULT_HALF_YEAR_2022_SEED.exists():
+        review_item = load_half_year_review_seed()
+        half_year_review_url = review_item["source_url"]
+        if half_year_review_url not in completed or saved_only:
+            try:
+                pages = fliphtml_pages(review_item)
+                evidence = snapshot_fliphtml_book(review_item, pages)
+                event_results = build_half_year_review_rows(review_item, pages, evidence)
+                for state, rows in event_results:
+                    event_date = state["auction_date"]
+                    sha = evidence["search_config_sha256"]
+                    corpus.save_json(
+                        corpus.DATA / "auctions/kivells-results" / f"{event_date}-{sha[:12]}-review.json",
+                        state,
+                    )
+                    prior = [
+                        row for row in merged.values()
+                        if row.get("auction_date") == event_date
+                    ]
+                    for row in prior:
+                        merged.pop(row["appearance_id"], None)
+                    for row in rows:
+                        merged[row["appearance_id"]] = row
+                    print(
+                        "KIVELLS HALF YEAR REVIEW", event_date, len(rows),
+                        "individually published sold cards", flush=True,
+                    )
+                completed.add(half_year_review_url)
+                completed_half_year_review_this_run.append(half_year_review_url)
+            except Exception as exc:
+                failures.append({
+                    "auction_date": "2022-01-26/2022-05-04",
+                    "url": half_year_review_url,
+                    "error": f"{type(exc).__name__}: {exc}"[:500],
+                })
+
     if MAY_EVENT["event_url"] not in completed or saved_only:
         try:
             event_raw, review_raw, metadata = load_or_fetch_may_sources(saved_only)
@@ -1246,6 +1422,22 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
             item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS
             if item["source_url"] in completed
         ),
+        "half_year_review_inventories_in_manifest": int(half_year_review_url is not None),
+        "half_year_review_inventories_banked": int(
+            half_year_review_url is not None and half_year_review_url in completed
+        ),
+        "half_year_review_inventories_completed_this_run": len(
+            completed_half_year_review_this_run
+        ),
+        "half_year_review_offered_lots": (
+            43 if half_year_review_url is not None and half_year_review_url in completed else 0
+        ),
+        "half_year_review_individually_published_sold_cards": (
+            40 if half_year_review_url is not None and half_year_review_url in completed else 0
+        ),
+        "half_year_review_unidentified_offered_outcomes": (
+            3 if half_year_review_url is not None and half_year_review_url in completed else 0
+        ),
         "event_page_review_inventories_in_manifest": 1,
         "event_page_review_inventories_banked": int(MAY_EVENT["event_url"] in completed),
         "event_page_review_inventories_completed_this_run": len(completed_may_this_run),
@@ -1285,6 +1477,9 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         raise SystemExit(1)
     may_failed = any(failure.get("url") == MAY_EVENT["event_url"] for failure in failures)
     if may_failed and not completed_may_this_run:
+        raise SystemExit(1)
+    review_failed = any(failure.get("url") == half_year_review_url for failure in failures)
+    if review_failed and not completed_half_year_review_this_run:
         raise SystemExit(1)
     if failures and not completed_this_run and not completed:
         raise SystemExit(1)

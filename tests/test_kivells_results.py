@@ -1,10 +1,11 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED, EVENTS, FLIPHTML_2023_EVENTS,
-    MAY_EVENT, MAY_RESULTS, build_fliphtml_rows, build_may_rows, build_rows,
+    DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED, DEFAULT_HALF_YEAR_2022_SEED,
+    EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
+    build_fliphtml_rows, build_half_year_review_rows, build_may_rows, build_rows,
     extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
-    public_fliphtml_pages, parse_may_event_page, parse_text,
+    load_half_year_review_seed, public_fliphtml_pages, parse_may_event_page, parse_text,
     saved_snapshot_dates, snapshot_metadata_path, status_from_text,
 )
 
@@ -90,6 +91,53 @@ def test_accessible_2022_seed_batches_three_books_and_reconciles_denominators():
     assert all(item["public_text_html"] for item in books)
     assert all(item["page_source_urls"] for item in books)
     assert all("accessible HTML" in item["recovery_route"] for item in books)
+
+
+def test_half_year_2022_seed_reconciles_four_events_and_grand_total():
+    item = load_half_year_review_seed(DEFAULT_HALF_YEAR_2022_SEED)
+    assert item["book_slug"] == "uzqf"
+    assert item["page_count"] == 40
+    assert len(item["review_cards"]) == 40
+    assert sum(event["offered_lots"] for event in item["review_events"]) == 43
+    assert sum(event["sold_cards"] for event in item["review_events"]) == 40
+    assert sum(event["value_sold"] for event in item["review_events"]) == 8240500
+    assert sum(card["guide_price"] is not None for card in item["review_cards"]) == 40
+    assert sum(card["sale_price"] for card in item["review_cards"]) == 8240500
+
+
+def test_half_year_2022_rows_keep_distinct_interests_and_date_conflict():
+    item = load_half_year_review_seed(DEFAULT_HALF_YEAR_2022_SEED)
+    event_results = build_half_year_review_rows(
+        item, fliphtml_pages(item), {"sha256": "review"},
+    )
+    states = {state["auction_date"]: state for state, _ in event_results}
+    rows = [row for _, event_rows in event_results for row in event_rows]
+    assert len(rows) == 40
+    assert len({row["appearance_id"] for row in rows}) == 40
+    assert sum(row["guide_price"] is not None for row in rows) == 40
+    assert sum(row["sale_price"] is not None for row in rows) == 40
+    assert sum(row["sale_price"] for row in rows) == 8240500
+    assert sum(bool(row["address"]) for row in rows) == 38
+    assert sum(not row["address"] for row in rows) == 2
+    assert sum(row["sector"] == "land" for row in rows) == 22
+    assert sum(row["sector"] == "residential" for row in rows) == 15
+    assert sum(row["sector"] == "commercial" for row in rows) == 1
+    assert sum(row["sector"] == "mixed-use" for row in rows) == 2
+    assert sum(row["auction_date"] == "2022-05-04" for row in rows) == 13
+    assert states["2022-02-23"]["unmatched_offered_outcomes_null"] == 1
+    assert states["2022-05-04"]["unmatched_offered_outcomes_null"] == 2
+    assert states["2022-05-04"]["catalogue_complete"] is False
+    assert states["2022-05-04"]["source_date_conflict"] == {
+        "result_section_text": "5th May",
+        "auction_schedule_text": "Wednesday 4th May",
+    }
+    newhouse = [row for row in rows if "Newhouse Farm" in row["locality"]]
+    assert len(newhouse) == 2
+    assert len({row["appearance_id"] for row in newhouse}) == 2
+    castle = next(row for row in rows if row["locality"] == "Castle View, Liskeard")
+    garages = next(row for row in rows if row["locality"] == "Garages at Kensey Hill, Launceston")
+    assert castle["sector"] == "mixed-use"
+    assert garages["sector"] == "commercial"
 
 
 def test_public_basic_text_fallback_handles_adjacent_two_column_cards():
