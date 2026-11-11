@@ -50,10 +50,10 @@ GUIDE_RE = re.compile(
 )
 MONEY_RE = re.compile(r"£\s*([\d,]+)")
 NEXT_TARGET = (
-    "Recover Durrants' 31 July and 30 October 2024 catalogues from a byte-accessible retained "
-    "publisher route (the indexed Rightmove copies currently return 404 outside search caches), "
-    "then search retained platform copies for the exact 2021-2022 calendar dates. Batch additions "
-    "through this reusable manifest runner and keep national completeness false."
+    "Search retained publisher and platform copies for Durrants' exact 2021-2022 calendar dates, "
+    "then rotate to another uncovered high-yield auctioneer/source-year if no individual catalogue "
+    "inventory survives. Batch additions through this reusable manifest runner and keep national "
+    "completeness false."
 )
 
 
@@ -285,6 +285,15 @@ def parse_catalogue_text(text, config, source_url, evidence):
             f"{auction_date}|{lot_number}|{normalized_address(item['address'])}".encode()
         ).hexdigest()[:24]
         row = corpus.base_row(SOURCE, auction_id, auction_date, lot_number, source_id, source_url)
+        if tier == "first_party":
+            identity_method = "first_party_exact_event_date_lot_number_and_address"
+            source_platform = "Durrants first-party retained property auction catalogue"
+        elif tier == "retained_search_cache_text":
+            identity_method = "retained_search_cache_catalogue_exact_event_date_lot_number_and_address"
+            source_platform = "Durrants PDF catalogue retained as search-index text extraction"
+        else:
+            identity_method = "retained_publisher_catalogue_exact_event_date_lot_number_and_address"
+            source_platform = "Durrants catalogue retained by OnTheMarket media"
         row.update(
             appearance_id=f"{SOURCE}|{auction_id}|lot:{lot_number}",
             address=item["address"],
@@ -300,11 +309,7 @@ def parse_catalogue_text(text, config, source_url, evidence):
             annual_rent=item.get("annual_rent"),
             description=item.get("description"),
             property_id=None,
-            identity_method=(
-                "first_party_exact_event_date_lot_number_and_address"
-                if tier == "first_party"
-                else "retained_publisher_catalogue_exact_event_date_lot_number_and_address"
-            ),
+            identity_method=identity_method,
             record_quality="address_record",
             source_position=position,
             source_guide_text=item.get("source_guide_text"),
@@ -313,11 +318,7 @@ def parse_catalogue_text(text, config, source_url, evidence):
             source_property_url=None,
             auction_date_precision="day",
             auction_date_basis="exact date printed on retained Durrants catalogue",
-            source_platform=(
-                "Durrants first-party retained property auction catalogue"
-                if tier == "first_party"
-                else "Durrants catalogue retained by OnTheMarket media"
-            ),
+            source_platform=source_platform,
             operator_legal_name=OPERATOR,
             operator_company_number=COMPANY_NUMBER,
             trading_name=SOURCE,
@@ -358,6 +359,34 @@ def load_catalogue_manifest(path=CATALOGUE_MANIFEST):
     if not catalogues:
         raise ValueError("Durrants catalogue manifest is empty")
     return catalogues
+
+
+def retained_catalogue_source(config):
+    """Return a reproducible catalogue payload without hiding source limits.
+
+    Most entries retain the original PDF bytes. A removed publisher PDF may use
+    a finite text extraction retained by a public search index; in that case the
+    manifest stores the admitted extraction, the original URL remains the
+    source URL, and the snapshot is explicitly labelled as extracted text.
+    """
+    tier = config.get("source_tier", "first_party")
+    if tier != "retained_search_cache_text":
+        resolved, raw = get(config["source_url"])
+        basis = (
+            "retained first-party exact-dated property-auction catalogue PDF"
+            if tier == "first_party"
+            else "Durrants-issued exact-dated catalogue retained by OnTheMarket media"
+        )
+        return resolved, raw, "pdf", basis
+    text = config.get("retained_text")
+    if not isinstance(text, str) or len(text) < 200:
+        raise ValueError("retained search-cache catalogue text is missing or unexpectedly short")
+    return (
+        config["source_url"],
+        text.encode("utf-8"),
+        "txt",
+        "Durrants-issued exact-dated PDF catalogue retained as a public search-index text extraction; original publisher bytes currently return 404",
+    )
 
 
 def global_exact_appearances():
@@ -448,9 +477,9 @@ def harvest():
     for position, config in enumerate(catalogue_configs, 1):
         url = config["source_url"]
         try:
-            resolved, raw = get(url)
+            resolved, raw, snapshot_format, basis = retained_catalogue_source(config)
             sha, captured_at = corpus.digest(raw), corpus.now()
-            snapshot = corpus.DATA / "sources" / SLUG / f"catalogue-{sha[:20]}.pdf.gz"
+            snapshot = corpus.DATA / "sources" / SLUG / f"catalogue-{sha[:20]}.{snapshot_format}.gz"
             if not snapshot.exists():
                 corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
             tier = config.get("source_tier", "first_party")
@@ -459,14 +488,14 @@ def harvest():
                 "retrieved_at": captured_at,
                 "sha256": sha,
                 "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
-                "basis": (
-                    "retained first-party exact-dated property-auction catalogue PDF"
-                    if tier == "first_party"
-                    else "Durrants-issued exact-dated catalogue retained by OnTheMarket media"
-                ),
+                "basis": basis,
                 "source_tier": tier,
+                "snapshot_format": snapshot_format,
             }
-            state, rows = parse_catalogue_pdf(raw, config, resolved, evidence)
+            if snapshot_format == "pdf":
+                state, rows = parse_catalogue_pdf(raw, config, resolved, evidence)
+            else:
+                state, rows = parse_catalogue_text(raw.decode("utf-8"), config, resolved, evidence)
             event_date = state["auction_date"]
             catalogue_states[event_date] = state
             if event_date in states:

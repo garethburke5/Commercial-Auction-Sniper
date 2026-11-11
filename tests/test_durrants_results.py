@@ -3,10 +3,12 @@ from pathlib import Path
 
 from scripts.harvest_durrants_results import (
     discover_result_pdfs,
+    load_catalogue_manifest,
     outcome_values,
     parse_catalogue_text,
     parse_date,
     parse_result_text,
+    retained_catalogue_source,
 )
 
 
@@ -83,6 +85,30 @@ def test_manifest_catalogue_row_is_validated_and_keeps_unknown_outcome_null():
     assert rows[0]["guide_price_high"] == 300000
     assert rows[0]["sale_price"] is None
     assert rows[0]["status"] == "unknown"
+
+
+def test_removed_rightmove_catalogues_use_complete_retained_text_snapshots():
+    catalogues = [
+        item for item in load_catalogue_manifest()
+        if item["source_tier"] == "retained_search_cache_text"
+    ]
+    assert [item["published_lot_denominator"] for item in catalogues] == [1, 4]
+    assert sum(len(item["lots"]) for item in catalogues) == 5
+    for config in catalogues:
+        resolved, raw, snapshot_format, basis = retained_catalogue_source(config)
+        assert resolved == config["source_url"]
+        assert snapshot_format == "txt"
+        assert "original publisher bytes currently return 404" in basis
+        state, rows = parse_catalogue_text(
+            raw.decode("utf-8"),
+            config,
+            resolved,
+            {"sha256": "c" * 64, "source_tier": config["source_tier"]},
+        )
+        assert state["published_lot_denominator"] == len(rows)
+        assert all(row["sale_price"] is None for row in rows)
+        assert all(row["status"] == "unknown" for row in rows)
+        assert all("search_cache" in row["identity_method"] for row in rows)
 
 
 def test_durrants_checkpoint_files_remain_utf8_json():
