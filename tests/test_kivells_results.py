@@ -67,6 +67,22 @@ def test_two_column_extraction_order_is_reconciled_by_lot_number():
     assert [card["lot_number"] for card in cards] == ["1", "2", "3"]
 
 
+def test_exact_background_cards_are_deduplicated_but_distinct_reused_labels_survive():
+    repeated = SAMPLE + """
+LOT 2 | Land at Chillaton, Lifton
+Guide Price: £200,000 to £220,000
+SOLD: £254,000
+LOT 3 | A second distinct location
+Guide £120,000
+SOLD: £140,000
+"""
+    _, cards = parse_text(repeated, "2025-06-18")
+    assert len(cards) == 4
+    land = next(card for card in cards if card["location"] == "Land at Chillaton, Lifton")
+    assert land["source_duplicate_count"] == 1
+    assert sum(card["lot_number"] == "3" for card in cards) == 2
+
+
 def test_locality_only_cards_remain_partial():
     assert is_address("Chillaton, Lifton") is False
     assert is_address("12 Fore Street, Launceston") is True
