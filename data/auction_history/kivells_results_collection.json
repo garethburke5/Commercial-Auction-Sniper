@@ -1,37 +1,41 @@
 {
-  "checked_at": "2026-11-11T13:09:32.487024+00:00",
-  "parser_version": 3,
-  "retrieval_route": "first_party_event_result_pdfs_and_fliphtml5_page_text",
+  "checked_at": "2026-11-11T14:26:11.130936+00:00",
+  "parser_version": 4,
+  "retrieval_route": "first_party_event_result_pdfs_and_fliphtml5_page_text_with_accessible_public_html_fallback",
   "event_pdfs_in_manifest": 11,
   "event_pdfs_banked": 11,
   "event_pdfs_completed_this_run": 0,
   "event_pdfs_pending": 0,
-  "fliphtml5_result_books_in_manifest": 4,
+  "fliphtml5_result_books_in_manifest": 14,
   "fliphtml5_result_books_banked": 4,
   "fliphtml5_result_books_completed_this_run": 0,
   "fliphtml5_result_cards_reconciled": 53,
+  "fliphtml5_2023_result_books_in_manifest": 10,
+  "fliphtml5_2023_result_books_banked": 0,
+  "fliphtml5_2023_offered_cards_reconciled": 0,
+  "fliphtml5_2023_sold_cards_reconciled": 0,
   "event_page_review_inventories_in_manifest": 1,
   "event_page_review_inventories_banked": 1,
-  "event_page_review_inventories_completed_this_run": 1,
+  "event_page_review_inventories_completed_this_run": 0,
   "may_running_order_lots_reconciled": 14,
   "may_offered_lot_denominator": 13,
   "may_published_sold_result_cards": 10,
   "appearances_captured": 204,
-  "run_new_appearances": 14,
-  "run_new_address_records": 14,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_guide_prices": 10,
-  "run_new_guide_evidence": 10,
-  "run_new_sale_prices": 10,
+  "run_new_guide_prices": 0,
+  "run_new_guide_evidence": 0,
+  "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "exact_source_card_duplicates_collapsed": 63,
   "by_status": {
     "sold": 135,
     "unsold": 47,
     "sold_prior": 10,
+    "unknown": 4,
     "withdrawn": 6,
-    "postponed": 2,
-    "unknown": 4
+    "postponed": 2
   },
   "by_sector": {
     "land": 86,
@@ -62,5 +66,56 @@
     "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf",
     "https://www.kivells.com/property-sales/property-auctions/15-may-kivells-collective-property-auction-may-2024"
   ],
-  "failures": []
+  "failures": [
+    {
+      "auction_date": "2023-01-25",
+      "url": "https://online.fliphtml5.com/hoau/fhax/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/fhax/Kivells_January_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-02-22",
+      "url": "https://online.fliphtml5.com/hoau/evpc/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/evpc/Kivells_February_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-03-22",
+      "url": "https://online.fliphtml5.com/hoau/rxkw/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/rxkw/Kivells_March_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-04-26",
+      "url": "https://online.fliphtml5.com/hoau/rkfi/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/rkfi/Kivells_April_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-05-24",
+      "url": "https://online.fliphtml5.com/hoau/ujli/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/ujli/Kivells_May_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-06-21",
+      "url": "https://online.fliphtml5.com/hoau/rvqi/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/rvqi/Kivells_June_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-07-26",
+      "url": "https://online.fliphtml5.com/hoau/ewcr/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/ewcr/Kivells_July_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-09-13",
+      "url": "https://online.fliphtml5.com/hoau/pufw/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/pufw/Kivells_September_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-10-18",
+      "url": "https://online.fliphtml5.com/hoau/ulyl/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/ulyl/Kivells_October_2023_Auction_Results/"
+    },
+    {
+      "auction_date": "2023-11-22",
+      "url": "https://online.fliphtml5.com/hoau/keyr/",
+      "error": "HTTPError: 403 Client Error: Forbidden for url: https://fliphtml5.com/hoau/keyr/Kivells_November_2023_Auction_Results/"
+    }
+  ]
 }
