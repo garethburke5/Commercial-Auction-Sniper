@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-11T08:18:40.506869+00:00",
-  "individual_lot_records_captured": 312382,
-  "records_with_address": 301425,
-  "partial_lot_records": 10957,
+  "generated_at": "2026-11-11T08:28:57.214908+00:00",
+  "individual_lot_records_captured": 312456,
+  "records_with_address": 301429,
+  "partial_lot_records": 11027,
   "exact_address_groups": 167678,
   "groups_with_repeat_appearances": 42922,
   "by_auctioneer": {
@@ -85,6 +85,7 @@
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
+    "Kivells": 74,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 593,
     "Landmark Auctions": 71,
@@ -153,22 +154,22 @@
     "2022": 26645,
     "2023": 33278,
     "2024": 42189,
-    "2025": 48307,
+    "2025": 48381,
     "2026": 47812,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42668,
-    "land": 19165,
-    "mixed-use": 47616,
-    "residential": 151552,
-    "unknown": 51381
+    "commercial": 42675,
+    "land": 19187,
+    "mixed-use": 47620,
+    "residential": 151570,
+    "unknown": 51404
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4932,
+  "surviving_catalogues_completely_harvested": 4938,
   "catalogues_incomplete_or_unreconciled": 559,
   "catalogue_fetch_or_parse_failures": 34,
   "limits": [
@@ -182,13 +183,13 @@
     "through_date": "2026-11-11",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 304071,
-      "auction_ids_observed": 13584,
-      "with_guide_price": 106312,
-      "with_sale_price": 112341,
-      "with_both_prices": 48597,
-      "marked_sold": 155216,
-      "marked_sold_without_sale_price": 43615
+      "lot_appearances": 304145,
+      "auction_ids_observed": 13590,
+      "with_guide_price": 106386,
+      "with_sale_price": 112394,
+      "with_both_prices": 48650,
+      "marked_sold": 155270,
+      "marked_sold_without_sale_price": 43616
     },
     "by_auctioneer_and_year": [
       {
@@ -5965,6 +5966,17 @@
         "with_both_prices": 0,
         "marked_sold": 0,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Kivells",
+        "year": 2025,
+        "lot_appearances": 74,
+        "auction_ids_observed": 6,
+        "with_guide_price": 74,
+        "with_sale_price": 53,
+        "with_both_prices": 53,
+        "marked_sold": 54,
+        "marked_sold_without_sale_price": 1
       },
       {
         "auctioneer": "Knight Frank Auctions",

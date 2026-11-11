@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-11T08:19:02.158314+00:00",
-  "corpus_checkpoint": "2026-11-11T08:18:40.506869+00:00",
+  "generated_at": "2026-11-11T08:29:19.726077+00:00",
+  "corpus_checkpoint": "2026-11-11T08:28:57.214908+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8243,6 +8243,7 @@
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
+    "Kivells": 74,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 593,
     "Landmark Auctions": 71,
@@ -8291,13 +8292,13 @@
     "through_date": "2026-11-11",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 304071,
-      "auction_ids_observed": 13584,
-      "with_guide_price": 106312,
-      "with_sale_price": 112341,
-      "with_both_prices": 48597,
-      "marked_sold": 155216,
-      "marked_sold_without_sale_price": 43615
+      "lot_appearances": 304145,
+      "auction_ids_observed": 13590,
+      "with_guide_price": 106386,
+      "with_sale_price": 112394,
+      "with_both_prices": 48650,
+      "marked_sold": 155270,
+      "marked_sold_without_sale_price": 43616
     },
     "by_auctioneer_and_year": [
       {
@@ -14074,6 +14075,17 @@
         "with_both_prices": 0,
         "marked_sold": 0,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Kivells",
+        "year": 2025,
+        "lot_appearances": 74,
+        "auction_ids_observed": 6,
+        "with_guide_price": 74,
+        "with_sale_price": 53,
+        "with_both_prices": 53,
+        "marked_sold": 54,
+        "marked_sold_without_sale_price": 1
       },
       {
         "auctioneer": "Knight Frank Auctions",
@@ -22631,7 +22643,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-11T08:19:01.691168+00:00",
+    "checked_at": "2026-11-11T08:29:19.262172+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

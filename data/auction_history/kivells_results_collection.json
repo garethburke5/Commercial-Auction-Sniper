@@ -1,51 +1,42 @@
 {
-  "checked_at": "2026-11-11T08:17:02.038584+00:00",
+  "checked_at": "2026-11-11T08:27:26.473628+00:00",
   "parser_version": 1,
-  "retrieval_route": "direct_first_party_event_result_pdfs",
+  "retrieval_route": "saved_immutable_first_party_event_result_pdfs",
   "event_pdfs_in_manifest": 6,
-  "event_pdfs_banked": 0,
-  "event_pdfs_completed_this_run": 0,
-  "event_pdfs_pending": 6,
-  "appearances_captured": 0,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
-  "run_new_partial_lots": 0,
-  "run_new_guide_prices": 0,
-  "run_new_sale_prices": 0,
-  "by_status": {},
-  "by_sector": {},
-  "covered_source_years": [],
-  "completed_source_urls": [],
-  "failures": [
-    {
-      "auction_date": "2025-01-15",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20January%202025%20Auction%20Results.pdf",
-      "error": "ValueError: result PDF contains duplicate lot-number anchors"
-    },
-    {
-      "auction_date": "2025-06-18",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20June%202025%20Auction%20Results.pdf",
-      "error": "ValueError: result PDF contains duplicate lot-number anchors"
-    },
-    {
-      "auction_date": "2025-07-30",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20July%202025%20Auction%20Results.pdf",
-      "error": "ValueError: result PDF contains duplicate lot-number anchors"
-    },
-    {
-      "auction_date": "2025-09-03",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf",
-      "error": "ValueError: result PDF contains duplicate lot-number anchors"
-    },
-    {
-      "auction_date": "2025-10-08",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20October%202025%20Auction%20Results.pdf",
-      "error": "ValueError: result PDF contains duplicate lot-number anchors"
-    },
-    {
-      "auction_date": "2025-11-12",
-      "url": "https://www.kivells.com/media/Auctions/Kivells%20November%202025%20Auction%20Results.pdf",
-      "error": "ValueError: result PDF contains duplicate lot-number anchors"
-    }
-  ]
+  "event_pdfs_banked": 6,
+  "event_pdfs_completed_this_run": 6,
+  "event_pdfs_pending": 0,
+  "appearances_captured": 74,
+  "run_new_appearances": 74,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 70,
+  "run_new_guide_prices": 74,
+  "run_new_sale_prices": 53,
+  "exact_source_card_duplicates_collapsed": 34,
+  "by_status": {
+    "sold": 50,
+    "unsold": 15,
+    "sold_prior": 4,
+    "withdrawn": 3,
+    "postponed": 2
+  },
+  "by_sector": {
+    "land": 22,
+    "unknown": 23,
+    "residential": 18,
+    "commercial": 7,
+    "mixed-use": 4
+  },
+  "covered_source_years": [
+    "2025"
+  ],
+  "completed_source_urls": [
+    "https://www.kivells.com/media/Auctions/Kivells%20January%202025%20Auction%20Results.pdf",
+    "https://www.kivells.com/media/Auctions/Kivells%20July%202025%20Auction%20Results.pdf",
+    "https://www.kivells.com/media/Auctions/Kivells%20June%202025%20Auction%20Results.pdf",
+    "https://www.kivells.com/media/Auctions/Kivells%20November%202025%20Auction%20Results.pdf",
+    "https://www.kivells.com/media/Auctions/Kivells%20October%202025%20Auction%20Results.pdf",
+    "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf"
+  ],
+  "failures": []
 }
