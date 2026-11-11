@@ -25,11 +25,116 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 3
+PARSER_VERSION = 4
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-result-books.json.gz"
+)
+
+ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
+ANNUAL_2023_REVIEW_URL = "https://fliphtml5.com/hoau/vcml/Kivells_Collective_Property_Auction_Full_Year_Review_2023_/"
+FLIPHTML_2023_EVENTS = (
+    {
+        "auction_date": "2023-01-25", "book_slug": "fhax",
+        "source_url": "https://online.fliphtml5.com/hoau/fhax/",
+        "public_text_url": "https://fliphtml5.com/hoau/fhax/Kivells_January_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/fhax/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/fhax/javascript/config.js",
+        "expected_numbered_result_cards": 10, "expected_sold_cards": 8,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-02-22", "book_slug": "evpc",
+        "source_url": "https://online.fliphtml5.com/hoau/evpc/",
+        "public_text_url": "https://fliphtml5.com/hoau/evpc/Kivells_February_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/evpc/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/evpc/javascript/config.js",
+        "expected_numbered_result_cards": 17, "expected_sold_cards": 14,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-03-22", "book_slug": "rxkw",
+        "source_url": "https://online.fliphtml5.com/hoau/rxkw/",
+        "public_text_url": "https://fliphtml5.com/hoau/rxkw/Kivells_March_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/rxkw/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/rxkw/javascript/config.js",
+        "expected_numbered_result_cards": 9, "expected_sold_cards": 7,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-04-26", "book_slug": "rkfi",
+        "source_url": "https://online.fliphtml5.com/hoau/rkfi/",
+        "public_text_url": "https://fliphtml5.com/hoau/rkfi/Kivells_April_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/rkfi/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/rkfi/javascript/config.js",
+        "expected_numbered_result_cards": 14, "expected_sold_cards": 10,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-05-24", "book_slug": "ujli",
+        "source_url": "https://online.fliphtml5.com/hoau/ujli/",
+        "public_text_url": "https://fliphtml5.com/hoau/ujli/Kivells_May_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/ujli/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/ujli/javascript/config.js",
+        "expected_numbered_result_cards": 7, "expected_sold_cards": 6,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-06-21", "book_slug": "rvqi",
+        "source_url": "https://online.fliphtml5.com/hoau/rvqi/",
+        "public_text_url": "https://fliphtml5.com/hoau/rvqi/Kivells_June_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/rvqi/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/rvqi/javascript/config.js",
+        "expected_numbered_result_cards": 11, "expected_sold_cards": 11,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-07-26", "book_slug": "ewcr",
+        "source_url": "https://online.fliphtml5.com/hoau/ewcr/",
+        "public_text_url": "https://fliphtml5.com/hoau/ewcr/Kivells_July_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/ewcr/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/ewcr/javascript/config.js",
+        "expected_numbered_result_cards": 9, "expected_sold_cards": 9,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-09-13", "book_slug": "pufw",
+        "source_url": "https://online.fliphtml5.com/hoau/pufw/",
+        "public_text_url": "https://fliphtml5.com/hoau/pufw/Kivells_September_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/pufw/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/pufw/javascript/config.js",
+        "expected_numbered_result_cards": 15, "expected_sold_cards": 15,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-10-18", "book_slug": "ulyl",
+        "source_url": "https://online.fliphtml5.com/hoau/ulyl/",
+        "public_text_url": "https://fliphtml5.com/hoau/ulyl/Kivells_October_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/ulyl/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/ulyl/javascript/config.js",
+        "expected_numbered_result_cards": 16, "expected_sold_cards": 11,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
+    {
+        "auction_date": "2023-11-22", "book_slug": "keyr",
+        "source_url": "https://online.fliphtml5.com/hoau/keyr/",
+        "public_text_url": "https://fliphtml5.com/hoau/keyr/Kivells_November_2023_Auction_Results/",
+        "search_config_url": "https://online.fliphtml5.com/hoau/keyr/javascript/search_config.js",
+        "config_url": "https://online.fliphtml5.com/hoau/keyr/javascript/config.js",
+        "expected_numbered_result_cards": 25, "expected_sold_cards": 20,
+        "article_url": ANNUAL_2023_ARTICLE_URL,
+        "annual_review_url": ANNUAL_2023_REVIEW_URL,
+    },
 )
 EVENTS = (
     {
@@ -398,6 +503,101 @@ def load_fliphtml_seed(path: Path = DEFAULT_FLIPHTML_SEED) -> dict:
     return seed
 
 
+
+def public_fliphtml_pages(raw: bytes, source_url: str) -> list[str]:
+    soup = BeautifulSoup(raw, "html.parser")
+    containers = soup.select(".flip-basic-text")
+    pages = []
+    for container in containers:
+        text = container.get_text("\n", strip=True)
+        if text:
+            pages.append(text)
+    if not pages:
+        raise ValueError(f"public FlipHTML5 page has no page-text inventory: {source_url}")
+    return pages
+
+
+def fetch_fliphtml_book(spec: dict) -> dict:
+    """Fetch one retained result book, with a public text-page fallback.
+
+    The viewer's search_config.js is the preferred complete page inventory.
+    FlipHTML5 also publishes the same pages as accessible HTML; that materially
+    different route is used when the JS asset redirects or is unavailable.
+    """
+    item = dict(spec)
+    retrieved_at = corpus.now()
+    asset_headers = dict(HEADERS, Referer=spec["source_url"])
+    search_response = requests.get(
+        spec["search_config_url"], headers=asset_headers, timeout=120,
+    )
+    search_text = search_response.text
+    public_html = None
+    resolved_public_url = None
+    try:
+        search_response.raise_for_status()
+        probe = dict(item, search_config_js=search_text)
+        fliphtml_pages(probe)
+        resolved_search_url = search_response.url
+    except Exception:
+        public_response = requests.get(
+            spec["public_text_url"], headers=HEADERS, timeout=120,
+        )
+        public_response.raise_for_status()
+        public_html = public_response.content
+        pages = public_fliphtml_pages(public_html, spec["public_text_url"])
+        search_text = "var textForPages = " + json.dumps(
+            pages, ensure_ascii=False, separators=(",", ":")
+        ) + ";"
+        resolved_search_url = None
+        resolved_public_url = public_response.url
+
+    config_response = requests.get(
+        spec["config_url"], headers=asset_headers, timeout=120,
+    )
+    config_response.raise_for_status()
+    config_text = config_response.text
+    if not config_text.strip():
+        raise ValueError(f"empty FlipHTML5 viewer config: {spec['source_url']}")
+
+    search_raw = search_text.encode("utf-8")
+    config_raw = config_text.encode("utf-8")
+    item.update(
+        retrieved_at=retrieved_at,
+        search_config_js=search_text,
+        config_js=config_text,
+        search_config_sha256=corpus.digest(search_raw),
+        search_config_size_bytes=len(search_raw),
+        config_sha256=corpus.digest(config_raw),
+        config_size_bytes=len(config_raw),
+        resolved_search_config_url=resolved_search_url,
+        resolved_config_url=config_response.url,
+        resolved_public_text_url=resolved_public_url,
+    )
+    if public_html is not None:
+        item["public_text_html"] = public_html.decode("utf-8", errors="replace")
+    return item
+
+
+def saved_fliphtml_books() -> list[dict]:
+    prefix = corpus.DATA / "sources/kivells-results/fliphtml5"
+    books = []
+    for metadata_path in sorted(prefix.glob("*-metadata.json")):
+        metadata = json.loads(metadata_path.read_text())
+        search_path = corpus.ROOT / metadata["search_config_snapshot_path"]
+        config_path = corpus.ROOT / metadata["config_snapshot_path"]
+        item = {
+            key: value for key, value in metadata.items()
+            if key not in {
+                "search_config_snapshot_path", "config_snapshot_path",
+                "public_text_snapshot_path", "page_assets",
+            }
+        }
+        item["search_config_js"] = gzip.decompress(search_path.read_bytes()).decode("utf-8")
+        item["config_js"] = gzip.decompress(config_path.read_bytes()).decode("utf-8")
+        books.append(item)
+    return books
+
+
 def fliphtml_pages(item: dict) -> list[str]:
     match = re.fullmatch(
         r"\s*var\s+textForPages\s*=\s*(\[[\s\S]*\])\s*;?\s*",
@@ -443,18 +643,59 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
                 "snapshot_path": str(path.relative_to(corpus.ROOT)),
             }
         )
-    return {
+    public_snapshot_path = None
+    public_sha = None
+    if item.get("public_text_html") is not None:
+        public_raw = item["public_text_html"].encode("utf-8")
+        public_sha = corpus.digest(public_raw)
+        public_path = prefix / f"{slug}-public-{public_sha[:16]}.html.gz"
+        if not public_path.exists():
+            corpus.atomic(public_path, gzip.compress(public_raw, mtime=0))
+        public_snapshot_path = str(public_path.relative_to(corpus.ROOT))
+
+    evidence = {
         "source_url": item["source_url"],
         "search_config_url": item["search_config_url"],
         "config_url": item["config_url"],
+        "public_text_url": item.get("public_text_url"),
+        "annual_review_url": item.get("annual_review_url"),
+        "article_url": item.get("article_url"),
+        "original_urls": [
+            value for value in (
+                item["source_url"], item["search_config_url"], item["config_url"],
+                item.get("public_text_url"), item.get("annual_review_url"),
+                item.get("article_url"),
+            ) if value
+        ],
         "retrieved_at": item["retrieved_at"],
         "search_config_sha256": search_sha,
         "search_config_snapshot_path": str(search_path.relative_to(corpus.ROOT)),
         "config_sha256": config_sha,
         "config_snapshot_path": str(config_path.relative_to(corpus.ROOT)),
+        "public_text_sha256": public_sha,
+        "public_text_snapshot_path": public_snapshot_path,
         "page_assets": page_assets,
-        "basis": "complete first-party FlipHTML5 result-book page-text inventory and viewer config",
+        "basis": (
+            "complete first-party FlipHTML5 result-book page-text inventory and "
+            "viewer config, with accessible public page text retained when used"
+        ),
     }
+    corpus.save_json(
+        prefix / f"{slug}-metadata.json",
+        {
+            key: value for key, value in {
+                **item,
+                "search_config_js": None,
+                "config_js": None,
+                "public_text_html": None,
+                "search_config_snapshot_path": evidence["search_config_snapshot_path"],
+                "config_snapshot_path": evidence["config_snapshot_path"],
+                "public_text_snapshot_path": public_snapshot_path,
+                "page_assets": page_assets,
+            }.items() if value is not None
+        },
+    )
+    return evidence
 
 
 def build_fliphtml_rows(item: dict, pages: list[str], evidence: dict) -> tuple[dict, list[dict]]:
@@ -463,6 +704,13 @@ def build_fliphtml_rows(item: dict, pages: list[str], evidence: dict) -> tuple[d
     if len(cards) != expected:
         raise ValueError(
             f"{auction_date} publishes {len(cards)} result cards, expected {expected}"
+        )
+    expected_sold = item.get("expected_sold_cards")
+    sold_statuses = {"sold", "sold_after", "sold_prior"}
+    published_sold = sum(card["status"] in sold_statuses for card in cards)
+    if expected_sold is not None and published_sold != expected_sold:
+        raise ValueError(
+            f"{auction_date} publishes {published_sold} sold cards, expected {expected_sold}"
         )
     event = {
         "auction_date": auction_date,
@@ -478,6 +726,8 @@ def build_fliphtml_rows(item: dict, pages: list[str], evidence: dict) -> tuple[d
         numbered_lots_in_pdf=None,
         published_lot_count_from_event_page=None,
         published_result_card_denominator=expected,
+        published_sold_result_denominator=expected_sold,
+        published_sold_result_cards=published_sold,
         denominator_basis=(
             "every unique outcome-bearing card in the complete retained first-party result book; "
             "distinct properties sharing a printed lot label remain separate"
@@ -789,9 +1039,35 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 "error": f"{type(exc).__name__}: {exc}"[:500],
             })
 
-    fliphtml_books = []
+    seed_books = []
     if fliphtml_seed_path.exists():
-        fliphtml_books = load_fliphtml_seed(fliphtml_seed_path)["books"]
+        seed_books = load_fliphtml_seed(fliphtml_seed_path)["books"]
+    fliphtml_manifest = list(seed_books) + [dict(item) for item in FLIPHTML_2023_EVENTS]
+    fliphtml_books = list(seed_books)
+    if saved_only:
+        saved_by_url = {item["source_url"]: item for item in saved_fliphtml_books()}
+        for item in FLIPHTML_2023_EVENTS:
+            if item["source_url"] in saved_by_url:
+                fliphtml_books.append(saved_by_url[item["source_url"]])
+            else:
+                failures.append({
+                    "auction_date": item["auction_date"],
+                    "url": item["source_url"],
+                    "error": "FileNotFoundError: no immutable saved FlipHTML5 snapshot metadata",
+                })
+    else:
+        for spec in FLIPHTML_2023_EVENTS:
+            if spec["source_url"] in completed:
+                continue
+            try:
+                fliphtml_books.append(fetch_fliphtml_book(spec))
+            except Exception as exc:
+                failures.append({
+                    "auction_date": spec["auction_date"],
+                    "url": spec["source_url"],
+                    "error": f"{type(exc).__name__}: {exc}"[:500],
+                })
+
     for item in fliphtml_books:
         if item["source_url"] in completed and not saved_only:
             continue
@@ -893,19 +1169,34 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "checked_at": corpus.now(), "parser_version": PARSER_VERSION,
         "retrieval_route": (
             "saved_immutable_first_party_event_result_pdfs_and_fliphtml5_page_text"
-            if saved_only else "first_party_event_result_pdfs_and_fliphtml5_page_text"
+            if saved_only else (
+                "first_party_event_result_pdfs_and_fliphtml5_page_text_with_"
+                "accessible_public_html_fallback"
+            )
         ),
         "event_pdfs_in_manifest": len(EVENTS),
         "event_pdfs_banked": sum(event["pdf_url"] in completed for event in EVENTS),
         "event_pdfs_completed_this_run": len(completed_this_run),
         "event_pdfs_pending": sum(event["pdf_url"] not in completed for event in EVENTS),
-        "fliphtml5_result_books_in_manifest": len(fliphtml_books),
+        "fliphtml5_result_books_in_manifest": len(fliphtml_manifest),
         "fliphtml5_result_books_banked": sum(
-            item["source_url"] in completed for item in fliphtml_books
+            item["source_url"] in completed for item in fliphtml_manifest
         ),
         "fliphtml5_result_books_completed_this_run": len(completed_fliphtml_this_run),
         "fliphtml5_result_cards_reconciled": sum(
-            item["expected_numbered_result_cards"] for item in fliphtml_books
+            item["expected_numbered_result_cards"] for item in fliphtml_manifest
+            if item["source_url"] in completed
+        ),
+        "fliphtml5_2023_result_books_in_manifest": len(FLIPHTML_2023_EVENTS),
+        "fliphtml5_2023_result_books_banked": sum(
+            item["source_url"] in completed for item in FLIPHTML_2023_EVENTS
+        ),
+        "fliphtml5_2023_offered_cards_reconciled": sum(
+            item["expected_numbered_result_cards"] for item in FLIPHTML_2023_EVENTS
+            if item["source_url"] in completed
+        ),
+        "fliphtml5_2023_sold_cards_reconciled": sum(
+            item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS
             if item["source_url"] in completed
         ),
         "event_page_review_inventories_in_manifest": 1,
@@ -941,7 +1232,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     # temporarily inaccessible; only a wholly zero-growth run is fatal.
     fliphtml_failures = {
         failure.get("url") for failure in failures
-        if failure.get("url") in {item["source_url"] for item in fliphtml_books}
+        if failure.get("url") in {item["source_url"] for item in fliphtml_manifest}
     }
     if fliphtml_books and fliphtml_failures and not completed_fliphtml_this_run:
         raise SystemExit(1)

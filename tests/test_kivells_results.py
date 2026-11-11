@@ -1,8 +1,9 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    EVENTS, MAY_EVENT, MAY_RESULTS, build_fliphtml_rows, build_may_rows,
-    build_rows, extract_may_review, fliphtml_pages, is_address, money,
+    EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
+    build_fliphtml_rows, build_may_rows, build_rows, extract_may_review,
+    fliphtml_pages, is_address, money, public_fliphtml_pages,
     parse_may_event_page, parse_text, saved_snapshot_dates,
     snapshot_metadata_path, status_from_text,
 )
@@ -49,6 +50,38 @@ def test_manifest_is_eleven_distinct_first_party_events_across_two_years():
     assert sum(event["auction_date"].startswith("2024-") for event in EVENTS) == 5
     assert sum(event["auction_date"].startswith("2025-") for event in EVENTS) == 6
     assert all(event["pdf_url"].startswith("https://www.kivells.com/media/Auctions/") for event in EVENTS)
+
+
+def test_2023_fliphtml_batch_reconciles_all_ten_event_denominators():
+    assert len(FLIPHTML_2023_EVENTS) == 10
+    assert len({item["book_slug"] for item in FLIPHTML_2023_EVENTS}) == 10
+    assert [item["auction_date"] for item in FLIPHTML_2023_EVENTS] == [
+        "2023-01-25", "2023-02-22", "2023-03-22", "2023-04-26",
+        "2023-05-24", "2023-06-21", "2023-07-26", "2023-09-13",
+        "2023-10-18", "2023-11-22",
+    ]
+    assert sum(item["expected_numbered_result_cards"] for item in FLIPHTML_2023_EVENTS) == 133
+    assert sum(item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS) == 111
+    assert all(item["source_url"].startswith("https://online.fliphtml5.com/hoau/") for item in FLIPHTML_2023_EVENTS)
+    assert all(item["article_url"].startswith("https://www.kivells.com/") for item in FLIPHTML_2023_EVENTS)
+
+
+def test_public_fliphtml_accessible_page_text_is_a_complete_fallback():
+    raw = b"""
+    <html><body>
+      <div class="flip-basic-text"><p>Wednesday 26th April</p></div>
+      <div class="flip-basic-text"><p>LOT 1 | Clubworthy, Launceston</p>
+      <p>Auction Guide: &#163;55,000 | SOLD: &#163;50,000</p></div>
+    </body></html>
+    """
+    pages = public_fliphtml_pages(raw, "https://fliphtml5.com/hoau/rkfi/")
+    assert pages == [
+        "Wednesday 26th April",
+        "LOT 1 | Clubworthy, Launceston\nAuction Guide: \u00a355,000 | SOLD: \u00a350,000",
+    ]
+    _, cards = parse_text("\n".join(pages), "2023-04-26")
+    assert cards[0]["guide_price"] == 55000
+    assert cards[0]["sale_price"] == 50000
 
 
 def test_saved_snapshot_recovery_is_multi_year_and_metadata_backed(monkeypatch, tmp_path):
