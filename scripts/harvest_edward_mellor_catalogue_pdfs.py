@@ -336,8 +336,74 @@ def make_row(source_row: dict, source_url: str, evidence: dict) -> dict:
     return row
 
 
+def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
+    """Prove a configured batch is already banked without refreshing sources."""
+    expected = sum(
+        len(catalogue["expected_residential"]) + len(catalogue["expected_additional"])
+        for catalogue in CATALOGUES
+    )
+    if (
+        summary.get("parser_version") != PARSER_VERSION
+        or summary.get("catalogues_configured") != len(CATALOGUES)
+        or summary.get("catalogues_banked") != len(CATALOGUES)
+        or summary.get("appearances_banked") != expected
+        or len(rows) != expected
+        or len({row.get("appearance_id") for row in rows}) != expected
+    ):
+        return False
+    for catalogue in CATALOGUES:
+        state_path = (
+            root / "data/auction_history/auctions" / SLUG /
+            f"{catalogue['date']}.json"
+        )
+        try:
+            state = json.loads(state_path.read_text())
+        except (OSError, json.JSONDecodeError):
+            return False
+        if (
+            state.get("parser_version") != PARSER_VERSION
+            or not state.get("source_files_reconciled")
+            or not state.get("surviving_file_inventory_complete")
+            or state.get("lots_captured") != expected
+        ):
+            return False
+    source_files = summary.get("source_files") or []
+    if len(source_files) != len(CATALOGUES) * 2:
+        return False
+    for evidence in source_files:
+        try:
+            snapshot = root / evidence["snapshot_path"]
+            raw = gzip.decompress(snapshot.read_bytes())
+        except (KeyError, OSError, gzip.BadGzipFile):
+            return False
+        if hashlib.sha256(raw).hexdigest() != evidence.get("sha256"):
+            return False
+    return True
+
+
 def harvest() -> dict:
     target_path = corpus.DATA / "appearances" / SLUG / "canonical.jsonl.gz"
+    summary_path = corpus.DATA / "edward_mellor_catalogue_collection.json"
+    if target_path.exists() and summary_path.exists():
+        try:
+            saved_summary = json.loads(summary_path.read_text())
+            saved_rows = list(corpus.iter_rows(target_path))
+        except (OSError, json.JSONDecodeError, gzip.BadGzipFile):
+            saved_summary, saved_rows = {}, []
+        if collection_is_current(saved_summary, saved_rows, corpus.ROOT):
+            report = dict(saved_summary)
+            report.update(
+                run_skipped_already_current=True,
+                run_new_appearances=0,
+                run_new_address_records=0,
+                run_new_guides=0,
+                run_new_sale_prices=0,
+                run_new_rents=0,
+                run_new_commercial=0,
+                run_new_mixed_use=0,
+            )
+            print(json.dumps(report, indent=2))
+            return report
     existing_ids = set()
     if target_path.exists():
         existing_ids = {row["appearance_id"] for row in corpus.iter_rows(target_path)}
@@ -471,7 +537,7 @@ def harvest() -> dict:
             "catalogue evidence separate from published outcomes."
         ),
     }
-    corpus.save_json(corpus.DATA / "edward_mellor_catalogue_collection.json", summary)
+    corpus.save_json(summary_path, summary)
     print(json.dumps(summary, indent=2))
     return summary
 
