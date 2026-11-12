@@ -1,0 +1,30 @@
+{
+  "auctioneer": "Taylor James Auctions",
+  "source_auction_id": "taylor-james-auctions:2023-09-20",
+  "auction_date": "2023-09-20",
+  "auction_date_precision": "day",
+  "source_url": "https://www.taylorjamesauctions.co.uk/auction/online-property-auction-20-09-2023-0900/",
+  "published_lot_cards": 30,
+  "lots_captured": 30,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every individual property card on the retained first-party event page",
+  "source_evidence": {
+    "source_url": "https://www.taylorjamesauctions.co.uk/auction/online-property-auction-20-09-2023-0900/",
+    "retrieved_at": "2026-11-12T15:14:44.135230+00:00",
+    "sha256": "67495296795c6e0b2c045ee4b3d931836195b3e28eb338f549a980769859f0a8",
+    "snapshot_path": "data/auction_history/sources/taylor-james-auctions/event-67495296795c6e0b.html.gz",
+    "basis": "first-party Taylor James auction event page",
+    "discovery_basis": "recovered first-party event URL manifest",
+    "sitemap_evidence": null,
+    "recovered_manifest_evidence": {
+      "manifest_path": "config/taylor_james_recovered_events.json",
+      "expected_property_cards": 30,
+      "discovery_note": "Surviving first-party 20 September 2023 event page"
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T15:14:44.155404+00:00"
+}

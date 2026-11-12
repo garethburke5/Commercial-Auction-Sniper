@@ -30,6 +30,7 @@ BASE = "https://www.taylorjamesauctions.co.uk"
 SITEMAP_URL = BASE + "/auction-sitemap.xml"
 AUCTIONEER = "Taylor James Auctions"
 SLUG = "taylor-james-auctions"
+RECOVERED_EVENT_MANIFEST = corpus.ROOT / "config" / "taylor_james_recovered_events.json"
 HEADERS = {
     "User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)",
     "Accept": "text/html,application/xhtml+xml,application/xml",
@@ -73,6 +74,10 @@ def outcome(value: str | None) -> tuple[str, int | None]:
         return "withdrawn", None
     if text.startswith("postponed"):
         return "postponed", None
+    if text.startswith("unsold"):
+        return "unsold", None
+    if text.startswith("no bids"):
+        return "no_bids", None
     if text.startswith("available post"):
         return "available_post", None
     if text.startswith("available"):
@@ -95,6 +100,25 @@ def parse_sitemap(xml: bytes) -> list[str]:
     if not urls or len(urls) != len(set(urls)):
         raise ValueError("auction sitemap is empty or contains duplicate event URLs")
     return urls
+
+
+def recovered_event_manifest(path: Path = RECOVERED_EVENT_MANIFEST) -> list[dict]:
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    events = payload.get("events") or []
+    if not events:
+        raise ValueError("Taylor James recovered-event manifest is empty")
+    urls = []
+    for event in events:
+        url = event.get("url")
+        expected = event.get("expected_property_cards")
+        if not url or not url.startswith(BASE + "/auction/"):
+            raise ValueError(f"invalid Taylor James recovered event URL: {url!r}")
+        if not isinstance(expected, int) or expected <= 0:
+            raise ValueError(f"invalid expected property-card count for {url}")
+        urls.append(url)
+    if len(urls) != len(set(urls)):
+        raise ValueError("Taylor James recovered-event manifest contains duplicate URLs")
+    return events
 
 
 def parse_event_page(html: str, source_url: str, evidence: dict) -> tuple[str, list[dict]]:
@@ -224,19 +248,19 @@ def persist_continuation(summary: dict) -> None:
         "next_route": "Revisit only if an older first-party or independently archived catalogue route is discovered.",
     }
     next_target = (
-        "Inventory Taylor James Auctions' retained 2023-2024 first-party posts and individual property "
-        "pages, then test an archival route for event catalogues before October 2020. Reuse the event-page "
-        "runner for any recovered catalogues and enrich explicitly published rents without overwriting the "
-        "banked 2020-2022 appearances. If those routes are thin, rotate to Regional Property Auctioneers' "
-        "uncovered retained first-party archive. National completeness remains false."
+        "Recover Taylor James Auctions' advertised 10 July 2024 event through an exact first-party or archived "
+        "event URL, then test a materially different archival route for catalogues before October 2020. Reuse "
+        "the event-page runner and literal card denominators without overwriting the banked 2020-2024 "
+        "appearances. If those routes are thin, rotate to Regional Property Auctioneers' multi-year first-party "
+        "catalogue archive. National completeness remains false."
     )
     payload["next_growth_target"] = next_target
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "taylor-james-2023-2024-and-pre-2020",
+        "source_key_candidate": "taylor-james-july-2024-and-pre-2020",
         "auctioneer": AUCTIONEER,
         "source_format": "first-party event pages and individual property pages",
-        "opportunity": "retained source years outside the newly banked 2020-2022 event sitemap",
+        "opportunity": "the advertised July 2024 event and older catalogues omitted from the retained sitemap",
         "next_growth_target": next_target,
         "national_completeness_verified": False,
     }
@@ -244,9 +268,38 @@ def persist_continuation(summary: dict) -> None:
     corpus.save_json(path, payload)
 
 
-def harvest(workers: int = 8) -> dict:
+def reusable_event_states(event_urls: list[str], existing: list[dict], refresh_existing: bool) -> dict:
+    if refresh_existing:
+        return {}
+    existing_by_auction = defaultdict(list)
+    for row in existing:
+        existing_by_auction[row.get("source_auction_id")].append(row)
+    reusable = {}
+    for path in (corpus.DATA / "auctions" / SLUG).glob("*.json"):
+        state = json.loads(path.read_text(encoding="utf-8"))
+        url = state.get("source_url")
+        rows = existing_by_auction.get(state.get("source_auction_id"), [])
+        if (
+            url in event_urls
+            and state.get("source_rows_complete") is True
+            and len(rows) == state.get("lots_captured")
+        ):
+            reusable[url] = (path.stem, state, rows)
+    return reusable
+
+
+def harvest(workers: int = 8, refresh_existing: bool = False) -> dict:
     sitemap_raw, sitemap_resolved = fetch(SITEMAP_URL)
-    event_urls = parse_sitemap(sitemap_raw)
+    sitemap_urls = parse_sitemap(sitemap_raw)
+    recovered_events = recovered_event_manifest()
+    recovered_by_url = {event["url"]: event for event in recovered_events}
+    overlap = set(sitemap_urls) & set(recovered_by_url)
+    if overlap:
+        raise ValueError(f"recovered Taylor James URLs already present in official sitemap: {sorted(overlap)}")
+    event_urls = sitemap_urls + list(recovered_by_url)
+    shard_path = corpus.DATA / "appearances" / SLUG / "canonical.jsonl.gz"
+    existing = list(corpus.iter_rows(shard_path)) if shard_path.exists() else []
+    reusable_states = reusable_event_states(event_urls, existing, refresh_existing)
     sitemap_sha = corpus.digest(sitemap_raw)
     sitemap_path = corpus.DATA / "sources" / SLUG / f"auction-sitemap-{sitemap_sha[:16]}.xml.gz"
     if not sitemap_path.exists():
@@ -262,12 +315,27 @@ def harvest(workers: int = 8) -> dict:
 
     fetched: dict[str, tuple[bytes, str]] = {}
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = {pool.submit(fetch, url): url for url in event_urls}
+        futures = {
+            pool.submit(fetch, url): url
+            for url in event_urls
+            if url not in reusable_states
+        }
         for future in as_completed(futures):
             fetched[futures[future]] = future.result()
 
     run_rows, states, empty_events = [], {}, []
     for event_url in event_urls:
+        if event_url in reusable_states:
+            event_key, state, rows = reusable_states[event_url]
+            states[event_key] = state
+            run_rows.extend(rows)
+            if not rows:
+                empty_events.append({
+                    "event_key": event_key,
+                    "auction_date": state["auction_date"],
+                    "source_url": state["source_url"],
+                })
+            continue
         raw, resolved = fetched[event_url]
         sha = corpus.digest(raw)
         snapshot = corpus.DATA / "sources" / SLUG / f"event-{sha[:16]}.html.gz"
@@ -279,9 +347,27 @@ def harvest(workers: int = 8) -> dict:
             "sha256": sha,
             "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
             "basis": "first-party Taylor James auction event page",
-            "sitemap_evidence": sitemap_evidence,
+            "discovery_basis": (
+                "first-party auction-event sitemap"
+                if event_url in sitemap_urls else
+                "recovered first-party event URL manifest"
+            ),
+            "sitemap_evidence": sitemap_evidence if event_url in sitemap_urls else None,
+            "recovered_manifest_evidence": (
+                {
+                    "manifest_path": str(RECOVERED_EVENT_MANIFEST.relative_to(corpus.ROOT)),
+                    "expected_property_cards": recovered_by_url[event_url]["expected_property_cards"],
+                    "discovery_note": recovered_by_url[event_url].get("discovery_note"),
+                }
+                if event_url in recovered_by_url else None
+            ),
         }
         auction_date, rows = parse_event_page(raw.decode("utf-8", "replace"), resolved, evidence)
+        expected_cards = recovered_by_url.get(event_url, {}).get("expected_property_cards")
+        if expected_cards is not None and len(rows) != expected_cards:
+            raise ValueError(
+                f"{event_url} published {len(rows)} cards; recovered manifest expected {expected_cards}"
+            )
         event_key = urlparse(resolved).path.strip("/").split("/")[-1]
         state = {
             "auctioneer": AUCTIONEER,
@@ -311,9 +397,13 @@ def harvest(workers: int = 8) -> dict:
         else:
             empty_events.append({"event_key": event_key, "auction_date": auction_date, "source_url": resolved})
 
+    before_ids = {row["appearance_id"] for row in existing}
     global_exact = global_exact_appearances()
     overlaps, admissible = [], []
     for row in run_rows:
+        if row["appearance_id"] in before_ids:
+            admissible.append(row)
+            continue
         matches = global_exact.get((row["auction_date"], normalized_address(row["address"])), [])
         if matches:
             overlaps.append({
@@ -326,9 +416,6 @@ def harvest(workers: int = 8) -> dict:
         else:
             admissible.append(row)
 
-    path = corpus.DATA / "appearances" / SLUG / "canonical.jsonl.gz"
-    existing = list(corpus.iter_rows(path)) if path.exists() else []
-    before_ids = {row["appearance_id"] for row in existing}
     merged = {row["appearance_id"]: row for row in existing}
     merged.update({row["appearance_id"]: row for row in admissible})
     total = corpus.write_rows(f"{SLUG}/canonical", list(merged.values()))
@@ -342,6 +429,8 @@ def harvest(workers: int = 8) -> dict:
         "checked_at": corpus.now(),
         "auctioneer": AUCTIONEER,
         "source_url": sitemap_resolved,
+        "sitemap_event_urls": len(sitemap_urls),
+        "recovered_manifest_event_urls": len(recovered_events),
         "event_urls_discovered": len(event_urls),
         "event_pages_with_property_cards": sum(bool(state["published_lot_cards"]) for state in states.values()),
         "empty_event_pages": empty_events,
@@ -365,7 +454,11 @@ def harvest(workers: int = 8) -> dict:
         "run_duplicate_source_evidence_excluded": len(overlaps),
         "duplicate_source_evidence_exclusions": overlaps,
         "catalogue_completion_claimed": False,
-        "completion_scope": "the 19 event URLs in the retained official sitemap; not a claim of twenty-year completeness",
+        "completion_scope": (
+            f"the {len(sitemap_urls)} event URLs in the retained official sitemap plus "
+            f"{len(recovered_events)} omitted but surviving first-party event pages in the recovered manifest; "
+            "not a claim of twenty-year completeness"
+        ),
         "national_completeness_verified": False,
     }
     corpus.save_json(corpus.DATA / "taylor_james_auctions_collection.json", summary)
@@ -379,5 +472,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=8)
+    parser.add_argument("--refresh-existing", action="store_true")
     args = parser.parse_args()
-    harvest(workers=max(1, args.workers))
+    harvest(workers=max(1, args.workers), refresh_existing=args.refresh_existing)

@@ -1,0 +1,30 @@
+{
+  "auctioneer": "Taylor James Auctions",
+  "source_auction_id": "taylor-james-auctions:2023-02-01",
+  "auction_date": "2023-02-01",
+  "auction_date_precision": "day",
+  "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-01-02-2023/",
+  "published_lot_cards": 58,
+  "lots_captured": 58,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every individual property card on the retained first-party event page",
+  "source_evidence": {
+    "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-01-02-2023/",
+    "retrieved_at": "2026-11-12T15:14:44.020071+00:00",
+    "sha256": "ce309123503b3c98e0a32304dc7ad52242d731cd7ac34969fb0a89bad82bcdbb",
+    "snapshot_path": "data/auction_history/sources/taylor-james-auctions/event-ce309123503b3c98.html.gz",
+    "basis": "first-party Taylor James auction event page",
+    "discovery_basis": "recovered first-party event URL manifest",
+    "sitemap_evidence": null,
+    "recovered_manifest_evidence": {
+      "manifest_path": "config/taylor_james_recovered_events.json",
+      "expected_property_cards": 58,
+      "discovery_note": "Surviving first-party 1 February 2023 event page"
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T15:14:44.059767+00:00"
+}

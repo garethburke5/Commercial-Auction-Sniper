@@ -1,0 +1,30 @@
+{
+  "auctioneer": "Taylor James Auctions",
+  "source_auction_id": "taylor-james-auctions:2024-04-17",
+  "auction_date": "2024-04-17",
+  "auction_date_precision": "day",
+  "source_url": "https://www.taylorjamesauctions.co.uk/auction/online-property-auction-17-04-2024-0900/",
+  "published_lot_cards": 24,
+  "lots_captured": 24,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every individual property card on the retained first-party event page",
+  "source_evidence": {
+    "source_url": "https://www.taylorjamesauctions.co.uk/auction/online-property-auction-17-04-2024-0900/",
+    "retrieved_at": "2026-11-12T15:14:44.274986+00:00",
+    "sha256": "9fc39c48e504de3220b249b2523f52d1aadffdc17efb568a77c98b05471de193",
+    "snapshot_path": "data/auction_history/sources/taylor-james-auctions/event-9fc39c48e504de32.html.gz",
+    "basis": "first-party Taylor James auction event page",
+    "discovery_basis": "recovered first-party event URL manifest",
+    "sitemap_evidence": null,
+    "recovered_manifest_evidence": {
+      "manifest_path": "config/taylor_james_recovered_events.json",
+      "expected_property_cards": 24,
+      "discovery_note": "Surviving first-party 17 April 2024 event page"
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T15:14:44.292557+00:00"
+}

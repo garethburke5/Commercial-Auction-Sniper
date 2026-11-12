@@ -51,6 +51,8 @@ def test_outcome_does_not_infer_unpublished_achieved_price():
     assert tj.outcome("Sold Prior") == ("sold_prior", None)
     assert tj.outcome("Sold After") == ("sold_after", None)
     assert tj.outcome("Available - £50,000") == ("available", None)
+    assert tj.outcome("Unsold") == ("unsold", None)
+    assert tj.outcome("No Bids") == ("no_bids", None)
     assert tj.outcome(None) == ("unknown", None)
 
 
@@ -58,6 +60,17 @@ def test_sitemap_admits_unique_first_party_event_urls_only():
     xml = b"""<urlset><url><loc>https://www.taylorjamesauctions.co.uk/auction/one/</loc></url>
     <url><loc>https://www.taylorjamesauctions.co.uk/property/not-an-event/</loc></url></urlset>"""
     assert tj.parse_sitemap(xml) == ["https://www.taylorjamesauctions.co.uk/auction/one/"]
+
+
+def test_recovered_manifest_has_unique_urls_and_literal_denominators():
+    events = tj.recovered_event_manifest()
+    assert len(events) == 9
+    assert len({event["url"] for event in events}) == 9
+    assert sum(event["expected_property_cards"] for event in events) == 326
+    assert {event["url"].split("/")[-2] for event in events} >= {
+        "tj-auction-venue-01-02-2023",
+        "online-property-auction-31-01-2024-1100",
+    }
 
 
 def test_unlinked_card_and_missing_lot_are_preserved_without_inventing_values():
@@ -74,3 +87,20 @@ def test_unlinked_card_and_missing_lot_are_preserved_without_inventing_values():
     assert rows[0]["original_url"] == tj.BASE + "/auction/test/"
     assert rows[0]["source_detail_url"] is None
     assert rows[0]["property_id"].startswith("unlinked-")
+
+
+def test_default_harvest_reuses_reconciled_states_without_refreshing_pages(tmp_path, monkeypatch):
+    assert tj.harvest.__defaults__ == (8, False)
+    monkeypatch.setattr(tj.corpus, "DATA", tmp_path)
+    state_dir = tmp_path / "auctions" / tj.SLUG
+    state_dir.mkdir(parents=True)
+    url = tj.BASE + "/auction/recovered/"
+    (state_dir / "recovered.json").write_text(
+        '{"source_url":"' + url + '","source_auction_id":"event:1",'
+        '"source_rows_complete":true,"lots_captured":1}'
+    )
+    existing = [{"appearance_id": "one", "source_auction_id": "event:1"}]
+    reused = tj.reusable_event_states([url], existing, refresh_existing=False)
+    assert list(reused) == [url]
+    assert reused[url][2] == existing
+    assert tj.reusable_event_states([url], existing, refresh_existing=True) == {}
