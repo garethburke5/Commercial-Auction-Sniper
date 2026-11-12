@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Inventory Sunderlands' post-2018 property-auction result and catalogue assets, then batch every surviving address-level event through this reusable runner. If no later finite archive survives, move to another uncovered genuine auctioneer with an accessible multi-catalogue inventory. National completeness remains false.",
+  "next_growth_target": "Batch Hanover Auction's first-party EIG /search inventory: 26 individually addressed result cards with published outcomes and stable lot links. Hanover Auction is currently unlinked with zero retained appearances in the source register. Reuse the index-plus-detail pattern, reconcile the legal operator and preserve guides, achieved prices and immutable source snapshots. Do not refresh the now-reconciled Sunderlands inventories. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4208,6 +4208,27 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "sunderlands_online_results",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T07:11:35.716434+00:00",
+      "run_new_appearances": 31,
+      "run_new_dated_twenty_year_address_records": 30,
+      "run_new_commercial_or_mixed": 3,
+      "run_new_guide_prices": 26,
+      "run_new_sale_prices": 17,
+      "newly_covered_source_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -4987,21 +5008,46 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "sunderlands_online_results": {
+      "source": "sunderlands_online_results",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T07:11:35.716434+00:00",
+      "run_new_appearances": 31,
+      "run_new_dated_twenty_year_address_records": 30,
+      "run_new_commercial_or_mixed": 3,
+      "run_new_guide_prices": 26,
+      "run_new_sale_prices": 17,
+      "newly_covered_source_years": [
+        "2020",
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "last_automated_growth": {
-    "source": "sunderlands",
+    "source": "sunderlands_online_results",
     "outcome": "completed",
-    "checked_at": "2026-11-12T06:10:37.187176+00:00",
-    "run_new_appearances": 61,
-    "run_new_dated_twenty_year_address_records": 61,
-    "run_new_commercial_or_mixed": 0,
-    "run_new_guide_prices": 55,
-    "run_new_sale_prices": 29,
+    "checked_at": "2026-11-12T07:11:35.716434+00:00",
+    "run_new_appearances": 31,
+    "run_new_dated_twenty_year_address_records": 30,
+    "run_new_commercial_or_mixed": 3,
+    "run_new_guide_prices": 26,
+    "run_new_sale_prices": 17,
     "newly_covered_source_years": [
-      "2016",
-      "2017",
-      "2018"
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024",
+      "2025",
+      "2026"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false

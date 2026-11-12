@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Sunderlands",
+  "operator_legal_name": "SUNDERLANDS 1862 LLP",
+  "operator_former_name": "SUNDERLANDS AND THOMPSONS LLP",
+  "operator_company_number": "OC338911",
+  "source_auction_id": "sunderlands-online:2020-07-10",
+  "auction_date": "2020-07-10",
+  "auction_date_precision": "day",
+  "source_url": "https://onlineauctions.sunderlands.co.uk/lot/details/f1ae2f11-c2a7-4e34-893b-4e4f1be99eb6",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "single-property ended online auction represented by one stable first-party lot UUID",
+  "source_evidence": {
+    "index": {
+      "source_url": "https://onlineauctions.sunderlands.co.uk/search",
+      "retrieved_at": "2026-11-12T07:09:15.122669+00:00",
+      "sha256": "349ae7dcd15aad9849aa999d5ce1cab46c287a908391ef200b3dd4aba44640e7",
+      "snapshot_path": "data/auction_history/sources/sunderlands/online/search-349ae7dcd15aad9849aa.html.gz",
+      "basis": "complete unpaginated first-party ended online-auction result inventory"
+    },
+    "detail": {
+      "source_url": "https://onlineauctions.sunderlands.co.uk/lot/details/f1ae2f11-c2a7-4e34-893b-4e4f1be99eb6",
+      "retrieved_at": "2026-11-12T07:11:26.099332+00:00",
+      "sha256": "cf77e0cd0c303e2a8be65d68cb197865a0fe4e043d5b20582cbd36fda11e843a",
+      "snapshot_path": "data/auction_history/sources/sunderlands/online/lot-f1ae2f11-c2a7-4e34-893b-4e4f1be99eb6-cf77e0cd0c303e2a8be6.html.gz",
+      "basis": "linked first-party Sunderlands online-auction detail page"
+    },
+    "basis": "first-party ended online lot card plus linked first-party detail page"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T07:11:35.716302+00:00"
+}
