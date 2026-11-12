@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T09:17:33.460692+00:00",
-  "corpus_checkpoint": "2026-11-12T09:17:00.229481+00:00",
+  "generated_at": "2026-11-12T10:22:16.785652+00:00",
+  "corpus_checkpoint": "2026-11-12T10:18:16.574180+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -3518,13 +3518,16 @@
       "name": "Halls",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/halls",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Halls",
+      "match_basis": "exact label",
+      "retained_appearances": 107,
+      "years_with_retained_evidence": [
+        2025,
+        2026
+      ],
+      "with_guide_price": 106,
+      "with_sale_price": 32,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8194,7 +8197,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 466,
+  "directory_entries_not_linked": 465,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8272,6 +8275,7 @@
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
     "Goldings Auctions": 635,
+    "Halls": 107,
     "Hanover Auction": 26,
     "Harman Healy": 1521,
     "Higgins Drysdale National Property Auctions": 163,
@@ -8328,13 +8332,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305404,
-      "auction_ids_observed": 13744,
-      "with_guide_price": 107462,
-      "with_sale_price": 112813,
-      "with_both_prices": 49028,
-      "marked_sold": 155763,
-      "marked_sold_without_sale_price": 43690
+      "lot_appearances": 305511,
+      "auction_ids_observed": 13750,
+      "with_guide_price": 107568,
+      "with_sale_price": 112845,
+      "with_both_prices": 49060,
+      "marked_sold": 155814,
+      "marked_sold_without_sale_price": 43709
     },
     "by_auctioneer_and_year": [
       {
@@ -13805,6 +13809,28 @@
         "marked_sold_without_sale_price": 1
       },
       {
+        "auctioneer": "Halls",
+        "year": 2025,
+        "lot_appearances": 48,
+        "auction_ids_observed": 3,
+        "with_guide_price": 48,
+        "with_sale_price": 32,
+        "with_both_prices": 32,
+        "marked_sold": 32,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Halls",
+        "year": 2026,
+        "lot_appearances": 59,
+        "auction_ids_observed": 3,
+        "with_guide_price": 58,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 19
+      },
+      {
         "auctioneer": "Hanover Auction",
         "year": 2019,
         "lot_appearances": 4,
@@ -17649,6 +17675,23 @@
       "newly_covered_source_years": [
         "2023",
         "2024",
+        "2025",
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "halls": {
+      "source": "halls",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T10:16:54.174721+00:00",
+      "run_new_appearances": 107,
+      "run_new_dated_twenty_year_address_records": 107,
+      "run_new_commercial_or_mixed": 21,
+      "run_new_guide_prices": 106,
+      "run_new_sale_prices": 32,
+      "run_new_rents": 2,
+      "newly_covered_source_years": [
         "2025",
         "2026"
       ],
@@ -21770,6 +21813,15 @@
       "checked_at": "2026-11-01T23:16:59.192797+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/halls/2025-09-26.json",
+      "auctioneer": "Halls",
+      "auction_date": "2025-09-26",
+      "source_url": "https://estate-agents.hallsgb.com/blog/sixteen-lots-sell-for-2m-in-our-latest-property-and-land-auction",
+      "lots_captured": 15,
+      "errors": [],
+      "checked_at": "2026-11-12T10:16:42.202162+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/city-rural-property-auctions/online-timed-auction-07-12-2022-1900.json",
       "auctioneer": "City & Rural Property Auctions",
       "auction_date": "2022-12-07",
@@ -23547,7 +23599,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T09:17:32.915203+00:00",
+    "checked_at": "2026-11-12T10:22:15.770149+00:00",
     "sha256": "ca8c6827b2533aa965db57b601cf0b68c77d0b0a13ec2f646275a65ae384c0e9",
     "status": "retrieved"
   }

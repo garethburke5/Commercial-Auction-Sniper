@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Halls",
+  "operator_legal_name": "HALLS HOLDINGS LIMITED",
+  "operator_company_number": "06597073",
+  "source_auction_id": "halls:collective:2025-11-28",
+  "auction_date": "2025-11-28",
+  "auction_date_precision": "day",
+  "source_url": "https://cdn.webdadi.net/media/43e068fe-1eba-43b6-bfef-d3b38f4f6ca2.pdf",
+  "event_url": "https://estate-agents.hallsgb.com/event/collective-property-and-land-auction-28-nov-2025",
+  "lots_captured": 21,
+  "published_lots_offered": 21,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "complete numbered first-party lot inventory",
+  "source_evidence": {
+    "event_page": {
+      "source_url": "https://estate-agents.hallsgb.com/event/collective-property-and-land-auction-28-nov-2025",
+      "retrieved_at": "2026-11-12T10:16:42.420866+00:00",
+      "sha256": "3ea799f774a530c4cd50fa5a4af8c0b438972cab8c51e90654112429f1e7fc92",
+      "snapshot_path": "data/auction_history/sources/halls/first-party/event-2025-11-28-3ea799f774a530c4cd50.html.gz"
+    },
+    "catalogue": {
+      "source_url": "https://cdn.webdadi.net/media/43e068fe-1eba-43b6-bfef-d3b38f4f6ca2.pdf",
+      "retrieved_at": "2026-11-12T10:16:42.826203+00:00",
+      "sha256": "6bfbf3b25b92d268c43aac4beef8c440d0d2284ebf22acaf2b0ed45391b8faca",
+      "snapshot_path": "data/auction_history/sources/halls/first-party/catalogue-2025-11-28-6bfbf3b25b92d268c43a.pdf.gz"
+    },
+    "results": {
+      "source_url": "https://estate-agents.hallsgb.com/blog/lots-sell-for-over-2m-at-collective-property-and-land-auction",
+      "retrieved_at": "2026-11-12T10:16:43.892068+00:00",
+      "sha256": "dfc20766a038eb0570acce026b483793f6383321b04f1287f2da420e331202f2",
+      "snapshot_path": "data/auction_history/sources/halls/first-party/results-2025-11-28-dfc20766a038eb0570ac.html.gz"
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T10:16:43.914296+00:00"
+}

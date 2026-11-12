@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Batch Halls' first-party Collective Property & Land Auction archive through one reusable runner. Start with the official 24 July 2026 event page and its linked results page and catalogue PDF, then inventory the four published 2025 collective-auction dates (25 April, 25 July, 26 September and 28 November). Reconcile Halls' branches and trading labels under the legal operator, preserve exact dates, lots, guides, outcomes and rents, and establish each first-party event denominator before claiming growth. Do not use the third-party directory count as a captured-lot denominator. National completeness remains false.",
+  "next_growth_target": "Extend the Halls runner to the retained 2024 collective-auction catalogue and result assets. Start with exact-dated first-party PDFs or result articles that expose complete numbered lot inventories, then move backward through 2023 and earlier years. Keep inaccessible WordPress PDF objects as bounded blockers unless a byte-accessible CDN, saved snapshot or materially different retained publisher route exists. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4266,6 +4266,23 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "halls",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T10:16:54.174721+00:00",
+      "run_new_appearances": 107,
+      "run_new_dated_twenty_year_address_records": 107,
+      "run_new_commercial_or_mixed": 21,
+      "run_new_guide_prices": 106,
+      "run_new_sale_prices": 32,
+      "run_new_rents": 2,
+      "newly_covered_source_years": [
+        "2025",
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -5103,6 +5120,23 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "halls": {
+      "source": "halls",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T10:16:54.174721+00:00",
+      "run_new_appearances": 107,
+      "run_new_dated_twenty_year_address_records": 107,
+      "run_new_commercial_or_mixed": 21,
+      "run_new_guide_prices": 106,
+      "run_new_sale_prices": 32,
+      "run_new_rents": 2,
+      "newly_covered_source_years": [
+        "2025",
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "last_automated_growth": {
@@ -5799,6 +5833,57 @@
     "different_next_target": "Batch Auction Property Ltd's 32 linked first-party event pages from 2023-2026 together with its address-level sold-property cards through one reusable multi-event runner. Reconcile every denominator and exact event date and exclude overlaps before claiming growth."
   },
   "coverage_follow_through_2026_11_07": {
-    "different_next_target": "Batch Halls' first-party Collective Property & Land Auction archive through one reusable runner. Start with the official 24 July 2026 event page and its linked results page and catalogue PDF, then inventory the four published 2025 collective-auction dates (25 April, 25 July, 26 September and 28 November). Reconcile Halls' branches and trading labels under the legal operator, preserve exact dates, lots, guides, outcomes and rents, and establish each first-party event denominator before claiming growth. Do not use the third-party directory count as a captured-lot denominator. National completeness remains false."
+    "different_next_target": "Extend the Halls runner to the retained 2024 collective-auction catalogue and result assets. Start with exact-dated first-party PDFs or result articles that expose complete numbered lot inventories, then move backward through 2023 and earlier years. Keep inaccessible WordPress PDF objects as bounded blockers unless a byte-accessible CDN, saved snapshot or materially different retained publisher route exists. National completeness remains false."
+  },
+  "halls_collective": {
+    "checked_at": "2026-11-12T10:16:54.174721+00:00",
+    "operator": {
+      "canonical_name": "Halls",
+      "legal_name": "HALLS HOLDINGS LIMITED",
+      "company_number": "06597073",
+      "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+    },
+    "events_attempted": 6,
+    "events_reconciled": 6,
+    "complete_event_inventories": 5,
+    "partial_event_inventories": 1,
+    "published_lot_denominator": 108,
+    "individually_identified_source_rows": 107,
+    "appearances_captured": 107,
+    "run_new_appearances": 107,
+    "run_new_address_records": 107,
+    "run_new_exact_dated_address_records": 107,
+    "run_new_dated_twenty_year_address_records": 107,
+    "run_new_partial_lots": 0,
+    "run_new_guide_prices": 106,
+    "run_new_sale_prices": 32,
+    "run_new_rents": 2,
+    "run_new_commercial_or_mixed": 21,
+    "source_years": [
+      "2025",
+      "2026"
+    ],
+    "newly_covered_source_years": [
+      "2025",
+      "2026"
+    ],
+    "by_sector": {
+      "land": 18,
+      "commercial": 16,
+      "unknown": 27,
+      "residential": 41,
+      "mixed-use": 5
+    },
+    "by_status": {
+      "unknown": 55,
+      "sold": 51,
+      "withdrawn": 1
+    },
+    "failures": [],
+    "run_duplicate_source_evidence_excluded": 0,
+    "duplicate_source_evidence_exclusions": [],
+    "unidentified_denominator_only_rows": 1,
+    "next_growth_target": "Extend the Halls runner to the retained 2024 collective-auction catalogue and result assets. Start with exact-dated first-party PDFs or result articles that expose complete numbered lot inventories, then move backward through 2023 and earlier years. Keep inaccessible WordPress PDF objects as bounded blockers unless a byte-accessible CDN, saved snapshot or materially different retained publisher route exists. National completeness remains false.",
+    "national_completeness_verified": false
   }
 }

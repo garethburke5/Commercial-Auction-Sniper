@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Halls",
+  "operator_legal_name": "HALLS HOLDINGS LIMITED",
+  "operator_company_number": "06597073",
+  "source_auction_id": "halls:collective:2026-09-25",
+  "auction_date": "2026-09-25",
+  "auction_date_precision": "day",
+  "source_url": "https://estate-agents.hallsgb.com/september-2026-property-and-land-auction-results",
+  "event_url": "https://estate-agents.hallsgb.com/event/collective-property-and-land-auction-25-sept-2026",
+  "lots_captured": 22,
+  "published_lots_offered": 22,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "complete numbered first-party lot inventory",
+  "source_evidence": {
+    "event_page": {
+      "source_url": "https://estate-agents.hallsgb.com/event/collective-property-and-land-auction-25-sept-2026",
+      "retrieved_at": "2026-11-12T10:16:49.313892+00:00",
+      "sha256": "84b663c1a2d265011d77d376016e1e72fb6cbfbe5a16ab8213125e88628610b3",
+      "snapshot_path": "data/auction_history/sources/halls/first-party/event-2026-09-25-84b663c1a2d265011d77.html.gz"
+    },
+    "catalogue": null,
+    "results": {
+      "source_url": "https://estate-agents.hallsgb.com/september-2026-property-and-land-auction-results",
+      "retrieved_at": "2026-11-12T10:16:49.641663+00:00",
+      "sha256": "bc1acdd6d0e244fde91958c3c8d191eec7571090a3c502ad7e8376ed98479273",
+      "snapshot_path": "data/auction_history/sources/halls/first-party/results-2026-09-25-bc1acdd6d0e244fde919.html.gz"
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T10:16:54.167119+00:00"
+}

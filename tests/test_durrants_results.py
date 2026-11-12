@@ -124,7 +124,8 @@ def test_durrants_checkpoint_files_remain_utf8_json():
         (ROOT / "data/auction_history/durrants_collection.json").read_text(encoding="utf-8")
     )
     assert source_register["national_completeness_verified"] is False
-    assert "Durrants" in continuation["next_growth_target"]
+    assert continuation["next_growth_target"].strip()
+    assert "National completeness remains false" in continuation["next_growth_target"]
     assert source_register["corpus_labels"]["Durrants"] == summary["appearances_captured"]
     durrants = source_register["latest_collector_attempts"]["durrants"]
     assert durrants["national_completeness_verified"] is False
