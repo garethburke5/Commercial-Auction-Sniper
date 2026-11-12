@@ -85,6 +85,26 @@ def test_sector_is_conservative_and_preserves_mixed_use():
     assert MODULE.sector("Land at Railway Meadow", None) == "land"
     assert MODULE.sector("Methodist Chapel", None) == "commercial"
     assert MODULE.sector("An unnamed property", None) == "unknown"
+    assert MODULE.sector("Wattlesborough Methodist Church, Halfway House", None) == "commercial"
+    assert MODULE.sector("Chapel House, Knolton", None) == "residential"
+    assert MODULE.sector("Land at Whitchurch", None) == "land"
+
+
+def test_retained_2024_batch_reconciles_all_five_catalogues():
+    evidence, events = MODULE.retained_2024_inventory()
+    assert [event["date"] for event in events] == [
+        "2024-02-23",
+        "2024-04-26",
+        "2024-07-12",
+        "2024-09-27",
+        "2024-11-29",
+    ]
+    assert sum(event["expected_lots"] for event in events) == 61
+    rows = [row for event in events for row in event["rows"]]
+    assert sum(row.get("guide_price") is not None for row in rows) == 61
+    assert sum(row.get("sale_price") is not None for row in rows) == 20
+    assert evidence["direct_fetch_status"] == 403
+    assert evidence["sha256"]
 
 
 def test_november_result_prices_are_lot_scoped():

@@ -1,0 +1,32 @@
+{
+  "auctioneer": "Halls",
+  "operator_legal_name": "HALLS HOLDINGS LIMITED",
+  "operator_company_number": "06597073",
+  "source_auction_id": "halls:collective:2024-02-23",
+  "auction_date": "2024-02-23",
+  "auction_date_precision": "day",
+  "source_url": "https://www.hallsgb.com/wp-content/uploads/2024/02/FEB-CPLA-RESULTS-PORTRAIT.pdf",
+  "lots_captured": 11,
+  "published_lots_offered": 11,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "complete numbered first-party order-of-sale inventory retained by a public search index",
+  "source_evidence": {
+    "retained_index_snapshot": {
+      "source_url": "multiple original first-party Halls URLs listed in the retained snapshot",
+      "retrieved_at": "2026-11-12T00:00:00+00:00",
+      "sha256": "66c9c6888d2488611b7900a87f4ba2b646ca9aac015e7d054e85bdc861078993",
+      "snapshot_path": "data/auction_history/sources/halls/retained-index/halls-2024-first-party-indexed-inventories.json",
+      "source_tier": "first_party_publisher_asset_retained_search_index_text",
+      "retrieval_route": "retained public search-index text of first-party Halls PDF and article URLs",
+      "direct_fetch_status": 403,
+      "direct_fetch_note": "The five original WordPress PDF objects returned the same 4,558-byte access challenge. The collector does not retry that blocked route; it banks the complete numbered order-of-sale text retained for those original first-party URLs."
+    },
+    "original_first_party_asset": "https://www.hallsgb.com/wp-content/uploads/2024/02/FEB-CPLA-RESULTS-PORTRAIT.pdf",
+    "result_article": null,
+    "direct_fetch_status": 403
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T11:14:41.199235+00:00"
+}

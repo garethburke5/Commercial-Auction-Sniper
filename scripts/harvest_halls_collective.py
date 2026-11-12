@@ -14,7 +14,7 @@ import html
 import io
 import json
 import re
-import tempfile
+import argparse
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -32,6 +32,10 @@ SOURCE_DIR = DATA / "sources" / "halls" / "first-party"
 APPEARANCE_SHARD = DATA / "appearances" / "halls" / "canonical.jsonl.gz"
 AUCTION_DIR = DATA / "auctions" / "halls"
 SUMMARY_PATH = DATA / "halls_collective_collection.json"
+RETAINED_2024_SUMMARY_PATH = DATA / "halls_2024_retained_collection.json"
+RETAINED_2024_SNAPSHOT = (
+    DATA / "sources" / "halls" / "retained-index" / "halls-2024-first-party-indexed-inventories.json"
+)
 CONTINUATION_PATH = DATA / "continuation_collection.json"
 AUCTIONEER = "Halls"
 LEGAL_NAME = "HALLS HOLDINGS LIMITED"
@@ -182,10 +186,10 @@ SEPTEMBER_2025_ROWS = [
 ]
 
 NEXT_TARGET = (
-    "Extend the Halls runner to the retained 2024 collective-auction catalogue and result assets. "
-    "Start with exact-dated first-party PDFs or result articles that expose complete numbered lot inventories, "
-    "then move backward through 2023 and earlier years. Keep inaccessible WordPress PDF objects as bounded "
-    "blockers unless a byte-accessible CDN, saved snapshot or materially different retained publisher route exists. "
+    "Batch Halls' retained 2023 first-party collective-auction catalogues, beginning with the complete Christmas "
+    "catalogue at https://www.hallsgb.com/wp-content/uploads/2023/11/Halls-Christmas-CPL-Auction-Catalogue_compressed.pdf, "
+    "then reconcile the other 2023 event inventories before moving to older years. Keep the 2024 WordPress PDF "
+    "403 route bounded; revisit it only if a byte-accessible publisher snapshot or materially different route appears. "
     "National completeness remains false."
 )
 
@@ -292,12 +296,18 @@ def sector(address: str, description: str | None) -> str:
     text = norm(f"{address} {description or ''}")
     if "mixed use" in text or (("shop" in text or "commercial" in text) and any(k in text for k in ["flat", "cottage", "residential", "house"])):
         return "mixed-use"
-    if any(k in text for k in [" acres ", "land at", "land to", "woodland", "plantation", "paddock", "pasture land", "amenity land"]):
+    if re.search(r"\b(?:acre|acres|land|wood|woodland|plantation|paddock|pasture|field|plot)\b|\bfarm\b(?!\s+house)", text):
         return "land"
-    if any(k in text for k in ["chapel", "church", "school", "garages", "garage site", "commercial property", "poultry farm"]):
+    if re.search(r"\b(?:methodist|baptist)\s+(?:chapel|church)\b", text):
         return "commercial"
     if any(k in text for k in ["house", "cottage", "bungalow", "apartment", " flat ", "residential", "townhouse"]):
         return "residential"
+    if re.search(
+        r"\b(?:chapel|church|school|garages)\b|"
+        r"\b(?:garage site|commercial property|poultry farm)\b",
+        text,
+    ):
+        return "commercial"
     return "unknown"
 
 
@@ -479,6 +489,13 @@ def write_rows(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     raw = "".join(json.dumps(row, ensure_ascii=False, separators=(",", ":")) + "\n" for row in rows).encode()
     path.write_bytes(gzip.compress(raw, compresslevel=9, mtime=0))
+
+
+def read_rows(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        return [json.loads(line) for line in handle if line.strip()]
 
 
 def update_continuation(summary: dict[str, Any]) -> None:
@@ -736,5 +753,193 @@ def collect() -> dict[str, Any]:
     return summary
 
 
+def retained_2024_inventory() -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Load and strictly validate the retained 2024 first-party inventories."""
+    raw = RETAINED_2024_SNAPSHOT.read_bytes()
+    payload = json.loads(raw)
+    events = payload.get("events") or []
+    expected_dates = ["2024-02-23", "2024-04-26", "2024-07-12", "2024-09-27", "2024-11-29"]
+    if [event.get("date") for event in events] != expected_dates:
+        raise ValueError("retained 2024 event dates no longer match the five evidenced catalogues")
+    if payload.get("direct_fetch_status") != 403:
+        raise ValueError("retained snapshot must preserve the bounded first-party PDF 403 evidence")
+    for event in events:
+        rows = event.get("rows") or []
+        denominator = int(event["expected_lots"])
+        if len(rows) != denominator:
+            raise ValueError(f"{event['date']} denominator mismatch: {len(rows)} != {denominator}")
+        if [int(row["lot_number"]) for row in rows] != list(range(1, denominator + 1)):
+            raise ValueError(f"{event['date']} lot sequence is not complete")
+        for row in rows:
+            if not row.get("address") or row.get("guide_price") is None:
+                raise ValueError(f"{event['date']} lot {row.get('lot_number')} lacks address/guide evidence")
+    return {
+        "source_url": "multiple original first-party Halls URLs listed in the retained snapshot",
+        "retrieved_at": payload["retrieved_at"],
+        "sha256": hashlib.sha256(raw).hexdigest(),
+        "snapshot_path": str(RETAINED_2024_SNAPSHOT.relative_to(ROOT)),
+        "source_tier": payload["source_tier"],
+        "retrieval_route": payload["retrieval_route"],
+        "direct_fetch_status": payload["direct_fetch_status"],
+        "direct_fetch_note": payload["direct_fetch_note"],
+    }, events
+
+
+def collect_retained_2024() -> dict[str, Any]:
+    """Append all five complete 2024 retained inventories without touching the network."""
+    retained_evidence, events = retained_2024_inventory()
+    current_rows = read_rows(APPEARANCE_SHARD)
+    current_ids = {row["appearance_id"] for row in current_rows}
+    existing = existing_keys()
+    existing.update(
+        (row["auction_date"], norm(row["address"]))
+        for row in current_rows
+        if row.get("auction_date") and row.get("address")
+    )
+    new_rows: list[dict[str, Any]] = []
+    duplicate_exclusions: list[dict[str, str]] = []
+    states: list[dict[str, Any]] = []
+
+    for source_event in events:
+        date = source_event["date"]
+        event = {
+            "date": date,
+            "event_url": source_event["source_url"],
+            "catalogue_url": source_event["source_url"] if "catalogue" in source_event["asset_kind"] else None,
+            "results_url": source_event["source_url"] if source_event["asset_kind"] == "results_pdf" else source_event.get("result_url"),
+            "expected_lots": source_event["expected_lots"],
+        }
+        for source_row in source_event["rows"]:
+            row = dict(source_row)
+            postcode = POSTCODE_RE.search(row["address"])
+            row.update({
+                "source_lot_id": row["lot_number"],
+                "postcode": compact(postcode.group(1)).upper() if postcode else None,
+                "description": None,
+                "source_guide_text": (
+                    f"Guide Price £{row['guide_price']:,}"
+                    + (f" - £{row['guide_price_high']:,}" if row.get("guide_price_high") else "")
+                ),
+                "status": row.get("status") or "unknown",
+                "source_outcome_text": row.get("source_outcome_text") or (
+                    f"Sold for £{row['sale_price']:,}" if row.get("sale_price") is not None else None
+                ),
+                "annual_rent": None,
+                "rent_text": None,
+                "sector": sector(row["address"], None),
+            })
+            evidence = {
+                "retained_index_snapshot": {
+                    **retained_evidence,
+                    "basis": "complete numbered order-of-sale text retained for the original first-party publisher asset",
+                },
+                "original_first_party_asset": {
+                    "source_url": source_event["source_url"],
+                    "asset_kind": source_event["asset_kind"],
+                    "direct_fetch_status": 403,
+                },
+                "result_article": (
+                    {
+                        "source_url": source_event["result_url"],
+                        "basis": "retained first-party result article individually names 13 sold catalogue lots and prices",
+                    }
+                    if source_event.get("result_url") else None
+                ),
+                "basis": "exact-dated complete numbered first-party lot inventory; no directory-only rows",
+            }
+            canonical = row_from_source(row, event, evidence)
+            key = (date, norm(canonical["address"]))
+            if canonical["appearance_id"] in current_ids or key in existing:
+                duplicate_exclusions.append({
+                    "auction_date": date,
+                    "address": canonical["address"],
+                    "appearance_id": canonical["appearance_id"],
+                })
+                continue
+            current_ids.add(canonical["appearance_id"])
+            existing.add(key)
+            new_rows.append(canonical)
+
+        state = {
+            "auctioneer": AUCTIONEER,
+            "operator_legal_name": LEGAL_NAME,
+            "operator_company_number": COMPANY_NUMBER,
+            "source_auction_id": source_id(date),
+            "auction_date": date,
+            "auction_date_precision": "day",
+            "source_url": source_event["source_url"],
+            "lots_captured": source_event["expected_lots"],
+            "published_lots_offered": source_event["expected_lots"],
+            "catalogue_complete": True,
+            "source_rows_complete": True,
+            "denominator_reconciled": True,
+            "completion_scope": "complete numbered first-party order-of-sale inventory retained by a public search index",
+            "source_evidence": {
+                "retained_index_snapshot": retained_evidence,
+                "original_first_party_asset": source_event["source_url"],
+                "result_article": source_event.get("result_url"),
+                "direct_fetch_status": 403,
+            },
+            "errors": [],
+            "checked_at": now(),
+        }
+        states.append(state)
+        write_json(AUCTION_DIR / f"{date}.json", state)
+
+    merged_rows = sorted(current_rows + new_rows, key=lambda row: (row["auction_date"], int(row["lot_number"])))
+    write_rows(APPEARANCE_SHARD, merged_rows)
+    sectors = Counter(row["sector"] for row in new_rows)
+    statuses = Counter(row["status"] for row in new_rows)
+    summary = {
+        "checked_at": now(),
+        "operator": {
+            "canonical_name": AUCTIONEER,
+            "legal_name": LEGAL_NAME,
+            "company_number": COMPANY_NUMBER,
+            "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True,
+        },
+        "collection_route": "offline retained-index batch; no repeated request to the bounded 403 route",
+        "events_attempted": 5,
+        "events_reconciled": 5,
+        "complete_event_inventories": 5,
+        "partial_event_inventories": 0,
+        "published_lot_denominator": 61,
+        "individually_identified_source_rows": 61,
+        "appearances_captured": len(merged_rows),
+        "run_new_appearances": len(new_rows),
+        "run_new_address_records": len(new_rows),
+        "run_new_exact_dated_address_records": len(new_rows),
+        "run_new_dated_twenty_year_address_records": len(new_rows),
+        "run_new_partial_lots": 0,
+        "run_new_guide_prices": sum(row.get("guide_price") is not None for row in new_rows),
+        "run_new_sale_prices": sum(row.get("sale_price") is not None for row in new_rows),
+        "run_new_rents": sum(row.get("annual_rent") is not None for row in new_rows),
+        "run_new_commercial_or_mixed": sectors["commercial"] + sectors["mixed-use"],
+        "source_years": ["2024"],
+        "newly_covered_source_years": ["2024"] if new_rows else [],
+        "by_sector": dict(sectors),
+        "by_status": dict(statuses),
+        "failures": [],
+        "run_duplicate_source_evidence_excluded": len(duplicate_exclusions),
+        "duplicate_source_evidence_exclusions": duplicate_exclusions,
+        "undated_records": 0,
+        "future_dated_records": 0,
+        "next_growth_target": NEXT_TARGET,
+        "national_completeness_verified": False,
+    }
+    write_json(RETAINED_2024_SUMMARY_PATH, summary)
+    write_json(SUMMARY_PATH, summary)
+    update_continuation(summary)
+    return summary
+
+
 if __name__ == "__main__":
-    print(json.dumps(collect(), indent=2, ensure_ascii=False))
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--retained-2024",
+        action="store_true",
+        help="bank the five retained 2024 first-party inventories without network access",
+    )
+    args = parser.parse_args()
+    result = collect_retained_2024() if args.retained_2024 else collect()
+    print(json.dumps(result, indent=2, ensure_ascii=False))

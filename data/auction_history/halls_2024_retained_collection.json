@@ -1,0 +1,51 @@
+{
+  "checked_at": "2026-11-12T11:14:41.211575+00:00",
+  "operator": {
+    "canonical_name": "Halls",
+    "legal_name": "HALLS HOLDINGS LIMITED",
+    "company_number": "06597073",
+    "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+  },
+  "collection_route": "offline retained-index batch; no repeated request to the bounded 403 route",
+  "events_attempted": 5,
+  "events_reconciled": 5,
+  "complete_event_inventories": 5,
+  "partial_event_inventories": 0,
+  "published_lot_denominator": 61,
+  "individually_identified_source_rows": 61,
+  "appearances_captured": 168,
+  "run_new_appearances": 61,
+  "run_new_address_records": 61,
+  "run_new_exact_dated_address_records": 61,
+  "run_new_dated_twenty_year_address_records": 61,
+  "run_new_partial_lots": 0,
+  "run_new_guide_prices": 61,
+  "run_new_sale_prices": 20,
+  "run_new_rents": 0,
+  "run_new_commercial_or_mixed": 7,
+  "source_years": [
+    "2024"
+  ],
+  "newly_covered_source_years": [
+    "2024"
+  ],
+  "by_sector": {
+    "unknown": 16,
+    "residential": 9,
+    "land": 29,
+    "commercial": 7
+  },
+  "by_status": {
+    "sold": 20,
+    "sold prior": 1,
+    "unsold": 3,
+    "unknown": 37
+  },
+  "failures": [],
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_evidence_exclusions": [],
+  "undated_records": 0,
+  "future_dated_records": 0,
+  "next_growth_target": "Batch Halls' retained 2023 first-party collective-auction catalogues, beginning with the complete Christmas catalogue at https://www.hallsgb.com/wp-content/uploads/2023/11/Halls-Christmas-CPL-Auction-Catalogue_compressed.pdf, then reconcile the other 2023 event inventories before moving to older years. Keep the 2024 WordPress PDF 403 route bounded; revisit it only if a byte-accessible publisher snapshot or materially different route appears. National completeness remains false.",
+  "national_completeness_verified": false
+}

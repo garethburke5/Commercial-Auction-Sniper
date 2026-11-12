@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "publisher": "Halls",
+  "retrieval_route": "retained public search-index text of first-party Halls PDF and article URLs",
+  "retrieved_at": "2026-11-12T00:00:00+00:00",
+  "direct_fetch_status": 403,
+  "direct_fetch_note": "The five original WordPress PDF objects returned the same 4,558-byte access challenge. The collector does not retry that blocked route; it banks the complete numbered order-of-sale text retained for those original first-party URLs.",
+  "source_tier": "first_party_publisher_asset_retained_search_index_text",
+  "events": [
+    {
+      "date": "2024-02-23",
+      "source_url": "https://www.hallsgb.com/wp-content/uploads/2024/02/FEB-CPLA-RESULTS-PORTRAIT.pdf",
+      "asset_kind": "results_pdf",
+      "expected_lots": 11,
+      "rows": [
+        {"lot_number":"1","address":"15 & 15a Shropshire Street, Market Drayton, TF9 3BZ","guide_price":15000,"guide_price_high":25000,"status":"sold","sale_price":20000,"source_outcome_text":"Sold £20,000"},
+        {"lot_number":"2","address":"73 High Street, Wem, Nr Shrewsbury, SY4 5DR","guide_price":85000,"guide_price_high":null,"status":"sold prior","sale_price":null,"source_outcome_text":"Sold Prior"},
+        {"lot_number":"3","address":"Cleveland House, Llansantffraid, Powys, SY22 6AQ","guide_price":250000,"guide_price_high":null,"status":"unsold","sale_price":null,"source_outcome_text":"Unsold"},
+        {"lot_number":"4","address":"Land on the west side of Cobham Cottage, Isycoed, LL13 9RY","guide_price":15000,"guide_price_high":null,"status":"sold","sale_price":57000,"source_outcome_text":"Sold £57,000"},
+        {"lot_number":"5","address":"Land adjoining Light Oak House, Isycoed, LL13 9RY","guide_price":35000,"guide_price_high":null,"status":"sold","sale_price":82000,"source_outcome_text":"Sold £82,000"},
+        {"lot_number":"6","address":"Morton Methodist Chapel, Morton, Nr Oswestry, SY10 8AH","guide_price":55000,"guide_price_high":65000,"status":"unsold","sale_price":null,"source_outcome_text":"Unsold"},
+        {"lot_number":"7","address":"Land at Alkington Road, Whitchurch, SY13 1SZ","guide_price":30000,"guide_price_high":40000,"status":"sold","sale_price":102000,"source_outcome_text":"Sold £102,000"},
+        {"lot_number":"8","address":"Land adj. to The Fields off Alkington Road, Whitchurch, SY13 3NE","guide_price":30000,"guide_price_high":40000,"status":"sold","sale_price":68000,"source_outcome_text":"Sold £68,000"},
+        {"lot_number":"9","address":"11 St Johns Hill, Ellesmere, SY12 0EY","guide_price":150000,"guide_price_high":null,"status":"unsold","sale_price":null,"source_outcome_text":"Unsold"},
+        {"lot_number":"10","address":"Land off Doverdale Lane, Doverdale, Droitwich, WR9 0QB","guide_price":100000,"guide_price_high":120000,"status":"sold","sale_price":129000,"source_outcome_text":"Sold £129,000"},
+        {"lot_number":"11","address":"Coed-Y-Wye, Alkington Road, Whitchurch, SY13 1TD","guide_price":140000,"guide_price_high":160000,"status":"sold","sale_price":239000,"source_outcome_text":"Sold £239,000"}
+      ]
+    },
+    {
+      "date": "2024-04-26",
+      "source_url": "https://www.hallsgb.com/wp-content/uploads/2024/04/Halls-CPLA-April-Catalogue-2024-Web_compressed.pdf",
+      "result_url": "https://www.hallsgb.com/property-and-land-sells-for-1-7m-at-shrewsbury-collective-auction/",
+      "asset_kind": "catalogue_pdf_plus_result_article",
+      "expected_lots": 20,
+      "rows": [
+        {"lot_number":"1","address":"2.37 Acres of Amenity Land at Lower Wych, near Malpas, Cheshire, SY14 7JY","guide_price":15000,"guide_price_high":null,"status":"sold","sale_price":34000},
+        {"lot_number":"2","address":"2 Mill Lane Cottages, Horsemans Green, Whitchurch, Shropshire, SY13 3EA","guide_price":100000,"guide_price_high":120000,"status":"sold","sale_price":120000},
+        {"lot_number":"3","address":"1 Shrewsbury Road, Cressage, Shrewsbury, Shropshire, SY5 6AA","guide_price":225000,"guide_price_high":250000,"status":"sold","sale_price":225000},
+        {"lot_number":"4","address":"1.9 Acres of Amenity Land at Criftins, Shropshire, SY12 9LN","guide_price":30000,"guide_price_high":null,"status":"sold","sale_price":30000},
+        {"lot_number":"5","address":"2.43 Acres of Amenity Land at Criftins, Nr Ellesmere, Shropshire, SY12 9LN","guide_price":25000,"guide_price_high":null,"status":"sold","sale_price":50000},
+        {"lot_number":"6","address":"2.8 Acres of Amenity Land at Criftins, Shropshire, SY12 9LP","guide_price":35000,"guide_price_high":null,"status":"sold","sale_price":35000},
+        {"lot_number":"7","address":"13 Back Lane, Nomans Heath, Malpas, Cheshire, SY14 8DR","guide_price":125000,"guide_price_high":150000,"status":"unknown","sale_price":null},
+        {"lot_number":"8","address":"The Dell, 33 Shrewsbury Street, Prees, Shropshire, SY13 2DH","guide_price":140000,"guide_price_high":160000,"status":"unknown","sale_price":null},
+        {"lot_number":"9","address":"Building Plot adjoining 2 Cherry Tree Close, Wellington, Telford, Shropshire, TF1 2HQ","guide_price":155000,"guide_price_high":170000,"status":"unknown","sale_price":null},
+        {"lot_number":"10","address":"0.86 acres of Amenity Woodland at Llanbrynmair, Powys, SY19 7DU","guide_price":15000,"guide_price_high":20000,"status":"unknown","sale_price":null},
+        {"lot_number":"11","address":"2.28 Acres of Amenity Land on Chapel Lane, Dudleston Heath, Nr Ellesmere, Shropshire, SY12 9JZ","guide_price":30000,"guide_price_high":null,"status":"sold","sale_price":37000},
+        {"lot_number":"12","address":"10 & 10A Stafford Street, Market Drayton, Shropshire, TF9 1HY","guide_price":75000,"guide_price_high":null,"status":"unknown","sale_price":null},
+        {"lot_number":"13","address":"4.54 acres at All Stretton, Church Stretton, Shropshire, SY6 7JL","guide_price":50000,"guide_price_high":null,"status":"sold","sale_price":50000},
+        {"lot_number":"14","address":"13.54 acres at Farm Lane, All Stretton, Church Stretton, Shropshire, SY6 7JH","guide_price":75000,"guide_price_high":null,"status":"sold","sale_price":75000},
+        {"lot_number":"15","address":"Chapel Lane Farm, Bronington, Whitchurch, Shropshire, SY13 3HP","guide_price":350000,"guide_price_high":null,"status":"unknown","sale_price":null},
+        {"lot_number":"16","address":"9.8 Acres of Amenity Land at Leebotwood, Church Stretton, Shropshire, SY6 6LX","guide_price":80000,"guide_price_high":100000,"status":"sold","sale_price":100000},
+        {"lot_number":"17","address":"Station House, Rednal, West Felton, Oswestry, Shropshire, SY11 4HX","guide_price":125000,"guide_price_high":150000,"status":"sold","sale_price":175000},
+        {"lot_number":"18","address":"Clarence House, 30 Queen Street, Market Drayton, Shropshire, TF9 1PS","guide_price":225000,"guide_price_high":null,"status":"unknown","sale_price":null},
+        {"lot_number":"19","address":"8 Lower Longwood, Eaton Constantine, Shropshire, SY5 6RB","guide_price":300000,"guide_price_high":325000,"status":"sold","sale_price":325000},
+        {"lot_number":"20","address":"1 Upper Longwood, Eaton Constantine, Shropshire, SY5 6SB","guide_price":375000,"guide_price_high":400000,"status":"sold","sale_price":466000}
+      ]
+    },
+    {
+      "date": "2024-07-12",
+      "source_url": "https://www.hallsgb.com/wp-content/uploads/2024/07/Halls-Property-Land-Auction-2024-Comp.pdf",
+      "asset_kind": "catalogue_pdf",
+      "expected_lots": 13,
+      "rows": [
+        {"lot_number":"1","address":"2.24 Acres of Amenity Land at Ridley Wood, Nr Wrexham, LL13 9YA","guide_price":10000,"guide_price_high":12000},
+        {"lot_number":"2","address":"11.73 Acres of Amenity Land at Ridley Wood, Nr Wrexham, LL13 9YA","guide_price":50000,"guide_price_high":60000},
+        {"lot_number":"3","address":"Green Methodist Church, Churchstoke, Montgomery, Powys, SY15 6SY","guide_price":30000,"guide_price_high":40000},
+        {"lot_number":"4","address":"9.3 Acres of Amenity Land at Garthmyl, Montgomery, Powys, SY15 6SF","guide_price":150000,"guide_price_high":null},
+        {"lot_number":"5","address":"3.18 Acres of Amenity Land to the North of Newtown, Nr Wem, Shropshire, SY4 5NU","guide_price":30000,"guide_price_high":null},
+        {"lot_number":"6","address":"3.6 Acres of Amenity Land To The North of Newtown, Nr Wem, Shropshire, SY4 5NU","guide_price":35000,"guide_price_high":null},
+        {"lot_number":"7","address":"Red Lodge, Frith Common, Eardiston, Worcestershire, WR15 8JX","guide_price":65000,"guide_price_high":85000},
+        {"lot_number":"8","address":"Wattlesborough Methodist Church, Wattlesborough, Halfway House, Shrewsbury, Shropshire, SY5 9DY","guide_price":50000,"guide_price_high":60000},
+        {"lot_number":"9","address":"Chapel House, Knolton, Overton on Dee, Wrexham, LL13 0LE","guide_price":150000,"guide_price_high":160000},
+        {"lot_number":"10","address":"14 Avondale, Holyhead Road, Chirk, Wrexham, LL14 5DE","guide_price":50000,"guide_price_high":70000},
+        {"lot_number":"11","address":"Chapel Lane Farm, Bronington, Whitchurch, Shropshire, SY13 3HP","guide_price":350000,"guide_price_high":null},
+        {"lot_number":"12","address":"32 & 34 Harley Rd, Condover, Shropshire, SY5 7AZ","guide_price":450000,"guide_price_high":null},
+        {"lot_number":"13","address":"4 Benthall Cottages, Alberbury Road, Ford, Shropshire, SY5 9ND","guide_price":275000,"guide_price_high":300000}
+      ]
+    },
+    {
+      "date": "2024-09-27",
+      "source_url": "https://www.hallsgb.com/wp-content/uploads/2024/09/Halls-Property-Land-Auction-2024-September-Final-V2-Compressed.pdf",
+      "asset_kind": "catalogue_pdf",
+      "expected_lots": 8,
+      "rows": [
+        {"lot_number":"1","address":"Land adjacent to Bridge House, Wrexham Road, Whitchurch, Shropshire, SY13 3AA","guide_price":15000,"guide_price_high":25000},
+        {"lot_number":"2","address":"Land Lying to the South East of Kynaston Farm, School Road, Ruyton XI Towns, Shrewsbury, Shropshire, SY4 1JT","guide_price":30000,"guide_price_high":40000},
+        {"lot_number":"3","address":"Bristol Chambers, Dale Street, Craven Arms, Shropshire, SY7 9PB","guide_price":65000,"guide_price_high":null},
+        {"lot_number":"4","address":"Approx 25.13 Acres of Arable Land near Holt, Wrexham, LL13 9US","guide_price":180000,"guide_price_high":200000},
+        {"lot_number":"5","address":"3.6 Acres of Amenity Land, North of Newtown, Nr Wem, Shropshire, SY4 5NU","guide_price":35000,"guide_price_high":40000},
+        {"lot_number":"6","address":"Stone Cottage, Stanford, Halfway House, Shrewsbury, Shropshire, SY5 9DW","guide_price":225000,"guide_price_high":250000},
+        {"lot_number":"7","address":"New Hall Farm, New Hall Lane, Bronington, Whitchurch, Shropshire, SY13 3HE","guide_price":100000,"guide_price_high":125000},
+        {"lot_number":"8","address":"Llysty Farm House, Churchstoke, Montgomery, SY15 6TN","guide_price":200000,"guide_price_high":225000}
+      ]
+    },
+    {
+      "date": "2024-11-29",
+      "source_url": "https://www.hallsgb.com/wp-content/uploads/2024/11/Halls-Property-Land-Auction-2024-November-Final4_compressed-1.pdf",
+      "asset_kind": "catalogue_pdf",
+      "expected_lots": 9,
+      "rows": [
+        {"lot_number":"1","address":"Asterley Methodist Chapel, Asterley, Shrewsbury, Shropshire, SY5 0AP","guide_price":10000,"guide_price_high":15000},
+        {"lot_number":"2","address":"4 Dunley Gardens, Stourport-on-Severn, Worcestershire, DY13 0LL","guide_price":250000,"guide_price_high":null},
+        {"lot_number":"3","address":"Winnington Wood, Lostock Gralam, Northwich, Cheshire, WA16 0UB","guide_price":150000,"guide_price_high":null},
+        {"lot_number":"4","address":"Zion Baptist Chapel, New Road, Newtown, Powys, SY16 1BD","guide_price":100000,"guide_price_high":120000},
+        {"lot_number":"5","address":"The Old Hope Church, Laburnum Drive, Oswestry, Shropshire, SY11 2QR","guide_price":180000,"guide_price_high":200000},
+        {"lot_number":"6","address":"Maesbrook Methodist Chapel, Maesbrook, Oswestry, Shropshire, SY10 8QU","guide_price":30000,"guide_price_high":40000},
+        {"lot_number":"7","address":"Mantles Field, Overton Road, Ludlow, Shropshire, SY8 4AD","guide_price":50000,"guide_price_high":55000},
+        {"lot_number":"8","address":"Lane End Cottage, Plassey, Nr Oswestry, Shropshire, SY10 8EE","guide_price":100000,"guide_price_high":null},
+        {"lot_number":"9","address":"Hickory Hollow, 110 Wrexham Road, Whitchurch, Shropshire, SY13 1HU","guide_price":225000,"guide_price_high":250000}
+      ]
+    }
+  ]
+}

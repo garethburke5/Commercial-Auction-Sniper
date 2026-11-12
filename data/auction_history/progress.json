@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-12T10:18:16.574180+00:00",
-  "individual_lot_records_captured": 314988,
-  "records_with_address": 302431,
+  "generated_at": "2026-11-12T11:15:34.752273+00:00",
+  "individual_lot_records_captured": 315049,
+  "records_with_address": 302492,
   "partial_lot_records": 12557,
-  "exact_address_groups": 168049,
-  "groups_with_repeat_appearances": 43245,
+  "exact_address_groups": 168108,
+  "groups_with_repeat_appearances": 43247,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -82,7 +82,7 @@
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
     "Goldings Auctions": 635,
-    "Halls": 107,
+    "Halls": 168,
     "Hanover Auction": 26,
     "Harman Healy": 1521,
     "Higgins Drysdale National Property Auctions": 163,
@@ -158,24 +158,24 @@
     "2021": 21302,
     "2022": 26738,
     "2023": 33429,
-    "2024": 42361,
+    "2024": 42422,
     "2025": 48454,
     "2026": 48023,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42787,
-    "land": 19452,
+    "commercial": 42794,
+    "land": 19481,
     "mixed": 1,
     "mixed-use": 47691,
-    "residential": 152072,
-    "unknown": 52985
+    "residential": 152081,
+    "unknown": 53001
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 5061,
+  "surviving_catalogues_completely_harvested": 5066,
   "catalogues_incomplete_or_unreconciled": 613,
   "catalogue_fetch_or_parse_failures": 37,
   "limits": [
@@ -189,13 +189,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305511,
-      "auction_ids_observed": 13750,
-      "with_guide_price": 107568,
-      "with_sale_price": 112845,
-      "with_both_prices": 49060,
-      "marked_sold": 155814,
-      "marked_sold_without_sale_price": 43709
+      "lot_appearances": 305572,
+      "auction_ids_observed": 13755,
+      "with_guide_price": 107629,
+      "with_sale_price": 112865,
+      "with_both_prices": 49080,
+      "marked_sold": 155835,
+      "marked_sold_without_sale_price": 43710
     },
     "by_auctioneer_and_year": [
       {
@@ -5663,6 +5663,17 @@
         "with_sale_price": 28,
         "with_both_prices": 0,
         "marked_sold": 29,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Halls",
+        "year": 2024,
+        "lot_appearances": 61,
+        "auction_ids_observed": 5,
+        "with_guide_price": 61,
+        "with_sale_price": 20,
+        "with_both_prices": 20,
+        "marked_sold": 21,
         "marked_sold_without_sale_price": 1
       },
       {
