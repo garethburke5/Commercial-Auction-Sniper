@@ -1,0 +1,675 @@
+{
+  "checked_at": "2026-11-12T14:17:53.642911+00:00",
+  "operator": {
+    "canonical_name": "H&H Land & Estates",
+    "company_name": "H&H LAND & ESTATES LIMITED",
+    "company_number": "03780434",
+    "official_trading_name": "H&H Land & Estates",
+    "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+  },
+  "articles_captured": 13,
+  "events_captured": 19,
+  "appearances_captured": 55,
+  "run_new_appearances": 55,
+  "run_new_address_records": 55,
+  "run_new_exact_dated_address_records": 55,
+  "run_new_dated_twenty_year_address_records": 55,
+  "run_new_partial_lots": 0,
+  "run_new_undated_lots": 0,
+  "run_new_future_dated_lots": 0,
+  "run_new_guide_prices": 32,
+  "run_new_sale_prices": 28,
+  "run_new_rents": 0,
+  "run_new_commercial_or_mixed": 14,
+  "source_years": [
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "newly_covered_source_years": [
+    "2022",
+    "2023",
+    "2024",
+    "2025"
+  ],
+  "by_sector": {
+    "mixed-use": 8,
+    "land": 38,
+    "residential": 3,
+    "commercial": 6
+  },
+  "by_status": {
+    "sold": 24,
+    "unknown": 26,
+    "sold_as_combined": 1,
+    "sold_as_whole": 3,
+    "sold_privately_price_unpublished": 1
+  },
+  "auctions": {
+    "2022-04-01-bellow-hill": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-04-01-bellow-hill",
+      "auction_date": "2022-04-01",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/1200/first-property-auctions-of-the-season-get-off-to-a-flying-start/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/1200/first-property-auctions-of-the-season-get-off-to-a-flying-start/",
+          "retrieved_at": "2026-11-12T14:17:50.474242+00:00",
+          "sha256": "584cb952f37f7778e08f1c947b27ec536ec350653612ba9017f0b0291329b428",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2022-results-584cb952f37f7778.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.812257+00:00"
+    },
+    "2022-04-08-atkinson-hodge": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-04-08-atkinson-hodge",
+      "auction_date": "2022-04-08",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/1200/first-property-auctions-of-the-season-get-off-to-a-flying-start/",
+        "https://hhlandestates.co.uk/news/898/high-hopes-for-hodge-hill/"
+      ],
+      "published_named_interest_denominator": 7,
+      "lots_captured": 7,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": 1345000,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/1200/first-property-auctions-of-the-season-get-off-to-a-flying-start/",
+          "retrieved_at": "2026-11-12T14:17:50.474242+00:00",
+          "sha256": "584cb952f37f7778e08f1c947b27ec536ec350653612ba9017f0b0291329b428",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2022-results-584cb952f37f7778.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        },
+        {
+          "source_url": "https://hhlandestates.co.uk/news/898/high-hopes-for-hodge-hill/",
+          "retrieved_at": "2026-11-12T14:17:56.682686+00:00",
+          "sha256": "c9805a7a36247aed9a5bdd582b9bef677f1a86e27372cf61a13962627c5f3a35",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-hodge-hill-catalogue-c9805a7a36247aed.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.813298+00:00"
+    },
+    "2022-04-27-fowlpool-east-farm": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-04-27-fowlpool-east-farm",
+      "auction_date": "2022-04-27",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/1338/over-%C2%A35-million-of-sales-by-auction/"
+      ],
+      "published_named_interest_denominator": 9,
+      "lots_captured": 9,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": 5078000,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/1338/over-%C2%A35-million-of-sales-by-auction/",
+          "retrieved_at": "2026-11-12T14:18:04.314933+00:00",
+          "sha256": "8c22c923df425e72d58eac58409fdcda46696fc8c5205beee7cc85595bc70426",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-april-2022-results-8c22c923df425e72.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.813785+00:00"
+    },
+    "2022-07-01-corfe-farm": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-07-01-corfe-farm",
+      "auction_date": "2022-07-01",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/1987/why-auctions-are-an-effective-way-to-sell-land-and-farms/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/1987/why-auctions-are-an-effective-way-to-sell-land-and-farms/",
+          "retrieved_at": "2026-11-12T14:18:10.677582+00:00",
+          "sha256": "15e491aa156516f7bdedc1db9c9b794cd64c1c21f7e4a2c678ed029bdd76bcc0",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-july-2022-review-15e491aa156516f7.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.814397+00:00"
+    },
+    "2022-07-20-borderway": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-07-20-borderway",
+      "auction_date": "2022-07-20",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/1987/why-auctions-are-an-effective-way-to-sell-land-and-farms/",
+        "https://hhlandestates.co.uk/news/2100/auctions-are-pushing-the-value-of-land-and-property-to-new-levels/"
+      ],
+      "published_named_interest_denominator": 3,
+      "lots_captured": 3,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/1987/why-auctions-are-an-effective-way-to-sell-land-and-farms/",
+          "retrieved_at": "2026-11-12T14:18:10.677582+00:00",
+          "sha256": "15e491aa156516f7bdedc1db9c9b794cd64c1c21f7e4a2c678ed029bdd76bcc0",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-july-2022-review-15e491aa156516f7.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        },
+        {
+          "source_url": "https://hhlandestates.co.uk/news/2100/auctions-are-pushing-the-value-of-land-and-property-to-new-levels/",
+          "retrieved_at": "2026-11-12T14:18:16.510519+00:00",
+          "sha256": "fc24efb7be8663a03c6bccec363226332bcb981e904feed3f4f15b998ec322cd",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-july-2022-results-fc24efb7be8663a0.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.815630+00:00"
+    },
+    "2022-11-01-broughton": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-11-01-broughton",
+      "auction_date": "2022-11-01",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+          "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+          "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.815981+00:00"
+    },
+    "2022-11-01-penrith": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-11-01-penrith",
+      "auction_date": "2022-11-01",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/"
+      ],
+      "published_named_interest_denominator": 2,
+      "lots_captured": 2,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+          "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+          "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.816528+00:00"
+    },
+    "2022-11-23-borderway": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-11-23-borderway",
+      "auction_date": "2022-11-23",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+        "https://hhlandestates.co.uk/news/5029/record-land-prices-for-cumbrian-farmland/"
+      ],
+      "published_named_interest_denominator": 2,
+      "lots_captured": 2,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+          "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+          "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        },
+        {
+          "source_url": "https://hhlandestates.co.uk/news/5029/record-land-prices-for-cumbrian-farmland/",
+          "retrieved_at": "2026-11-12T14:18:28.166343+00:00",
+          "sha256": "73d1664ba63d20107a7997e96d875309fb79f4e18c118d3dfbd17363701e4a9a",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-results-73d1664ba63d2010.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.817205+00:00"
+    },
+    "2022-12-01-cartmel": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-12-01-cartmel",
+      "auction_date": "2022-12-01",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+          "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+          "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.817662+00:00"
+    },
+    "2022-12-13-kirkby-stephen": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-12-13-kirkby-stephen",
+      "auction_date": "2022-12-13",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/"
+      ],
+      "published_named_interest_denominator": 3,
+      "lots_captured": 3,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+          "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+          "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.817966+00:00"
+    },
+    "2022-12-21-silecroft": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2022-12-21-silecroft",
+      "auction_date": "2022-12-21",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/5029/record-land-prices-for-cumbrian-farmland/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": false,
+      "event_inventory_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "named whole interest; four alternative component lots were not individually named",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/5029/record-land-prices-for-cumbrian-farmland/",
+          "retrieved_at": "2026-11-12T14:18:28.166343+00:00",
+          "sha256": "73d1664ba63d20107a7997e96d875309fb79f4e18c118d3dfbd17363701e4a9a",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-results-73d1664ba63d2010.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.818344+00:00"
+    },
+    "2023-02-24-kendal": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2023-02-24-kendal",
+      "auction_date": "2023-02-24",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/38751/our-upcoming-land-sale-auction-dates/"
+      ],
+      "published_named_interest_denominator": 3,
+      "lots_captured": 3,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/38751/our-upcoming-land-sale-auction-dates/",
+          "retrieved_at": "2026-11-12T14:18:34.111752+00:00",
+          "sha256": "db3891a30d724a5b544f5103f8353a91612e3caa372566ae041d39ab01a1e024",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-early-2023-catalogues-db3891a30d724a5b.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.821371+00:00"
+    },
+    "2023-03-02-whitesmocks": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2023-03-02-whitesmocks",
+      "auction_date": "2023-03-02",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/38751/our-upcoming-land-sale-auction-dates/",
+        "https://hhlandestates.co.uk/news/39139/land-adjacent-to-durham-city-sells-for-%C2%A317000-per-acre/"
+      ],
+      "published_named_interest_denominator": 3,
+      "lots_captured": 3,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/38751/our-upcoming-land-sale-auction-dates/",
+          "retrieved_at": "2026-11-12T14:18:34.111752+00:00",
+          "sha256": "db3891a30d724a5b544f5103f8353a91612e3caa372566ae041d39ab01a1e024",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-early-2023-catalogues-db3891a30d724a5b.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        },
+        {
+          "source_url": "https://hhlandestates.co.uk/news/39139/land-adjacent-to-durham-city-sells-for-%C2%A317000-per-acre/",
+          "retrieved_at": "2026-11-12T14:18:40.037534+00:00",
+          "sha256": "65d85417c5bd23714d686fbf4f08a6826ecae46a6da1f85042639894e23b4fe9",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-whitesmocks-result-65d85417c5bd2371.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.822173+00:00"
+    },
+    "2023-03-15-borderway": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2023-03-15-borderway",
+      "auction_date": "2023-03-15",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/38751/our-upcoming-land-sale-auction-dates/"
+      ],
+      "published_named_interest_denominator": 6,
+      "lots_captured": 6,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/38751/our-upcoming-land-sale-auction-dates/",
+          "retrieved_at": "2026-11-12T14:18:34.111752+00:00",
+          "sha256": "db3891a30d724a5b544f5103f8353a91612e3caa372566ae041d39ab01a1e024",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-early-2023-catalogues-db3891a30d724a5b.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.822781+00:00"
+    },
+    "2024-01-24-helton": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2024-01-24-helton",
+      "auction_date": "2024-01-24",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": false,
+      "event_inventory_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "named whole interest; two alternative component lots were not individually named",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/",
+          "retrieved_at": "2026-11-12T14:18:45.988478+00:00",
+          "sha256": "6b3585d9ee657a86883552bbb8be4f63f50b865e7451b3a05358957238ce43f8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2024-catalogues-6b3585d9ee657a86.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.823176+00:00"
+    },
+    "2024-02-28-caldbeck": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2024-02-28-caldbeck",
+      "auction_date": "2024-02-28",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/",
+          "retrieved_at": "2026-11-12T14:18:45.988478+00:00",
+          "sha256": "6b3585d9ee657a86883552bbb8be4f63f50b865e7451b3a05358957238ce43f8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2024-catalogues-6b3585d9ee657a86.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.825186+00:00"
+    },
+    "2024-03-13-yanwath": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2024-03-13-yanwath",
+      "auction_date": "2024-03-13",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/"
+      ],
+      "published_named_interest_denominator": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": null,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/",
+          "retrieved_at": "2026-11-12T14:18:45.988478+00:00",
+          "sha256": "6b3585d9ee657a86883552bbb8be4f63f50b865e7451b3a05358957238ce43f8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2024-catalogues-6b3585d9ee657a86.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.825812+00:00"
+    },
+    "2024-03-27-kendal": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2024-03-27-kendal",
+      "auction_date": "2024-03-27",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/",
+        "https://hhlandestates.co.uk/news/42427/auction-sale-achieves-over-double-guide-price/"
+      ],
+      "published_named_interest_denominator": 7,
+      "lots_captured": 7,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": {
+        "simgill_lots_1_to_4": 278000
+      },
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/",
+          "retrieved_at": "2026-11-12T14:18:45.988478+00:00",
+          "sha256": "6b3585d9ee657a86883552bbb8be4f63f50b865e7451b3a05358957238ce43f8",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2024-catalogues-6b3585d9ee657a86.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        },
+        {
+          "source_url": "https://hhlandestates.co.uk/news/42427/auction-sale-achieves-over-double-guide-price/",
+          "retrieved_at": "2026-11-12T14:18:51.852475+00:00",
+          "sha256": "b33308ea1b40806f908710dfc988d8e27caf81371b34a41aba722eacfeba809d",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-march-2024-results-b33308ea1b40806f.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.828144+00:00"
+    },
+    "2025-05-22-mountain-view": {
+      "auctioneer": "H&H Land & Estates",
+      "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+      "operator_company_number": "03780434",
+      "source_auction_id": "hh-land-estates:2025-05-22-mountain-view",
+      "auction_date": "2025-05-22",
+      "auction_date_precision": "day",
+      "source_urls": [
+        "https://hhlandestates.co.uk/news/45137/springing-into-sales/",
+        "https://hhlandestates.co.uk/news/45556/strong-results-at-spring-land-auction/"
+      ],
+      "published_named_interest_denominator": 2,
+      "lots_captured": 2,
+      "catalogue_complete": true,
+      "event_inventory_complete": true,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "reviewed named property inventory",
+      "aggregate_result_not_assigned_to_components": 184000,
+      "source_evidence": [
+        {
+          "source_url": "https://hhlandestates.co.uk/news/45137/springing-into-sales/",
+          "retrieved_at": "2026-11-12T14:18:58.038887+00:00",
+          "sha256": "825b4e62f3fbe6448a01125ec51c1b204986b12f76ce2e38d62dbdb4473fce4c",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-mountain-view-catalogue-825b4e62f3fbe644.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        },
+        {
+          "source_url": "https://hhlandestates.co.uk/news/45556/strong-results-at-spring-land-auction/",
+          "retrieved_at": "2026-11-12T14:19:03.811783+00:00",
+          "sha256": "702e5e917c194c66bbf717389ae69f9fcb707054e8ef98abf5c3e65e98647e95",
+          "snapshot_path": "data/auction_history/sources/hh-land-estates/article-mountain-view-results-702e5e917c194c66.html.gz",
+          "basis": "first-party H&H Land & Estates auction article"
+        }
+      ],
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.828967+00:00"
+    }
+  },
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_evidence_exclusions": [],
+  "related_interest_policy": "whole, combined and component legal interests remain distinct; aggregate results are event metadata only unless explicitly published for one named interest",
+  "national_completeness_verified": false
+}

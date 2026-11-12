@@ -1,0 +1,38 @@
+{
+  "auctioneer": "H&H Land & Estates",
+  "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+  "operator_company_number": "03780434",
+  "source_auction_id": "hh-land-estates:2022-04-08-atkinson-hodge",
+  "auction_date": "2022-04-08",
+  "auction_date_precision": "day",
+  "source_urls": [
+    "https://hhlandestates.co.uk/news/1200/first-property-auctions-of-the-season-get-off-to-a-flying-start/",
+    "https://hhlandestates.co.uk/news/898/high-hopes-for-hodge-hill/"
+  ],
+  "published_named_interest_denominator": 7,
+  "lots_captured": 7,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "reviewed named property inventory",
+  "aggregate_result_not_assigned_to_components": 1345000,
+  "source_evidence": [
+    {
+      "source_url": "https://hhlandestates.co.uk/news/1200/first-property-auctions-of-the-season-get-off-to-a-flying-start/",
+      "retrieved_at": "2026-11-12T14:17:50.474242+00:00",
+      "sha256": "584cb952f37f7778e08f1c947b27ec536ec350653612ba9017f0b0291329b428",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2022-results-584cb952f37f7778.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    },
+    {
+      "source_url": "https://hhlandestates.co.uk/news/898/high-hopes-for-hodge-hill/",
+      "retrieved_at": "2026-11-12T14:17:56.682686+00:00",
+      "sha256": "c9805a7a36247aed9a5bdd582b9bef677f1a86e27372cf61a13962627c5f3a35",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-hodge-hill-catalogue-c9805a7a36247aed.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-12T14:19:03.813298+00:00"
+}

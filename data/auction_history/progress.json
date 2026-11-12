@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-12T13:17:39.641167+00:00",
-  "individual_lot_records_captured": 315099,
-  "records_with_address": 302541,
+  "generated_at": "2026-11-12T14:21:16.830700+00:00",
+  "individual_lot_records_captured": 315154,
+  "records_with_address": 302596,
   "partial_lot_records": 12558,
   "exact_address_groups": 168152,
   "groups_with_repeat_appearances": 43250,
@@ -82,6 +82,7 @@
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
     "Goldings Auctions": 635,
+    "H&H Land & Estates": 55,
     "Halls": 209,
     "Hanover Auction": 26,
     "Harman Healy": 1521,
@@ -156,27 +157,27 @@
     "2019": 8003,
     "2020": 13966,
     "2021": 21302,
-    "2022": 26738,
-    "2023": 33476,
-    "2024": 42422,
-    "2025": 48454,
+    "2022": 26769,
+    "2023": 33488,
+    "2024": 42432,
+    "2025": 48456,
     "2026": 48023,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42800,
-    "land": 19500,
+    "commercial": 42806,
+    "land": 19538,
     "mixed": 1,
-    "mixed-use": 47695,
-    "residential": 152100,
+    "mixed-use": 47703,
+    "residential": 152103,
     "unknown": 53003
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 5071,
-  "catalogues_incomplete_or_unreconciled": 614,
+  "surviving_catalogues_completely_harvested": 5088,
+  "catalogues_incomplete_or_unreconciled": 616,
   "catalogue_fetch_or_parse_failures": 37,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -189,13 +190,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305622,
-      "auction_ids_observed": 13761,
-      "with_guide_price": 107679,
-      "with_sale_price": 112880,
-      "with_both_prices": 49095,
-      "marked_sold": 155851,
-      "marked_sold_without_sale_price": 43711
+      "lot_appearances": 305677,
+      "auction_ids_observed": 13780,
+      "with_guide_price": 107711,
+      "with_sale_price": 112908,
+      "with_both_prices": 49105,
+      "marked_sold": 155880,
+      "marked_sold_without_sale_price": 43712
     },
     "by_auctioneer_and_year": [
       {
@@ -5663,6 +5664,50 @@
         "with_sale_price": 28,
         "with_both_prices": 0,
         "marked_sold": 29,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2022,
+        "lot_appearances": 31,
+        "auction_ids_observed": 11,
+        "with_guide_price": 13,
+        "with_sale_price": 23,
+        "with_both_prices": 6,
+        "marked_sold": 23,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2023,
+        "lot_appearances": 12,
+        "auction_ids_observed": 3,
+        "with_guide_price": 12,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2024,
+        "lot_appearances": 10,
+        "auction_ids_observed": 4,
+        "with_guide_price": 6,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2025,
+        "lot_appearances": 2,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 0,
+        "marked_sold": 2,
         "marked_sold_without_sale_price": 1
       },
       {

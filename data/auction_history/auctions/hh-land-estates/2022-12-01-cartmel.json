@@ -1,0 +1,30 @@
+{
+  "auctioneer": "H&H Land & Estates",
+  "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+  "operator_company_number": "03780434",
+  "source_auction_id": "hh-land-estates:2022-12-01-cartmel",
+  "auction_date": "2022-12-01",
+  "auction_date_precision": "day",
+  "source_urls": [
+    "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/"
+  ],
+  "published_named_interest_denominator": 1,
+  "lots_captured": 1,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "reviewed named property inventory",
+  "aggregate_result_not_assigned_to_components": null,
+  "source_evidence": [
+    {
+      "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+      "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+      "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-12T14:19:03.817662+00:00"
+}

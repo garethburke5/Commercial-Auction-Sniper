@@ -1,0 +1,30 @@
+{
+  "auctioneer": "H&H Land & Estates",
+  "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+  "operator_company_number": "03780434",
+  "source_auction_id": "hh-land-estates:2024-01-24-helton",
+  "auction_date": "2024-01-24",
+  "auction_date_precision": "day",
+  "source_urls": [
+    "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/"
+  ],
+  "published_named_interest_denominator": 1,
+  "lots_captured": 1,
+  "catalogue_complete": false,
+  "event_inventory_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "named whole interest; two alternative component lots were not individually named",
+  "aggregate_result_not_assigned_to_components": null,
+  "source_evidence": [
+    {
+      "source_url": "https://hhlandestates.co.uk/news/41632/upcoming-land-auctions/",
+      "retrieved_at": "2026-11-12T14:18:45.988478+00:00",
+      "sha256": "6b3585d9ee657a86883552bbb8be4f63f50b865e7451b3a05358957238ce43f8",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-spring-2024-catalogues-6b3585d9ee657a86.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-12T14:19:03.823176+00:00"
+}

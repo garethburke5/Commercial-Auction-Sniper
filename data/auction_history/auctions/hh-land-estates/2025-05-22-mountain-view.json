@@ -1,0 +1,38 @@
+{
+  "auctioneer": "H&H Land & Estates",
+  "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+  "operator_company_number": "03780434",
+  "source_auction_id": "hh-land-estates:2025-05-22-mountain-view",
+  "auction_date": "2025-05-22",
+  "auction_date_precision": "day",
+  "source_urls": [
+    "https://hhlandestates.co.uk/news/45137/springing-into-sales/",
+    "https://hhlandestates.co.uk/news/45556/strong-results-at-spring-land-auction/"
+  ],
+  "published_named_interest_denominator": 2,
+  "lots_captured": 2,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "reviewed named property inventory",
+  "aggregate_result_not_assigned_to_components": 184000,
+  "source_evidence": [
+    {
+      "source_url": "https://hhlandestates.co.uk/news/45137/springing-into-sales/",
+      "retrieved_at": "2026-11-12T14:18:58.038887+00:00",
+      "sha256": "825b4e62f3fbe6448a01125ec51c1b204986b12f76ce2e38d62dbdb4473fce4c",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-mountain-view-catalogue-825b4e62f3fbe644.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    },
+    {
+      "source_url": "https://hhlandestates.co.uk/news/45556/strong-results-at-spring-land-auction/",
+      "retrieved_at": "2026-11-12T14:19:03.811783+00:00",
+      "sha256": "702e5e917c194c66bbf717389ae69f9fcb707054e8ef98abf5c3e65e98647e95",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-mountain-view-results-702e5e917c194c66.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-12T14:19:03.828967+00:00"
+}

@@ -1,0 +1,38 @@
+{
+  "auctioneer": "H&H Land & Estates",
+  "operator_legal_name": "H&H LAND & ESTATES LIMITED",
+  "operator_company_number": "03780434",
+  "source_auction_id": "hh-land-estates:2022-11-23-borderway",
+  "auction_date": "2022-11-23",
+  "auction_date_precision": "day",
+  "source_urls": [
+    "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+    "https://hhlandestates.co.uk/news/5029/record-land-prices-for-cumbrian-farmland/"
+  ],
+  "published_named_interest_denominator": 2,
+  "lots_captured": 2,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "reviewed named property inventory",
+  "aggregate_result_not_assigned_to_components": null,
+  "source_evidence": [
+    {
+      "source_url": "https://hhlandestates.co.uk/news/4879/our-upcoming-auctions/",
+      "retrieved_at": "2026-11-12T14:18:22.617928+00:00",
+      "sha256": "4d49204faf59f2072728b36ec273fdd3de5b601e4f5b41991f1574aaabcad5b8",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-4d49204faf59f207.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    },
+    {
+      "source_url": "https://hhlandestates.co.uk/news/5029/record-land-prices-for-cumbrian-farmland/",
+      "retrieved_at": "2026-11-12T14:18:28.166343+00:00",
+      "sha256": "73d1664ba63d20107a7997e96d875309fb79f4e18c118d3dfbd17363701e4a9a",
+      "snapshot_path": "data/auction_history/sources/hh-land-estates/article-november-2022-results-73d1664ba63d2010.html.gz",
+      "basis": "first-party H&H Land & Estates auction article"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-12T14:19:03.817205+00:00"
+}

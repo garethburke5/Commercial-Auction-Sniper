@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T13:21:04.893457+00:00",
-  "corpus_checkpoint": "2026-11-12T13:17:39.641167+00:00",
+  "generated_at": "2026-11-12T14:25:37.348730+00:00",
+  "corpus_checkpoint": "2026-11-12T14:21:16.830700+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -3492,13 +3492,18 @@
       "name": "H & H Land and Estates",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/h-h-land-and-estates",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "H&H Land & Estates",
+      "match_basis": "existing evidenced source registry",
+      "retained_appearances": 55,
+      "years_with_retained_evidence": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "with_guide_price": 32,
+      "with_sale_price": 28,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8201,7 +8206,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 465,
+  "directory_entries_not_linked": 464,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8279,6 +8284,7 @@
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
     "Goldings Auctions": 635,
+    "H&H Land & Estates": 55,
     "Halls": 209,
     "Hanover Auction": 26,
     "Harman Healy": 1521,
@@ -8336,13 +8342,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305622,
-      "auction_ids_observed": 13761,
-      "with_guide_price": 107679,
-      "with_sale_price": 112880,
-      "with_both_prices": 49095,
-      "marked_sold": 155851,
-      "marked_sold_without_sale_price": 43711
+      "lot_appearances": 305677,
+      "auction_ids_observed": 13780,
+      "with_guide_price": 107711,
+      "with_sale_price": 112908,
+      "with_both_prices": 49105,
+      "marked_sold": 155880,
+      "marked_sold_without_sale_price": 43712
     },
     "by_auctioneer_and_year": [
       {
@@ -13813,6 +13819,50 @@
         "marked_sold_without_sale_price": 1
       },
       {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2022,
+        "lot_appearances": 31,
+        "auction_ids_observed": 11,
+        "with_guide_price": 13,
+        "with_sale_price": 23,
+        "with_both_prices": 6,
+        "marked_sold": 23,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2023,
+        "lot_appearances": 12,
+        "auction_ids_observed": 3,
+        "with_guide_price": 12,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2024,
+        "lot_appearances": 10,
+        "auction_ids_observed": 4,
+        "with_guide_price": 6,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "H&H Land & Estates",
+        "year": 2025,
+        "lot_appearances": 2,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 1
+      },
+      {
         "auctioneer": "Halls",
         "year": 2023,
         "lot_appearances": 41,
@@ -17761,6 +17811,24 @@
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     },
+    "hh-land-estates": {
+      "source": "hh-land-estates",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T14:17:53.642911+00:00",
+      "run_new_appearances": 55,
+      "run_new_dated_twenty_year_address_records": 55,
+      "run_new_commercial_or_mixed": 14,
+      "run_new_guide_prices": 32,
+      "run_new_sale_prices": 28,
+      "newly_covered_source_years": [
+        "2022",
+        "2023",
+        "2024",
+        "2025"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
     "bowen": {
       "source": "bowen",
       "outcome": "completed",
@@ -20198,6 +20266,24 @@
       "lots_captured": 5,
       "errors": [],
       "checked_at": "2026-11-12T01:49:04.345294+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/hh-land-estates/2024-01-24-helton.json",
+      "auctioneer": "H&H Land & Estates",
+      "auction_date": "2024-01-24",
+      "source_url": null,
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.823176+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/hh-land-estates/2022-12-21-silecroft.json",
+      "auctioneer": "H&H Land & Estates",
+      "auction_date": "2022-12-21",
+      "source_url": null,
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-12T14:19:03.818344+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/tw-gaze/2017-05-11.json",
@@ -23655,7 +23741,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T13:21:04.295437+00:00",
+    "checked_at": "2026-11-12T14:25:36.736890+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
