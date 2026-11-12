@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Inventory and batch Halls' retained 2022 first-party collective property and land catalogues from original publisher URLs, beginning with complete numbered event assets and lot-scoped results where retained text is available. Keep the known Halls WordPress PDF 403 route bounded; use retained publisher-asset text or a materially different byte-accessible route. National completeness remains false.",
+  "next_growth_target": "Build one reusable H&H Land & Estates first-party news/result runner, beginning with the complete nine-property 27 April 2022 result inventory at https://hhlandestates.co.uk/news/1338/over-%C2%A35-million-of-sales-by-auction/; inventory the adjacent 2020-2024 auction-result articles, preserve each immutable page and original URL, and bank only exact-dated individual properties with guide and achieved prices kept distinct. Reconcile H&H offices and trading names without counting them as additional auctioneers. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4315,6 +4315,22 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "tw-gaze",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T13:13:12.619979+00:00",
+      "run_new_appearances": 9,
+      "run_new_dated_twenty_year_address_records": 8,
+      "run_new_commercial_or_mixed": 2,
+      "run_new_guide_prices": 9,
+      "run_new_sale_prices": 3,
+      "newly_covered_source_years": [
+        "2017",
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -5018,15 +5034,15 @@
     "tw-gaze": {
       "source": "tw-gaze",
       "outcome": "completed",
-      "checked_at": "2026-11-05T10:44:14.282407+00:00",
-      "run_new_appearances": 28,
-      "run_new_dated_twenty_year_address_records": 28,
-      "run_new_commercial_or_mixed": 1,
-      "run_new_guide_prices": 27,
-      "run_new_sale_prices": 8,
+      "checked_at": "2026-11-12T13:13:12.619979+00:00",
+      "run_new_appearances": 9,
+      "run_new_dated_twenty_year_address_records": 8,
+      "run_new_commercial_or_mixed": 2,
+      "run_new_guide_prices": 9,
+      "run_new_sale_prices": 3,
       "newly_covered_source_years": [
-        "2018",
-        "2019"
+        "2017",
+        "2023"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -5171,19 +5187,17 @@
     }
   },
   "last_automated_growth": {
-    "source": "auction_property_archive",
+    "source": "tw-gaze",
     "outcome": "completed",
-    "checked_at": "2026-11-12T09:11:37.648579+00:00",
-    "run_new_appearances": 51,
-    "run_new_dated_twenty_year_address_records": 51,
-    "run_new_commercial_or_mixed": 15,
-    "run_new_guide_prices": 6,
-    "run_new_sale_prices": 0,
+    "checked_at": "2026-11-12T13:13:12.619979+00:00",
+    "run_new_appearances": 9,
+    "run_new_dated_twenty_year_address_records": 8,
+    "run_new_commercial_or_mixed": 2,
+    "run_new_guide_prices": 9,
+    "run_new_sale_prices": 3,
     "newly_covered_source_years": [
-      "2023",
-      "2024",
-      "2025",
-      "2026"
+      "2017",
+      "2023"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
@@ -5211,10 +5225,15 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-08T04:44:25.236096+00:00",
-    "source_key_candidate": "uncovered-source-year-register",
-    "opportunity": "a substantial accessible individual-lot inventory from a different auctioneer/source-year",
-    "next_growth_target": "Move to a different uncovered source/year register target with a substantial accessible individual-lot inventory; do not repeat the now-reconciled 20 linked Lextons result sheets. Keep the three linkless Lextons labels (July 2022, February 2024 and September 2024) outside the accessible denominator until a materially different recovery route exists. Keep national completeness false.",
+    "checked_at": "2026-11-12T13:13:12.619979+00:00",
+    "source_key_candidate": "hh-land-estates-2022-result-news",
+    "auctioneer": "H&H Land & Estates",
+    "source_urls": [
+      "https://hhlandestates.co.uk/news/1338/over-%C2%A35-million-of-sales-by-auction/"
+    ],
+    "source_format": "first-party exact-dated auction result articles",
+    "opportunity": "accessible multi-event result archive with uncaptured individual lots",
+    "next_growth_target": "Build one reusable H&H Land & Estates first-party news/result runner, beginning with the complete nine-property 27 April 2022 result inventory at https://hhlandestates.co.uk/news/1338/over-%C2%A35-million-of-sales-by-auction/; inventory the adjacent 2020-2024 auction-result articles, preserve each immutable page and original URL, and bank only exact-dated individual properties with guide and achieved prices kept distinct. Reconcile H&H offices and trading names without counting them as additional auctioneers. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,

@@ -1,0 +1,29 @@
+{
+  "auctioneer": "TW Gaze",
+  "operator_legal_name": "TWG (1857) LTD",
+  "operator_company_number": "08965732",
+  "source_auction_id": "tw-gaze:2023-03-15",
+  "auction_date": "2023-03-15",
+  "source_url": "https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf",
+  "published_lot_denominator": 6,
+  "lots_captured": 6,
+  "catalogue_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "all individually numbered lots in the retained catalogue PDF",
+  "retrieval_route": "retained first-party exact-dated catalogue PDF",
+  "source_evidence": {
+    "source_url": "https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf",
+    "retrieved_at": "2026-11-12T13:12:54.909879+00:00",
+    "sha256": "4c63d61bb7c2351e2dbd65d410e22d9c32981a6acaf393a570782d0f41557824",
+    "basis": "retained first-party exact-dated catalogue PDF",
+    "snapshot_parts": [
+      "data/auction_history/sources/tw-gaze/catalogue-2023-03-15.pdf-4c63d61bb7c2351e.gz.part-001",
+      "data/auction_history/sources/tw-gaze/catalogue-2023-03-15.pdf-4c63d61bb7c2351e.gz.part-002",
+      "data/auction_history/sources/tw-gaze/catalogue-2023-03-15.pdf-4c63d61bb7c2351e.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover the source object",
+    "snapshot_compressed_bytes": 17103024
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T13:12:54.910135+00:00"
+}

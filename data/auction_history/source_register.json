@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T12:09:38.489176+00:00",
-  "corpus_checkpoint": "2026-11-12T12:08:39.344814+00:00",
+  "generated_at": "2026-11-12T13:21:04.893457+00:00",
+  "corpus_checkpoint": "2026-11-12T13:17:39.641167+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7849,13 +7849,15 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "TW Gaze",
       "match_basis": "exact label",
-      "retained_appearances": 28,
+      "retained_appearances": 37,
       "years_with_retained_evidence": [
+        2017,
         2018,
-        2019
+        2019,
+        2023
       ],
-      "with_guide_price": 27,
-      "with_sale_price": 8,
+      "with_guide_price": 36,
+      "with_sale_price": 11,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8323,7 +8325,7 @@
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1142,
-    "TW Gaze": 28,
+    "TW Gaze": 37,
     "The Auction Company": 123,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3080,
@@ -8334,12 +8336,12 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305613,
-      "auction_ids_observed": 13759,
-      "with_guide_price": 107670,
-      "with_sale_price": 112877,
-      "with_both_prices": 49092,
-      "marked_sold": 155848,
+      "lot_appearances": 305622,
+      "auction_ids_observed": 13761,
+      "with_guide_price": 107679,
+      "with_sale_price": 112880,
+      "with_both_prices": 49095,
+      "marked_sold": 155851,
       "marked_sold_without_sale_price": 43711
     },
     "by_auctioneer_and_year": [
@@ -16936,6 +16938,17 @@
       },
       {
         "auctioneer": "TW Gaze",
+        "year": 2017,
+        "lot_appearances": 3,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "TW Gaze",
         "year": 2018,
         "lot_appearances": 11,
         "auction_ids_observed": 2,
@@ -16954,6 +16967,17 @@
         "with_sale_price": 2,
         "with_both_prices": 2,
         "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "TW Gaze",
+        "year": 2023,
+        "lot_appearances": 6,
+        "auction_ids_observed": 1,
+        "with_guide_price": 6,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -17721,6 +17745,22 @@
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     },
+    "tw-gaze": {
+      "source": "tw-gaze",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T13:13:12.619979+00:00",
+      "run_new_appearances": 9,
+      "run_new_dated_twenty_year_address_records": 8,
+      "run_new_commercial_or_mixed": 2,
+      "run_new_guide_prices": 9,
+      "run_new_sale_prices": 3,
+      "newly_covered_source_years": [
+        "2017",
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
     "bowen": {
       "source": "bowen",
       "outcome": "completed",
@@ -17942,22 +17982,6 @@
         "2024",
         "2025",
         "2026"
-      ],
-      "duplicate_source_evidence_excluded": 0,
-      "national_completeness_verified": false
-    },
-    "tw-gaze": {
-      "source": "tw-gaze",
-      "outcome": "completed",
-      "checked_at": "2026-11-05T10:44:14.282407+00:00",
-      "run_new_appearances": 28,
-      "run_new_dated_twenty_year_address_records": 28,
-      "run_new_commercial_or_mixed": 1,
-      "run_new_guide_prices": 27,
-      "run_new_sale_prices": 8,
-      "newly_covered_source_years": [
-        "2018",
-        "2019"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -20174,6 +20198,15 @@
       "lots_captured": 5,
       "errors": [],
       "checked_at": "2026-11-12T01:49:04.345294+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/tw-gaze/2017-05-11.json",
+      "auctioneer": "TW Gaze",
+      "auction_date": "2017-05-11",
+      "source_url": "https://www.twgaze.co.uk/about-us/news/duis-vehicula-placerat-massa-non-rhoncus/",
+      "lots_captured": 3,
+      "errors": [],
+      "checked_at": "2026-11-12T13:13:02.383781+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/tw-gaze/2018-03-21.json",
@@ -23622,8 +23655,8 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T12:09:36.493690+00:00",
-    "sha256": "ca8c6827b2533aa965db57b601cf0b68c77d0b0a13ec2f646275a65ae384c0e9",
+    "checked_at": "2026-11-12T13:21:04.295437+00:00",
+    "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
 }

@@ -1,42 +1,44 @@
 {
-  "checked_at": "2026-11-05T10:44:14.282407+00:00",
+  "checked_at": "2026-11-12T13:13:12.619979+00:00",
   "operator": {
     "canonical_name": "TW Gaze",
     "company_name": "TWG (1857) LTD",
     "company_number": "08965732",
     "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
   },
-  "catalogues_captured": 3,
-  "result_events_captured": 1,
-  "appearances_captured": 28,
-  "run_new_appearances": 28,
-  "run_new_address_records": 28,
-  "run_new_exact_dated_address_records": 28,
-  "run_new_dated_twenty_year_address_records": 28,
-  "run_new_partial_lots": 0,
+  "catalogues_captured": 4,
+  "result_events_captured": 2,
+  "appearances_captured": 37,
+  "run_new_appearances": 9,
+  "run_new_address_records": 8,
+  "run_new_exact_dated_address_records": 8,
+  "run_new_dated_twenty_year_address_records": 8,
+  "run_new_partial_lots": 2,
   "run_new_undated_lots": 0,
   "run_new_future_dated_lots": 0,
-  "run_new_guide_prices": 27,
-  "run_new_sale_prices": 8,
+  "run_new_guide_prices": 9,
+  "run_new_sale_prices": 3,
   "run_new_rents": 0,
-  "run_new_commercial_or_mixed": 1,
+  "run_new_commercial_or_mixed": 2,
   "source_years": [
+    "2017",
     "2018",
-    "2019"
+    "2019",
+    "2023"
   ],
   "newly_covered_source_years": [
-    "2018",
-    "2019"
+    "2017",
+    "2023"
   ],
   "by_sector": {
-    "unknown": 13,
-    "commercial": 1,
-    "land": 13,
-    "residential": 1
+    "unknown": 14,
+    "residential": 6,
+    "commercial": 3,
+    "land": 14
   },
   "by_status": {
-    "unknown": 20,
-    "sold": 8
+    "sold": 11,
+    "unknown": 26
   },
   "auctions": {
     "2018-10-04": {
@@ -51,15 +53,16 @@
       "catalogue_complete": true,
       "denominator_reconciled": true,
       "completion_scope": "all individually numbered lots in the retained catalogue PDF",
+      "retrieval_route": "retained first-party exact-dated catalogue PDF",
       "source_evidence": {
         "source_url": "https://media.onthemarket.com/properties/5508313/673160328/document-0.pdf",
-        "retrieved_at": "2026-11-05T10:44:04.559866+00:00",
+        "retrieved_at": "2026-11-12T13:12:38.913561+00:00",
         "sha256": "f02a5faa7de7715608acc22281a35a55ebba8d63c95c96a4d12cf8cd6d0efa78",
         "snapshot_path": "data/auction_history/sources/tw-gaze/catalogue-2018-10-04.pdf-f02a5faa7de77156.gz",
         "basis": "retained first-party exact-dated catalogue PDF"
       },
       "errors": [],
-      "checked_at": "2026-11-05T10:44:04.560371+00:00"
+      "checked_at": "2026-11-12T13:12:38.914166+00:00"
     },
     "2019-09-12": {
       "auctioneer": "TW Gaze",
@@ -73,15 +76,16 @@
       "catalogue_complete": true,
       "denominator_reconciled": true,
       "completion_scope": "all individually numbered lots in the retained catalogue PDF",
+      "retrieval_route": "retained first-party exact-dated catalogue PDF",
       "source_evidence": {
         "source_url": "https://media.onthemarket.com/properties/7407772/1113285375/document-0.pdf",
-        "retrieved_at": "2026-11-05T10:44:05.012279+00:00",
+        "retrieved_at": "2026-11-12T13:12:42.944545+00:00",
         "sha256": "9cf44200d3dfc9a0dec6cb0c51cfce9906870ccafe3b3b10e5c6913a821f62d1",
         "snapshot_path": "data/auction_history/sources/tw-gaze/catalogue-2019-09-12.pdf-9cf44200d3dfc9a0.gz",
         "basis": "retained first-party exact-dated catalogue PDF"
       },
       "errors": [],
-      "checked_at": "2026-11-05T10:44:05.012487+00:00"
+      "checked_at": "2026-11-12T13:12:42.945187+00:00"
     },
     "2019-11-21": {
       "auctioneer": "TW Gaze",
@@ -95,15 +99,45 @@
       "catalogue_complete": true,
       "denominator_reconciled": true,
       "completion_scope": "all individually numbered lots in the retained catalogue PDF",
+      "retrieval_route": "retained first-party exact-dated catalogue PDF",
       "source_evidence": {
         "source_url": "https://media.onthemarket.com/properties/7772028/1171489795/document-0.pdf",
-        "retrieved_at": "2026-11-05T10:44:05.449538+00:00",
+        "retrieved_at": "2026-11-12T13:12:47.310902+00:00",
         "sha256": "e1173e42a1fb0f09b7388acf8b1f16f421935c2c547f63bf06a08ddb83521381",
         "snapshot_path": "data/auction_history/sources/tw-gaze/catalogue-2019-11-21.pdf-e1173e42a1fb0f09.gz",
         "basis": "retained first-party exact-dated catalogue PDF"
       },
       "errors": [],
-      "checked_at": "2026-11-05T10:44:05.449745+00:00"
+      "checked_at": "2026-11-12T13:12:47.311112+00:00"
+    },
+    "2023-03-15": {
+      "auctioneer": "TW Gaze",
+      "operator_legal_name": "TWG (1857) LTD",
+      "operator_company_number": "08965732",
+      "source_auction_id": "tw-gaze:2023-03-15",
+      "auction_date": "2023-03-15",
+      "source_url": "https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf",
+      "published_lot_denominator": 6,
+      "lots_captured": 6,
+      "catalogue_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "all individually numbered lots in the retained catalogue PDF",
+      "retrieval_route": "retained first-party exact-dated catalogue PDF",
+      "source_evidence": {
+        "source_url": "https://www.twgaze.co.uk/assets/Uploads/NEW-March-2023-Land-and-Property-Auction-Brochure.pdf",
+        "retrieved_at": "2026-11-12T13:12:54.909879+00:00",
+        "sha256": "4c63d61bb7c2351e2dbd65d410e22d9c32981a6acaf393a570782d0f41557824",
+        "basis": "retained first-party exact-dated catalogue PDF",
+        "snapshot_parts": [
+          "data/auction_history/sources/tw-gaze/catalogue-2023-03-15.pdf-4c63d61bb7c2351e.gz.part-001",
+          "data/auction_history/sources/tw-gaze/catalogue-2023-03-15.pdf-4c63d61bb7c2351e.gz.part-002",
+          "data/auction_history/sources/tw-gaze/catalogue-2023-03-15.pdf-4c63d61bb7c2351e.gz.part-003"
+        ],
+        "snapshot_encoding": "concatenate parts, then gzip-decompress to recover the source object",
+        "snapshot_compressed_bytes": 17103024
+      },
+      "errors": [],
+      "checked_at": "2026-11-12T13:12:54.910135+00:00"
     },
     "2018-03-21": {
       "auctioneer": "TW Gaze",
@@ -120,13 +154,38 @@
       "completion_scope": "all sold individual property rows exposed on retained first-party result page",
       "source_evidence": {
         "source_url": "https://www.twgaze.co.uk/auctions/catalogues-and-auctions/httpsauctions-twgaze-co-ukauction-results/land-and-property-auction-3/print/",
-        "retrieved_at": "2026-11-05T10:44:06.309698+00:00",
+        "retrieved_at": "2026-11-12T13:12:58.536853+00:00",
         "sha256": "a38f65109c61967860564beabcb90e87739b45e111dddb64115433bcf1054da6",
         "snapshot_path": "data/auction_history/sources/tw-gaze/result-event-2018-03-21.html-a38f65109c619678.gz",
         "basis": "first-party exact-dated event result page"
       },
       "errors": [],
-      "checked_at": "2026-11-05T10:44:06.309851+00:00"
+      "checked_at": "2026-11-12T13:12:58.536987+00:00"
+    },
+    "2017-05-11": {
+      "auctioneer": "TW Gaze",
+      "operator_legal_name": "TWG (1857) LTD",
+      "operator_company_number": "08965732",
+      "source_auction_id": "tw-gaze:2017-05-11",
+      "auction_date": "2017-05-11",
+      "source_url": "https://www.twgaze.co.uk/about-us/news/duis-vehicula-placerat-massa-non-rhoncus/",
+      "published_named_result_denominator": 3,
+      "lots_captured": 3,
+      "catalogue_complete": false,
+      "event_inventory_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": true,
+      "completion_scope": "every individually named 11 May 2017 result appearance in the retained narrative; not the full event",
+      "partial_location_rows": 2,
+      "source_evidence": {
+        "source_url": "https://www.twgaze.co.uk/about-us/news/duis-vehicula-placerat-massa-non-rhoncus/",
+        "retrieved_at": "2026-11-12T13:13:02.383628+00:00",
+        "sha256": "ee121f0cc050e75bbde692ae5bdd78b3d3a6c69721d9184f111be2fae8f165a2",
+        "snapshot_path": "data/auction_history/sources/tw-gaze/result-narrative-2017-05-11.html-ee121f0cc050e75b.gz",
+        "basis": "first-party result narrative with exact event date, named properties, guides and achieved prices"
+      },
+      "errors": [],
+      "checked_at": "2026-11-12T13:13:02.383781+00:00"
     }
   },
   "run_duplicate_source_evidence_excluded": 0,

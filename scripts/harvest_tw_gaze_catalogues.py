@@ -33,6 +33,7 @@ import historical_corpus as corpus
 
 SOURCE = "TW Gaze"
 SLUG = "tw-gaze"
+MAX_SNAPSHOT_PART_BYTES = 7_000_000
 OPERATOR = "TWG (1857) LTD"
 COMPANY_NUMBER = "08965732"
 HEADERS = {
@@ -51,13 +52,14 @@ NARRATIVE_RESULT_URL = (
     "https://www.twgaze.co.uk/about-us/news/"
     "duis-vehicula-placerat-massa-non-rhoncus/"
 )
-NEXT_URL = "https://www.twgaze.co.uk/assets/properties/jupix/brochures/101039006398/MED-6398-7930.pdf"
+NEXT_URL = "https://hhlandestates.co.uk/news/1338/over-%C2%A35-million-of-sales-by-auction/"
 NEXT_TARGET = (
-    "Inventory and bank every individual lot in TW Gaze's retained 11 May 2017 "
-    f"Land & Property Auction brochure at {NEXT_URL}; preserve the first-party PDF and "
-    "reconcile any result pages only by exact event, lot and address. Separately recover "
-    "the exact events for the still-unmatched Hopton and Kenninghall retrospective result "
-    "rows. Keep national completeness false."
+    "Build one reusable H&H Land & Estates first-party news/result runner, beginning with "
+    f"the complete nine-property 27 April 2022 result inventory at {NEXT_URL}; inventory "
+    "the adjacent 2020-2024 auction-result articles, preserve each immutable page and "
+    "original URL, and bank only exact-dated individual properties with guide and achieved "
+    "prices kept distinct. Reconcile H&H offices and trading names without counting them "
+    "as additional auctioneers. National completeness remains false."
 )
 
 
@@ -164,7 +166,7 @@ FOLLOW_ON_CATALOGUES = (
             ),
             lot(
                 5,
-                "Building Plot at Meadowbank Farm, Westhorpe Road, Finningham IP1 4TN",
+                "Building Plot at Meadowbank Farm, Westhorpe Road, Finningham IP14 4TN",
                 120000,
                 125000,
                 description="Single residential building plot with full planning permission for a four bedroom house.",
@@ -346,14 +348,39 @@ def validate_narrative_result_page(html):
 def evidence_snapshot(raw, name, source_url, basis):
     sha = hashlib.sha256(raw).hexdigest()
     path = corpus.DATA / "sources" / SLUG / f"{name}-{sha[:16]}.gz"
-    if not path.exists():
-        corpus.atomic(path, gzip.compress(raw, mtime=0))
+    compressed = gzip.compress(raw, mtime=0)
+    if len(compressed) <= MAX_SNAPSHOT_PART_BYTES:
+        paths = [path]
+    else:
+        paths = [
+            Path(f"{path}.part-{index // MAX_SNAPSHOT_PART_BYTES + 1:03d}")
+            for index in range(0, len(compressed), MAX_SNAPSHOT_PART_BYTES)
+        ]
+    if all(item.exists() for item in paths):
+        saved = b"".join(item.read_bytes() for item in paths)
+        if hashlib.sha256(gzip.decompress(saved)).hexdigest() != sha:
+            raise ValueError(f"immutable snapshot collision at {paths}")
+    elif any(item.exists() for item in paths):
+        raise ValueError(f"incomplete immutable snapshot parts at {paths}")
+    else:
+        for index, item in enumerate(paths):
+            start = index * MAX_SNAPSHOT_PART_BYTES
+            corpus.atomic(item, compressed[start:start + MAX_SNAPSHOT_PART_BYTES])
+    snapshot_fields = (
+        {"snapshot_path": str(paths[0].relative_to(corpus.ROOT))}
+        if len(paths) == 1
+        else {
+            "snapshot_parts": [str(item.relative_to(corpus.ROOT)) for item in paths],
+            "snapshot_encoding": "concatenate parts, then gzip-decompress to recover the source object",
+            "snapshot_compressed_bytes": len(compressed),
+        }
+    )
     return {
         "source_url": source_url,
         "retrieved_at": corpus.now(),
         "sha256": sha,
-        "snapshot_path": str(path.relative_to(corpus.ROOT)),
         "basis": basis,
+        **snapshot_fields,
     }
 
 
@@ -478,11 +505,11 @@ def persist_continuation(summary):
     payload["next_growth_target"] = NEXT_TARGET
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "tw-gaze-2023-03-15-catalogue",
-        "auctioneer": SOURCE,
+        "source_key_candidate": "hh-land-estates-2022-result-news",
+        "auctioneer": "H&H Land & Estates",
         "source_urls": [NEXT_URL],
-        "source_format": "retained first-party land and property auction brochure PDF",
-        "opportunity": "accessible exact-dated catalogue with uncaptured individual lots",
+        "source_format": "first-party exact-dated auction result articles",
+        "opportunity": "accessible multi-event result archive with uncaptured individual lots",
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
     }

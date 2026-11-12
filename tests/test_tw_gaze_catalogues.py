@@ -1,5 +1,12 @@
+import gzip
+import hashlib
+import json
+from pathlib import Path
+
 from scripts.harvest_tw_gaze_catalogues import (
     CATALOGUES,
+    FOLLOW_ON_CATALOGUES,
+    MAX_SNAPSHOT_PART_BYTES,
     NARRATIVE_RESULT_ROWS,
     RESULT_ROWS,
     appearance,
@@ -23,6 +30,24 @@ def test_catalogue_validation_requires_date_address_and_guide_evidence():
     # distinctive title tokens and guide evidence must still reconcile.
     text = "21st November 2019 Lot 1 Land Low Road Guide 25-30 other column at IP20 0HJ"
     assert validate_catalogue(text, spec) is True
+
+
+def test_follow_on_catalogue_preserves_pdf_postcode():
+    lot_five = FOLLOW_ON_CATALOGUES[0]["lots"][4]
+    assert lot_five["address"].endswith("IP14 4TN")
+
+
+def test_follow_on_large_snapshot_parts_reassemble_to_first_party_hash():
+    root = Path(__file__).resolve().parents[1]
+    state = json.loads(
+        (root / "data/auction_history/auctions/tw-gaze/2023-03-15.json").read_text()
+    )
+    evidence = state["source_evidence"]
+    parts = [root / item for item in evidence["snapshot_parts"]]
+    assert all(item.stat().st_size <= MAX_SNAPSHOT_PART_BYTES for item in parts)
+    packed = b"".join(item.read_bytes() for item in parts)
+    assert len(packed) == evidence["snapshot_compressed_bytes"]
+    assert hashlib.sha256(gzip.decompress(packed)).hexdigest() == evidence["sha256"]
 
 
 def test_result_page_validation_and_price_semantics():
