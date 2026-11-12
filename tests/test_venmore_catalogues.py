@@ -3,17 +3,22 @@ import pytest
 from scripts import harvest_venmore_catalogues as collector
 
 
-def test_manifest_reconciles_twenty_one_catalogues_and_838_printed_lots():
+def test_manifest_reconciles_twenty_seven_catalogues_and_1078_printed_lots():
     payload = collector.load_manifest()
-    assert payload["expected_catalogues"] == 21
-    assert payload["expected_lots"] == 838
+    assert payload["expected_catalogues"] == 27
+    assert payload["expected_lots"] == 1078
     assert payload["baseline_event_dates"] == [
-        "2023-07-12", "2024-03-27", "2024-05-15", "2024-12-04",
+        "2023-07-12", "2024-03-27", "2024-05-15", "2024-07-10",
+        "2024-09-04", "2024-10-16", "2024-12-04", "2025-02-05",
+        "2025-03-26", "2025-05-15", "2025-06-11", "2025-07-09",
+        "2025-09-03", "2025-10-15",
         "2025-12-03", "2026-02-11", "2026-03-25", "2026-05-13",
         "2026-07-09", "2026-09-02", "2026-10-21",
     ]
     assert {event["auction_date"] for event in payload["events"]} == {
-        "2023-07-12", "2024-03-27", "2024-05-15", "2024-07-10",
+        "2023-04-12", "2023-05-24", "2023-07-12", "2023-09-06",
+        "2023-10-25", "2023-12-06", "2024-02-07", "2024-03-27",
+        "2024-05-15", "2024-07-10",
         "2024-09-04", "2024-10-16", "2024-12-04", "2025-02-05",
         "2025-03-26", "2025-05-15", "2025-06-11", "2025-07-09",
         "2025-09-03", "2025-10-15", "2025-12-03", "2026-02-11",

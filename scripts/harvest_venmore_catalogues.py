@@ -49,11 +49,11 @@ POSTCODE = corpus.PC
 RENT_PCM = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?c\.?m\.?|per\s+calendar\s+month)", re.I)
 RENT_PA = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?\s*a\.?|per\s+annum)", re.I)
 NEXT_TARGET = (
-    "Recover Venmore's surviving 2023 catalogues (11 January, 8 February, 8 March, 12 April, "
-    "24 May, 6 September, 25 October and 6 December) plus 7 February 2024 through the same "
-    "retained-userfiles batch runner, then continue into the 2022 archive. Reconcile the four "
-    "known 2025-2026 online-only late lots through a materially different source route. "
-    "National completeness remains false."
+    "Recover Venmore's 11 January, 8 February and 8 March 2023 catalogues through a materially "
+    "different saved-file or search-index route: their first-party event pages retain only "
+    "addenda and zero live properties. Then batch the surviving 2022 catalogues through this "
+    "retained-userfiles runner. Reconcile the four known 2025-2026 online-only late lots only "
+    "from individual source evidence. National completeness remains false."
 )
 
 
@@ -420,12 +420,12 @@ def persist_continuation(summary):
     payload["next_growth_target"] = NEXT_TARGET
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "venmore-auctions-2023-2024-retained-catalogues",
+        "source_key_candidate": "venmore-auctions-2022-retained-catalogues",
         "auctioneer": SOURCE,
         "source_format": "first-party retained catalogue PDFs",
         "opportunity": (
-            "batch eight missing 2023 catalogue dates and 7 February 2024 through the "
-            "existing Venmore runner, then continue into the surviving 2022 archive"
+            "recover the three linkless January-March 2023 catalogues only through a "
+            "new route, then batch the surviving 2022 catalogues through this runner"
         ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
@@ -539,8 +539,9 @@ def harvest():
         "duplicate_source_evidence_exclusions": overlaps,
         "live_archive_route_blocker": (
             "historical event pages remain reachable, but most older live grids have "
-            "been cleared to zero properties; retained first-party userfiles PDFs "
-            "preserve the individual printed rows"
+            "been cleared to zero properties; the January-March 2023 pages retain "
+            "addenda but no catalogue link. Retained first-party userfiles PDFs "
+            "preserve the other individual printed rows"
         ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,

@@ -3,6 +3,42 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Venmore retained 2023 and February 2024 catalogue batch
+
+- **Specific growth opportunity executed:** six complete first-party catalogue
+  PDFs dated 12 April, 24 May, 6 September, 25 October and 6 December 2023 plus
+  7 February 2024 were added to the existing reusable Venmore manifest runner.
+  Their contiguous order-of-lots tables reconcile **240/240 printed rows**.
+  Exact event dates and original event/catalogue URLs are retained, and every
+  source PDF is stored as checksum-verified immutable parts.
+- **Measured net gain:** **240 appearances / 240 address records / 240
+  exact-dated addresses inside the twenty-year window**. New partial-address,
+  undated, future-dated and duplicate-source-evidence records are all **0**.
+- **Sector and evidence gain:** **8 commercial, 23 mixed-use, 5 land, 185
+  residential and 19 unknown** appearances; the commercial/mixed-use subset is
+  **31**. The batch adds **230 numeric guides, 0 achieved prices and 141
+  published rents**. It preserves nine sold-prior and one postponed catalogue
+  outcomes without converting guide or availability wording into a sale price.
+- **Inventory reconciliation:** Venmore now retains **1,078 printed rows across
+  27 first-party catalogues**. The six new catalogues are complete; the four
+  separately recorded 2025-2026 online-only late lots remain unreconciled and
+  are not fabricated from missing rows. Newly covered source-years are **0**
+  because both 2023 and 2024 already had individual catalogue evidence.
+- **Bounded blocker:** first-party event pages for 11 January, 8 February and
+  8 March 2023 remain reachable but retain only addenda and zero live
+  properties, with no catalogue link. They require a materially different
+  saved-file or search-index route rather than another live-page refresh.
+- **Corpus after rebuild:** **318,867 appearances**, **306,309 address records**
+  and **309,380 in-window appearances**. In-window evidence includes **111,106
+  numeric guides** and **114,231 achieved prices**; the latter is unchanged by
+  this catalogue-only batch. Undated and future-dated totals remain **6,219**
+  and **148**.
+- **Next concrete growth target:** recover the three missing January-March 2023
+  catalogues only through a new saved-file/search-index route, then batch the
+  surviving 2022 Venmore catalogues through this same runner.
+
+National completeness remains **false**.
+
 ## 12 November 2026 — Venmore Auctions 2024-2025 catalogue batch
 
 - **Specific growth opportunity executed:** ten accessible first-party Venmore

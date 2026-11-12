@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2023-10-25",
+  "auction_date": "2023-10-25",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1103009041-Venmore%20Auction%20October%20Catalogue%2023%20%28Compressed%29.pdf",
+  "published_lots": 44,
+  "catalogue_published_lots": 44,
+  "lots_captured": 44,
+  "online_listing_gap": 0,
+  "guides_captured": 44,
+  "rents_captured": 30,
+  "published_outcomes_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=84",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1103009041-Venmore%20Auction%20October%20Catalogue%2023%20%28Compressed%29.pdf",
+    "retrieved_at": "2026-11-12T22:12:33.464099+00:00",
+    "sha256": "d11db96b2cf7d1dcc0811a2b2a0f0f75c914d0a452b4a1d2a77a3a8fb3c52186",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=84",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-10-25-d11db96b2cf7d1dcc081.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-10-25-d11db96b2cf7d1dcc081.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-10-25-d11db96b2cf7d1dcc081.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T22:12:33.664741+00:00"
+}
