@@ -19,8 +19,10 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from urllib.parse import urljoin
 
 import requests
+from bs4 import BeautifulSoup
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
@@ -28,7 +30,7 @@ import historical_corpus as corpus
 
 SOURCE = "Edward Mellor"
 SLUG = "edward-mellor-catalogues"
-PARSER_VERSION = 5
+PARSER_VERSION = 6
 MAX_SNAPSHOT_PART_BYTES = 700_000
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 EVENT_DATE = "2014-06-11"
@@ -110,6 +112,31 @@ CATALOGUES = (
         "url": "https://edwardmellor.co.uk/pdf/July_Auction_Catalogue_2018.pdf?v=4",
         "printed_date": "Lots for July 17th 2018",
         "expected_lots": tuple(str(number) for number in range(1, 59)),
+    },
+    {
+        "date": "2018-10-31",
+        "event_id": "edward-mellor-catalogue:2018-10-31",
+        "format": "numbered_order_2018",
+        "url": "https://edwardmellor.co.uk/pdf/October_Auction_Catalogue_2018.pdf?v=4",
+        "printed_date": "Lots for OCTOBER 31ST 2018",
+        "expected_lots": tuple(str(number) for number in range(1, 65)),
+        "results_url": "https://edwardmellor.co.uk/auctions/oct2018/",
+        "results_printed_date": "Wednesday 31st October 2018",
+        "expected_result_lots": tuple(
+            [str(number) for number in range(1, 40)]
+            + [str(number) for number in range(41, 66)]
+        ),
+    },
+    {
+        "date": "2018-12-10",
+        "event_id": "edward-mellor-catalogue:2018-12-10",
+        "format": "numbered_order_2018",
+        "url": "https://edwardmellor.co.uk/pdf/December_Auction_Catalogue_2018.pdf?v=4",
+        "printed_date": "LOTS for DECEMBER 10TH 2018",
+        "expected_lots": tuple(str(number) for number in range(1, 75)),
+        "results_url": "https://edwardmellor.co.uk/auctions/dec2018/",
+        "results_printed_date": "Monday 10th December 2018",
+        "expected_result_lots": tuple(str(number) for number in range(1, 75)),
     },
 )
 
@@ -203,6 +230,15 @@ def fetch_pdf(url: str) -> tuple[bytes, str]:
     return raw, response.url
 
 
+def fetch_html(url: str) -> tuple[bytes, str]:
+    response = requests.get(url, headers=HEADERS, timeout=120)
+    response.raise_for_status()
+    raw = response.content
+    if len(raw) < 1000 or b"<html" not in raw[:1000].lower():
+        raise ValueError(f"first-party results page is truncated or malformed ({len(raw)} bytes)")
+    return raw, response.url
+
+
 def snapshot_pdf(raw: bytes) -> tuple[list[Path], str]:
     sha = hashlib.sha256(raw).hexdigest()
     path = corpus.DATA / "sources" / SLUG / f"{sha[:16]}.pdf.gz"
@@ -224,6 +260,19 @@ def snapshot_pdf(raw: bytes) -> tuple[list[Path], str]:
         for index, item in enumerate(paths):
             start = index * MAX_SNAPSHOT_PART_BYTES
             corpus.atomic(item, compressed[start:start + MAX_SNAPSHOT_PART_BYTES])
+    return paths, sha
+
+
+def snapshot_html(raw: bytes) -> tuple[list[Path], str]:
+    sha = hashlib.sha256(raw).hexdigest()
+    path = corpus.DATA / "sources" / SLUG / f"{sha[:16]}.html.gz"
+    compressed = gzip.compress(raw, mtime=0)
+    paths = [path]
+    if path.exists():
+        if hashlib.sha256(gzip.decompress(path.read_bytes())).hexdigest() != sha:
+            raise ValueError(f"immutable snapshot collision at {path}")
+    else:
+        corpus.atomic(path, compressed)
     return paths, sha
 
 
@@ -255,6 +304,30 @@ def retained_or_fetched_pdf(url: str, saved_summary: dict) -> tuple[bytes, str, 
         return raw, source_url, paths, sha, evidence.get("retrieved_at") or corpus.now()
     raw, resolved = fetch_pdf(url)
     paths, sha = snapshot_pdf(raw)
+    return raw, resolved, paths, sha, corpus.now()
+
+
+def retained_or_fetched_html(url: str, saved_summary: dict) -> tuple[bytes, str, list[Path], str, str]:
+    """Reuse a verified result-page snapshot before making a source request."""
+    requested = url.split("?", 1)[0]
+    for evidence in saved_summary.get("source_files") or []:
+        source_url = evidence.get("source_url")
+        if not source_url or source_url.split("?", 1)[0] != requested:
+            continue
+        relative_paths = evidence.get("snapshot_parts") or [evidence.get("snapshot_path")]
+        if not all(relative_paths):
+            continue
+        paths = [corpus.ROOT / path for path in relative_paths]
+        try:
+            raw = gzip.decompress(b"".join(path.read_bytes() for path in paths))
+        except (OSError, gzip.BadGzipFile):
+            continue
+        sha = hashlib.sha256(raw).hexdigest()
+        if sha != evidence.get("sha256"):
+            raise ValueError(f"saved immutable snapshot hash mismatch for {source_url}")
+        return raw, source_url, paths, sha, evidence.get("retrieved_at") or corpus.now()
+    raw, resolved = fetch_html(url)
+    paths, sha = snapshot_html(raw)
     return raw, resolved, paths, sha, corpus.now()
 
 
@@ -730,6 +803,78 @@ def parse_numbered_order_sheet(text: str, expected_labels) -> dict[str, dict]:
     return rows
 
 
+def parse_event_results_html(raw: bytes, expected_labels, base_url: str) -> dict[str, dict]:
+    """Parse individual historical result cards without treating £0 as evidence.
+
+    The migrated pages have lost their address text, but retain stable property
+    IDs, lot numbers, outcome badges and some achieved amounts. Catalogue rows
+    supply addresses; a genuinely additional card remains a partial lot.
+    """
+    expected = {normalize_label(label) for label in expected_labels}
+    soup = BeautifulSoup(raw, "html.parser")
+    rows = {}
+    for card in soup.select('div.row[id^="item_"]'):
+        card_id = clean(card.get("id"))
+        property_match = re.fullmatch(r"item_(\d+)", card_id or "")
+        strings = list(card.stripped_strings)
+        try:
+            lot_index = next(index for index, value in enumerate(strings) if value.upper() == "LOT")
+            label = normalize_label(strings[lot_index + 1])
+        except (StopIteration, IndexError):
+            raise ValueError(f"result card {card_id or '<unknown>'} has no lot number")
+        if not property_match or label not in expected or label in rows:
+            raise ValueError(f"unexpected, duplicate or unidentifiable result card {card_id} lot {label}")
+        badge = card.select_one(".badge")
+        published_status = clean(badge.get_text(" ", strip=True) if badge else None)
+        status_map = {
+            "SOLD": "sold",
+            "SOLD POST AUCTION": "sold post auction",
+            "SOLD PRIOR": "sold prior",
+            "WITHDRAWN": "withdrawn",
+            "POSTPONED": "postponed",
+        }
+        if published_status and published_status.upper() not in status_map:
+            raise ValueError(f"unrecognised result status for lot {label}: {published_status}")
+        status = status_map.get((published_status or "").upper(), "unknown")
+        result_text = clean(" ".join(
+            node.get_text(" ", strip=True) for node in card.select("p.small")
+        ))
+        sale_match = re.fullmatch(r"Sold at £\s*([\d,]+)", result_text or "", re.I)
+        sale_price = money(sale_match.group(1)) if sale_match else None
+        if result_text and not sale_match:
+            raise ValueError(f"unrecognised result amount for lot {label}: {result_text}")
+        if sale_price == 0:
+            sale_price = None
+        if sale_price is not None and status != "sold":
+            raise ValueError(f"achieved amount is not paired with SOLD for lot {label}")
+        property_link = card.select_one('a[href*="/property-for-sale/"]')
+        legal_link = next(
+            (
+                link for link in card.select("a[href]")
+                if "legal pack" in link.get_text(" ", strip=True).casefold()
+            ),
+            None,
+        )
+        property_id = property_match.group(1)
+        rows[label] = {
+            "identity_key": label,
+            "lot_number": label,
+            "property_id": property_id,
+            "status": status,
+            "published_status": published_status,
+            "sale_price": sale_price,
+            "source_result_text": result_text,
+            "property_url": (
+                urljoin(base_url, property_link.get("href")) if property_link else None
+            ),
+            "legal_pack_url": (
+                urljoin(base_url, legal_link.get("href")) if legal_link else None
+            ),
+        }
+    validate_labels(rows, expected, "historical event results page")
+    return rows
+
+
 def parse_combined_order(text: str, expected_labels, auction_date: str | None = None) -> dict[str, dict]:
     """Parse every explicit order-of-sale row in the retained 2018 layout.
 
@@ -958,6 +1103,75 @@ def make_row(source_row: dict, source_url: str, evidence: dict, catalogue: dict)
     return row
 
 
+def merge_result(row: dict, result: dict, evidence: dict) -> dict:
+    """Attach result evidence without replacing catalogue identity or guides."""
+    merged = dict(row)
+    if result.get("status") != "unknown":
+        merged["status"] = result["status"]
+    merged.update(
+        sale_price=result.get("sale_price"),
+        sale_price_basis=(
+            "individual achieved amount printed on the first-party historical event card"
+            if result.get("sale_price") is not None else None
+        ),
+        source_result_text=result.get("source_result_text"),
+        property_id=result.get("property_id"),
+        source_property_url=result.get("property_url"),
+        legal_pack_url=result.get("legal_pack_url"),
+        outcome_source_evidence={
+            **evidence,
+            "lot_number": result.get("lot_number"),
+            "property_id": result.get("property_id"),
+            "property_url": result.get("property_url"),
+            "published_status": result.get("published_status"),
+            "source_result_text": result.get("source_result_text"),
+            "sale_price": result.get("sale_price"),
+        },
+    )
+    return merged
+
+
+def make_result_only_row(result: dict, evidence: dict, catalogue: dict) -> dict:
+    """Preserve an added individual result card whose catalogue row is absent."""
+    label = result["lot_number"]
+    event_id = catalogue["event_id"]
+    event_date = catalogue["date"]
+    row = corpus.base_row(
+        SOURCE,
+        event_id,
+        event_date,
+        label,
+        result["property_id"],
+        evidence["source_url"],
+    )
+    row.update(
+        appearance_id=f"{SOURCE}|{event_id}|lot:{label}",
+        status=result.get("status") or "unknown",
+        sale_price=result.get("sale_price"),
+        sale_price_basis=(
+            "individual achieved amount printed on the first-party historical event card"
+            if result.get("sale_price") is not None else None
+        ),
+        source_result_text=result.get("source_result_text"),
+        property_id=result.get("property_id"),
+        source_property_url=result.get("property_url"),
+        legal_pack_url=result.get("legal_pack_url"),
+        identity_method="exact_auction_date_published_lot_number_and_property_id",
+        record_quality="partial_lot",
+        auction_date_basis="exact date printed on the first-party historical event page",
+        source_evidence={
+            **evidence,
+            "lot_number": label,
+            "property_id": result.get("property_id"),
+            "property_url": result.get("property_url"),
+            "published_status": result.get("published_status"),
+            "source_result_text": result.get("source_result_text"),
+            "sale_price": result.get("sale_price"),
+        },
+    )
+    return row
+
+
 def expected_catalogue_rows(catalogue: dict) -> int:
     if catalogue["format"] == "split_2014":
         return len(catalogue["expected_residential"]) + len(catalogue["expected_additional"])
@@ -966,10 +1180,18 @@ def expected_catalogue_rows(catalogue: dict) -> int:
     return len(catalogue["expected_lots"])
 
 
+def expected_event_rows(catalogue: dict) -> int:
+    labels = set(catalogue.get("expected_lots") or ())
+    labels.update(catalogue.get("expected_result_lots") or ())
+    if labels:
+        return len(labels)
+    return expected_catalogue_rows(catalogue)
+
+
 def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
     """Prove a configured batch is already banked without refreshing sources."""
     expected_by_date = {
-        catalogue["date"]: expected_catalogue_rows(catalogue)
+        catalogue["date"]: expected_event_rows(catalogue)
         for catalogue in CATALOGUES
     }
     expected = sum(expected_by_date.values())
@@ -1005,7 +1227,11 @@ def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
         ):
             return False
     source_files = summary.get("source_files") or []
-    expected_files = sum(2 if item["format"] == "split_2014" else 1 for item in CATALOGUES)
+    expected_files = sum(
+        (2 if item["format"] == "split_2014" else 1)
+        + bool(item.get("results_url"))
+        for item in CATALOGUES
+    )
     if len(source_files) != expected_files:
         return False
     for evidence in source_files:
@@ -1188,21 +1414,63 @@ def harvest() -> dict:
             }
             source_files.append(evidence)
             candidates = [make_row(row, resolved, evidence, catalogue) for row in parsed_rows]
+            if catalogue.get("results_url"):
+                (
+                    results_raw,
+                    results_resolved,
+                    results_snapshots,
+                    results_sha,
+                    results_retrieved_at,
+                ) = retained_or_fetched_html(catalogue["results_url"], saved_summary)
+                results_text = results_raw.decode("utf-8", errors="replace")
+                if catalogue["results_printed_date"] not in results_text:
+                    raise ValueError("results page does not print the configured exact event date")
+                results = parse_event_results_html(
+                    results_raw,
+                    catalogue["expected_result_lots"],
+                    results_resolved,
+                )
+                results_evidence = {
+                    "source_url": results_resolved,
+                    "retrieved_at": results_retrieved_at,
+                    "sha256": results_sha,
+                    "basis": "first-party historical event page with individual result cards",
+                    **snapshot_fields(results_snapshots),
+                }
+                source_files.append(results_evidence)
+                candidates_by_lot = {row["lot_number"]: row for row in candidates}
+                for label, result in results.items():
+                    if label in candidates_by_lot:
+                        candidates_by_lot[label] = merge_result(
+                            candidates_by_lot[label], result, results_evidence
+                        )
+                    else:
+                        candidates_by_lot[label] = make_result_only_row(
+                            result, results_evidence, catalogue
+                        )
+                candidates = list(candidates_by_lot.values())
+                completion_scope = (
+                    "every explicit property in the retained first-party order-of-sale catalogue "
+                    "and historical event result-card inventory; catalogue-only and results-only "
+                    "lot identities remain separate and are not inferred from one another"
+                )
             order_rows = len(parsed_rows)
             missing_guides = [
                 row.get("lot_number") or row.get("identity_key")
-                for row in parsed_rows
+                for row in candidates
                 if not row.get("guide_observation")
             ]
         if len({row["appearance_id"] for row in candidates}) != len(candidates):
             raise ValueError("event contains duplicate appearance IDs")
         event_duplicate_count = 0
         for row in candidates:
-            signature = (
-                row["auction_date"],
-                re.sub(r"[^a-z0-9]+", "", row["address"].casefold()),
-            )
-            if signature in exact_signatures:
+            signature = None
+            if row.get("address"):
+                signature = (
+                    row["auction_date"],
+                    re.sub(r"[^a-z0-9]+", "", row["address"].casefold()),
+                )
+            if signature and signature in exact_signatures:
                 duplicate_evidence.append({
                     "auction_date": row["auction_date"],
                     "lot_number": row["lot_number"],
@@ -1230,7 +1498,7 @@ def harvest() -> dict:
                 bool(row.get("guide_observation") or row.get("guide_price") is not None)
                 for row in candidates
             ),
-            "sale_prices_captured": 0,
+            "sale_prices_captured": sum(row.get("sale_price") is not None for row in candidates),
             "published_outcomes_captured": sum(row.get("status") != "unknown" for row in candidates),
             "rents_captured": sum(row.get("annual_rent") is not None for row in candidates),
             "duplicate_exact_date_address_evidence": event_duplicate_count,
@@ -1239,6 +1507,20 @@ def harvest() -> dict:
             "errors": [],
             "checked_at": corpus.now(),
         }
+        if catalogue.get("results_url"):
+            event_state.update(
+                result_cards_reconciled=True,
+                result_card_inventory_complete=True,
+                result_cards_reconciled_count=len(catalogue["expected_result_lots"]),
+                catalogue_only_lot_numbers=sorted(
+                    set(catalogue["expected_lots"])
+                    - set(catalogue["expected_result_lots"])
+                ),
+                result_only_lot_numbers=sorted(
+                    set(catalogue["expected_result_lots"])
+                    - set(catalogue["expected_lots"])
+                ),
+            )
         event_states.append(event_state)
         state_path = corpus.DATA / "auctions" / SLUG / f"{catalogue['date']}.json"
         corpus.save_json(state_path, event_state)
@@ -1301,9 +1583,10 @@ def harvest() -> dict:
         "events": event_states,
         "national_coverage_complete": False,
         "next_growth_target": (
-            "Batch the surviving September, October and December 2018 Edward Mellor catalogues "
-            "through this runner, reconciling each complete order inventory and preserving "
-            "published outcomes separately from guide and achieved-price evidence."
+            "Recover the missing 17 September 2018 catalogue only through a materially "
+            "different retained/cached first-party or shared-platform route; its result page "
+            "survives with 67 individual cards, but the linked catalogue PDF is HTTP 404 and "
+            "the migrated cards have lost their addresses. Do not infer those addresses."
         ),
     }
     corpus.save_json(summary_path, summary)

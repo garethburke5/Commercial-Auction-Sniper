@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Batch Edward Mellor's surviving 17 September, 23 October and 4 December 2018 all-sector catalogue inventories through the reusable PDF runner. Reconcile every printed order row, numbered order sheet and detail-page guide, preserve any published sold-prior, postponed, withdrawn or other outcomes separately from guide and achieved prices, retain immutable first-party PDFs and do not refresh the complete March-July inventories. National completeness remains false.",
+  "next_growth_target": "Recover the missing 17 September 2018 Edward Mellor catalogue through a materially different free route: a retained/cached first-party PDF, publisher CDN copy or shared-platform catalogue. The event page survives with 67 individually numbered result cards and achieved prices, but its linked catalogue PDF returns HTTP 404 and the migrated cards have lost their addresses. Do not infer addresses, do not refresh the complete March-December inventories, and move to another uncovered substantial catalogue if no evidence-bearing copy is found. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -5365,5 +5365,67 @@
       "fetch_or_parse_failures": 37
     },
     "different_next_target": "Batch the surviving 17 September, 23 October and 4 December 2018 Edward Mellor catalogues through the same runner, preserving complete inventories and every published outcome without refreshing March-July."
+  },
+  "edward_mellor_2018_october_december_catalogue_expansion": {
+    "checked_at": "2026-11-12T03:10:21.025773+00:00",
+    "opportunity": "Recover the complete 31 October and 10 December 2018 Edward Mellor all-sector catalogue inventories and enrich them from the surviving individual historical result cards.",
+    "attempted_route": "Extended the reusable catalogue-PDF runner to batch both complete numbered order sheets with their first-party event pages, retained four immutable source snapshots, reconciled catalogue/result inventory differences without conflation, excluded exact-date/address overlaps and rebuilt the database.",
+    "net_new_appearances": 139,
+    "new_address_records": 138,
+    "new_partial_lots": 1,
+    "new_dated_address_records_in_twenty_year_window": 138,
+    "new_dated_partial_lots_in_twenty_year_window": 1,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "new_duplicate_records": 0,
+    "duplicate_exact_date_address_evidence_excluded": 0,
+    "new_commercial_appearances": 14,
+    "new_mixed_use_appearances": 3,
+    "new_land_appearances": 25,
+    "new_residential_appearances": 82,
+    "new_unknown_sector_appearances": 15,
+    "commercial_or_mixed_use": 17,
+    "new_numeric_guide_prices": 124,
+    "new_published_guide_observations": 132,
+    "new_sale_prices": 28,
+    "new_rent_values": 0,
+    "new_published_outcomes": 47,
+    "outcome_breakdown": {
+      "sold": 30,
+      "sold_post_auction": 11,
+      "sold_prior": 6
+    },
+    "newly_covered_source_years": [],
+    "newly_reconciled_complete_source_event_inventories": 2,
+    "published_properties_in_reconciled_event_inventories": 139,
+    "catalogue_complete": true,
+    "result_card_inventories_complete": true,
+    "source_files_reconciled": true,
+    "scope_note": "October preserves all 64 catalogue rows and all 64 result cards as 65 distinct lot identities: catalogue-only lot 40 and results-only lot 65 are not conflated. Lot 65 is a dated partial record because its migrated result card retains lot/property identity but no address. December reconciles all 74 catalogue rows against all 74 result cards. Numeric achieved prices are admitted only from explicit Sold at amounts; qualitative sold outcomes retain null sale prices.",
+    "september_blocker": {
+      "event_date": "2018-09-17",
+      "event_page": "https://edwardmellor.co.uk/auctions/sep2018/",
+      "visible_individual_result_cards": 67,
+      "catalogue_url": "https://edwardmellor.co.uk/pdf/September%20Auction%20Catalogue%202018.pdf?v=4",
+      "blocker": "catalogue PDF returns HTTP 404; migrated result cards retain identities/outcomes but no address text",
+      "retry_policy": "only via a retained/cached PDF, publisher CDN copy or shared-platform catalogue"
+    },
+    "database_rebuild_verified": true,
+    "publication_verified": false,
+    "national_completeness_verified": false,
+    "corpus_after_rebuild": {
+      "appearances": 313473,
+      "address_records": 302156,
+      "partial_records": 11317,
+      "in_window_appearances": 305168,
+      "in_window_guide_prices": 107359,
+      "in_window_sale_prices": 112728,
+      "undated": 5047,
+      "future_dated": 138,
+      "complete_catalogue_states": 4985,
+      "incomplete_catalogue_states": 562,
+      "fetch_or_parse_failures": 37
+    },
+    "different_next_target": "Recover the 17 September 2018 catalogue only through a materially different retained/cached or shared-platform route; if no evidence-bearing copy is available, move across the uncovered source/year register to another substantial accessible catalogue."
   }
 }

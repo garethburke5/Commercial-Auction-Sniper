@@ -9,11 +9,12 @@ from scripts.harvest_edward_mellor_catalogue_pdfs import (
     SLUG,
     collection_is_current,
     compact_postcode,
-    expected_catalogue_rows,
+    expected_event_rows,
     parse_combined_guides,
     parse_combined_order,
     parse_guides,
     parse_additional_rows,
+    parse_event_results_html,
     parse_numbered_order_sheet,
     parse_residential_order,
     parse_unnumbered_combined_order,
@@ -112,6 +113,38 @@ LOT       AREA                  ADDRESS                             DESCRIPTION 
     assert rows["9"]["guide_observation"]
 
 
+def test_historical_event_cards_keep_outcomes_prices_and_stable_ids():
+    raw = b"""<html><body>
+<div class='row' id='item_28225016'>
+ <span><span>LOT</span><br/>1</span>
+ <a href='/property-for-sale/28225016/'>,</a>
+ <span class='badge'>SOLD</span><p class='small'>Sold at &pound;107,500</p>
+ <a href='https://example.test/pack'>Legal Pack</a>
+</div>
+<div class='row' id='item_28231492'>
+ <span><span>LOT</span><br/>2</span>
+ <a href='/property-for-sale/28231492/'>,</a>
+ <span class='badge'>SOLD POST AUCTION</span><p class='small'></p>
+</div>
+</body></html>"""
+    rows = parse_event_results_html(raw, ("1", "2"), "https://edwardmellor.co.uk/auctions/oct2018/")
+    assert rows["1"]["status"] == "sold"
+    assert rows["1"]["sale_price"] == 107500
+    assert rows["1"]["property_id"] == "28225016"
+    assert rows["1"]["property_url"] == "https://edwardmellor.co.uk/property-for-sale/28225016/"
+    assert rows["2"]["status"] == "sold post auction"
+    assert rows["2"]["sale_price"] is None
+
+
+def test_historical_event_cards_do_not_treat_zero_as_sale_price():
+    raw = b"""<html><body><div class='row' id='item_1'>
+ <span><span>LOT</span><br/>1</span><span class='badge'>SOLD</span>
+ <p class='small'>Sold at &pound;0</p>
+</div></body></html>"""
+    row = parse_event_results_html(raw, ("1",), "https://example.test/")["1"]
+    assert row["sale_price"] is None
+
+
 def test_inventory_validation_rejects_missing_property():
     try:
         validate_labels(EXPECTED_RESIDENTIAL[:-1], EXPECTED_RESIDENTIAL, "residential")
@@ -122,10 +155,14 @@ def test_inventory_validation_rejects_missing_property():
 
 
 def test_current_batch_requires_rows_states_and_immutable_snapshots(tmp_path):
-    expected = sum(expected_catalogue_rows(item) for item in CATALOGUES)
+    expected = sum(expected_event_rows(item) for item in CATALOGUES)
     rows = [{"appearance_id": f"row-{number}"} for number in range(expected)]
     source_files = []
-    expected_files = sum(2 if item["format"] == "split_2014" else 1 for item in CATALOGUES)
+    expected_files = sum(
+        (2 if item["format"] == "split_2014" else 1)
+        + bool(item.get("results_url"))
+        for item in CATALOGUES
+    )
     for number in range(expected_files):
         raw = f"pdf-{number}".encode()
         snapshot = tmp_path / "data/auction_history/sources/test" / f"{number}.pdf.gz"
@@ -155,7 +192,7 @@ def test_current_batch_requires_rows_states_and_immutable_snapshots(tmp_path):
             f"{item['date']}.json"
         )
         state_path.parent.mkdir(parents=True, exist_ok=True)
-        event_expected = expected_catalogue_rows(item)
+        event_expected = expected_event_rows(item)
         state_path.write_text(json.dumps({
             "parser_version": PARSER_VERSION,
             "source_files_reconciled": True,

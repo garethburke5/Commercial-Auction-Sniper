@@ -4,6 +4,55 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Edward Mellor October-December 2018 result-enriched batch prepared
+
+The protected history-bank and publication runs still expose no active job records,
+so this evidence was prepared without launching a duplicate writer or moving `main`.
+The reusable Edward Mellor runner now batches complete numbered order sheets with
+their surviving first-party historical event cards. It keeps catalogue identity,
+guide evidence, qualitative outcomes and explicit achieved amounts distinct, and
+retains each PDF and HTML page as an immutable snapshot.
+
+- **Measured net gain:** **139 individual appearances** inside 12 November
+  2006-12 November 2026: 65 from the 31 October event and 74 from 10 December.
+  This comprises **138 exact-dated address records** and **one exact-dated partial
+  lot**. New undated, future-dated, duplicate and exact date/address-overlap records
+  are **0 / 0 / 0 / 0**.
+- **Sector gain:** **14 commercial, 3 mixed-use, 25 land, 82 residential and 15
+  unknown** appearances; the commercial/mixed-use subset is **17**. Unknown values
+  remain null/unknown rather than inferred.
+- **Actual evidence gain:** **124 numeric guides, 132 published guide observations,
+  28 achieved prices, 47 published outcomes and 0 rents**. The outcome split is
+  30 sold, 11 sold post-auction and 6 sold prior. Only explicit `Sold at £...`
+  amounts are sale prices; the other sold outcomes retain null achieved prices.
+- **Inventory reconciliation:** October's 64 catalogue rows and 64 result cards
+  form 65 distinct lot identities. Catalogue-only lot 40 and results-only lot 65
+  are preserved separately; lot 65 remains partial because the migrated card has
+  lost its address. December reconciles 74/74 catalogue rows and result cards.
+  Both complete event inventories are new checkpoints inside the already represented
+  Edward Mellor 2018 source-year, so newly covered source-years are **0**.
+- **Immutable evidence:** October PDF/page SHA-256 values are
+  `9b63ed00271a5a1838140578dd781f542a7f17306b62b0669005fe28983ef171`
+  and `0d4dd16692aac2e5d99e0776f94d0a59c5a4aa5a76cb9ca3898b30b40e4ed2e5`;
+  December PDF/page values are
+  `fdc4fab7563bdb1b47b66611dafe393db41ca8ec3fc69be3db308c8de38a0d32`
+  and `6179fd90730539165e350509560cbe8a76bcdf30f0ce0e797f67948487a83dfb`.
+- **Corpus after rebuild:** **313,473 appearances**, **302,156 address records**,
+  **11,317 partial records** and **305,168 in-window appearances**. Window evidence
+  totals are **107,359 numeric guides** and **112,728 achieved prices**; retained
+  exceptions remain **5,047 undated** and **138 future-dated** appearances.
+- **Next concrete growth target:** recover the **17 September 2018** catalogue by
+  a materially different free route. Its event page exposes 67 individual result
+  cards, but the linked catalogue PDF returns HTTP 404 and the migrated cards have
+  lost their addresses. Use a retained/cached first-party PDF, publisher-CDN copy
+  or shared-platform catalogue; do not infer addresses or retry the same 404 route.
+  If no evidence-bearing copy is available, move to another substantial accessible
+  catalogue in the uncovered source/year register.
+
+National completeness remains **false** until source-by-source lot inventories and
+genuine auctioneer/branch/trading-name coverage reconcile.
+
+
 ## 12 November 2026 — Edward Mellor June-July 2018 batch prepared
 
 The protected historical-bank and publication runs expose no active job records.
