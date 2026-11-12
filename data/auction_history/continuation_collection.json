@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Batch Hanover Auction's first-party EIG /search inventory: 26 individually addressed result cards with published outcomes and stable lot links. Hanover Auction is currently unlinked with zero retained appearances in the source register. Reuse the index-plus-detail pattern, reconcile the legal operator and preserve guides, achieved prices and immutable source snapshots. Do not refresh the now-reconciled Sunderlands inventories. National completeness remains false.",
+  "next_growth_target": "Batch Auction Property Ltd's first-party archive: /past-auction-dates currently exposes 32 linked event pages from 2023-2026 while /sold-properties exposes address-level result cards. The directory label has zero retained appearances. Build one reusable multi-event runner, reconcile every event denominator and exact date, preserve guides and outcomes, and deduplicate overlaps before claiming growth. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4229,6 +4229,25 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "hanover_online_results",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T08:23:33.872510+00:00",
+      "run_new_appearances": 26,
+      "run_new_dated_twenty_year_address_records": 26,
+      "run_new_commercial_or_mixed": 8,
+      "run_new_guide_prices": 16,
+      "run_new_sale_prices": 19,
+      "newly_covered_source_years": [
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -5029,25 +5048,42 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "hanover_online_results": {
+      "source": "hanover_online_results",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T08:23:33.872510+00:00",
+      "run_new_appearances": 26,
+      "run_new_dated_twenty_year_address_records": 26,
+      "run_new_commercial_or_mixed": 8,
+      "run_new_guide_prices": 16,
+      "run_new_sale_prices": 19,
+      "newly_covered_source_years": [
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "last_automated_growth": {
-    "source": "sunderlands_online_results",
+    "source": "hanover_online_results",
     "outcome": "completed",
-    "checked_at": "2026-11-12T07:11:35.716434+00:00",
-    "run_new_appearances": 31,
-    "run_new_dated_twenty_year_address_records": 30,
-    "run_new_commercial_or_mixed": 3,
-    "run_new_guide_prices": 26,
-    "run_new_sale_prices": 17,
+    "checked_at": "2026-11-12T08:23:33.872510+00:00",
+    "run_new_appearances": 26,
+    "run_new_dated_twenty_year_address_records": 26,
+    "run_new_commercial_or_mixed": 8,
+    "run_new_guide_prices": 16,
+    "run_new_sale_prices": 19,
     "newly_covered_source_years": [
+      "2019",
       "2020",
       "2021",
       "2022",
-      "2023",
-      "2024",
-      "2025",
-      "2026"
+      "2023"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
@@ -5671,5 +5707,60 @@
       "fetch_or_parse_failures": 37
     },
     "different_next_target": "Inventory Sunderlands' post-2018 property-auction result and catalogue assets, then batch every surviving address-level event through the same runner. If no later finite archive survives, move to another uncovered genuine auctioneer with an accessible multi-catalogue inventory."
+  },
+  "hanover_online_expansion": {
+    "checked_at": "2026-11-12T08:23:33.872510+00:00",
+    "opportunity": "Bank Hanover Auctions' finite first-party EIG result inventory using its hidden exact-dated bidding-panel route.",
+    "attempted_route": "Reconciled all 26 search cards, linked detail pages and first-party bidding panels; retained the search, operator terms, detail pages and panels as content-addressed snapshots; excluded exact date/address overlaps and rebuilt the database.",
+    "net_new_appearances": 26,
+    "new_address_records": 26,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 26,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "new_duplicate_records": 0,
+    "duplicate_exact_date_address_evidence_excluded": 0,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 8,
+    "new_land_appearances": 0,
+    "new_residential_appearances": 17,
+    "new_unknown_sector_appearances": 1,
+    "commercial_or_mixed_use": 8,
+    "new_guide_prices": 16,
+    "new_sale_prices": 19,
+    "new_rent_values": 3,
+    "newly_covered_source_years": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
+    ],
+    "newly_reconciled_complete_source_event_inventories": 26,
+    "published_properties_in_reconciled_result_inventory": 26,
+    "source_files_reconciled": true,
+    "operator_reconciliation": "HANOVER AIREY DEVELOPMENT LIMITED (04515105) trades as Hanover Auctions. The Hanover Auction directory label, trading-name variation and Sunderland/London offices are not counted as separate auctioneers.",
+    "date_integrity": "Actual bidding-panel end timestamps determine appearance dates. Scheduled deadlines remain separately labelled, including one sold-prior lot that ended before its scheduled date.",
+    "identity_repair": "The database rejected date-level single-property event IDs where several lots shared a day. Before banking, 26 provisional rows were superseded in place by UUID-scoped event IDs; properties and immutable source evidence were retained and counted once.",
+    "database_rebuild_verified": true,
+    "database_rebuild_verified_locally": true,
+    "tracked_database_artifact_updated": false,
+    "publication_checkpoint": "SQLite integrity passes with 314830 appearances. auction_history.sqlite.gz rebuilt to 176721856 bytes, above GitHub's 100 MiB blob limit, so it remains an unstaged local checkpoint; rebuild/package it through the existing free publication route before publishing.",
+    "publication_verified": false,
+    "national_completeness_verified": false,
+    "corpus_after_rebuild": {
+      "appearances": 314830,
+      "address_records": 302273,
+      "partial_records": 12557,
+      "exact_day_in_window_appearances": 305353,
+      "in_window_guide_prices": 107456,
+      "in_window_sale_prices": 112813,
+      "undated": 6219,
+      "future_dated": 138,
+      "complete_catalogue_states": 5056,
+      "incomplete_catalogue_states": 580,
+      "fetch_or_parse_failures": 37
+    },
+    "different_next_target": "Batch Auction Property Ltd's 32 linked first-party event pages from 2023-2026 together with its address-level sold-property cards through one reusable multi-event runner. Reconcile every denominator and exact event date and exclude overlaps before claiming growth."
   }
 }

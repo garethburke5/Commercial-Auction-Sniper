@@ -1,0 +1,49 @@
+{
+  "auctioneer": "Hanover Auction",
+  "operator_legal_name": "HANOVER AIREY DEVELOPMENT LIMITED",
+  "operator_company_number": "04515105",
+  "trading_name": "Hanover Auctions",
+  "source_auction_id": "hanover-online:2021-05-31:9555a2e6-9682-489c-8458-5f565d7af586",
+  "auction_date": "2021-05-31",
+  "auction_date_precision": "day",
+  "source_url": "https://www.hanoverauctionhouse.com/lot/details/9555a2e6-9682-489c-8458-5f565d7af586",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "single-property ended online auction represented by one stable first-party lot UUID",
+  "source_evidence": {
+    "index": {
+      "source_url": "https://www.hanoverauctionhouse.com/search",
+      "retrieved_at": "2026-11-12T08:23:07.294627+00:00",
+      "sha256": "6dda5962e5202ae8c18ead026649481d00cdda5ecb40a92dc45476dc8a84791a",
+      "snapshot_path": "data/auction_history/sources/hanover-auction/online/search-6dda5962e5202ae8c18e.gz",
+      "basis": "complete unpaginated 26-card first-party ended result inventory"
+    },
+    "detail": {
+      "source_url": "https://www.hanoverauctionhouse.com/lot/details/9555a2e6-9682-489c-8458-5f565d7af586",
+      "retrieved_at": "2026-11-12T08:23:18.259643+00:00",
+      "sha256": "cb3cafd282b2c0874c5651e25398e0d6b1d12ddbc9abf04acd69e8f9330f6696",
+      "snapshot_path": "data/auction_history/sources/hanover-auction/online/lot-9555a2e6-9682-489c-8458-5f565d7af586-detail-cb3cafd282b2c0874c56.gz",
+      "basis": "linked first-party Hanover Auctions lot detail"
+    },
+    "bidding_panel": {
+      "source_url": "https://www.hanoverauctionhouse.com/lot/biddingpanel?param=eyJhIjoyNjc5NiwiYiI6NDEwNDQsImUiOiI5NTU1YTJlNi05NjgyLTQ4OWMtODQ1OC01ZjU2NWQ3YWY1ODYifQ2",
+      "retrieved_at": "2026-11-12T08:23:18.636280+00:00",
+      "sha256": "e0cdb2ccd9797447385f4eb4d2819aacc95c36d940957452fb4cf927025d743e",
+      "snapshot_path": "data/auction_history/sources/hanover-auction/online/lot-9555a2e6-9682-489c-8458-5f565d7af586-panel-e0cdb2ccd9797447385f.gz",
+      "basis": "first-party exact-dated EIG bidding panel"
+    },
+    "operator_terms": {
+      "source_url": "https://www.hanoverauctionhouse.com/account/viewdocument/167aa3c3-9c74-4e7d-a971-f6b06c4918d7/terms-conditions",
+      "retrieved_at": "2026-11-12T08:23:08.389747+00:00",
+      "sha256": "e49e90b569e1e0735801b32609a50d81bef7f1b2de5b420c58c7d1fa1a3a9374",
+      "snapshot_path": "data/auction_history/sources/hanover-auction/online/operator-terms-e49e90b569e1e0735801.gz",
+      "basis": "first-party terms naming legal operator and Hanover Auctions trading name"
+    },
+    "basis": "first-party result card, linked detail page and exact-dated bidding panel"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T08:23:33.870452+00:00"
+}
