@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-12T10:25:54.651210+00:00",
+  "checked_at": "2026-11-12T18:54:23.819717+00:00",
   "source_url": "https://aglandandproperty.com/auction-results",
   "selected_result_appearances_captured": 29,
   "run_new_appearances": 0,
@@ -10,7 +10,7 @@
     "unknown": 17,
     "residential": 7
   },
-  "retained_listing_urls_reconciled": 51,
+  "retained_listing_urls_reconciled": 50,
   "dated_sold_auction_details_admitted": 4,
   "existing_appearances_exact_date_enriched": 4,
   "detail_audit": [
@@ -195,11 +195,6 @@
       "admitted": false
     },
     {
-      "source_url": "https://aglandandproperty.com/listings/residential_sale-RX634252-leeds",
-      "sha256": "55c85255d0e0be5b45cbe4a1d234b9f8fc340a309fea56171a32aa382ea8f391",
-      "admitted": false
-    },
-    {
       "source_url": "https://aglandandproperty.com/listings/residential_sale-RX628397-hexham",
       "sha256": "3c47cf125ea3fd659d1ad0f3b6a9745dddb27a9f2dd553e3b2245eff53abade5",
       "admitted": false
@@ -283,13 +278,13 @@
     "completion_scope": "every sold-property block on the first-party recent-results page; not a dated full catalogue",
     "source_evidence": {
       "source_url": "https://aglandandproperty.com/auction-results",
-      "retrieved_at": "2026-11-12T10:24:54.619269+00:00",
-      "sha256": "b4e0f82840df90711e1dde08f38b1eafff4f97b11f22966dee5620993016a151",
-      "snapshot_path": "data/auction_history/sources/anderson-garland/recent-auction-results-b4e0f82840df9071.json.gz",
+      "retrieved_at": "2026-11-12T18:54:19.052416+00:00",
+      "sha256": "62da0919e21849dd2af874e855b746a74da462b5f13d6d6e06333a1dc434d9b5",
+      "snapshot_path": "data/auction_history/sources/anderson-garland/recent-auction-results-62da0919e21849dd.json.gz",
       "basis": "first-party retained recent auction results page"
     },
     "errors": [],
-    "checked_at": "2026-11-12T10:25:54.650919+00:00"
+    "checked_at": "2026-11-12T18:54:23.819375+00:00"
   },
   "failures": []
 }
