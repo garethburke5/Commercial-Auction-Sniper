@@ -10,6 +10,7 @@ from scripts.harvest_edward_mellor_catalogue_pdfs import (
     collection_is_current,
     compact_postcode,
     expected_event_rows,
+    expected_source_files,
     parse_combined_guides,
     parse_combined_order,
     parse_guides,
@@ -158,11 +159,7 @@ def test_current_batch_requires_rows_states_and_immutable_snapshots(tmp_path):
     expected = sum(expected_event_rows(item) for item in CATALOGUES)
     rows = [{"appearance_id": f"row-{number}"} for number in range(expected)]
     source_files = []
-    expected_files = sum(
-        (2 if item["format"] == "split_2014" else 1)
-        + bool(item.get("results_url"))
-        for item in CATALOGUES
-    )
+    expected_files = sum(expected_source_files(item) for item in CATALOGUES)
     for number in range(expected_files):
         raw = f"pdf-{number}".encode()
         snapshot = tmp_path / "data/auction_history/sources/test" / f"{number}.pdf.gz"
@@ -187,9 +184,10 @@ def test_current_batch_requires_rows_states_and_immutable_snapshots(tmp_path):
                 "sha256": hashlib.sha256(raw).hexdigest(),
             })
     for item in CATALOGUES:
+        state_key = item.get("date") or f"{item['date_start']}_to_{item['date_end']}"
         state_path = (
             tmp_path / "data/auction_history/auctions" / SLUG /
-            f"{item['date']}.json"
+            f"{state_key}.json"
         )
         state_path.parent.mkdir(parents=True, exist_ok=True)
         event_expected = expected_event_rows(item)

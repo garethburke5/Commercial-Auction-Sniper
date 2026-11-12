@@ -4,6 +4,54 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Edward Mellor September 2018 and 2019 result-card batch prepared
+
+The protected history-bank and publication runs still expose no active job records,
+so this evidence was prepared without launching a duplicate writer or moving `main`.
+The reusable Edward Mellor runner now also banks complete first-party result-card
+inventories when a catalogue is unavailable. It preserves stable property IDs, lot
+labels, outcomes, achieved amounts and immutable HTML while leaving lost catalogue
+fields null. Two-day online-auction ranges remain ranges; they are not converted into
+invented exact lot dates.
+
+- **Measured net gain:** **575 individual appearances**: 67 from the exact-dated
+  17 September 2018 event and 508 across seven February-October 2019 two-day event
+  ranges. All 575 are partial because the migrated cards publish no address. Newly
+  dated address records are therefore **0**; exact-day partial records inside the
+  twenty-year window are **67**, and **508** further records retain exact start/end
+  ranges with `auction_date=null`. New future-dated and duplicate records are **0 / 0**.
+- **Sector gain:** **0 commercial, 0 mixed-use and 575 unknown-sector** appearances.
+  The commercial/mixed-use subset is **0** because sectors are not inferred from
+  missing catalogue text.
+- **Actual evidence gain:** **0 guides, 202 achieved prices, 241 published outcomes
+  and 0 rents**. Only explicit `Sold at £...` amounts are stored as sale prices;
+  qualitative sold outcomes without amounts retain null prices.
+- **Inventory reconciliation:** all 67 September 2018 cards and all **508** cards
+  across the seven 2019 pages reconcile to their retained page inventories. These are
+  eight complete result-card inventories, not complete catalogues or original-offered
+  denominators. Edward Mellor **2019** is a newly covered source-year; newly complete
+  full catalogue/event inventories remain **0**.
+- **Immutable evidence:** eight new first-party HTML snapshots are retained. The
+  September 2018 snapshot SHA-256 is
+  `82a26359d9a44122bd7765588c08cc1a1166b20f6fd82f00f1b8ea23bfca4c22`;
+  each 2019 page carries its own hash in the collection summary and event state.
+- **Corpus after rebuild:** **314,048 appearances**, **302,156 address records**
+  and **11,892 partial records**. The exact-day twenty-year counter is **305,235**
+  appearances with **107,359** numeric guides and **112,748** achieved prices.
+  The legacy `undated_appearances` counter is **5,555** because it keys only on
+  `auction_date`; 508 of those records are not evidence-undated and carry exact
+  2019 start/end ranges. Future-dated appearances remain **138**.
+- **Next concrete growth target:** batch the six accessible Edward Mellor **2020**
+  pages with unique lot labels (2 June, 22 July, 12 August, 13 October, 3 November
+  and 15 December), a known inventory of **399 individual cards**, through the same
+  range-aware runner. Four other 2020 pages contain repeated lot/TBC labels and must
+  wait for property-ID/card-position identity support so distinct appearances are not
+  collapsed.
+
+National completeness remains **false** until source-by-source lot inventories and
+genuine auctioneer/branch/trading-name coverage reconcile.
+
+
 ## 12 November 2026 — Edward Mellor October-December 2018 result-enriched batch prepared
 
 The protected history-bank and publication runs still expose no active job records,

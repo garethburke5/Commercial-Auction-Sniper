@@ -30,7 +30,7 @@ import historical_corpus as corpus
 
 SOURCE = "Edward Mellor"
 SLUG = "edward-mellor-catalogues"
-PARSER_VERSION = 6
+PARSER_VERSION = 7
 MAX_SNAPSHOT_PART_BYTES = 700_000
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 EVENT_DATE = "2014-06-11"
@@ -114,6 +114,14 @@ CATALOGUES = (
         "expected_lots": tuple(str(number) for number in range(1, 59)),
     },
     {
+        "date": "2018-09-17",
+        "event_id": "edward-mellor-catalogue:2018-09-17",
+        "format": "results_only_2018",
+        "results_url": "https://edwardmellor.co.uk/auctions/sep2018/",
+        "results_printed_date": "Monday 17th September 2018",
+        "expected_result_lots": tuple(str(number) for number in range(1, 68)),
+    },
+    {
         "date": "2018-10-31",
         "event_id": "edward-mellor-catalogue:2018-10-31",
         "format": "numbered_order_2018",
@@ -137,6 +145,85 @@ CATALOGUES = (
         "results_url": "https://edwardmellor.co.uk/auctions/dec2018/",
         "results_printed_date": "Monday 10th December 2018",
         "expected_result_lots": tuple(str(number) for number in range(1, 75)),
+    },
+    {
+        "date": None,
+        "date_start": "2019-02-05",
+        "date_end": "2019-02-06",
+        "event_id": "edward-mellor-catalogue:2019-02-05:2019-02-06",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/feb2019/",
+        "results_printed_date": "Tuesday 5th February 2019, 1pm to Wednesday 6th February 2019, 1pm",
+        "expected_result_lots": tuple(str(number) for number in range(1, 55)),
+    },
+    {
+        "date": None,
+        "date_start": "2019-03-13",
+        "date_end": "2019-03-14",
+        "event_id": "edward-mellor-catalogue:2019-03-13:2019-03-14",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/mar2019/",
+        "results_printed_date": "Wednesday 13th March 2019, 1pm to Thursday 14th March 2019, 1pm",
+        "expected_result_lots": tuple(str(number) for number in range(1, 53)),
+    },
+    {
+        "date": None,
+        "date_start": "2019-04-24",
+        "date_end": "2019-04-25",
+        "event_id": "edward-mellor-catalogue:2019-04-24:2019-04-25",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/apr2019/",
+        "results_printed_date": "Wednesday 24th April 2019, 1pm to Thursday 25th April 2019, 1pm",
+        "expected_result_lots": tuple(str(number) for number in range(1, 63)),
+    },
+    {
+        "date": None,
+        "date_start": "2019-06-10",
+        "date_end": "2019-06-11",
+        "event_id": "edward-mellor-catalogue:2019-06-10:2019-06-11",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/jun2019/",
+        "results_printed_date": "Monday 10th June 2019, 12pm to Tuesday 11th June 2019, 12pm",
+        "expected_result_lots": tuple(
+            [str(number) for number in range(1, 71)]
+            + ["72"]
+            + [str(number) for number in range(74, 84)]
+        ),
+    },
+    {
+        "date": None,
+        "date_start": "2019-07-24",
+        "date_end": "2019-07-25",
+        "event_id": "edward-mellor-catalogue:2019-07-24:2019-07-25",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/jul2019/",
+        "results_printed_date": "Wednesday 24th July 2019, 12pm to Thursday 25th July 2019, 12pm",
+        "expected_result_lots": tuple(str(number) for number in range(1, 84)),
+    },
+    {
+        "date": None,
+        "date_start": "2019-09-17",
+        "date_end": "2019-09-18",
+        "event_id": "edward-mellor-catalogue:2019-09-17:2019-09-18",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/sep2019/",
+        "results_printed_date": "Tuesday 17th September 2019, 12pm to Wednesday 18th September 2019, 12pm",
+        "expected_result_lots": tuple(str(number) for number in range(1, 97)),
+    },
+    {
+        "date": None,
+        "date_start": "2019-10-29",
+        "date_end": "2019-10-30",
+        "event_id": "edward-mellor-catalogue:2019-10-29:2019-10-30",
+        "format": "results_only_range_2019",
+        "results_url": "https://edwardmellor.co.uk/auctions/oct2019/",
+        "results_printed_date": "Tuesday 29th October 2019, 12pm to Wednesday 30th October 2019, 12pm",
+        "expected_result_lots": tuple(
+            ["TBA", "TBC"]
+            + [str(number) for number in range(1, 28)]
+            + [str(number) for number in range(29, 57)]
+            + [str(number) for number in range(58, 81)]
+        ),
     },
 )
 
@@ -1135,7 +1222,7 @@ def make_result_only_row(result: dict, evidence: dict, catalogue: dict) -> dict:
     """Preserve an added individual result card whose catalogue row is absent."""
     label = result["lot_number"]
     event_id = catalogue["event_id"]
-    event_date = catalogue["date"]
+    event_date = catalogue.get("date")
     row = corpus.base_row(
         SOURCE,
         event_id,
@@ -1158,7 +1245,13 @@ def make_result_only_row(result: dict, evidence: dict, catalogue: dict) -> dict:
         legal_pack_url=result.get("legal_pack_url"),
         identity_method="exact_auction_date_published_lot_number_and_property_id",
         record_quality="partial_lot",
-        auction_date_basis="exact date printed on the first-party historical event page",
+        auction_date_start=catalogue.get("date_start"),
+        auction_date_end=catalogue.get("date_end"),
+        auction_date_basis=(
+            "two-day historical event range; exact lot day is not published"
+            if catalogue.get("date_start") else
+            "exact date printed on the first-party historical event page"
+        ),
         source_evidence={
             **evidence,
             "lot_number": label,
@@ -1177,7 +1270,17 @@ def expected_catalogue_rows(catalogue: dict) -> int:
         return len(catalogue["expected_residential"]) + len(catalogue["expected_additional"])
     if catalogue["format"] == "unnumbered_combined_2018":
         return catalogue["expected_rows"]
+    if catalogue["format"] in {"results_only_2018", "results_only_range_2019"}:
+        return 0
     return len(catalogue["expected_lots"])
+
+
+def expected_source_files(catalogue: dict) -> int:
+    if catalogue["format"] == "split_2014":
+        return 2
+    if catalogue["format"] in {"results_only_2018", "results_only_range_2019"}:
+        return 1
+    return 1 + bool(catalogue.get("results_url"))
 
 
 def expected_event_rows(catalogue: dict) -> int:
@@ -1190,11 +1293,11 @@ def expected_event_rows(catalogue: dict) -> int:
 
 def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
     """Prove a configured batch is already banked without refreshing sources."""
-    expected_by_date = {
-        catalogue["date"]: expected_event_rows(catalogue)
+    expected_by_event = {
+        catalogue["event_id"]: expected_event_rows(catalogue)
         for catalogue in CATALOGUES
     }
-    expected = sum(expected_by_date.values())
+    expected = sum(expected_by_event.values())
     expected_banked = expected - len(summary.get("duplicate_evidence") or [])
     if (
         summary.get("parser_version") != PARSER_VERSION
@@ -1206,9 +1309,12 @@ def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
     ):
         return False
     for catalogue in CATALOGUES:
+        state_key = catalogue.get("date") or (
+            f"{catalogue['date_start']}_to_{catalogue['date_end']}"
+        )
         state_path = (
             root / "data/auction_history/auctions" / SLUG /
-            f"{catalogue['date']}.json"
+            f"{state_key}.json"
         )
         try:
             state = json.loads(state_path.read_text())
@@ -1218,20 +1324,16 @@ def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
             state.get("parser_version") != PARSER_VERSION
             or not state.get("source_files_reconciled")
             or not state.get("surviving_file_inventory_complete")
-            or state.get("published_lots_in_surviving_files") != expected_by_date[catalogue["date"]]
+            or state.get("published_lots_in_surviving_files") != expected_by_event[catalogue["event_id"]]
             or (
                 state.get("lots_captured", 0)
                 + state.get("duplicate_exact_date_address_evidence", 0)
-                != expected_by_date[catalogue["date"]]
+                != expected_by_event[catalogue["event_id"]]
             )
         ):
             return False
     source_files = summary.get("source_files") or []
-    expected_files = sum(
-        (2 if item["format"] == "split_2014" else 1)
-        + bool(item.get("results_url"))
-        for item in CATALOGUES
-    )
+    expected_files = sum(expected_source_files(item) for item in CATALOGUES)
     if len(source_files) != expected_files:
         return False
     for evidence in source_files:
@@ -1285,10 +1387,61 @@ def harvest() -> dict:
     duplicate_evidence = []
 
     for catalogue in CATALOGUES:
-        parsed_date = date.fromisoformat(catalogue["date"])
-        if catalogue["event_id"] != f"edward-mellor-catalogue:{parsed_date.isoformat()}":
-            raise ValueError("configured event identity does not agree with its exact date")
-        if catalogue["format"] == "split_2014":
+        if catalogue.get("date"):
+            parsed_date = date.fromisoformat(catalogue["date"])
+            expected_event_id = f"edward-mellor-catalogue:{parsed_date.isoformat()}"
+        else:
+            date.fromisoformat(catalogue["date_start"])
+            date.fromisoformat(catalogue["date_end"])
+            expected_event_id = (
+                f"edward-mellor-catalogue:{catalogue['date_start']}:"
+                f"{catalogue['date_end']}"
+            )
+        if catalogue["event_id"] != expected_event_id:
+            raise ValueError("configured event identity does not agree with its date evidence")
+        if catalogue["format"] in {"results_only_2018", "results_only_range_2019"}:
+            (
+                results_raw,
+                results_resolved,
+                results_snapshots,
+                results_sha,
+                results_retrieved_at,
+            ) = retained_or_fetched_html(catalogue["results_url"], saved_summary)
+            results_text = results_raw.decode("utf-8", errors="replace")
+            if catalogue["results_printed_date"] not in results_text:
+                raise ValueError("results page does not print the configured exact event date")
+            results = parse_event_results_html(
+                results_raw,
+                catalogue["expected_result_lots"],
+                results_resolved,
+            )
+            results_evidence = {
+                "source_url": results_resolved,
+                "retrieved_at": results_retrieved_at,
+                "sha256": results_sha,
+                "basis": "first-party historical event page with individual result cards",
+                **snapshot_fields(results_snapshots),
+            }
+            source_files.append(results_evidence)
+            candidates = [
+                make_result_only_row(result, results_evidence, catalogue)
+                for result in results.values()
+            ]
+            order_rows = 0
+            missing_guides = list(catalogue["expected_result_lots"])
+            if catalogue["format"] == "results_only_2018":
+                completion_scope = (
+                    "every individual result card in the retained first-party historical event page; "
+                    "the linked catalogue no longer survives at its published URL, so addresses, "
+                    "sectors and guides remain unknown and catalogue completeness is not claimed"
+                )
+            else:
+                completion_scope = (
+                    "every individual result card in the retained first-party historical event page; "
+                    "the retained page does not publish addresses, sectors or guides, and linked "
+                    "catalogue evidence has not been banked, so catalogue completeness is not claimed"
+                )
+        elif catalogue["format"] == "split_2014":
             (
                 residential_raw,
                 residential_resolved,
@@ -1486,10 +1639,14 @@ def harvest() -> dict:
             "source_auction_id": catalogue["event_id"],
             "auction_date": catalogue["date"],
             "parser_version": PARSER_VERSION,
-            "catalogue_complete": catalogue["format"] != "split_2014",
+            "catalogue_complete": catalogue["format"] not in {
+                "split_2014", "results_only_2018", "results_only_range_2019"
+            },
             "source_files_reconciled": True,
             "surviving_file_inventory_complete": True,
-            "event_inventory_complete": catalogue["format"] != "split_2014",
+            "event_inventory_complete": catalogue["format"] not in {
+                "split_2014", "results_only_2018", "results_only_range_2019"
+            },
             "lots_captured": len(candidates) - event_duplicate_count,
             "published_lots_in_surviving_files": len(candidates),
             "order_rows_reconciled": order_rows,
@@ -1507,22 +1664,31 @@ def harvest() -> dict:
             "errors": [],
             "checked_at": corpus.now(),
         }
+        if catalogue.get("date_start"):
+            event_state.update(
+                auction_date_start=catalogue["date_start"],
+                auction_date_end=catalogue["date_end"],
+                auction_date_basis="two-day historical event range; exact lot day is not published",
+            )
         if catalogue.get("results_url"):
             event_state.update(
                 result_cards_reconciled=True,
                 result_card_inventory_complete=True,
                 result_cards_reconciled_count=len(catalogue["expected_result_lots"]),
                 catalogue_only_lot_numbers=sorted(
-                    set(catalogue["expected_lots"])
+                    set(catalogue.get("expected_lots") or ())
                     - set(catalogue["expected_result_lots"])
                 ),
                 result_only_lot_numbers=sorted(
                     set(catalogue["expected_result_lots"])
-                    - set(catalogue["expected_lots"])
+                    - set(catalogue.get("expected_lots") or ())
                 ),
             )
         event_states.append(event_state)
-        state_path = corpus.DATA / "auctions" / SLUG / f"{catalogue['date']}.json"
+        state_key = catalogue.get("date") or (
+            f"{catalogue['date_start']}_to_{catalogue['date_end']}"
+        )
+        state_path = corpus.DATA / "auctions" / SLUG / f"{state_key}.json"
         corpus.save_json(state_path, event_state)
 
     total = corpus.write_rows(f"{SLUG}/canonical", all_rows, preserve_existing=True)
@@ -1583,10 +1749,12 @@ def harvest() -> dict:
         "events": event_states,
         "national_coverage_complete": False,
         "next_growth_target": (
-            "Recover the missing 17 September 2018 catalogue only through a materially "
-            "different retained/cached first-party or shared-platform route; its result page "
-            "survives with 67 individual cards, but the linked catalogue PDF is HTTP 404 and "
-            "the migrated cards have lost their addresses. Do not infer those addresses."
+            "Batch the six accessible Edward Mellor 2020 historical event pages whose lot "
+            "labels are unique (2 June, 22 July, 12 August, 13 October, 3 November and "
+            "15 December; 399 individual cards) through this range-aware runner. Preserve "
+            "their two-day ranges and leave exact lot dates, addresses and sectors null. "
+            "Handle the four duplicate-label 2020 pages only after adding property-ID/card-position "
+            "identity support; do not collapse repeated TBC or lot labels."
         ),
     }
     corpus.save_json(summary_path, summary)

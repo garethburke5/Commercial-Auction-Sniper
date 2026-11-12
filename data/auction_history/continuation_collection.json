@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Recover the missing 17 September 2018 Edward Mellor catalogue through a materially different free route: a retained/cached first-party PDF, publisher CDN copy or shared-platform catalogue. The event page survives with 67 individually numbered result cards and achieved prices, but its linked catalogue PDF returns HTTP 404 and the migrated cards have lost their addresses. Do not infer addresses, do not refresh the complete March-December inventories, and move to another uncovered substantial catalogue if no evidence-bearing copy is found. National completeness remains false.",
+  "next_growth_target": "Batch the six accessible Edward Mellor 2020 historical event pages whose lot labels are unique (2 June, 22 July, 12 August, 13 October, 3 November and 15 December; 399 individual cards) through the range-aware runner. Preserve each two-day range, stable property ID, lot label, published outcome, achieved amount, original URL and immutable HTML; leave exact lot dates, addresses, guides, rents and sectors null. Add property-ID/card-position identity support before the four remaining 2020 pages so repeated TBC or lot labels are never collapsed. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -5426,6 +5426,57 @@
       "incomplete_catalogue_states": 562,
       "fetch_or_parse_failures": 37
     },
-    "different_next_target": "Recover the 17 September 2018 catalogue only through a materially different retained/cached or shared-platform route; if no evidence-bearing copy is available, move across the uncovered source/year register to another substantial accessible catalogue."
+    "different_next_target": "The September result-card inventory is now banked as partial evidence. Revisit its missing catalogue only when a materially different retained/cached or shared-platform copy exists; otherwise continue across accessible substantial source/year inventories."
+  },
+  "edward_mellor_2018_september_and_2019_result_card_expansion": {
+    "checked_at": "2026-11-12T04:13:28.986144+00:00",
+    "opportunity": "Bank the 67 individually evidenced September 2018 result cards despite the lost catalogue, then batch seven wholly uncovered 2019 first-party historical event pages containing 508 further individual cards.",
+    "attempted_route": "Extended the reusable Edward Mellor runner with exact-day and range-aware results-only modes, retained eight immutable first-party HTML pages, reconciled every card to its published page inventory, preserved property IDs, lot labels, outcomes and achieved amounts, and kept missing catalogue fields null.",
+    "net_new_appearances": 575,
+    "new_address_records": 0,
+    "new_partial_lots": 575,
+    "new_exact_day_partial_lots_in_twenty_year_window": 67,
+    "new_range_dated_partial_lots_in_twenty_year_window": 508,
+    "new_dated_address_records_in_twenty_year_window": 0,
+    "new_auction_date_null_records": 508,
+    "new_future_dated_appearances": 0,
+    "new_duplicate_records": 0,
+    "duplicate_exact_date_address_evidence_excluded": 0,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_unknown_sector_appearances": 575,
+    "commercial_or_mixed_use": 0,
+    "new_numeric_guide_prices": 0,
+    "new_sale_prices": 202,
+    "new_rent_values": 0,
+    "new_published_outcomes": 241,
+    "newly_covered_source_years": [
+      2019
+    ],
+    "newly_reconciled_complete_result_card_inventories": 8,
+    "newly_reconciled_complete_source_event_inventories": 0,
+    "published_properties_in_reconciled_result_card_inventories": 575,
+    "catalogue_complete": false,
+    "result_card_inventories_complete": true,
+    "source_files_reconciled": true,
+    "scope_note": "September 2018 retains an exact auction date. Each 2019 appearance retains its exact two-day start/end range with auction_date null because the source does not expose an individual lot day. Migrated cards publish no address, guide, rent or sector, so those fields remain null/unknown and neither catalogue nor original-offered completeness is claimed.",
+    "database_rebuild_verified": true,
+    "publication_verified": false,
+    "national_completeness_verified": false,
+    "corpus_after_rebuild": {
+      "appearances": 314048,
+      "address_records": 302156,
+      "partial_records": 11892,
+      "exact_day_in_window_appearances": 305235,
+      "in_window_guide_prices": 107359,
+      "in_window_sale_prices": 112748,
+      "auction_date_null_records": 5555,
+      "range_dated_records_with_null_auction_date_added_here": 508,
+      "future_dated": 138,
+      "complete_catalogue_states": 4985,
+      "incomplete_catalogue_states": 570,
+      "fetch_or_parse_failures": 37
+    },
+    "different_next_target": "Batch the six accessible Edward Mellor 2020 pages with unique lot labels (399 cards) through the same range-aware runner. Add property-ID/card-position identity support before touching the four other 2020 pages with repeated TBC or lot labels."
   }
 }
