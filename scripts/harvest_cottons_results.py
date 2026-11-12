@@ -661,6 +661,27 @@ def extract_pdf_text_ocr(raw: bytes, psm: int = 4) -> str:
         return text
 
 
+def retained_ocr_retry_available(state: dict, snapshots: list[Path]) -> bool:
+    """Retry a saved scan when a previously missing local toolchain now exists.
+
+    OCR_VERSION normally prevents repeated work against terminal parse failures.
+    A recorded missing-binary failure is different: the immutable PDF has not
+    actually exercised the current parser.  Admit one retry once both free
+    executables are present, without reopening other same-version failures.
+    """
+    reason = str(state.get("source_blocker", {}).get("reason") or "")
+    if "image-only" not in reason or not snapshots:
+        return False
+    if state.get("ocr_version", 0) < OCR_VERSION:
+        return True
+    ocr_error = str(state.get("source_blocker", {}).get("ocr_error") or "")
+    return (
+        "OCR requires pdftoppm and tesseract" in ocr_error
+        and bool(shutil.which("pdftoppm"))
+        and bool(shutil.which("tesseract"))
+    )
+
+
 def parse_result_pdf_ocr(
         raw: bytes, expected: dict, evidence: dict
 ) -> tuple[dict, list[dict], dict]:
@@ -773,9 +794,7 @@ def harvest(limit: int = 16, ocr_limit: int = 4) -> None:
             snapshots = sorted((corpus.DATA / "sources/cottons/results").glob(
                 f"{item['auction_date']}-*.pdf.gz"
             ))
-            if ("image-only" in reason
-                    and state.get("ocr_version", 0) < OCR_VERSION
-                    and snapshots):
+            if retained_ocr_retry_available(state, snapshots):
                 ocr_pending.append((item, state, snapshots[-1]))
             else:
                 blockers.append(state["source_blocker"])

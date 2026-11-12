@@ -2,22 +2,61 @@
   "auctioneer": "Cottons",
   "source_auction_id": "cottons:2014-12-04:8226a06bdcf3",
   "auction_date": "2014-12-04",
-  "catalogue_complete": false,
-  "source_rows_complete": false,
-  "lots_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "visible_result_rows": 55,
+  "source_table_rows": 55,
+  "identical_duplicate_rows": 0,
+  "lots_captured": 55,
+  "published_lots_offered": 55,
+  "lettered_additional_rows": 0,
+  "missing_base_lot_numbers": [],
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "continuous published base lot sequence in the complete first-party result table",
+  "completion_scope": "every row in the retained first-party result PDF; later catalogue enrichment may add property detail",
+  "result_parser_version": 2,
   "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-4th-Dec-as-of-20th-Jan15.pdf",
-  "source_blocked": true,
-  "source_blocker": {
-    "auction_id": "cottons:2014-12-04:8226a06bdcf3",
-    "auction_date": "2014-12-04",
-    "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-4th-Dec-as-of-20th-Jan15.pdf",
-    "error": "ValueError: result PDF contains no usable text",
-    "reason": "retained image-only result PDF failed bounded OCR recovery",
-    "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: RuntimeError: OCR requires pdftoppm and tesseract; PSM 3: RuntimeError: OCR requires pdftoppm and tesseract; PSM 6: RuntimeError: OCR requires pdftoppm and tesseract; PSM 11: RuntimeError: OCR requires pdftoppm and tesseract; PSM 12: RuntimeError: OCR requires pdftoppm and tesseract"
-  },
   "errors": [],
-  "checked_at": "2026-11-05T05:30:50.687566+00:00",
-  "ocr_attempted": true,
+  "checked_at": "2026-11-12T20:07:37.051807+00:00",
+  "ocr_recovered": true,
   "ocr_version": 7,
-  "ocr_checked_at": "2026-11-05T05:30:50.687830+00:00"
+  "source_evidence": {
+    "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-4th-Dec-as-of-20th-Jan15.pdf",
+    "retrieved_at": "2026-11-12T20:07:29.578439+00:00",
+    "sha256": "7a05886948bd5fc0da67e690f046945418583be1a4a7aec74b02bd5936704597",
+    "snapshot_path": "data/auction_history/sources/cottons/results/2014-12-04-7a05886948bd5fc0.pdf.gz",
+    "archive_snapshot_path": "data/auction_history/sources/cottons/archive-ad15ebec49b9bcb8.json.gz",
+    "basis": "OCR of retained first-party complete auction result PDF",
+    "ocr_version": 7,
+    "ocr_engine": "Tesseract PSM 4 with Poppler 300dpi lossless rasterisation",
+    "ocr_psm": 4,
+    "ocr_modes_attempted": [
+      4,
+      3,
+      6,
+      11,
+      12
+    ],
+    "ocr_mode_failures": {
+      "6": "ValueError: result table header is absent",
+      "11": "ValueError: result table header is absent",
+      "12": "ValueError: result table header is absent"
+    },
+    "ocr_candidates_admitted": [
+      {
+        "psm": 4,
+        "lots_captured": 55,
+        "catalogue_complete": true,
+        "published_lots_offered": 55
+      },
+      {
+        "psm": 3,
+        "lots_captured": 55,
+        "catalogue_complete": true,
+        "published_lots_offered": 55
+      }
+    ],
+    "ocr_selected_psm": 4
+  }
 }

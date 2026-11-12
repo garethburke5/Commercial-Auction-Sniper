@@ -3,6 +3,46 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Venmore Auctions 2023-2024 catalogue batch
+
+- **Specific growth opportunity executed:** four accessible, complete first-party
+  Venmore Auctions catalogue PDFs dated 12 July 2023, 27 March 2024, 15 May
+  2024 and 4 December 2024. A reusable manifest runner now batches retained
+  PDFs, asserts every contiguous numbered order row, preserves original URLs
+  and immutable hash-verified snapshots, and rejects exact date/address
+  overlaps before admission.
+- **Measured net gain:** **186 appearances / 186 address records / 186
+  exact-dated addresses inside the twenty-year window**. New partial, undated,
+  future-dated, duplicate and cross-source-overlap records are all **0**.
+- **Sector and evidence gain:** **16 commercial, 13 mixed-use, 8 land, 128
+  residential and 21 unknown** appearances; the commercial/mixed-use subset is
+  **29**. The batch adds **173 numeric guides, 0 achieved prices and 89
+  published rents**. It preserves 11 `sold prior` and two `withdrawn` outcomes;
+  no sale amount is inferred from a guide or qualitative outcome.
+- **Inventory reconciliation:** all **186/186 printed rows across 4/4
+  catalogues** reconcile. This adds source-years **2023 and 2024** for Venmore.
+  Venmore Auctions is counted once under its published trading label; directory
+  entries or associated estate-agency brands are not counted as additional
+  auctioneers.
+- **Corpus after rebuild:** **317,716 appearances**, **305,158 address records**
+  and **308,239 in-window appearances**. In-window evidence now includes
+  **110,238 numeric guides** and **114,174 achieved prices**.
+- **Bounded adjacent routes:** the apparent Sarah Mains EIG opportunity is an
+  old hostname redirecting to the already reconciled Auction Works archive, so
+  it was not counted or refreshed. Halls' 2022 individual-lot inventories remain
+  absent from the accessible first-party routes checked in this run. Cottons'
+  saved 6 September 2016 and 4 December 2014 image-only results were recovered
+  with the newly available OCR toolchain, but all **85 rows** overlap existing
+  catalogue appearances; they enrich immutable source evidence and add **0 net
+  appearances, guides or achieved prices**.
+- **Next concrete growth target:** recover Venmore's remaining first-party
+  catalogue PDFs for 2023-2026 from the accessible `userfiles` route, beginning
+  with the 3 December 2025 29-lot event and the six published 2026 events. Use
+  the blocked live result pages only if a materially different client passes the
+  current HTTP 403; do not refresh the four reconciled catalogues.
+
+National completeness remains **false**.
+
 ## 12 November 2026 — Regional Property Auctioneers surviving archive complete
 
 - **Specific growth opportunity executed:** nine complete first-party catalogue

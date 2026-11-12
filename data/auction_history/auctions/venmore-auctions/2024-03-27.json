@@ -1,0 +1,34 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2024-03-27",
+  "auction_date": "2024-03-27",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1103300279-Venmore%20Auction%20March%20Catalogue%2024%20%283%29-compressed_compressed.pdf",
+  "published_lots": 49,
+  "lots_captured": 49,
+  "guides_captured": 46,
+  "rents_captured": 29,
+  "published_outcomes_captured": 3,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1103300279-Venmore%20Auction%20March%20Catalogue%2024%20%283%29-compressed_compressed.pdf",
+    "retrieved_at": "2026-11-12T20:35:20.063297+00:00",
+    "sha256": "82f824602fb6ae53375dbb3398cffe6f9ed998e9f0c673be1abf982241edc307",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-03-27-82f824602fb6ae53375d.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-03-27-82f824602fb6ae53375d.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-03-27-82f824602fb6ae53375d.pdf.gz.part-003",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-03-27-82f824602fb6ae53375d.pdf.gz.part-004"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T20:35:20.282797+00:00"
+}

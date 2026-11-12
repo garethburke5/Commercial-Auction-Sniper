@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T19:06:07.256040+00:00",
-  "corpus_checkpoint": "2026-11-12T19:05:30.402872+00:00",
+  "generated_at": "2026-11-12T20:36:47.006769+00:00",
+  "corpus_checkpoint": "2026-11-12T20:36:04.516457+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7902,13 +7902,16 @@
       "name": "Venmore Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/venmore-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Venmore Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 186,
+      "years_with_retained_evidence": [
+        2023,
+        2024
+      ],
+      "with_guide_price": 173,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8225,7 +8228,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 462,
+  "directory_entries_not_linked": 461,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8356,20 +8359,21 @@
     "The Auction Company": 123,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3080,
-    "Unknown auctioneer": 14
+    "Unknown auctioneer": 14,
+    "Venmore Auctions": 186
   },
   "price_coverage": {
     "from_date": "2006-11-12",
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308053,
-      "auction_ids_observed": 13861,
-      "with_guide_price": 110065,
+      "lot_appearances": 308239,
+      "auction_ids_observed": 13865,
+      "with_guide_price": 110238,
       "with_sale_price": 114174,
       "with_both_prices": 50370,
-      "marked_sold": 157166,
-      "marked_sold_without_sale_price": 43732
+      "marked_sold": 157177,
+      "marked_sold_without_sale_price": 43743
     },
     "by_auctioneer_and_year": [
       {
@@ -17413,6 +17417,28 @@
         "with_both_prices": 10,
         "marked_sold": 11,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2023,
+        "lot_appearances": 46,
+        "auction_ids_observed": 1,
+        "with_guide_price": 46,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2024,
+        "lot_appearances": 140,
+        "auction_ids_observed": 3,
+        "with_guide_price": 127,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 11,
+        "marked_sold_without_sale_price": 11
       }
     ],
     "undated_appearances": 6219,
@@ -18067,6 +18093,23 @@
       "newly_covered_source_years": [
         "2012",
         "2013"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "venmore-auctions": {
+      "source": "venmore-auctions",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T20:35:30.523825+00:00",
+      "run_new_appearances": 186,
+      "run_new_dated_twenty_year_address_records": 186,
+      "run_new_commercial_or_mixed": 29,
+      "run_new_guide_prices": 173,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 89,
+      "newly_covered_source_years": [
+        "2023",
+        "2024"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -23141,15 +23184,6 @@
       "checked_at": "2026-10-05T04:25:37.947756+00:00"
     },
     {
-      "state_file": "data/auction_history/auctions/cottons/cottons-2014-12-04-8226a06bdcf3.json",
-      "auctioneer": "Cottons",
-      "auction_date": "2014-12-04",
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-4th-Dec-as-of-20th-Jan15.pdf",
-      "lots_captured": 0,
-      "errors": [],
-      "checked_at": "2026-11-05T05:30:50.687566+00:00"
-    },
-    {
       "state_file": "data/auction_history/auctions/cottons/cottons-2012-10-23-7f022475008e.json",
       "auctioneer": "Cottons",
       "auction_date": "2012-10-23",
@@ -23170,9 +23204,17 @@
       "auctioneer": "Cottons",
       "auction_date": "2016-09-06",
       "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-6th-Sept-as-of-26th-Sept-2016.pdf",
-      "lots_captured": 0,
-      "errors": [],
-      "checked_at": "2026-11-05T05:30:49.167566+00:00"
+      "lots_captured": 30,
+      "errors": [
+        {
+          "error": "non-contiguous result lot sequence",
+          "missing": [
+            24,
+            28
+          ]
+        }
+      ],
+      "checked_at": "2026-11-12T20:07:15.699978+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/cottons/cottons-2017-02-28-4614c568ee5f.json",
@@ -23992,8 +24034,8 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T19:06:05.581967+00:00",
-    "sha256": "ca8c6827b2533aa965db57b601cf0b68c77d0b0a13ec2f646275a65ae384c0e9",
+    "checked_at": "2026-11-12T20:36:45.299048+00:00",
+    "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
 }

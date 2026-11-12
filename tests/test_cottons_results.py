@@ -8,6 +8,7 @@ from scripts.harvest_cottons_results import (
     parse_result_pdf_ocr,
     parse_result_text,
     reconcile_catalogue_validated_gap,
+    retained_ocr_retry_available,
     result_state_reusable,
     result_semantics,
 )
@@ -299,6 +300,30 @@ def test_complete_ocr_state_is_refreshed_when_ocr_parser_version_changes():
     assert result_state_reusable(
         {**common, "ocr_recovered": True, "ocr_version": 7}, rows
     ) is True
+
+
+def test_saved_ocr_toolchain_failure_is_retried_when_binaries_become_available(monkeypatch):
+    state = {
+        "ocr_version": cottons.OCR_VERSION,
+        "source_blocker": {
+            "reason": "retained image-only result PDF failed bounded OCR recovery",
+            "ocr_error": "RuntimeError: OCR requires pdftoppm and tesseract",
+        },
+    }
+    monkeypatch.setattr(cottons.shutil, "which", lambda command: f"/usr/bin/{command}")
+    assert retained_ocr_retry_available(state, [cottons.Path("saved.pdf.gz")]) is True
+
+
+def test_same_version_parse_failure_remains_terminal(monkeypatch):
+    state = {
+        "ocr_version": cottons.OCR_VERSION,
+        "source_blocker": {
+            "reason": "retained image-only result PDF failed bounded OCR recovery",
+            "ocr_error": "ValueError: result table header is absent",
+        },
+    }
+    monkeypatch.setattr(cottons.shutil, "which", lambda command: f"/usr/bin/{command}")
+    assert retained_ocr_retry_available(state, [cottons.Path("saved.pdf.gz")]) is False
 
 
 def test_complete_cross_publication_catalogue_state_is_not_overwritten_by_result_retry():
