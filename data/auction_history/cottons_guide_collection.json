@@ -1,29 +1,19 @@
 {
-  "checked_at": "2026-11-11T18:54:22.616109+00:00",
+  "checked_at": "2026-11-12T01:49:44.943416+00:00",
   "catalogues_attempted": 2,
-  "catalogues_enriched": [
+  "catalogues_enriched": [],
+  "records_checked_against_catalogue": 1166,
+  "records_with_catalogue_guides": 1179,
+  "failures": [
     {
-      "auction_date": "2024-05-22",
-      "lots_checked": 46,
-      "result_lots": 47,
-      "lots_with_published_guide": 46,
-      "lots_without_published_guide": 1,
-      "catalogue_labels_absent": [
-        "12"
-      ],
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2024/05/MAY-2024_WEB-VERSION.pdf"
+      "auction_date": "2014-12-04",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Cottons-Web-Copy.pdf",
+      "error": "Result identities absent from catalogue: ['1Q']"
     },
     {
-      "auction_date": "2023-05-24",
-      "lots_checked": 31,
-      "result_lots": 32,
-      "lots_with_published_guide": 31,
-      "lots_without_published_guide": 1,
-      "catalogue_labels_absent": [],
-      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2023/05/Catalogue-LowRes-20230524-20230512124048.pdf"
+      "auction_date": "2012-10-23",
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Cottons-Auction-23rd-October-2012-WEB-VERSION.pdf",
+      "error": "No independent offered-lot total in catalogue"
     }
-  ],
-  "records_checked_against_catalogue": 1165,
-  "records_with_catalogue_guides": 1178,
-  "failures": []
+  ]
 }

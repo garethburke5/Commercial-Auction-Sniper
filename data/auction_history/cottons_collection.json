@@ -1,15 +1,15 @@
 {
-  "checked_at": "2026-11-11T18:54:20.554528+00:00",
+  "checked_at": "2026-11-12T01:49:42.634821+00:00",
   "source_url": "https://www.cottons.co.uk/auction-archive/",
   "result_sheets_discovered": 135,
   "result_sheets_complete": 128,
-  "result_sheets_blocked": 6,
+  "result_sheets_blocked": 5,
   "result_sheets_reused": 128,
-  "result_sheets_attempted_this_run": 1,
+  "result_sheets_attempted_this_run": 2,
   "result_sheets_pending": 0,
-  "ocr_sheets_attempted_this_run": 0,
-  "ocr_appearances_recovered_this_run": 0,
-  "appearances_captured": 7513,
+  "ocr_sheets_attempted_this_run": 1,
+  "ocr_appearances_recovered_this_run": 59,
+  "appearances_captured": 7514,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
@@ -20,7 +20,7 @@
     "sold_prior": 636,
     "not_available": 57,
     "sold_after": 280,
-    "unknown": 107,
+    "unknown": 108,
     "withdrawn": 38,
     "under_offer": 10,
     "unsold": 1
@@ -28,15 +28,15 @@
   "by_sector": {
     "unknown": 5527,
     "land": 584,
-    "residential": 1140,
+    "residential": 1141,
     "commercial": 181,
     "mixed-use": 81
   },
   "archive_evidence": {
     "source_url": "https://www.cottons.co.uk/auction-archive/",
-    "retrieved_at": "2026-11-11T18:54:19.393624+00:00",
-    "sha256": "183f78419ea7d81f03567526ef60cb24958f22235a217dc559e579ee7453f33d",
-    "snapshot_path": "data/auction_history/sources/cottons/archive-183f78419ea7d81f.json.gz",
+    "retrieved_at": "2026-11-12T01:49:07.564293+00:00",
+    "sha256": "2086e7b818e95ea1c4b3d515920c4ca485fdf0b5e41f47775c4386fc71f6350a",
+    "snapshot_path": "data/auction_history/sources/cottons/archive-2086e7b818e95ea1.json.gz",
     "basis": "first-party auction archive"
   },
   "source_blockers": [
@@ -68,14 +68,6 @@
       "auction_id": "cottons:2016-09-06:a34f0a04cfc6",
       "auction_date": "2016-09-06",
       "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-6th-Sept-as-of-26th-Sept-2016.pdf",
-      "error": "ValueError: result PDF contains no usable text",
-      "reason": "retained image-only result PDF failed bounded OCR recovery",
-      "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: RuntimeError: OCR requires pdftoppm and tesseract; PSM 3: RuntimeError: OCR requires pdftoppm and tesseract; PSM 6: RuntimeError: OCR requires pdftoppm and tesseract; PSM 11: RuntimeError: OCR requires pdftoppm and tesseract; PSM 12: RuntimeError: OCR requires pdftoppm and tesseract"
-    },
-    {
-      "auction_id": "cottons:2015-09-10:15c6c688fedb",
-      "auction_date": "2015-09-10",
-      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-sheet-10th-Sept-15-as-22nd-Jan16.pdf",
       "error": "ValueError: result PDF contains no usable text",
       "reason": "retained image-only result PDF failed bounded OCR recovery",
       "ocr_error": "ValueError: bounded OCR modes failed: PSM 4: RuntimeError: OCR requires pdftoppm and tesseract; PSM 3: RuntimeError: OCR requires pdftoppm and tesseract; PSM 6: RuntimeError: OCR requires pdftoppm and tesseract; PSM 11: RuntimeError: OCR requires pdftoppm and tesseract; PSM 12: RuntimeError: OCR requires pdftoppm and tesseract"

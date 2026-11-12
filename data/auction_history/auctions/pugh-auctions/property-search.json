@@ -446,6 +446,16 @@
   "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
   "errors": [
     {
+      "page": 366,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=366",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=366"
+    },
+    {
+      "page": 365,
+      "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=365",
+      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=365"
+    },
+    {
       "page": 2,
       "url": "https://www.pugh-auctions.com/property-search?filter-date_added=anytime&filter-guide_price_from=&filter-guide_price_to=&filter-postcode-town=&filter-property-type=all&filter-radius=area&filters=1&include-sold=on&order-results=date-desc&style=list&page=2",
       "error": "ValueError: Published result count changed during traversal"
@@ -461,5 +471,5 @@
       "error": "ValueError: Published result count changed in grid fallback"
     }
   ],
-  "checked_at": "2026-11-11T07:23:33.484885+00:00"
+  "checked_at": "2026-11-12T01:44:48.074050+00:00"
 }
