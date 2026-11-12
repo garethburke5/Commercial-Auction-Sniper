@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-12T02:04:20.905923+00:00",
-  "individual_lot_records_captured": 312962,
-  "records_with_address": 301646,
+  "generated_at": "2026-11-12T10:34:28.446717+00:00",
+  "individual_lot_records_captured": 313022,
+  "records_with_address": 301706,
   "partial_lot_records": 11316,
-  "exact_address_groups": 167811,
-  "groups_with_repeat_appearances": 42946,
+  "exact_address_groups": 167853,
+  "groups_with_repeat_appearances": 42950,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -21,7 +21,7 @@
     "Auction House Birmingham & Black Country": 116,
     "Auction House Bristol": 9,
     "Auction House Cheshire": 70,
-    "Auction House Cheshire, Staffordshire & Shropshire": 278,
+    "Auction House Cheshire, Staffordshire & Shropshire": 279,
     "Auction House Chesterfield & North Derbyshire": 2,
     "Auction House Chesterfield and North Derbyshire": 4,
     "Auction House Coventry & Warwickshire": 157,
@@ -56,7 +56,7 @@
     "Auction House West Yorkshire": 223,
     "Auction North": 37,
     "Auction Works": 652,
-    "BTG Eddisons": 2982,
+    "BTG Eddisons": 3036,
     "Bagshaws": 373,
     "Barnard Marcus Auctions": 6701,
     "Barnett Ross": 7601,
@@ -81,7 +81,7 @@
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
     "Goldings Auctions": 635,
-    "Harman Healy": 1521,
+    "Harman Healy": 1522,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
@@ -127,7 +127,7 @@
     "TW Gaze": 28,
     "The Auction Company": 123,
     "The Property Auction House": 132,
-    "Town & Country Property Auctions": 3080,
+    "Town & Country Property Auctions": 3084,
     "Unknown auctioneer": 14
   },
   "by_year": {
@@ -156,24 +156,24 @@
     "2023": 33413,
     "2024": 42327,
     "2025": 48390,
-    "2026": 47954,
+    "2026": 48014,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42708,
-    "land": 19375,
+    "commercial": 42709,
+    "land": 19384,
     "mixed": 1,
-    "mixed-use": 47641,
-    "residential": 151718,
-    "unknown": 51519
+    "mixed-use": 47642,
+    "residential": 151723,
+    "unknown": 51563
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4978,
+  "surviving_catalogues_completely_harvested": 4979,
   "catalogues_incomplete_or_unreconciled": 562,
-  "catalogue_fetch_or_parse_failures": 37,
+  "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -185,13 +185,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 304657,
-      "auction_ids_observed": 13645,
-      "with_guide_price": 106875,
-      "with_sale_price": 112700,
+      "lot_appearances": 304716,
+      "auction_ids_observed": 13651,
+      "with_guide_price": 106889,
+      "with_sale_price": 112737,
       "with_both_prices": 48946,
-      "marked_sold": 155593,
-      "marked_sold_without_sale_price": 43633
+      "marked_sold": 155610,
+      "marked_sold_without_sale_price": 43613
     },
     "by_auctioneer_and_year": [
       {
@@ -3673,13 +3673,13 @@
       {
         "auctioneer": "BTG Eddisons",
         "year": 2026,
-        "lot_appearances": 1618,
-        "auction_ids_observed": 16,
-        "with_guide_price": 481,
-        "with_sale_price": 699,
+        "lot_appearances": 1672,
+        "auction_ids_observed": 17,
+        "with_guide_price": 495,
+        "with_sale_price": 721,
         "with_both_prices": 0,
-        "marked_sold": 1028,
-        "marked_sold_without_sale_price": 329
+        "marked_sold": 1053,
+        "marked_sold_without_sale_price": 332
       },
       {
         "auctioneer": "Bagshaws",
@@ -5686,8 +5686,8 @@
       {
         "auctioneer": "Harman Healy",
         "year": 2026,
-        "lot_appearances": 114,
-        "auction_ids_observed": 14,
+        "lot_appearances": 115,
+        "auction_ids_observed": 15,
         "with_guide_price": 0,
         "with_sale_price": 47,
         "with_both_prices": 0,
@@ -7460,10 +7460,10 @@
         "lot_appearances": 305,
         "auction_ids_observed": 5,
         "with_guide_price": 0,
-        "with_sale_price": 121,
+        "with_sale_price": 133,
         "with_both_prices": 0,
-        "marked_sold": 231,
-        "marked_sold_without_sale_price": 110
+        "marked_sold": 224,
+        "marked_sold_without_sale_price": 91
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -7471,10 +7471,10 @@
         "lot_appearances": 670,
         "auction_ids_observed": 12,
         "with_guide_price": 0,
-        "with_sale_price": 0,
+        "with_sale_price": 3,
         "with_both_prices": 0,
-        "marked_sold": 507,
-        "marked_sold_without_sale_price": 507
+        "marked_sold": 506,
+        "marked_sold_without_sale_price": 503
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -8700,8 +8700,8 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1383,
-        "auction_ids_observed": 605,
+        "lot_appearances": 1387,
+        "auction_ids_observed": 609,
         "with_guide_price": 0,
         "with_sale_price": 257,
         "with_both_prices": 0,
@@ -8732,7 +8732,7 @@
       }
     ],
     "undated_appearances": 5047,
-    "future_dated_appearances": 138,
+    "future_dated_appearances": 139,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -8743,14 +8743,14 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-12T01:53:25.568072+00:00",
+    "checked_at": "2026-11-12T10:33:02.615894+00:00",
     "lots_captured": 5607,
-    "current_run_unique_lots": 5605,
+    "current_run_unique_lots": 4250,
     "expected_public_results": 5605,
     "run_new_appearances": 0,
     "run_new_address_records": 0,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 2,
+    "retained_not_in_current_public_pagination": 1357,
     "pages_captured": [
       1,
       2,
@@ -8836,38 +8836,10 @@
       82,
       83,
       84,
-      85,
-      86,
-      87,
-      88,
-      89,
-      90,
-      91,
-      92,
-      93,
-      94,
-      95,
-      96,
-      97,
-      98,
-      99,
-      100,
-      101,
-      102,
-      103,
-      104,
-      105,
-      106,
-      107,
-      108,
-      109,
-      110,
-      111,
-      112,
-      113
+      85
     ],
     "pages_expected": 113,
-    "results_complete": true,
+    "results_complete": false,
     "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
