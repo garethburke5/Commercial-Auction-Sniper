@@ -3,6 +3,47 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Venmore Auctions 2024-2025 catalogue batch
+
+- **Specific growth opportunity executed:** ten accessible first-party Venmore
+  catalogue PDFs dated 10 July, 4 September and 16 October 2024, plus 5
+  February, 26 March, 15 May, 11 June, 9 July, 3 September and 15 October
+  2025. The reusable retained-PDF runner reconciles every contiguous printed
+  order row and now stops after the asserted final row so detailed-lot pages
+  cannot bleed into the last address.
+- **Measured net gain:** **400 appearances / 400 address records / 400
+  exact-dated addresses inside the twenty-year window**. New partial,
+  undated, future-dated, duplicate and cross-source-overlap records are all
+  **0**.
+- **Sector and evidence gain:** **16 commercial, 36 mixed-use, 17 land, 263
+  residential and 68 unknown** appearances; the commercial/mixed-use subset
+  is **52**. The batch adds **378 numeric guides, 0 achieved prices and 182
+  published rents**. It preserves 20 `sold prior` and two `postponed`
+  outcomes without treating a guide or qualitative outcome as a sale amount.
+- **Inventory reconciliation:** all **400/400 printed rows across 10/10 new
+  catalogues** reconcile. Venmore now has **838 appearances across 21 retained
+  catalogues**. The 15 October 2025 PDF has 32 numbered rows against 33
+  surviving online cards, so one late online-only lot remains explicit. With
+  the one July 2026 and two October 2026 gaps, the online/catalogue difference
+  is **4** and those event states remain partial. No property was invented to
+  close those gaps.
+- **Source-year accounting:** source-years 2024 and 2025 were already
+  represented, so newly covered source-years are **0**; the ten exact-dated
+  event inventories are new coverage. Venmore Auctions remains one trading
+  label and is not counted again through associated estate-agency brands.
+- **Latest-main reconciliation and rebuild:** the newer `main` evidence at
+  `f708e7e` was merged before collection, including 99 later per-source run
+  outcomes. The rebuilt combined corpus contains **318,627 appearances**,
+  **306,069 address records**, **12,558 partial records** and **309,140
+  in-window appearances**, including **110,876 numeric guides** and **114,231
+  achieved prices**. Undated and future-dated totals are 6,219 and 148.
+- **Next concrete growth target:** batch Venmore's surviving 2023 catalogues
+  dated 11 January, 8 February, 8 March, 12 April, 24 May, 6 September, 25
+  October and 6 December, plus 7 February 2024, through the same runner; then
+  continue into the surviving 2022 archive. Reconcile the four known
+  online-only late lots only through a materially different source route.
+  National completeness remains false.
+
 ## 12 November 2026 — Venmore Auctions 2025-2026 retained-catalogue batch
 
 - **Specific growth opportunity executed:** seven additional first-party

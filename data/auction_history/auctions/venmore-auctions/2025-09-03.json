@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2025-09-03",
+  "auction_date": "2025-09-03",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/920382091-Venmore%20Auction%20September%20Catalogue%2025-compressed.pdf",
+  "published_lots": 44,
+  "catalogue_published_lots": 44,
+  "lots_captured": 44,
+  "online_listing_gap": 0,
+  "guides_captured": 42,
+  "rents_captured": 22,
+  "published_outcomes_captured": 2,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=98",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/920382091-Venmore%20Auction%20September%20Catalogue%2025-compressed.pdf",
+    "retrieved_at": "2026-11-12T21:41:33.043273+00:00",
+    "sha256": "00894d60d4a41268b825adeb1d380ce594306932c5bdc85050ae9026ce4187e2",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=98",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2025-09-03-00894d60d4a41268b825.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2025-09-03-00894d60d4a41268b825.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2025-09-03-00894d60d4a41268b825.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:41:33.207398+00:00"
+}

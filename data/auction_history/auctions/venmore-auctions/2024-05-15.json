@@ -15,13 +15,13 @@
   "catalogue_complete": true,
   "source_rows_complete": true,
   "denominator_reconciled": true,
-  "denominator_basis": "first-party online property count compared with contiguous numbered order-of-lots table in complete first-party PDF",
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
   "completion_scope": "every numbered row in the printed order-of-lots table",
   "source_event_url": null,
   "auction_date_basis": "exact date printed in first-party catalogue",
   "source_evidence": {
     "source_url": "https://www.venmoreauctions.co.uk/userfiles/245079263-Venmore%20Auction%20May%20Catalogue%2024%20Compressed.pdf",
-    "retrieved_at": "2026-11-12T21:15:11.440726+00:00",
+    "retrieved_at": "2026-11-12T21:40:56.409876+00:00",
     "sha256": "508da544aac0dca2e60bcfcb886494ffe25db4bed43365235a5a4e4b532273cb",
     "basis": "complete first-party exact-dated property-auction catalogue PDF",
     "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
@@ -35,5 +35,5 @@
     "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
   },
   "errors": [],
-  "checked_at": "2026-11-12T21:15:11.638867+00:00"
+  "checked_at": "2026-11-12T21:40:56.599552+00:00"
 }

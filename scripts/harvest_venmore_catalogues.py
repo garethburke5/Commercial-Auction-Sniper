@@ -49,11 +49,11 @@ POSTCODE = corpus.PC
 RENT_PCM = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?c\.?m\.?|per\s+calendar\s+month)", re.I)
 RENT_PA = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?\s*a\.?|per\s+annum)", re.I)
 NEXT_TARGET = (
-    "Recover Venmore's remaining first-party 2025 catalogues (5 February, 26 March, 15 May, "
-    "11 June, 9 July, 3 September and 15 October) plus the missing July, September and October "
-    "2024 catalogues through the same retained-userfiles batch runner. Reconcile the three known "
-    "2026 online-only late lots through a materially different source route. National completeness "
-    "remains false."
+    "Recover Venmore's surviving 2023 catalogues (11 January, 8 February, 8 March, 12 April, "
+    "24 May, 6 September, 25 October and 6 December) plus 7 February 2024 through the same "
+    "retained-userfiles batch runner, then continue into the 2022 archive. Reconcile the four "
+    "known 2025-2026 online-only late lots through a materially different source route. "
+    "National completeness remains false."
 )
 
 
@@ -156,6 +156,15 @@ def parse_order_rows(text, expected):
                 "address_parts": [clean(body[:value_match.start()] if value_match else body)],
                 "order_value_parts": [clean(value_match.group("value")) if value_match else None],
             }
+            # Some catalogues begin the first detailed lot page immediately
+            # after the final order row without a recognised section heading.
+            # Once the asserted final label and its price/outcome are present,
+            # the inventory is complete; do not let detailed-page text bleed
+            # into that final address.
+            if int(match.group(1)) == expected and value_match:
+                rows.append(current)
+                current = None
+                break
             continue
         if not current:
             continue
@@ -352,6 +361,9 @@ def materialize_event(config, source_url, evidence, text):
         "denominator_basis": (
             "first-party online property count compared with contiguous numbered "
             "order-of-lots table in complete first-party PDF"
+            if "online_listed_lots" in config else
+            "contiguous numbered order-of-lots table in complete first-party PDF; "
+            "historical live grid no longer publishes a usable property denominator"
         ),
         "completion_scope": (
             "every numbered row in the printed order-of-lots table"
@@ -408,12 +420,12 @@ def persist_continuation(summary):
     payload["next_growth_target"] = NEXT_TARGET
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "venmore-auctions-2024-2025-retained-catalogues",
+        "source_key_candidate": "venmore-auctions-2023-2024-retained-catalogues",
         "auctioneer": SOURCE,
         "source_format": "first-party retained catalogue PDFs",
         "opportunity": (
-            "batch seven 2025 and three missing 2024 catalogue dates through the "
-            "existing Venmore runner, starting with the accessible 5 February 2025 PDF"
+            "batch eight missing 2023 catalogue dates and 7 February 2024 through the "
+            "existing Venmore runner, then continue into the surviving 2022 archive"
         ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
@@ -525,7 +537,11 @@ def harvest():
         "auctions": states, "failures": failures,
         "run_duplicate_source_evidence_excluded": len(overlaps),
         "duplicate_source_evidence_exclusions": overlaps,
-        "live_archive_route_blocker": "past-auctions and property-search HTML return 403 to the collector; direct first-party userfiles PDFs remain accessible",
+        "live_archive_route_blocker": (
+            "historical event pages remain reachable, but most older live grids have "
+            "been cleared to zero properties; retained first-party userfiles PDFs "
+            "preserve the individual printed rows"
+        ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
     }

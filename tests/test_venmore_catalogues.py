@@ -3,16 +3,21 @@ import pytest
 from scripts import harvest_venmore_catalogues as collector
 
 
-def test_manifest_reconciles_eleven_catalogues_and_438_printed_lots():
+def test_manifest_reconciles_twenty_one_catalogues_and_838_printed_lots():
     payload = collector.load_manifest()
-    assert payload["expected_catalogues"] == 11
-    assert payload["expected_lots"] == 438
+    assert payload["expected_catalogues"] == 21
+    assert payload["expected_lots"] == 838
     assert payload["baseline_event_dates"] == [
         "2023-07-12", "2024-03-27", "2024-05-15", "2024-12-04",
+        "2025-12-03", "2026-02-11", "2026-03-25", "2026-05-13",
+        "2026-07-09", "2026-09-02", "2026-10-21",
     ]
     assert {event["auction_date"] for event in payload["events"]} == {
-        "2023-07-12", "2024-03-27", "2024-05-15", "2024-12-04",
-        "2025-12-03", "2026-02-11", "2026-03-25", "2026-05-13",
+        "2023-07-12", "2024-03-27", "2024-05-15", "2024-07-10",
+        "2024-09-04", "2024-10-16", "2024-12-04", "2025-02-05",
+        "2025-03-26", "2025-05-15", "2025-06-11", "2025-07-09",
+        "2025-09-03", "2025-10-15", "2025-12-03", "2026-02-11",
+        "2026-03-25", "2026-05-13",
         "2026-07-09", "2026-09-02", "2026-10-21",
     }
 
@@ -117,6 +122,20 @@ def test_order_table_parser_keeps_trailing_markers_out_of_addresses():
     assert rows[2]["status"] == "sold_prior"
     assert all("£" not in row["address"] for row in rows)
     assert all("SOLD PRIOR" not in row["address"] for row in rows)
+
+
+def test_order_table_parser_stops_after_asserted_final_row():
+    text = """
+    ORDER OF LOTS                                      2 LOTS
+    Lot Address                                        Guide Price*
+    1  1 Example Road, Liverpool, L1 1AA               £50,000 PLUS*
+    2  2 Example Road, Liverpool, L1 1AB               £60,000 PLUS*
+    Lot
+    1 Example Road
+    Detailed sales particulars that are not an order row.
+    """
+    rows = collector.parse_order_rows(text, 2)
+    assert rows[-1]["address"] == "2 Example Road, Liverpool, L1 1AB"
 
 
 def test_month_cover_date_requires_exact_first_party_event_url():

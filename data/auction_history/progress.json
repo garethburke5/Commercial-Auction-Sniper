@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-12T21:15:50.606754+00:00",
-  "individual_lot_records_captured": 317968,
-  "records_with_address": 305410,
+  "generated_at": "2026-11-12T21:43:37.916015+00:00",
+  "individual_lot_records_captured": 318627,
+  "records_with_address": 306069,
   "partial_lot_records": 12558,
-  "exact_address_groups": 170199,
-  "groups_with_repeat_appearances": 43711,
+  "exact_address_groups": 170497,
+  "groups_with_repeat_appearances": 43854,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -12,7 +12,7 @@
     "Allsop": 45007,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
-    "Astleys": 27,
+    "Astleys": 29,
     "Auction Agent": 25,
     "Auction Estates": 2072,
     "Auction Hammer Midlands": 128,
@@ -21,7 +21,7 @@
     "Auction House Birmingham & Black Country": 116,
     "Auction House Bristol": 9,
     "Auction House Cheshire": 70,
-    "Auction House Cheshire, Staffordshire & Shropshire": 278,
+    "Auction House Cheshire, Staffordshire & Shropshire": 279,
     "Auction House Chesterfield & North Derbyshire": 2,
     "Auction House Chesterfield and North Derbyshire": 4,
     "Auction House Coventry & Warwickshire": 157,
@@ -37,7 +37,7 @@
     "Auction House Lincolnshire, North Notts & South Yorks": 923,
     "Auction House London": 19917,
     "Auction House Manchester": 140,
-    "Auction House North East": 770,
+    "Auction House North East": 773,
     "Auction House North West": 806,
     "Auction House North Yorkshire & Tees Valley": 37,
     "Auction House Northants, Beds & Bucks": 46,
@@ -56,8 +56,8 @@
     "Auction House West Yorkshire": 223,
     "Auction North": 37,
     "Auction Property Ltd": 51,
-    "Auction Works": 652,
-    "BTG Eddisons": 2982,
+    "Auction Works": 653,
+    "BTG Eddisons": 3036,
     "Bagshaws": 373,
     "Barnard Marcus Auctions": 6701,
     "Barnett Ross": 7601,
@@ -79,13 +79,13 @@
     "Dedman Gray": 2851,
     "Durrants": 37,
     "Edward Mellor": 12068,
-    "First for Auctions": 1453,
-    "Future Property Auctions": 76531,
+    "First for Auctions": 1454,
+    "Future Property Auctions": 76690,
     "Goldings Auctions": 635,
     "H&H Land & Estates": 55,
     "Halls": 209,
     "Hanover Auction": 26,
-    "Harman Healy": 1521,
+    "Harman Healy": 1528,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
@@ -134,9 +134,9 @@
     "Taylor James Auctions": 1702,
     "The Auction Company": 123,
     "The Property Auction House": 132,
-    "Town & Country Property Auctions": 3080,
+    "Town & Country Property Auctions": 3111,
     "Unknown auctioneer": 14,
-    "Venmore Auctions": 438
+    "Venmore Auctions": 838
   },
   "by_year": {
     "null": 6219,
@@ -162,26 +162,26 @@
     "2021": 22066,
     "2022": 27366,
     "2023": 33805,
-    "2024": 42635,
-    "2025": 48485,
-    "2026": 48246,
-    "2027": 4
+    "2024": 42796,
+    "2025": 48724,
+    "2026": 48503,
+    "2027": 6
   },
   "by_sector": {
-    "commercial": 42986,
-    "land": 19770,
+    "commercial": 43075,
+    "land": 19802,
     "mixed": 1,
-    "mixed-use": 47802,
-    "residential": 154181,
-    "unknown": 53228
+    "mixed-use": 47905,
+    "residential": 154492,
+    "unknown": 53352
   },
   "date_range": [
     "2002-10-31",
-    "2027-01-14"
+    "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5181,
+  "surviving_catalogues_completely_harvested": 5197,
   "catalogues_incomplete_or_unreconciled": 616,
-  "catalogue_fetch_or_parse_failures": 38,
+  "catalogue_fetch_or_parse_failures": 33,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -193,13 +193,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308491,
-      "auction_ids_observed": 13872,
-      "with_guide_price": 110486,
-      "with_sale_price": 114174,
+      "lot_appearances": 309140,
+      "auction_ids_observed": 13892,
+      "with_guide_price": 110876,
+      "with_sale_price": 114231,
       "with_both_prices": 50370,
-      "marked_sold": 157181,
-      "marked_sold_without_sale_price": 43747
+      "marked_sold": 157241,
+      "marked_sold_without_sale_price": 43750
     },
     "by_auctioneer_and_year": [
       {
@@ -3725,13 +3725,13 @@
       {
         "auctioneer": "BTG Eddisons",
         "year": 2026,
-        "lot_appearances": 1618,
-        "auction_ids_observed": 16,
-        "with_guide_price": 481,
-        "with_sale_price": 699,
+        "lot_appearances": 1672,
+        "auction_ids_observed": 17,
+        "with_guide_price": 495,
+        "with_sale_price": 721,
         "with_both_prices": 0,
-        "marked_sold": 1028,
-        "marked_sold_without_sale_price": 329
+        "marked_sold": 1053,
+        "marked_sold_without_sale_price": 332
       },
       {
         "auctioneer": "Bagshaws",
@@ -4275,9 +4275,9 @@
       {
         "auctioneer": "Bradley Hall",
         "year": 2026,
-        "lot_appearances": 36,
-        "auction_ids_observed": 32,
-        "with_guide_price": 36,
+        "lot_appearances": 34,
+        "auction_ids_observed": 31,
+        "with_guide_price": 34,
         "with_sale_price": 29,
         "with_both_prices": 29,
         "marked_sold": 31,
@@ -5529,12 +5529,12 @@
       {
         "auctioneer": "Future Property Auctions",
         "year": 2026,
-        "lot_appearances": 15372,
-        "auction_ids_observed": 42,
+        "lot_appearances": 15531,
+        "auction_ids_observed": 43,
         "with_guide_price": 0,
-        "with_sale_price": 955,
+        "with_sale_price": 970,
         "with_both_prices": 0,
-        "marked_sold": 955,
+        "marked_sold": 970,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -5881,12 +5881,12 @@
       {
         "auctioneer": "Harman Healy",
         "year": 2026,
-        "lot_appearances": 114,
-        "auction_ids_observed": 14,
+        "lot_appearances": 121,
+        "auction_ids_observed": 15,
         "with_guide_price": 0,
-        "with_sale_price": 47,
+        "with_sale_price": 49,
         "with_both_prices": 0,
-        "marked_sold": 60,
+        "marked_sold": 62,
         "marked_sold_without_sale_price": 13
       },
       {
@@ -7655,10 +7655,10 @@
         "lot_appearances": 305,
         "auction_ids_observed": 5,
         "with_guide_price": 0,
-        "with_sale_price": 121,
+        "with_sale_price": 133,
         "with_both_prices": 0,
-        "marked_sold": 231,
-        "marked_sold_without_sale_price": 110
+        "marked_sold": 224,
+        "marked_sold_without_sale_price": 91
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -7666,10 +7666,10 @@
         "lot_appearances": 670,
         "auction_ids_observed": 12,
         "with_guide_price": 0,
-        "with_sale_price": 0,
+        "with_sale_price": 3,
         "with_both_prices": 0,
-        "marked_sold": 507,
-        "marked_sold_without_sale_price": 507
+        "marked_sold": 506,
+        "marked_sold_without_sale_price": 503
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -9214,13 +9214,13 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1383,
-        "auction_ids_observed": 605,
+        "lot_appearances": 1414,
+        "auction_ids_observed": 613,
         "with_guide_price": 0,
-        "with_sale_price": 257,
+        "with_sale_price": 260,
         "with_both_prices": 0,
-        "marked_sold": 802,
-        "marked_sold_without_sale_price": 545
+        "marked_sold": 808,
+        "marked_sold_without_sale_price": 548
       },
       {
         "auctioneer": "Unknown auctioneer",
@@ -9258,24 +9258,24 @@
       {
         "auctioneer": "Venmore Auctions",
         "year": 2024,
-        "lot_appearances": 140,
-        "auction_ids_observed": 3,
-        "with_guide_price": 127,
+        "lot_appearances": 301,
+        "auction_ids_observed": 6,
+        "with_guide_price": 278,
         "with_sale_price": 0,
         "with_both_prices": 0,
-        "marked_sold": 11,
-        "marked_sold_without_sale_price": 11
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 20
       },
       {
         "auctioneer": "Venmore Auctions",
         "year": 2025,
-        "lot_appearances": 29,
-        "auction_ids_observed": 1,
-        "with_guide_price": 28,
+        "lot_appearances": 268,
+        "auction_ids_observed": 8,
+        "with_guide_price": 255,
         "with_sale_price": 0,
         "with_both_prices": 0,
-        "marked_sold": 1,
-        "marked_sold_without_sale_price": 1
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 12
       },
       {
         "auctioneer": "Venmore Auctions",
@@ -9290,7 +9290,7 @@
       }
     ],
     "undated_appearances": 6219,
-    "future_dated_appearances": 138,
+    "future_dated_appearances": 148,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -9301,14 +9301,14 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-12T01:53:25.568072+00:00",
+    "checked_at": "2026-11-12T10:33:02.615894+00:00",
     "lots_captured": 5607,
-    "current_run_unique_lots": 5605,
+    "current_run_unique_lots": 4250,
     "expected_public_results": 5605,
     "run_new_appearances": 0,
     "run_new_address_records": 0,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 2,
+    "retained_not_in_current_public_pagination": 1357,
     "pages_captured": [
       1,
       2,
@@ -9394,38 +9394,10 @@
       82,
       83,
       84,
-      85,
-      86,
-      87,
-      88,
-      89,
-      90,
-      91,
-      92,
-      93,
-      94,
-      95,
-      96,
-      97,
-      98,
-      99,
-      100,
-      101,
-      102,
-      103,
-      104,
-      105,
-      106,
-      107,
-      108,
-      109,
-      110,
-      111,
-      112,
-      113
+      85
     ],
     "pages_expected": 113,
-    "results_complete": true,
+    "results_complete": false,
     "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }

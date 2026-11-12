@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2025-02-05",
+  "auction_date": "2025-02-05",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1883157808-Venmore%20Auction%20Feb%20Catalogue%2025-compressed.pdf",
+  "published_lots": 32,
+  "catalogue_published_lots": 32,
+  "lots_captured": 32,
+  "online_listing_gap": 0,
+  "guides_captured": 27,
+  "rents_captured": 15,
+  "published_outcomes_captured": 5,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=93",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1883157808-Venmore%20Auction%20Feb%20Catalogue%2025-compressed.pdf",
+    "retrieved_at": "2026-11-12T21:41:14.490730+00:00",
+    "sha256": "cbafb00cb0cc080d1deddca14b0fc30548a8f2e74ee6cb623ee07f67f41b0550",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=93",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2025-02-05-cbafb00cb0cc080d1ded.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2025-02-05-cbafb00cb0cc080d1ded.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2025-02-05-cbafb00cb0cc080d1ded.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:41:14.606503+00:00"
+}

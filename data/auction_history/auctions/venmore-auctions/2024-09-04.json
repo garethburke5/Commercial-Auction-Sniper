@@ -1,0 +1,39 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2024-09-04",
+  "auction_date": "2024-09-04",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/93660265-Venmore%20Auction%20Sept%20Catalogue%2024-compressed%20%281%29.pdf",
+  "published_lots": 53,
+  "catalogue_published_lots": 53,
+  "lots_captured": 53,
+  "online_listing_gap": 0,
+  "guides_captured": 45,
+  "rents_captured": 25,
+  "published_outcomes_captured": 8,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=90",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/93660265-Venmore%20Auction%20Sept%20Catalogue%2024-compressed%20%281%29.pdf",
+    "retrieved_at": "2026-11-12T21:41:05.855385+00:00",
+    "sha256": "ec75ec0ef3ed2b17eb207f79cf57c1255b66a9e4e45729e74e8491d9c535452f",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=90",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-09-04-ec75ec0ef3ed2b17eb20.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-09-04-ec75ec0ef3ed2b17eb20.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-09-04-ec75ec0ef3ed2b17eb20.pdf.gz.part-003",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-09-04-ec75ec0ef3ed2b17eb20.pdf.gz.part-004"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:41:06.138626+00:00"
+}

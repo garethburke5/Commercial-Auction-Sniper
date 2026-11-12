@@ -1,0 +1,40 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2024-07-10",
+  "auction_date": "2024-07-10",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1534348372-Venmore%20Auction%20July%20Catalogue%2024%20-%20compressed.pdf",
+  "published_lots": 56,
+  "catalogue_published_lots": 56,
+  "lots_captured": 56,
+  "online_listing_gap": 0,
+  "guides_captured": 55,
+  "rents_captured": 30,
+  "published_outcomes_captured": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=89",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1534348372-Venmore%20Auction%20July%20Catalogue%2024%20-%20compressed.pdf",
+    "retrieved_at": "2026-11-12T21:41:01.877265+00:00",
+    "sha256": "c3708f41a310e0afe5df27ff1bfc62a0ab0b68506b4ba042691ea03f2c8ef9ab",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=89",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-07-10-c3708f41a310e0afe5df.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-07-10-c3708f41a310e0afe5df.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-07-10-c3708f41a310e0afe5df.pdf.gz.part-003",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-07-10-c3708f41a310e0afe5df.pdf.gz.part-004",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-07-10-c3708f41a310e0afe5df.pdf.gz.part-005"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:41:02.203046+00:00"
+}

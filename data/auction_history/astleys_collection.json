@@ -1,49 +1,51 @@
 {
-  "checked_at": "2026-11-11T07:20:13.482769+00:00",
+  "checked_at": "2026-11-12T18:51:10.954024+00:00",
   "auctioneer": "Astleys",
   "parser_version": 8,
   "source_url": "https://astleys.eigonlineauctions.com/search",
   "platform_event_id": null,
-  "archive_sha256": "e3daf5f57ac0f0b288722ff5346611fa68acdeef65564d7d27b32aae63afde01",
+  "archive_sha256": "c5d27dd1b1e82a178805c3be13822a41aa831dfc0301a4a22c77a779aba47c2c",
   "archive_page_count": 1,
   "archive_page_rows": [
-    27
+    29
   ],
   "archive_page_visible_cards": [
-    27
+    29
   ],
-  "visible_source_rows": 27,
+  "visible_source_rows": 29,
   "expected_visible_cards": null,
   "event_advertised_lots": null,
   "event_advertised_lot_discrepancy": null,
   "past_results_index_lots": null,
   "past_results_index_discrepancy": null,
-  "published_result_count": 27,
-  "distinct_source_identities": 27,
+  "published_result_count": 29,
+  "distinct_source_identities": 29,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 27,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 29,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
   "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_guide_prices": 2,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 2,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
   "exact_overlap_reconciliation": [],
-  "new_source_years": [],
+  "new_source_years": [
+    2027
+  ],
   "date_range": [
     "2023-02-07",
-    "2026-12-03"
+    "2027-01-15"
   ],
   "by_status": {
     "sold": 15,
@@ -51,18 +53,18 @@
     "sold_after": 1,
     "withdrawn": 4,
     "sold_prior": 1,
-    "unknown": 1
+    "unknown": 3
   },
   "by_sector": {
-    "residential": 20,
+    "residential": 22,
     "commercial": 4,
     "land": 1,
     "unknown": 2
   },
   "by_attributed_auctioneer": {
-    "Astleys": 27
+    "Astleys": 29
   },
-  "detail_pages_captured": 27,
+  "detail_pages_captured": 29,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
