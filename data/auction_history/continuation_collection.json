@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Batch the six accessible Edward Mellor 2020 historical event pages whose lot labels are unique (2 June, 22 July, 12 August, 13 October, 3 November and 15 December; 399 individual cards) through the range-aware runner. Preserve each two-day range, stable property ID, lot label, published outcome, achieved amount, original URL and immutable HTML; leave exact lot dates, addresses, guides, rents and sectors null. Add property-ID/card-position identity support before the four remaining 2020 pages so repeated TBC or lot labels are never collapsed. National completeness remains false.",
+  "next_growth_target": "Batch City & Rural Property Auctions' five-page first-party past-auction/result archive and official catalogue subdomain through one reusable runner, beginning with the 29 March 2023 catalogue. Reconcile every linked lot against the 166 existing appearances across 30 event identities and bank only missing appearances or genuinely new price, rent or outcome evidence. Preserve exact dates, lot numbers, addresses, guide and achieved prices, rents, outcomes, original URLs and immutable snapshots. Do not refresh the completed Edward Mellor 2020 inventories. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -5480,6 +5480,60 @@
       "incomplete_catalogue_states": 570,
       "fetch_or_parse_failures": 37
     },
-    "different_next_target": "Batch the six accessible Edward Mellor 2020 pages with unique lot labels (399 cards) through the same range-aware runner. Add property-ID/card-position identity support before touching the four other 2020 pages with repeated TBC or lot labels."
+    "different_next_target": "The ten accessible Edward Mellor 2020 result-card inventories are now banked. Rotate to City & Rural Property Auctions' five-page first-party past-auction/result archive; do not refresh these completed 2020 pages."
+  },
+  "edward_mellor_2020_result_card_expansion": {
+    "checked_at": "2026-11-12T05:07:39.874001+00:00",
+    "opportunity": "Batch all ten accessible Edward Mellor 2020 first-party historical event pages, including four pages whose repeated TBC or numbered labels previously prevented lossless collection.",
+    "attempted_route": "Extended the reusable range-aware runner to reconcile repeated labels by immutable property ID and source-card position, retained every first-party HTML response, banked all ten card inventories, and rebuilt the database without inventing exact lot days or missing catalogue fields.",
+    "net_new_appearances": 664,
+    "new_address_records": 0,
+    "new_partial_lots": 664,
+    "new_dated_address_records_in_twenty_year_window": 0,
+    "new_range_dated_partial_lots_in_twenty_year_window": 664,
+    "new_auction_date_null_records": 664,
+    "new_future_dated_appearances": 0,
+    "new_duplicate_records": 0,
+    "duplicate_exact_date_address_evidence_excluded": 0,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_unknown_sector_appearances": 664,
+    "commercial_or_mixed_use": 0,
+    "new_numeric_guide_prices": 0,
+    "new_sale_prices": 168,
+    "new_rent_values": 0,
+    "new_published_outcomes": 178,
+    "newly_covered_source_years": [
+      2020
+    ],
+    "newly_reconciled_complete_result_card_inventories": 10,
+    "newly_reconciled_complete_source_event_inventories": 0,
+    "published_properties_in_reconciled_result_card_inventories": 664,
+    "catalogue_complete": false,
+    "result_card_inventories_complete": true,
+    "source_files_reconciled": true,
+    "repeated_label_identity": "Repeated labels remain separate only when the first-party cards provide distinct property IDs; source-card positions are preserved as additional evidence. Seven TBC cards on 29 July, two TBC cards on 24 November and repeated numbered labels are not collapsed.",
+    "scope_note": "Every appearance retains an exact two-day 2020 start/end range with auction_date null because no individual lot day is published. Migrated cards publish no address, guide, rent or sector, so those fields remain null/unknown and neither catalogue nor original-offered completeness is claimed.",
+    "database_rebuild_verified": true,
+    "database_rebuild_verified_locally": true,
+    "tracked_database_artifact_updated": false,
+    "publication_checkpoint": "The canonical local rebuild passed SQLite integrity and counted 314712 appearances, but auction_history.sqlite.gz regenerated to 176653279 bytes, above GitHub's 100 MiB blob limit. The prepared branch banks source shards, event states and progress only. Rebuild and compact/package the database through the existing free publication pipeline before publishing; do not treat the prior tracked binary as current.",
+    "publication_verified": false,
+    "national_completeness_verified": false,
+    "corpus_after_rebuild": {
+      "appearances": 314712,
+      "address_records": 302156,
+      "partial_records": 12556,
+      "exact_day_in_window_appearances": 305235,
+      "in_window_guide_prices": 107359,
+      "in_window_sale_prices": 112748,
+      "auction_date_null_records": 6219,
+      "range_dated_records_with_null_auction_date_added_here": 664,
+      "future_dated": 138,
+      "complete_catalogue_states": 4985,
+      "incomplete_catalogue_states": 580,
+      "fetch_or_parse_failures": 37
+    },
+    "different_next_target": "Batch City & Rural Property Auctions' five-page first-party past-auction/result archive and official catalogue subdomain through one reusable runner, beginning with the 29 March 2023 catalogue. Reconcile linked lots against the existing 166 appearances across 30 event identities and bank only missing appearances or genuinely new price, rent or outcome evidence."
   }
 }

@@ -4,6 +4,54 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Edward Mellor 2020 result-card year batch prepared
+
+The protected history-bank and publication runs still expose no active job records,
+so this evidence was prepared without launching a duplicate writer or moving `main`.
+The reusable Edward Mellor runner now reconciles repeated published lot labels by
+first-party property ID and source-card position. This keeps seven simultaneous
+`TBC` cards and repeated numbered lots separate without treating aliases or labels
+as new auctioneers.
+
+- **Measured net gain:** **664 individual appearances** across ten first-party 2020
+  two-day event pages. All 664 retain exact start/end ranges inside the twenty-year
+  window, while `auction_date` and every lost individual-lot day remain null. Newly
+  dated address records are **0**; all 664 are partial because the migrated pages do
+  not publish addresses. New future-dated and duplicate records are **0 / 0**.
+- **Sector gain:** **0 commercial, 0 mixed-use and 664 unknown-sector** appearances.
+  The commercial/mixed-use subset is **0** because sector is not inferred from a
+  result card that has lost its catalogue description.
+- **Actual evidence gain:** **0 guides, 168 achieved prices, 178 published outcomes
+  and 0 rents**. Only explicit `Sold at £...` amounts are stored as sale prices;
+  qualitative outcomes keep sale price null.
+- **Inventory reconciliation:** all **664/664 cards** reconcile across ten complete
+  result-card inventories. Repeated labels are retained as separate properties using
+  the immutable card property ID plus card position. These are not complete
+  catalogues or original-offered denominators. Edward Mellor **2020** is one newly
+  covered source-year; newly complete full catalogue/event inventories remain **0**.
+- **Corpus after rebuild:** **314,712 appearances**, **302,156 address records** and
+  **12,556 partial records**. The exact-day twenty-year counter remains **305,235**
+  because these range-dated rows are not assigned invented exact days. Its numeric
+  guide and achieved-price counters remain **107,359 / 112,748** for the same reason.
+  The legacy `undated_appearances` counter rises to **6,219**, of which these 664 are
+  evidence-dated by exact published ranges. Future-dated appearances remain **138**.
+- **Publication checkpoint:** the regenerated local database passed SQLite integrity
+  checks and contains the 314,712 appearances, but its gzip is **176,653,279 bytes**,
+  above GitHub's 100 MiB blob limit. The prepared branch therefore advances the
+  authoritative source shard, event states and progress rather than mispublishing an
+  older binary. Rebuild and compact/package through the existing free publication
+  pipeline before release.
+- **Next concrete growth target:** rotate to City & Rural Property Auctions' five-page
+  first-party past-auction/result archive and official catalogue subdomain, beginning
+  with the **29 March 2023** catalogue. Reconcile every linked lot against the corpus's
+  existing 166 appearances across 30 event identities, then bank only missing
+  appearances or genuinely new price, rent or outcome evidence through one reusable
+  runner. Do not refresh these completed Edward Mellor 2020 inventories.
+
+National completeness remains **false** until source-by-source lot inventories and
+genuine auctioneer/branch/trading-name coverage reconcile.
+
+
 ## 12 November 2026 — Edward Mellor September 2018 and 2019 result-card batch prepared
 
 The protected history-bank and publication runs still expose no active job records,

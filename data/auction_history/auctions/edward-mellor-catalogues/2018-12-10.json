@@ -2,7 +2,7 @@
   "auctioneer": "Edward Mellor",
   "source_auction_id": "edward-mellor-catalogue:2018-12-10",
   "auction_date": "2018-12-10",
-  "parser_version": 7,
+  "parser_version": 8,
   "catalogue_complete": true,
   "source_files_reconciled": true,
   "surviving_file_inventory_complete": true,
@@ -25,10 +25,12 @@
   ],
   "completion_scope": "every explicit property in the retained first-party order-of-sale catalogue and historical event result-card inventory; catalogue-only and results-only lot identities remain separate and are not inferred from one another",
   "errors": [],
-  "checked_at": "2026-11-12T04:12:37.721993+00:00",
+  "checked_at": "2026-11-12T05:06:34.933489+00:00",
   "result_cards_reconciled": true,
   "result_card_inventory_complete": true,
   "result_cards_reconciled_count": 74,
+  "repeated_result_lot_labels": [],
+  "result_card_identity_basis": "published_lot_number_and_property_id",
   "catalogue_only_lot_numbers": [],
   "result_only_lot_numbers": []
 }

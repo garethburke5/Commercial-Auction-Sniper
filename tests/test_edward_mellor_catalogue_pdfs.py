@@ -11,6 +11,7 @@ from scripts.harvest_edward_mellor_catalogue_pdfs import (
     compact_postcode,
     expected_event_rows,
     expected_source_files,
+    make_result_only_row,
     parse_combined_guides,
     parse_combined_order,
     parse_guides,
@@ -144,6 +145,33 @@ def test_historical_event_cards_do_not_treat_zero_as_sale_price():
 </div></body></html>"""
     row = parse_event_results_html(raw, ("1",), "https://example.test/")["1"]
     assert row["sale_price"] is None
+
+
+def test_repeated_result_labels_keep_property_and_card_identities_separate():
+    raw = b"""<html><body>
+<div class='row' id='item_101'>
+ <span><span>LOT</span><br/>TBC</span><span class='badge'>SOLD</span>
+ <p class='small'>Sold at &pound;10,000</p>
+</div>
+<div class='row' id='item_202'>
+ <span><span>LOT</span><br/>TBC</span><span class='badge'>WITHDRAWN</span>
+</div>
+</body></html>"""
+    results = parse_event_results_html(raw, ("TBC", "TBC"), "https://example.test/")
+    assert list(results) == ["TBC:property:101", "TBC:property:202"]
+    assert [row["source_card_position"] for row in results.values()] == [1, 2]
+    catalogue = {
+        "event_id": "edward-mellor-catalogue:2020-01-01:2020-01-02",
+        "date": None,
+        "date_start": "2020-01-01",
+        "date_end": "2020-01-02",
+    }
+    evidence = {"source_url": "https://example.test/", "sha256": "test"}
+    rows = [make_result_only_row(result, evidence, catalogue) for result in results.values()]
+    assert len({row["appearance_id"] for row in rows}) == 2
+    assert rows[0]["appearance_id"].endswith("property:101")
+    assert rows[1]["appearance_id"].endswith("property:202")
+    assert all(row["auction_date"] is None for row in rows)
 
 
 def test_inventory_validation_rejects_missing_property():
