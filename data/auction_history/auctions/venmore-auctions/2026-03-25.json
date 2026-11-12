@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2026-03-25",
+  "auction_date": "2026-03-25",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/831047826-FINALISED%20Venmore%20Auction%20March%20Catalogue%2026%20%281%29-compressed.pdf",
+  "published_lots": 19,
+  "catalogue_published_lots": 19,
+  "lots_captured": 19,
+  "online_listing_gap": 0,
+  "guides_captured": 19,
+  "rents_captured": 8,
+  "published_outcomes_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "first-party online property count compared with contiguous numbered order-of-lots table in complete first-party PDF",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=102",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/831047826-FINALISED%20Venmore%20Auction%20March%20Catalogue%2026%20%281%29-compressed.pdf",
+    "retrieved_at": "2026-11-12T21:15:11.975030+00:00",
+    "sha256": "6a84998843280c5f7d07efb487e3a11d53eb10a177912cd9e1cf116b2529059a",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=102",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-03-25-6a84998843280c5f7d07.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-03-25-6a84998843280c5f7d07.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-03-25-6a84998843280c5f7d07.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:15:12.039184+00:00"
+}

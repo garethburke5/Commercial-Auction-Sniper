@@ -3,6 +3,43 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Venmore Auctions 2025-2026 retained-catalogue batch
+
+- **Specific growth opportunity executed:** seven additional first-party
+  catalogue PDFs dated 3 December 2025 through 21 October 2026, processed in one
+  reusable manifest batch. The runner now handles compacted PDF columns and lot
+  labels, stops before property-detail pages, preserves the exact first-party
+  event URL where the cover prints only the catalogue month, and retains every
+  source PDF as hash-verified immutable parts.
+- **Measured net gain over the previously banked four catalogues:** **252
+  appearances / 252 address records / 252 exact-dated addresses inside the
+  twenty-year window**. New partial-address, undated, future-dated, duplicate
+  and cross-source-overlap records are all **0**.
+- **Sector and evidence gain:** **15 commercial, 20 mixed-use, 12 land, 171
+  residential and 34 unknown** appearances; the commercial/mixed-use subset is
+  **35**. The batch adds **248 numeric guides, 0 achieved prices and 133
+  published rents**. It preserves four sold-prior catalogue outcomes; no
+  achieved amount is inferred from an online status or guide.
+- **Inventory reconciliation:** Venmore now retains **438 printed catalogue
+  rows across 11 first-party PDFs**. The seven new PDFs account for all **252
+  printed rows** in their catalogues. First-party result pages list **441**
+  properties across those eleven events: the July 2026 PDF has 49 printed rows
+  versus 50 online, and October has 54 versus 56 online. Those three later
+  online-only appearances remain an explicit source gap; both event states are
+  partial even though their surviving PDFs are completely parsed. New
+  source-years are **2025 and 2026**.
+- **Corpus after rebuild:** **317,968 appearances**, **305,410 address records**
+  and **308,491 in-window appearances**. In-window evidence now includes
+  **110,486 numeric guides** and **114,174 achieved prices**; the latter is
+  unchanged by this catalogue-only batch.
+- **Next concrete growth target:** recover Venmore's remaining seven 2025
+  catalogue dates and the missing July, September and October 2024 catalogues
+  through the same retained-userfiles runner, beginning with the accessible
+  5 February 2025 32-lot PDF. Reconcile the three known 2026 online-only late
+  lots only through a materially different source route.
+
+National completeness remains **false**.
+
 ## 12 November 2026 — Venmore Auctions 2023-2024 catalogue batch
 
 - **Specific growth opportunity executed:** four accessible, complete first-party

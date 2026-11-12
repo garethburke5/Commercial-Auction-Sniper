@@ -1,8 +1,14 @@
 {
   "source": "Venmore Auctions",
   "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
-  "expected_catalogues": 4,
-  "expected_lots": 186,
+  "baseline_event_dates": [
+    "2023-07-12",
+    "2024-03-27",
+    "2024-05-15",
+    "2024-12-04"
+  ],
+  "expected_catalogues": 11,
+  "expected_lots": 438,
   "events": [
     {
       "auction_date": "2023-07-12",
@@ -23,6 +29,55 @@
       "auction_date": "2024-12-04",
       "expected_lots": 47,
       "source_url": "https://www.venmoreauctions.co.uk/userfiles/1114447594-Venmore%20Auction%20Dec%20Catalogue%2024-compressed.pdf"
+    },
+    {
+      "auction_date": "2025-12-03",
+      "expected_lots": 29,
+      "online_listed_lots": 29,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/685898974-Venmore%20Auction%20December%20Catalogue%2025%20%281%29-min.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=100"
+    },
+    {
+      "auction_date": "2026-02-11",
+      "expected_lots": 25,
+      "online_listed_lots": 25,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/1104383648-Venmore%20Auction%20February%20Catalogue%2026-compressed%20%281%29.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=101"
+    },
+    {
+      "auction_date": "2026-03-25",
+      "expected_lots": 19,
+      "online_listed_lots": 19,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/831047826-FINALISED%20Venmore%20Auction%20March%20Catalogue%2026%20%281%29-compressed.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=102"
+    },
+    {
+      "auction_date": "2026-05-13",
+      "expected_lots": 35,
+      "online_listed_lots": 35,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/1702078863-FINAL%20%20Venmore%20Auction%20May%20Catalogue%2026%20%281%29-compressed.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=103"
+    },
+    {
+      "auction_date": "2026-07-09",
+      "expected_lots": 49,
+      "online_listed_lots": 50,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/1962959802-Final%20Venmore%20Auction%20July%2026%20Catalogue%20Compressed.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=104"
+    },
+    {
+      "auction_date": "2026-09-02",
+      "expected_lots": 41,
+      "online_listed_lots": 41,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/1377282004-_Venmore%20Auction%20Sep%20Catalogue%2026-compressed.pdf-compressed.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=105"
+    },
+    {
+      "auction_date": "2026-10-21",
+      "expected_lots": 54,
+      "online_listed_lots": 56,
+      "source_url": "https://www.venmoreauctions.co.uk/userfiles/115333249-Compressed%20Venmore%20Auction%20October%20Catalogue.pdf",
+      "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=106"
     }
   ]
 }

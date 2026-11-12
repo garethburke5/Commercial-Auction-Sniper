@@ -1,0 +1,39 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2026-05-13",
+  "auction_date": "2026-05-13",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1702078863-FINAL%20%20Venmore%20Auction%20May%20Catalogue%2026%20%281%29-compressed.pdf",
+  "published_lots": 35,
+  "catalogue_published_lots": 35,
+  "lots_captured": 35,
+  "online_listing_gap": 0,
+  "guides_captured": 35,
+  "rents_captured": 17,
+  "published_outcomes_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "first-party online property count compared with contiguous numbered order-of-lots table in complete first-party PDF",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=103",
+  "auction_date_basis": "exact date on first-party event page; matching month printed on first-party catalogue cover",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1702078863-FINAL%20%20Venmore%20Auction%20May%20Catalogue%2026%20%281%29-compressed.pdf",
+    "retrieved_at": "2026-11-12T21:15:12.052139+00:00",
+    "sha256": "e249d5f738f30d56310e6f4e32a6dc591265a934e6edca87ca20a985de5dc269",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=103",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-05-13-e249d5f738f30d56310e.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-05-13-e249d5f738f30d56310e.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-05-13-e249d5f738f30d56310e.pdf.gz.part-003",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-05-13-e249d5f738f30d56310e.pdf.gz.part-004"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:15:12.140198+00:00"
+}

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T20:36:47.006769+00:00",
-  "corpus_checkpoint": "2026-11-12T20:36:04.516457+00:00",
+  "generated_at": "2026-11-12T21:16:23.025748+00:00",
+  "corpus_checkpoint": "2026-11-12T21:15:50.606754+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7904,12 +7904,14 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Venmore Auctions",
       "match_basis": "exact label",
-      "retained_appearances": 186,
+      "retained_appearances": 438,
       "years_with_retained_evidence": [
         2023,
-        2024
+        2024,
+        2025,
+        2026
       ],
-      "with_guide_price": 173,
+      "with_guide_price": 421,
       "with_sale_price": 0,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
@@ -8360,20 +8362,20 @@
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3080,
     "Unknown auctioneer": 14,
-    "Venmore Auctions": 186
+    "Venmore Auctions": 438
   },
   "price_coverage": {
     "from_date": "2006-11-12",
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308239,
-      "auction_ids_observed": 13865,
-      "with_guide_price": 110238,
+      "lot_appearances": 308491,
+      "auction_ids_observed": 13872,
+      "with_guide_price": 110486,
       "with_sale_price": 114174,
       "with_both_prices": 50370,
-      "marked_sold": 157177,
-      "marked_sold_without_sale_price": 43743
+      "marked_sold": 157181,
+      "marked_sold_without_sale_price": 43747
     },
     "by_auctioneer_and_year": [
       {
@@ -17439,6 +17441,28 @@
         "with_both_prices": 0,
         "marked_sold": 11,
         "marked_sold_without_sale_price": 11
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2025,
+        "lot_appearances": 29,
+        "auction_ids_observed": 1,
+        "with_guide_price": 28,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2026,
+        "lot_appearances": 223,
+        "auction_ids_observed": 6,
+        "with_guide_price": 220,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
       }
     ],
     "undated_appearances": 6219,
@@ -18099,17 +18123,17 @@
     },
     "venmore-auctions": {
       "source": "venmore-auctions",
-      "outcome": "completed",
-      "checked_at": "2026-11-12T20:35:30.523825+00:00",
-      "run_new_appearances": 186,
-      "run_new_dated_twenty_year_address_records": 186,
-      "run_new_commercial_or_mixed": 29,
-      "run_new_guide_prices": 173,
+      "outcome": "partial",
+      "checked_at": "2026-11-12T21:15:24.798444+00:00",
+      "run_new_appearances": 252,
+      "run_new_dated_twenty_year_address_records": 252,
+      "run_new_commercial_or_mixed": 35,
+      "run_new_guide_prices": 248,
       "run_new_sale_prices": 0,
-      "run_new_rents": 89,
+      "run_new_rents": 133,
       "newly_covered_source_years": [
-        "2023",
-        "2024"
+        "2025",
+        "2026"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -24034,7 +24058,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T20:36:45.299048+00:00",
+    "checked_at": "2026-11-12T21:16:21.141199+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

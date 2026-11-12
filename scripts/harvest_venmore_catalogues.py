@@ -34,23 +34,26 @@ HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot researc
 MAX_SNAPSHOT_PART_BYTES = 700_000
 ORDER_HEADING = re.compile(r"order\s+of\s+lots", re.I)
 ORDER_END = re.compile(
-    r"(?:CLICK\s+HERE\s+TO\s+REGISTER|AUCTION\s+ON\s+\d|REGISTER\s+TO\s+BID|Contact\s+Venmore\s+Auctions)",
+    r"(?:CLICK\s+PHOTO\s+TO\s+VIEW\s+PROPERTIES|CLICK\s+HERE\s+TO\s+REGISTER|"
+    r"AUCTION\s+ON\s+\d|REGISTER\s+TO\s+BID|Contact\s+Venmore\s+Auctions)",
     re.I,
 )
 MONEY = re.compile(r"£?\s*([\d,]+(?:\.\d+)?)")
 ORDER_VALUE = re.compile(
-    r"(?P<value>(?:£\s*[\d,]+(?:\.\d+)?(?:\s*[-–]\s*£?\s*[\d,]+(?:\.\d+)?)?\s*(?:PLUS)?\*?|"
-    r"[\d,]+(?:\.\d+)?\s+PLUS\*|"
-    r"SOLD\s+PRIOR|WITHDRAWN|POSTPONED))\s*$",
+    r"(?P<value>(?:£\s*[\d,]+(?:\.\d+)?(?:\s*[-–]\s*£?\s*[\d,]+(?:\.\d+)?)?\s*(?:PLUS\s*)?\*?|"
+    r"[\d,]+(?:\.\d+)?\s+PLUS\s*\*|"
+    r"SOLD\s+PRIOR\s*\*?|WITHDRAWN\s*\*?|POSTPONED\s*\*?))\s*-?\s*$",
     re.I,
 )
 POSTCODE = corpus.PC
 RENT_PCM = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?c\.?m\.?|per\s+calendar\s+month)", re.I)
 RENT_PA = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?\s*a\.?|per\s+annum)", re.I)
 NEXT_TARGET = (
-    "Recover Venmore's remaining first-party catalogue PDFs for 2023-2026 from the retained "
-    "userfiles route and batch them through the manifest runner; use live results pages only "
-    "when a materially different client can pass the current 403. National completeness remains false."
+    "Recover Venmore's remaining first-party 2025 catalogues (5 February, 26 March, 15 May, "
+    "11 June, 9 July, 3 September and 15 October) plus the missing July, September and October "
+    "2024 catalogues through the same retained-userfiles batch runner. Reconcile the three known "
+    "2026 online-only late lots through a materially different source route. National completeness "
+    "remains false."
 )
 
 
@@ -126,12 +129,23 @@ def parse_order_rows(text, expected):
     for raw_line in table.splitlines():
         line = re.sub(r"[\u200b-\u200f\u202a-\u202e\u2060\ufeff]", "", raw_line)
         line = re.sub(r"(?<=\d)\s*,\s*(?=\d)", ",", line)
-        if re.search(r"Lot\s+Address", line, re.I) and re.search(r"Guide\s+Price", line, re.I):
-            guide_column = re.search(r"Guide\s+Price", line, re.I).start()
+        if re.search(r"Lot\s+Address", line, re.I) and re.search(r"Guide\s*Price", line, re.I):
+            guide_column = re.search(r"Guide\s*Price", line, re.I).start()
             continue
         if guide_column is None or not clean(line):
             continue
+        if current and int(current["lot_number"]) == expected and re.match(r"^\s*\d", line):
+            rows.append(current)
+            current = None
+            break
+        next_label = 1 if current is None else int(current["lot_number"]) + 1
         match = re.match(r"^\s*(\d{1,3})\s+", line)
+        if match and int(match.group(1)) != next_label:
+            match = None
+        if not match:
+            compact = re.match(rf"^\s*({next_label})(?=\S)", line)
+            if compact and ORDER_VALUE.search(line):
+                match = compact
         if match:
             if current:
                 rows.append(current)
@@ -186,7 +200,8 @@ def parse_order_rows(text, expected):
     return parsed
 
 
-def validate_date(text, auction_date):
+def validate_date(text, config):
+    auction_date = config["auction_date"]
     year, month, day = map(int, auction_date.split("-"))
     month_name = date(year, month, day).strftime("%B")
     front = text[:20000]
@@ -198,8 +213,19 @@ def validate_date(text, auction_date):
         re.search(rf"\b0?{day}(?:st|nd|rd|th)?\s+{month_name}\b", front, re.I)
         and re.search(rf"\b{year}\s+AUCTION\s+DATES\b", front, re.I)
     )
-    if not exact and not split_cover:
-        raise ValueError(f"exact auction date {auction_date} is absent from catalogue front matter")
+    if exact or split_cover:
+        return "exact date printed in first-party catalogue"
+    # Later catalogues print only the catalogue month on the cover because the
+    # current event is omitted from the subsequent-auction calendar.  Admit
+    # that layout only when the manifest also retains the exact first-party
+    # event page; the date is never inferred from the month alone.
+    month_cover = re.search(rf"\b{month_name}\s+CATALOGUE\b", front, re.I)
+    if month_cover and config.get("event_url"):
+        return (
+            "exact date on first-party event page; matching month printed on "
+            "first-party catalogue cover"
+        )
+    raise ValueError(f"exact auction date {auction_date} is absent from catalogue front matter")
 
 
 def context_for_address(text, address):
@@ -284,7 +310,7 @@ def retained_snapshot(auction_date):
 
 
 def materialize_event(config, source_url, evidence, text):
-    validate_date(text, config["auction_date"])
+    date_basis = validate_date(text, config)
     parsed = parse_order_rows(text, int(config["expected_lots"]))
     auction_id = f"{SLUG}:{config['auction_date']}"
     rows = []
@@ -305,23 +331,35 @@ def materialize_event(config, source_url, evidence, text):
             record_quality="address_record", source_position=position,
             source_order_value=item["source_order_value"], source_event_url=source_url,
             auction_date_precision="day",
-            auction_date_basis="exact date printed in first-party catalogue",
+            auction_date_basis=date_basis,
             source_platform="Venmore Auctions retained first-party catalogue PDF",
             trading_name=SOURCE, source_evidence=evidence,
         )
         rows.append(row)
+    online_lots = int(config.get("online_listed_lots", len(rows)))
+    online_gap = max(0, online_lots - len(rows))
     state = {
         "auctioneer": SOURCE, "trading_name": SOURCE,
         "source_auction_id": auction_id, "auction_date": config["auction_date"],
         "auction_date_precision": "day", "source_url": source_url,
-        "published_lots": len(rows), "lots_captured": len(rows),
+        "published_lots": online_lots, "catalogue_published_lots": len(rows),
+        "lots_captured": len(rows), "online_listing_gap": online_gap,
         "guides_captured": sum(row["guide_price"] is not None for row in rows),
         "rents_captured": sum(row["annual_rent"] is not None for row in rows),
         "published_outcomes_captured": sum(row["status"] != "unknown" for row in rows),
-        "catalogue_complete": True, "source_rows_complete": True,
-        "denominator_reconciled": True,
-        "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF",
-        "completion_scope": "every numbered row in the printed order-of-lots table",
+        "catalogue_complete": True, "source_rows_complete": online_gap == 0,
+        "denominator_reconciled": online_gap == 0,
+        "denominator_basis": (
+            "first-party online property count compared with contiguous numbered "
+            "order-of-lots table in complete first-party PDF"
+        ),
+        "completion_scope": (
+            "every numbered row in the printed order-of-lots table"
+            if online_gap == 0 else
+            f"every numbered catalogue row; {online_gap} later online-listed lot(s) absent from the PDF"
+        ),
+        "source_event_url": config.get("event_url"),
+        "auction_date_basis": date_basis,
         "source_evidence": evidence, "errors": [], "checked_at": corpus.now(),
     }
     return state, rows
@@ -344,7 +382,12 @@ def persist_continuation(summary):
     path = corpus.DATA / "continuation_collection.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
     checkpoint = {
-        "source": SLUG, "outcome": "completed" if not summary["failures"] else "partial",
+        "source": SLUG,
+        "outcome": (
+            "completed"
+            if not summary["failures"] and not summary["unreconciled_online_listing_gap"]
+            else "partial"
+        ),
         "checked_at": summary["checked_at"],
         "run_new_appearances": summary["run_new_appearances"],
         "run_new_dated_twenty_year_address_records": summary["run_new_dated_twenty_year_address_records"],
@@ -363,6 +406,18 @@ def persist_continuation(summary):
     payload.setdefault("latest_by_source", {})[SLUG] = checkpoint
     payload["last_automated_growth"] = checkpoint
     payload["next_growth_target"] = NEXT_TARGET
+    payload["prepared_follow_on_target"] = {
+        "checked_at": summary["checked_at"],
+        "source_key_candidate": "venmore-auctions-2024-2025-retained-catalogues",
+        "auctioneer": SOURCE,
+        "source_format": "first-party retained catalogue PDFs",
+        "opportunity": (
+            "batch seven 2025 and three missing 2024 catalogue dates through the "
+            "existing Venmore runner, starting with the accessible 5 February 2025 PDF"
+        ),
+        "next_growth_target": NEXT_TARGET,
+        "national_completeness_verified": False,
+    }
     payload["national_completeness_verified"] = False
     corpus.save_json(path, payload)
 
@@ -373,7 +428,13 @@ def harvest():
     existing = list(corpus.iter_rows(shard)) if shard.exists() else []
     summary_path = corpus.DATA / "venmore_catalogues_collection.json"
     previous_summary = json.loads(summary_path.read_text(encoding="utf-8")) if summary_path.exists() else None
-    if previous_summary and "batch_baseline_appearance_ids" in previous_summary:
+    configured_baseline_dates = set(manifest.get("baseline_event_dates") or [])
+    if configured_baseline_dates:
+        baseline_ids = {
+            row["appearance_id"] for row in existing
+            if row.get("auction_date") in configured_baseline_dates
+        }
+    elif previous_summary and "batch_baseline_appearance_ids" in previous_summary:
         baseline_ids = set(previous_summary["batch_baseline_appearance_ids"])
     elif previous_summary and previous_summary.get("run_new_appearances") == len(existing):
         # Preserve the first successful batch's baseline while correcting or
@@ -396,7 +457,8 @@ def harvest():
             evidence = {
                 "source_url": source_url, "retrieved_at": retrieved_at, "sha256": sha,
                 "basis": "complete first-party exact-dated property-auction catalogue PDF",
-                "archive_url": ARCHIVE, **snapshot_fields,
+                "archive_url": ARCHIVE, "event_url": config.get("event_url"),
+                **snapshot_fields,
             }
             state, rows = materialize_event(config, source_url, evidence, pdf_text(raw))
             states[state["auction_date"]] = state
@@ -435,6 +497,13 @@ def harvest():
         "catalogue_pdfs_in_batch": len(manifest["events"]),
         "catalogue_pdfs_captured": len(states),
         "published_property_rows_reconciled": len(run_rows),
+        "online_listed_property_rows": sum(
+            int(event.get("online_listed_lots", event["expected_lots"]))
+            for event in manifest["events"]
+        ),
+        "unreconciled_online_listing_gap": sum(
+            int(state.get("online_listing_gap", 0)) for state in states.values()
+        ),
         "appearances_captured": total,
         "batch_baseline_appearance_ids": sorted(baseline_ids),
         "run_new_appearances": len(added),

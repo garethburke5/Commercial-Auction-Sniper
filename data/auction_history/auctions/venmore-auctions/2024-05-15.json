@@ -6,21 +6,26 @@
   "auction_date_precision": "day",
   "source_url": "https://www.venmoreauctions.co.uk/userfiles/245079263-Venmore%20Auction%20May%20Catalogue%2024%20Compressed.pdf",
   "published_lots": 44,
+  "catalogue_published_lots": 44,
   "lots_captured": 44,
+  "online_listing_gap": 0,
   "guides_captured": 38,
   "rents_captured": 23,
   "published_outcomes_captured": 6,
   "catalogue_complete": true,
   "source_rows_complete": true,
   "denominator_reconciled": true,
-  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF",
+  "denominator_basis": "first-party online property count compared with contiguous numbered order-of-lots table in complete first-party PDF",
   "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": null,
+  "auction_date_basis": "exact date printed in first-party catalogue",
   "source_evidence": {
     "source_url": "https://www.venmoreauctions.co.uk/userfiles/245079263-Venmore%20Auction%20May%20Catalogue%2024%20Compressed.pdf",
-    "retrieved_at": "2026-11-12T20:35:20.294804+00:00",
+    "retrieved_at": "2026-11-12T21:15:11.440726+00:00",
     "sha256": "508da544aac0dca2e60bcfcb886494ffe25db4bed43365235a5a4e4b532273cb",
     "basis": "complete first-party exact-dated property-auction catalogue PDF",
     "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": null,
     "snapshot_parts": [
       "data/auction_history/sources/venmore-auctions/catalogue-2024-05-15-508da544aac0dca2e60b.pdf.gz.part-001",
       "data/auction_history/sources/venmore-auctions/catalogue-2024-05-15-508da544aac0dca2e60b.pdf.gz.part-002",
@@ -30,5 +35,5 @@
     "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
   },
   "errors": [],
-  "checked_at": "2026-11-12T20:35:20.498939+00:00"
+  "checked_at": "2026-11-12T21:15:11.638867+00:00"
 }
