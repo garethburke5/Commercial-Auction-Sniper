@@ -1,10 +1,10 @@
 """Bank retained first-party Edward Mellor catalogue PDFs in reusable batches.
 
 The result-sheet collector deliberately ignores catalogues.  This companion
-runner admits only explicit numbered property rows from retained catalogues,
-keeps the immutable PDFs, and reconciles each configured file inventory before
-writing.  A catalogue is allowed to be a surviving fragment of an event; its
-file inventory can be complete without claiming that the whole auction is.
+runner admits only explicit property rows from retained catalogues, keeps the
+immutable PDFs, and reconciles each configured file inventory before writing.
+A catalogue is allowed to be a surviving fragment of an event; its file
+inventory can be complete without claiming that the whole auction is.
 """
 from __future__ import annotations
 
@@ -28,8 +28,8 @@ import historical_corpus as corpus
 
 SOURCE = "Edward Mellor"
 SLUG = "edward-mellor-catalogues"
-PARSER_VERSION = 4
-MAX_SNAPSHOT_PART_BYTES = 8_000_000
+PARSER_VERSION = 5
+MAX_SNAPSHOT_PART_BYTES = 700_000
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 EVENT_DATE = "2014-06-11"
 EVENT_ID = f"edward-mellor-catalogue:{EVENT_DATE}"
@@ -95,6 +95,22 @@ CATALOGUES = (
             + [str(number) for number in range(48, 72)]
         ),
     },
+    {
+        "date": "2018-06-05",
+        "event_id": "edward-mellor-catalogue:2018-06-05",
+        "format": "unnumbered_combined_2018",
+        "url": "https://edwardmellor.co.uk/pdf/June_Auction_Catalogue_2018.pdf",
+        "printed_date": "TUESDAY 5 JUNE 2018",
+        "expected_rows": 69,
+    },
+    {
+        "date": "2018-07-17",
+        "event_id": "edward-mellor-catalogue:2018-07-17",
+        "format": "numbered_order_2018",
+        "url": "https://edwardmellor.co.uk/pdf/July_Auction_Catalogue_2018.pdf?v=4",
+        "printed_date": "Lots for July 17th 2018",
+        "expected_lots": tuple(str(number) for number in range(1, 59)),
+    },
 )
 
 LOT_HEADER_RE = re.compile(
@@ -108,6 +124,7 @@ COMBINED_GUIDE_RE = re.compile(
     r"GUIDE PRICE:\s*£\s*([\d,]+)(?:\s*[-\u00ad]\s*£\s*([\d,]+))?\s*(\+)?",
     re.I,
 )
+GUIDE_TEXT_RE = re.compile(r"GUIDE PRICE:\s*([^\n\r]+)", re.I)
 
 # Lot 109 uses an embedded private-use font without a usable ToUnicode map.
 # The value is a reviewed transcription of the visible address in this exact
@@ -215,6 +232,30 @@ def snapshot_fields(paths: list[Path]) -> dict:
     if len(relative) == 1:
         return {"snapshot_path": relative[0]}
     return {"snapshot_parts": relative}
+
+
+def retained_or_fetched_pdf(url: str, saved_summary: dict) -> tuple[bytes, str, list[Path], str, str]:
+    """Reuse verified immutable evidence before making a source request."""
+    requested = url.split("?", 1)[0]
+    for evidence in saved_summary.get("source_files") or []:
+        source_url = evidence.get("source_url")
+        if not source_url or source_url.split("?", 1)[0] != requested:
+            continue
+        relative_paths = evidence.get("snapshot_parts") or [evidence.get("snapshot_path")]
+        if not all(relative_paths):
+            continue
+        paths = [corpus.ROOT / path for path in relative_paths]
+        try:
+            raw = gzip.decompress(b"".join(path.read_bytes() for path in paths))
+        except (OSError, gzip.BadGzipFile):
+            continue
+        sha = hashlib.sha256(raw).hexdigest()
+        if sha != evidence.get("sha256"):
+            raise ValueError(f"saved immutable snapshot hash mismatch for {source_url}")
+        return raw, source_url, paths, sha, evidence.get("retrieved_at") or corpus.now()
+    raw, resolved = fetch_pdf(url)
+    paths, sha = snapshot_pdf(raw)
+    return raw, resolved, paths, sha, corpus.now()
 
 
 def parse_guides(text: str) -> dict[str, tuple[int, int | None, bool]]:
@@ -376,6 +417,44 @@ def parse_combined_guides(text: str) -> dict[str, tuple[int, int | None, bool]]:
     return guides
 
 
+def parse_guide_text(value: str | None) -> dict:
+    """Preserve a published guide phrase while structuring numeric evidence."""
+    guide_text = clean(value)
+    if not guide_text:
+        return {
+            "guide_price": None,
+            "guide_price_high": None,
+            "guide_plus": False,
+            "guide_text": None,
+        }
+    match = re.fullmatch(
+        r"£\s*([\d,]+)(?:\s*[-\u00ad]\s*£\s*([\d,]+))?\s*(\+)?",
+        guide_text,
+        re.I,
+    )
+    return {
+        "guide_price": money(match.group(1)) if match else None,
+        "guide_price_high": money(match.group(2)) if match and match.group(2) else None,
+        "guide_plus": bool(match and match.group(3)),
+        "guide_text": guide_text,
+        "guide_observation": True,
+    }
+
+
+def parse_unnumbered_guides(text: str, expected_rows: int) -> list[dict]:
+    """Read ordered guide headers when the catalogue publishes no lot labels."""
+    guides = []
+    for page in text.split("\f"):
+        match = GUIDE_TEXT_RE.search(page)
+        if match:
+            guides.append(parse_guide_text(match.group(1)))
+    if len(guides) != expected_rows:
+        raise ValueError(
+            f"unnumbered guide inventory mismatch: expected={expected_rows} actual={len(guides)}"
+        )
+    return guides
+
+
 def _order_segments(line: str, address_start: int, description_start: int) -> tuple[str, str, str]:
     padded = line.ljust(description_start)
     return (
@@ -390,6 +469,16 @@ def _repair_order_boundary(address_part: str | None, description_part: str | Non
     address_part = clean(address_part)
     description_part = clean(description_part)
     if address_part and description_part and description_part[:1].islower():
+        leading = re.fullmatch(r"([A-Za-z]{1,3})\s+(.+)", address_part)
+        first_word = re.match(r"[A-Za-z]+", description_part)
+        joined_word = (
+            (leading.group(1) + first_word.group()).casefold()
+            if leading and first_word
+            else None
+        )
+        if leading and joined_word in {"first", "ground", "redevelopment"}:
+            description_part = clean(leading.group(1) + description_part)
+            address_part = clean(leading.group(2))
         match = re.search(r"\s([A-Za-z]{1,3})$", address_part)
         if not match and re.fullmatch(r"[A-Za-z]{1,3}", address_part):
             description_part = clean(address_part + description_part)
@@ -399,6 +488,246 @@ def _repair_order_boundary(address_part: str | None, description_part: str | Non
             address_part = clean(address_part[:match.start()])
             description_part = clean(fragment + description_part)
     return address_part, description_part
+
+
+def _rent_fields(description: str | None) -> tuple[int | None, str | None]:
+    normalized_text = clean(description) or ""
+    annual_rent = None
+    rent_match = re.search(
+        r"£\s*([\d,]+)\s*(?:net\s+)?(?:p\s*[/\.\s]?\s*a\.?|pa\b|per annum)",
+        normalized_text,
+        re.I,
+    )
+    if not rent_match:
+        rent_match = re.search(
+            r"(?:annualised rent|annual rent)\s*(?:circa|of|is)?\s*£\s*([\d,]+)",
+            normalized_text,
+            re.I,
+        )
+    if rent_match:
+        annual_rent = money(rent_match.group(1))
+    monthly = re.search(r"£\s*([\d,]+)\s*(?:pcm|monthly)", normalized_text, re.I)
+    if monthly and annual_rent is None:
+        annual_rent = money(monthly.group(1)) * 12
+    return annual_rent, clean(normalized_text if annual_rent is not None else None)
+
+
+def _description_needs_continuation(description: str, fragment: str) -> bool:
+    if fragment[:1].islower() or len(fragment) <= 25:
+        return True
+    return bool(
+        re.search(
+            r"\b(?:a|an|and|as|for|from|in|of|on|or|the|to|with)\s*$",
+            description,
+            re.I,
+        )
+    )
+
+
+def parse_unnumbered_combined_order(text: str, expected_rows: int) -> list[dict]:
+    """Parse a complete ordered catalogue table that omits printed lot labels."""
+    rows = []
+    carry_area = []
+    carry_address = []
+    carry_description = []
+    for page in text.split("\f"):
+        lines = page.splitlines()
+        header_index = next(
+            (
+                index for index, line in enumerate(lines)
+                if re.search(r"\bAREA\b", line)
+                and re.search(r"\bADDRESS\b", line)
+                and re.search(r"\bDESCRIPTION\b", line)
+                and not re.search(r"\bLOT\b", line)
+            ),
+            None,
+        )
+        if header_index is None:
+            continue
+        header = lines[header_index]
+        address_start = header.index("ADDRESS")
+        description_start = header.index("DESCRIPTION")
+        body = lines[header_index + 1:]
+        starts = []
+        for index, line in enumerate(body):
+            area, _, _ = _order_segments(line, address_start, description_start)
+            if area:
+                starts.append(index)
+
+        carry_area = []
+        carry_address = []
+        carry_description = []
+        for position, index in enumerate(starts):
+            next_index = starts[position + 1] if position + 1 < len(starts) else len(body)
+            area, address, description = _order_segments(
+                body[index], address_start, description_start
+            )
+            address, description = _repair_order_boundary(address, description)
+            area = clean(" ".join(carry_area + ([area] if area else [])))
+            prefix_address = list(carry_address)
+            prefix_description = list(carry_description)
+            carry_area = []
+            carry_address = []
+            carry_description = []
+            post_area = []
+            post_address = []
+            post_description = []
+            for continuation in body[index + 1:next_index]:
+                area_part, address_part, description_part = _order_segments(
+                    continuation, address_start, description_start
+                )
+                address_part, description_part = _repair_order_boundary(
+                    address_part, description_part
+                )
+                if area_part:
+                    post_area.append(area_part)
+                if address_part:
+                    post_address.append(address_part)
+                if description_part:
+                    post_description.append(description_part)
+
+            if not address and post_address:
+                address = post_address.pop(0)
+            address = clean(" ".join(prefix_address + ([address] if address else [])))
+            if not description and post_description:
+                description = post_description.pop(0)
+            while (
+                description
+                and post_description
+                and _description_needs_continuation(description, post_description[0])
+            ):
+                description = clean(f"{description} {post_description.pop(0)}")
+            description = clean(
+                " ".join(prefix_description + ([description] if description else []))
+            )
+            carry_area = post_area
+            carry_address = post_address
+            carry_description = post_description
+            if not area or not address or not description:
+                raise ValueError(
+                    f"unnumbered 2018 order row {len(rows) + 1} is incomplete"
+                )
+            annual_rent, rent_text = _rent_fields(description)
+            order_position = len(rows) + 1
+            rows.append({
+                "identity_key": f"order-{order_position:03d}",
+                "lot_number": None,
+                "catalogue_order_position": order_position,
+                "address": clean(f"{address}, {area}"),
+                "locality": area,
+                "property_type": description,
+                "description": description,
+                "annual_rent": annual_rent,
+                "rent_text": rent_text,
+                "status": "unknown",
+            })
+        carry_area = []
+        carry_address = []
+        carry_description = []
+    if len(rows) != expected_rows:
+        raise ValueError(
+            f"unnumbered order inventory mismatch: expected={expected_rows} actual={len(rows)}"
+        )
+    return rows
+
+
+def parse_numbered_order_sheet(text: str, expected_labels) -> dict[str, dict]:
+    """Parse a numbered fixed-column order sheet including guide/status cells."""
+    expected = {normalize_label(label) for label in expected_labels}
+    rows = {}
+    carry_locality = []
+    for page in text.split("\f"):
+        lines = page.splitlines()
+        header_index = next(
+            (
+                index for index, line in enumerate(lines)
+                if re.search(r"\bLOT\b", line)
+                and re.search(r"\bAREA\b", line)
+                and re.search(r"\bADDRESS\b", line)
+                and re.search(r"\bDESCRIPTION\b", line)
+                and re.search(r"\bGUIDE PRICE\b", line)
+            ),
+            None,
+        )
+        if header_index is None:
+            continue
+        header = lines[header_index]
+        area_start = header.index("AREA")
+        address_start = header.index("ADDRESS")
+        description_start = header.index("DESCRIPTION")
+        guide_start = header.index("GUIDE PRICE")
+        body = lines[header_index + 1:]
+        starts = []
+        for index, line in enumerate(body):
+            match = re.match(r"^\s*(\d+[A-Za-z]?)\s+", line)
+            if match and match.start(1) < area_start:
+                starts.append((index, match))
+
+        carry_locality = []
+        for position, (index, match) in enumerate(starts):
+            next_index = starts[position + 1][0] if position + 1 < len(starts) else len(body)
+            label = normalize_label(match.group(1))
+            if label not in expected or label in rows:
+                raise ValueError(f"unexpected or duplicate order-sheet lot {label}")
+            line = body[index]
+            locality = clean(
+                " ".join(carry_locality + [clean(line[match.end():address_start]) or ""])
+            )
+            carry_locality = []
+            address = clean(line[address_start:description_start])
+            tail = clean(line[description_start:]) or ""
+            guide_match = re.search(
+                r"(£\s*[\d,]+(?:\s*[-\u00ad]\s*£\s*[\d,]+)?\s*\+?"
+                r"|No Reserve|SOLD PRIOR|POSTPONED)\s*$",
+                tail,
+                re.I,
+            )
+            if not guide_match:
+                raise ValueError(f"order-sheet lot {label} has no terminal guide/status cell")
+            description = clean(tail[:guide_match.start()])
+            guide_text = clean(guide_match.group(1))
+            after_notes = False
+            for continuation in body[index + 1:next_index]:
+                if continuation.strip().upper().startswith("NOTES:"):
+                    after_notes = True
+                    continue
+                locality_part = clean(continuation[area_start:address_start])
+                address_part = clean(continuation[address_start:description_start])
+                description_part = clean(continuation[description_start:guide_start])
+                guide_part = clean(continuation[guide_start:])
+                if after_notes:
+                    if locality_part and not address_part and not description_part and not guide_part:
+                        carry_locality.append(locality_part)
+                    continue
+                address = clean(" ".join(filter(None, [address, address_part])))
+                description = clean(" ".join(filter(None, [description, description_part])))
+                guide_text = clean(" ".join(filter(None, [guide_text, guide_part])))
+            if not locality or not address or not description or not guide_text:
+                raise ValueError(f"order-sheet lot {label} has an incomplete published row")
+            parsed_guide = parse_guide_text(guide_text)
+            status = "unknown"
+            if guide_text.casefold() == "sold prior":
+                status = "sold prior"
+            elif guide_text.casefold() == "postponed":
+                status = "postponed"
+            if status != "unknown":
+                parsed_guide["guide_observation"] = False
+            annual_rent, rent_text = _rent_fields(description)
+            rows[label] = {
+                "identity_key": label,
+                "lot_number": label,
+                "address": clean(f"{address}, {locality}"),
+                "locality": locality,
+                "property_type": description,
+                "description": description,
+                "annual_rent": annual_rent,
+                "rent_text": rent_text,
+                "status": status,
+                **parsed_guide,
+            }
+        carry_locality = []
+    validate_labels(rows, expected, "2018 numbered order sheet")
+    return rows
 
 
 def parse_combined_order(text: str, expected_labels, auction_date: str | None = None) -> dict[str, dict]:
@@ -515,29 +844,7 @@ def parse_combined_order(text: str, expected_labels, auction_date: str | None = 
             carry_description = post_description
             if not address:
                 raise ValueError(f"2018 order row {label} has no published address")
-            normalized_text = clean(f"{description or ''}") or ""
-            annual_rent = None
-            rent_match = re.search(
-                r"£\s*([\d,]+)\s*(?:p\s*[/\.\s]?\s*a\.?|pa\b|per annum)",
-                normalized_text,
-                re.I,
-            )
-            if not rent_match:
-                rent_match = re.search(
-                    r"(?:annualised rent|annual rent)\s*(?:circa|of|is)?\s*£\s*([\d,]+)",
-                    normalized_text,
-                    re.I,
-                )
-            if rent_match:
-                annual_rent = money(rent_match.group(1))
-            monthly = re.search(r"£\s*([\d,]+)\s*(?:pcm|pCM|monthly)", normalized_text, re.I)
-            if monthly and annual_rent is None:
-                annual_rent = money(monthly.group(1)) * 12
-            rent_text = clean(
-                normalized_text
-                if annual_rent is not None
-                else None
-            )
+            annual_rent, rent_text = _rent_fields(description)
             row = {
                 "lot_number": label,
                 "address": clean(f"{address}, {locality}") if locality else address,
@@ -590,18 +897,25 @@ def _existing_exact_signatures(target_path: Path) -> set[tuple[str, str]]:
 
 
 def make_row(source_row: dict, source_url: str, evidence: dict, catalogue: dict) -> dict:
-    label = source_row["lot_number"]
+    label = source_row.get("lot_number")
+    identity_key = source_row.get("identity_key") or label
+    if not identity_key:
+        raise ValueError("catalogue row has no stable source identity")
     address = source_row["address"]
     description = source_row.get("description")
     property_type = source_row.get("property_type")
     event_id = catalogue["event_id"]
     event_date = catalogue["date"]
-    row = corpus.base_row(SOURCE, event_id, event_date, label, label, source_url)
+    row = corpus.base_row(SOURCE, event_id, event_date, label, identity_key, source_url)
     postcode = compact_postcode(address)
     if postcode and postcode.replace(" ", "") in address and postcode not in address:
         address = address.replace(postcode.replace(" ", ""), postcode)
     row.update(
-        appearance_id=f"{SOURCE}|{event_id}|lot:{label}",
+        appearance_id=(
+            f"{SOURCE}|{event_id}|entry:{identity_key}"
+            if label is None
+            else f"{SOURCE}|{event_id}|lot:{label}"
+        ),
         address=address,
         postcode=postcode,
         locality=source_row.get("locality"),
@@ -611,11 +925,18 @@ def make_row(source_row: dict, source_url: str, evidence: dict, catalogue: dict)
         guide_price=source_row.get("guide_price"),
         guide_price_high=source_row.get("guide_price_high"),
         guide_plus=source_row.get("guide_plus", False),
+        guide_text=source_row.get("guide_text"),
+        guide_observation=source_row.get("guide_observation"),
         annual_rent=source_row.get("annual_rent"),
         rent_text=source_row.get("rent_text"),
-        status="unknown",
+        status=source_row.get("status") or "unknown",
         property_id=None,
-        identity_method="exact_auction_date_catalogue_and_published_lot_number",
+        identity_method=(
+            "exact_auction_date_catalogue_and_published_order_position"
+            if catalogue["format"] == "unnumbered_combined_2018"
+            else "exact_auction_date_catalogue_and_published_lot_number"
+        ),
+        catalogue_order_position=source_row.get("catalogue_order_position"),
         record_quality="address_record",
         auction_date_basis=(
             "exact date printed on the cover of the retained first-party catalogue; "
@@ -637,24 +958,29 @@ def make_row(source_row: dict, source_url: str, evidence: dict, catalogue: dict)
     return row
 
 
+def expected_catalogue_rows(catalogue: dict) -> int:
+    if catalogue["format"] == "split_2014":
+        return len(catalogue["expected_residential"]) + len(catalogue["expected_additional"])
+    if catalogue["format"] == "unnumbered_combined_2018":
+        return catalogue["expected_rows"]
+    return len(catalogue["expected_lots"])
+
+
 def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
     """Prove a configured batch is already banked without refreshing sources."""
     expected_by_date = {
-        catalogue["date"]: (
-            len(catalogue["expected_residential"]) + len(catalogue["expected_additional"])
-            if catalogue["format"] == "split_2014"
-            else len(catalogue["expected_lots"])
-        )
+        catalogue["date"]: expected_catalogue_rows(catalogue)
         for catalogue in CATALOGUES
     }
     expected = sum(expected_by_date.values())
+    expected_banked = expected - len(summary.get("duplicate_evidence") or [])
     if (
         summary.get("parser_version") != PARSER_VERSION
         or summary.get("catalogues_configured") != len(CATALOGUES)
         or summary.get("catalogues_banked") != len(CATALOGUES)
-        or summary.get("appearances_banked") != expected
-        or len(rows) != expected
-        or len({row.get("appearance_id") for row in rows}) != expected
+        or summary.get("appearances_banked") != expected_banked
+        or len(rows) != expected_banked
+        or len({row.get("appearance_id") for row in rows}) != expected_banked
     ):
         return False
     for catalogue in CATALOGUES:
@@ -670,7 +996,12 @@ def collection_is_current(summary: dict, rows: list[dict], root: Path) -> bool:
             state.get("parser_version") != PARSER_VERSION
             or not state.get("source_files_reconciled")
             or not state.get("surviving_file_inventory_complete")
-            or state.get("lots_captured") != expected_by_date[catalogue["date"]]
+            or state.get("published_lots_in_surviving_files") != expected_by_date[catalogue["date"]]
+            or (
+                state.get("lots_captured", 0)
+                + state.get("duplicate_exact_date_address_evidence", 0)
+                != expected_by_date[catalogue["date"]]
+            )
         ):
             return False
     source_files = summary.get("source_files") or []
@@ -706,10 +1037,15 @@ def harvest() -> dict:
                 run_new_appearances=0,
                 run_new_address_records=0,
                 run_new_guides=0,
+                run_new_guide_observations=0,
                 run_new_sale_prices=0,
+                run_new_published_outcomes=0,
                 run_new_rents=0,
                 run_new_commercial=0,
                 run_new_mixed_use=0,
+                run_new_land=0,
+                run_new_residential=0,
+                run_new_unknown_sector=0,
             )
             print(json.dumps(report, indent=2))
             return report
@@ -726,12 +1062,21 @@ def harvest() -> dict:
         parsed_date = date.fromisoformat(catalogue["date"])
         if catalogue["event_id"] != f"edward-mellor-catalogue:{parsed_date.isoformat()}":
             raise ValueError("configured event identity does not agree with its exact date")
-        retrieved_at = corpus.now()
         if catalogue["format"] == "split_2014":
-            residential_raw, residential_resolved = fetch_pdf(catalogue["residential_url"])
-            additional_raw, additional_resolved = fetch_pdf(catalogue["additional_url"])
-            residential_snapshots, residential_sha = snapshot_pdf(residential_raw)
-            additional_snapshots, additional_sha = snapshot_pdf(additional_raw)
+            (
+                residential_raw,
+                residential_resolved,
+                residential_snapshots,
+                residential_sha,
+                residential_retrieved_at,
+            ) = retained_or_fetched_pdf(catalogue["residential_url"], saved_summary)
+            (
+                additional_raw,
+                additional_resolved,
+                additional_snapshots,
+                additional_sha,
+                additional_retrieved_at,
+            ) = retained_or_fetched_pdf(catalogue["additional_url"], saved_summary)
             residential_text = extract_pdf_text(residential_raw)
             additional_text = extract_pdf_text(additional_raw)
             if "11th June 2014" not in residential_text[:2500]:
@@ -750,14 +1095,14 @@ def harvest() -> dict:
             validate_labels(additional, catalogue["expected_additional"], "additional details")
             residential_evidence = {
                 "source_url": residential_resolved,
-                "retrieved_at": retrieved_at,
+                "retrieved_at": residential_retrieved_at,
                 "sha256": residential_sha,
                 "basis": "first-party residential auction catalogue PDF",
                 **snapshot_fields(residential_snapshots),
             }
             additional_evidence = {
                 "source_url": additional_resolved,
-                "retrieved_at": retrieved_at,
+                "retrieved_at": additional_retrieved_at,
                 "sha256": additional_sha,
                 "basis": "first-party additional-lot catalogue PDF",
                 **snapshot_fields(additional_snapshots),
@@ -776,9 +1121,10 @@ def harvest() -> dict:
                 "every explicit numbered property in the retained June 2014 residential "
                 "and additional-lot PDFs; the absent main commercial catalogue is not inferred"
             )
-        else:
-            raw, resolved = fetch_pdf(catalogue["url"])
-            snapshots, sha = snapshot_pdf(raw)
+        elif catalogue["format"] == "combined_2018":
+            raw, resolved, snapshots, sha, retrieved_at = retained_or_fetched_pdf(
+                catalogue["url"], saved_summary
+            )
             text = extract_pdf_text(raw)
             if catalogue["printed_date"] not in text[:1000]:
                 raise ValueError("combined catalogue does not print the configured exact event date")
@@ -805,6 +1151,49 @@ def harvest() -> dict:
                 "every explicit numbered property in the retained combined all-sector catalogue; "
                 "no corresponding result sheet survives in the first-party archive, so outcomes remain unknown"
             )
+        else:
+            raw, resolved, snapshots, sha, retrieved_at = retained_or_fetched_pdf(
+                catalogue["url"], saved_summary
+            )
+            text = extract_pdf_text(raw)
+            if catalogue["printed_date"] not in text[:2500]:
+                raise ValueError("catalogue does not print the configured exact event date")
+            if catalogue["format"] == "unnumbered_combined_2018":
+                parsed_rows = parse_unnumbered_combined_order(
+                    text, catalogue["expected_rows"]
+                )
+                guides = parse_unnumbered_guides(text, catalogue["expected_rows"])
+                for row, guide in zip(parsed_rows, guides, strict=True):
+                    row.update(guide)
+                completion_scope = (
+                    "every property in the retained ordered all-sector catalogue and its "
+                    "same-order detail-page guide; the publisher prints order positions but "
+                    "no lot labels, so stable order identities are retained without inventing lot numbers"
+                )
+            elif catalogue["format"] == "numbered_order_2018":
+                numbered = parse_numbered_order_sheet(text, catalogue["expected_lots"])
+                parsed_rows = list(numbered.values())
+                completion_scope = (
+                    "every explicit numbered property in the retained first-party order-of-sale "
+                    "catalogue, including published sold-prior and postponed outcomes"
+                )
+            else:
+                raise ValueError(f"unsupported catalogue format {catalogue['format']}")
+            evidence = {
+                "source_url": resolved,
+                "retrieved_at": retrieved_at,
+                "sha256": sha,
+                "basis": "first-party all-sector auction catalogue PDF",
+                **snapshot_fields(snapshots),
+            }
+            source_files.append(evidence)
+            candidates = [make_row(row, resolved, evidence, catalogue) for row in parsed_rows]
+            order_rows = len(parsed_rows)
+            missing_guides = [
+                row.get("lot_number") or row.get("identity_key")
+                for row in parsed_rows
+                if not row.get("guide_observation")
+            ]
         if len({row["appearance_id"] for row in candidates}) != len(candidates):
             raise ValueError("event contains duplicate appearance IDs")
         event_duplicate_count = 0
@@ -829,15 +1218,20 @@ def harvest() -> dict:
             "source_auction_id": catalogue["event_id"],
             "auction_date": catalogue["date"],
             "parser_version": PARSER_VERSION,
-            "catalogue_complete": catalogue["format"] == "combined_2018",
+            "catalogue_complete": catalogue["format"] != "split_2014",
             "source_files_reconciled": True,
             "surviving_file_inventory_complete": True,
-            "event_inventory_complete": catalogue["format"] == "combined_2018",
+            "event_inventory_complete": catalogue["format"] != "split_2014",
             "lots_captured": len(candidates) - event_duplicate_count,
             "published_lots_in_surviving_files": len(candidates),
             "order_rows_reconciled": order_rows,
             "guide_prices_captured": sum(row.get("guide_price") is not None for row in candidates),
+            "published_guide_observations": sum(
+                bool(row.get("guide_observation") or row.get("guide_price") is not None)
+                for row in candidates
+            ),
             "sale_prices_captured": 0,
+            "published_outcomes_captured": sum(row.get("status") != "unknown" for row in candidates),
             "rents_captured": sum(row.get("annual_rent") is not None for row in candidates),
             "duplicate_exact_date_address_evidence": event_duplicate_count,
             "missing_detail_guides": missing_guides,
@@ -860,10 +1254,18 @@ def harvest() -> dict:
             "net_new_appearances": len(added),
             "new_address_records": sum(row.get("address") is not None for row in added),
             "new_guides": sum(row.get("guide_price") is not None for row in added),
+            "new_guide_observations": sum(
+                bool(row.get("guide_observation", row.get("guide_price") is not None))
+                for row in added
+            ),
             "new_sale_prices": sum(row.get("sale_price") is not None for row in added),
+            "new_published_outcomes": sum(row.get("status") != "unknown" for row in added),
             "new_rents": sum(row.get("annual_rent") is not None for row in added),
             "new_commercial": sum(row.get("sector") == "commercial" for row in added),
             "new_mixed_use": sum(row.get("sector") == "mixed-use" for row in added),
+            "new_land": sum(row.get("sector") == "land" for row in added),
+            "new_residential": sum(row.get("sector") == "residential" for row in added),
+            "new_unknown_sector": sum(row.get("sector") == "unknown" for row in added),
             "new_partial": sum(row.get("record_quality") != "address_record" for row in added),
             "new_undated": sum(not row.get("auction_date") for row in added),
             "new_future_dated": sum(
@@ -880,10 +1282,18 @@ def harvest() -> dict:
         "run_new_appearances": len(added),
         "run_new_address_records": sum(row.get("address") is not None for row in added),
         "run_new_guides": sum(row.get("guide_price") is not None for row in added),
+        "run_new_guide_observations": sum(
+            bool(row.get("guide_observation", row.get("guide_price") is not None))
+            for row in added
+        ),
         "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
+        "run_new_published_outcomes": sum(row.get("status") != "unknown" for row in added),
         "run_new_rents": sum(row.get("annual_rent") is not None for row in added),
         "run_new_commercial": sum(row.get("sector") == "commercial" for row in added),
         "run_new_mixed_use": sum(row.get("sector") == "mixed-use" for row in added),
+        "run_new_land": sum(row.get("sector") == "land" for row in added),
+        "run_new_residential": sum(row.get("sector") == "residential" for row in added),
+        "run_new_unknown_sector": sum(row.get("sector") == "unknown" for row in added),
         "run_duplicate_evidence": len(duplicate_evidence),
         "duplicate_evidence": duplicate_evidence,
         "last_material_growth": last_material_growth,
@@ -891,9 +1301,9 @@ def harvest() -> dict:
         "events": event_states,
         "national_coverage_complete": False,
         "next_growth_target": (
-            "Batch the retained 5 June and 17 July 2018 combined catalogues through this runner, "
-            "then continue across the surviving September-December 2018 catalogues; do not "
-            "refresh the complete March or April inventories."
+            "Batch the surviving September, October and December 2018 Edward Mellor catalogues "
+            "through this runner, reconciling each complete order inventory and preserving "
+            "published outcomes separately from guide and achieved-price evidence."
         ),
     }
     corpus.save_json(summary_path, summary)

@@ -9,11 +9,15 @@ from scripts.harvest_edward_mellor_catalogue_pdfs import (
     SLUG,
     collection_is_current,
     compact_postcode,
+    expected_catalogue_rows,
     parse_combined_guides,
     parse_combined_order,
     parse_guides,
     parse_additional_rows,
+    parse_numbered_order_sheet,
     parse_residential_order,
+    parse_unnumbered_combined_order,
+    parse_unnumbered_guides,
     validate_labels,
 )
 
@@ -70,6 +74,44 @@ LOT   AREA               ADDRESS                     DESCRIPTION
     assert parse_combined_guides(text)["4"] == (20000, 30000, False)
 
 
+def test_unnumbered_2018_order_preserves_order_identity_and_wrapped_next_row():
+    text = """Order of sale
+AREA                ADDRESS                          DESCRIPTION
+Stockport           5 Rostherne Road                 Three bedroom semi detached property.
+                                                       Vacant parcel of land with lapsed planning for two
+Clayton             Plot of Land Barrington Street   dwellings.
+\fGUIDE PRICE: £98,000
+\fGUIDE PRICE: NO RESERVE
+"""
+    rows = parse_unnumbered_combined_order(text, 2)
+    guides = parse_unnumbered_guides(text, 2)
+    assert rows[0]["identity_key"] == "order-001"
+    assert rows[0]["lot_number"] is None
+    assert rows[0]["description"] == "Three bedroom semi detached property."
+    assert rows[1]["description"] == (
+        "Vacant parcel of land with lapsed planning for two dwellings."
+    )
+    assert guides[0]["guide_price"] == 98000
+    assert guides[1]["guide_text"] == "NO RESERVE"
+    assert guides[1]["guide_price"] is None
+
+
+def test_numbered_order_sheet_keeps_qualitative_guides_and_outcomes():
+    text = """Lots for July 17th 2018
+LOT       AREA                  ADDRESS                             DESCRIPTION                                            GUIDE PRICE
+ 8        Toxteth               1a Elaine Street                    Detached former garage for development                  POSTPONED
+ NOTES:
+ 9        Great Moor            Garage Rear of Meadow Street        Garage                                                 No Reserve
+ NOTES:
+"""
+    rows = parse_numbered_order_sheet(text, ("8", "9"))
+    assert rows["8"]["status"] == "postponed"
+    assert not rows["8"]["guide_observation"]
+    assert rows["9"]["status"] == "unknown"
+    assert rows["9"]["guide_text"] == "No Reserve"
+    assert rows["9"]["guide_observation"]
+
+
 def test_inventory_validation_rejects_missing_property():
     try:
         validate_labels(EXPECTED_RESIDENTIAL[:-1], EXPECTED_RESIDENTIAL, "residential")
@@ -80,14 +122,7 @@ def test_inventory_validation_rejects_missing_property():
 
 
 def test_current_batch_requires_rows_states_and_immutable_snapshots(tmp_path):
-    expected = sum(
-        (
-            len(item["expected_residential"]) + len(item["expected_additional"])
-            if item["format"] == "split_2014"
-            else len(item["expected_lots"])
-        )
-        for item in CATALOGUES
-    )
+    expected = sum(expected_catalogue_rows(item) for item in CATALOGUES)
     rows = [{"appearance_id": f"row-{number}"} for number in range(expected)]
     source_files = []
     expected_files = sum(2 if item["format"] == "split_2014" else 1 for item in CATALOGUES)
@@ -120,16 +155,14 @@ def test_current_batch_requires_rows_states_and_immutable_snapshots(tmp_path):
             f"{item['date']}.json"
         )
         state_path.parent.mkdir(parents=True, exist_ok=True)
-        event_expected = (
-            len(item["expected_residential"]) + len(item["expected_additional"])
-            if item["format"] == "split_2014"
-            else len(item["expected_lots"])
-        )
+        event_expected = expected_catalogue_rows(item)
         state_path.write_text(json.dumps({
             "parser_version": PARSER_VERSION,
             "source_files_reconciled": True,
             "surviving_file_inventory_complete": True,
             "lots_captured": event_expected,
+            "published_lots_in_surviving_files": event_expected,
+            "duplicate_exact_date_address_evidence": 0,
         }))
     summary = {
         "parser_version": PARSER_VERSION,

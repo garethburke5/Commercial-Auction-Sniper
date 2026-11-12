@@ -4,6 +4,52 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Edward Mellor June-July 2018 batch prepared
+
+The protected historical-bank and publication runs expose no active job records.
+The latest completed publication on `main` was merged into this prepared branch
+before rebuilding the combined corpus, so this gain does not discard concurrently
+published evidence. It has not moved `main`, launched a duplicate collector or
+changed the live site. The reusable
+Edward Mellor PDF runner now handles the publisher's unnumbered ordered-catalogue
+layout and its numbered order-sheet layout without inventing missing lot labels.
+Previously banked immutable PDFs are reused and verified rather than refreshed.
+
+- **Measured net gain:** **127 individual appearances** and **127 exact-dated
+  address records** inside 12 November 2006-12 November 2026: 69 from 5 June and
+  58 from 17 July. New partial, undated, future-dated, duplicate and exact
+  date/address-overlap records are **0 / 0 / 0 / 0 / 0**.
+- **Sector gain:** **15 commercial, 8 mixed-use, 9 land, 24 residential and 71
+  unknown** appearances; the commercial/mixed-use subset is **23**. Unknown
+  classifications remain unknown rather than inferred.
+- **Actual evidence gain:** **117 numeric guide prices, 124 published guide
+  observations, 0 achieved prices, 2 published rents and 3 published outcomes**.
+  The additional guide observations are `No Reserve` or `Refer to Auctioneers`
+  rather than invented numeric amounts. July preserves two `sold prior` outcomes
+  and one `postponed` outcome; achieved prices remain null because neither PDF
+  publishes them.
+- **Inventory and identity:** June reconciles all 69 ordered properties with 69
+  same-order detail-page guides. Its source prints no lot numbers, so stable
+  catalogue-order identities are retained with `lot_number = null`. July
+  reconciles all 58 numbered rows. The immutable first-party PDF SHA-256 values
+  are `7e2081c2c62ec30bc86430b7edc6ef937a95d0328aeadbe8ac3828e2b7523d8a`
+  and `4f331f8b039fc1f7ce5235dc43b12713a96e37402be0e669125345d21eebeb69`.
+  Edward Mellor 2018 was already represented, so newly covered source-years are
+  **0**; two new complete event inventories are reconciled.
+- **Corpus after latest-`main` reconciliation and rebuild:** **313,334 appearances**,
+  **302,018 address records**, **11,316 partial records** and **305,029 in-window
+  appearances**. Window evidence totals are **107,235 numeric guides** and
+  **112,700 achieved prices**; retained
+  exceptions are **5,047 undated** and **138 future-dated** appearances.
+- **Next concrete growth target:** batch the surviving Edward Mellor **17 September,
+  23 October and 4 December 2018** catalogue inventories through the same runner.
+  Preserve every published outcome and guide separately, and do not refresh the
+  complete March-July inventories.
+
+National completeness remains **false** until source-by-source lot inventories and
+genuine auctioneer/branch/trading-name coverage reconcile.
+
+
 ## 12 November 2026 — Edward Mellor March-April 2018 catalogue batch prepared
 
 The protected historical-bank and publication runs still expose no active job
