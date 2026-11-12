@@ -1,0 +1,61 @@
+{
+  "checked_at": "2026-11-12T12:08:00.978129+00:00",
+  "operator": {
+    "canonical_name": "Halls",
+    "legal_name": "HALLS HOLDINGS LIMITED",
+    "company_number": "06597073",
+    "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+  },
+  "collection_route": "offline retained-index batch; no repeated request to the bounded 403 route",
+  "events_attempted": 4,
+  "events_reconciled": 4,
+  "complete_event_inventories": 4,
+  "partial_event_inventories": 0,
+  "published_lot_denominator": 41,
+  "individually_identified_source_rows": 41,
+  "appearances_captured": 209,
+  "run_new_appearances": 41,
+  "run_new_address_records": 41,
+  "run_new_exact_dated_address_records": 41,
+  "run_new_dated_twenty_year_address_records": 41,
+  "run_new_partial_lots": 0,
+  "run_new_guide_prices": 41,
+  "run_new_sale_prices": 12,
+  "run_new_rents": 0,
+  "run_new_commercial_or_mixed": 8,
+  "source_years": [
+    "2023"
+  ],
+  "newly_covered_source_years": [
+    "2023"
+  ],
+  "by_sector": {
+    "residential": 14,
+    "commercial": 4,
+    "land": 18,
+    "mixed-use": 4,
+    "unknown": 1
+  },
+  "by_status": {
+    "unknown": 28,
+    "sold": 12,
+    "sold after auction": 1
+  },
+  "failures": [],
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_evidence_exclusions": [],
+  "undated_records": 0,
+  "future_dated_records": 0,
+  "corpus_totals_after_rebuild": {
+    "individual_lot_records_captured": 315090,
+    "records_with_address": 302533,
+    "partial_lot_records": 12557,
+    "twenty_year_lot_appearances": 305613,
+    "twenty_year_guide_prices": 107670,
+    "twenty_year_sale_prices": 112877,
+    "undated_appearances": 6219,
+    "future_dated_appearances": 138
+  },
+  "next_growth_target": "Inventory and batch Halls' retained 2022 first-party collective property and land catalogues from original publisher URLs, beginning with complete numbered event assets and lot-scoped results where retained text is available. Keep the known Halls WordPress PDF 403 route bounded; use retained publisher-asset text or a materially different byte-accessible route. National completeness remains false.",
+  "national_completeness_verified": false
+}

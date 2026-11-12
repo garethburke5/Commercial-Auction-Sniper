@@ -32,7 +32,11 @@ SOURCE_DIR = DATA / "sources" / "halls" / "first-party"
 APPEARANCE_SHARD = DATA / "appearances" / "halls" / "canonical.jsonl.gz"
 AUCTION_DIR = DATA / "auctions" / "halls"
 SUMMARY_PATH = DATA / "halls_collective_collection.json"
+RETAINED_2023_SUMMARY_PATH = DATA / "halls_2023_retained_collection.json"
 RETAINED_2024_SUMMARY_PATH = DATA / "halls_2024_retained_collection.json"
+RETAINED_2023_SNAPSHOT = (
+    DATA / "sources" / "halls" / "retained-index" / "halls-2023-first-party-indexed-inventories.json"
+)
 RETAINED_2024_SNAPSHOT = (
     DATA / "sources" / "halls" / "retained-index" / "halls-2024-first-party-indexed-inventories.json"
 )
@@ -186,12 +190,18 @@ SEPTEMBER_2025_ROWS = [
 ]
 
 NEXT_TARGET = (
-    "Batch Halls' retained 2023 first-party collective-auction catalogues, beginning with the complete Christmas "
-    "catalogue at https://www.hallsgb.com/wp-content/uploads/2023/11/Halls-Christmas-CPL-Auction-Catalogue_compressed.pdf, "
-    "then reconcile the other 2023 event inventories before moving to older years. Keep the 2024 WordPress PDF "
-    "403 route bounded; revisit it only if a byte-accessible publisher snapshot or materially different route appears. "
-    "National completeness remains false."
+    "Inventory and batch Halls' retained 2022 first-party collective property and land catalogues from original "
+    "publisher URLs, beginning with complete numbered event assets and lot-scoped results where retained text is "
+    "available. Keep the known Halls WordPress PDF 403 route bounded; use retained publisher-asset text or a "
+    "materially different byte-accessible route. National completeness remains false."
 )
+
+RETAINED_SNAPSHOTS = {2023: RETAINED_2023_SNAPSHOT, 2024: RETAINED_2024_SNAPSHOT}
+RETAINED_SUMMARIES = {2023: RETAINED_2023_SUMMARY_PATH, 2024: RETAINED_2024_SUMMARY_PATH}
+RETAINED_DATES = {
+    2023: ["2023-04-28", "2023-07-19", "2023-10-20", "2023-12-08"],
+    2024: ["2024-02-23", "2024-04-26", "2024-07-12", "2024-09-27", "2024-11-29"],
+}
 
 POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b", re.I)
 MONEY_RE = re.compile(r"£\s*([\d,]+)")
@@ -753,15 +763,16 @@ def collect() -> dict[str, Any]:
     return summary
 
 
-def retained_2024_inventory() -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """Load and strictly validate the retained 2024 first-party inventories."""
-    raw = RETAINED_2024_SNAPSHOT.read_bytes()
+def retained_inventory(year: int) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Load and strictly validate one retained first-party catalogue year."""
+    snapshot_path = RETAINED_SNAPSHOTS[year]
+    raw = snapshot_path.read_bytes()
     payload = json.loads(raw)
     events = payload.get("events") or []
-    expected_dates = ["2024-02-23", "2024-04-26", "2024-07-12", "2024-09-27", "2024-11-29"]
+    expected_dates = RETAINED_DATES[year]
     if [event.get("date") for event in events] != expected_dates:
-        raise ValueError("retained 2024 event dates no longer match the five evidenced catalogues")
-    if payload.get("direct_fetch_status") != 403:
+        raise ValueError(f"retained {year} event dates no longer match the evidenced catalogues")
+    if payload.get("direct_fetch_status") not in {403, "not_retried_known_wordpress_403_route"}:
         raise ValueError("retained snapshot must preserve the bounded first-party PDF 403 evidence")
     for event in events:
         rows = event.get("rows") or []
@@ -777,7 +788,7 @@ def retained_2024_inventory() -> tuple[dict[str, Any], list[dict[str, Any]]]:
         "source_url": "multiple original first-party Halls URLs listed in the retained snapshot",
         "retrieved_at": payload["retrieved_at"],
         "sha256": hashlib.sha256(raw).hexdigest(),
-        "snapshot_path": str(RETAINED_2024_SNAPSHOT.relative_to(ROOT)),
+        "snapshot_path": str(snapshot_path.relative_to(ROOT)),
         "source_tier": payload["source_tier"],
         "retrieval_route": payload["retrieval_route"],
         "direct_fetch_status": payload["direct_fetch_status"],
@@ -785,9 +796,14 @@ def retained_2024_inventory() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     }, events
 
 
-def collect_retained_2024() -> dict[str, Any]:
-    """Append all five complete 2024 retained inventories without touching the network."""
-    retained_evidence, events = retained_2024_inventory()
+def retained_2024_inventory() -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Backward-compatible 2024 retained inventory accessor."""
+    return retained_inventory(2024)
+
+
+def collect_retained_year(year: int) -> dict[str, Any]:
+    """Append a complete retained catalogue year without touching the network."""
+    retained_evidence, events = retained_inventory(year)
     current_rows = read_rows(APPEARANCE_SHARD)
     current_ids = {row["appearance_id"] for row in current_rows}
     existing = existing_keys()
@@ -826,7 +842,7 @@ def collect_retained_2024() -> dict[str, Any]:
                 ),
                 "annual_rent": None,
                 "rent_text": None,
-                "sector": sector(row["address"], None),
+                "sector": row.get("sector") or sector(row["address"], row.get("description")),
             })
             evidence = {
                 "retained_index_snapshot": {
@@ -836,12 +852,13 @@ def collect_retained_2024() -> dict[str, Any]:
                 "original_first_party_asset": {
                     "source_url": source_event["source_url"],
                     "asset_kind": source_event["asset_kind"],
-                    "direct_fetch_status": 403,
+                    "direct_fetch_status": retained_evidence["direct_fetch_status"],
                 },
                 "result_article": (
                     {
                         "source_url": source_event["result_url"],
-                        "basis": "retained first-party result article individually names 13 sold catalogue lots and prices",
+                        "source_tier": source_event.get("result_source_tier", "first_party_result_article"),
+                        "basis": "lot-scoped contemporaneous result report; only individually named outcomes are attached",
                     }
                     if source_event.get("result_url") else None
                 ),
@@ -878,7 +895,7 @@ def collect_retained_2024() -> dict[str, Any]:
                 "retained_index_snapshot": retained_evidence,
                 "original_first_party_asset": source_event["source_url"],
                 "result_article": source_event.get("result_url"),
-                "direct_fetch_status": 403,
+                "direct_fetch_status": retained_evidence["direct_fetch_status"],
             },
             "errors": [],
             "checked_at": now(),
@@ -899,12 +916,12 @@ def collect_retained_2024() -> dict[str, Any]:
             "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True,
         },
         "collection_route": "offline retained-index batch; no repeated request to the bounded 403 route",
-        "events_attempted": 5,
-        "events_reconciled": 5,
-        "complete_event_inventories": 5,
+        "events_attempted": len(events),
+        "events_reconciled": len(events),
+        "complete_event_inventories": len(events),
         "partial_event_inventories": 0,
-        "published_lot_denominator": 61,
-        "individually_identified_source_rows": 61,
+        "published_lot_denominator": sum(event["expected_lots"] for event in events),
+        "individually_identified_source_rows": sum(event["expected_lots"] for event in events),
         "appearances_captured": len(merged_rows),
         "run_new_appearances": len(new_rows),
         "run_new_address_records": len(new_rows),
@@ -915,8 +932,8 @@ def collect_retained_2024() -> dict[str, Any]:
         "run_new_sale_prices": sum(row.get("sale_price") is not None for row in new_rows),
         "run_new_rents": sum(row.get("annual_rent") is not None for row in new_rows),
         "run_new_commercial_or_mixed": sectors["commercial"] + sectors["mixed-use"],
-        "source_years": ["2024"],
-        "newly_covered_source_years": ["2024"] if new_rows else [],
+        "source_years": [str(year)],
+        "newly_covered_source_years": [str(year)] if new_rows else [],
         "by_sector": dict(sectors),
         "by_status": dict(statuses),
         "failures": [],
@@ -927,10 +944,15 @@ def collect_retained_2024() -> dict[str, Any]:
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
     }
-    write_json(RETAINED_2024_SUMMARY_PATH, summary)
+    write_json(RETAINED_SUMMARIES[year], summary)
     write_json(SUMMARY_PATH, summary)
     update_continuation(summary)
     return summary
+
+
+def collect_retained_2024() -> dict[str, Any]:
+    """Backward-compatible 2024 retained batch entry point."""
+    return collect_retained_year(2024)
 
 
 if __name__ == "__main__":
@@ -940,6 +962,13 @@ if __name__ == "__main__":
         action="store_true",
         help="bank the five retained 2024 first-party inventories without network access",
     )
+    parser.add_argument(
+        "--retained-year",
+        type=int,
+        choices=sorted(RETAINED_SNAPSHOTS),
+        help="bank one complete retained first-party catalogue year without network access",
+    )
     args = parser.parse_args()
-    result = collect_retained_2024() if args.retained_2024 else collect()
+    retained_year = args.retained_year or (2024 if args.retained_2024 else None)
+    result = collect_retained_year(retained_year) if retained_year else collect()
     print(json.dumps(result, indent=2, ensure_ascii=False))

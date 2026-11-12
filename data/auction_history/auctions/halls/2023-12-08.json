@@ -1,0 +1,32 @@
+{
+  "auctioneer": "Halls",
+  "operator_legal_name": "HALLS HOLDINGS LIMITED",
+  "operator_company_number": "06597073",
+  "source_auction_id": "halls:collective:2023-12-08",
+  "auction_date": "2023-12-08",
+  "auction_date_precision": "day",
+  "source_url": "https://www.hallsgb.com/wp-content/uploads/2023/11/Halls-Christmas-CPL-Auction-Catalogue_compressed.pdf",
+  "lots_captured": 8,
+  "published_lots_offered": 8,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "complete numbered first-party order-of-sale inventory retained by a public search index",
+  "source_evidence": {
+    "retained_index_snapshot": {
+      "source_url": "multiple original first-party Halls URLs listed in the retained snapshot",
+      "retrieved_at": "2026-11-12T00:00:00+00:00",
+      "sha256": "841b05cc2dfeb588503a65395ba199f1ae15bbe5458ffdd354bad0ef2acbdec9",
+      "snapshot_path": "data/auction_history/sources/halls/retained-index/halls-2023-first-party-indexed-inventories.json",
+      "source_tier": "first_party_publisher_asset_retained_search_index_text",
+      "retrieval_route": "retained public search-index text of original first-party Halls catalogue PDFs, supplemented only by contemporaneous local result reports for lot-scoped outcomes",
+      "direct_fetch_status": "not_retried_known_wordpress_403_route",
+      "direct_fetch_note": "The Halls WordPress PDF route is already evidenced as a bounded 403 access-challenge route. This run did not repeat it; it banks complete numbered inventories retained for the original publisher URLs."
+    },
+    "original_first_party_asset": "https://www.hallsgb.com/wp-content/uploads/2023/11/Halls-Christmas-CPL-Auction-Catalogue_compressed.pdf",
+    "result_article": null,
+    "direct_fetch_status": "not_retried_known_wordpress_403_route"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T12:08:00.966168+00:00"
+}

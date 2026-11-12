@@ -107,6 +107,24 @@ def test_retained_2024_batch_reconciles_all_five_catalogues():
     assert evidence["sha256"]
 
 
+def test_retained_2023_batch_reconciles_four_complete_catalogues_and_results():
+    evidence, events = MODULE.retained_inventory(2023)
+    assert [event["date"] for event in events] == [
+        "2023-04-28",
+        "2023-07-19",
+        "2023-10-20",
+        "2023-12-08",
+    ]
+    rows = [row for event in events for row in event["rows"]]
+    assert len(rows) == 41
+    assert sum(row.get("guide_price") is not None for row in rows) == 41
+    assert sum(row.get("sale_price") is not None for row in rows) == 12
+    assert sum(row.get("status") in {"sold", "sold after auction"} for row in rows) == 13
+    assert sum(row.get("sector") in {"commercial", "mixed-use"} for row in rows) == 8
+    assert evidence["direct_fetch_status"] == "not_retried_known_wordpress_403_route"
+    assert evidence["sha256"]
+
+
 def test_november_result_prices_are_lot_scoped():
     assert len(MODULE.NOVEMBER_SALE_PRICES) == 17
     assert MODULE.NOVEMBER_SALE_PRICES[21] == 350000
