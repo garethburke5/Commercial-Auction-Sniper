@@ -1,0 +1,31 @@
+{
+  "auctioneer": "Taylor James Auctions",
+  "source_auction_id": "taylor-james-auctions:2022-09-14",
+  "auction_date": "2022-09-14",
+  "auction_date_precision": "day",
+  "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-14-09-2022/",
+  "published_lot_cards": 0,
+  "lots_captured": 0,
+  "catalogue_complete": false,
+  "event_inventory_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "retained event placeholder contained no property cards and is not property evidence",
+  "source_evidence": {
+    "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-14-09-2022/",
+    "retrieved_at": "2026-11-12T14:55:44.278544+00:00",
+    "sha256": "9b6e59d3c3b61001faad405a81d117ed9fdbfd34687cb45f1cab86de09ee0420",
+    "snapshot_path": "data/auction_history/sources/taylor-james-auctions/event-9b6e59d3c3b61001.html.gz",
+    "basis": "first-party Taylor James auction event page",
+    "sitemap_evidence": {
+      "source_url": "https://www.taylorjamesauctions.co.uk/auction-sitemap.xml",
+      "retrieved_at": "2026-11-12T14:55:26.148730+00:00",
+      "sha256": "c3553ecd6c1929531de15626bd1850309c459c948e6c00ed459106f2da78b17d",
+      "snapshot_path": "data/auction_history/sources/taylor-james-auctions/auction-sitemap-c3553ecd6c192953.xml.gz",
+      "basis": "first-party auction-event sitemap",
+      "published_event_urls": 19
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T14:55:44.283393+00:00"
+}

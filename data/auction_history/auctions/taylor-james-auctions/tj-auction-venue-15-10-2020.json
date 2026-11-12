@@ -1,0 +1,31 @@
+{
+  "auctioneer": "Taylor James Auctions",
+  "source_auction_id": "taylor-james-auctions:2020-10-21",
+  "auction_date": "2020-10-21",
+  "auction_date_precision": "day",
+  "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-15-10-2020/",
+  "published_lot_cards": 57,
+  "lots_captured": 57,
+  "catalogue_complete": true,
+  "event_inventory_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every individual property card on the retained first-party event page",
+  "source_evidence": {
+    "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-15-10-2020/",
+    "retrieved_at": "2026-11-12T14:55:43.355972+00:00",
+    "sha256": "a1ac7ff65c9a213a31f4adef75a2f10a3546b04b54260a0a6ee6d7e6270b8ceb",
+    "snapshot_path": "data/auction_history/sources/taylor-james-auctions/event-a1ac7ff65c9a213a.html.gz",
+    "basis": "first-party Taylor James auction event page",
+    "sitemap_evidence": {
+      "source_url": "https://www.taylorjamesauctions.co.uk/auction-sitemap.xml",
+      "retrieved_at": "2026-11-12T14:55:26.148730+00:00",
+      "sha256": "c3553ecd6c1929531de15626bd1850309c459c948e6c00ed459106f2da78b17d",
+      "snapshot_path": "data/auction_history/sources/taylor-james-auctions/auction-sitemap-c3553ecd6c192953.xml.gz",
+      "basis": "first-party auction-event sitemap",
+      "published_event_urls": 19
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T14:55:43.406204+00:00"
+}

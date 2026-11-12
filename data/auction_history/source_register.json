@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T14:25:37.348730+00:00",
-  "corpus_checkpoint": "2026-11-12T14:21:16.830700+00:00",
+  "generated_at": "2026-11-12T14:57:02.339761+00:00",
+  "corpus_checkpoint": "2026-11-12T14:56:29.725394+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7412,13 +7412,17 @@
       "name": "Taylor James Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/taylor-james-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Taylor James Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 1376,
+      "years_with_retained_evidence": [
+        2020,
+        2021,
+        2022
+      ],
+      "with_guide_price": 1375,
+      "with_sale_price": 1104,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8206,7 +8210,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 464,
+  "directory_entries_not_linked": 463,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8332,6 +8336,7 @@
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1142,
     "TW Gaze": 37,
+    "Taylor James Auctions": 1376,
     "The Auction Company": 123,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3080,
@@ -8342,13 +8347,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305677,
-      "auction_ids_observed": 13780,
-      "with_guide_price": 107711,
-      "with_sale_price": 112908,
-      "with_both_prices": 49105,
-      "marked_sold": 155880,
-      "marked_sold_without_sale_price": 43712
+      "lot_appearances": 307053,
+      "auction_ids_observed": 13798,
+      "with_guide_price": 109086,
+      "with_sale_price": 114012,
+      "with_both_prices": 50208,
+      "marked_sold": 157000,
+      "marked_sold_without_sale_price": 43728
     },
     "by_auctioneer_and_year": [
       {
@@ -17031,6 +17036,39 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Taylor James Auctions",
+        "year": 2020,
+        "lot_appearances": 86,
+        "auction_ids_observed": 2,
+        "with_guide_price": 86,
+        "with_sale_price": 78,
+        "with_both_prices": 78,
+        "marked_sold": 80,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Taylor James Auctions",
+        "year": 2021,
+        "lot_appearances": 716,
+        "auction_ids_observed": 9,
+        "with_guide_price": 715,
+        "with_sale_price": 575,
+        "with_both_prices": 574,
+        "marked_sold": 582,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "Taylor James Auctions",
+        "year": 2022,
+        "lot_appearances": 574,
+        "auction_ids_observed": 7,
+        "with_guide_price": 574,
+        "with_sale_price": 451,
+        "with_both_prices": 451,
+        "marked_sold": 458,
+        "marked_sold_without_sale_price": 7
+      },
+      {
         "auctioneer": "The Auction Company",
         "year": 2023,
         "lot_appearances": 2,
@@ -17825,6 +17863,24 @@
         "2023",
         "2024",
         "2025"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "taylor-james-auctions": {
+      "source": "taylor-james-auctions",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T14:55:54.498921+00:00",
+      "run_new_appearances": 1376,
+      "run_new_dated_twenty_year_address_records": 1376,
+      "run_new_commercial_or_mixed": 59,
+      "run_new_guide_prices": 1375,
+      "run_new_sale_prices": 1104,
+      "run_new_rents": 2,
+      "newly_covered_source_years": [
+        "2020",
+        "2021",
+        "2022"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -21766,6 +21822,15 @@
       "checked_at": "2026-11-12T01:46:55.097280+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/taylor-james-auctions/tj-auction-venue-14-09-2022.json",
+      "auctioneer": "Taylor James Auctions",
+      "auction_date": "2022-09-14",
+      "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-14-09-2022/",
+      "lots_captured": 0,
+      "errors": [],
+      "checked_at": "2026-11-12T14:55:44.283393+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/brown-co/rolling-results.json",
       "auctioneer": "Brown&Co",
       "auction_date": null,
@@ -23741,7 +23806,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T14:25:36.736890+00:00",
+    "checked_at": "2026-11-12T14:57:01.475009+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
