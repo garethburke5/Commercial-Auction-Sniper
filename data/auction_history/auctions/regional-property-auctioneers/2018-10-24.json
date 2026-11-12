@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Regional Property Auctioneers",
+  "operator_legal_name": "BARNSDALES LIMITED",
+  "operator_company_number": "05521957",
+  "trading_name": "Regional Property Auctioneers",
+  "source_auction_id": "regional-property-auctioneers:2018-10-24",
+  "auction_date": "2018-10-24",
+  "auction_date_precision": "day",
+  "source_url": "https://s3.eu-west-2.amazonaws.com/altcms/barnsdales/media/11998/24th%20October%202018.pdf",
+  "published_lots": 13,
+  "lots_captured": 13,
+  "guides_captured": 11,
+  "rents_captured": 5,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-sale table in complete first-party catalogue PDF",
+  "completion_scope": "every numbered property row in the printed order-of-sale table; hidden stale template text excluded",
+  "source_evidence": {
+    "source_url": "https://s3.eu-west-2.amazonaws.com/altcms/barnsdales/media/11998/24th%20October%202018.pdf",
+    "retrieved_at": "2026-11-12T16:22:44.533321+00:00",
+    "sha256": "0e2eca0d40afdecabd5763a7fceecfb7183a3e961b0946962ce337245157cd4a",
+    "snapshot_path": "data/auction_history/sources/regional-property-auctioneers/catalogue-2018-10-24-0e2eca0d40afdecabd57.pdf.gz",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_evidence": {
+      "source_url": "https://www.regionalpropertyauctioneers.co.uk/catalogue",
+      "retrieved_at": "2026-11-12T16:22:31.047171+00:00",
+      "sha256": "a00bdbb5580cb8eb80b526b63741a27d019dee6ecae0a7fe67f073a23b13138f",
+      "snapshot_path": "data/auction_history/sources/regional-property-auctioneers/catalogue-index-a00bdbb5580cb8eb80b5.html.gz",
+      "basis": "first-party multi-year property-auction catalogue archive"
+    }
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T16:22:44.646596+00:00"
+}

@@ -4,6 +4,54 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Regional Property Auctioneers 2018-2023 catalogue batch prepared
+
+The protected current-scan and history-bank run records still expose no active
+jobs, so this evidence was prepared without launching a duplicate writer or moving
+`main`. The new reusable first-party PDF runner batches complete catalogue
+inventories and admits only the contiguous printed order-of-sale table. Detail
+pages can enrich an admitted row with a guide or rent, but cannot create a lot.
+This is important because several PDFs retain hidden stale rows from an earlier
+catalogue template.
+
+- **Measured net gain:** **267 individual appearances** and **267 exact-dated
+  address records** inside 12 November 2006-12 November 2026. New partial,
+  undated, future-dated, duplicate and cross-source exact-date/address-overlap
+  records are **0 / 0 / 0 / 0 / 0**.
+- **Sector gain:** **27 commercial, 10 mixed-use, 26 land, 176 residential and
+  28 unknown** appearances; the commercial/mixed-use subset is **37**. All-sector
+  evidence is banked independently of the commercial website filter.
+- **Actual evidence gain:** **255 numeric guides, 0 achieved prices and 115
+  published rents**. Catalogue-only rows retain null outcomes and null achieved
+  prices; no sold amount is inferred from a guide.
+- **Inventory reconciliation:** all **267/267 printed order rows** reconcile across
+  **23/23 first-party catalogues** from February 2018 through February 2023. These
+  add six source-years: **2018, 2019, 2020, 2021, 2022 and 2023**. The archive's
+  May 2023 PNG and September 2023 catalogue-not-ready PDF are not counted as
+  property inventories.
+- **Operator reconciliation:** Regional Property Auctioneers is retained once as
+  the trading name of **BARNSDALES LIMITED** (company number **05521957**), not as
+  an additional operator or branch count. Its national directory entry now links
+  exactly to the 267 retained appearances and remains partial, not complete.
+- **Corpus after rebuild:** **317,123 appearances**, **304,565 address records**,
+  **12,558 partial records** and **307,646 in-window appearances**. Window evidence
+  totals are **109,667 numeric guides** and **114,174 achieved prices**; retained
+  exceptions remain **6,219 undated** and **138 future-dated** appearances.
+- **Publication checkpoint:** the rebuilt local database passed SQLite integrity
+  checking, but its gzip is **177,603,017 bytes**, above GitHub's 100 MiB blob
+  limit. The prepared branch therefore banks the authoritative source snapshots,
+  shards, event states and progress without replacing the tracked database binary.
+- **Next concrete growth target:** extend the same order-of-sale runner across the
+  **32 accessible 2012-2017 first-party catalogues**, adding assertions for their
+  older layouts before admission. Revisit the May/September 2023 placeholders only
+  if a property-level route appears. The Taylor James 10 July 2024 event remains a
+  bounded blocker: the indexed first-party page establishes the event but no
+  recoverable property inventory or denominator, so it is not counted.
+
+National completeness remains **false** until source-by-source lot inventories and
+genuine auctioneer/branch/trading-name coverage reconcile.
+
+
 ## 12 November 2026 — Edward Mellor 2020 result-card year batch prepared
 
 The protected history-bank and publication runs still expose no active job records,

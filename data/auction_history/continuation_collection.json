@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Recover Taylor James Auctions' advertised 10 July 2024 event through an exact first-party or archived event URL, then test a materially different archival route for catalogues before October 2020. Reuse the event-page runner and literal card denominators without overwriting the banked 2020-2024 appearances. If those routes are thin, rotate to Regional Property Auctioneers' multi-year first-party catalogue archive. National completeness remains false.",
+  "next_growth_target": "Continue Regional Property Auctioneers through the same reusable order-of-sale runner, batching the accessible 2012-2017 first-party catalogues after adding format-specific assertions for their older layouts. Separately recover the May and September 2023 non-catalogue placeholders only if a property-level route appears. Do not refresh the reconciled 2018-2023 PDFs. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4384,6 +4384,63 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "regional-property-auctioneers",
+      "outcome": "partial",
+      "checked_at": "2026-11-12T16:18:30.587681+00:00",
+      "run_new_appearances": 157,
+      "run_new_dated_twenty_year_address_records": 157,
+      "run_new_commercial_or_mixed": 21,
+      "run_new_guide_prices": 152,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 77,
+      "newly_covered_source_years": [
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    {
+      "source": "regional-property-auctioneers",
+      "outcome": "partial",
+      "checked_at": "2026-11-12T16:21:07.148976+00:00",
+      "run_new_appearances": 68,
+      "run_new_dated_twenty_year_address_records": 68,
+      "run_new_commercial_or_mixed": 9,
+      "run_new_guide_prices": 64,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 24,
+      "newly_covered_source_years": [
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    {
+      "source": "regional-property-auctioneers",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T16:22:56.068908+00:00",
+      "run_new_appearances": 267,
+      "run_new_dated_twenty_year_address_records": 267,
+      "run_new_commercial_or_mixed": 37,
+      "run_new_guide_prices": 255,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 115,
+      "newly_covered_source_years": [
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -5272,21 +5329,46 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "regional-property-auctioneers": {
+      "source": "regional-property-auctioneers",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T16:22:56.068908+00:00",
+      "run_new_appearances": 267,
+      "run_new_dated_twenty_year_address_records": 267,
+      "run_new_commercial_or_mixed": 37,
+      "run_new_guide_prices": 255,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 115,
+      "newly_covered_source_years": [
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "last_automated_growth": {
-    "source": "taylor-james-auctions",
+    "source": "regional-property-auctioneers",
     "outcome": "completed",
-    "checked_at": "2026-11-12T15:14:54.646983+00:00",
-    "run_new_appearances": 326,
-    "run_new_dated_twenty_year_address_records": 326,
-    "run_new_commercial_or_mixed": 17,
-    "run_new_guide_prices": 326,
-    "run_new_sale_prices": 162,
-    "run_new_rents": 1,
+    "checked_at": "2026-11-12T16:22:56.068908+00:00",
+    "run_new_appearances": 267,
+    "run_new_dated_twenty_year_address_records": 267,
+    "run_new_commercial_or_mixed": 37,
+    "run_new_guide_prices": 255,
+    "run_new_sale_prices": 0,
+    "run_new_rents": 115,
     "newly_covered_source_years": [
-      "2023",
-      "2024"
+      "2018",
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
@@ -5314,12 +5396,12 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-12T15:14:54.646983+00:00",
-    "source_key_candidate": "taylor-james-july-2024-and-pre-2020",
-    "auctioneer": "Taylor James Auctions",
-    "source_format": "first-party event pages and individual property pages",
-    "opportunity": "the advertised July 2024 event and older catalogues omitted from the retained sitemap",
-    "next_growth_target": "Recover Taylor James Auctions' advertised 10 July 2024 event through an exact first-party or archived event URL, then test a materially different archival route for catalogues before October 2020. Reuse the event-page runner and literal card denominators without overwriting the banked 2020-2024 appearances. If those routes are thin, rotate to Regional Property Auctioneers' multi-year first-party catalogue archive. National completeness remains false.",
+    "checked_at": "2026-11-12T16:22:56.068908+00:00",
+    "source_key_candidate": "regional-property-auctioneers-2012-2017",
+    "auctioneer": "Regional Property Auctioneers",
+    "source_format": "first-party complete catalogue PDFs",
+    "opportunity": "the 32 accessible older catalogues currently outside the 2018-2023 parser batch",
+    "next_growth_target": "Continue Regional Property Auctioneers through the same reusable order-of-sale runner, batching the accessible 2012-2017 first-party catalogues after adding format-specific assertions for their older layouts. Separately recover the May and September 2023 non-catalogue placeholders only if a property-level route appears. Do not refresh the reconciled 2018-2023 PDFs. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,

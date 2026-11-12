@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T15:17:30.110675+00:00",
-  "corpus_checkpoint": "2026-11-12T15:16:58.160164+00:00",
+  "generated_at": "2026-11-12T16:26:54.345996+00:00",
+  "corpus_checkpoint": "2026-11-12T16:25:52.906833+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -6362,13 +6362,20 @@
       "name": "Regional Property Auctioneers",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/regional-property-auctioneers",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Regional Property Auctioneers",
+      "match_basis": "exact label",
+      "retained_appearances": 267,
+      "years_with_retained_evidence": [
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023
+      ],
+      "with_guide_price": 255,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8212,7 +8219,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 463,
+  "directory_entries_not_linked": 462,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8320,6 +8327,7 @@
     "Property Auction Agent": 70,
     "Pugh Auctioneers": 6896,
     "Purplebricks Online Auctions": 2451,
+    "Regional Property Auctioneers": 267,
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
@@ -8349,9 +8357,9 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307379,
-      "auction_ids_observed": 13807,
-      "with_guide_price": 109412,
+      "lot_appearances": 307646,
+      "auction_ids_observed": 13830,
+      "with_guide_price": 109667,
       "with_sale_price": 114174,
       "with_both_prices": 50370,
       "marked_sold": 157163,
@@ -15960,6 +15968,72 @@
         "marked_sold_without_sale_price": 169
       },
       {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2018,
+        "lot_appearances": 82,
+        "auction_ids_observed": 6,
+        "with_guide_price": 74,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2019,
+        "lot_appearances": 66,
+        "auction_ids_observed": 6,
+        "with_guide_price": 63,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2020,
+        "lot_appearances": 40,
+        "auction_ids_observed": 5,
+        "with_guide_price": 39,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2021,
+        "lot_appearances": 48,
+        "auction_ids_observed": 3,
+        "with_guide_price": 48,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2022,
+        "lot_appearances": 23,
+        "auction_ids_observed": 2,
+        "with_guide_price": 23,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2023,
+        "lot_appearances": 8,
+        "auction_ids_observed": 1,
+        "with_guide_price": 8,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Robinson & Hall",
         "year": 2021,
         "lot_appearances": 20,
@@ -17904,6 +17978,27 @@
       "newly_covered_source_years": [
         "2023",
         "2024"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "regional-property-auctioneers": {
+      "source": "regional-property-auctioneers",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T16:22:56.068908+00:00",
+      "run_new_appearances": 267,
+      "run_new_dated_twenty_year_address_records": 267,
+      "run_new_commercial_or_mixed": 37,
+      "run_new_guide_prices": 255,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 115,
+      "newly_covered_source_years": [
+        "2018",
+        "2019",
+        "2020",
+        "2021",
+        "2022",
+        "2023"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -21851,7 +21946,7 @@
       "source_url": "https://www.taylorjamesauctions.co.uk/auction/tj-auction-venue-14-09-2022/",
       "lots_captured": 0,
       "errors": [],
-      "checked_at": "2026-11-12T15:14:43.925438+00:00"
+      "checked_at": "2026-11-12T14:55:44.283393+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/brown-co/rolling-results.json",
@@ -23829,7 +23924,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T15:17:29.484239+00:00",
+    "checked_at": "2026-11-12T16:26:53.694732+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
