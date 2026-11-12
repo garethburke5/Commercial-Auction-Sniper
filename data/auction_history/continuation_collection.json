@@ -5461,6 +5461,9 @@
     "source_files_reconciled": true,
     "scope_note": "September 2018 retains an exact auction date. Each 2019 appearance retains its exact two-day start/end range with auction_date null because the source does not expose an individual lot day. Migrated cards publish no address, guide, rent or sector, so those fields remain null/unknown and neither catalogue nor original-offered completeness is claimed.",
     "database_rebuild_verified": true,
+    "database_rebuild_verified_locally": true,
+    "tracked_database_artifact_updated": false,
+    "publication_checkpoint": "The canonical local rebuild passed SQLite integrity and counted 314048 appearances, but auction_history.sqlite.gz regenerated to 176542936 bytes, above GitHub's 100 MiB blob limit. The prepared branch banks source shards, event states and progress only. Rebuild and compact/package the database through the existing free publication pipeline before publishing; do not treat the prior tracked binary as current.",
     "publication_verified": false,
     "national_completeness_verified": false,
     "corpus_after_rebuild": {

@@ -41,6 +41,12 @@ invented exact lot dates.
   The legacy `undated_appearances` counter is **5,555** because it keys only on
   `auction_date`; 508 of those records are not evidence-undated and carry exact
   2019 start/end ranges. Future-dated appearances remain **138**.
+- **Publication checkpoint:** the local canonical rebuild passed SQLite integrity
+  checks, but its regenerated gzip is **176,542,936 bytes**, above GitHub's 100 MiB
+  blob limit. The prepared branch therefore banks the authoritative source shards,
+  event states and counted progress without advancing the tracked database binary.
+  Before publication, rebuild and compact/package the database through the existing
+  free pipeline; never publish the prior binary as if it contained these records.
 - **Next concrete growth target:** batch the six accessible Edward Mellor **2020**
   pages with unique lot labels (2 June, 22 July, 12 August, 13 October, 3 November
   and 15 December), a known inventory of **399 individual cards**, through the same
