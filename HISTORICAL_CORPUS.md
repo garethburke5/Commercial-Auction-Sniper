@@ -4,6 +4,48 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Edward Mellor March-April 2018 catalogue batch prepared
+
+The protected historical-bank and publication runs still expose no active job
+records, so this evidence remains prepared behind the writer gate and has not
+moved `main` or launched a duplicate collector. The reusable Edward Mellor PDF
+runner now handles combined all-sector catalogues as well as the 2014 split-file
+format. It reconciles every printed order row to exactly one detail-page guide.
+
+- **Measured net gain:** **143 individual appearances**, all full address records
+  with exact event dates inside 12 November 2006-12 November 2026. March contributes
+  65/65 lots and April 78/78. New partial, undated, future-dated, duplicate and
+  exact-date/address-overlap records are **0 / 0 / 0 / 0 / 0**.
+- **Sector gain:** **15 commercial, 14 mixed-use, 1 land, 44 residential and 69
+  unknown**; the commercial/mixed-use subset is **29**. Unknown classifications
+  remain unknown rather than inferred, and all-sector banking remains separate
+  from the commercial website filter.
+- **Actual evidence gain:** **143 guide-price observations, 0 achieved-price
+  observations and 9 published rents**. Guide ranges and plus qualifiers remain
+  distinct. Rent text is retained beside normalized annual values. Status and sale
+  prices remain null because the first-party archive exposes no corresponding
+  March or April result sheet.
+- **Inventory and provenance:** the immutable March and April PDFs retain their
+  original first-party URLs and SHA-256 values
+  `9af63e3335dd0b6e3b9a990f1b54a2af2550caa576c2e2de64ebfbc642e7698b`
+  and `802c2231ef3b2bc475164a5e536d00a78419825bef1f38aff422c1fa4565208f`.
+  Both complete catalogue inventories are reconciled. Edward Mellor 2018 already
+  had retained evidence, so newly covered source-years are **0**; two new exact
+  event/catalogue inventories are covered.
+- **Corpus after rebuild:** **313,125 appearances**, **301,809 address records**,
+  **11,316 partial records** and **304,820 in-window appearances**. Window evidence
+  totals are **107,046 guides** and **112,693 achieved prices**; retained exceptions
+  are **5,047 undated** and **138 future-dated** appearances.
+- **Next concrete growth target:** batch the retained Edward Mellor **5 June and
+  17 July 2018** combined catalogues through the same manifest runner, then continue
+  across the surviving September-December 2018 catalogues. Reconcile each printed
+  order and detail-page guide, preserve immutable PDFs, and keep outcomes null unless
+  a distinct result source survives. Do not refresh March or April again.
+
+National completeness remains **false** until source-by-source lot inventories and
+genuine auctioneer/branch/trading-name coverage reconcile.
+
+
 ## 12 November 2026 — Edward Mellor June 2014 catalogue batch prepared
 
 The protected collection/publication runs remain queued without active job records,

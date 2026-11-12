@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Extend the reusable Edward Mellor catalogue-PDF manifest to another substantial retained event absent from the result-PDF corpus. Start with the earliest first-party archive event whose catalogue publishes a complete numbered order and exact date, batch its residential, commercial and additional-lot files together, and keep catalogue guides separate from result evidence. Do not revisit Goldings' denominator-only saved gaps without a materially different property-level source. National completeness remains false.",
+  "next_growth_target": "Batch Edward Mellor's retained 5 June and 17 July 2018 combined all-sector catalogues through the reusable catalogue-PDF runner, then continue across the surviving September-December 2018 catalogues. Reconcile every printed order row and detail-page guide, preserve immutable PDFs and original URLs, keep outcomes null unless a distinct result source survives, and do not refresh the now-complete March or April inventories. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -5289,5 +5289,38 @@
     "publication_verified": false,
     "national_completeness_verified": false,
     "different_next_target": "Batch another substantial exact-dated Edward Mellor catalogue event from the first-party archive through the same runner, prioritising an event/year missing from the retained result-PDF corpus."
+  },
+  "edward_mellor_2018_march_april_catalogue_expansion": {
+    "checked_at": "2026-11-12T01:26:13.175539+00:00",
+    "opportunity": "Recover the complete 13 March and 24 April 2018 Edward Mellor combined all-sector catalogue inventories, both absent from the retained result-PDF corpus.",
+    "attempted_route": "Extended the reusable catalogue-PDF runner to batch combined catalogues, retained both immutable first-party PDFs, reconciled every printed order row to one detail-page guide, excluded exact-date/address overlaps and rebuilt the database.",
+    "net_new_appearances": 143,
+    "new_address_records": 143,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 143,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "new_duplicate_records": 0,
+    "duplicate_exact_date_address_evidence_excluded": 0,
+    "new_commercial_appearances": 15,
+    "new_mixed_use_appearances": 14,
+    "new_land_appearances": 1,
+    "new_residential_appearances": 44,
+    "new_unknown_sector_appearances": 69,
+    "commercial_or_mixed_use": 29,
+    "new_guide_prices": 143,
+    "new_sale_prices": 0,
+    "new_rent_values": 9,
+    "newly_covered_source_years": [],
+    "newly_reconciled_complete_source_event_inventories": 2,
+    "published_properties_in_surviving_files": 143,
+    "catalogue_complete": true,
+    "source_files_reconciled": true,
+    "outcomes_available": false,
+    "scope_note": "All 65 March and 78 April order rows and guide-bearing detail pages reconcile. The archive exposes no corresponding result sheets, so status and achieved prices remain null rather than inferred.",
+    "database_rebuild_verified": true,
+    "publication_verified": false,
+    "national_completeness_verified": false,
+    "different_next_target": "Batch the retained 5 June and 17 July 2018 combined catalogues through the same runner, then continue across the surviving September-December 2018 catalogues without refreshing March or April."
   }
 }

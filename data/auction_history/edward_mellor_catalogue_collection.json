@@ -1,32 +1,62 @@
 {
-  "checked_at": "2026-11-12T00:07:48.632468+00:00",
-  "parser_version": 1,
-  "catalogues_configured": 1,
-  "catalogues_banked": 1,
-  "appearances_banked": 81,
-  "run_new_appearances": 81,
-  "run_new_address_records": 81,
-  "run_new_guides": 79,
+  "checked_at": "2026-11-12T01:24:19.042080+00:00",
+  "parser_version": 4,
+  "catalogues_configured": 3,
+  "catalogues_banked": 3,
+  "appearances_banked": 224,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
+  "run_new_guides": 0,
   "run_new_sale_prices": 0,
-  "run_new_rents": 1,
-  "run_new_commercial": 8,
-  "run_new_mixed_use": 1,
+  "run_new_rents": 0,
+  "run_new_commercial": 0,
+  "run_new_mixed_use": 0,
   "run_duplicate_evidence": 0,
   "duplicate_evidence": [],
+  "last_material_growth": {
+    "checked_at": "2026-11-12T01:16:34.173026+00:00",
+    "net_new_appearances": 143,
+    "new_address_records": 143,
+    "new_guides": 143,
+    "new_sale_prices": 0,
+    "new_rents": 9,
+    "new_commercial": 15,
+    "new_mixed_use": 14,
+    "new_partial": 0,
+    "new_undated": 0,
+    "new_future_dated": 0
+  },
   "source_files": [
     {
       "source_url": "https://edwardmellor.co.uk/pdf/archive/20140601_June_Auction_Residential_Catalogue_2014.pdf",
-      "retrieved_at": "2026-11-12T00:07:48.626634+00:00",
+      "retrieved_at": "2026-11-12T01:22:17.519146+00:00",
       "sha256": "d5cb4f0ea61838b97dbc344af1af5dc68964f599584d0a5e94c2006601ed95d5",
       "snapshot_path": "data/auction_history/sources/edward-mellor-catalogues/d5cb4f0ea61838b9.pdf.gz",
       "basis": "first-party residential auction catalogue PDF"
     },
     {
       "source_url": "https://edwardmellor.co.uk/pdf/archive/20140601_June_Auction_Additional_Lots.pdf",
-      "retrieved_at": "2026-11-12T00:07:48.626634+00:00",
+      "retrieved_at": "2026-11-12T01:22:17.519146+00:00",
       "sha256": "ecb0c434bfc92dd225e3d1b8c71c5c54e2fbb4afab2e1ff9e48db7189670a43d",
       "snapshot_path": "data/auction_history/sources/edward-mellor-catalogues/ecb0c434bfc92dd2.pdf.gz",
       "basis": "first-party additional-lot catalogue PDF"
+    },
+    {
+      "source_url": "https://edwardmellor.co.uk/pdf/archive/20180301_March_Auction_Catalogue_2018.pdf",
+      "retrieved_at": "2026-11-12T01:22:31.074202+00:00",
+      "sha256": "9af63e3335dd0b6e3b9a990f1b54a2af2550caa576c2e2de64ebfbc642e7698b",
+      "basis": "first-party combined all-sector auction catalogue PDF",
+      "snapshot_parts": [
+        "data/auction_history/sources/edward-mellor-catalogues/9af63e3335dd0b6e.pdf.gz.part-001",
+        "data/auction_history/sources/edward-mellor-catalogues/9af63e3335dd0b6e.pdf.gz.part-002"
+      ]
+    },
+    {
+      "source_url": "https://edwardmellor.co.uk/pdf/archive/20180401_April_Auction_Catalogue_2018.pdf",
+      "retrieved_at": "2026-11-12T01:24:12.149344+00:00",
+      "sha256": "802c2231ef3b2bc475164a5e536d00a78419825bef1f38aff422c1fa4565208f",
+      "snapshot_path": "data/auction_history/sources/edward-mellor-catalogues/802c2231ef3b2bc4.pdf.gz",
+      "basis": "first-party combined all-sector auction catalogue PDF"
     }
   ],
   "events": [
@@ -34,15 +64,14 @@
       "auctioneer": "Edward Mellor",
       "source_auction_id": "edward-mellor-catalogue:2014-06-11",
       "auction_date": "2014-06-11",
-      "parser_version": 1,
+      "parser_version": 4,
       "catalogue_complete": false,
       "source_files_reconciled": true,
       "surviving_file_inventory_complete": true,
       "event_inventory_complete": false,
       "lots_captured": 81,
       "published_lots_in_surviving_files": 81,
-      "residential_order_rows": 70,
-      "additional_detail_rows": 11,
+      "order_rows_reconciled": 81,
       "guide_prices_captured": 79,
       "sale_prices_captured": 0,
       "rents_captured": 1,
@@ -53,9 +82,51 @@
       ],
       "completion_scope": "every explicit numbered property in the retained June 2014 residential and additional-lot PDFs; the absent main commercial catalogue is not inferred",
       "errors": [],
-      "checked_at": "2026-11-12T00:07:48.629309+00:00"
+      "checked_at": "2026-11-12T01:22:31.073346+00:00"
+    },
+    {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor-catalogue:2018-03-13",
+      "auction_date": "2018-03-13",
+      "parser_version": 4,
+      "catalogue_complete": true,
+      "source_files_reconciled": true,
+      "surviving_file_inventory_complete": true,
+      "event_inventory_complete": true,
+      "lots_captured": 65,
+      "published_lots_in_surviving_files": 65,
+      "order_rows_reconciled": 65,
+      "guide_prices_captured": 65,
+      "sale_prices_captured": 0,
+      "rents_captured": 4,
+      "duplicate_exact_date_address_evidence": 0,
+      "missing_detail_guides": [],
+      "completion_scope": "every explicit numbered property in the retained combined all-sector catalogue; no corresponding result sheet survives in the first-party archive, so outcomes remain unknown",
+      "errors": [],
+      "checked_at": "2026-11-12T01:24:12.148542+00:00"
+    },
+    {
+      "auctioneer": "Edward Mellor",
+      "source_auction_id": "edward-mellor-catalogue:2018-04-24",
+      "auction_date": "2018-04-24",
+      "parser_version": 4,
+      "catalogue_complete": true,
+      "source_files_reconciled": true,
+      "surviving_file_inventory_complete": true,
+      "event_inventory_complete": true,
+      "lots_captured": 78,
+      "published_lots_in_surviving_files": 78,
+      "order_rows_reconciled": 78,
+      "guide_prices_captured": 78,
+      "sale_prices_captured": 0,
+      "rents_captured": 5,
+      "duplicate_exact_date_address_evidence": 0,
+      "missing_detail_guides": [],
+      "completion_scope": "every explicit numbered property in the retained combined all-sector catalogue; no corresponding result sheet survives in the first-party archive, so outcomes remain unknown",
+      "errors": [],
+      "checked_at": "2026-11-12T01:24:19.032446+00:00"
     }
   ],
   "national_coverage_complete": false,
-  "next_growth_target": "Batch another accessible missing Edward Mellor catalogue year from the first-party archive, beginning with a retained event absent from the result-PDF corpus; keep catalogue evidence separate from published outcomes."
+  "next_growth_target": "Batch the retained 5 June and 17 July 2018 combined catalogues through this runner, then continue across the surviving September-December 2018 catalogues; do not refresh the complete March or April inventories."
 }
