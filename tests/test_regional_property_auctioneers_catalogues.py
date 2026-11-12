@@ -11,10 +11,10 @@ regional = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(regional)
 
 
-def test_manifest_batches_45_catalogues_and_558_properties():
+def test_manifest_batches_45_catalogues_and_562_properties():
     payload = regional.load_manifest()
     assert len(payload["events"]) == payload["expected_catalogues"] == 45
-    assert sum(event["expected_lots"] for event in payload["events"]) == payload["expected_lots"] == 558
+    assert sum(event["expected_lots"] for event in payload["events"]) == payload["expected_lots"] == 562
     assert {event["auction_date"][:4] for event in payload["events"]} == {
         "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023",
     }
@@ -62,6 +62,20 @@ def test_same_address_separate_lots_are_not_collapsed():
     rows = regional.parse_order_rows(fixture, 2)
     assert [row["lot_number"] for row in rows] == ["1", "2"]
     assert rows[0]["address"] == rows[1]["address"]
+
+
+def test_ranged_labels_and_wrapped_sector_rows_preserve_legal_interests():
+    fixture = """Order of sale
+ Lot 1    1 High Street, Doncaster DN1 1AA
+           VACANT COMMERCIAL
+ Lot 2–2a Apartment 12 and 15 Ascension Mews, Maltby S66 7DH  RESIDENTIAL INVESTMENT
+ Lots 3–6 Four Flats, Crescent House, Maltby S66 7DH          RESIDENTIAL INVESTMENT
+"""
+    rows = regional.parse_order_rows(fixture, 7)
+    assert [row["lot_number"] for row in rows] == ["1", "2", "2a", "3", "4", "5", "6"]
+    assert rows[0]["property_type"] == "VACANT COMMERCIAL"
+    assert rows[1]["printed_lot_label"] == rows[2]["printed_lot_label"] == "2–2a"
+    assert {row["printed_lot_label"] for row in rows[3:]} == {"3–6"}
 
 
 def test_truncated_postcode_row_uses_published_sector_boundary():

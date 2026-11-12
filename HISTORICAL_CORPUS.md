@@ -3,6 +3,44 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Regional Property Auctioneers saved-PDF recovery complete
+
+- **Specific growth opportunity executed:** the five first-party catalogue PDFs
+  already retained but rejected by the order-table parser. The reusable collector
+  now accepts wrapped sector rows, singular or plural ranged labels, and bounded
+  introductory prose while retaining the printed denominator assertion. No PDF
+  was refetched to recover these lots.
+- **Measured checkpoint gain:** **65 appearances / 65 address records / 65
+  exact-dated addresses inside the twenty-year window**. The additions comprise
+  seven lots on 7 September 2016, nine on 15 June 2016, ten on 4 May 2016,
+  twenty-four on 25 February 2015 and fifteen on 19 November 2014. New partial,
+  undated, future-dated, duplicate and cross-source-overlap records are all **0**.
+- **Sector and evidence gain:** **8 commercial, 7 mixed-use, 2 land, 44
+  residential and 4 unknown** appearances; the commercial/mixed-use subset is
+  **15**. The checkpoint adds **61 numeric guides, 0 achieved prices and 25
+  published rents**. Unknown outcomes and achieved prices remain null.
+- **Legal-interest handling:** the 25 February 2015 table's printed `Lot 2–2a`
+  is retained as Lots 2 and 2a, while `Lots 3–6` is retained as four separate
+  flat interests. Shared printed addresses do not collapse distinct lot/legal
+  identities.
+- **Inventory reconciliation:** Regional Property Auctioneers now retains
+  **562/562 appearances across 45/45 complete catalogue inventories** from June
+  2014 to February 2023. This checkpoint adds five complete inventories but **0
+  newly covered source-years**, because 2014, 2015 and 2016 were already
+  represented. Regional Property Auctioneers remains one trading name of
+  **BARNSDALES LIMITED** (company 05521957), not a new branch/operator count.
+- **Corpus after rebuild:** **317,418 appearances**, **304,860 address records**
+  and **307,941 in-window appearances**. In-window evidence now includes
+  **109,954 numeric guides** and **114,174 achieved prices**; the latter is
+  unchanged by this catalogue-only checkpoint.
+- **Next concrete growth target:** extend the same runner across the **nine
+  remaining property catalogues dated July 2012 to March 2014**, whose order
+  tables use a materially different layout. Do not refresh the 45 reconciled
+  catalogues or count the separate catalogue-not-ready placeholder as property
+  evidence.
+
+National completeness remains **false**.
+
 ## 12 November 2026 — Regional Property Auctioneers 2014-2017 expansion prepared
 
 - **Measured net gain:** **230 exact-dated address appearances** inside the

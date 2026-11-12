@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Extend the Regional Property Auctioneers runner to the materially different 2012-April 2014 catalogue layouts, then add continuation-line support for the five banked-but-unparsed 2014-2016 PDFs. Do not refresh the 40 reconciled catalogues. National completeness remains false.",
+  "next_growth_target": "Extend the Regional Property Auctioneers runner across the nine remaining property catalogues dated July 2012 to March 2014, whose order tables use a materially different layout. Do not refresh the 45 reconciled catalogues or count the catalogue-not-ready placeholder. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4460,6 +4460,44 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "regional-property-auctioneers",
+      "outcome": "partial",
+      "checked_at": "2026-11-12T18:02:13.451367+00:00",
+      "run_new_appearances": 256,
+      "run_new_dated_twenty_year_address_records": 256,
+      "run_new_commercial_or_mixed": 61,
+      "run_new_guide_prices": 252,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 69,
+      "newly_covered_source_years": [
+        "2014",
+        "2015",
+        "2016",
+        "2017"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    {
+      "source": "regional-property-auctioneers",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T18:03:00.527032+00:00",
+      "run_new_appearances": 295,
+      "run_new_dated_twenty_year_address_records": 295,
+      "run_new_commercial_or_mixed": 68,
+      "run_new_guide_prices": 287,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 85,
+      "newly_covered_source_years": [
+        "2014",
+        "2015",
+        "2016",
+        "2017"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -5351,40 +5389,30 @@
     },
     "regional-property-auctioneers": {
       "source": "regional-property-auctioneers",
-      "outcome": "partial",
-      "checked_at": "2026-11-12T17:04:48.841444+00:00",
-      "run_new_appearances": 230,
-      "run_new_dated_twenty_year_address_records": 230,
-      "run_new_commercial_or_mixed": 53,
-      "run_new_guide_prices": 226,
+      "outcome": "completed",
+      "checked_at": "2026-11-12T18:03:00.527032+00:00",
+      "run_new_appearances": 65,
+      "run_new_dated_twenty_year_address_records": 65,
+      "run_new_commercial_or_mixed": 15,
+      "run_new_guide_prices": 61,
       "run_new_sale_prices": 0,
-      "run_new_rents": 60,
-      "newly_covered_source_years": [
-        "2014",
-        "2015",
-        "2016",
-        "2017"
-      ],
+      "run_new_rents": 25,
+      "newly_covered_source_years": [],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     }
   },
   "last_automated_growth": {
     "source": "regional-property-auctioneers",
-    "outcome": "partial",
-    "checked_at": "2026-11-12T17:04:48.841444+00:00",
-    "run_new_appearances": 230,
-    "run_new_dated_twenty_year_address_records": 230,
-    "run_new_commercial_or_mixed": 53,
-    "run_new_guide_prices": 226,
+    "outcome": "completed",
+    "checked_at": "2026-11-12T18:03:00.527032+00:00",
+    "run_new_appearances": 65,
+    "run_new_dated_twenty_year_address_records": 65,
+    "run_new_commercial_or_mixed": 15,
+    "run_new_guide_prices": 61,
     "run_new_sale_prices": 0,
-    "run_new_rents": 60,
-    "newly_covered_source_years": [
-      "2014",
-      "2015",
-      "2016",
-      "2017"
-    ],
+    "run_new_rents": 25,
+    "newly_covered_source_years": [],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
   },
@@ -5411,12 +5439,12 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-12T17:04:48.841444+00:00",
+    "checked_at": "2026-11-12T18:03:00.527032+00:00",
     "source_key_candidate": "regional-property-auctioneers-2012-2017",
     "auctioneer": "Regional Property Auctioneers",
     "source_format": "first-party complete catalogue PDFs",
-    "opportunity": "the 32 accessible older catalogues currently outside the 2018-2023 parser batch",
-    "next_growth_target": "Extend the Regional Property Auctioneers runner to the materially different 2012-April 2014 catalogue layouts, then add continuation-line support for the five banked-but-unparsed 2014-2016 PDFs. Do not refresh the 40 reconciled catalogues. National completeness remains false.",
+    "opportunity": "the nine remaining property catalogues dated July 2012 to March 2014, outside the completed 45-catalogue parser batch",
+    "next_growth_target": "Extend the Regional Property Auctioneers runner across the nine remaining property catalogues dated July 2012 to March 2014, whose order tables use a materially different layout. Do not refresh the 45 reconciled catalogues or count the catalogue-not-ready placeholder. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,

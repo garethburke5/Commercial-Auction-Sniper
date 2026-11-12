@@ -40,6 +40,10 @@ HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot researc
 ORDER_HEADING = re.compile(r"Order\s+of\s+sale", re.I)
 ORDER_ROW = re.compile(r"^\s*Lot\s+(\d{1,3}[A-Za-z]?)\s+(\S.*?)\s{2,}(.+?)\s*$", re.I)
 FALLBACK_ORDER_ROW = re.compile(r"^\s*Lot\s+(\d{1,3}[A-Za-z]?)\s+(.+)$", re.I)
+RANGE_ORDER_ROW = re.compile(
+    r"^\s*Lots?\s+(\d{1,3}(?:[–-]\d{1,3}[A-Za-z]?))\s+(\S.*?)\s{2,}(.+?)\s*$",
+    re.I,
+)
 SECTOR_SUFFIX = re.compile(
     r"\s+((?:(?:VACANT|RESIDENTIAL|COMMERCIAL|COMM|RESI|MIXED|LAND|GROUND|GARAGE|LOCK|LOCKUP|"
     r"FORMER|BUILDING|INDUSTRIAL|CHURCH|AMENITY|DEVELOPMENT|INVESTMENT|PLOT|PREMISES|PUB|"
@@ -53,9 +57,10 @@ RENT = re.compile(
     r"£\s*([\d,]+(?:\.\d+)?)\s*(?:per\s+annum|p\.?\s*a\.?)\b", re.I
 )
 NEXT_TARGET = (
-    "Extend the Regional Property Auctioneers runner to the materially different 2012-April 2014 "
-    "catalogue layouts, then add continuation-line support for the five banked-but-unparsed 2014-2016 "
-    "PDFs. Do not refresh the 40 reconciled catalogues. National completeness remains false."
+    "Extend the Regional Property Auctioneers runner across the nine remaining property catalogues "
+    "dated July 2012 to March 2014, whose order tables use a materially different layout. Do not "
+    "refresh the 45 reconciled catalogues or count the catalogue-not-ready placeholder. National "
+    "completeness remains false."
 )
 
 
@@ -155,24 +160,48 @@ def parse_order_rows(text, expected):
         raise ValueError("catalogue has no printed order-of-sale table")
     page = max(pages, key=lambda value: len(re.findall(r"(?im)^\s*lot\s+\d+\b", value)))
     rows = []
-    for line in page.splitlines():
-        if not re.match(r"(?i)^\s*lot\s+\d+\b", line):
+    lines = page.splitlines()
+    for index, line in enumerate(lines):
+        if not re.match(r"(?i)^\s*lots?\s+\d+\b", line):
             continue
+        range_match = RANGE_ORDER_ROW.match(line)
         match = ORDER_ROW.match(line)
-        parsed = match.groups() if match else parse_fallback_order_row(line)
+        parsed = range_match.groups() if range_match else match.groups() if match else parse_fallback_order_row(line)
+        if not parsed and index + 1 < len(lines):
+            combined = line.rstrip() + "    " + clean(lines[index + 1])
+            match = ORDER_ROW.match(combined)
+            parsed = match.groups() if match else parse_fallback_order_row(combined)
         if not parsed:
-            raise ValueError(f"unparsed order-of-sale row: {line!r}")
+            # Introductory prose in some older PDFs starts with “LOT 1,”.  It
+            # is not an order row and is excluded; the literal denominator
+            # assertion below still prevents a silent omission.
+            continue
         lot_number, address, property_type = parsed
-        rows.append({
-            "lot_number": clean(lot_number),
-            "address": clean(address),
-            "property_type": clean(property_type),
-        })
+        labels = [clean(lot_number)]
+        if range_match:
+            start, end = re.split(r"[–-]", lot_number)
+            end_number = int(re.match(r"\d+", end).group())
+            labels = [str(value) for value in range(int(start), end_number + 1)]
+            if end[-1:].isalpha():
+                if int(start) == end_number:
+                    labels.append(end)
+                else:
+                    labels[-1] = end
+        for label in labels:
+            rows.append({
+                "lot_number": label,
+                "printed_lot_label": clean(lot_number),
+                "address": clean(address),
+                "property_type": clean(property_type),
+            })
     if len(rows) != expected:
         raise ValueError(f"order-of-sale table yielded {len(rows)} lots; expected {expected}")
-    labels = [int(re.match(r"\d+", row["lot_number"]).group()) for row in rows]
-    if labels != list(range(1, expected + 1)):
-        raise ValueError(f"order-of-sale labels are not contiguous 1..{expected}: {labels}")
+    labels = [row["lot_number"].casefold() for row in rows]
+    if len(labels) != len(set(labels)):
+        raise ValueError(f"order-of-sale labels are not unique: {labels}")
+    numeric = [int(label) for label in labels if label.isdigit()]
+    if numeric != list(range(1, max(numeric) + 1)):
+        raise ValueError(f"numeric order-of-sale labels are not contiguous: {labels}")
     # Two lot numbers can intentionally describe separate legal interests at
     # the same printed address (for example two land parcels).  Lot identity,
     # not address uniqueness, is the catalogue denominator.
@@ -452,8 +481,20 @@ def harvest(refresh_existing=False):
             run_rows.extend(rows)
             continue
         try:
-            resolved, raw = fetch(config["source_url"])
-            sha, retrieved_at = corpus.digest(raw), corpus.now()
+            retained = sorted(
+                (corpus.DATA / "sources" / SLUG).glob(
+                    f"catalogue-{config['auction_date']}-*.pdf.gz"
+                )
+            )
+            if retained:
+                snapshot = retained[-1]
+                raw = gzip.decompress(snapshot.read_bytes())
+                resolved = config["source_url"]
+                retrieved_at = corpus.now()
+            else:
+                resolved, raw = fetch(config["source_url"])
+                retrieved_at = corpus.now()
+            sha = corpus.digest(raw)
             snapshot = corpus.DATA / "sources" / SLUG / f"catalogue-{config['auction_date']}-{sha[:20]}.pdf.gz"
             if not snapshot.exists():
                 corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
