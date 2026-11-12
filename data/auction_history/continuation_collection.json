@@ -79,7 +79,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Prepare and collect Auction House Online event 57095, principally dated 9 April 2024. The verified first-party no-query inventory exposes 28 of 28 individual property cards with published 8 and 9 April dates, including a three-storey commercial building, land and garages, tenanted property, residential evidence, published rents, guides and extensive achieved prices. Add one strict 28-card source contract using /past-auctions/57095 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
   },
-  "prior_target_blocker": "Goldings' later first-party 22 July 2020 result archive reports 13 lots offered but exposes no individual result cards, while the retained cached catalogue preserves 14 advertised lot pages. The removed or withdrawn lot cannot be identified from the surviving evidence, so the catalogue/result denominator remains unreconciled and every outcome and sale price stays null. Do not revisit that result route unless an individual result sheet, card snapshot or other materially different source survives.",
+  "prior_target_blocker": "A fresh audit of all ten incomplete saved Goldings event snapshots found zero uncaptured explicit cards: every individually identifiable saved property is already banked. The apparent gaps, including 8 March 2017 (20 offered / 16 cards) and 7 December 2016 (17 / 15), are denominator-only removed or unidentified lots. Do not refresh this saved-source route again unless a materially different result sheet, card snapshot or catalogue identifies an additional property.",
   "last_growth_attempt": {
     "checked_at": "2026-11-05T07:42:01.048265+00:00",
     "opportunity": "Recover saved first-party Shonki Brothers June 2024 lot 16, omitted only because the retained catalogue printed GUIDE PRICE with a semicolon.",
@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Run the saved-source Goldings batch through the restored reusable collector, starting with 8 March 2017 (20 offered / 16 captured) and 7 December 2016 (17 / 15), then the smaller 2022 gaps. The retained catalogue snapshots are valid gzip objects while the current collection diagnostic is stale from a missing collector revision. Bank only explicit individual cards, keep removed lots as unreconciled denominator evidence, preserve guide and achieved prices distinctly, and rotate to another source if the saved cards do not identify the missing properties. National completeness remains false.",
+  "next_growth_target": "Extend the reusable Edward Mellor catalogue-PDF manifest to another substantial retained event absent from the result-PDF corpus. Start with the earliest first-party archive event whose catalogue publishes a complete numbered order and exact date, batch its residential, commercial and additional-lot files together, and keep catalogue guides separate from result evidence. Do not revisit Goldings' denominator-only saved gaps without a materially different property-level source. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -5254,5 +5254,40 @@
     "route": "indexed March 2023 first-party catalogue PDF",
     "evidence": "all eight catalogue lots already banked from the exact-dated event page; direct catalogue host timed out",
     "revisit_only_when": "a different retained catalogue or accessible recovery route is identified"
+  },
+  "edward_mellor_2014_catalogue_expansion": {
+    "checked_at": "2026-11-12T00:07:48.632468+00:00",
+    "opportunity": "Recover every explicit property in Edward Mellor's retained 11 June 2014 residential and additional-lot catalogue PDFs, an event absent from the result-PDF corpus.",
+    "attempted_route": "Added a reusable multi-file catalogue-PDF runner, retained both immutable first-party PDFs, reconciled the printed residential order and every additional detail page, excluded exact-date/address overlaps, and rebuilt the database.",
+    "net_new_appearances": 81,
+    "new_address_records": 81,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 81,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "new_commercial_appearances": 8,
+    "new_mixed_use_appearances": 1,
+    "new_residential_appearances": 72,
+    "commercial_or_mixed_use": 9,
+    "new_guide_prices": 79,
+    "new_sale_prices": 0,
+    "new_rent_values": 1,
+    "newly_covered_source_years": [],
+    "newly_reconciled_complete_source_event_inventories": 0,
+    "surviving_source_file_inventories_reconciled": 2,
+    "published_properties_in_surviving_files": 81,
+    "duplicate_exact_date_address_evidence_excluded": 0,
+    "missing_detail_guides": [
+      "63",
+      "65"
+    ],
+    "catalogue_complete": false,
+    "event_inventory_complete": false,
+    "source_files_reconciled": true,
+    "scope_note": "The 70-row residential order and 11 additional detail pages are complete for the two surviving files. The absent main commercial catalogue and absent event result sheet are not inferred; status and sale prices remain null.",
+    "database_rebuild_verified": true,
+    "publication_verified": false,
+    "national_completeness_verified": false,
+    "different_next_target": "Batch another substantial exact-dated Edward Mellor catalogue event from the first-party archive through the same runner, prioritising an event/year missing from the retained result-PDF corpus."
   }
 }

@@ -4,7 +4,39 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 12 November 2026 — Edward Mellor June 2014 catalogue batch prepared
+
+The protected collection/publication runs remain queued without active job records,
+so this evidence is prepared behind the writer gate and has not moved `main` or
+triggered a duplicate collector. A reusable multi-file PDF runner has banked every
+explicit property in Edward Mellor's retained 11 June 2014 residential catalogue
+and additional-lot PDF: **81 net exact-dated address appearances** with zero exact
+date/address overlaps.
+
+The surviving-file inventory comprises 70 residential order-of-sale rows and 11
+additional detail pages. It adds **72 residential, 8 commercial and 1 mixed-use**
+appearance, including **79 guide prices, 0 achieved prices and 1 annual-rent value**.
+Lots 63 and 65 survive in the printed order but have no detail page, so their guides
+remain null. All status and sale-price fields remain null because the archive does
+not publish a June 2014 result sheet. No partial, undated, future-dated or duplicate
+record was admitted.
+
+The two PDFs are retained immutably with their original first-party URLs and SHA-256
+checksums. The database rebuild verifies 312,982 appearances and 301,666 address
+records, an 81-record increase in each. Edward Mellor 2014 was already represented,
+so newly covered auctioneer-years are zero; this is one new exact-dated event and two
+newly reconciled surviving source-file inventories. Event completeness remains false
+because the main commercial catalogue is absent. National completeness remains false.
+
+The prior saved Goldings target is now a documented zero-growth route: all ten
+incomplete snapshots contain no uncaptured explicit property card, only unidentified
+denominator gaps. The next concrete growth target is another substantial exact-dated
+Edward Mellor catalogue event absent from the result-PDF corpus, batched through the
+same runner with catalogue guides kept separate from any result evidence.
+
+
 ## 11 November 2026 — Kivells 2022 retained result-book batch
+
 
 Historical collection run [43047973493](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43047973493)
 banked three surviving first-party Kivells result books through the reusable

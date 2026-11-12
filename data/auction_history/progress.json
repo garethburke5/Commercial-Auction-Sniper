@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-11T23:11:22.047976+00:00",
-  "individual_lot_records_captured": 312901,
-  "records_with_address": 301585,
+  "generated_at": "2026-11-12T00:09:13.464488+00:00",
+  "individual_lot_records_captured": 312982,
+  "records_with_address": 301666,
   "partial_lot_records": 11316,
-  "exact_address_groups": 167772,
+  "exact_address_groups": 167783,
   "groups_with_repeat_appearances": 42931,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -77,7 +77,7 @@
     "Dawsons": 139,
     "Dedman Gray": 2851,
     "Durrants": 37,
-    "Edward Mellor": 10268,
+    "Edward Mellor": 10349,
     "First for Auctions": 1453,
     "Future Property Auctions": 76531,
     "Goldings Auctions": 635,
@@ -144,7 +144,7 @@
     "2011": 3310,
     "2012": 3628,
     "2013": 6302,
-    "2014": 8544,
+    "2014": 8625,
     "2015": 7928,
     "2016": 8671,
     "2017": 8891,
@@ -160,11 +160,11 @@
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42707,
+    "commercial": 42715,
     "land": 19378,
     "mixed": 1,
-    "mixed-use": 47636,
-    "residential": 151662,
+    "mixed-use": 47637,
+    "residential": 151734,
     "unknown": 51517
   },
   "date_range": [
@@ -172,7 +172,7 @@
     "2027-01-14"
   ],
   "surviving_catalogues_completely_harvested": 4979,
-  "catalogues_incomplete_or_unreconciled": 560,
+  "catalogues_incomplete_or_unreconciled": 561,
   "catalogue_fetch_or_parse_failures": 34,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -181,13 +181,13 @@
     "Legacy partial lots retain location and lot number; missing street addresses remain null."
   ],
   "twenty_year_coverage": {
-    "from_date": "2006-11-11",
-    "through_date": "2026-11-11",
+    "from_date": "2006-11-12",
+    "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 304588,
-      "auction_ids_observed": 13634,
-      "with_guide_price": 106819,
+      "lot_appearances": 304677,
+      "auction_ids_observed": 13641,
+      "with_guide_price": 106903,
       "with_sale_price": 112693,
       "with_both_prices": 48946,
       "marked_sold": 155574,
@@ -252,9 +252,9 @@
       {
         "auctioneer": "247 Property Auctions",
         "year": 2026,
-        "lot_appearances": 74,
-        "auction_ids_observed": 74,
-        "with_guide_price": 74,
+        "lot_appearances": 75,
+        "auction_ids_observed": 75,
+        "with_guide_price": 75,
         "with_sale_price": 37,
         "with_both_prices": 37,
         "marked_sold": 37,
@@ -3651,8 +3651,8 @@
       {
         "auctioneer": "Auction Works",
         "year": 2026,
-        "lot_appearances": 56,
-        "auction_ids_observed": 45,
+        "lot_appearances": 57,
+        "auction_ids_observed": 46,
         "with_guide_price": 1,
         "with_sale_price": 37,
         "with_both_prices": 0,
@@ -4201,9 +4201,9 @@
       {
         "auctioneer": "Bowen",
         "year": 2026,
-        "lot_appearances": 4,
-        "auction_ids_observed": 3,
-        "with_guide_price": 3,
+        "lot_appearances": 5,
+        "auction_ids_observed": 4,
+        "with_guide_price": 4,
         "with_sale_price": 3,
         "with_both_prices": 2,
         "marked_sold": 4,
@@ -4223,9 +4223,9 @@
       {
         "auctioneer": "Bradley Hall",
         "year": 2026,
-        "lot_appearances": 34,
-        "auction_ids_observed": 31,
-        "with_guide_price": 34,
+        "lot_appearances": 36,
+        "auction_ids_observed": 32,
+        "with_guide_price": 36,
         "with_sale_price": 29,
         "with_both_prices": 29,
         "marked_sold": 31,
@@ -5180,9 +5180,9 @@
       {
         "auctioneer": "Edward Mellor",
         "year": 2014,
-        "lot_appearances": 306,
-        "auction_ids_observed": 3,
-        "with_guide_price": 0,
+        "lot_appearances": 387,
+        "auction_ids_observed": 4,
+        "with_guide_price": 79,
         "with_sale_price": 95,
         "with_both_prices": 0,
         "marked_sold": 159,
@@ -7413,9 +7413,9 @@
       {
         "auctioneer": "Property Auction Agent",
         "year": 2026,
-        "lot_appearances": 11,
-        "auction_ids_observed": 10,
-        "with_guide_price": 11,
+        "lot_appearances": 12,
+        "auction_ids_observed": 11,
+        "with_guide_price": 12,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 10,
@@ -7600,8 +7600,8 @@
       {
         "auctioneer": "Purplebricks Online Auctions",
         "year": 2026,
-        "lot_appearances": 227,
-        "auction_ids_observed": 136,
+        "lot_appearances": 229,
+        "auction_ids_observed": 137,
         "with_guide_price": 0,
         "with_sale_price": 10,
         "with_both_prices": 0,
@@ -8732,7 +8732,7 @@
       }
     ],
     "undated_appearances": 5047,
-    "future_dated_appearances": 146,
+    "future_dated_appearances": 138,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
