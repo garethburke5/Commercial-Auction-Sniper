@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Recover Venmore's 11 January, 8 February and 8 March 2023 catalogues through a materially different saved-file or search-index route: their first-party event pages retain only addenda and zero live properties. Then batch the surviving 2022 catalogues through this retained-userfiles runner. Reconcile the four known 2025-2026 online-only late lots only from individual source evidence. National completeness remains false.",
+  "next_growth_target": "Batch Venmore's surviving 2020 and older exact-dated addenda through this reusable runner. In parallel, use indexed individual lot pages or newly recovered full catalogues to reconcile the uncaptured 2021-2022 inventory, especially 25 May 2022 whose event page now links to a mismatched September addendum. Recover January-March 2023 only through a materially different saved-file or search-index route. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -5311,14 +5311,17 @@
     {
       "source": "venmore-auctions",
       "outcome": "partial",
-      "checked_at": "2026-11-12T22:12:58.322260+00:00",
-      "run_new_appearances": 240,
-      "run_new_dated_twenty_year_address_records": 240,
-      "run_new_commercial_or_mixed": 31,
-      "run_new_guide_prices": 230,
+      "checked_at": "2026-11-12T23:24:44.828692+00:00",
+      "run_new_appearances": 222,
+      "run_new_dated_twenty_year_address_records": 222,
+      "run_new_commercial_or_mixed": 8,
+      "run_new_guide_prices": 66,
       "run_new_sale_prices": 0,
-      "run_new_rents": 141,
-      "newly_covered_source_years": [],
+      "run_new_rents": 17,
+      "newly_covered_source_years": [
+        "2021",
+        "2022"
+      ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     }
@@ -6230,14 +6233,17 @@
     "venmore-auctions": {
       "source": "venmore-auctions",
       "outcome": "partial",
-      "checked_at": "2026-11-12T22:12:58.322260+00:00",
-      "run_new_appearances": 240,
-      "run_new_dated_twenty_year_address_records": 240,
-      "run_new_commercial_or_mixed": 31,
-      "run_new_guide_prices": 230,
+      "checked_at": "2026-11-12T23:24:44.828692+00:00",
+      "run_new_appearances": 222,
+      "run_new_dated_twenty_year_address_records": 222,
+      "run_new_commercial_or_mixed": 8,
+      "run_new_guide_prices": 66,
       "run_new_sale_prices": 0,
-      "run_new_rents": 141,
-      "newly_covered_source_years": [],
+      "run_new_rents": 17,
+      "newly_covered_source_years": [
+        "2021",
+        "2022"
+      ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     }
@@ -6245,14 +6251,17 @@
   "last_automated_growth": {
     "source": "venmore-auctions",
     "outcome": "partial",
-    "checked_at": "2026-11-12T22:12:58.322260+00:00",
-    "run_new_appearances": 240,
-    "run_new_dated_twenty_year_address_records": 240,
-    "run_new_commercial_or_mixed": 31,
-    "run_new_guide_prices": 230,
+    "checked_at": "2026-11-12T23:24:44.828692+00:00",
+    "run_new_appearances": 222,
+    "run_new_dated_twenty_year_address_records": 222,
+    "run_new_commercial_or_mixed": 8,
+    "run_new_guide_prices": 66,
     "run_new_sale_prices": 0,
-    "run_new_rents": 141,
-    "newly_covered_source_years": [],
+    "run_new_rents": 17,
+    "newly_covered_source_years": [
+      "2021",
+      "2022"
+    ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
   },
@@ -6279,12 +6288,12 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-12T22:12:58.322260+00:00",
-    "source_key_candidate": "venmore-auctions-2022-retained-catalogues",
+    "checked_at": "2026-11-12T23:24:44.828692+00:00",
+    "source_key_candidate": "venmore-auctions-2020-retained-addenda",
     "auctioneer": "Venmore Auctions",
-    "source_format": "first-party retained catalogue PDFs",
-    "opportunity": "recover the three linkless January-March 2023 catalogues only through a new route, then batch the surviving 2022 catalogues through this runner",
-    "next_growth_target": "Recover Venmore's 11 January, 8 February and 8 March 2023 catalogues through a materially different saved-file or search-index route: their first-party event pages retain only addenda and zero live properties. Then batch the surviving 2022 catalogues through this retained-userfiles runner. Reconcile the four known 2025-2026 online-only late lots only from individual source evidence. National completeness remains false.",
+    "source_format": "first-party retained catalogue and addendum PDFs",
+    "opportunity": "batch exact-dated 2020 and older addenda, then reconcile the missing 2021-2022 lots through indexed individual pages or recovered catalogues",
+    "next_growth_target": "Batch Venmore's surviving 2020 and older exact-dated addenda through this reusable runner. In parallel, use indexed individual lot pages or newly recovered full catalogues to reconcile the uncaptured 2021-2022 inventory, especially 25 May 2022 whose event page now links to a mismatched September addendum. Recover January-March 2023 only through a materially different saved-file or search-index route. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,

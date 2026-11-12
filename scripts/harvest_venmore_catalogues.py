@@ -1,4 +1,4 @@
-"""Bank Venmore Auctions' accessible retained first-party catalogue PDFs.
+"""Bank Venmore Auctions' accessible retained first-party catalogue PDFs and addenda.
 
 The public past-auctions HTML is protected from non-browser clients, while its
 immutable catalogue PDF links remain directly accessible.  This reusable,
@@ -49,11 +49,11 @@ POSTCODE = corpus.PC
 RENT_PCM = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?c\.?m\.?|per\s+calendar\s+month)", re.I)
 RENT_PA = re.compile(r"£\s*([\d,]+(?:\.\d+)?)\s*(?:p\.?\s*a\.?|per\s+annum)", re.I)
 NEXT_TARGET = (
-    "Recover Venmore's 11 January, 8 February and 8 March 2023 catalogues through a materially "
-    "different saved-file or search-index route: their first-party event pages retain only "
-    "addenda and zero live properties. Then batch the surviving 2022 catalogues through this "
-    "retained-userfiles runner. Reconcile the four known 2025-2026 online-only late lots only "
-    "from individual source evidence. National completeness remains false."
+    "Batch Venmore's surviving 2020 and older exact-dated addenda through this reusable runner. "
+    "In parallel, use indexed individual lot pages or newly recovered full catalogues to reconcile "
+    "the uncaptured 2021-2022 inventory, especially 25 May 2022 whose event page now links to a "
+    "mismatched September addendum. Recover January-March 2023 only through a materially different "
+    "saved-file or search-index route. National completeness remains false."
 )
 
 
@@ -76,6 +76,15 @@ def load_manifest(path=MANIFEST):
         raise ValueError("manifest contains duplicate source URLs")
     if len({event["auction_date"] for event in events}) != len(events):
         raise ValueError("manifest contains duplicate event dates")
+    addenda = payload.get("addenda") or []
+    if len(addenda) != int(payload.get("expected_addenda", 0)):
+        raise ValueError("manifest addendum denominator does not reconcile")
+    if sum(int(event["expected_rows"]) for event in addenda) != int(payload.get("expected_addendum_rows", 0)):
+        raise ValueError("manifest addendum row denominator does not reconcile")
+    if len({event["source_url"] for event in addenda}) != len(addenda):
+        raise ValueError("manifest contains duplicate addendum URLs")
+    if len({event["auction_date"] for event in addenda}) != len(addenda):
+        raise ValueError("manifest contains duplicate addendum event dates")
     return payload
 
 
@@ -146,14 +155,34 @@ def parse_order_rows(text, expected):
             compact = re.match(rf"^\s*({next_label})(?=\S)", line)
             if compact and ORDER_VALUE.search(line):
                 match = compact
+        if not match:
+            standalone = re.match(rf"^\s*({next_label})\s*$", line)
+            if standalone:
+                match = standalone
         if match:
-            if current:
-                rows.append(current)
             body = line[match.end():]
             value_match = ORDER_VALUE.search(body)
+            if not value_match:
+                value_match = re.search(
+                    r"(?P<value>(?:£\s*[\d,]+(?:\.\d+)?(?:\s*[-\u2013]\s*£?\s*[\d,]+(?:\.\d+)?)?\s*(?:PLUS\s*)?\*?|SOLD\s+PRIOR\s*\*?|WITHDRAWN\s*\*?|POSTPONED\s*\*?))",
+                    body,
+                    re.I,
+                )
+            address_part = clean(body[:value_match.start()] if value_match else body)
+            # Some older two-column PDFs place a wrapped address on the line
+            # immediately before its numbered price-only line. Move that
+            # postcode-bearing fragment from the preceding row.
+            if (
+                not address_part and value_match and current
+                and len(current["address_parts"]) > 1
+                and POSTCODE.search(current["address_parts"][-1] or "")
+            ):
+                address_part = current["address_parts"].pop()
+            if current:
+                rows.append(current)
             current = {
                 "lot_number": match.group(1),
-                "address_parts": [clean(body[:value_match.start()] if value_match else body)],
+                "address_parts": [address_part],
                 "order_value_parts": [clean(value_match.group("value")) if value_match else None],
             }
             # Some catalogues begin the first detailed lot page immediately
@@ -207,6 +236,46 @@ def parse_order_rows(text, expected):
     if any(not row["address"] for row in parsed):
         raise ValueError("order-of-lots table contains a blank address")
     return parsed
+
+
+def parse_addendum_rows(text, expected):
+    """Parse every explicitly numbered property row in an exact-dated addendum."""
+    matches = list(re.finditer(
+        r"(?mi)^\s*Lot\s+(?P<lot>\d{1,3})\s*(?:[\u2013\u2014-]|,)\s*(?P<address>[^\r\n]+)\s*$",
+        text,
+    ))
+    rows = []
+    for index, match in enumerate(matches):
+        body_end = matches[index + 1].start() if index + 1 < len(matches) else len(text)
+        body = clean(text[match.end():body_end]) or ""
+        address = clean(match.group("address"))
+        status = "unknown"
+        if re.search(r"\bsold\s+prior\b", body, re.I):
+            status = "sold_prior"
+        elif re.search(r"\bwithdrawn\b", body, re.I):
+            status = "withdrawn"
+        elif re.search(r"\bpostponed\b", body, re.I):
+            status = "postponed"
+        guide_match = re.search(
+            r"guide\s+price[^£\d]{0,80}(?P<value>£\s*[\d,]+(?:\.\d+)?(?:\s*[-\u2013]\s*£?\s*[\d,]+(?:\.\d+)?)?)",
+            body,
+            re.I,
+        )
+        guide_low, guide_high = parse_price(guide_match.group("value") if guide_match else None)
+        sector, (annual_rent, rent_text) = sector_and_rent(address, body)
+        rows.append({
+            "lot_number": match.group("lot"), "address": address,
+            "status": status, "guide_price": guide_low, "guide_price_high": guide_high,
+            "annual_rent": annual_rent, "rent_text": rent_text, "sector": sector,
+            "source_update_text": body,
+        })
+    if len(rows) != expected:
+        raise ValueError(f"addendum yielded {len(rows)} property rows; expected {expected}")
+    if len({row["lot_number"] for row in rows}) != len(rows):
+        raise ValueError("addendum contains duplicate lot numbers")
+    if any(not row["address"] for row in rows):
+        raise ValueError("addendum contains a blank address")
+    return rows
 
 
 def validate_date(text, config):
@@ -278,8 +347,8 @@ def sector_and_rent(address, context):
     return sector, rents[0] if rents else (None, None)
 
 
-def save_snapshot(auction_date, raw, sha):
-    base = corpus.DATA / "sources" / SLUG / f"catalogue-{auction_date}-{sha[:20]}.pdf.gz"
+def save_snapshot(auction_date, raw, sha, kind="catalogue"):
+    base = corpus.DATA / "sources" / SLUG / f"{kind}-{auction_date}-{sha[:20]}.pdf.gz"
     compressed = gzip.compress(raw, mtime=0)
     paths = [base] if len(compressed) <= MAX_SNAPSHOT_PART_BYTES else [
         Path(f"{base}.part-{index // MAX_SNAPSHOT_PART_BYTES + 1:03d}")
@@ -301,13 +370,13 @@ def save_snapshot(auction_date, raw, sha):
     }
 
 
-def retained_snapshot(auction_date):
+def retained_snapshot(auction_date, kind="catalogue"):
     directory = corpus.DATA / "sources" / SLUG
-    complete = sorted(directory.glob(f"catalogue-{auction_date}-*.pdf.gz"))
+    complete = sorted(directory.glob(f"{kind}-{auction_date}-*.pdf.gz"))
     if complete:
         path = complete[-1]
         return gzip.decompress(path.read_bytes()), {"snapshot_path": str(path.relative_to(corpus.ROOT))}
-    parts = sorted(directory.glob(f"catalogue-{auction_date}-*.pdf.gz.part-*"))
+    parts = sorted(directory.glob(f"{kind}-{auction_date}-*.pdf.gz.part-*"))
     if not parts:
         return None
     prefixes = sorted({str(path).rsplit(".part-", 1)[0] for path in parts})
@@ -316,6 +385,63 @@ def retained_snapshot(auction_date):
         "snapshot_parts": [str(path.relative_to(corpus.ROOT)) for path in selected],
         "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF",
     }
+
+
+def validate_addendum_date(text, config):
+    auction_date = config["auction_date"]
+    year, month, day = map(int, auction_date.split("-"))
+    month_name = date(year, month, day).strftime("%B")
+    if not re.search(rf"\b0?{day}(?:st|nd|rd|th)?\s+{month_name}\s+{year}\b", text[:12000], re.I):
+        raise ValueError(f"exact auction date {auction_date} is absent from addendum front matter")
+    return "exact date printed in first-party auction addendum"
+
+
+def materialize_addendum(config, source_url, evidence, text, existing_by_id):
+    date_basis = validate_addendum_date(text, config)
+    parsed = parse_addendum_rows(text, int(config["expected_rows"]))
+    auction_id = f"{SLUG}:{config['auction_date']}"
+    rows = []
+    for position, item in enumerate(parsed, 1):
+        source_lot_id = f"lot:{item['lot_number']}"
+        appearance_id = f"{SOURCE}|{auction_id}|{source_lot_id}"
+        prior = existing_by_id.get(appearance_id)
+        if prior:
+            row = dict(prior)
+            if normalized(row.get("address")) != normalized(item["address"]):
+                row["source_addendum_address"] = item["address"]
+            if item["status"] != "unknown":
+                row["status"] = item["status"]
+            if item["guide_price"] is not None:
+                row["guide_price"] = item["guide_price"]
+                row["guide_price_high"] = item["guide_price_high"]
+            if item["annual_rent"] is not None:
+                row["annual_rent"] = item["annual_rent"]
+                row["rent_text"] = item["rent_text"]
+            if row.get("sector") in {None, "unknown"} and item["sector"] != "unknown":
+                row["sector"] = item["sector"]
+        else:
+            row = corpus.base_row(
+                SOURCE, auction_id, config["auction_date"], item["lot_number"], source_lot_id, source_url,
+            )
+            postcode = POSTCODE.search(item["address"])
+            row.update(
+                appearance_id=appearance_id, address=item["address"],
+                postcode=postcode.group().upper() if postcode else None,
+                locality=item["address"], sector=item["sector"], property_type=None,
+                status=item["status"], guide_price=item["guide_price"],
+                guide_price_high=item["guide_price_high"], sale_price=None,
+                annual_rent=item["annual_rent"], rent_text=item["rent_text"],
+                identity_method="first_party_exact_event_date_addendum_lot_number_and_address",
+                record_quality="address_record", source_position=position,
+                source_event_url=config.get("event_url"), auction_date_precision="day",
+                auction_date_basis=date_basis,
+                source_platform="Venmore Auctions retained first-party addendum PDF",
+                trading_name=SOURCE, source_evidence=evidence,
+            )
+        row["source_addendum_update"] = item["source_update_text"]
+        row["source_addendum_evidence"] = evidence
+        rows.append(row)
+    return rows, date_basis
 
 
 def materialize_event(config, source_url, evidence, text):
@@ -420,12 +546,12 @@ def persist_continuation(summary):
     payload["next_growth_target"] = NEXT_TARGET
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "venmore-auctions-2022-retained-catalogues",
+        "source_key_candidate": "venmore-auctions-2020-retained-addenda",
         "auctioneer": SOURCE,
-        "source_format": "first-party retained catalogue PDFs",
+        "source_format": "first-party retained catalogue and addendum PDFs",
         "opportunity": (
-            "recover the three linkless January-March 2023 catalogues only through a "
-            "new route, then batch the surviving 2022 catalogues through this runner"
+            "batch exact-dated 2020 and older addenda, then reconcile the missing "
+            "2021-2022 lots through indexed individual pages or recovered catalogues"
         ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
@@ -454,7 +580,8 @@ def harvest():
         baseline_ids = set()
     else:
         baseline_ids = {row["appearance_id"] for row in existing}
-    states, run_rows, failures = {}, [], []
+    states, run_by_id, failures = {}, {}, []
+    catalogue_rows_captured = 0
     for position, config in enumerate(manifest["events"], 1):
         try:
             retained = retained_snapshot(config["auction_date"])
@@ -475,15 +602,71 @@ def harvest():
             state, rows = materialize_event(config, source_url, evidence, pdf_text(raw))
             states[state["auction_date"]] = state
             corpus.save_json(corpus.DATA / "auctions" / SLUG / f"{state['auction_date']}.json", state)
-            run_rows.extend(rows)
-            print("VENMORE", position, "/", len(manifest["events"]), "catalogues", len(run_rows), "lots", flush=True)
+            run_by_id.update({row["appearance_id"]: row for row in rows})
+            catalogue_rows_captured += len(rows)
+            print("VENMORE", position, "/", len(manifest["events"]), "catalogues", catalogue_rows_captured, "lots", flush=True)
         except Exception as exc:
-            failures.append({"auction_date": config["auction_date"], "source_url": config["source_url"], "error": f"{type(exc).__name__}: {exc}"[:500]})
+            failures.append({"source_type": "catalogue", "auction_date": config["auction_date"], "source_url": config["source_url"], "error": f"{type(exc).__name__}: {exc}"[:500]})
+
+    addendum_rows_captured = 0
+    existing_by_id = {row["appearance_id"]: row for row in existing}
+    for position, config in enumerate(manifest.get("addenda") or [], 1):
+        try:
+            retained = retained_snapshot(config["auction_date"], "addendum")
+            if retained:
+                raw, snapshot_fields = retained
+                source_url = config["source_url"]
+            else:
+                source_url, raw = fetch(config["source_url"])
+            sha, retrieved_at = corpus.digest(raw), corpus.now()
+            if not retained:
+                snapshot_fields = save_snapshot(config["auction_date"], raw, sha, "addendum")
+            evidence = {
+                "source_url": source_url, "retrieved_at": retrieved_at, "sha256": sha,
+                "basis": "complete first-party exact-dated property-auction addendum PDF",
+                "archive_url": ARCHIVE, "event_url": config.get("event_url"),
+                **snapshot_fields,
+            }
+            text = pdf_text(raw)
+            rows, date_basis = materialize_addendum(
+                config, source_url, evidence, text, {**existing_by_id, **run_by_id},
+            )
+            run_by_id.update({row["appearance_id"]: row for row in rows})
+            addendum_rows_captured += len(rows)
+            state_path = corpus.DATA / "auctions" / SLUG / f"{config['auction_date']}.json"
+            if config["auction_date"] in states:
+                state = dict(states[config["auction_date"]])
+                state["addendum_rows_captured"] = len(rows)
+                state["addendum_published_outcomes_captured"] = sum(row["status"] != "unknown" for row in rows)
+                state["addendum_source_evidence"] = evidence
+                state["checked_at"] = corpus.now()
+            else:
+                state = {
+                    "auctioneer": SOURCE, "trading_name": SOURCE,
+                    "source_auction_id": f"{SLUG}:{config['auction_date']}",
+                    "auction_date": config["auction_date"], "auction_date_precision": "day",
+                    "source_url": source_url, "published_lots": None,
+                    "lots_captured": len(rows), "addendum_rows_captured": len(rows),
+                    "guides_captured": sum(row["guide_price"] is not None for row in rows),
+                    "rents_captured": sum(row["annual_rent"] is not None for row in rows),
+                    "published_outcomes_captured": sum(row["status"] != "unknown" for row in rows),
+                    "catalogue_complete": False, "source_rows_complete": True,
+                    "denominator_reconciled": False,
+                    "denominator_basis": "all numbered rows in the retained addendum; full catalogue denominator is not recovered",
+                    "completion_scope": "every explicitly numbered property row in the exact-dated first-party addendum",
+                    "source_event_url": config.get("event_url"), "auction_date_basis": date_basis,
+                    "source_evidence": evidence, "errors": [], "checked_at": corpus.now(),
+                }
+            states[config["auction_date"]] = state
+            corpus.save_json(state_path, state)
+            print("VENMORE", position, "/", len(manifest["addenda"]), "addenda", addendum_rows_captured, "rows", flush=True)
+        except Exception as exc:
+            failures.append({"source_type": "addendum", "auction_date": config["auction_date"], "source_url": config["source_url"], "error": f"{type(exc).__name__}: {exc}"[:500]})
 
     global_exact = global_exact_appearances()
     existing_ids = {row["appearance_id"] for row in existing}
     overlaps, admissible = [], []
-    for row in run_rows:
+    for row in run_by_id.values():
         if row["appearance_id"] in existing_ids:
             admissible.append(row)
             continue
@@ -507,8 +690,12 @@ def harvest():
     summary = {
         "checked_at": corpus.now(), "auctioneer": SOURCE, "source_url": ARCHIVE,
         "catalogue_pdfs_in_batch": len(manifest["events"]),
-        "catalogue_pdfs_captured": len(states),
-        "published_property_rows_reconciled": len(run_rows),
+        "catalogue_pdfs_captured": len(manifest["events"]) - sum(failure["source_type"] == "catalogue" for failure in failures),
+        "addendum_pdfs_in_batch": len(manifest.get("addenda") or []),
+        "addendum_pdfs_captured": len(manifest.get("addenda") or []) - sum(failure["source_type"] == "addendum" for failure in failures),
+        "catalogue_property_rows_reconciled": catalogue_rows_captured,
+        "addendum_property_rows_evidenced": addendum_rows_captured,
+        "published_property_rows_reconciled": len(run_by_id),
         "online_listed_property_rows": sum(
             int(event.get("online_listed_lots", event["expected_lots"]))
             for event in manifest["events"]
@@ -538,10 +725,10 @@ def harvest():
         "run_duplicate_source_evidence_excluded": len(overlaps),
         "duplicate_source_evidence_exclusions": overlaps,
         "live_archive_route_blocker": (
-            "historical event pages remain reachable, but most older live grids have "
-            "been cleared to zero properties; the January-March 2023 pages retain "
-            "addenda but no catalogue link. Retained first-party userfiles PDFs "
-            "preserve the other individual printed rows"
+            "Most older live grids have been cleared or now leak the current inventory. "
+            "The 25 May 2022 page also points at a mismatched September addendum and was "
+            "therefore rejected. Exact-dated retained addenda preserve only changed lots, "
+            "so the remaining 2021-2022 catalogue inventories are not yet reconciled."
         ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
@@ -549,7 +736,11 @@ def harvest():
     corpus.save_json(corpus.DATA / "venmore_catalogues_collection.json", summary)
     persist_continuation(summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if failures or len(states) != len(manifest["events"]) or len(run_rows) != int(manifest["expected_lots"]):
+    if (
+        failures
+        or catalogue_rows_captured != int(manifest["expected_lots"])
+        or addendum_rows_captured != int(manifest.get("expected_addendum_rows", 0))
+    ):
         raise SystemExit(1)
     return summary
 

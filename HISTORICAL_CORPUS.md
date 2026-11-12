@@ -3,6 +3,47 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Venmore 2021-2022 catalogue and addendum recovery
+
+- **Specific growth opportunity executed:** the reusable Venmore runner now
+  handles exact-dated first-party addenda as well as complete catalogues. It
+  reconciled the **57/57** printed rows in the 13 July 2022 catalogue and all
+  **187/187** explicitly numbered rows in 14 retained addenda spanning seven
+  2021 and seven 2022 events. The 22 July addendum rows enrich the matching
+  catalogue identities and are not counted twice.
+- **Measured net gain:** **222 appearances / 222 address records / 222
+  exact-dated addresses inside the twenty-year window**: 84 in 2021 and 138
+  in 2022. New partial-address, undated, future-dated, duplicate-source and
+  cross-source-overlap records are all **0**. Venmore source-years **2021 and
+  2022** are newly covered.
+- **Sector and evidence gain:** **5 commercial, 3 mixed-use, 4 land, 60
+  residential and 150 unknown** appearances; the commercial/mixed-use subset
+  is **8**. The batch adds **66 numeric guide records, 0 achieved-price
+  records and 17 published rents**. It separately preserves 113 sold-prior,
+  17 postponed and five withdrawn outcomes without inventing sale amounts.
+- **Publication safeguards:** every PDF is retained as a checksum-verified
+  immutable snapshot (split into deterministic parts where required). Exact
+  dates are validated from each file's front matter. The parser asserts both
+  source denominators, and a regression test covers the older two-page
+  catalogue layout where lot labels and wrapped addresses occupy separate
+  lines.
+- **Bounded blocker:** the 25 May 2022 event page now links to a September
+  addendum; the date mismatch is recorded and that file is not misattributed.
+  Other older live grids are cleared or leak the current inventory. Addenda
+  prove only their changed lots, so the remaining 2021-2022 full-event
+  denominators remain unreconciled rather than being labelled complete.
+- **Corpus after rebuild:** **319,089 appearances**, **306,531 address
+  records**, **12,558 partial records** and **309,602 in-window appearances**.
+  In-window evidence includes **111,172 numeric guides** and **114,231
+  achieved prices**. Undated and future-dated totals remain **6,219** and
+  **148**.
+- **Next concrete growth target:** batch the surviving 2020 and older Venmore
+  addenda through the same runner, then reconcile missing 2021-2022 lots from
+  indexed individual pages or newly recovered catalogues. January-March 2023
+  remains reserved for a materially different saved-file/search-index route.
+
+National completeness remains **false**.
+
 ## 12 November 2026 — Venmore retained 2023 and February 2024 catalogue batch
 
 - **Specific growth opportunity executed:** six complete first-party catalogue
