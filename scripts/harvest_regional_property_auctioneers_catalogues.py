@@ -53,11 +53,9 @@ RENT = re.compile(
     r"£\s*([\d,]+(?:\.\d+)?)\s*(?:per\s+annum|p\.?\s*a\.?)\b", re.I
 )
 NEXT_TARGET = (
-    "Continue Regional Property Auctioneers through the same reusable order-of-sale runner, batching "
-    "the accessible 2012-2017 first-party catalogues after adding format-specific assertions for their "
-    "older layouts. Separately recover the May and September 2023 non-catalogue placeholders only if a "
-    "property-level route appears. Do not refresh the reconciled 2018-2023 PDFs. National completeness "
-    "remains false."
+    "Extend the Regional Property Auctioneers runner to the materially different 2012-April 2014 "
+    "catalogue layouts, then add continuation-line support for the five banked-but-unparsed 2014-2016 "
+    "PDFs. Do not refresh the 40 reconciled catalogues. National completeness remains false."
 )
 
 
@@ -86,10 +84,12 @@ def fetch(url):
 def load_manifest(path=MANIFEST):
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     events = payload.get("events") or []
-    if len(events) != 23:
-        raise ValueError(f"expected 23 catalogue PDFs, found {len(events)}")
-    if sum(int(event["expected_lots"]) for event in events) != 267:
-        raise ValueError("manifest must retain the literal 267-lot denominator")
+    expected_catalogues = int(payload["expected_catalogues"])
+    expected_lots = int(payload["expected_lots"])
+    if len(events) != expected_catalogues:
+        raise ValueError(f"expected {expected_catalogues} catalogue PDFs, found {len(events)}")
+    if sum(int(event["expected_lots"]) for event in events) != expected_lots:
+        raise ValueError(f"manifest must retain the literal {expected_lots}-lot denominator")
     if len({event["source_url"] for event in events}) != len(events):
         raise ValueError("manifest contains duplicate catalogue URLs")
     if len({event["auction_date"] for event in events}) != len(events):

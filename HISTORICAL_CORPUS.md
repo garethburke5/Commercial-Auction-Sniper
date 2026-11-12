@@ -3,6 +3,28 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Regional Property Auctioneers 2014-2017 expansion prepared
+
+- **Measured net gain:** **230 exact-dated address appearances** inside the
+  twenty-year window from **17 newly reconciled complete catalogues**. New partial,
+  undated, future-dated and duplicate records are **0 / 0 / 0 / 0**.
+- **Sector and price evidence:** **35 commercial, 18 mixed-use, 37 land, 129
+  residential and 11 unknown** appearances; **226 guides, 0 achieved prices and
+  60 published rents**. Catalogue-only outcomes and achieved prices remain null.
+- **Coverage:** Regional Property Auctioneers now retains **497 appearances across
+  40 complete catalogue inventories**. Newly covered source-years are **2014,
+  2015, 2016 and 2017**.
+- **Bounded parser gaps:** five downloaded 2014-2016 PDFs remain unadmitted because
+  their order tables contain continuation rows or embedded prose that fail literal
+  row parsing. The 2012-April 2014 files use another materially different layout.
+  Their immutable snapshots and exact failure evidence are retained without
+  claiming appearances.
+- **Next target:** add explicit continuation-line support for those five PDFs, then
+  implement asserted parsing for the 2012-April 2014 layouts. Do not refresh the
+  40 reconciled catalogues.
+
+National completeness remains **false**.
+
 
 ## 12 November 2026 — Regional Property Auctioneers 2018-2023 catalogue batch prepared
 

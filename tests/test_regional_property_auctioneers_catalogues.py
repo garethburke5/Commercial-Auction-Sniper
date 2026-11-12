@@ -11,12 +11,12 @@ regional = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(regional)
 
 
-def test_manifest_batches_23_catalogues_and_267_properties():
+def test_manifest_batches_45_catalogues_and_558_properties():
     payload = regional.load_manifest()
-    assert len(payload["events"]) == 23
-    assert sum(event["expected_lots"] for event in payload["events"]) == 267
+    assert len(payload["events"]) == payload["expected_catalogues"] == 45
+    assert sum(event["expected_lots"] for event in payload["events"]) == payload["expected_lots"] == 558
     assert {event["auction_date"][:4] for event in payload["events"]} == {
-        "2018", "2019", "2020", "2021", "2022", "2023",
+        "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023",
     }
 
 

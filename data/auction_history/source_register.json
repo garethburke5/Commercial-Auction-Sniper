@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-12T16:26:54.345996+00:00",
-  "corpus_checkpoint": "2026-11-12T16:25:52.906833+00:00",
+  "generated_at": "2026-11-12T17:05:58.489320+00:00",
+  "corpus_checkpoint": "2026-11-12T17:05:28.014771+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -6364,8 +6364,12 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Regional Property Auctioneers",
       "match_basis": "exact label",
-      "retained_appearances": 267,
+      "retained_appearances": 497,
       "years_with_retained_evidence": [
+        2014,
+        2015,
+        2016,
+        2017,
         2018,
         2019,
         2020,
@@ -6373,7 +6377,7 @@
         2022,
         2023
       ],
-      "with_guide_price": 255,
+      "with_guide_price": 481,
       "with_sale_price": 0,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
@@ -8327,7 +8331,7 @@
     "Property Auction Agent": 70,
     "Pugh Auctioneers": 6896,
     "Purplebricks Online Auctions": 2451,
-    "Regional Property Auctioneers": 267,
+    "Regional Property Auctioneers": 497,
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
@@ -8357,9 +8361,9 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307646,
-      "auction_ids_observed": 13830,
-      "with_guide_price": 109667,
+      "lot_appearances": 307876,
+      "auction_ids_observed": 13847,
+      "with_guide_price": 109893,
       "with_sale_price": 114174,
       "with_both_prices": 50370,
       "marked_sold": 157163,
@@ -15969,6 +15973,50 @@
       },
       {
         "auctioneer": "Regional Property Auctioneers",
+        "year": 2014,
+        "lot_appearances": 24,
+        "auction_ids_observed": 2,
+        "with_guide_price": 24,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2015,
+        "lot_appearances": 78,
+        "auction_ids_observed": 6,
+        "with_guide_price": 75,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2016,
+        "lot_appearances": 32,
+        "auction_ids_observed": 3,
+        "with_guide_price": 31,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2017,
+        "lot_appearances": 96,
+        "auction_ids_observed": 6,
+        "with_guide_price": 96,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
         "year": 2018,
         "lot_appearances": 82,
         "auction_ids_observed": 6,
@@ -17984,21 +18032,19 @@
     },
     "regional-property-auctioneers": {
       "source": "regional-property-auctioneers",
-      "outcome": "completed",
-      "checked_at": "2026-11-12T16:22:56.068908+00:00",
-      "run_new_appearances": 267,
-      "run_new_dated_twenty_year_address_records": 267,
-      "run_new_commercial_or_mixed": 37,
-      "run_new_guide_prices": 255,
+      "outcome": "partial",
+      "checked_at": "2026-11-12T17:04:48.841444+00:00",
+      "run_new_appearances": 230,
+      "run_new_dated_twenty_year_address_records": 230,
+      "run_new_commercial_or_mixed": 53,
+      "run_new_guide_prices": 226,
       "run_new_sale_prices": 0,
-      "run_new_rents": 115,
+      "run_new_rents": 60,
       "newly_covered_source_years": [
-        "2018",
-        "2019",
-        "2020",
-        "2021",
-        "2022",
-        "2023"
+        "2014",
+        "2015",
+        "2016",
+        "2017"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -23924,8 +23970,8 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-12T16:26:53.694732+00:00",
-    "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
+    "checked_at": "2026-11-12T17:05:57.608462+00:00",
+    "sha256": "ca8c6827b2533aa965db57b601cf0b68c77d0b0a13ec2f646275a65ae384c0e9",
     "status": "retrieved"
   }
 }
