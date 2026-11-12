@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-12T05:07:39.874001+00:00",
-  "individual_lot_records_captured": 314712,
-  "records_with_address": 302156,
+  "generated_at": "2026-11-12T06:13:34.904828+00:00",
+  "individual_lot_records_captured": 314773,
+  "records_with_address": 302217,
   "partial_lot_records": 12556,
-  "exact_address_groups": 167840,
+  "exact_address_groups": 167853,
   "groups_with_repeat_appearances": 43242,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -121,6 +121,7 @@
     "Sharpes Auctions": 1237,
     "Smith & Sons": 1007,
     "Strettons": 199,
+    "Sunderlands": 61,
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
     "Symonds & Sampson": 1142,
@@ -146,9 +147,9 @@
     "2013": 6302,
     "2014": 8625,
     "2015": 7929,
-    "2016": 8671,
-    "2017": 8891,
-    "2018": 8770,
+    "2016": 8684,
+    "2017": 8922,
+    "2018": 8787,
     "2019": 7999,
     "2020": 13957,
     "2021": 21296,
@@ -161,17 +162,17 @@
   },
   "by_sector": {
     "commercial": 42763,
-    "land": 19414,
+    "land": 19426,
     "mixed": 1,
     "mixed-use": 47668,
-    "residential": 151953,
-    "unknown": 52913
+    "residential": 151968,
+    "unknown": 52947
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 4985,
+  "surviving_catalogues_completely_harvested": 4999,
   "catalogues_incomplete_or_unreconciled": 580,
   "catalogue_fetch_or_parse_failures": 37,
   "limits": [
@@ -185,13 +186,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305235,
-      "auction_ids_observed": 13654,
-      "with_guide_price": 107359,
-      "with_sale_price": 112748,
-      "with_both_prices": 48974,
-      "marked_sold": 155668,
-      "marked_sold_without_sale_price": 43660
+      "lot_appearances": 305296,
+      "auction_ids_observed": 13668,
+      "with_guide_price": 107414,
+      "with_sale_price": 112777,
+      "with_both_prices": 49003,
+      "marked_sold": 155706,
+      "marked_sold_without_sale_price": 43669
     },
     "by_auctioneer_and_year": [
       {
@@ -8278,6 +8279,39 @@
         "with_both_prices": 87,
         "marked_sold": 133,
         "marked_sold_without_sale_price": 46
+      },
+      {
+        "auctioneer": "Sunderlands",
+        "year": 2016,
+        "lot_appearances": 13,
+        "auction_ids_observed": 5,
+        "with_guide_price": 13,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Sunderlands",
+        "year": 2017,
+        "lot_appearances": 31,
+        "auction_ids_observed": 6,
+        "with_guide_price": 28,
+        "with_sale_price": 16,
+        "with_both_prices": 16,
+        "marked_sold": 25,
+        "marked_sold_without_sale_price": 9
+      },
+      {
+        "auctioneer": "Sunderlands",
+        "year": 2018,
+        "lot_appearances": 17,
+        "auction_ids_observed": 3,
+        "with_guide_price": 14,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Sutton Kersh",
