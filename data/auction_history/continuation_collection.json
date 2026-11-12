@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Extend the Regional Property Auctioneers runner across the nine remaining property catalogues dated July 2012 to March 2014, whose order tables use a materially different layout. Do not refresh the 45 reconciled catalogues or count the catalogue-not-ready placeholder. National completeness remains false.",
+  "next_growth_target": "Batch Halls' retained 2022 Collective Property & Land catalogues and result sheets through the existing multi-event runner, preserving complete numbered inventories and leaving any unnamed denominator gaps explicit. Do not refresh the exhausted Regional Property Auctioneers archive. National completeness remains false.",
   "cheffins_2019_pdf_expansion": {
     "checked_at": "2026-11-11T23:11:49.085149+00:00",
     "opportunity": "Recover Cheffins' complete 19 June 2019 21-lot inventory from the retained first-party original catalogue PDF after the result page lost every lot card.",
@@ -4498,6 +4498,23 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "regional-property-auctioneers",
+      "outcome": "completed",
+      "checked_at": "2026-11-12T19:03:31.432250+00:00",
+      "run_new_appearances": 112,
+      "run_new_dated_twenty_year_address_records": 112,
+      "run_new_commercial_or_mixed": 34,
+      "run_new_guide_prices": 111,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 20,
+      "newly_covered_source_years": [
+        "2012",
+        "2013"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "latest_by_source": {
@@ -5390,14 +5407,17 @@
     "regional-property-auctioneers": {
       "source": "regional-property-auctioneers",
       "outcome": "completed",
-      "checked_at": "2026-11-12T18:03:00.527032+00:00",
-      "run_new_appearances": 65,
-      "run_new_dated_twenty_year_address_records": 65,
-      "run_new_commercial_or_mixed": 15,
-      "run_new_guide_prices": 61,
+      "checked_at": "2026-11-12T19:03:31.432250+00:00",
+      "run_new_appearances": 112,
+      "run_new_dated_twenty_year_address_records": 112,
+      "run_new_commercial_or_mixed": 34,
+      "run_new_guide_prices": 111,
       "run_new_sale_prices": 0,
-      "run_new_rents": 25,
-      "newly_covered_source_years": [],
+      "run_new_rents": 20,
+      "newly_covered_source_years": [
+        "2012",
+        "2013"
+      ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     }
@@ -5405,14 +5425,17 @@
   "last_automated_growth": {
     "source": "regional-property-auctioneers",
     "outcome": "completed",
-    "checked_at": "2026-11-12T18:03:00.527032+00:00",
-    "run_new_appearances": 65,
-    "run_new_dated_twenty_year_address_records": 65,
-    "run_new_commercial_or_mixed": 15,
-    "run_new_guide_prices": 61,
+    "checked_at": "2026-11-12T19:03:31.432250+00:00",
+    "run_new_appearances": 112,
+    "run_new_dated_twenty_year_address_records": 112,
+    "run_new_commercial_or_mixed": 34,
+    "run_new_guide_prices": 111,
     "run_new_sale_prices": 0,
-    "run_new_rents": 25,
-    "newly_covered_source_years": [],
+    "run_new_rents": 20,
+    "newly_covered_source_years": [
+      "2012",
+      "2013"
+    ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
   },
@@ -5439,12 +5462,12 @@
     "national_completeness_verified": false
   },
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-12T18:03:00.527032+00:00",
-    "source_key_candidate": "regional-property-auctioneers-2012-2017",
-    "auctioneer": "Regional Property Auctioneers",
-    "source_format": "first-party complete catalogue PDFs",
-    "opportunity": "the nine remaining property catalogues dated July 2012 to March 2014, outside the completed 45-catalogue parser batch",
-    "next_growth_target": "Extend the Regional Property Auctioneers runner across the nine remaining property catalogues dated July 2012 to March 2014, whose order tables use a materially different layout. Do not refresh the 45 reconciled catalogues or count the catalogue-not-ready placeholder. National completeness remains false.",
+    "checked_at": "2026-11-12T19:03:31.432250+00:00",
+    "source_key_candidate": "halls-2022-retained-catalogues",
+    "auctioneer": "Halls",
+    "source_format": "retained first-party catalogue PDFs and result sheets",
+    "opportunity": "batch Halls' surviving 2022 Collective Property & Land catalogues through the existing multi-event runner",
+    "next_growth_target": "Batch Halls' retained 2022 Collective Property & Land catalogues and result sheets through the existing multi-event runner, preserving complete numbered inventories and leaving any unnamed denominator gaps explicit. Do not refresh the exhausted Regional Property Auctioneers archive. National completeness remains false.",
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,

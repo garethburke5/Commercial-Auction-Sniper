@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-12T18:06:57.339369+00:00",
-  "individual_lot_records_captured": 317418,
-  "records_with_address": 304860,
+  "generated_at": "2026-11-12T19:05:30.402872+00:00",
+  "individual_lot_records_captured": 317530,
+  "records_with_address": 304972,
   "partial_lot_records": 12558,
-  "exact_address_groups": 169758,
-  "groups_with_repeat_appearances": 43639,
+  "exact_address_groups": 169837,
+  "groups_with_repeat_appearances": 43650,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -112,7 +112,7 @@
     "Property Auction Agent": 70,
     "Pugh Auctioneers": 6896,
     "Purplebricks Online Auctions": 2451,
-    "Regional Property Auctioneers": 562,
+    "Regional Property Auctioneers": 674,
     "Robinson & Hall": 546,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
@@ -149,9 +149,9 @@
     "2009": 1302,
     "2010": 2296,
     "2011": 3310,
-    "2012": 3628,
-    "2013": 6302,
-    "2014": 8664,
+    "2012": 3662,
+    "2013": 6364,
+    "2014": 8680,
     "2015": 8031,
     "2016": 8742,
     "2017": 9021,
@@ -167,18 +167,18 @@
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42933,
-    "land": 19741,
+    "commercial": 42955,
+    "land": 19750,
     "mixed": 1,
-    "mixed-use": 47757,
-    "residential": 153817,
-    "unknown": 53169
+    "mixed-use": 47769,
+    "residential": 153881,
+    "unknown": 53174
   },
   "date_range": [
     "2002-10-31",
     "2027-01-14"
   ],
-  "surviving_catalogues_completely_harvested": 5160,
+  "surviving_catalogues_completely_harvested": 5169,
   "catalogues_incomplete_or_unreconciled": 617,
   "catalogue_fetch_or_parse_failures": 37,
   "limits": [
@@ -192,13 +192,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307941,
-      "auction_ids_observed": 13852,
-      "with_guide_price": 109954,
+      "lot_appearances": 308053,
+      "auction_ids_observed": 13861,
+      "with_guide_price": 110065,
       "with_sale_price": 114174,
       "with_both_prices": 50370,
-      "marked_sold": 157163,
-      "marked_sold_without_sale_price": 43729
+      "marked_sold": 157166,
+      "marked_sold_without_sale_price": 43732
     },
     "by_auctioneer_and_year": [
       {
@@ -7804,10 +7804,32 @@
       },
       {
         "auctioneer": "Regional Property Auctioneers",
-        "year": 2014,
-        "lot_appearances": 39,
+        "year": 2012,
+        "lot_appearances": 34,
         "auction_ids_observed": 3,
-        "with_guide_price": 39,
+        "with_guide_price": 34,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2013,
+        "lot_appearances": 62,
+        "auction_ids_observed": 5,
+        "with_guide_price": 61,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Regional Property Auctioneers",
+        "year": 2014,
+        "lot_appearances": 55,
+        "auction_ids_observed": 4,
+        "with_guide_price": 55,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 0,

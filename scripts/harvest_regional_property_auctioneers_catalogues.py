@@ -37,13 +37,28 @@ COMPANY_NUMBER = "05521957"
 ARCHIVE = "https://www.regionalpropertyauctioneers.co.uk/catalogue"
 MANIFEST = corpus.ROOT / "config" / "regional_property_auctioneers_catalogues.json"
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-ORDER_HEADING = re.compile(r"Order\s+of\s+sale", re.I)
+ORDER_HEADING = re.compile(r"(?:Order\s+of\s+sale|Lot\s+Order\s+and\s+Guide\s+Prices)", re.I)
+GUIDE_ORDER_HEADING = re.compile(r"Lot\s+Order\s+and\s+Guide\s+Prices", re.I)
 ORDER_ROW = re.compile(r"^\s*Lot\s+(\d{1,3}[A-Za-z]?)\s+(\S.*?)\s{2,}(.+?)\s*$", re.I)
 FALLBACK_ORDER_ROW = re.compile(r"^\s*Lot\s+(\d{1,3}[A-Za-z]?)\s+(.+)$", re.I)
 RANGE_ORDER_ROW = re.compile(
     r"^\s*Lots?\s+(\d{1,3}(?:[–-]\d{1,3}[A-Za-z]?))\s+(\S.*?)\s{2,}(.+?)\s*$",
     re.I,
 )
+LEGACY_GUIDE_ROW = re.compile(
+    r"^\s*LOT\s+(\d{1,3}[A-Za-z]?)\s+(.+?)\s{2,}((?:£\s*[\d,]+(?:\.\d+)?(?:\s*[-–]\s*£?\s*[\d,]+(?:\.\d+)?)?\+?)|SOLD\s+PRIOR)\s*$",
+    re.I,
+)
+NUMBERED_ORDER_ROW = re.compile(r"^\s*(\d{1,3}[A-Za-z]?)\s+(\S.*)$")
+ORDER_TYPE_START = re.compile(
+    r"\s+(?=(?:VACANT|RESIDENTIAL|COMMERCIAL|MIXED|DEVELOPMENT|INDUSTRIAL|TAKEAWAY|"
+    r"RESTAURANT|RENOVATION|LAND)\b)",
+    re.I,
+)
+# Keep immutable binary evidence parts below connector transport limits as well as
+# GitHub's blob limit. Reassembly is byte-for-byte and the original PDF digest is
+# checked before a retained snapshot is reused.
+MAX_SNAPSHOT_PART_BYTES = 700_000
 SECTOR_SUFFIX = re.compile(
     r"\s+((?:(?:VACANT|RESIDENTIAL|COMMERCIAL|COMM|RESI|MIXED|LAND|GROUND|GARAGE|LOCK|LOCKUP|"
     r"FORMER|BUILDING|INDUSTRIAL|CHURCH|AMENITY|DEVELOPMENT|INVESTMENT|PLOT|PREMISES|PUB|"
@@ -57,10 +72,10 @@ RENT = re.compile(
     r"£\s*([\d,]+(?:\.\d+)?)\s*(?:per\s+annum|p\.?\s*a\.?)\b", re.I
 )
 NEXT_TARGET = (
-    "Extend the Regional Property Auctioneers runner across the nine remaining property catalogues "
-    "dated July 2012 to March 2014, whose order tables use a materially different layout. Do not "
-    "refresh the 45 reconciled catalogues or count the catalogue-not-ready placeholder. National "
-    "completeness remains false."
+    "Batch Halls' retained 2022 Collective Property & Land catalogues and result sheets through the "
+    "existing multi-event runner, preserving complete numbered inventories and leaving any unnamed "
+    "denominator gaps explicit. Do not refresh the exhausted Regional Property Auctioneers archive. "
+    "National completeness remains false."
 )
 
 
@@ -154,12 +169,105 @@ def parse_fallback_order_row(line):
     return lot_number, address, property_type
 
 
+def parse_legacy_guide_rows(page):
+    rows = []
+    for line in page.splitlines():
+        match = LEGACY_GUIDE_ROW.match(line)
+        if not match:
+            continue
+        lot_number, address, order_value = match.groups()
+        status = "sold_prior" if re.search(r"sold\s+prior", order_value, re.I) else "unknown"
+        low, high = parse_guide(order_value)
+        rows.append({
+            "lot_number": clean(lot_number),
+            "printed_lot_label": clean(lot_number),
+            "address": clean(address),
+            "property_type": None,
+            "status": status,
+            "source_order_outcome": clean(order_value) if status != "unknown" else None,
+            "source_guide_text": clean(order_value) if low is not None else None,
+            "guide_price": low,
+            "guide_price_high": high,
+        })
+    return rows
+
+
+def parse_numbered_order_rows(page):
+    lines = page.splitlines()
+    heading = next(index for index, line in enumerate(lines) if ORDER_HEADING.search(line))
+    chunks, current = [], None
+    for line in lines[heading + 1:]:
+        if "regionalpropertyauctioneers.co.uk" in line.casefold() or "how to find our auction venue" in line.casefold():
+            break
+        match = NUMBERED_ORDER_ROW.match(line)
+        if match:
+            if current:
+                chunks.append(current)
+            current = [match.group(1), match.group(2), []]
+        elif current and clean(line) and clean(line) != "2":
+            current[2].append(line)
+    if current:
+        chunks.append(current)
+
+    rows = []
+    for lot_number, first, continuation in chunks:
+        status, source_outcome = "unknown", None
+        address_parts, type_parts = [], []
+        for index, source_line in enumerate([first, *continuation]):
+            raw_line = source_line.replace("\x07", " ").rstrip()
+            status_match = re.search(r"\b(postponed\s+to\s+september|sold\s+prior)\b", raw_line, re.I)
+            if status_match:
+                source_outcome = clean(status_match.group())
+                status = "postponed" if source_outcome.casefold().startswith("postponed") else "sold_prior"
+                raw_line = raw_line[:status_match.start()] + " " + raw_line[status_match.end():]
+            leading = len(raw_line) - len(raw_line.lstrip())
+            content = raw_line.strip()
+            if not content:
+                continue
+            split = re.split(r"\t+|\s{2,}", content, maxsplit=1)
+            if len(split) == 2:
+                address_part, type_part = split
+            elif index > 0 and (leading >= 45 or (content.startswith("(") and type_parts)):
+                address_part, type_part = None, content
+            else:
+                boundary = ORDER_TYPE_START.search(content)
+                address_part = clean(content[:boundary.start()]) if boundary else content
+                type_part = clean(content[boundary.start():]) if boundary else None
+            if address_part:
+                address_parts.append(address_part)
+            if type_part:
+                type_parts.append(type_part)
+        address = clean(" ".join(address_parts))
+        property_type = clean(" ".join(type_parts))
+        if not address:
+            raise ValueError(f"numbered order row {lot_number} has no address")
+        rows.append({
+            "lot_number": clean(lot_number),
+            "printed_lot_label": clean(lot_number),
+            "address": address,
+            "property_type": property_type,
+            "status": status,
+            "source_order_outcome": source_outcome,
+        })
+    return rows
+
+
 def parse_order_rows(text, expected):
     pages = [page for page in text.split("\f") if ORDER_HEADING.search(page)]
     if not pages:
         raise ValueError("catalogue has no printed order-of-sale table")
-    page = max(pages, key=lambda value: len(re.findall(r"(?im)^\s*lot\s+\d+\b", value)))
-    rows = []
+    page = max(
+        pages,
+        key=lambda value: len(re.findall(r"(?im)^\s*(?:lots?\s+)?\d+[A-Za-z]?\s+", value)),
+    )
+    if GUIDE_ORDER_HEADING.search(page):
+        rows = parse_legacy_guide_rows(page)
+    elif re.search(r"(?m)^\s*\d+[A-Za-z]?\s+\S", page):
+        rows = parse_numbered_order_rows(page)
+    else:
+        rows = []
+    if rows:
+        return validate_order_rows(rows, expected)
     lines = page.splitlines()
     for index, line in enumerate(lines):
         if not re.match(r"(?i)^\s*lots?\s+\d+\b", line):
@@ -194,6 +302,10 @@ def parse_order_rows(text, expected):
                 "address": clean(address),
                 "property_type": clean(property_type),
             })
+    return validate_order_rows(rows, expected)
+
+
+def validate_order_rows(rows, expected):
     if len(rows) != expected:
         raise ValueError(f"order-of-sale table yielded {len(rows)} lots; expected {expected}")
     labels = [row["lot_number"].casefold() for row in rows]
@@ -280,18 +392,21 @@ def enrich_order_rows(order_rows, blocks):
             score, index, block = best
             used.add(index)
             item.update({
-                "guide_price": block["guide_price"],
-                "guide_price_high": block["guide_price_high"],
-                "source_guide_text": block["guide_raw"],
+                "guide_price": item.get("guide_price") if item.get("guide_price") is not None else block["guide_price"],
+                "guide_price_high": item.get("guide_price_high") if item.get("guide_price_high") is not None else block["guide_price_high"],
+                "source_guide_text": item.get("source_guide_text") or block["guide_raw"],
                 "annual_rent": block["annual_rent"],
                 "rent_text": block["rent_text"],
                 "detail_match_score": round(score, 6),
                 "detail_page_number": block["page_number"],
             })
+            if not item.get("property_type"):
+                item["property_type"] = block.get("description")
         else:
             item.update({
-                "guide_price": None, "guide_price_high": None,
-                "source_guide_text": None, "annual_rent": None,
+                "guide_price": item.get("guide_price"),
+                "guide_price_high": item.get("guide_price_high"),
+                "source_guide_text": item.get("source_guide_text"), "annual_rent": None,
                 "rent_text": None, "detail_match_score": None,
                 "detail_page_number": None,
             })
@@ -322,14 +437,17 @@ def materialize_event(config, resolved_url, evidence, text):
             source_lot_id, resolved_url,
         )
         postcode = corpus.PC.search(item["address"])
+        property_evidence = f"{item.get('property_type') or ''} {item['address']}"
+        residential = bool(re.search(r"\b(?:bedroom|terrace(?:d)?|cottage|bungalow|hmo)\b", property_evidence, re.I))
+        commercial = bool(re.search(r"\b(?:commercial|shop|retail|office|industrial|warehouse|restaurant|takeaway|workshop)\b", property_evidence, re.I))
         row.update(
             appearance_id=f"{SOURCE}|{auction_id}|{source_lot_id}",
             address=item["address"],
             postcode=postcode.group().upper() if postcode else None,
             locality=item["address"],
-            sector=corpus.sector(f"{item['property_type']} {item['address']}"),
+            sector=corpus.sector(property_evidence, residential=residential, commercial=commercial),
             property_type=item["property_type"],
-            status="unknown",
+            status=item.get("status") or "unknown",
             guide_price=item["guide_price"],
             guide_price_high=item["guide_price_high"],
             annual_rent=item["annual_rent"],
@@ -339,6 +457,7 @@ def materialize_event(config, resolved_url, evidence, text):
             record_quality="address_record",
             source_position=position,
             source_guide_text=item["source_guide_text"],
+            source_order_outcome=item.get("source_order_outcome"),
             detail_match_score=item["detail_match_score"],
             detail_page_number=item["detail_page_number"],
             source_event_url=resolved_url,
@@ -364,6 +483,7 @@ def materialize_event(config, resolved_url, evidence, text):
         "lots_captured": len(materialized),
         "guides_captured": sum(row["guide_price"] is not None for row in materialized),
         "rents_captured": sum(row["annual_rent"] is not None for row in materialized),
+        "published_outcomes_captured": sum(row["status"] != "unknown" for row in materialized),
         "catalogue_complete": True,
         "source_rows_complete": True,
         "denominator_reconciled": True,
@@ -409,6 +529,52 @@ def reusable_states(events, existing, refresh_existing=False):
     return reusable
 
 
+def retained_catalogue(auction_date):
+    directory = corpus.DATA / "sources" / SLUG
+    complete = sorted(directory.glob(f"catalogue-{auction_date}-*.pdf.gz"))
+    if complete:
+        path = complete[-1]
+        return gzip.decompress(path.read_bytes()), {"snapshot_path": str(path.relative_to(corpus.ROOT))}
+    parts = sorted(directory.glob(f"catalogue-{auction_date}-*.pdf.gz.part-*"))
+    if not parts:
+        return None
+    prefixes = sorted({str(path).rsplit(".part-", 1)[0] for path in parts})
+    selected = [Path(path) for path in parts if str(path).startswith(prefixes[-1] + ".part-")]
+    return gzip.decompress(b"".join(path.read_bytes() for path in selected)), {
+        "snapshot_parts": [str(path.relative_to(corpus.ROOT)) for path in selected],
+        "snapshot_encoding": "concatenate parts, then gzip-decompress to recover the source PDF",
+    }
+
+
+def save_catalogue_snapshot(auction_date, raw, sha):
+    path = corpus.DATA / "sources" / SLUG / f"catalogue-{auction_date}-{sha[:20]}.pdf.gz"
+    compressed = gzip.compress(raw, mtime=0)
+    paths = (
+        [path]
+        if len(compressed) <= MAX_SNAPSHOT_PART_BYTES
+        else [
+            Path(f"{path}.part-{index // MAX_SNAPSHOT_PART_BYTES + 1:03d}")
+            for index in range(0, len(compressed), MAX_SNAPSHOT_PART_BYTES)
+        ]
+    )
+    if all(item.exists() for item in paths):
+        if corpus.digest(gzip.decompress(b"".join(item.read_bytes() for item in paths))) != sha:
+            raise ValueError(f"immutable snapshot collision at {paths}")
+    elif any(item.exists() for item in paths):
+        raise ValueError(f"incomplete immutable snapshot parts at {paths}")
+    else:
+        for index, item in enumerate(paths):
+            start = index * MAX_SNAPSHOT_PART_BYTES
+            corpus.atomic(item, compressed[start:start + MAX_SNAPSHOT_PART_BYTES])
+    if len(paths) == 1:
+        return {"snapshot_path": str(paths[0].relative_to(corpus.ROOT))}
+    return {
+        "snapshot_parts": [str(item.relative_to(corpus.ROOT)) for item in paths],
+        "snapshot_encoding": "concatenate parts, then gzip-decompress to recover the source PDF",
+        "snapshot_compressed_bytes": len(compressed),
+    }
+
+
 def persist_continuation(summary):
     path = corpus.DATA / "continuation_collection.json"
     payload = json.loads(path.read_text(encoding="utf-8"))
@@ -432,10 +598,10 @@ def persist_continuation(summary):
     payload["next_growth_target"] = NEXT_TARGET
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "regional-property-auctioneers-2012-2017",
-        "auctioneer": SOURCE,
-        "source_format": "first-party complete catalogue PDFs",
-        "opportunity": "the 32 accessible older catalogues currently outside the 2018-2023 parser batch",
+        "source_key_candidate": "halls-2022-retained-catalogues",
+        "auctioneer": "Halls",
+        "source_format": "retained first-party catalogue PDFs and result sheets",
+        "opportunity": "batch Halls' surviving 2022 Collective Property & Land catalogues through the existing multi-event runner",
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
     }
@@ -481,28 +647,22 @@ def harvest(refresh_existing=False):
             run_rows.extend(rows)
             continue
         try:
-            retained = sorted(
-                (corpus.DATA / "sources" / SLUG).glob(
-                    f"catalogue-{config['auction_date']}-*.pdf.gz"
-                )
-            )
+            retained = retained_catalogue(config["auction_date"])
             if retained:
-                snapshot = retained[-1]
-                raw = gzip.decompress(snapshot.read_bytes())
+                raw, snapshot_fields = retained
                 resolved = config["source_url"]
                 retrieved_at = corpus.now()
             else:
                 resolved, raw = fetch(config["source_url"])
                 retrieved_at = corpus.now()
             sha = corpus.digest(raw)
-            snapshot = corpus.DATA / "sources" / SLUG / f"catalogue-{config['auction_date']}-{sha[:20]}.pdf.gz"
-            if not snapshot.exists():
-                corpus.atomic(snapshot, gzip.compress(raw, mtime=0))
+            if not retained:
+                snapshot_fields = save_catalogue_snapshot(config["auction_date"], raw, sha)
             evidence = {
                 "source_url": resolved, "retrieved_at": retrieved_at, "sha256": sha,
-                "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
                 "basis": "complete first-party exact-dated property-auction catalogue PDF",
                 "archive_evidence": archive_evidence,
+                **snapshot_fields,
             }
             state, rows = materialize_event(config, resolved, evidence, pdf_text(raw))
             states[state["auction_date"]] = state
@@ -589,7 +749,7 @@ def harvest(refresh_existing=False):
     corpus.save_json(summary_path, summary)
     persist_continuation(summary)
     print(json.dumps(summary, indent=2), flush=True)
-    if failures or len(states) != len(events) or len(run_rows) != 267:
+    if failures or len(states) != len(events) or len(run_rows) != int(manifest["expected_lots"]):
         raise SystemExit(1)
     return summary
 

@@ -3,6 +3,44 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 12 November 2026 — Regional Property Auctioneers surviving archive complete
+
+- **Specific growth opportunity executed:** nine complete first-party catalogue
+  PDFs from 11 July 2012 to 12 March 2014, using a reusable legacy-layout parser
+  for numbered continuation rows and printed guide tables. The batch preserves
+  each catalogue and its original URL as immutable evidence; three large
+  compressed snapshots are split into deterministic parts that the collector
+  reassembles and verifies before reuse.
+- **Measured net gain:** **112 appearances / 112 address records / 112
+  exact-dated addresses inside the twenty-year window**. New partial, undated,
+  future-dated, duplicate and cross-source-overlap records are all **0**.
+- **Sector and evidence gain:** **22 commercial, 12 mixed-use, 9 land, 64
+  residential and 5 unknown** appearances; the commercial/mixed-use subset is
+  **34**. The batch adds **111 numeric guides, 0 achieved prices and 20
+  published rents**. It separately preserves three explicit `sold prior`
+  outcomes and one `postponed` outcome; no achieved amount is inferred.
+- **Inventory reconciliation:** Regional Property Auctioneers now retains all
+  **674/674 printed property lots across 54/54 surviving catalogue
+  inventories** from July 2012 to February 2023. The only remaining archive PDF
+  is the known catalogue-not-ready placeholder and is not counted as property
+  evidence. This batch newly covers source-years **2012 and 2013**; 2014 was
+  already represented.
+- **Corpus after rebuild:** **317,530 appearances**, **304,972 address records**
+  and **308,053 in-window appearances**. In-window evidence now includes
+  **110,065 numeric guides** and **114,174 achieved prices**; the latter is
+  unchanged by this catalogue-only batch.
+- **Operator reconciliation:** Regional Property Auctioneers remains one trading
+  name of **BARNSDALES LIMITED** (company 05521957), not an additional operator
+  or branch count. National completeness remains false despite this source-level
+  reconciliation.
+- **Next concrete growth target:** batch Halls' retained **2022 Collective
+  Property & Land catalogues and result sheets** through the existing multi-event
+  runner, preserving complete numbered inventories and leaving any unnamed
+  denominator gaps explicit. Do not refresh the exhausted Regional Property
+  Auctioneers archive.
+
+National completeness remains **false**.
+
 ## 12 November 2026 — Regional Property Auctioneers saved-PDF recovery complete
 
 - **Specific growth opportunity executed:** the five first-party catalogue PDFs

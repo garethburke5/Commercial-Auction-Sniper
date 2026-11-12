@@ -1,0 +1,42 @@
+{
+  "auctioneer": "Regional Property Auctioneers",
+  "operator_legal_name": "BARNSDALES LIMITED",
+  "operator_company_number": "05521957",
+  "trading_name": "Regional Property Auctioneers",
+  "source_auction_id": "regional-property-auctioneers:2014-03-12",
+  "auction_date": "2014-03-12",
+  "auction_date_precision": "day",
+  "source_url": "https://s3.eu-west-2.amazonaws.com/altcms/barnsdales/media/5502/12th March 2014.pdf",
+  "published_lots": 16,
+  "lots_captured": 16,
+  "guides_captured": 16,
+  "rents_captured": 5,
+  "published_outcomes_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-sale table in complete first-party catalogue PDF",
+  "completion_scope": "every numbered property row in the printed order-of-sale table; hidden stale template text excluded",
+  "source_evidence": {
+    "source_url": "https://s3.eu-west-2.amazonaws.com/altcms/barnsdales/media/5502/12th March 2014.pdf",
+    "retrieved_at": "2026-11-12T19:03:18.605122+00:00",
+    "sha256": "a633e2d33b7909a91da4fb75c08ed97c5d4190f545d94e61b8bd5887eeb1feb9",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_evidence": {
+      "source_url": "https://www.regionalpropertyauctioneers.co.uk/catalogue",
+      "retrieved_at": "2026-11-12T19:03:18.557768+00:00",
+      "sha256": "43113b1ba1c94097a297baac22338076b6decbe1f14cacd2c67d11d930f8c987",
+      "snapshot_path": "data/auction_history/sources/regional-property-auctioneers/catalogue-index-43113b1ba1c94097a297.html.gz",
+      "basis": "first-party multi-year property-auction catalogue archive"
+    },
+    "snapshot_parts": [
+      "data/auction_history/sources/regional-property-auctioneers/catalogue-2014-03-12-a633e2d33b7909a91da4.pdf.gz.part-001",
+      "data/auction_history/sources/regional-property-auctioneers/catalogue-2014-03-12-a633e2d33b7909a91da4.pdf.gz.part-002",
+      "data/auction_history/sources/regional-property-auctioneers/catalogue-2014-03-12-a633e2d33b7909a91da4.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover the source PDF",
+    "snapshot_compressed_bytes": 1742678
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T19:03:18.781844+00:00"
+}

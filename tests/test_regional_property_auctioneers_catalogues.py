@@ -11,12 +11,12 @@ regional = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(regional)
 
 
-def test_manifest_batches_45_catalogues_and_562_properties():
+def test_manifest_batches_54_catalogues_and_674_properties():
     payload = regional.load_manifest()
-    assert len(payload["events"]) == payload["expected_catalogues"] == 45
-    assert sum(event["expected_lots"] for event in payload["events"]) == payload["expected_lots"] == 562
+    assert len(payload["events"]) == payload["expected_catalogues"] == 54
+    assert sum(event["expected_lots"] for event in payload["events"]) == payload["expected_lots"] == 674
     assert {event["auction_date"][:4] for event in payload["events"]} == {
-        "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023",
+        "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023",
     }
 
 
@@ -76,6 +76,32 @@ def test_ranged_labels_and_wrapped_sector_rows_preserve_legal_interests():
     assert rows[0]["property_type"] == "VACANT COMMERCIAL"
     assert rows[1]["printed_lot_label"] == rows[2]["printed_lot_label"] == "2–2a"
     assert {row["printed_lot_label"] for row in rows[3:]} == {"3–6"}
+
+
+def test_legacy_guide_table_preserves_prices_and_published_outcomes():
+    fixture = """Lot Order and Guide Prices
+ LOT 1    LAND AT SPRINGWELL LANE, DONCASTER                    £110,000
+ LOT 2    WHITE HART COURT, MARKET RASEN                        SOLD PRIOR
+"""
+    rows = regional.parse_order_rows(fixture, 2)
+    assert rows[0]["guide_price"] == 110000
+    assert rows[1]["guide_price"] is None
+    assert rows[1]["status"] == "sold_prior"
+    assert rows[1]["source_order_outcome"] == "SOLD PRIOR"
+
+
+def test_numbered_legacy_table_joins_address_and_type_continuations():
+    fixture = """Order of sale
+ 1   FORMER LIBRARY & HOUSING OFFICE, MCCONNEL CRESCENT,        postponed to September
+     ROSSINGTON, DONCASTER DN11 0PL                             DEVELOPMENT LAND
+ 2   55 & 55A ARKSEY LANE, BENTLEY, DONCASTER DN5 0RX          RESIDENTIAL INVESTMENT/
+                                                               COMMERCIAL PREMISES
+"""
+    rows = regional.parse_order_rows(fixture, 2)
+    assert rows[0]["address"].endswith("DN11 0PL")
+    assert rows[0]["status"] == "postponed"
+    assert rows[0]["property_type"] == "DEVELOPMENT LAND"
+    assert rows[1]["property_type"] == "RESIDENTIAL INVESTMENT/ COMMERCIAL PREMISES"
 
 
 def test_truncated_postcode_row_uses_published_sector_boundary():
