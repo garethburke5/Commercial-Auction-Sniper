@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-12T08:24:14.488783+00:00",
-  "individual_lot_records_captured": 314830,
-  "records_with_address": 302273,
+  "generated_at": "2026-11-12T09:17:00.229481+00:00",
+  "individual_lot_records_captured": 314881,
+  "records_with_address": 302324,
   "partial_lot_records": 12557,
-  "exact_address_groups": 167909,
-  "groups_with_repeat_appearances": 43242,
+  "exact_address_groups": 167959,
+  "groups_with_repeat_appearances": 43243,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -55,6 +55,7 @@
     "Auction House Wales - Colwyn Bay": 36,
     "Auction House West Yorkshire": 223,
     "Auction North": 37,
+    "Auction Property Ltd": 51,
     "Auction Works": 652,
     "BTG Eddisons": 2982,
     "Bagshaws": 373,
@@ -155,18 +156,18 @@
     "2020": 13966,
     "2021": 21302,
     "2022": 26738,
-    "2023": 33426,
-    "2024": 42333,
-    "2025": 48393,
-    "2026": 47957,
+    "2023": 33429,
+    "2024": 42361,
+    "2025": 48406,
+    "2026": 47964,
     "2027": 4
   },
   "by_sector": {
-    "commercial": 42766,
-    "land": 19432,
+    "commercial": 42771,
+    "land": 19434,
     "mixed": 1,
-    "mixed-use": 47676,
-    "residential": 151997,
+    "mixed-use": 47686,
+    "residential": 152031,
     "unknown": 52958
   },
   "date_range": [
@@ -174,7 +175,7 @@
     "2027-01-14"
   ],
   "surviving_catalogues_completely_harvested": 5056,
-  "catalogues_incomplete_or_unreconciled": 580,
+  "catalogues_incomplete_or_unreconciled": 612,
   "catalogue_fetch_or_parse_failures": 37,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -187,13 +188,13 @@
     "through_date": "2026-11-12",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305353,
-      "auction_ids_observed": 13725,
-      "with_guide_price": 107456,
+      "lot_appearances": 305404,
+      "auction_ids_observed": 13744,
+      "with_guide_price": 107462,
       "with_sale_price": 112813,
       "with_both_prices": 49028,
-      "marked_sold": 155747,
-      "marked_sold_without_sale_price": 43674
+      "marked_sold": 155763,
+      "marked_sold_without_sale_price": 43690
     },
     "by_auctioneer_and_year": [
       {
@@ -3583,6 +3584,50 @@
         "with_both_prices": 0,
         "marked_sold": 1,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2024,
+        "lot_appearances": 28,
+        "auction_ids_observed": 6,
+        "with_guide_price": 2,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2025,
+        "lot_appearances": 13,
+        "auction_ids_observed": 7,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 9
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 5,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Auction Works",

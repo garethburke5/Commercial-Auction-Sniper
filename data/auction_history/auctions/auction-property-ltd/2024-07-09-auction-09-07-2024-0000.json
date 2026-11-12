@@ -1,0 +1,25 @@
+{
+  "auctioneer": "Auction Property Ltd",
+  "operator_legal_name": "AUCTION PROPERTY LTD",
+  "operator_company_number": "12828051",
+  "source_auction_id": "auction-property:2024-07-09:auction-09-07-2024-0000",
+  "auction_date": "2024-07-09",
+  "auction_date_precision": "day",
+  "source_url": "https://auctionproperty.co.uk/auction/auction-09-07-2024-0000/",
+  "lots_captured": 2,
+  "surviving_visible_cards": 2,
+  "published_lots_offered": null,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
+  "completion_scope": "every property card surviving on the current first-party event page; original catalogue denominator is unreconciled and empty event shells are retained without inventing removed lots",
+  "source_evidence": {
+    "source_url": "https://auctionproperty.co.uk/auction/auction-09-07-2024-0000/",
+    "retrieved_at": "2026-11-12T09:10:51.831583+00:00",
+    "sha256": "81e6131742f1f6d031f33100b2f734b53b053d534e3036856cbd37fb5232a905",
+    "snapshot_path": "data/auction_history/sources/auction-property-ltd/first-party/event-auction-09-07-2024-0000-81e6131742f1f6d031f3.html.gz",
+    "basis": "complete current first-party event page and surviving card inventory"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T09:11:37.647951+00:00"
+}
