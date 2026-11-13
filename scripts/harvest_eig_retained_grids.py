@@ -85,6 +85,50 @@ SOURCES = {
         "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
         "operator_company_number": "13328873",
     },
+    "sheldon-bosley-knight-online": {
+        "auctioneer": "Sheldon Bosley Knight",
+        "base": "https://online.sbkauctions.co.uk",
+        # This surviving first-party EIG result grid is a finite 26-card
+        # inventory.  It is independent of the room-auction result PDFs and
+        # retains individually dated online outcomes from 2023 and 2024.
+        "archive_path": "/search?view=Grid",
+        "expected_visible_cards": 26,
+        "operator_legal_name": "SHELDON BOSLEY KNIGHT LIMITED",
+        "operator_company_number": "10225947",
+        "historical_trading_names": ["Sheldon Bosley Knight Auctions"],
+        # Preserve the net delta against the pre-collector baseline across
+        # parser-enrichment retries made before the batch is published.
+        "preserve_batch_baseline": True,
+        # The room-result runner may already hold the same address and date.
+        # Exclude only strict one-to-one date/address matches, leaving related
+        # legal interests separate.
+        "exclude_exact_cross_source_overlaps": True,
+    },
+    "sealeys-auctions": {
+        "auctioneer": "Sealeys Auctions",
+        "base": "https://auctions.sealeys.co.uk",
+        "archive_path": "/search?view=Grid",
+        # The public grid renders in a browser while direct HTTP is rejected.
+        # A bounded normalized DOM snapshot avoids repeated probing of the
+        # known 403 route while retaining every visible individual lot.
+        "rendered_seed_path": "config/sealeys_browser_grid_2026-11-13.json",
+        "expected_visible_cards": 27,
+        "skip_detail_fetch": True,
+        "detail_recovery_deferred_reason": (
+            "first-party detail pages return HTTP 403 outside the browser-rendered route"
+        ),
+        "preserve_batch_baseline": True,
+        "exclude_exact_cross_source_overlaps": True,
+        "operator_legal_name": "SEALEYS ESTATE AGENTS LIMITED",
+        "operator_company_number": "04020881",
+        "historical_trading_names": ["Sealeys Walker Jarvis"],
+        "persist_growth_checkpoint": True,
+        "next_growth_target": (
+            "Batch the 25 browser-visible Sealeys past-auction event cards through "
+            "the same rendered-snapshot route, traverse each surviving catalogue, "
+            "and bank only individual lots not already present in the 27-card rolling grid."
+        ),
+    },
     "bowen": {
         "auctioneer": "Bowen",
         "base": "https://bowensonandwatson.eigonlineauctions.com",
@@ -5938,7 +5982,7 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
-PARSER_VERSION = 8
+PARSER_VERSION = 13
 
 
 def clean(value: str | None) -> str | None:
@@ -5973,6 +6017,22 @@ def annual_rent(match: re.Match | None) -> int | None:
     if re.search(r"month|p\.?\s*c\.?\s*m", period, re.I):
         value *= 12
     return int(value)
+
+
+def published_rent_match(value: str | None) -> re.Match | None:
+    """Return a periodic amount only when the source labels rental income.
+
+    EIG detail narratives also publish ground rent, service charges and estate
+    management charges.  Their periodic syntax is identical to rent, so the
+    amount alone is not sufficient evidence of occupier income.
+    """
+    text = value or ""
+    for match in RENT_RE.finditer(text):
+        context = text[max(0, match.start() - 100): min(len(text), match.end() + 40)]
+        if re.search(r"\b(?:rent|rental|income|let|letting|tenant|tenancy|passing|producing)\b", context, re.I):
+            if not re.search(r"\b(?:ground rent|service charge|management charge)\b", context, re.I):
+                return match
+    return None
 
 
 def get(
@@ -6037,14 +6097,17 @@ def classify_sector(address: str | None, text: str | None) -> str:
         combined,
     ):
         return "mixed-use"
+    if re.search(r"\bbusiness use premises\b", detail_text):
+        return "commercial"
     if re.search(
-        r"\b(commercial unit|shop|retail|office|public house|pub|inn|church|chapel|theatre|"
-        r"hospital|telephone exchange|ground rents?|warehouse|industrial)\b",
+        r"\b(?:commercial unit|shop|retail|public house|pub|inn|theatre|hospital|"
+        r"telephone exchange|ground rents?|warehouse|industrial|"
+        r"(?:office|church|chapel)(?!\s+(?:street|lane|road|close|drive|avenue|lawn)\b))\b",
         address_text,
     ):
         return "commercial"
     if re.search(
-        r"\b(flat|apartment|house|cottage|bungalow|terrace|bedroom|dwelling|maisonette)\b",
+        r"\b(flat|apartment|house|home|cottage|bungalow|terrace|bedroom|dwelling|maisonette)\b",
         combined,
     ):
         return "residential"
@@ -6116,7 +6179,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
             continue
         source_lot_id = identity.group(1).lower()
         original_url = urljoin(source["base"], detail.get("href") or "")
-        result_node = card.select_one(".list-guideprice")
+        result_node = card.select_one(".list-guideprice, .grid-guideprice")
         if result_node is None:
             result_node = next(
                 (
@@ -6129,7 +6192,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
             )
         result_text = clean(result_node.get_text(" ", strip=True)) if result_node else None
         status, sale_price = status_and_price(result_text)
-        tagline_node = card.select_one(".lot-data-heading strong")
+        tagline_node = card.select_one(".lot-data-heading strong, .grid-tagline")
         summary_node = card.select_one(".list-info p")
         tagline = clean(tagline_node.get_text(" ", strip=True)) if tagline_node else None
         summary = clean(summary_node.get_text(" ", strip=True)) if summary_node else None
@@ -6181,6 +6244,62 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
     return rows, malformed, excluded_non_auction
 
 
+def parse_rendered_seed(payload: dict, source: dict, evidence: dict) -> list[dict]:
+    """Build rows from a bounded browser-rendered grid snapshot."""
+    cards = payload.get("cards")
+    if not isinstance(cards, list) or not cards:
+        raise ValueError("rendered seed must contain a non-empty cards list")
+    rows = []
+    for position, card in enumerate(cards, 1):
+        source_lot_id = clean(card.get("source_lot_id"))
+        address = clean(card.get("address"))
+        auction_end = clean(card.get("auction_end"))
+        auction_date = exact_date(auction_end)
+        if not LOT_ID_RE.fullmatch("/lot/details/" + (source_lot_id or "")):
+            raise ValueError(f"invalid rendered-seed lot identity at position {position}")
+        if not address or not auction_date or card.get("position") != position:
+            raise ValueError(f"incomplete rendered-seed card at position {position}")
+        original_url = urljoin(source["base"], f"/lot/details/{source_lot_id}")
+        result_text = clean(card.get("result_text"))
+        description = clean(card.get("description"))
+        status, sale_price = status_and_price(result_text)
+        guide_match = re.search(
+            r"Guide Price\*?:\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?",
+            result_text or "", re.I,
+        )
+        rent_match = published_rent_match(description)
+        postcode = corpus.PC.search(address)
+        row = corpus.base_row(
+            source["auctioneer"], f"{source['slug']}:{auction_date}", auction_date,
+            None, source_lot_id, original_url,
+        )
+        row.update(
+            appearance_id=f"{source['auctioneer']}|eig-lot:{source_lot_id}",
+            address=address,
+            postcode=postcode.group().upper() if postcode else None,
+            locality=address,
+            guide_price=amount(guide_match),
+            guide_price_text=result_text if guide_match else None,
+            sale_price=sale_price,
+            status=status,
+            description=description,
+            sector=classify_sector(address, description),
+            annual_rent=annual_rent(rent_match),
+            rent_text=clean(rent_match.group(0)) if rent_match else None,
+            property_id=source_lot_id,
+            identity_method="first_party_published_eig_lot_id",
+            record_quality="address_record",
+            source_position=position,
+            source_result_text=result_text,
+            published_outcome_time=auction_end,
+            auction_date_basis="published individual lot outcome/end date",
+            browser_rendered_source=True,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+    return rows
+
+
 def description_after_heading(soup: BeautifulSoup) -> str | None:
     heading = soup.find(["h2", "h3"], string=lambda value: value and clean(value) == "Description")
     if not heading:
@@ -6221,7 +6340,7 @@ def enrich_detail(html: str, row: dict, evidence: dict, source: dict | None = No
     tagline = clean(tagline_node.get_text(" ", strip=True)) if tagline_node else None
     combined = clean(" ".join(dict.fromkeys(filter(None, [tagline, description, row.get("description")]))))
     guide_match = GUIDE_RE.search(meta_text or "")
-    rent_match = RENT_RE.search(combined or "")
+    rent_match = published_rent_match(combined)
     images = []
     for node in soup.select('.carousel-inner img[data-src], .carousel-inner img[src], meta[property="og:image"]'):
         candidate = node.get("data-src") or node.get("src") or node.get("content")
@@ -6420,6 +6539,62 @@ def retained_event_id(url: str) -> str | None:
     return None
 
 
+def persist_growth_checkpoint(source: dict, summary: dict) -> None:
+    """Persist a measured checkpoint only for an explicitly selected growth source."""
+    if not source.get("persist_growth_checkpoint"):
+        return
+    path = corpus.DATA / "continuation_collection.json"
+    state = json.loads(path.read_text()) if path.exists() else {"runs": []}
+    state["last_growth_attempt"] = {
+        "checked_at": summary["checked_at"],
+        "opportunity": (
+            f"{source['auctioneer']} complete browser-rendered first-party retained grid"
+        ),
+        "attempted_route": (
+            "Normalized the complete public browser-rendered EIG grid after direct HTTP "
+            "returned 403, preserved an immutable source snapshot, reconciled every card, "
+            "excluded exact cross-source overlaps, and deferred blocked detail enrichment."
+        ),
+        "net_new_appearances": summary["run_new_appearances"],
+        "new_address_records": summary["run_new_address_records"],
+        "new_partial_lots": summary["run_new_partial_lots"],
+        "new_dated_address_records_in_twenty_year_window": summary[
+            "run_new_dated_twenty_year_address_records"
+        ],
+        "commercial_or_mixed_use": summary["run_new_commercial_mixed"],
+        "new_guide_prices": summary["run_new_guide_prices"],
+        "new_sale_prices": summary["run_new_sale_prices"],
+        "new_rent_values": summary["run_new_rents"],
+        "new_undated_appearances": summary["run_new_undated"],
+        "new_future_dated_appearances": summary["run_new_future_dated"],
+        "newly_covered_source_years": summary["new_source_years"],
+        "duplicate_source_evidence_excluded": summary[
+            "run_duplicate_source_evidence_excluded"
+        ],
+        "reconciled_visible_cards": summary["visible_source_rows"],
+        "immutable_archive_sha256": summary["archive_sha256"],
+        "detail_recovery_deferred_reason": summary.get(
+            "detail_recovery_deferred_reason"
+        ),
+        "operator_reconciliation": (
+            "Sealeys Auctions and the Sealeys Walker Jarvis trading style are retained "
+            "under SEALEYS ESTATE AGENTS LIMITED (04020881), not counted as separate auctioneers."
+        ),
+        "national_completeness_verified": False,
+        "different_next_target": source["next_growth_target"],
+    }
+    state["next_growth_target"] = source["next_growth_target"]
+    state["national_completeness_verified"] = False
+    state.setdefault("latest_by_source", {})[f"eig_retained_grid:{source['slug']}"] = {
+        "source": f"eig_retained_grid:{source['slug']}",
+        "outcome": "completed_with_deferred_detail_route",
+        "checked_at": summary["checked_at"],
+        "net_new_appearances": summary["run_new_appearances"],
+        "diagnostic_tail": json.dumps(summary, ensure_ascii=False),
+    }
+    corpus.save_json(path, state)
+
+
 def harvest(slug: str, workers: int = 10) -> dict:
     if slug not in SOURCES:
         raise ValueError(f"unknown retained grid: {slug}")
@@ -6427,42 +6602,62 @@ def harvest(slug: str, workers: int = 10) -> dict:
     archive_url = source["base"] + source.get("archive_path", "/past-auctions?lotResultType=All")
     archive_attempts = int(source.get("archive_attempts", 5))
     archive_timeout = int(source.get("archive_timeout", 120))
-    first_raw, first_resolved = get(
-        archive_url, attempts=archive_attempts, timeout=archive_timeout
-    )
-    first_html = first_raw.decode("utf-8", "replace")
-    platform_event_id = retained_event_id(first_resolved)
-    pages = page_count(first_html)
-    fetched = {1: (first_raw, first_resolved)}
-    with ThreadPoolExecutor(max_workers=min(workers, pages)) as pool:
-        futures = {
-            pool.submit(
-                get,
-                archive_url + ("&" if "?" in archive_url else "?") + f"page={page}",
-                attempts=archive_attempts,
-                timeout=archive_timeout,
-            ): page
-            for page in range(2, pages + 1)
-        }
-        for future in as_completed(futures):
-            fetched[futures[future]] = future.result()
-
     archive_evidence, page_rows, malformed, excluded_non_auction = [], [], [], []
-    for page in range(1, pages + 1):
-        raw, resolved = fetched[page]
+    rendered_seed_path = source.get("rendered_seed_path")
+    if rendered_seed_path:
+        first_raw = (corpus.ROOT / rendered_seed_path).read_bytes()
+        seed_payload = json.loads(first_raw)
+        first_resolved = clean(seed_payload.get("source_url"))
+        if first_resolved != archive_url:
+            raise ValueError("rendered seed source URL does not match configured archive URL")
+        first_html = ""
+        platform_event_id = retained_event_id(first_resolved)
+        pages = 1
         evidence = snapshot(
-            raw, resolved, source, f"past-auctions-page-{page}",
-            "first-party retained EIG white-label past-auction grid", page=page, page_count=pages,
+            first_raw, first_resolved, source, "browser-rendered-grid",
+            "browser-rendered first-party EIG retained grid normalized DOM snapshot",
+            source_retrieved_at=seed_payload.get("retrieved_at"),
+            retrieval_route=seed_payload.get("retrieval_route"),
         )
         archive_evidence.append(evidence)
-        rows, bad, excluded = parse_grid(raw.decode("utf-8", "replace"), source, evidence)
-        page_rows.append(rows)
-        malformed.extend({"page": page, **value} for value in bad)
-        excluded_non_auction.extend({"page": page, **value} for value in excluded)
+        page_rows.append(parse_rendered_seed(seed_payload, source, evidence))
+        denominator = seed_payload.get("published_result_count")
+    else:
+        first_raw, first_resolved = get(
+            archive_url, attempts=archive_attempts, timeout=archive_timeout
+        )
+        first_html = first_raw.decode("utf-8", "replace")
+        platform_event_id = retained_event_id(first_resolved)
+        pages = page_count(first_html)
+        fetched = {1: (first_raw, first_resolved)}
+        with ThreadPoolExecutor(max_workers=min(workers, pages)) as pool:
+            futures = {
+                pool.submit(
+                    get,
+                    archive_url + ("&" if "?" in archive_url else "?") + f"page={page}",
+                    attempts=archive_attempts,
+                    timeout=archive_timeout,
+                ): page
+                for page in range(2, pages + 1)
+            }
+            for future in as_completed(futures):
+                fetched[futures[future]] = future.result()
+        for page in range(1, pages + 1):
+            raw, resolved = fetched[page]
+            evidence = snapshot(
+                raw, resolved, source, f"past-auctions-page-{page}",
+                "first-party retained EIG white-label past-auction grid",
+                page=page, page_count=pages,
+            )
+            archive_evidence.append(evidence)
+            parsed, bad, excluded = parse_grid(raw.decode("utf-8", "replace"), source, evidence)
+            page_rows.append(parsed)
+            malformed.extend({"page": page, **value} for value in bad)
+            excluded_non_auction.extend({"page": page, **value} for value in excluded)
+        denominator = published_denominator(first_html)
 
     rows = [row for page in page_rows for row in page]
     ids = [row["source_lot_id"] for row in rows]
-    denominator = published_denominator(first_html)
     page_visible_counts = [
         len(page_rows[page - 1])
         + sum(value["page"] == page for value in excluded_non_auction)
@@ -6510,34 +6705,37 @@ def harvest(slug: str, workers: int = 10) -> dict:
             return prior
 
     detail_results, detail_failures = {}, []
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = {
-            pool.submit(
-                get,
-                row["original_url"],
-                attempts=source.get("detail_attempts", 5),
-                timeout=source.get("detail_timeout", 120),
-            ): row
-            for row in rows
-        }
-        for future in as_completed(futures):
-            row = futures[future]
-            try:
-                raw, resolved = future.result()
-                evidence = snapshot(
-                    raw, resolved, source, f"lot-{row['source_lot_id']}",
-                    "first-party retained EIG property detail page",
-                    source_lot_id=row["source_lot_id"],
-                )
-                detail_results[row["appearance_id"]] = enrich_detail(
-                    raw.decode("utf-8", "replace"), row, evidence, source
-                )
-            except Exception as exc:
-                detail_failures.append({
-                    "source_lot_id": row["source_lot_id"], "url": row["original_url"],
-                    "error": f"{type(exc).__name__}: {exc}",
-                })
-                detail_results[row["appearance_id"]] = row
+    if source.get("skip_detail_fetch"):
+        detail_results = {row["appearance_id"]: row for row in rows}
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {
+                pool.submit(
+                    get,
+                    row["original_url"],
+                    attempts=source.get("detail_attempts", 5),
+                    timeout=source.get("detail_timeout", 120),
+                ): row
+                for row in rows
+            }
+            for future in as_completed(futures):
+                row = futures[future]
+                try:
+                    raw, resolved = future.result()
+                    evidence = snapshot(
+                        raw, resolved, source, f"lot-{row['source_lot_id']}",
+                        "first-party retained EIG property detail page",
+                        source_lot_id=row["source_lot_id"],
+                    )
+                    detail_results[row["appearance_id"]] = enrich_detail(
+                        raw.decode("utf-8", "replace"), row, evidence, source
+                    )
+                except Exception as exc:
+                    detail_failures.append({
+                        "source_lot_id": row["source_lot_id"], "url": row["original_url"],
+                        "error": f"{type(exc).__name__}: {exc}",
+                    })
+                    detail_results[row["appearance_id"]] = row
     if (
         source.get("auctioneer_from_detail")
         and detail_failures
@@ -6562,6 +6760,18 @@ def harvest(slug: str, workers: int = 10) -> dict:
     legacy_ids = {row["appearance_id"] for row in legacy}
     existing_archive = [row for row in existing if row["appearance_id"] not in legacy_ids]
     existing_reconciled, _ = reconcile_legacy_rolling_rows(existing_archive, legacy)
+    metric_baseline = existing_reconciled
+    batch_baseline_ids = None
+    if source.get("preserve_batch_baseline"):
+        if "batch_baseline_appearance_ids" in prior:
+            batch_baseline_ids = set(prior["batch_baseline_appearance_ids"])
+        elif prior.get("appearances_captured") == len(existing_reconciled):
+            batch_baseline_ids = set()
+        else:
+            batch_baseline_ids = {row["appearance_id"] for row in existing_reconciled}
+        metric_baseline = [
+            row for row in existing_reconciled if row["appearance_id"] in batch_baseline_ids
+        ]
     merged = {row["appearance_id"]: row for row in existing_archive}
     merged.update({row["appearance_id"]: row for row in admissible})
     reconciliation = {"legacy_rows": 0, "exact_overlaps": [], "exact_overlap_count": 0, "preserved_distinct_count": 0}
@@ -6574,7 +6784,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         raise RuntimeError(f"{slug} canonical reconciliation did not persist exactly")
     if legacy:
         legacy_path.unlink()
-    run_new_count = max(0, len(merged) - len(existing_reconciled))
+    run_new_count = max(0, len(merged) - len(metric_baseline))
 
     by_date = defaultdict(list)
     for row in admissible:
@@ -6605,7 +6815,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
     today_value = date.today()
     today = today_value.isoformat()
     cutoff = date(today_value.year - 20, today_value.month, today_value.day).isoformat()
-    years_before = {int(row["auction_date"][:4]) for row in existing_reconciled if row.get("auction_date")}
+    years_before = {int(row["auction_date"][:4]) for row in metric_baseline if row.get("auction_date")}
     years_after = {int(row["auction_date"][:4]) for row in merged.values() if row.get("auction_date")}
     archive_baseline = legacy if legacy else []
     baseline_dates = {int(row["auction_date"][:4]) for row in archive_baseline if row.get("auction_date")}
@@ -6663,15 +6873,15 @@ def harvest(slug: str, workers: int = 10) -> dict:
         } if visible_inventory_reconciled else None),
         "appearances_captured": len(merged),
         "run_new_appearances": run_new_count,
-        "run_new_address_records": max(0, sum(bool(row.get("address")) for row in all_rows) - sum(bool(row.get("address")) for row in existing_reconciled)),
-        "run_new_partial_lots": max(0, sum(not row.get("address") for row in all_rows) - sum(not row.get("address") for row in existing_reconciled)),
-        "run_new_dated_twenty_year_address_records": max(0, sum(bool(row.get("address")) for row in all_historical) - sum(bool(row.get("address")) for row in existing_reconciled if row.get("auction_date") and cutoff <= row["auction_date"] <= today)),
-        "run_new_commercial_mixed": max(0, sum(row.get("sector") in {"commercial", "mixed-use"} for row in all_rows) - sum(row.get("sector") in {"commercial", "mixed-use"} for row in existing_reconciled)),
-        "run_new_guide_prices": max(0, sum(row.get("guide_price") is not None for row in all_rows) - sum(row.get("guide_price") is not None for row in existing_reconciled)),
-        "run_new_sale_prices": max(0, sum(row.get("sale_price") is not None for row in all_rows) - sum(row.get("sale_price") is not None for row in existing_reconciled)),
-        "run_new_rents": max(0, sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in existing_reconciled)),
-        "run_new_undated": max(0, sum(not row.get("auction_date") for row in all_rows) - sum(not row.get("auction_date") for row in existing_reconciled)),
-        "run_new_future_dated": max(0, sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in existing_reconciled)),
+        "run_new_address_records": max(0, sum(bool(row.get("address")) for row in all_rows) - sum(bool(row.get("address")) for row in metric_baseline)),
+        "run_new_partial_lots": max(0, sum(not row.get("address") for row in all_rows) - sum(not row.get("address") for row in metric_baseline)),
+        "run_new_dated_twenty_year_address_records": max(0, sum(bool(row.get("address")) for row in all_historical) - sum(bool(row.get("address")) for row in metric_baseline if row.get("auction_date") and cutoff <= row["auction_date"] <= today)),
+        "run_new_commercial_mixed": max(0, sum(row.get("sector") in {"commercial", "mixed-use"} for row in all_rows) - sum(row.get("sector") in {"commercial", "mixed-use"} for row in metric_baseline)),
+        "run_new_guide_prices": max(0, sum(row.get("guide_price") is not None for row in all_rows) - sum(row.get("guide_price") is not None for row in metric_baseline)),
+        "run_new_sale_prices": max(0, sum(row.get("sale_price") is not None for row in all_rows) - sum(row.get("sale_price") is not None for row in metric_baseline)),
+        "run_new_rents": max(0, sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in metric_baseline)),
+        "run_new_undated": max(0, sum(not row.get("auction_date") for row in all_rows) - sum(not row.get("auction_date") for row in metric_baseline)),
+        "run_new_future_dated": max(0, sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in metric_baseline)),
         "run_duplicate_source_evidence_excluded": len(id_overlaps) + len(exact_overlaps),
         "duplicate_source_identity_exclusions": len(id_overlaps),
         "exact_date_address_overlap_exclusions": len(exact_overlaps),
@@ -6681,8 +6891,15 @@ def harvest(slug: str, workers: int = 10) -> dict:
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
         "by_attributed_auctioneer": dict(Counter(row.get("auctioneer") or "unknown" for row in merged.values())),
-        "detail_pages_captured": len(rows) - len(detail_failures),
-        "detail_recovery_complete": not detail_failures,
+        "detail_pages_captured": (
+            0 if source.get("skip_detail_fetch") else len(rows) - len(detail_failures)
+        ),
+        "detail_recovery_complete": (
+            not detail_failures and not source.get("skip_detail_fetch")
+        ),
+        "detail_recovery_deferred_reason": source.get(
+            "detail_recovery_deferred_reason"
+        ),
         "detail_recovery_failures": detail_failures,
         "completion_scope": (
             "every auction-lot card in every page of the surviving first-party grid; "
@@ -6696,6 +6913,8 @@ def harvest(slug: str, workers: int = 10) -> dict:
         ),
         "failures": [],
     }
+    if batch_baseline_ids is not None:
+        summary["batch_baseline_appearance_ids"] = sorted(batch_baseline_ids)
     if any(source.get(key) for key in (
         "operator_legal_name", "historical_trading_names", "merged_firms",
     )):
@@ -6724,6 +6943,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
             "archive_new_source_years": sorted(years_after - baseline_dates),
         })
     corpus.save_json(summary_path, summary)
+    persist_growth_checkpoint(source, summary)
     print(json.dumps(summary, indent=2), flush=True)
     return summary
 

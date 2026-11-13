@@ -1,0 +1,25 @@
+{
+  "auctioneer": "Sealeys Auctions",
+  "source_auction_id": "sealeys-auctions:2025-02-27",
+  "auction_date": "2025-02-27",
+  "source_url": "https://auctions.sealeys.co.uk/search?view=Grid",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://auctions.sealeys.co.uk/search?view=Grid",
+      "retrieved_at": "2026-11-13T16:24:41.486686+00:00",
+      "sha256": "9a01add3c962a7fc1ea34e33d8be80d5603ee1975807e399f00ce579c0237f69",
+      "snapshot_path": "data/auction_history/sources/sealeys-auctions/browser-rendered-grid-9a01add3c962a7fc.json.gz",
+      "basis": "browser-rendered first-party EIG retained grid normalized DOM snapshot",
+      "source_retrieved_at": "2026-11-13T16:13:00+00:00",
+      "retrieval_route": "browser-rendered first-party EIG grid after direct HTTP returned 403"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-13T16:24:57.917079+00:00"
+}

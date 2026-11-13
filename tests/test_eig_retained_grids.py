@@ -205,6 +205,51 @@ def test_opening_and_current_bids_are_not_treated_as_guides_or_sale_prices():
     assert current_row["guide_price"] is None and current_row["sale_price"] is None
 
 
+def test_browser_rendered_seed_preserves_dates_prices_rent_and_original_urls():
+    source = {"slug": "sealeys-auctions", **grids.SOURCES["sealeys-auctions"]}
+    payload = {
+        "cards": [
+            {
+                "position": 1,
+                "source_lot_id": "a074f1cd-e767-4935-b248-fb6dd48f301c",
+                "auction_end": "2026-03-12T13:06:24.2530000+00:00",
+                "address": "161 Windmill Street, Gravesend, Kent, DA12 1AH",
+                "description": "Commercial premises with tenant producing £890 pcm.",
+                "result_text": "Result: Sold for £245,000",
+            }
+        ]
+    }
+    rows = grids.parse_rendered_seed(payload, source, {"sha256": "seed"})
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["auction_date"] == "2026-03-12"
+    assert row["sale_price"] == 245000
+    assert row["annual_rent"] == 10680
+    assert row["sector"] == "commercial"
+    assert row["original_url"].endswith(row["source_lot_id"])
+    assert row["source_evidence"] == {"sha256": "seed"}
+
+
+def test_browser_rendered_seed_preserves_published_guide_without_currency_symbol():
+    source = {"slug": "sealeys-auctions", **grids.SOURCES["sealeys-auctions"]}
+    payload = {
+        "cards": [
+            {
+                "position": 1,
+                "source_lot_id": "7a95d14c-6de4-40ef-9fbb-5d5174dfa359",
+                "auction_end": "2026-11-25T13:00:00.0000000+00:00",
+                "address": "Clerks Cottage, Higham, ME3 7LR",
+                "description": "Cottage in a 2.5 acre plot.",
+                "result_text": "Guide Price*: 250,000",
+            }
+        ]
+    }
+    row = grids.parse_rendered_seed(payload, source, {})[0]
+    assert row["guide_price"] == 250000
+    assert row["sale_price"] is None
+    assert row["status"] == "unknown"
+
+
 def test_the_auction_company_uses_its_first_party_eig_host():
     source = grids.SOURCES["the-auction-company"]
     assert source == {
@@ -3654,6 +3699,46 @@ def test_retained_event_id_is_preserved_only_for_numbered_event_routes():
     assert grids.retained_event_id(
         "https://propertyauctions.lsh.co.uk/past-auctions?page=1&lotResultType=All"
     ) is None
+
+
+def test_sheldon_bosley_knight_online_grid_configuration():
+    source = grids.SOURCES["sheldon-bosley-knight-online"]
+    assert source["auctioneer"] == "Sheldon Bosley Knight"
+    assert source["archive_path"] == "/search?view=Grid"
+    assert source["expected_visible_cards"] == 26
+    assert source["operator_company_number"] == "10225947"
+    assert source["exclude_exact_cross_source_overlaps"] is True
+
+
+def test_grid_result_markup_preserves_outcome_price_and_tagline():
+    html = """
+    <div class="lot-panel">
+      <a href="/lot/details/85c11d6d-40f5-4b78-80c1-f360ee721c0b"></a>
+      <h4 class="grid-address">5 High Street, London, SW1A 1AA</h4>
+      <div class="grid-tagline">Retained grid description</div>
+      <div class="grid-guideprice">Result: <b>Sold for £123,000</b></div>
+      <time datetime="2024-02-02T12:00:00+00:00"></time>
+    </div>
+    """
+    row = grids.parse_grid(html, SOURCE, {})[0][0]
+    assert row["status"] == "sold"
+    assert row["sale_price"] == 123000
+    assert "Retained grid description" in row["description"]
+
+
+def test_street_names_do_not_turn_houses_into_commercial_assets():
+    for address in (
+        "Sunnycot, Church Street, Eckington, WR10 3AN",
+        "Caractus, Chapel Lawn, Bucknell, SY7 0BW",
+        "The Winthills, 2 Office Lane, Ludlow, SY8 3JT",
+    ):
+        assert grids.classify_sector(address, "A four bedroom family home") == "residential"
+
+
+def test_periodic_charge_is_not_rental_income():
+    assert grids.published_rent_match("Management charge £60.00 annually") is None
+    match = grids.published_rent_match("Currently let and producing rental income of £1,250 pcm")
+    assert grids.annual_rent(match) == 15000
 
 def test_select_targets_loads_a_deduplicated_manifest_batch(tmp_path):
     manifest = tmp_path / "retained-grid-batch.json"

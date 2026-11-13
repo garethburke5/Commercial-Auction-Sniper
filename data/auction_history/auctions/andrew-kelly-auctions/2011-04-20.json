@@ -1,0 +1,41 @@
+{
+  "auctioneer": "Andrew Kelly Auctions",
+  "trading_name": "Andrew Kelly Auctions",
+  "source_auction_id": "andrew-kelly-auctions:2011-04-20",
+  "auction_date": "2011-04-20",
+  "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/uploads/Catalogue%20-%2020th%20April.pdf",
+  "result_url": null,
+  "published_lots": 9,
+  "lots_captured": 9,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous 1..N printed catalogue lot inventory",
+  "guides_captured": 9,
+  "sale_prices_captured": 0,
+  "published_outcomes_captured": 0,
+  "rents_captured": 0,
+  "source_evidence": [
+    {
+      "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/dates-catalogues.html",
+      "retrieved_at": "2026-11-13T15:37:50.469292+00:00",
+      "sha256": "c021fd037a593a220c4c8c9d9b7e5e159ef0352e470e643261ba346833689dc6",
+      "source_size_bytes": 6497,
+      "snapshot_path": "data/auction_history/sources/andrew-kelly-auctions/archive-c021fd037a593a220c4c.html.gz",
+      "snapshot_encoding": "gzip-compressed original HTML bytes",
+      "basis": "first-party catalogue index and exact auction timetable"
+    },
+    {
+      "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/uploads/Catalogue%20-%2020th%20April.pdf",
+      "retrieved_at": "2026-11-13T15:38:04.091287+00:00",
+      "sha256": "89b48e0f8cec31e5adc1effde41fcf8967b7ac5f6c27cd42f4451d0ca9189b9e",
+      "source_size_bytes": 6112657,
+      "snapshot_path": "data/auction_history/sources/andrew-kelly-auctions/catalogue-2011-04-20-89b48e0f8cec31e5adc1.pdf.gz",
+      "snapshot_encoding": "gzip-compressed original PDF bytes",
+      "basis": "complete first-party property-auction catalogue PDF"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-13T15:38:04.241260+00:00",
+  "exact_global_overlaps_excluded": 0
+}

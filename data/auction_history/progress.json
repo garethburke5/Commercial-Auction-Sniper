@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T16:03:58.576952+00:00",
-  "individual_lot_records_captured": 313319,
-  "records_with_address": 302003,
+  "generated_at": "2026-11-13T16:25:41.257828+00:00",
+  "individual_lot_records_captured": 313393,
+  "records_with_address": 302077,
   "partial_lot_records": 11316,
-  "exact_address_groups": 167956,
-  "groups_with_repeat_appearances": 42983,
+  "exact_address_groups": 168003,
+  "groups_with_repeat_appearances": 42988,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -12,6 +12,7 @@
     "Allsop": 45007,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
+    "Andrew Kelly Auctions": 21,
     "Astleys": 29,
     "Auction Agent": 25,
     "Auction Estates": 2072,
@@ -117,8 +118,10 @@
     "Savills Auctions": 30930,
     "Savills Auctions (London & National)": 4,
     "Savills Commercial": 2,
+    "Sealeys Auctions": 27,
     "Seel & Co": 460,
     "Sharpes Auctions": 1237,
+    "Sheldon Bosley Knight": 26,
     "Smith & Sons": 1007,
     "Strettons": 199,
     "Sutton Kersh": 11401,
@@ -141,7 +144,7 @@
     "2008": 1503,
     "2009": 1302,
     "2010": 2296,
-    "2011": 3310,
+    "2011": 3331,
     "2012": 3628,
     "2013": 6302,
     "2014": 8544,
@@ -153,25 +156,25 @@
     "2020": 13957,
     "2021": 21296,
     "2022": 26725,
-    "2023": 33413,
-    "2024": 42327,
-    "2025": 48390,
-    "2026": 48309,
+    "2023": 33421,
+    "2024": 42334,
+    "2025": 48406,
+    "2026": 48331,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42789,
-    "land": 19405,
+    "commercial": 42795,
+    "land": 19414,
     "mixed": 1,
-    "mixed-use": 47714,
-    "residential": 151804,
-    "unknown": 51606
+    "mixed-use": 47722,
+    "residential": 151852,
+    "unknown": 51609
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 4987,
+  "surviving_catalogues_completely_harvested": 5039,
   "catalogues_incomplete_or_unreconciled": 562,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
@@ -185,13 +188,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305000,
-      "auction_ids_observed": 13659,
-      "with_guide_price": 106887,
-      "with_sale_price": 112822,
-      "with_both_prices": 48946,
-      "marked_sold": 155699,
-      "marked_sold_without_sale_price": 43617
+      "lot_appearances": 305072,
+      "auction_ids_observed": 13709,
+      "with_guide_price": 106923,
+      "with_sale_price": 112847,
+      "with_both_prices": 48961,
+      "marked_sold": 155744,
+      "marked_sold_without_sale_price": 43637
     },
     "by_auctioneer_and_year": [
       {
@@ -709,6 +712,17 @@
         "with_sale_price": 3,
         "with_both_prices": 3,
         "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrew Kelly Auctions",
+        "year": 2011,
+        "lot_appearances": 21,
+        "auction_ids_observed": 2,
+        "with_guide_price": 21,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -7994,6 +8008,28 @@
         "marked_sold_without_sale_price": 507
       },
       {
+        "auctioneer": "Sealeys Auctions",
+        "year": 2025,
+        "lot_appearances": 12,
+        "auction_ids_observed": 12,
+        "with_guide_price": 0,
+        "with_sale_price": 6,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 6
+      },
+      {
+        "auctioneer": "Sealeys Auctions",
+        "year": 2026,
+        "lot_appearances": 13,
+        "auction_ids_observed": 13,
+        "with_guide_price": 0,
+        "with_sale_price": 1,
+        "with_both_prices": 0,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 6
+      },
+      {
         "auctioneer": "Seel & Co",
         "year": 2019,
         "lot_appearances": 28,
@@ -8135,6 +8171,50 @@
         "with_both_prices": 22,
         "marked_sold": 57,
         "marked_sold_without_sale_price": 35
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2023,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2024,
+        "lot_appearances": 7,
+        "auction_ids_observed": 7,
+        "with_guide_price": 1,
+        "with_sale_price": 3,
+        "with_both_prices": 0,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2025,
+        "lot_appearances": 4,
+        "auction_ids_observed": 3,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 4
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 5,
+        "with_guide_price": 6,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Smith & Sons",
@@ -8732,7 +8812,7 @@
       }
     ],
     "undated_appearances": 5047,
-    "future_dated_appearances": 152,
+    "future_dated_appearances": 154,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

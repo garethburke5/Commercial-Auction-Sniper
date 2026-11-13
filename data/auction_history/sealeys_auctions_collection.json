@@ -1,0 +1,82 @@
+{
+  "checked_at": "2026-11-13T16:24:57.917640+00:00",
+  "auctioneer": "Sealeys Auctions",
+  "parser_version": 13,
+  "source_url": "https://auctions.sealeys.co.uk/search?view=Grid",
+  "platform_event_id": null,
+  "archive_sha256": "06619cf046e4799f0345411359f8664af2306ba15d50cc5e64080c48ec034c5e",
+  "archive_page_count": 1,
+  "archive_page_rows": [
+    27
+  ],
+  "archive_page_visible_cards": [
+    27
+  ],
+  "visible_source_rows": 27,
+  "expected_visible_cards": 27,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 27,
+  "distinct_source_identities": 27,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 27,
+  "run_new_appearances": 27,
+  "run_new_address_records": 27,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 25,
+  "run_new_commercial_mixed": 8,
+  "run_new_guide_prices": 2,
+  "run_new_sale_prices": 7,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 2,
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
+  "new_source_years": [
+    2025,
+    2026
+  ],
+  "date_range": [
+    "2025-01-23",
+    "2026-12-10"
+  ],
+  "by_status": {
+    "sold_prior": 7,
+    "unsold": 6,
+    "sold": 6,
+    "sold_after": 6,
+    "unknown": 2
+  },
+  "by_sector": {
+    "residential": 14,
+    "unknown": 3,
+    "commercial": 4,
+    "land": 2,
+    "mixed-use": 4
+  },
+  "by_attributed_auctioneer": {
+    "Sealeys Auctions": 27
+  },
+  "detail_pages_captured": 0,
+  "detail_recovery_complete": false,
+  "detail_recovery_deferred_reason": "first-party detail pages return HTTP 403 outside the browser-rendered route",
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "batch_baseline_appearance_ids": [],
+  "operator_legal_name": "SEALEYS ESTATE AGENTS LIMITED",
+  "operator_company_number": "04020881",
+  "historical_trading_names_not_counted_as_auctioneers": [
+    "Sealeys Walker Jarvis"
+  ],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}
