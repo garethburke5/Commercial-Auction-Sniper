@@ -3,6 +3,59 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Bamboo marketplace and Carter Jonas archive batch
+
+- **Specific growth opportunity executed:** collection moved away from Auction
+  Property Ltd after its 32 linked past-event pages reconciled to the **51
+  appearances already banked**. A reusable, resumable marketplace runner then
+  captured the complete surviving Bamboo Proptech inventory in **251 page
+  batches**, while the existing white-label runner captured Carter Jonas in the
+  same source family. This banked a substantial shared-platform archive rather
+  than adding another single-event workflow deployment.
+- **Measured net gain:** **3,820 individual appearances / 3,820 address
+  records**, comprising **3,773** marketplace appearances and **47 Carter Jonas
+  appearances. **3,597** are newly dated addresses inside the preceding
+  twenty-year window. New partial records are **0**; the retained date boundary
+  is **79 undated** and **144 future-dated** appearances.
+- **Sector and evidence gain:** the admitted rows add **1,256
+  commercial/mixed-use appearances**. They preserve **3,820 numeric guides,
+  2,681 achieved prices and 0 rents** in distinct fields with their original
+  property URLs and immutable snapshots. All 3,597 in-window rows have guide
+  evidence; the achieved-price gain is also 2,681 inside the window.
+- **Marketplace inventory and duplicate safeguards:** all **5,009 visible
+  stable property IDs** resolved to captured detail payloads. The collector
+  excluded **1,236 overlapping cards** before claiming growth: **309** stable
+  Bamboo IDs already banked through Carter Jonas or 247 Property Auctions
+  white-label sources and **927** exact auction-date/address overlaps, all
+  against existing Clive Emson evidence. The retained marketplace shard has
+  3,773 unique stable IDs and 3,773 unique appearance IDs.
+- **Auctioneer, branch and trading-name reconciliation:** each first-party
+  organisation display is retained as the auctioneer attribution; its
+  `branchDisplay` remains branch metadata and is not counted as another
+  auctioneer. `Clive Emson Auctioneers` is canonicalised to **Clive Emson**.
+  The run adds **392 newly represented historical auctioneer-year pairs across
+  169 auctioneers**: 22 in 2021, 59 in 2022, 80 in 2023, 80 in 2024, 76 in
+  2025 and 75 in 2026. Carter Jonas is newly represented in every year from
+  2021 through 2026.
+- **Corpus after rebuild:** **325,431 appearances**, **312,873 address records**,
+  **12,558 partial records** and **315,004 in-window appearances**. In-window
+  evidence totals are **114,872 guides** and **117,151 achieved prices**;
+  retained undated and future-dated totals are **6,930** and **377**.
+- **Integrity and publication preparation:** SQLite contains all 325,431 rows,
+  has no duplicate appearance IDs and passes full `PRAGMA integrity_check`.
+  The **185,851,777-byte** compressed database reconstructs from **23
+  checksum-addressed parts**. National completeness is not implied by complete
+  reconciliation of the surviving Bamboo inventory; deleted properties and
+  pre-Bamboo catalogues remain outside that denominator.
+- **Next concrete growth target:** recover **Bradleys Online Auction's
+  pre-2021 first-party history**, beginning with its indexed property pages and
+  surviving event/catalogue assets, and batch every accessible catalogue
+  through one runner. Deduplicate against the 424 Bamboo appearances already
+  banked. If no finite Bradleys inventory survives, rotate the same recovery
+  route to Stags and Fisher German rather than refreshing Bamboo.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — IAM-SOLD operator and partner recent-success batch
 
 - **Specific growth opportunity executed:** a reusable first-party runner

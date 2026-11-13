@@ -679,20 +679,85 @@
     "evidence": "The official sitemap exposed 301 news URLs with the retained archive beginning in 2022; targeted 2020/2021 searches produced no first-party event inventory.",
     "next_route": "Revisit only if an older first-party or independently archived catalogue route is discovered."
   },
+  "auction_property_ltd_target_reconciliation": {
+    "checked_at": "2026-11-13T09:00:00+00:00",
+    "opportunity": "Reconcile the proposed 32-page first-party past-event and sold-property route before launching another collector.",
+    "outcome": "already_banked_route_no_growth",
+    "published_event_pages": 32,
+    "retained_appearances": 51,
+    "net_new_appearances_claimed": 0,
+    "evidence": "The linked past-event and sold-property address inventory matches the 51 Auction Property Ltd appearances already retained. It was not refreshed or counted again.",
+    "next_route": "Revisit only when a genuinely older catalogue, saved property page or materially different inventory is found."
+  },
+  "bamboo_marketplace_and_carter_jonas_expansion": {
+    "checked_at": "2026-11-13T10:04:24.073063+00:00",
+    "opportunity": "Bank the complete surviving 5,009-property Bamboo marketplace inventory in reusable resumable batches, plus Carter Jonas' first-party Bamboo white-label archive, while excluding stable-ID and exact date/address overlaps.",
+    "net_new_appearances": 3820,
+    "new_address_records": 3820,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 3597,
+    "new_commercial_or_mixed_use": 1256,
+    "new_guide_prices_all_records": 3820,
+    "new_sale_prices_all_records": 2681,
+    "new_rent_values_all_records": 0,
+    "new_undated_appearances": 79,
+    "new_future_dated_appearances": 144,
+    "new_historical_source_year_pairs": 392,
+    "new_historical_source_year_auctioneers": 169,
+    "new_historical_source_year_pairs_by_year": {
+      "2021": 22,
+      "2022": 59,
+      "2023": 80,
+      "2024": 80,
+      "2025": 76,
+      "2026": 75
+    },
+    "source_breakdown": {
+      "Bamboo Proptech marketplace": 3773,
+      "Carter Jonas white-label archive": 47
+    },
+    "sector_breakdown": {
+      "commercial": 319,
+      "mixed-use": 937,
+      "residential": 1950,
+      "land": 349,
+      "unknown": 265
+    },
+    "visible_marketplace_properties": 5009,
+    "marketplace_detail_payloads_captured": 5009,
+    "marketplace_index_pages_reconciled": 251,
+    "duplicate_source_evidence_excluded": 1236,
+    "duplicate_stable_bamboo_ids_excluded": 309,
+    "duplicate_exact_date_address_evidence_excluded": 927,
+    "operator_reconciliation": "Each first-party organisation display is the auctioneer attribution. branchDisplay is retained only as branch metadata; Clive Emson Auctioneers is canonicalised to Clive Emson; aliases and branches are not inflated into additional auctioneers.",
+    "database_rebuild_verified": true,
+    "sqlite_integrity_verified": true,
+    "publication_parts_verified": 23,
+    "corpus_after_rebuild": {
+      "appearances": 325431,
+      "address_records": 312873,
+      "in_window_appearances": 315004,
+      "in_window_guide_prices": 114872,
+      "in_window_sale_prices": 117151,
+      "partial": 12558,
+      "undated": 6930,
+      "future_dated": 377
+    },
+    "next_growth_target": "Recover Bradleys Online Auction's pre-2021 first-party history from indexed individual property pages and surviving event/catalogue assets, batching every accessible catalogue through one reusable runner and deduplicating against the 424 Bamboo appearances already banked. If no finite Bradleys inventory survives, rotate the same recovery route to Stags and Fisher German instead of refreshing Bamboo. National completeness remains false.",
+    "national_completeness_verified": false
+  },
   "last_automated_growth": {
-    "source": "iamsold_first_party_recent_success",
+    "source": "bamboo_marketplace_and_carter_jonas_expansion",
     "outcome": "completed",
-    "checked_at": "2026-11-13T08:37:02.905289+00:00",
-    "run_new_appearances": 47,
-    "run_new_dated_twenty_year_address_records": 35,
-    "run_new_commercial_or_mixed": 9,
-    "run_new_guide_prices": 0,
-    "run_new_sale_prices": 34,
-    "run_new_rents": 1,
-    "newly_covered_source_years": [
-      "2026"
-    ],
-    "duplicate_source_evidence_excluded": 0,
+    "checked_at": "2026-11-13T10:04:24.073063+00:00",
+    "run_new_appearances": 3820,
+    "run_new_dated_twenty_year_address_records": 3597,
+    "run_new_commercial_or_mixed": 1256,
+    "run_new_guide_prices": 3820,
+    "run_new_sale_prices": 2681,
+    "run_new_rents": 0,
+    "new_historical_source_year_pairs": 392,
+    "duplicate_source_evidence_excluded": 1236,
     "national_completeness_verified": false
   },
   "last_growth_attempt": {
@@ -1843,15 +1908,15 @@
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
-  "next_growth_target": "Build one reusable Auction Property Ltd first-party multi-event runner over the 32 linked /past-auction-dates event pages and address-level /sold-properties results. Reconcile exact event denominators, dates, guides and outcomes before claiming growth, and deduplicate any shared-platform evidence. National completeness remains false.",
-  "next_task": 10,
+  "next_growth_target": "Recover Bradleys Online Auction's pre-2021 first-party history from indexed individual property pages and surviving event/catalogue assets, batching every accessible catalogue through one reusable runner and deduplicating against the 424 Bamboo appearances already banked. If no finite Bradleys inventory survives, rotate the same recovery route to Stags and Fisher German instead of refreshing Bamboo. National completeness remains false.",
+  "next_task": 11,
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-13T08:37:02.905289+00:00",
-    "source_key_candidate": "auction-property-ltd-multi-event-results",
-    "auctioneer": "Auction Property Ltd",
-    "source_format": "first-party linked past-event pages and sold-property cards",
-    "opportunity": "reconcile 32 linked past-event pages plus address-level sold results in one reusable runner",
-    "next_growth_target": "Build one reusable Auction Property Ltd first-party multi-event runner over the 32 linked /past-auction-dates event pages and address-level /sold-properties results. Reconcile exact event denominators, dates, guides and outcomes before claiming growth, and deduplicate any shared-platform evidence. National completeness remains false.",
+    "checked_at": "2026-11-13T10:04:24.073063+00:00",
+    "source_key_candidate": "bradleys-pre-2021-first-party-history",
+    "auctioneer": "Bradleys Online Auction",
+    "source_format": "indexed first-party individual property pages and surviving event/catalogue assets",
+    "opportunity": "recover pre-2021 evidence not present in the 424-property Bamboo marketplace holding and batch all accessible catalogues through one reusable runner",
+    "next_growth_target": "Recover Bradleys Online Auction's pre-2021 first-party history from indexed individual property pages and surviving event/catalogue assets, batching every accessible catalogue through one reusable runner and deduplicating against the 424 Bamboo appearances already banked. If no finite Bradleys inventory survives, rotate the same recovery route to Stags and Fisher German instead of refreshing Bamboo. National completeness remains false.",
     "national_completeness_verified": false
   },
   "prior_target_alias_reconciliation": {

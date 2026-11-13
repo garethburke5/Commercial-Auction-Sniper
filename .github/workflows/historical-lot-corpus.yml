@@ -54,6 +54,7 @@ on:
       - scripts/harvest_pugh_canonical.py
       - scripts/harvest_symonds_sampson_canonical.py
       - scripts/harvest_bamboo_auctioneer.py
+      - scripts/harvest_bamboo_marketplace.py
       - scripts/harvest_sanity_auctioneer.py
       - scripts/harvest_lextons_archive.py
       - scripts/harvest_lextons_results.py
@@ -142,6 +143,7 @@ on:
       - tests/test_pugh_history.py
       - tests/test_symonds_sampson_history.py
       - tests/test_bamboo_auctioneer.py
+      - tests/test_bamboo_marketplace.py
       - tests/test_sanity_auctioneer.py
       - tests/test_lextons_archive.py
       - tests/test_agents_property_auction_results.py
