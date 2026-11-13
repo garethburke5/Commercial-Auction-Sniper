@@ -7,6 +7,31 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through checkpoint — Kivells May 2019
+
+The retained 20-page Kivells May 2019 result book was processed through the
+reusable rendered-page batch runner. It adds **10 net appearances**, all exact-
+dated address records inside the twenty-year window: four residential and six
+land. The commercial/mixed-use subset is zero. New evidence comprises **10
+guides and 9 achieved prices**, with no rents, partial rows, undated rows,
+future-dated rows or duplicate identities.
+
+The first-party result book exposes ten distinct property cards. Nine publish a
+sold outcome and price; the tenth publishes only a guide, so its status and
+sale price remain unknown/null. Kivells 2019 is one newly covered source-year
+within the existing operator lineage. Rebuilt totals are 315,026 appearances,
+303,689 address records and 306,666 in-window appearances.
+
+The latest `main` refresh contained no appearance growth and omitted 1,697
+appearances already banked on six growth commits. The rebuilt union preserves
+those prior gains separately from this run's 10 new appearances. The queued
+current-scan and history-bank jobs were not duplicated. National coverage
+remains unverified.
+
+Next growth target: inventory the older books behind the Kivells FlipHTML
+publisher-profile pagination/API and batch the retained June, September and
+November 2019 result books where individually accessible.
+
 ## Follow-through checkpoint — Kivells 2020
 
 The retained February, July, September and October Kivells result books and the

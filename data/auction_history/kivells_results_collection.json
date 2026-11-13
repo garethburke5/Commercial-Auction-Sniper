@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-13T22:10:37.472158+00:00",
+  "checked_at": "2026-11-13T23:18:36.058526+00:00",
   "parser_version": 8,
   "retrieval_route": "saved_immutable_first_party_event_result_pdfs_and_fliphtml5_page_text",
   "event_pdfs_in_manifest": 11,
@@ -19,6 +19,11 @@
   "rendered_2020_books_completed_this_run": 5,
   "rendered_2020_individually_identified_cards": 53,
   "rendered_2020_aggregate_only_outcomes_not_admitted": 9,
+  "rendered_2019_books_in_manifest": 1,
+  "rendered_2019_books_banked": 1,
+  "rendered_2019_books_completed_this_run": 1,
+  "rendered_2019_individually_identified_cards": 10,
+  "rendered_2019_sold_prices_published": 9,
   "annual_review_2021_inventories_in_manifest": 1,
   "annual_review_2021_inventories_banked": 1,
   "annual_review_2021_inventories_completed_this_run": 1,
@@ -42,31 +47,32 @@
   "may_running_order_lots_reconciled": 14,
   "may_offered_lot_denominator": 13,
   "may_published_sold_result_cards": 10,
-  "appearances_captured": 539,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 549,
+  "run_new_appearances": 10,
+  "run_new_address_records": 10,
   "run_new_partial_lots": 0,
-  "run_new_guide_prices": 0,
-  "run_new_guide_evidence": 0,
-  "run_new_sale_prices": 0,
+  "run_new_guide_prices": 10,
+  "run_new_guide_evidence": 10,
+  "run_new_sale_prices": 9,
   "run_new_rents": 0,
   "exact_source_card_duplicates_collapsed": 97,
   "by_status": {
-    "sold": 435,
+    "sold": 444,
     "unsold": 75,
     "sold_prior": 15,
     "withdrawn": 6,
     "postponed": 2,
-    "unknown": 6
+    "unknown": 7
   },
   "by_sector": {
-    "residential": 131,
+    "residential": 135,
     "unknown": 94,
-    "land": 246,
+    "land": 252,
     "mixed-use": 27,
     "commercial": 41
   },
   "covered_source_years": [
+    "2019",
     "2020",
     "2021",
     "2022",
@@ -75,6 +81,7 @@
     "2025"
   ],
   "completed_source_urls": [
+    "https://online.fliphtml5.com/hoau/bxzq/",
     "https://online.fliphtml5.com/hoau/eiks/",
     "https://online.fliphtml5.com/hoau/emqo/",
     "https://online.fliphtml5.com/hoau/enrv/",
@@ -115,12 +122,12 @@
   ],
   "failures": [],
   "last_material_growth": {
-    "checked_at": "2026-11-13T21:53:59.870710+00:00",
-    "net_new_appearances": 53,
-    "new_address_records": 49,
-    "new_partial_lots": 4,
-    "new_guide_prices": 52,
-    "new_sale_prices": 44,
+    "checked_at": "2026-11-13T23:18:36.058526+00:00",
+    "net_new_appearances": 10,
+    "new_address_records": 10,
+    "new_partial_lots": 0,
+    "new_guide_prices": 10,
+    "new_sale_prices": 9,
     "new_rents": 0
   }
 }

@@ -1,0 +1,48 @@
+{
+  "checked_at": "2026-11-13T23:20:54+00:00",
+  "opportunity": "Kivells retained May 2019 Property Collective Auction result book",
+  "net_new_appearances": 10,
+  "new_address_records": 10,
+  "new_partial_lots": 0,
+  "new_dated_address_records_in_twenty_year_window": 10,
+  "commercial_or_mixed_use": 0,
+  "sector_breakdown": {
+    "residential": 4,
+    "land": 6,
+    "commercial": 0,
+    "mixed-use": 0,
+    "unknown": 0
+  },
+  "new_guide_prices": 10,
+  "new_sale_prices": 9,
+  "new_rent_values": 0,
+  "new_undated_appearances": 0,
+  "new_future_dated_appearances": 0,
+  "duplicate_appearances_admitted": 0,
+  "newly_covered_source_years": [2019],
+  "source_inventory": {
+    "source_url": "https://online.fliphtml5.com/hoau/bxzq/",
+    "auction_date": "2019-05-01",
+    "retained_pages": 20,
+    "identified_property_cards": 10,
+    "published_sold_prices": 9,
+    "guide_only_sale_price_nulls": 1
+  },
+  "merge_reconciliation": {
+    "prior_growth_appearances_preserved": 1697,
+    "counted_as_new_in_this_checkpoint": false,
+    "note": "Six previously banked growth commits were absent from the latest zero-growth main refresh; the union rebuild preserves them without relabelling them as current-run collection."
+  },
+  "corpus_after_rebuild": {
+    "appearances": 315026,
+    "address_records": 303689,
+    "partial_records": 11337,
+    "in_window_appearances": 306666,
+    "in_window_guide_prices": 108195,
+    "in_window_sale_prices": 113020,
+    "undated": 5056,
+    "future_dated": 184
+  },
+  "next_growth_target": "Use the Kivells FlipHTML publisher-profile pagination/API to inventory the older books omitted from its initial 50-book schema, identify the retained June, September and November 2019 result books, and batch all accessible individual cards through the reusable rendered runner. If those books are no longer individually retrievable, record that route once and move to a different uncovered accessible source-year.",
+  "national_completeness_verified": false
+}

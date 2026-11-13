@@ -3,13 +3,14 @@ import json
 from scripts.harvest_kivells_results import (
     DEFAULT_ANNUAL_2021_SEED, DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED,
     DEFAULT_HALF_YEAR_2021_SEED, DEFAULT_HALF_YEAR_2022_SEED,
-    DEFAULT_RENDERED_2020_SEED,
+    DEFAULT_RENDERED_2019_SEED, DEFAULT_RENDERED_2020_SEED,
     EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
     build_annual_2021_review_rows, build_fliphtml_rows, build_half_year_review_rows,
     build_may_rows, build_rendered_2020_rows, build_rows,
     extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
     load_annual_2021_review_seed, load_half_year_2021_review_seed,
-    load_half_year_review_seed, load_rendered_2020_seed, public_fliphtml_pages,
+    load_half_year_review_seed, load_rendered_2019_seed, load_rendered_2020_seed,
+    public_fliphtml_pages,
     parse_may_event_page, parse_text,
     saved_snapshot_dates, snapshot_metadata_path, status_from_text,
 )
@@ -118,6 +119,30 @@ def test_rendered_2020_batch_banks_only_identifiable_cards_and_null_prices():
     assert states["2020-09-09"]["individual_sale_prices_published"] == 7
     assert states["2020-10-28"]["individual_sale_prices_published"] == 8
     assert all(row["auction_date"].startswith("2020-") for row in rows)
+
+
+def test_rendered_2019_may_book_banks_ten_cards_and_preserves_unsold_price_null():
+    seed = load_rendered_2019_seed(DEFAULT_RENDERED_2019_SEED)
+    pages = {book["book_slug"]: fliphtml_pages(book) for book in seed["books"]}
+    evidence = {
+        book["book_slug"]: {"source_url": book["source_url"]}
+        for book in seed["books"]
+    }
+    results = build_rendered_2020_rows(seed, pages, evidence)
+    assert len(results) == 1
+    state, rows = results[0]
+    assert state["auction_date"] == "2019-05-01"
+    assert state["published_offered_lot_denominator"] == 10
+    assert state["published_sold_result_denominator"] == 9
+    assert state["individual_sale_prices_published"] == 9
+    assert len(rows) == 10
+    assert len({row["appearance_id"] for row in rows}) == 10
+    assert sum(row["guide_price"] is not None for row in rows) == 10
+    assert sum(row["sale_price"] is not None for row in rows) == 9
+    assert sum(row["status"] == "unknown" for row in rows) == 1
+    assert sum(bool(row["address"]) for row in rows) == 10
+    assert sum(row["sale_price"] or 0 for row in rows) == 1677000
+    assert all(row["auction_date"] == "2019-05-01" for row in rows)
 
 
 def test_2023_fliphtml_batch_reconciles_all_ten_event_denominators():

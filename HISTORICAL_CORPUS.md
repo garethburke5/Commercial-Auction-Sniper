@@ -3,6 +3,39 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Kivells May 2019 retained result book
+
+The reusable rendered-FlipHTML runner is now year-parameterised rather than
+hard-wired to the 2020 batch. It processed the complete retained 20-page May
+2019 result book (`bxzq`) and banks **10 net individual appearances** for the
+exact 1 May 2019 auction date. All original page images, viewer configuration,
+OCR text and checksums are retained in a byte-reconstructable split archive.
+
+All 10 additions are address-quality records inside the twenty-year window:
+four residential and six land appearances, with no commercial or mixed-use
+rows. They add **10 guide prices and 9 achieved prices**, with no rent values.
+Nine cards explicitly publish sold outcomes and achieved prices. The tenth,
+Land at Notter Bridge, publishes a guide but no result; its status and achieved
+price remain unknown/null rather than being inferred from the brochure's
+aggregate statement that nine lots sold. No partial, undated, future-dated or
+duplicate appearance was admitted.
+
+The rebuilt union contains **315,026 appearances, 303,689 address records,
+11,337 partial records and 306,666 in-window appearances**, including **108,195
+in-window guides and 113,020 in-window achieved prices**. Undated and
+future-dated totals remain 5,056 and 184. The union also protects 1,697
+appearances already banked on six growth commits that were absent from the
+latest zero-growth refresh of `main`; those prior gains are not counted as new
+collection in this checkpoint. Kivells 2019 is one newly covered source-year in
+the existing Kivells lineage. National completeness remains false.
+
+Next concrete growth target: use the Kivells FlipHTML publisher-profile
+pagination/API to inventory the older books omitted from its initial 50-book
+schema, identify the retained June, September and November 2019 result books,
+and batch all accessible individual cards through the same runner. If the
+individual books are no longer retrievable, record that route once and move to
+a different uncovered accessible source-year.
+
 ## 13 November 2026 — Kivells 2020 rendered result-book recovery
 
 The reusable Kivells runner now accepts a validated rendered-page manifest and
