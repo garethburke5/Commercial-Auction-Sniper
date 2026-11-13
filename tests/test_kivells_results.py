@@ -3,12 +3,14 @@ import json
 from scripts.harvest_kivells_results import (
     DEFAULT_ANNUAL_2021_SEED, DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED,
     DEFAULT_HALF_YEAR_2021_SEED, DEFAULT_HALF_YEAR_2022_SEED,
+    DEFAULT_RENDERED_2020_SEED,
     EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
     build_annual_2021_review_rows, build_fliphtml_rows, build_half_year_review_rows,
-    build_may_rows, build_rows,
+    build_may_rows, build_rendered_2020_rows, build_rows,
     extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
     load_annual_2021_review_seed, load_half_year_2021_review_seed,
-    load_half_year_review_seed, public_fliphtml_pages, parse_may_event_page, parse_text,
+    load_half_year_review_seed, load_rendered_2020_seed, public_fliphtml_pages,
+    parse_may_event_page, parse_text,
     saved_snapshot_dates, snapshot_metadata_path, status_from_text,
 )
 
@@ -89,6 +91,33 @@ def test_2021_reviews_reconcile_and_admit_only_one_unique_overlap_card():
     }
     assert states["2021-08-04"]["unmatched_offered_outcomes_null"] == 1
     assert states["2021-09-21"]["unmatched_offered_outcomes_null"] == 1
+
+
+def test_rendered_2020_batch_banks_only_identifiable_cards_and_null_prices():
+    seed = load_rendered_2020_seed(DEFAULT_RENDERED_2020_SEED)
+    pages = {book["book_slug"]: fliphtml_pages(book) for book in seed["books"]}
+    evidence = {
+        book["book_slug"]: {"source_url": book["source_url"]}
+        for book in seed["books"]
+    }
+    results = build_rendered_2020_rows(seed, pages, evidence)
+    states = {state["auction_date"]: state for state, _ in results}
+    rows = [row for _, event_rows in results for row in event_rows]
+    assert [len(event_rows) for _, event_rows in results] == [11, 9, 10, 2, 10, 11]
+    assert len(rows) == 53
+    assert len({row["appearance_id"] for row in rows}) == 53
+    assert sum(row["guide_price"] is not None for row in rows) == 52
+    assert sum(row["sale_price"] is not None for row in rows) == 44
+    assert sum(row["status"] == "unknown" for row in rows) == 2
+    assert sum(row["status"] == "sold_prior" for row in rows) == 1
+    assert sum(bool(row["address"]) for row in rows) == 49
+    assert sum(row["sector"] in {"commercial", "mixed-use"} for row in rows) == 4
+    assert states["2020-02-12"]["unidentified_offered_outcomes_null"] == 2
+    assert states["2020-03-25"]["unidentified_offered_outcomes_null"] == 2
+    assert states["2020-07-24"]["extra_guide_only_cards_outside_published_denominator"] == 1
+    assert states["2020-09-09"]["individual_sale_prices_published"] == 7
+    assert states["2020-10-28"]["individual_sale_prices_published"] == 8
+    assert all(row["auction_date"].startswith("2020-") for row in rows)
 
 
 def test_2023_fliphtml_batch_reconciles_all_ten_event_denominators():

@@ -6,6 +6,18 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 13 November follow-through: rendered historical books
+
+The reusable Kivells collector now accepts a validated rendered-page manifest,
+so several retained FlipHTML result books can be banked in one run. The 2020
+batch added 53 exact-dated appearances (49 addresses, 4 partial/locality), 52
+guides and 44 achieved prices across six event inventories. A deterministic
+archive preserves all 154 original page images and their checksums. Nine
+aggregate-only or unidentified outcomes remain denominator evidence rather than
+invented rows. The rebuilt 315,016-row database and its 248-part package pass
+SQLite integrity checking. National completeness remains false; Kivells May
+2019 (`bxzq`) and its companion 2019 books are the next concrete batch.
+
 ## Implemented recovery
 
 - The historical workflow runs hourly with a 20-minute rotating collection budget, a per-task timeout, and a single concurrency group. It no longer stops after four fast tasks.

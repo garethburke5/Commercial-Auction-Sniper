@@ -7,6 +7,27 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through checkpoint — Kivells 2020
+
+The retained February, July, September and October Kivells result books and the
+full-year review were processed as one rendered-page batch. The bank adds **53
+appearances**, comprising **49 exact-dated address records and 4 exact-dated
+partial/locality records** inside the twenty-year window. Four are commercial or
+mixed-use. New price evidence is **52 guides and 44 achieved prices**; rent gain
+is zero. Kivells 2020 is one newly covered source-year within the existing
+Kivells/Kivells Auctions lineage.
+
+The source reports 62 offered and 59 sold. Only 53 property identities survive
+on individual cards; nine aggregate-only or unidentified outcomes remain
+denominator evidence and are not counted as properties. The all-sector bank is
+independent of the commercial website filter. Rebuilt totals are 315,016
+appearances, 303,679 address records and 306,656 in-window appearances. The
+protected current-scan and history-bank runs were not duplicated. National
+coverage remains unverified.
+
+Next growth target: the retained 20-page Kivells May 2019 result book (`bxzq`),
+followed by the companion 2019 result books through the same batch runner.
+
 
 ## Persisted historical gain — 12:17 UTC
 

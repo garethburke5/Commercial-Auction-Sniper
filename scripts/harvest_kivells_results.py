@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 7
+PARSER_VERSION = 8
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
@@ -47,6 +47,10 @@ DEFAULT_ANNUAL_2021_SEED = (
 DEFAULT_HALF_YEAR_2021_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-2021-half-year-review.json.gz"
+)
+DEFAULT_RENDERED_2020_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2020-rendered-books.json.gz"
 )
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
@@ -671,17 +675,22 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
     for page_number, page in enumerate(pages, 1):
         raw = page.encode("utf-8")
         sha = corpus.digest(raw)
+        asset = {
+            "page_number": page_number,
+            "sha256": sha,
+            "source_size_bytes": len(raw),
+        }
+        if item.get("rendered_page_archive"):
+            asset.update(
+                image_sha256=(item.get("page_image_sha256") or [])[page_number - 1],
+                source_url=(item.get("page_source_urls") or [])[page_number - 1],
+                rendered_page_archive=item["rendered_page_archive"],
+            )
         path = prefix / f"{slug}-page-{page_number:02d}-{sha[:16]}.txt.gz"
         if not path.exists():
             corpus.atomic(path, gzip.compress(raw, mtime=0))
-        page_assets.append(
-            {
-                "page_number": page_number,
-                "sha256": sha,
-                "source_size_bytes": len(raw),
-                "snapshot_path": str(path.relative_to(corpus.ROOT)),
-            }
-        )
+        asset["snapshot_path"] = str(path.relative_to(corpus.ROOT))
+        page_assets.append(asset)
     public_snapshot_path = None
     public_sha = None
     if item.get("public_text_html") is not None:
@@ -717,6 +726,8 @@ def snapshot_fliphtml_book(item: dict, pages: list[str]) -> dict:
         "public_text_sha256": public_sha,
         "public_text_snapshot_path": public_snapshot_path,
         "page_assets": page_assets,
+        "page_image_sha256": item.get("page_image_sha256"),
+        "rendered_page_archive": item.get("rendered_page_archive"),
         "basis": " ".join(filter(None, (
             "complete first-party FlipHTML5 result-book page-text inventory and "
             "viewer config, with accessible public page text retained when used.",
@@ -802,6 +813,128 @@ def load_annual_2021_review_seed(path: Path = DEFAULT_ANNUAL_2021_SEED) -> dict:
     if item.get("book_slug") != "lshn" or len(item.get("review_cards") or []) != 72:
         raise ValueError("Kivells 2021 annual review seed has no 72-card inventory")
     return item
+
+
+def load_rendered_2020_seed(path: Path = DEFAULT_RENDERED_2020_SEED) -> dict:
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        seed = json.load(handle)
+    if seed.get("schema_version") != 1 or len(seed.get("books") or []) != 5:
+        raise ValueError("Kivells rendered 2020 seed has no five-book inventory")
+    events = seed.get("events") or []
+    if len(events) != 6 or sum(len(event["cards"]) for event in events) != 53:
+        raise ValueError("Kivells rendered 2020 seed has no 53-card inventory")
+    return seed
+
+
+def build_rendered_2020_rows(
+    seed: dict, pages_by_slug: dict[str, list[str]], evidence_by_slug: dict[str, dict],
+) -> list[tuple[dict, list[dict]]]:
+    """Build exact-dated rows from old viewer pages with no text endpoint.
+
+    The card manifest is reconciled to the first-party annual denominators.  A
+    published aggregate without an individual property identity remains a
+    denominator gap, and an achieved price is never derived from the aggregate.
+    """
+    results = []
+    seen_ids = set()
+    for event in seed["events"]:
+        cards = []
+        source_by_card = {}
+        for packed in event["cards"]:
+            (
+                card_id, slug, page_number, location, guide_low, guide_high,
+                sale_price, status, sector,
+            ) = packed
+            if card_id in seen_ids:
+                raise ValueError(f"duplicate rendered 2020 card id: {card_id}")
+            seen_ids.add(card_id)
+            pages = pages_by_slug[slug]
+            if not 1 <= page_number <= len(pages):
+                raise ValueError(f"invalid rendered page for {card_id}")
+            page_text = clean(pages[page_number - 1]) or ""
+            if not page_text:
+                raise ValueError(f"empty rendered page text for {card_id}")
+            guide_text = None
+            if guide_low is not None:
+                guide_text = f"Auction Guide Price £{guide_low:,}"
+                if guide_high is not None:
+                    guide_text += f" - £{guide_high:,}"
+            result_text = None
+            if sale_price is not None:
+                result_text = f"Sold for £{sale_price:,}"
+            elif status == "sold_prior":
+                result_text = "SOLD PRIOR; achieved price not published"
+            elif status == "sold":
+                result_text = "sold in the published event denominator; achieved price not published"
+            cards.append({
+                "lot_number": card_id,
+                "location": location,
+                "address": location if is_address(location) else None,
+                "guide_price": guide_low,
+                "guide_price_high": guide_high,
+                "guide_price_text": guide_text,
+                "sale_price": sale_price,
+                "status": status,
+                "sector": sector,
+                "source_result_text": result_text,
+                "source_card_text": clean(" ".join(filter(None, (
+                    location, guide_text, result_text, page_text,
+                )))),
+                "source_duplicate_count": 0,
+            })
+            source_by_card[card_id] = evidence_by_slug[slug]
+
+        state, rows = build_rows(
+            cards,
+            {
+                "auction_date": event["auction_date"],
+                "article_url": evidence_by_slug["zsfy"]["source_url"],
+                "published_lot_count": event["offered_lots"],
+            },
+            evidence_by_slug["zsfy"]["source_url"],
+            evidence_by_slug["zsfy"],
+        )
+        for row, card in zip(rows, cards):
+            row["sector"] = card["sector"]
+            row["source_evidence"] = source_by_card[card["lot_number"]]
+            row["source_url"] = source_by_card[card["lot_number"]]["source_url"]
+            row["auction_date_basis"] = (
+                "exact date printed in the retained first-party 2020 annual review; "
+                "monthly result-book cards reconciled to that section"
+            )
+            row["identity_method"] = (
+                "exact_event_date_stable_rendered_page_card_and_first_party_title"
+            )
+        known_value = sum(row.get("sale_price") or 0 for row in rows)
+        missing_identity = max(0, event["offered_lots"] - len(rows))
+        extra_cards = max(0, len(rows) - event["offered_lots"])
+        state.update(
+            parser_version=PARSER_VERSION,
+            source_format="retained FlipHTML5 rendered-page inventory",
+            catalogue_complete=(missing_identity == 0 and extra_cards == 0),
+            source_rows_complete=True,
+            lots_captured=len(rows),
+            published_offered_lot_denominator=event["offered_lots"],
+            published_sold_result_denominator=event["published_sold_lots"],
+            published_value_sold=event["published_value_sold"],
+            identified_card_count=len(rows),
+            unidentified_offered_outcomes_null=missing_identity,
+            extra_guide_only_cards_outside_published_denominator=extra_cards,
+            individual_sale_prices_published=sum(
+                row.get("sale_price") is not None for row in rows
+            ),
+            individual_sale_prices_sum=known_value,
+            unallocated_published_value_sold=event["published_value_sold"] - known_value,
+            denominator_reconciled=(missing_identity == 0 and extra_cards == 0),
+            denominator_basis=(
+                "individual property cards are banked once across overlapping monthly "
+                "books and the annual review; aggregate-only outcomes stay null"
+            ),
+            completion_scope="all individually identifiable cards in the retained 2020 sources",
+            errors=[],
+        )
+        results.append((state, rows))
+    return results
 
 
 def load_half_year_2021_review_seed(path: Path = DEFAULT_HALF_YEAR_2021_SEED) -> dict:
@@ -1356,6 +1489,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     failures = []
     completed_this_run = []
     completed_fliphtml_this_run = []
+    completed_rendered_2020_this_run = []
     completed_annual_review_2021_this_run = []
     completed_half_year_review_this_run = []
     completed_may_this_run = []
@@ -1521,6 +1655,54 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                     "error": f"{type(exc).__name__}: {exc}"[:500],
                 }
             )
+
+    rendered_2020_urls = []
+    if DEFAULT_RENDERED_2020_SEED.exists():
+        rendered_seed = load_rendered_2020_seed()
+        rendered_2020_urls = [book["source_url"] for book in rendered_seed["books"]]
+        if saved_only or any(url not in completed for url in rendered_2020_urls):
+            try:
+                pages_by_slug = {}
+                evidence_by_slug = {}
+                for book in rendered_seed["books"]:
+                    pages = fliphtml_pages(book)
+                    pages_by_slug[book["book_slug"]] = pages
+                    evidence_by_slug[book["book_slug"]] = snapshot_fliphtml_book(
+                        book, pages,
+                    )
+                event_results = build_rendered_2020_rows(
+                    rendered_seed, pages_by_slug, evidence_by_slug,
+                )
+                annual_sha = evidence_by_slug["zsfy"]["search_config_sha256"]
+                for state, rows in event_results:
+                    event_date = state["auction_date"]
+                    corpus.save_json(
+                        corpus.DATA / "auctions/kivells-results"
+                        / f"{event_date}-{annual_sha[:12]}-rendered-review.json",
+                        state,
+                    )
+                    prior = [
+                        row for row in merged.values()
+                        if row.get("auction_date") == event_date
+                    ]
+                    for row in prior:
+                        merged.pop(row["appearance_id"], None)
+                    for row in rows:
+                        merged[row["appearance_id"]] = row
+                    print(
+                        "KIVELLS 2020 RENDERED", event_date, len(rows),
+                        "individually identifiable cards", flush=True,
+                    )
+                completed.update(rendered_2020_urls)
+                completed_rendered_2020_this_run.extend(rendered_2020_urls)
+            except Exception as exc:
+                failures.append({
+                    "auction_date": "2020-02-12/2020-10-28",
+                    "url": evidence_by_slug.get("zsfy", {}).get(
+                        "source_url", "Kivells rendered 2020 seed"
+                    ),
+                    "error": f"{type(exc).__name__}: {exc}"[:500],
+                })
 
     annual_review_2021_url = None
     half_year_review_2021_url = None
@@ -1710,6 +1892,23 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "fliphtml5_2023_sold_cards_reconciled": sum(
             item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS
             if item["source_url"] in completed
+        ),
+        "rendered_2020_books_in_manifest": len(rendered_2020_urls),
+        "rendered_2020_books_banked": sum(
+            url in completed for url in rendered_2020_urls
+        ),
+        "rendered_2020_books_completed_this_run": len(
+            completed_rendered_2020_this_run
+        ),
+        "rendered_2020_individually_identified_cards": (
+            53 if rendered_2020_urls and all(
+                url in completed for url in rendered_2020_urls
+            ) else 0
+        ),
+        "rendered_2020_aggregate_only_outcomes_not_admitted": (
+            9 if rendered_2020_urls and all(
+                url in completed for url in rendered_2020_urls
+            ) else 0
         ),
         "annual_review_2021_inventories_in_manifest": int(
             annual_review_2021_url is not None

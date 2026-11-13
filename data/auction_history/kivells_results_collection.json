@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-11-13T19:48:39.484149+00:00",
-  "parser_version": 7,
+  "checked_at": "2026-11-13T22:10:37.472158+00:00",
+  "parser_version": 8,
   "retrieval_route": "saved_immutable_first_party_event_result_pdfs_and_fliphtml5_page_text",
   "event_pdfs_in_manifest": 11,
   "event_pdfs_banked": 11,
@@ -14,6 +14,11 @@
   "fliphtml5_2023_result_books_banked": 10,
   "fliphtml5_2023_result_cards_reconciled": 129,
   "fliphtml5_2023_sold_cards_reconciled": 107,
+  "rendered_2020_books_in_manifest": 5,
+  "rendered_2020_books_banked": 5,
+  "rendered_2020_books_completed_this_run": 5,
+  "rendered_2020_individually_identified_cards": 53,
+  "rendered_2020_aggregate_only_outcomes_not_admitted": 9,
   "annual_review_2021_inventories_in_manifest": 1,
   "annual_review_2021_inventories_banked": 1,
   "annual_review_2021_inventories_completed_this_run": 1,
@@ -37,7 +42,7 @@
   "may_running_order_lots_reconciled": 14,
   "may_offered_lot_denominator": 13,
   "may_published_sold_result_cards": 10,
-  "appearances_captured": 486,
+  "appearances_captured": 539,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
@@ -47,41 +52,36 @@
   "run_new_rents": 0,
   "exact_source_card_duplicates_collapsed": 97,
   "by_status": {
-    "sold": 385,
+    "sold": 435,
     "unsold": 75,
-    "sold_prior": 14,
+    "sold_prior": 15,
     "withdrawn": 6,
     "postponed": 2,
-    "unknown": 4
+    "unknown": 6
   },
   "by_sector": {
-    "residential": 106,
+    "residential": 131,
     "unknown": 94,
-    "land": 222,
-    "mixed-use": 26,
-    "commercial": 38
+    "land": 246,
+    "mixed-use": 27,
+    "commercial": 41
   },
   "covered_source_years": [
+    "2020",
     "2021",
     "2022",
     "2023",
     "2024",
     "2025"
   ],
-  "last_material_growth": {
-    "checked_at": "2026-11-13T19:45:08.267606+00:00",
-    "net_new_appearances": 73,
-    "new_address_records": 56,
-    "new_partial_lots": 17,
-    "new_guide_prices": 73,
-    "new_sale_prices": 73,
-    "new_rents": 0
-  },
   "completed_source_urls": [
     "https://online.fliphtml5.com/hoau/eiks/",
+    "https://online.fliphtml5.com/hoau/emqo/",
+    "https://online.fliphtml5.com/hoau/enrv/",
     "https://online.fliphtml5.com/hoau/evpc/",
     "https://online.fliphtml5.com/hoau/ewcr/",
     "https://online.fliphtml5.com/hoau/fhax/",
+    "https://online.fliphtml5.com/hoau/grlr/",
     "https://online.fliphtml5.com/hoau/hdbd/",
     "https://online.fliphtml5.com/hoau/hhtw/",
     "https://online.fliphtml5.com/hoau/keyr/",
@@ -95,9 +95,11 @@
     "https://online.fliphtml5.com/hoau/ujli/",
     "https://online.fliphtml5.com/hoau/ulyl/",
     "https://online.fliphtml5.com/hoau/uzqf/",
+    "https://online.fliphtml5.com/hoau/vxyo/",
     "https://online.fliphtml5.com/hoau/wais/",
     "https://online.fliphtml5.com/hoau/xnbb/",
     "https://online.fliphtml5.com/hoau/ymbq/",
+    "https://online.fliphtml5.com/hoau/zsfy/",
     "https://www.kivells.com/media/Auctions/Kivells%20January%202025%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20July%202024%20Auction%20Results.pdf",
     "https://www.kivells.com/media/Auctions/Kivells%20July%202025%20Auction%20Results.pdf",
@@ -111,5 +113,14 @@
     "https://www.kivells.com/media/Auctions/Kivells%20September%202025%20Auction%20results.pdf",
     "https://www.kivells.com/property-sales/property-auctions/15-may-kivells-collective-property-auction-may-2024"
   ],
-  "failures": []
+  "failures": [],
+  "last_material_growth": {
+    "checked_at": "2026-11-13T21:53:59.870710+00:00",
+    "net_new_appearances": 53,
+    "new_address_records": 49,
+    "new_partial_lots": 4,
+    "new_guide_prices": 52,
+    "new_sale_prices": 44,
+    "new_rents": 0
+  }
 }

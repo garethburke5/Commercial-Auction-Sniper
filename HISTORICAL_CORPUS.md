@@ -3,6 +3,44 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Kivells 2020 rendered result-book recovery
+
+The reusable Kivells runner now accepts a validated rendered-page manifest and
+batches five retained FlipHTML books without adding one workflow step per event.
+It reconciles the February, July, September and October result books against the
+full-year review and banks **53 net individual appearances** across six exact
+auction dates. All 154 original large page images, viewer configurations, OCR
+text and checksums are preserved in an immutable, byte-reconstructable archive.
+
+All 53 additions are inside the twenty-year window: **49 address records and 4
+partial/locality records**. The sector split is 3 commercial, 1 mixed-use, 24
+land and 25 residential, so the commercial/mixed-use subset is **4**. The batch
+adds **52 guide prices and 44 achieved prices**, with no rent values. Published
+outcomes remain distinct: 50 sold, 1 sold prior and 2 unknown. No undated or
+future-dated row was admitted.
+
+The annual review reports 59 sold from 62 offered for £10,577,450. Fifty-three
+property identities survive on individual cards. Six Exeter sales worth
+£461,000 and three further offered interests cannot be safely identified from
+the retained evidence, so those nine outcomes remain aggregate denominator
+evidence and were not fabricated as appearances. Review/result-book overlap is
+collapsed before growth is counted. Kivells 2020 is one newly covered
+source-year within the existing Kivells/Kivells Auctions lineage, not another
+auctioneer or branch.
+
+The rebuilt corpus contains **315,016 appearances, 303,679 address records,
+11,337 partial records and 306,656 in-window appearances**, including **108,185
+in-window guides and 113,009 in-window achieved prices**. Undated and
+future-dated totals remain 5,056 and 184. The database reconstructs from the
+published 248-part package with SQLite integrity `ok`. National completeness
+remains false.
+
+Next concrete growth target: process the retained 20-page Kivells May 2019
+result book (`bxzq`) through the same rendered-page runner, then inventory and
+batch the companion June, September and November 2019 result books exposed by
+the publisher profile. Preserve each individual date, guide, achieved price and
+outcome, and exclude repeated review cards and unidentified annual aggregates.
+
 ## 13 November 2026 — Kivells 2021 retained-review recovery
 
 The reusable Kivells FlipHTML runner now admits the retained 52-page 2021
