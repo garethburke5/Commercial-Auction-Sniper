@@ -1,4 +1,49 @@
 {
+  "sbk_online_and_andrew_kelly_legacy_2026_11_13": {
+    "checked_at": "2026-11-13T15:31:21.771897+00:00",
+    "sources": [
+      "Sheldon Bosley Knight retained first-party EIG result grid",
+      "Andrew Kelly Auctions retained first-party 2011 catalogues and result sheet"
+    ],
+    "source_rows_reconciled": 47,
+    "net_new_appearances": 47,
+    "new_address_records": 47,
+    "new_dated_address_records_in_twenty_year_window": 47,
+    "new_commercial_appearances": 2,
+    "new_mixed_use_appearances": 4,
+    "new_land_appearances": 7,
+    "new_residential_appearances": 34,
+    "new_guide_prices": 36,
+    "new_sale_prices": 18,
+    "new_rent_values": 4,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "duplicate_exact_date_address_exclusions": 0,
+    "newly_covered_source_years": {
+      "Andrew Kelly Auctions": [2011],
+      "Sheldon Bosley Knight": [2023, 2026]
+    },
+    "operator_reconciliation": "Andrew Kelly branches and the Sheldon Bosley Knight Auctions trading name are not counted as additional auctioneers.",
+    "corpus_after_rebuild": {
+      "appearances": 325595,
+      "address_records": 313037,
+      "partial": 12558,
+      "in_window_appearances": 315154,
+      "in_window_guide_prices": 114922,
+      "in_window_sale_prices": 117199,
+      "undated": 6943,
+      "future_dated": 378
+    },
+    "publication_package": {
+      "compressed_bytes": 185732139,
+      "parts": 23,
+      "sha256": "898696bff02c11954ae45891f4c9d8097f8571d88b4729176c4f378e9deda4c7"
+    },
+    "database_rebuild_verified": true,
+    "national_completeness_verified": false,
+    "next_growth_target": "Batch Sealeys Auctions' 27-card first-party search grid, 25-card past-auction grid and separate completed-sales list through the reusable EIG runner; reconcile stable IDs and exact dates before claiming growth."
+  },
   "sheldon_bosley_knight_mid_2025_results_2026_11_13": {
     "checked_at": "2026-11-13T14:10:19.944964+00:00",
     "source": "Sheldon Bosley Knight retained publisher-issued result tables",
@@ -841,21 +886,21 @@
     "national_completeness_verified": false
   },
   "last_automated_growth": {
-    "source": "bradleys_first_party_auction_inventory",
+    "source": "sbk_online_and_andrew_kelly_legacy",
     "outcome": "completed",
-    "checked_at": "2026-11-13T11:30:05.085407+00:00",
-    "run_new_appearances": 23,
-    "run_new_dated_twenty_year_address_records": 11,
-    "run_new_commercial_or_mixed": 1,
-    "run_new_guide_prices": 22,
-    "run_new_sale_prices": 0,
-    "run_new_rents": 0,
+    "checked_at": "2026-11-13T15:31:21.771897+00:00",
+    "run_new_appearances": 47,
+    "run_new_dated_twenty_year_address_records": 47,
+    "run_new_commercial_or_mixed": 6,
+    "run_new_guide_prices": 36,
+    "run_new_sale_prices": 18,
+    "run_new_rents": 4,
     "newly_covered_source_years": [
-      "2017",
-      "2019",
-      "2020"
+      "Andrew Kelly Auctions:2011",
+      "Sheldon Bosley Knight:2023",
+      "Sheldon Bosley Knight:2026"
     ],
-    "duplicate_source_evidence_excluded": 73,
+    "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
   },
   "last_growth_attempt": {
@@ -2024,15 +2069,15 @@
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
-  "next_growth_target": "Batch Fisher German pre-Bamboo first-party auction-property pages and surviving catalogue/result assets through one reusable retained-inventory runner, prioritising exact event dates and achieved prices and deduplicating shared-platform evidence. Revisit Stags' retained traditional-event pages only if a route recovers their lost lot payloads. National completeness remains false.",
+  "next_growth_target": "Batch Sealeys Auctions' 27-card first-party search grid, 25-card past-auction grid and separate corporate completed-sales list through the reusable EIG runner. Reconcile stable IDs, exact dates, guides and achieved prices across all three surfaces before claiming growth. National completeness remains false.",
   "next_task": 11,
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-13T11:30:05.085407+00:00",
-    "source_key_candidate": "fisher-german-pre-bamboo",
-    "auctioneer": "Fisher German",
-    "source_format": "retained first-party property or catalogue pages",
-    "opportunity": "batch retained pre-Bamboo auction property pages with exact dates and results",
-    "next_growth_target": "Batch Fisher German pre-Bamboo first-party auction-property pages and surviving catalogue/result assets through one reusable retained-inventory runner, prioritising exact event dates and achieved prices and deduplicating shared-platform evidence. Revisit Stags' retained traditional-event pages only if a route recovers their lost lot payloads. National completeness remains false.",
+    "checked_at": "2026-11-13T15:32:20+00:00",
+    "source_key_candidate": "sealeys-auctions-retained-grid",
+    "auctioneer": "Sealeys Auctions",
+    "source_format": "first-party EIG search/past-auction grids plus corporate completed-sales list",
+    "opportunity": "reconcile 27 search cards, 25 past-auction cards and completed-sale guide/achieved evidence in one reusable batch",
+    "next_growth_target": "Batch Sealeys Auctions' 27-card first-party search grid, 25-card past-auction grid and separate corporate completed-sales list through the reusable EIG runner. Reconcile stable IDs, exact dates, guides and achieved prices across all three surfaces before claiming growth. National completeness remains false.",
     "national_completeness_verified": false
   },
   "prior_target_alias_reconciliation": {
@@ -7489,6 +7534,24 @@
         "2020"
       ],
       "duplicate_source_evidence_excluded": 73,
+      "national_completeness_verified": false
+    },
+    {
+      "source": "sbk_online_and_andrew_kelly_legacy",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T15:31:21.771897+00:00",
+      "run_new_appearances": 47,
+      "run_new_dated_twenty_year_address_records": 47,
+      "run_new_commercial_or_mixed": 6,
+      "run_new_guide_prices": 36,
+      "run_new_sale_prices": 18,
+      "run_new_rents": 4,
+      "newly_covered_source_years": [
+        "Andrew Kelly Auctions:2011",
+        "Sheldon Bosley Knight:2023",
+        "Sheldon Bosley Knight:2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     }
   ],

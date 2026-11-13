@@ -3,6 +3,48 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — SBK online grid and Andrew Kelly catalogue batch
+
+- **Specific growth opportunities executed:** Sheldon Bosley Knight's complete
+  retained first-party online grid was reconciled at **26/26 stable lot IDs and
+  26/26 detail pages**. Collection then moved to the previously uncovered
+  Andrew Kelly Auctions entry, whose retained first-party page exposes two
+  complete 2011 catalogues and a February result sheet. One reusable
+  manifest-driven runner banked all **21/21 contiguous catalogue lots** and
+  merged the 12 result rows into the same appearances.
+- **Measured net gain:** **47 individual appearances / 47 address records**, all
+  exact-dated inside the preceding twenty-year window. There are **zero partial,
+  undated, future-dated or duplicate-derived additions**. Newly represented
+  canonical auctioneer-years are Andrew Kelly **2011** and Sheldon Bosley
+  Knight **2023 and 2026**; SBK 2024 and 2025 already had retained room-auction
+  evidence.
+- **Sector and price evidence:** the gain contains **two commercial, four
+  mixed-use, seven land and 34 residential appearances**. It adds **36 numeric
+  guides, 18 achieved prices and four actual rent observations**. Published
+  `AVAILABLE`, sold, sold-prior, sold-after, unsold and withdrawn outcomes stay
+  distinct; unknown values remain null.
+- **Evidence and identity safeguards:** catalogue and result evidence is merged
+  by exact event date and printed lot number rather than counted twice. Original
+  URLs and checksum-addressed immutable HTML/PDF/detail snapshots are retained.
+  Andrew Kelly branches and the historical `Sheldon Bosley Knight Auctions`
+  trading name are not counted as additional auctioneers.
+- **Corpus after rebuild:** **325,595 appearances**, **313,037 address records**,
+  **12,558 partial records** and **315,154 in-window appearances**. In-window
+  evidence totals are **114,922 guides** and **117,199 achieved prices**;
+  retained undated and future-dated totals remain **6,943** and **378**.
+- **Publication preparation:** SQLite passes integrity and duplicate-ID checks.
+  The **185,732,139-byte** gzip reconstructs from **23 checksum-addressed
+  parts** with SHA-256
+  `898696bff02c11954ae45891f4c9d8097f8571d88b4729176c4f378e9deda4c7`.
+- **Next concrete growth target:** batch the uncovered **Sealeys Auctions**
+  first-party inventory. Its EIG white-label surfaces currently expose **27
+  search cards and 25 past-auction cards**, while the first-party corporate
+  page retains a separate completed-sales list with guide and achieved prices.
+  Reconcile stable IDs and exact dates across all three surfaces through the
+  reusable grid runner before claiming growth.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Sheldon Bosley Knight mid-2025 result batch
 
 - **Specific growth opportunity executed:** the reusable Sheldon Bosley Knight

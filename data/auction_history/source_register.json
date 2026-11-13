@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T14:10:54.552843+00:00",
-  "corpus_checkpoint": "2026-11-13T14:10:19.944964+00:00",
+  "generated_at": "2026-11-13T15:39:37.769019+00:00",
+  "corpus_checkpoint": "2026-11-13T15:39:08.826190+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -213,13 +213,15 @@
       "name": "Andrew Kelly Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/andrew-kelly-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Andrew Kelly Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 21,
+      "years_with_retained_evidence": [
+        2011
+      ],
+      "with_guide_price": 21,
+      "with_sale_price": 6,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -6722,13 +6724,15 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Sheldon Bosley Knight",
       "match_basis": "exact label",
-      "retained_appearances": 84,
+      "retained_appearances": 110,
       "years_with_retained_evidence": [
+        2023,
         2024,
-        2025
+        2025,
+        2026
       ],
-      "with_guide_price": 0,
-      "with_sale_price": 30,
+      "with_guide_price": 15,
+      "with_sale_price": 42,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8272,7 +8276,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 450,
+  "directory_entries_not_linked": 449,
   "corpus_labels": {
     "247 Property Auctions": 272,
     "321 Estates Online Auction": 6,
@@ -8289,6 +8293,7 @@
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
     "Andrew Granger Online Auction": 3,
+    "Andrew Kelly Auctions": 21,
     "Andrews": 128,
     "Antony Davis Online Auction": 2,
     "Arron James Online Auction": 32,
@@ -8543,7 +8548,7 @@
     "Seel & Co": 460,
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
-    "Sheldon Bosley Knight": 84,
+    "Sheldon Bosley Knight": 110,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smith & Sons": 1007,
@@ -8592,13 +8597,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 315107,
-      "auction_ids_observed": 18517,
-      "with_guide_price": 114886,
-      "with_sale_price": 117181,
-      "with_both_prices": 53066,
-      "marked_sold": 161588,
-      "marked_sold_without_sale_price": 45147
+      "lot_appearances": 315154,
+      "auction_ids_observed": 18542,
+      "with_guide_price": 114922,
+      "with_sale_price": 117199,
+      "with_both_prices": 53081,
+      "marked_sold": 161614,
+      "marked_sold_without_sale_price": 45155
     },
     "by_auctioneer_and_year": [
       {
@@ -9270,6 +9275,17 @@
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrew Kelly Auctions",
+        "year": 2011,
+        "lot_appearances": 21,
+        "auction_ids_observed": 2,
+        "with_guide_price": 21,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -20604,25 +20620,47 @@
       },
       {
         "auctioneer": "Sheldon Bosley Knight",
+        "year": 2023,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
         "year": 2024,
-        "lot_appearances": 24,
-        "auction_ids_observed": 1,
-        "with_guide_price": 0,
-        "with_sale_price": 10,
+        "lot_appearances": 31,
+        "auction_ids_observed": 8,
+        "with_guide_price": 1,
+        "with_sale_price": 13,
         "with_both_prices": 0,
-        "marked_sold": 13,
-        "marked_sold_without_sale_price": 3
+        "marked_sold": 18,
+        "marked_sold_without_sale_price": 5
       },
       {
         "auctioneer": "Sheldon Bosley Knight",
         "year": 2025,
-        "lot_appearances": 60,
-        "auction_ids_observed": 6,
+        "lot_appearances": 64,
+        "auction_ids_observed": 9,
         "with_guide_price": 0,
         "with_sale_price": 20,
         "with_both_prices": 0,
-        "marked_sold": 36,
-        "marked_sold_without_sale_price": 16
+        "marked_sold": 40,
+        "marked_sold_without_sale_price": 20
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 5,
+        "with_guide_price": 6,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Signature Estates Online Auction",
@@ -23037,6 +23075,24 @@
         "2020"
       ],
       "duplicate_source_evidence_excluded": 73,
+      "national_completeness_verified": false
+    },
+    "sbk_online_and_andrew_kelly_legacy": {
+      "source": "sbk_online_and_andrew_kelly_legacy",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T15:31:21.771897+00:00",
+      "run_new_appearances": 47,
+      "run_new_dated_twenty_year_address_records": 47,
+      "run_new_commercial_or_mixed": 6,
+      "run_new_guide_prices": 36,
+      "run_new_sale_prices": 18,
+      "run_new_rents": 4,
+      "newly_covered_source_years": [
+        "Andrew Kelly Auctions:2011",
+        "Sheldon Bosley Knight:2023",
+        "Sheldon Bosley Knight:2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
     },
     "bowen": {
@@ -30616,7 +30672,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T14:10:53.762306+00:00",
+    "checked_at": "2026-11-13T15:39:36.917961+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

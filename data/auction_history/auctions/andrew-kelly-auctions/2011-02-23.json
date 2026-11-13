@@ -1,0 +1,50 @@
+{
+  "auctioneer": "Andrew Kelly Auctions",
+  "trading_name": "Andrew Kelly Auctions",
+  "source_auction_id": "andrew-kelly-auctions:2011-02-23",
+  "auction_date": "2011-02-23",
+  "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/uploads/02-2011-Catalogue.pdf",
+  "result_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/uploads/Auction%20Results%2023rd%20February%202011.pdf",
+  "published_lots": 12,
+  "lots_captured": 12,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous 1..N printed catalogue lot inventory",
+  "guides_captured": 12,
+  "sale_prices_captured": 6,
+  "published_outcomes_captured": 12,
+  "rents_captured": 2,
+  "source_evidence": [
+    {
+      "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/dates-catalogues.html",
+      "retrieved_at": "2026-11-13T15:37:50.469292+00:00",
+      "sha256": "c021fd037a593a220c4c8c9d9b7e5e159ef0352e470e643261ba346833689dc6",
+      "source_size_bytes": 6497,
+      "snapshot_path": "data/auction_history/sources/andrew-kelly-auctions/archive-c021fd037a593a220c4c.html.gz",
+      "snapshot_encoding": "gzip-compressed original HTML bytes",
+      "basis": "first-party catalogue index and exact auction timetable"
+    },
+    {
+      "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/uploads/02-2011-Catalogue.pdf",
+      "retrieved_at": "2026-11-13T15:37:55.091118+00:00",
+      "sha256": "69ac7bd83c7ec01defcbea54eca8bf78771b312c5b0ba75ffb1e6724ba29eaf1",
+      "source_size_bytes": 3161750,
+      "snapshot_path": "data/auction_history/sources/andrew-kelly-auctions/catalogue-2011-02-23-69ac7bd83c7ec01defcb.pdf.gz",
+      "snapshot_encoding": "gzip-compressed original PDF bytes",
+      "basis": "complete first-party property-auction catalogue PDF"
+    },
+    {
+      "source_url": "https://www.andrew-kelly.mysonpages.myzen.co.uk/property-auctions/uploads/Auction%20Results%2023rd%20February%202011.pdf",
+      "retrieved_at": "2026-11-13T15:37:59.234620+00:00",
+      "sha256": "d852c793b16486e845819eed541836f509aed97f85cc39eb947af451742500c2",
+      "source_size_bytes": 39760,
+      "snapshot_path": "data/auction_history/sources/andrew-kelly-auctions/result-2011-02-23-d852c793b16486e84581.pdf.gz",
+      "snapshot_encoding": "gzip-compressed original PDF bytes",
+      "basis": "complete first-party individual-lot auction result PDF"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-13T15:37:59.261701+00:00",
+  "exact_global_overlaps_excluded": 0
+}

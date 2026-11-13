@@ -95,6 +95,25 @@ SOURCES = {
         "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
         "operator_company_number": "13328873",
     },
+    "sheldon-bosley-knight-online": {
+        "auctioneer": "Sheldon Bosley Knight",
+        "base": "https://online.sbkauctions.co.uk",
+        # This surviving first-party EIG result grid is a finite 26-card
+        # inventory.  It is independent of the room-auction result PDFs and
+        # retains individually dated online outcomes from 2023 and 2024.
+        "archive_path": "/search?view=Grid",
+        "expected_visible_cards": 26,
+        "operator_legal_name": "SHELDON BOSLEY KNIGHT LIMITED",
+        "operator_company_number": "10225947",
+        "historical_trading_names": ["Sheldon Bosley Knight Auctions"],
+        # Preserve the net delta against the pre-collector baseline across
+        # parser-enrichment retries made before the batch is published.
+        "preserve_batch_baseline": True,
+        # The room-result runner may already hold the same address and date.
+        # Exclude only strict one-to-one date/address matches, leaving related
+        # legal interests separate.
+        "exclude_exact_cross_source_overlaps": True,
+    },
     "bowen": {
         "auctioneer": "Bowen",
         "base": "https://bowensonandwatson.eigonlineauctions.com",
@@ -5948,7 +5967,7 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
-PARSER_VERSION = 8
+PARSER_VERSION = 11
 
 
 def clean(value: str | None) -> str | None:
@@ -5983,6 +6002,22 @@ def annual_rent(match: re.Match | None) -> int | None:
     if re.search(r"month|p\.?\s*c\.?\s*m", period, re.I):
         value *= 12
     return int(value)
+
+
+def published_rent_match(value: str | None) -> re.Match | None:
+    """Return a periodic amount only when the source labels rental income.
+
+    EIG detail narratives also publish ground rent, service charges and estate
+    management charges.  Their periodic syntax is identical to rent, so the
+    amount alone is not sufficient evidence of occupier income.
+    """
+    text = value or ""
+    for match in RENT_RE.finditer(text):
+        context = text[max(0, match.start() - 100): min(len(text), match.end() + 40)]
+        if re.search(r"\b(?:rent|rental|income|let|letting|tenant|tenancy|passing|producing)\b", context, re.I):
+            if not re.search(r"\b(?:ground rent|service charge|management charge)\b", context, re.I):
+                return match
+    return None
 
 
 def get(
@@ -6048,13 +6083,14 @@ def classify_sector(address: str | None, text: str | None) -> str:
     ):
         return "mixed-use"
     if re.search(
-        r"\b(commercial unit|shop|retail|office|public house|pub|inn|church|chapel|theatre|"
-        r"hospital|telephone exchange|ground rents?|warehouse|industrial)\b",
+        r"\b(?:commercial unit|shop|retail|public house|pub|inn|theatre|hospital|"
+        r"telephone exchange|ground rents?|warehouse|industrial|"
+        r"(?:office|church|chapel)(?!\s+(?:street|lane|road|close|drive|avenue|lawn)\b))\b",
         address_text,
     ):
         return "commercial"
     if re.search(
-        r"\b(flat|apartment|house|cottage|bungalow|terrace|bedroom|dwelling|maisonette)\b",
+        r"\b(flat|apartment|house|home|cottage|bungalow|terrace|bedroom|dwelling|maisonette)\b",
         combined,
     ):
         return "residential"
@@ -6126,7 +6162,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
             continue
         source_lot_id = identity.group(1).lower()
         original_url = urljoin(source["base"], detail.get("href") or "")
-        result_node = card.select_one(".list-guideprice")
+        result_node = card.select_one(".list-guideprice, .grid-guideprice")
         if result_node is None:
             result_node = next(
                 (
@@ -6139,7 +6175,7 @@ def parse_grid(html: str, source: dict, evidence: dict) -> tuple[list[dict], lis
             )
         result_text = clean(result_node.get_text(" ", strip=True)) if result_node else None
         status, sale_price = status_and_price(result_text)
-        tagline_node = card.select_one(".lot-data-heading strong")
+        tagline_node = card.select_one(".lot-data-heading strong, .grid-tagline")
         summary_node = card.select_one(".list-info p")
         tagline = clean(tagline_node.get_text(" ", strip=True)) if tagline_node else None
         summary = clean(summary_node.get_text(" ", strip=True)) if summary_node else None
@@ -6231,7 +6267,7 @@ def enrich_detail(html: str, row: dict, evidence: dict, source: dict | None = No
     tagline = clean(tagline_node.get_text(" ", strip=True)) if tagline_node else None
     combined = clean(" ".join(dict.fromkeys(filter(None, [tagline, description, row.get("description")]))))
     guide_match = GUIDE_RE.search(meta_text or "")
-    rent_match = RENT_RE.search(combined or "")
+    rent_match = published_rent_match(combined)
     images = []
     for node in soup.select('.carousel-inner img[data-src], .carousel-inner img[src], meta[property="og:image"]'):
         candidate = node.get("data-src") or node.get("src") or node.get("content")
@@ -6572,6 +6608,18 @@ def harvest(slug: str, workers: int = 10) -> dict:
     legacy_ids = {row["appearance_id"] for row in legacy}
     existing_archive = [row for row in existing if row["appearance_id"] not in legacy_ids]
     existing_reconciled, _ = reconcile_legacy_rolling_rows(existing_archive, legacy)
+    metric_baseline = existing_reconciled
+    batch_baseline_ids = None
+    if source.get("preserve_batch_baseline"):
+        if "batch_baseline_appearance_ids" in prior:
+            batch_baseline_ids = set(prior["batch_baseline_appearance_ids"])
+        elif prior.get("appearances_captured") == len(existing_reconciled):
+            batch_baseline_ids = set()
+        else:
+            batch_baseline_ids = {row["appearance_id"] for row in existing_reconciled}
+        metric_baseline = [
+            row for row in existing_reconciled if row["appearance_id"] in batch_baseline_ids
+        ]
     merged = {row["appearance_id"]: row for row in existing_archive}
     merged.update({row["appearance_id"]: row for row in admissible})
     reconciliation = {"legacy_rows": 0, "exact_overlaps": [], "exact_overlap_count": 0, "preserved_distinct_count": 0}
@@ -6584,7 +6632,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
         raise RuntimeError(f"{slug} canonical reconciliation did not persist exactly")
     if legacy:
         legacy_path.unlink()
-    run_new_count = max(0, len(merged) - len(existing_reconciled))
+    run_new_count = max(0, len(merged) - len(metric_baseline))
 
     by_date = defaultdict(list)
     for row in admissible:
@@ -6615,7 +6663,7 @@ def harvest(slug: str, workers: int = 10) -> dict:
     today_value = date.today()
     today = today_value.isoformat()
     cutoff = date(today_value.year - 20, today_value.month, today_value.day).isoformat()
-    years_before = {int(row["auction_date"][:4]) for row in existing_reconciled if row.get("auction_date")}
+    years_before = {int(row["auction_date"][:4]) for row in metric_baseline if row.get("auction_date")}
     years_after = {int(row["auction_date"][:4]) for row in merged.values() if row.get("auction_date")}
     archive_baseline = legacy if legacy else []
     baseline_dates = {int(row["auction_date"][:4]) for row in archive_baseline if row.get("auction_date")}
@@ -6673,15 +6721,15 @@ def harvest(slug: str, workers: int = 10) -> dict:
         } if visible_inventory_reconciled else None),
         "appearances_captured": len(merged),
         "run_new_appearances": run_new_count,
-        "run_new_address_records": max(0, sum(bool(row.get("address")) for row in all_rows) - sum(bool(row.get("address")) for row in existing_reconciled)),
-        "run_new_partial_lots": max(0, sum(not row.get("address") for row in all_rows) - sum(not row.get("address") for row in existing_reconciled)),
-        "run_new_dated_twenty_year_address_records": max(0, sum(bool(row.get("address")) for row in all_historical) - sum(bool(row.get("address")) for row in existing_reconciled if row.get("auction_date") and cutoff <= row["auction_date"] <= today)),
-        "run_new_commercial_mixed": max(0, sum(row.get("sector") in {"commercial", "mixed-use"} for row in all_rows) - sum(row.get("sector") in {"commercial", "mixed-use"} for row in existing_reconciled)),
-        "run_new_guide_prices": max(0, sum(row.get("guide_price") is not None for row in all_rows) - sum(row.get("guide_price") is not None for row in existing_reconciled)),
-        "run_new_sale_prices": max(0, sum(row.get("sale_price") is not None for row in all_rows) - sum(row.get("sale_price") is not None for row in existing_reconciled)),
-        "run_new_rents": max(0, sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in existing_reconciled)),
-        "run_new_undated": max(0, sum(not row.get("auction_date") for row in all_rows) - sum(not row.get("auction_date") for row in existing_reconciled)),
-        "run_new_future_dated": max(0, sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in existing_reconciled)),
+        "run_new_address_records": max(0, sum(bool(row.get("address")) for row in all_rows) - sum(bool(row.get("address")) for row in metric_baseline)),
+        "run_new_partial_lots": max(0, sum(not row.get("address") for row in all_rows) - sum(not row.get("address") for row in metric_baseline)),
+        "run_new_dated_twenty_year_address_records": max(0, sum(bool(row.get("address")) for row in all_historical) - sum(bool(row.get("address")) for row in metric_baseline if row.get("auction_date") and cutoff <= row["auction_date"] <= today)),
+        "run_new_commercial_mixed": max(0, sum(row.get("sector") in {"commercial", "mixed-use"} for row in all_rows) - sum(row.get("sector") in {"commercial", "mixed-use"} for row in metric_baseline)),
+        "run_new_guide_prices": max(0, sum(row.get("guide_price") is not None for row in all_rows) - sum(row.get("guide_price") is not None for row in metric_baseline)),
+        "run_new_sale_prices": max(0, sum(row.get("sale_price") is not None for row in all_rows) - sum(row.get("sale_price") is not None for row in metric_baseline)),
+        "run_new_rents": max(0, sum(row.get("annual_rent") is not None for row in all_rows) - sum(row.get("annual_rent") is not None for row in metric_baseline)),
+        "run_new_undated": max(0, sum(not row.get("auction_date") for row in all_rows) - sum(not row.get("auction_date") for row in metric_baseline)),
+        "run_new_future_dated": max(0, sum((row.get("auction_date") or "") > today for row in all_rows) - sum((row.get("auction_date") or "") > today for row in metric_baseline)),
         "run_duplicate_source_evidence_excluded": len(id_overlaps) + len(exact_overlaps),
         "duplicate_source_identity_exclusions": len(id_overlaps),
         "exact_date_address_overlap_exclusions": len(exact_overlaps),
@@ -6706,6 +6754,8 @@ def harvest(slug: str, workers: int = 10) -> dict:
         ),
         "failures": [],
     }
+    if batch_baseline_ids is not None:
+        summary["batch_baseline_appearance_ids"] = sorted(batch_baseline_ids)
     if any(source.get(key) for key in (
         "operator_legal_name", "historical_trading_names", "merged_firms",
     )):

@@ -6,6 +6,33 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## Follow-through — SBK online and Andrew Kelly catalogue batch, 13 November 2026
+
+Two materially different first-party routes banked **47 net individual
+appearances / 47 exact-dated in-window address records**. Sheldon Bosley
+Knight's finite EIG grid reconciled 26 cards, 26 stable IDs and 26 detail pages.
+The run then moved to uncovered Andrew Kelly Auctions and batched both retained
+2011 catalogues: 21 contiguous numbered lots, with all 12 February result rows
+merged into their catalogue appearances rather than double-counted.
+
+The gain contains two commercial, four mixed-use, seven land and 34 residential
+appearances. It adds **36 guides, 18 achieved prices and four rent values**.
+Partial, undated, future-dated and duplicate-derived additions are all zero.
+Newly represented canonical auctioneer-years are Andrew Kelly 2011 and SBK 2023
+and 2026. SBK 2024 and 2025 were already represented by room-auction evidence.
+
+The rebuilt corpus contains **325,595 appearances**, 313,037 address records and
+315,154 in-window appearances. SQLite integrity and unique appearance IDs are
+verified; its 185,732,139-byte gzip reconstructs from 23 checksum-addressed
+parts. Original URLs and immutable HTML/PDF/detail evidence remain banked, and
+branches/trading names are not inflated into new auctioneers.
+
+The next concrete target is uncovered Sealeys Auctions: reconcile the 27-card
+first-party search grid, 25-card past-auction grid and the corporate
+completed-sales list through the reusable EIG runner, preserving exact dates,
+guides and achieved prices and excluding stable-ID overlaps. National
+completeness remains false.
+
 ## Follow-through — Sheldon Bosley Knight mid-2025 batch, 13 November 2026
 
 The reusable retained-result runner banked three additional complete

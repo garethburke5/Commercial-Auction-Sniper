@@ -3655,6 +3655,46 @@ def test_retained_event_id_is_preserved_only_for_numbered_event_routes():
         "https://propertyauctions.lsh.co.uk/past-auctions?page=1&lotResultType=All"
     ) is None
 
+
+def test_sheldon_bosley_knight_online_grid_configuration():
+    source = grids.SOURCES["sheldon-bosley-knight-online"]
+    assert source["auctioneer"] == "Sheldon Bosley Knight"
+    assert source["archive_path"] == "/search?view=Grid"
+    assert source["expected_visible_cards"] == 26
+    assert source["operator_company_number"] == "10225947"
+    assert source["exclude_exact_cross_source_overlaps"] is True
+
+
+def test_grid_result_markup_preserves_outcome_price_and_tagline():
+    html = """
+    <div class="lot-panel">
+      <a href="/lot/details/85c11d6d-40f5-4b78-80c1-f360ee721c0b"></a>
+      <h4 class="grid-address">5 High Street, London, SW1A 1AA</h4>
+      <div class="grid-tagline">Retained grid description</div>
+      <div class="grid-guideprice">Result: <b>Sold for £123,000</b></div>
+      <time datetime="2024-02-02T12:00:00+00:00"></time>
+    </div>
+    """
+    row = grids.parse_grid(html, SOURCE, {})[0][0]
+    assert row["status"] == "sold"
+    assert row["sale_price"] == 123000
+    assert "Retained grid description" in row["description"]
+
+
+def test_street_names_do_not_turn_houses_into_commercial_assets():
+    for address in (
+        "Sunnycot, Church Street, Eckington, WR10 3AN",
+        "Caractus, Chapel Lawn, Bucknell, SY7 0BW",
+        "The Winthills, 2 Office Lane, Ludlow, SY8 3JT",
+    ):
+        assert grids.classify_sector(address, "A four bedroom family home") == "residential"
+
+
+def test_periodic_charge_is_not_rental_income():
+    assert grids.published_rent_match("Management charge £60.00 annually") is None
+    match = grids.published_rent_match("Currently let and producing rental income of £1,250 pcm")
+    assert grids.annual_rent(match) == 15000
+
 def test_select_targets_loads_a_deduplicated_manifest_batch(tmp_path):
     manifest = tmp_path / "retained-grid-batch.json"
     manifest.write_text(

@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T14:10:19.944964+00:00",
-  "individual_lot_records_captured": 325548,
-  "records_with_address": 312990,
+  "generated_at": "2026-11-13T15:39:08.826190+00:00",
+  "individual_lot_records_captured": 325595,
+  "records_with_address": 313037,
   "partial_lot_records": 12558,
-  "exact_address_groups": 176610,
-  "groups_with_repeat_appearances": 44301,
+  "exact_address_groups": 176633,
+  "groups_with_repeat_appearances": 44304,
   "by_auctioneer": {
     "247 Property Auctions": 272,
     "321 Estates Online Auction": 6,
@@ -21,6 +21,7 @@
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
     "Andrew Granger Online Auction": 3,
+    "Andrew Kelly Auctions": 21,
     "Andrews": 128,
     "Antony Davis Online Auction": 2,
     "Arron James Online Auction": 32,
@@ -275,7 +276,7 @@
     "Seel & Co": 460,
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
-    "Sheldon Bosley Knight": 84,
+    "Sheldon Bosley Knight": 110,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smith & Sons": 1007,
@@ -330,7 +331,7 @@
     "2008": 1503,
     "2009": 1302,
     "2010": 2296,
-    "2011": 3310,
+    "2011": 3331,
     "2012": 3662,
     "2013": 6364,
     "2014": 8680,
@@ -342,25 +343,25 @@
     "2020": 14139,
     "2021": 22570,
     "2022": 28107,
-    "2023": 35425,
-    "2024": 43915,
-    "2025": 49761,
-    "2026": 49519,
+    "2023": 35433,
+    "2024": 43922,
+    "2025": 49765,
+    "2026": 49526,
     "2027": 9
   },
   "by_sector": {
-    "commercial": 43461,
-    "land": 20344,
+    "commercial": 43463,
+    "land": 20351,
     "mixed": 1,
-    "mixed-use": 48955,
-    "residential": 158107,
+    "mixed-use": 48959,
+    "residential": 158141,
     "unknown": 54680
   },
   "date_range": [
     "2002-10-31",
     "2027-01-26"
   ],
-  "surviving_catalogues_completely_harvested": 5458,
+  "surviving_catalogues_completely_harvested": 5483,
   "catalogues_incomplete_or_unreconciled": 803,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
@@ -374,13 +375,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 315107,
-      "auction_ids_observed": 18517,
-      "with_guide_price": 114886,
-      "with_sale_price": 117181,
-      "with_both_prices": 53066,
-      "marked_sold": 161588,
-      "marked_sold_without_sale_price": 45147
+      "lot_appearances": 315154,
+      "auction_ids_observed": 18542,
+      "with_guide_price": 114922,
+      "with_sale_price": 117199,
+      "with_both_prices": 53081,
+      "marked_sold": 161614,
+      "marked_sold_without_sale_price": 45155
     },
     "by_auctioneer_and_year": [
       {
@@ -1052,6 +1053,17 @@
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrew Kelly Auctions",
+        "year": 2011,
+        "lot_appearances": 21,
+        "auction_ids_observed": 2,
+        "with_guide_price": 21,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -12386,25 +12398,47 @@
       },
       {
         "auctioneer": "Sheldon Bosley Knight",
+        "year": 2023,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
         "year": 2024,
-        "lot_appearances": 24,
-        "auction_ids_observed": 1,
-        "with_guide_price": 0,
-        "with_sale_price": 10,
+        "lot_appearances": 31,
+        "auction_ids_observed": 8,
+        "with_guide_price": 1,
+        "with_sale_price": 13,
         "with_both_prices": 0,
-        "marked_sold": 13,
-        "marked_sold_without_sale_price": 3
+        "marked_sold": 18,
+        "marked_sold_without_sale_price": 5
       },
       {
         "auctioneer": "Sheldon Bosley Knight",
         "year": 2025,
-        "lot_appearances": 60,
-        "auction_ids_observed": 6,
+        "lot_appearances": 64,
+        "auction_ids_observed": 9,
         "with_guide_price": 0,
         "with_sale_price": 20,
         "with_both_prices": 0,
-        "marked_sold": 36,
-        "marked_sold_without_sale_price": 16
+        "marked_sold": 40,
+        "marked_sold_without_sale_price": 20
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 5,
+        "with_guide_price": 6,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Signature Estates Online Auction",

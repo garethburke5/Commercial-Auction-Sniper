@@ -7,6 +7,27 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through — SBK online and Andrew Kelly catalogue batch, 13 November 2026
+
+The complete retained Sheldon Bosley Knight online grid and both surviving
+Andrew Kelly 2011 catalogues add **47 net appearances / 47 exact-dated address
+records inside the twenty-year window**. The batch adds six commercial or
+mixed-use records, 36 guides, 18 achieved prices and four rent observations.
+There are zero partial, undated, future-dated or duplicate-derived additions.
+
+Andrew Kelly 2011 and SBK 2023/2026 are newly represented canonical
+auctioneer-years. SBK 2024/2025 were already represented and are not inflated.
+The Andrew Kelly result sheet enriches the same exact-dated catalogue lots;
+branches and trading names remain aliases of their legal operators. Original
+URLs and immutable snapshots are retained.
+
+The rebuilt corpus contains 325,595 appearances and its 185,732,139-byte gzip
+reconstructs from 23 checksum-addressed parts. The next target is uncovered
+Sealeys Auctions: its first-party surfaces expose 27 search cards, 25 past-
+auction cards and a completed-sales list with guide/achieved evidence. These
+must be reconciled by stable identity and exact date through a reusable batch.
+National completeness remains false.
+
 ## Follow-through — Sheldon Bosley Knight mid-2025 batch, 13 November 2026
 
 Three complete publisher-issued result tables were added through the reusable
