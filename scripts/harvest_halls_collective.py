@@ -34,11 +34,19 @@ AUCTION_DIR = DATA / "auctions" / "halls"
 SUMMARY_PATH = DATA / "halls_collective_collection.json"
 RETAINED_2023_SUMMARY_PATH = DATA / "halls_2023_retained_collection.json"
 RETAINED_2024_SUMMARY_PATH = DATA / "halls_2024_retained_collection.json"
+RETAINED_MISSING_2025_2026_SUMMARY_PATH = DATA / "halls_missing_2025_2026_retained_collection.json"
 RETAINED_2023_SNAPSHOT = (
     DATA / "sources" / "halls" / "retained-index" / "halls-2023-first-party-indexed-inventories.json"
 )
 RETAINED_2024_SNAPSHOT = (
     DATA / "sources" / "halls" / "retained-index" / "halls-2024-first-party-indexed-inventories.json"
+)
+RETAINED_MISSING_2025_2026_SNAPSHOT = (
+    DATA
+    / "sources"
+    / "halls"
+    / "retained-index"
+    / "halls-missing-2025-2026-first-party-indexed-inventories.json"
 )
 CONTINUATION_PATH = DATA / "continuation_collection.json"
 AUCTIONEER = "Halls"
@@ -190,10 +198,11 @@ SEPTEMBER_2025_ROWS = [
 ]
 
 NEXT_TARGET = (
-    "Inventory and batch Halls' retained 2022 first-party collective property and land catalogues from original "
-    "publisher URLs, beginning with complete numbered event assets and lot-scoped results where retained text is "
-    "available. Keep the known Halls WordPress PDF 403 route bounded; use retained publisher-asset text or a "
-    "materially different byte-accessible route. National completeness remains false."
+    "Batch Venmore Auctions' surviving 2020 and older exact-dated addenda through its reusable retained-userfiles "
+    "runner, then use indexed individual lot pages or newly recovered full catalogues to reconcile the uncaptured "
+    "2021-2022 inventory. Halls' 2022 catalogue route has no indexed individual-lot inventory and the direct "
+    "WordPress PDF route remains a bounded 403; revisit it only through a new recovery route. National completeness "
+    "remains false."
 )
 
 RETAINED_SNAPSHOTS = {2023: RETAINED_2023_SNAPSHOT, 2024: RETAINED_2024_SNAPSHOT}
@@ -201,6 +210,13 @@ RETAINED_SUMMARIES = {2023: RETAINED_2023_SUMMARY_PATH, 2024: RETAINED_2024_SUMM
 RETAINED_DATES = {
     2023: ["2023-04-28", "2023-07-19", "2023-10-20", "2023-12-08"],
     2024: ["2024-02-23", "2024-04-26", "2024-07-12", "2024-09-27", "2024-11-29"],
+}
+RETAINED_BATCHES = {
+    "missing-2025-2026": {
+        "snapshot": RETAINED_MISSING_2025_2026_SNAPSHOT,
+        "summary": RETAINED_MISSING_2025_2026_SUMMARY_PATH,
+        "dates": ["2025-02-28", "2025-04-25", "2026-02-27"],
+    }
 }
 
 POSTCODE_RE = re.compile(r"\b([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\b", re.I)
@@ -763,15 +779,24 @@ def collect() -> dict[str, Any]:
     return summary
 
 
-def retained_inventory(year: int) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    """Load and strictly validate one retained first-party catalogue year."""
-    snapshot_path = RETAINED_SNAPSHOTS[year]
+def retained_inventory(year: int | None = None, *, batch: str | None = None) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    """Load and strictly validate one retained first-party catalogue batch."""
+    if (year is None) == (batch is None):
+        raise ValueError("select exactly one retained year or named batch")
+    if batch is not None:
+        config = RETAINED_BATCHES[batch]
+        snapshot_path = config["snapshot"]
+        expected_dates = config["dates"]
+        label = batch
+    else:
+        snapshot_path = RETAINED_SNAPSHOTS[year]
+        expected_dates = RETAINED_DATES[year]
+        label = str(year)
     raw = snapshot_path.read_bytes()
     payload = json.loads(raw)
     events = payload.get("events") or []
-    expected_dates = RETAINED_DATES[year]
     if [event.get("date") for event in events] != expected_dates:
-        raise ValueError(f"retained {year} event dates no longer match the evidenced catalogues")
+        raise ValueError(f"retained {label} event dates no longer match the evidenced catalogues")
     if payload.get("direct_fetch_status") not in {403, "not_retried_known_wordpress_403_route"}:
         raise ValueError("retained snapshot must preserve the bounded first-party PDF 403 evidence")
     for event in events:
@@ -801,10 +826,11 @@ def retained_2024_inventory() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     return retained_inventory(2024)
 
 
-def collect_retained_year(year: int) -> dict[str, Any]:
-    """Append a complete retained catalogue year without touching the network."""
-    retained_evidence, events = retained_inventory(year)
+def collect_retained_batch(*, year: int | None = None, batch: str | None = None) -> dict[str, Any]:
+    """Append a complete retained catalogue batch without touching the network."""
+    retained_evidence, events = retained_inventory(year, batch=batch)
     current_rows = read_rows(APPEARANCE_SHARD)
+    current_source_years = {row["auction_date"][:4] for row in current_rows if row.get("auction_date")}
     current_ids = {row["appearance_id"] for row in current_rows}
     existing = existing_keys()
     existing.update(
@@ -907,6 +933,7 @@ def collect_retained_year(year: int) -> dict[str, Any]:
     write_rows(APPEARANCE_SHARD, merged_rows)
     sectors = Counter(row["sector"] for row in new_rows)
     statuses = Counter(row["status"] for row in new_rows)
+    source_years = sorted({event["date"][:4] for event in events})
     summary = {
         "checked_at": now(),
         "operator": {
@@ -932,8 +959,8 @@ def collect_retained_year(year: int) -> dict[str, Any]:
         "run_new_sale_prices": sum(row.get("sale_price") is not None for row in new_rows),
         "run_new_rents": sum(row.get("annual_rent") is not None for row in new_rows),
         "run_new_commercial_or_mixed": sectors["commercial"] + sectors["mixed-use"],
-        "source_years": [str(year)],
-        "newly_covered_source_years": [str(year)] if new_rows else [],
+        "source_years": source_years,
+        "newly_covered_source_years": sorted(set(source_years) - current_source_years) if new_rows else [],
         "by_sector": dict(sectors),
         "by_status": dict(statuses),
         "failures": [],
@@ -944,10 +971,16 @@ def collect_retained_year(year: int) -> dict[str, Any]:
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,
     }
-    write_json(RETAINED_SUMMARIES[year], summary)
+    summary_path = RETAINED_BATCHES[batch]["summary"] if batch is not None else RETAINED_SUMMARIES[year]
+    write_json(summary_path, summary)
     write_json(SUMMARY_PATH, summary)
     update_continuation(summary)
     return summary
+
+
+def collect_retained_year(year: int) -> dict[str, Any]:
+    """Backward-compatible retained-year batch entry point."""
+    return collect_retained_batch(year=year)
 
 
 def collect_retained_2024() -> dict[str, Any]:
@@ -968,7 +1001,17 @@ if __name__ == "__main__":
         choices=sorted(RETAINED_SNAPSHOTS),
         help="bank one complete retained first-party catalogue year without network access",
     )
+    parser.add_argument(
+        "--retained-batch",
+        choices=sorted(RETAINED_BATCHES),
+        help="bank one named multi-year retained first-party catalogue batch without network access",
+    )
     args = parser.parse_args()
+    if args.retained_batch and (args.retained_year or args.retained_2024):
+        parser.error("select one retained year or one retained batch")
     retained_year = args.retained_year or (2024 if args.retained_2024 else None)
-    result = collect_retained_year(retained_year) if retained_year else collect()
+    if args.retained_batch:
+        result = collect_retained_batch(batch=args.retained_batch)
+    else:
+        result = collect_retained_year(retained_year) if retained_year else collect()
     print(json.dumps(result, indent=2, ensure_ascii=False))

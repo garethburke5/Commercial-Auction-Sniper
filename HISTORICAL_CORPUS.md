@@ -3,6 +3,50 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Halls missing 2025-2026 catalogue batch
+
+- **Specific growth opportunity executed:** the reusable Halls retained-index
+  runner now accepts named multi-year batches and reconciles three complete
+  first-party catalogues that were absent while later events from the same
+  years were already banked: 28 February and 25 April 2025, plus 27 February
+  2026. All **31/31 contiguous numbered order-of-sale rows** were retained from
+  the original publisher-asset URLs in one batch; the known WordPress PDF 403
+  route was not refreshed.
+- **Measured net gain:** **31 individual appearances / 31 address records / 31
+  exact-dated addresses inside the twenty-year window**. New partial, undated,
+  future-dated, duplicate-source and cross-source-overlap records are all
+  **0**.
+- **Sector and evidence gain:** **3 commercial, 1 mixed-use, 6 land and 21
+  residential** appearances; the commercial/mixed-use subset is **4**. The
+  catalogues add **31 numeric guides, 0 achieved prices and 0 published
+  rents**. Current property-page statuses were not promoted to auction outcomes
+  because no contemporaneous result inventory tied them to these event dates.
+- **Inventory and source-year reconciliation:** all **3/3** catalogue
+  inventories are complete and denominator-reconciled. Halls now retains **240
+  appearances**. The added rows are in already represented Halls source-years
+  **2025 and 2026**, so newly covered source-years are **0**. Halls remains the
+  single trading name of **HALLS HOLDINGS LIMITED (06597073)** rather than a
+  branch or alias count.
+- **Bounded 2022 route:** targeted first-party publisher-path and catalogue
+  searches exposed no 2022 individual-lot inventory. The direct WordPress PDF
+  route remains the previously evidenced 403 path and was not retried. Revisit
+  Halls 2022 only when a saved catalogue, cache or materially different index
+  inventory appears.
+- **Corpus after rebuild:** **319,523 appearances**, **306,965 address records**,
+  **12,558 partial records** and **309,890 in-window appearances**. In-window
+  evidence totals are **111,248 guides** and **114,333 achieved prices**.
+  Retained undated and future-dated totals remain **6,334** and **179**.
+- **Integrity and publication:** SQLite integrity passes with 319,523 rows. The
+  178,419,734-byte compressed database reconstructs byte-for-byte from its 22
+  checksum-addressed publication parts. Protected collection/publication jobs
+  were not duplicated.
+- **Next concrete growth target:** batch Venmore Auctions' surviving 2020 and
+  older exact-dated addenda through its reusable retained-userfiles runner,
+  then use indexed individual lot pages or newly recovered catalogues to
+  reconcile the uncaptured 2021-2022 inventory.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Barney Estates finite property-inventory recovery
 
 - **Specific growth opportunity executed:** collection moved from Connect UK’s

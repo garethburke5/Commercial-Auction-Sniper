@@ -1,0 +1,32 @@
+{
+  "auctioneer": "Halls",
+  "operator_legal_name": "HALLS HOLDINGS LIMITED",
+  "operator_company_number": "06597073",
+  "source_auction_id": "halls:collective:2025-04-25",
+  "auction_date": "2025-04-25",
+  "auction_date_precision": "day",
+  "source_url": "https://www.hallsgb.com/wp-content/uploads/2025/04/Halls-Property-Land-Auction-2025-April-Final2-1_compressed.pdf",
+  "lots_captured": 12,
+  "published_lots_offered": 12,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "complete numbered first-party order-of-sale inventory retained by a public search index",
+  "source_evidence": {
+    "retained_index_snapshot": {
+      "source_url": "multiple original first-party Halls URLs listed in the retained snapshot",
+      "retrieved_at": "2026-11-13T06:10:41+00:00",
+      "sha256": "106c3d180e63680638ab7cbef941ac98f897ecea44fcdd781263aa4409dceb4c",
+      "snapshot_path": "data/auction_history/sources/halls/retained-index/halls-missing-2025-2026-first-party-indexed-inventories.json",
+      "source_tier": "first_party_publisher_asset_retained_search_index_text",
+      "retrieval_route": "retained public search-index text of complete numbered order-of-sale tables from original first-party Halls catalogue PDFs",
+      "direct_fetch_status": "not_retried_known_wordpress_403_route",
+      "direct_fetch_note": "The Halls WordPress PDF route is already evidenced as a bounded 403 access-challenge route. This batch did not repeat it; complete numbered inventories retained for the original publisher URLs were banked instead."
+    },
+    "original_first_party_asset": "https://www.hallsgb.com/wp-content/uploads/2025/04/Halls-Property-Land-Auction-2025-April-Final2-1_compressed.pdf",
+    "result_article": null,
+    "direct_fetch_status": "not_retried_known_wordpress_403_route"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T06:13:10.415543+00:00"
+}

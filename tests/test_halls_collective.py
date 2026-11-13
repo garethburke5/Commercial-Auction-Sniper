@@ -125,6 +125,18 @@ def test_retained_2023_batch_reconciles_four_complete_catalogues_and_results():
     assert evidence["sha256"]
 
 
+def test_retained_missing_2025_2026_batch_reconciles_three_complete_catalogues():
+    evidence, events = MODULE.retained_inventory(batch="missing-2025-2026")
+    assert [event["date"] for event in events] == ["2025-02-28", "2025-04-25", "2026-02-27"]
+    rows = [row for event in events for row in event["rows"]]
+    assert len(rows) == 31
+    assert sum(row.get("guide_price") is not None for row in rows) == 31
+    assert sum(row.get("sale_price") is not None for row in rows) == 0
+    assert sum(row.get("sector") in {"commercial", "mixed-use"} for row in rows) == 4
+    assert evidence["direct_fetch_status"] == "not_retried_known_wordpress_403_route"
+    assert evidence["sha256"]
+
+
 def test_november_result_prices_are_lot_scoped():
     assert len(MODULE.NOVEMBER_SALE_PRICES) == 17
     assert MODULE.NOVEMBER_SALE_PRICES[21] == 350000

@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-11-13T06:13:10.433962+00:00",
+  "operator": {
+    "canonical_name": "Halls",
+    "legal_name": "HALLS HOLDINGS LIMITED",
+    "company_number": "06597073",
+    "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+  },
+  "collection_route": "offline retained-index batch; no repeated request to the bounded 403 route",
+  "events_attempted": 3,
+  "events_reconciled": 3,
+  "complete_event_inventories": 3,
+  "partial_event_inventories": 0,
+  "published_lot_denominator": 31,
+  "individually_identified_source_rows": 31,
+  "appearances_captured": 240,
+  "run_new_appearances": 31,
+  "run_new_address_records": 31,
+  "run_new_exact_dated_address_records": 31,
+  "run_new_dated_twenty_year_address_records": 31,
+  "run_new_partial_lots": 0,
+  "run_new_guide_prices": 31,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
+  "run_new_commercial_or_mixed": 4,
+  "source_years": [
+    "2025",
+    "2026"
+  ],
+  "newly_covered_source_years": [],
+  "by_sector": {
+    "land": 6,
+    "residential": 21,
+    "commercial": 3,
+    "mixed-use": 1
+  },
+  "by_status": {
+    "unknown": 31
+  },
+  "failures": [],
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_evidence_exclusions": [],
+  "undated_records": 0,
+  "future_dated_records": 0,
+  "next_growth_target": "Batch Venmore Auctions' surviving 2020 and older exact-dated addenda through its reusable retained-userfiles runner, then use indexed individual lot pages or newly recovered full catalogues to reconcile the uncaptured 2021-2022 inventory. Halls' 2022 catalogue route has no indexed individual-lot inventory and the direct WordPress PDF route remains a bounded 403; revisit it only through a new recovery route. National completeness remains false.",
+  "national_completeness_verified": false
+}
