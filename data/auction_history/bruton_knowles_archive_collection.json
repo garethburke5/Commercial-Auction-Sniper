@@ -1,0 +1,134 @@
+{
+  "checked_at": "2026-11-13T18:20:54.116609+00:00",
+  "auctioneer": "Bruton Knowles",
+  "canonical_auctioneer_label": "Bruton Knowles",
+  "joint_platforms_not_counted_as_separate_bruton_auctioneers": [
+    "Cottons",
+    "Hollis Morgan",
+    "Pugh & Co",
+    "Savills Auctions"
+  ],
+  "parser_version": 1,
+  "source_events": 5,
+  "source_snapshots": 7,
+  "visible_source_rows": 10,
+  "appearances_captured": 4,
+  "run_new_appearances": 4,
+  "run_new_address_records": 4,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 4,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 9,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 5,
+  "related_duplicate_guides_enriched": 5,
+  "related_duplicate_sale_prices_enriched": 0,
+  "related_duplicate_rents_enriched": 5,
+  "related_evidence_conflicts_preserved": [],
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 6,
+  "exact_global_overlap_exclusions": [
+    {
+      "auction_date": "2014-10-16",
+      "address": "496, 498, 500, 502 & 504 Coventry Road & 9, 21 Muntz Street, Small Heath, Birmingham, B10 0UN",
+      "bruton_appearance_id": "Bruton Knowles|bruton-knowles:2014-10-16|cottons:2014-10-16:49",
+      "existing": [
+        {
+          "appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:49",
+          "auctioneer": "Cottons"
+        }
+      ],
+      "basis": "same exact source-platform event lot; retained as related joint-agent evidence"
+    },
+    {
+      "auction_date": "2014-10-16",
+      "address": "13 Muntz Street, Small Heath, Birmingham, B10 9SN",
+      "bruton_appearance_id": "Bruton Knowles|bruton-knowles:2014-10-16|cottons:2014-10-16:50",
+      "existing": [
+        {
+          "appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:50",
+          "auctioneer": "Cottons"
+        }
+      ],
+      "basis": "same exact source-platform event lot; retained as related joint-agent evidence"
+    },
+    {
+      "auction_date": "2014-10-16",
+      "address": "15 Muntz Street, Small Heath, Birmingham, B10 9SN",
+      "bruton_appearance_id": "Bruton Knowles|bruton-knowles:2014-10-16|cottons:2014-10-16:51",
+      "existing": [
+        {
+          "appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:51",
+          "auctioneer": "Cottons"
+        }
+      ],
+      "basis": "same exact source-platform event lot; retained as related joint-agent evidence"
+    },
+    {
+      "auction_date": "2014-10-16",
+      "address": "17-19 Muntz Street, Small Heath, Birmingham, B10 9SN",
+      "bruton_appearance_id": "Bruton Knowles|bruton-knowles:2014-10-16|cottons:2014-10-16:52",
+      "existing": [
+        {
+          "appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:52",
+          "auctioneer": "Cottons"
+        }
+      ],
+      "basis": "same exact source-platform event lot; retained as related joint-agent evidence"
+    },
+    {
+      "auction_date": "2014-10-16",
+      "address": "95 Wright Street, Small Heath, Birmingham, B10 9SP",
+      "bruton_appearance_id": "Bruton Knowles|bruton-knowles:2014-10-16|cottons:2014-10-16:53",
+      "existing": [
+        {
+          "appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:53",
+          "auctioneer": "Cottons"
+        }
+      ],
+      "basis": "same exact source-platform event lot; retained as related joint-agent evidence"
+    },
+    {
+      "auction_date": "2023-06-21",
+      "address": "Trehawke House, Liskeard, Cornwall, PL14 4AG",
+      "bruton_appearance_id": "Bruton Knowles|bruton-knowles:2023-06-21|savills:6897",
+      "existing": [
+        {
+          "appearance_id": "Savills Auctions|savills:115|6897",
+          "auctioneer": "Savills Auctions"
+        }
+      ],
+      "basis": "same exact source-platform event lot; retained as related joint-agent evidence"
+    }
+  ],
+  "new_source_years": [
+    2020,
+    2025,
+    2026
+  ],
+  "source_years_visible": [
+    2014,
+    2020,
+    2023,
+    2025,
+    2026
+  ],
+  "date_range": [
+    "2014-10-16",
+    "2026-06-17"
+  ],
+  "by_status": {
+    "unknown": 3,
+    "sold": 1
+  },
+  "by_sector": {
+    "commercial": 1,
+    "residential": 2,
+    "land": 1
+  },
+  "batch_baseline_appearance_ids": [],
+  "completion_scope": "all ten individually evidenced lots across five retained Bruton Knowles or joint-agent source-events; not proof of the firm's complete historical output",
+  "failures": [],
+  "national_completeness_verified": false
+}

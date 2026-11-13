@@ -1,0 +1,50 @@
+{
+  "auctioneer": "Bruton Knowles",
+  "trading_name": "Bruton Knowles",
+  "source_auction_id": "bruton-knowles:2014-10-16",
+  "auction_date": "2014-10-16",
+  "source_platform": "Cottons",
+  "source_url": "https://www.cottons.co.uk/auction-archive/",
+  "published_lots": 5,
+  "lots_captured": 5,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "all individually named Bruton Knowles or joint-agent lots in the retained source",
+  "guides_captured": 5,
+  "sale_prices_captured": 2,
+  "published_outcomes_captured": 5,
+  "rents_captured": 5,
+  "source_evidence": [
+    {
+      "source_url": "https://www.cottons.co.uk/auction-archive/",
+      "retrieved_at": "2026-11-13T18:19:28.252031+00:00",
+      "sha256": "7ea5919a7f33619109b361c6c569646c1cd4c7f00e374ac61055cb0d2a6fed6c",
+      "source_size_bytes": 117455,
+      "snapshot_path": "data/auction_history/sources/bruton-knowles/cottons_archive-7ea5919a7f33619109b3.html.gz",
+      "snapshot_encoding": "gzip-compressed original HTML bytes",
+      "basis": "first-party Cottons auction archive and exact event date"
+    },
+    {
+      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Web-Copy-16th-October-2014.pdf",
+      "retrieved_at": "2026-11-13T18:19:34.222549+00:00",
+      "sha256": "2957b0327ca474f1ec742c57b9833560e1bc08dd3a4e2a5d4ef34bc424a1ff27",
+      "source_size_bytes": 3152765,
+      "snapshot_path": "data/auction_history/sources/bruton-knowles/cottons_2014_catalogue-2957b0327ca474f1ec74.pdf.gz",
+      "snapshot_encoding": "gzip-compressed original PDF bytes",
+      "basis": "complete first-party Cottons catalogue containing five Bruton Knowles joint-agent lots"
+    },
+    {
+      "source_url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-16th-Oct-as-of-7th-Nov.pdf",
+      "retrieved_at": "2026-11-13T18:19:54.728523+00:00",
+      "sha256": "c24ff46f1abaec0d63bdd71c55a9dc11629202f1b9aaa9e0404aa70f223ea6d2",
+      "source_size_bytes": 126508,
+      "snapshot_path": "data/auction_history/sources/bruton-knowles/cottons_2014_results-c24ff46f1abaec0d63bd.pdf.gz",
+      "snapshot_encoding": "gzip-compressed original PDF bytes",
+      "basis": "complete first-party Cottons individual-lot result sheet"
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-13T18:20:24.642961+00:00",
+  "exact_global_overlaps_excluded": 5
+}

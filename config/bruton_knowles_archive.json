@@ -1,0 +1,299 @@
+{
+  "auctioneer": "Bruton Knowles",
+  "expected_events": 5,
+  "expected_lots": 10,
+  "sources": {
+    "cottons_archive": {
+      "url": "https://www.cottons.co.uk/auction-archive/",
+      "kind": "html",
+      "basis": "first-party Cottons auction archive and exact event date"
+    },
+    "cottons_2014_catalogue": {
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Web-Copy-16th-October-2014.pdf",
+      "kind": "pdf",
+      "ocr_pages": [38, 39, 40, 41, 42],
+      "basis": "complete first-party Cottons catalogue containing five Bruton Knowles joint-agent lots"
+    },
+    "cottons_2014_results": {
+      "url": "https://www.cottons.co.uk/wp-content/uploads/2017/06/Results-Sheet-16th-Oct-as-of-7th-Nov.pdf",
+      "kind": "pdf",
+      "ocr_pages": [1, 2],
+      "basis": "complete first-party Cottons individual-lot result sheet"
+    },
+    "bruton_2020_particulars": {
+      "url": "https://www.brutonknowles.co.uk/wp-content/uploads/2019/11/17059_h524pya15y82tv59-2.pdf",
+      "kind": "pdf",
+      "basis": "first-party Bruton Knowles auction particulars"
+    },
+    "savills_2023_lot": {
+      "url": "https://auctions.savills.co.uk/auctions/june-2023-115/trehawke-house-liskeard-cornwall-pl14-4ag-6897",
+      "kind": "html",
+      "basis": "first-party Savills individual lot page naming Bruton Knowles as joint agent"
+    },
+    "bruton_2025_article": {
+      "url": "https://www.brutonknowles.co.uk/industry-news/property-auction-confirmed-for-3rd-july/",
+      "kind": "html",
+      "basis": "first-party Bruton Knowles exact-dated two-property public-auction article"
+    },
+    "hollis_2026_lot": {
+      "url": "https://www.hollismorgan.co.uk/property-details/34624749/gloucestershire/cheltenham/leckhampton-lane",
+      "kind": "html",
+      "basis": "first-party Hollis Morgan sold lot page naming Bruton Knowles as joint agent"
+    }
+  },
+  "events": [
+    {
+      "auction_date": "2014-10-16",
+      "platform": "Cottons",
+      "source_keys": ["cottons_archive", "cottons_2014_catalogue", "cottons_2014_results"],
+      "expected_lots": 5,
+      "lots": [
+        {
+          "lot_number": "49",
+          "source_lot_id": "cottons:2014-10-16:49",
+          "related_existing_appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:49",
+          "address": "496, 498, 500, 502 & 504 Coventry Road & 9, 21 Muntz Street, Small Heath, Birmingham, B10 0UN",
+          "postcode": "B10 0UN",
+          "sector": "commercial",
+          "property_type": "Retail portfolio",
+          "tenure": "Freehold",
+          "guide_price": 750000,
+          "guide_price_high": 800000,
+          "sale_price": null,
+          "status": "not_available",
+          "annual_rent": 25500,
+          "rent_text": "current rent of £25,500 per annum",
+          "source_guide_text": "Guide Price: £750,000 - £800,000",
+          "source_result_text": "NOT AVAILABLE",
+          "checks": {
+            "cottons_2014_catalogue": ["496, 498, 500, 502 & 504 Coventry Road", "Guide Price: £750,000 - £800,000", "current rent of £25,500 per annum"],
+            "cottons_2014_results": ["496 - 504 COVENTRY ROAD", "NOT AVAILABLE"]
+          }
+        },
+        {
+          "lot_number": "50",
+          "source_lot_id": "cottons:2014-10-16:50",
+          "related_existing_appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:50",
+          "address": "13 Muntz Street, Small Heath, Birmingham, B10 9SN",
+          "postcode": "B10 9SN",
+          "sector": "mixed-use",
+          "property_type": "Hairdressing salon with living accommodation",
+          "tenure": "Freehold",
+          "guide_price": 90000,
+          "guide_price_high": 100000,
+          "sale_price": 90000,
+          "status": "sold",
+          "annual_rent": 3380,
+          "rent_text": "rental of £3,380 per annum",
+          "source_guide_text": "Guide Price: £90,000 - £100,000",
+          "source_result_text": "£90,000",
+          "checks": {
+            "cottons_2014_catalogue": ["13 Muntz Street", "Guide Price: £90,000 - £100,000", "rental of £3,380 per annum"],
+            "cottons_2014_results": ["13 MUNTZ STREET", "£90,000"]
+          }
+        },
+        {
+          "lot_number": "51",
+          "source_lot_id": "cottons:2014-10-16:51",
+          "related_existing_appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:51",
+          "address": "15 Muntz Street, Small Heath, Birmingham, B10 9SN",
+          "postcode": "B10 9SN",
+          "sector": "mixed-use",
+          "property_type": "Hot food takeaway with living accommodation",
+          "tenure": "Freehold",
+          "guide_price": 90000,
+          "guide_price_high": 100000,
+          "sale_price": null,
+          "status": "not_available",
+          "annual_rent": 4500,
+          "rent_text": "current rental of £4,500 per annum",
+          "source_guide_text": "Guide Price: £90,000 - £100,000",
+          "source_result_text": "NOT AVAILABLE",
+          "checks": {
+            "cottons_2014_catalogue": ["15 Muntz Street", "£4,500 per annum"],
+            "cottons_2014_results": ["15 MUNTZ STREET", "NOT AVAILABLE"]
+          }
+        },
+        {
+          "lot_number": "52",
+          "source_lot_id": "cottons:2014-10-16:52",
+          "related_existing_appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:52",
+          "address": "17-19 Muntz Street, Small Heath, Birmingham, B10 9SN",
+          "postcode": "B10 9SN",
+          "sector": "mixed-use",
+          "property_type": "Two retail premises with five-bedroom living accommodation",
+          "tenure": "Freehold",
+          "guide_price": 185000,
+          "guide_price_high": 200000,
+          "sale_price": null,
+          "status": "not_available",
+          "annual_rent": 12000,
+          "rent_text": "recently reviewed rent of £12,000 per annum",
+          "source_guide_text": "Guide Price: £185,000 - £200,000",
+          "source_result_text": "NOT AVAILABLE",
+          "checks": {
+            "cottons_2014_catalogue": ["17 - 19 Muntz Street", "Guide Price: £185,000 - £200,000", "£12,000 per annum"],
+            "cottons_2014_results": ["17-19 MUNTZ STREET", "NOT AVAILABLE"]
+          }
+        },
+        {
+          "lot_number": "53",
+          "source_lot_id": "cottons:2014-10-16:53",
+          "related_existing_appearance_id": "Cottons|cottons:2014-10-16:dd1ce214dd9e|lot:53",
+          "address": "95 Wright Street, Small Heath, Birmingham, B10 9SP",
+          "postcode": "B10 9SP",
+          "sector": "commercial",
+          "property_type": "Warehouse",
+          "tenure": "Freehold",
+          "guide_price": 90000,
+          "guide_price_high": 100000,
+          "sale_price": 90000,
+          "status": "sold",
+          "annual_rent": 6375,
+          "rent_text": "current rent of £6,375 per annum",
+          "source_guide_text": "Guide Price: £90,000 - £100,000",
+          "source_result_text": "£90,000",
+          "checks": {
+            "cottons_2014_catalogue": ["95 Wright Street", "Guide Price: £90,000 - £100,000", "£6,375 per annum"],
+            "cottons_2014_results": ["95 WRIGHT STREET", "£90,000"]
+          }
+        }
+      ]
+    },
+    {
+      "auction_date": "2020-02-27",
+      "platform": "Pugh & Co",
+      "source_keys": ["bruton_2020_particulars"],
+      "expected_lots": 1,
+      "lots": [
+        {
+          "lot_number": null,
+          "source_lot_id": "bruton-code-4431",
+          "address": "Tynedale & Belvedere Police Houses, Malton Road, Pickering, North Yorkshire, YO18 7JJ",
+          "postcode": "YO18 7JJ",
+          "sector": "commercial",
+          "property_type": "Two former houses occupied as offices",
+          "tenure": "Freehold",
+          "guide_price": 160000,
+          "guide_price_high": null,
+          "sale_price": null,
+          "status": "unknown",
+          "annual_rent": null,
+          "rent_text": null,
+          "source_guide_text": "Guide Price - £160,000 +",
+          "source_result_text": null,
+          "checks": {
+            "bruton_2020_particulars": ["Tynedale & Belvedere Police Houses", "For Sale by Auction - 27th February 2020", "Guide Price - £160,000 +"]
+          }
+        }
+      ]
+    },
+    {
+      "auction_date": "2023-06-21",
+      "platform": "Savills Auctions",
+      "source_keys": ["savills_2023_lot"],
+      "expected_lots": 1,
+      "lots": [
+        {
+          "lot_number": null,
+          "source_lot_id": "savills:6897",
+          "related_existing_appearance_id": "Savills Auctions|savills:115|6897",
+          "address": "Trehawke House, Liskeard, Cornwall, PL14 4AG",
+          "postcode": "PL14 4AG",
+          "sector": "commercial",
+          "property_type": "Former bank with residential conversion consent",
+          "tenure": "Freehold",
+          "guide_price": null,
+          "guide_price_high": null,
+          "sale_price": null,
+          "status": "withdrawn",
+          "annual_rent": null,
+          "rent_text": null,
+          "source_guide_text": "TBA",
+          "source_result_text": "Withdrawn",
+          "checks": {
+            "savills_2023_lot": ["Trehawke House", "Wednesday 21 June 2023", "Withdrawn", "Joint Agents - Bruton Knowles"]
+          }
+        }
+      ]
+    },
+    {
+      "auction_date": "2025-07-03",
+      "platform": "Bruton Knowles",
+      "source_keys": ["bruton_2025_article"],
+      "expected_lots": 2,
+      "lots": [
+        {
+          "lot_number": null,
+          "source_lot_id": "lower-house-farm-willey-lane-presteigne-ld8-2lu",
+          "original_url": "https://www.brutonknowles.co.uk/property/lower-house-farm-willey-lane-presteigne-ld8-2lu/",
+          "address": "Lower House Farm, Willey Lane, Lower Willey, Presteigne, Herefordshire, LD8 2LU",
+          "postcode": "LD8 2LU",
+          "sector": "residential",
+          "property_type": "Five-bedroom farmhouse with outbuildings and paddock",
+          "tenure": "Freehold",
+          "guide_price": 350000,
+          "guide_price_high": null,
+          "sale_price": null,
+          "status": "unknown",
+          "annual_rent": null,
+          "rent_text": null,
+          "source_guide_text": "Guide Price – £350,000",
+          "source_result_text": null,
+          "checks": {
+            "bruton_2025_article": ["Lower House Farm, Lower Willey, Presteigne", "Guide Price – £350,000", "Public Auction (unless previously sold) on Thursday 3rd July 2025"]
+          }
+        },
+        {
+          "lot_number": null,
+          "source_lot_id": "10-castle-road-knighton-powys-ld7-1ba",
+          "original_url": "https://www.brutonknowles.co.uk/property/10-castle-road-knighton-powys-ld7-1ba/",
+          "address": "10 Castle Road, Knighton, Powys, LD7 1BA",
+          "postcode": "LD7 1BA",
+          "sector": "residential",
+          "property_type": "Three-bedroom semi-detached house",
+          "tenure": "Freehold",
+          "guide_price": 70000,
+          "guide_price_high": null,
+          "sale_price": null,
+          "status": "unknown",
+          "annual_rent": null,
+          "rent_text": null,
+          "source_guide_text": "Guide Price – £70,000",
+          "source_result_text": null,
+          "checks": {
+            "bruton_2025_article": ["10 Castle Road, Knighton", "Guide Price – £70,000", "Public Auction (unless previously sold) on Thursday 3rd July 2025"]
+          }
+        }
+      ]
+    },
+    {
+      "auction_date": "2026-06-17",
+      "platform": "Hollis Morgan",
+      "source_keys": ["hollis_2026_lot"],
+      "expected_lots": 1,
+      "lots": [
+        {
+          "lot_number": "39",
+          "source_lot_id": "hollis-morgan:34624749",
+          "address": "Building Plot at Leckhampton Lane, Shurdington, Cheltenham, Gloucestershire, GL51 4XW",
+          "postcode": "GL51 4XW",
+          "sector": "land",
+          "property_type": "Building plot with planning for detached house",
+          "tenure": "Freehold",
+          "guide_price": 200000,
+          "guide_price_high": null,
+          "sale_price": 179000,
+          "status": "sold",
+          "annual_rent": null,
+          "rent_text": null,
+          "source_guide_text": "GUIDE PRICE £200,000 +++",
+          "source_result_text": "SOLD @ £179,000",
+          "checks": {
+            "hollis_2026_lot": ["Lot 39", "Leckhampton Lane, Shurdington", "GUIDE PRICE £200,000", "SOLD @ £179,000", "Joint Agents - Bruton Knowles"]
+          }
+        }
+      ]
+    }
+  ]
+}
