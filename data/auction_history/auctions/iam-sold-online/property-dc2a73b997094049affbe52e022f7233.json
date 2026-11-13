@@ -1,0 +1,42 @@
+{
+  "auctioneer": "IAM Sold Online",
+  "source_lot_id": "dc2a73b997094049affbe52e022f7233",
+  "auction_date": "2026-10-27",
+  "auction_date_basis": "latest exact Date of Bid printed by first-party bid-history table for a property explicitly marked sold; not asserted as legal completion date",
+  "source_url": "https://www.iamsold.co.uk/property/dc2a73b997094049affbe52e022f7233/",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party sold-property UUID",
+  "source_evidence": {
+    "recent_success_routes": [
+      {
+        "source_url": "https://www.iamsold.co.uk/selling-at-auction/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "2b31cc98548063a48f65b3525e6434830d8d830ef9231fedbb0f94123873b54e",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-operator-2b31cc98548063a48f65.html.gz",
+        "basis": "first-party recent-success route"
+      }
+    ],
+    "property_detail": {
+      "source_url": "https://www.iamsold.co.uk/property/dc2a73b997094049affbe52e022f7233/",
+      "retrieved_at": "2026-11-13T08:35:19.312117+00:00",
+      "sha256": "184f9b5e5fd3cfaf86ada841902c5ec41a2bd586ec38036d13c225427b848463",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/property-dc2a73b997094049affbe52e022f7233-184f9b5e5fd3cfaf86ad.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "bid_history": {
+      "source_url": "https://www.iamsold.co.uk/wp-admin/admin-ajax.php",
+      "retrieved_at": "2026-11-13T08:35:20.222964+00:00",
+      "sha256": "a035de09b137c8f9368d8ae213b7c32eafee5f08e39d99225eedb122329fca20",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/bid-history-dc2a73b997094049affbe52e022f7233-a035de09b137c8f9368d.json.gz",
+      "basis": "first-party property bid-history response"
+    },
+    "basis": "stable property UUID, first-party sold card, detail page and bid-history response"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T08:33:19.343846+00:00",
+  "source_auction_id": "iamsold-property:dc2a73b997094049affbe52e022f7233"
+}

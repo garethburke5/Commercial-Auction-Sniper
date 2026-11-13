@@ -1,0 +1,49 @@
+{
+  "auctioneer": "IAM Sold Online",
+  "source_lot_id": "46c196d434574f3b971a5bbef99bafbe",
+  "auction_date": "2026-08-22",
+  "auction_date_basis": "latest exact Date of Bid printed by first-party bid-history table for a property explicitly marked sold; not asserted as legal completion date",
+  "source_url": "https://www.iamsold.co.uk/property/46c196d434574f3b971a5bbef99bafbe/",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party sold-property UUID",
+  "source_evidence": {
+    "recent_success_routes": [
+      {
+        "source_url": "https://www.iamsold.co.uk/selling-at-auction/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "2b31cc98548063a48f65b3525e6434830d8d830ef9231fedbb0f94123873b54e",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-operator-2b31cc98548063a48f65.html.gz",
+        "basis": "first-party recent-success route"
+      },
+      {
+        "source_url": "https://www.iamsold.co.uk/estate-agent/wards/properties/sold/1000/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "948758cf218aa49247f53a4ea53c8d4c4a11028327bcf7bcaa31fc1ea92b6773",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-wards-948758cf218aa49247f5.html.gz",
+        "basis": "first-party recent-success route"
+      }
+    ],
+    "property_detail": {
+      "source_url": "https://www.iamsold.co.uk/property/46c196d434574f3b971a5bbef99bafbe/",
+      "retrieved_at": "2026-11-13T08:35:19.028091+00:00",
+      "sha256": "bb70b41e1bc7b7bf1cbf63f437351aa89113c0d2257aa48bd0812c05f034d2b7",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/property-46c196d434574f3b971a5bbef99bafbe-bb70b41e1bc7b7bf1cbf.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "bid_history": {
+      "source_url": "https://www.iamsold.co.uk/wp-admin/admin-ajax.php",
+      "retrieved_at": "2026-11-13T08:35:20.033541+00:00",
+      "sha256": "0bfd96efceccb22be12617c36b426001b5e241d7004db4b77cf3d80c6b421b89",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/bid-history-46c196d434574f3b971a5bbef99bafbe-0bfd96efceccb22be126.json.gz",
+      "basis": "first-party property bid-history response"
+    },
+    "basis": "stable property UUID, first-party sold card, detail page and bid-history response"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T08:33:19.343846+00:00",
+  "source_auction_id": "iamsold-property:46c196d434574f3b971a5bbef99bafbe"
+}

@@ -1,0 +1,42 @@
+{
+  "auctioneer": "IAM Sold Online",
+  "source_lot_id": "cc44f3502a394faaba249126218560f6",
+  "auction_date": null,
+  "auction_date_basis": "property explicitly marked sold but first-party bid-history table publishes no individual date",
+  "source_url": "https://www.iamsold.co.uk/property/cc44f3502a394faaba249126218560f6/",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party sold-property UUID",
+  "source_evidence": {
+    "recent_success_routes": [
+      {
+        "source_url": "https://www.iamsold.co.uk/estate-agent/cubittandwest/properties/sold/1000/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "3d97538e89a78122c07db55124985a48465d8190cc9592e5d347b80629e9a276",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-cubittandwest-3d97538e89a78122c07d.html.gz",
+        "basis": "first-party recent-success route"
+      }
+    ],
+    "property_detail": {
+      "source_url": "https://www.iamsold.co.uk/property/cc44f3502a394faaba249126218560f6/",
+      "retrieved_at": "2026-11-13T08:35:44.995069+00:00",
+      "sha256": "33e9b5ce8f5d488c0b57711988cdb96153e011adec689719d3ea84bb0136ba01",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/property-cc44f3502a394faaba249126218560f6-33e9b5ce8f5d488c0b57.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "bid_history": {
+      "source_url": "https://www.iamsold.co.uk/wp-admin/admin-ajax.php",
+      "retrieved_at": "2026-11-13T08:35:46.544828+00:00",
+      "sha256": "4f832f0dc602cc726d94cef17462d7918712c849ae277136a74d2029d41b3c9e",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/bid-history-cc44f3502a394faaba249126218560f6-4f832f0dc602cc726d94.json.gz",
+      "basis": "first-party property bid-history response"
+    },
+    "basis": "stable property UUID, first-party sold card, detail page and bid-history response"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T08:33:19.343846+00:00",
+  "source_auction_id": "iamsold-property:cc44f3502a394faaba249126218560f6"
+}

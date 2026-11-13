@@ -3,6 +3,50 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — IAM-SOLD operator and partner recent-success batch
+
+- **Specific growth opportunity executed:** a reusable first-party runner
+  reconciled the operator recently-sold block and **115 public partner routes**
+  in one bounded batch. The **50 visible sold cards** resolved to **47 stable
+  property UUIDs**; three cross-skin cards were merged before counting.
+- **Measured net gain:** **47 individual appearances / 47 address records**,
+  including **35 newly dated addresses inside the twenty-year window** and
+  **0 partial or future-dated records**. The remaining **12 sold properties are
+  explicitly undated** because their first-party bid-history responses contain
+  no individual date.
+- **Sector and evidence gain:** the batch adds **2 commercial, 7 mixed-use,
+  10 land and 28 residential** appearances. It preserves **0 numeric guides,
+  34 explicit `Sold for` prices and 1 published rent**. Of those achieved
+  prices, **25 are attached to in-window dated appearances**. Ten additional
+  published last-bid amounts remain labelled as bids rather than being promoted
+  to sale prices.
+- **Date and outcome safeguards:** the exact dates are the latest dates printed
+  in IAM-SOLD's property-level `Date of Bid` tables and are labelled as bid-date
+  appearance evidence, not legal completion dates. Five card/detail outcome
+  discrepancies are retained in the immutable evidence; the recent-success
+  card amount remains the canonical result where both first-party views differ.
+- **Operator reconciliation:** **IAM-SOLD LTD (07051399)** is counted once under
+  the corpus label **IAM Sold Online**. `iamsold`, `The Auction Department` and
+  every partner brand/branch are retained as trading-name or evidence-channel
+  metadata, not inflated into additional auctioneers. Source-year **2026** is
+  newly represented for this operator.
+- **Corpus after rebuild:** **321,611 appearances**, **309,053 address records**,
+  **12,558 partial records** and **311,407 in-window appearances**. In-window
+  evidence totals are **111,275 guides** and **114,470 achieved prices**;
+  retained undated and future-dated totals are **6,851** and **233**.
+- **Integrity:** SQLite contains all **321,611 appearances** and passes full
+  `PRAGMA integrity_check`. The **179,878,068-byte** compressed database
+  reconstructs from **22 checksum-addressed parts**. National completeness is
+  not implied by the 116 reconciled live routes: these are rolling recent-
+  success blocks, not a twenty-year IAM-SOLD inventory.
+- **Next concrete growth target:** build one reusable **Auction Property Ltd**
+  runner over its **32 linked `/past-auction-dates` event pages** and
+  address-level `/sold-properties` results. Reconcile event denominators,
+  exact dates, guides and outcomes, and deduplicate shared-platform evidence
+  before claiming growth.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — GOTO shared archive and uncovered EIG operator batch
 
 - **Specific growth opportunity executed:** one reusable shared-platform run

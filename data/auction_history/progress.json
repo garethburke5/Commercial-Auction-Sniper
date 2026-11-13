@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-13T07:44:20.751709+00:00",
-  "individual_lot_records_captured": 321564,
-  "records_with_address": 309006,
+  "generated_at": "2026-11-13T08:39:21.732120+00:00",
+  "individual_lot_records_captured": 321611,
+  "records_with_address": 309053,
   "partial_lot_records": 12558,
-  "exact_address_groups": 172951,
+  "exact_address_groups": 172998,
   "groups_with_repeat_appearances": 44088,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -93,6 +93,7 @@
     "Harman Healy": 1528,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
+    "IAM Sold Online": 47,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
     "Kivells": 413,
@@ -144,7 +145,7 @@
     "Venmore Auctions": 1445
   },
   "by_year": {
-    "null": 6839,
+    "null": 6851,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -169,22 +170,22 @@
     "2023": 34452,
     "2024": 43175,
     "2025": 49084,
-    "2026": 48802,
+    "2026": 48837,
     "2027": 7
   },
   "by_sector": {
-    "commercial": 43140,
-    "land": 19964,
+    "commercial": 43142,
+    "land": 19974,
     "mixed": 1,
-    "mixed-use": 48010,
-    "residential": 156106,
+    "mixed-use": 48017,
+    "residential": 156134,
     "unknown": 54343
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5285,
+  "surviving_catalogues_completely_harvested": 5448,
   "catalogues_incomplete_or_unreconciled": 779,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
@@ -198,13 +199,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 311372,
-      "auction_ids_observed": 14874,
+      "lot_appearances": 311407,
+      "auction_ids_observed": 14901,
       "with_guide_price": 111275,
-      "with_sale_price": 114445,
+      "with_sale_price": 114470,
       "with_both_prices": 50385,
-      "marked_sold": 158823,
-      "marked_sold_without_sale_price": 45118
+      "marked_sold": 158858,
+      "marked_sold_without_sale_price": 45128
     },
     "by_auctioneer_and_year": [
       {
@@ -6159,6 +6160,17 @@
         "marked_sold_without_sale_price": 16
       },
       {
+        "auctioneer": "IAM Sold Online",
+        "year": 2026,
+        "lot_appearances": 35,
+        "auction_ids_observed": 27,
+        "with_guide_price": 0,
+        "with_sale_price": 25,
+        "with_both_prices": 0,
+        "marked_sold": 35,
+        "marked_sold_without_sale_price": 10
+      },
+      {
         "auctioneer": "John Francis",
         "year": 2013,
         "lot_appearances": 78,
@@ -9503,7 +9515,7 @@
         "marked_sold_without_sale_price": 3
       }
     ],
-    "undated_appearances": 6839,
+    "undated_appearances": 6851,
     "future_dated_appearances": 233,
     "national_completeness_verified": false,
     "limits": [

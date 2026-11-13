@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T07:45:03.969647+00:00",
-  "corpus_checkpoint": "2026-11-13T07:44:20.751709+00:00",
+  "generated_at": "2026-11-13T08:39:59.861913+00:00",
+  "corpus_checkpoint": "2026-11-13T08:39:21.732120+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -3863,13 +3863,15 @@
       "name": "IAM Sold Online",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/iam-sold-online",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
+      "matched_corpus_label": "IAM Sold Online",
+      "match_basis": "exact label",
+      "retained_appearances": 47,
+      "years_with_retained_evidence": [
+        2026
+      ],
       "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "with_sale_price": 25,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8245,7 +8247,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 457,
+  "directory_entries_not_linked": 456,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8334,6 +8336,7 @@
     "Harman Healy": 1528,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
+    "IAM Sold Online": 47,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
     "Kivells": 413,
@@ -8389,13 +8392,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 311372,
-      "auction_ids_observed": 14874,
+      "lot_appearances": 311407,
+      "auction_ids_observed": 14901,
       "with_guide_price": 111275,
-      "with_sale_price": 114445,
+      "with_sale_price": 114470,
       "with_both_prices": 50385,
-      "marked_sold": 158823,
-      "marked_sold_without_sale_price": 45118
+      "marked_sold": 158858,
+      "marked_sold_without_sale_price": 45128
     },
     "by_auctioneer_and_year": [
       {
@@ -14350,6 +14353,17 @@
         "marked_sold_without_sale_price": 16
       },
       {
+        "auctioneer": "IAM Sold Online",
+        "year": 2026,
+        "lot_appearances": 35,
+        "auction_ids_observed": 27,
+        "with_guide_price": 0,
+        "with_sale_price": 25,
+        "with_both_prices": 0,
+        "marked_sold": 35,
+        "marked_sold_without_sale_price": 10
+      },
+      {
         "auctioneer": "John Francis",
         "year": 2013,
         "lot_appearances": 78,
@@ -17694,7 +17708,7 @@
         "marked_sold_without_sale_price": 3
       }
     ],
-    "undated_appearances": 6839,
+    "undated_appearances": 6851,
     "future_dated_appearances": 233,
     "national_completeness_verified": false,
     "limits": [
@@ -18407,6 +18421,22 @@
       "run_new_guide_prices": 112,
       "run_new_sale_prices": 1,
       "run_new_rents": 6,
+      "newly_covered_source_years": [
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "iamsold_first_party_recent_success": {
+      "source": "iamsold_first_party_recent_success",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T08:37:02.905289+00:00",
+      "run_new_appearances": 47,
+      "run_new_dated_twenty_year_address_records": 35,
+      "run_new_commercial_or_mixed": 9,
+      "run_new_guide_prices": 0,
+      "run_new_sale_prices": 34,
+      "run_new_rents": 1,
       "newly_covered_source_years": [
         "2026"
       ],
@@ -25774,7 +25804,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T07:45:02.053132+00:00",
+    "checked_at": "2026-11-13T08:39:58.812652+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

@@ -1,0 +1,42 @@
+{
+  "auctioneer": "IAM Sold Online",
+  "source_lot_id": "bf0768f85f964e5b8c9616e7c00190a6",
+  "auction_date": null,
+  "auction_date_basis": "property explicitly marked sold but first-party bid-history table publishes no individual date",
+  "source_url": "https://www.iamsold.co.uk/property/bf0768f85f964e5b8c9616e7c00190a6/",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party sold-property UUID",
+  "source_evidence": {
+    "recent_success_routes": [
+      {
+        "source_url": "https://www.iamsold.co.uk/estate-agent/pittis/properties/sold/1000/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "599878341ac28c2cefa2321b131bada0abbc7119e78c852fd1fe47e93c47f913",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-pittis-599878341ac28c2cefa2.html.gz",
+        "basis": "first-party recent-success route"
+      }
+    ],
+    "property_detail": {
+      "source_url": "https://www.iamsold.co.uk/property/bf0768f85f964e5b8c9616e7c00190a6/",
+      "retrieved_at": "2026-11-13T08:36:38.319576+00:00",
+      "sha256": "cfca5f35d8beee1f90c70efabf0b2d78f7bf90761bcb6892b2a9d72444fd5d01",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/property-bf0768f85f964e5b8c9616e7c00190a6-cfca5f35d8beee1f90c7.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "bid_history": {
+      "source_url": "https://www.iamsold.co.uk/wp-admin/admin-ajax.php",
+      "retrieved_at": "2026-11-13T08:36:39.351756+00:00",
+      "sha256": "4f832f0dc602cc726d94cef17462d7918712c849ae277136a74d2029d41b3c9e",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/bid-history-bf0768f85f964e5b8c9616e7c00190a6-4f832f0dc602cc726d94.json.gz",
+      "basis": "first-party property bid-history response"
+    },
+    "basis": "stable property UUID, first-party sold card, detail page and bid-history response"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T08:33:19.343846+00:00",
+  "source_auction_id": "iamsold-property:bf0768f85f964e5b8c9616e7c00190a6"
+}

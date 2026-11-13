@@ -1,0 +1,42 @@
+{
+  "auctioneer": "IAM Sold Online",
+  "source_lot_id": "84378b7faec645418f07713907c9c4b3",
+  "auction_date": null,
+  "auction_date_basis": "property explicitly marked sold but first-party bid-history table publishes no individual date",
+  "source_url": "https://www.iamsold.co.uk/property/84378b7faec645418f07713907c9c4b3/",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party sold-property UUID",
+  "source_evidence": {
+    "recent_success_routes": [
+      {
+        "source_url": "https://www.iamsold.co.uk/estate-agent/douglasallen/properties/sold/1000/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "102a7518b097aa7ec6da95bea6e7ee9d1a46da20f7fbaefbde3f4101933ed796",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-douglasallen-102a7518b097aa7ec6da.html.gz",
+        "basis": "first-party recent-success route"
+      }
+    ],
+    "property_detail": {
+      "source_url": "https://www.iamsold.co.uk/property/84378b7faec645418f07713907c9c4b3/",
+      "retrieved_at": "2026-11-13T08:35:58.595275+00:00",
+      "sha256": "cf5dc2fc1c44167c93236a057c20f7f7895360011eeb1d765506fe8c74a6b1e9",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/property-84378b7faec645418f07713907c9c4b3-cf5dc2fc1c44167c9323.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "bid_history": {
+      "source_url": "https://www.iamsold.co.uk/wp-admin/admin-ajax.php",
+      "retrieved_at": "2026-11-13T08:36:00.123687+00:00",
+      "sha256": "4f832f0dc602cc726d94cef17462d7918712c849ae277136a74d2029d41b3c9e",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/bid-history-84378b7faec645418f07713907c9c4b3-4f832f0dc602cc726d94.json.gz",
+      "basis": "first-party property bid-history response"
+    },
+    "basis": "stable property UUID, first-party sold card, detail page and bid-history response"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T08:33:19.343846+00:00",
+  "source_auction_id": "iamsold-property:84378b7faec645418f07713907c9c4b3"
+}

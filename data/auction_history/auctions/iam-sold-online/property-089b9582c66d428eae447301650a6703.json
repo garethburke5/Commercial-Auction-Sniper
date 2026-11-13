@@ -1,0 +1,42 @@
+{
+  "auctioneer": "IAM Sold Online",
+  "source_lot_id": "089b9582c66d428eae447301650a6703",
+  "auction_date": "2026-10-14",
+  "auction_date_basis": "latest exact Date of Bid printed by first-party bid-history table for a property explicitly marked sold; not asserted as legal completion date",
+  "source_url": "https://www.iamsold.co.uk/property/089b9582c66d428eae447301650a6703/",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party sold-property UUID",
+  "source_evidence": {
+    "recent_success_routes": [
+      {
+        "source_url": "https://www.iamsold.co.uk/estate-agent/douglasallen/properties/sold/1000/",
+        "retrieved_at": "2026-11-13T08:33:19.343846+00:00",
+        "sha256": "102a7518b097aa7ec6da95bea6e7ee9d1a46da20f7fbaefbde3f4101933ed796",
+        "snapshot_path": "data/auction_history/sources/iam-sold-online/route-douglasallen-102a7518b097aa7ec6da.html.gz",
+        "basis": "first-party recent-success route"
+      }
+    ],
+    "property_detail": {
+      "source_url": "https://www.iamsold.co.uk/property/089b9582c66d428eae447301650a6703/",
+      "retrieved_at": "2026-11-13T08:35:44.999057+00:00",
+      "sha256": "a16701a36e5ecf356fdce7b3a9fcd777aa215aa176b16d8b9b6dd55fa1f76fda",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/property-089b9582c66d428eae447301650a6703-a16701a36e5ecf356fdc.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "bid_history": {
+      "source_url": "https://www.iamsold.co.uk/wp-admin/admin-ajax.php",
+      "retrieved_at": "2026-11-13T08:35:45.995054+00:00",
+      "sha256": "b1727fe5e8f8b89e29a4101c60ac0181940f6d68a321c2888a2a3b6470c0012f",
+      "snapshot_path": "data/auction_history/sources/iam-sold-online/bid-history-089b9582c66d428eae447301650a6703-b1727fe5e8f8b89e29a4.json.gz",
+      "basis": "first-party property bid-history response"
+    },
+    "basis": "stable property UUID, first-party sold card, detail page and bid-history response"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T08:33:19.343846+00:00",
+  "source_auction_id": "iamsold-property:089b9582c66d428eae447301650a6703"
+}
