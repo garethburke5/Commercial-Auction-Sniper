@@ -627,17 +627,17 @@
     "next_route": "Revisit only if an older first-party or independently archived catalogue route is discovered."
   },
   "last_automated_growth": {
-    "source": "venmore-auctions-indexed-details",
+    "source": "connect_uk_first_party_inventory",
     "outcome": "completed",
-    "checked_at": "2026-11-13T03:03:08.303253+00:00",
-    "run_new_appearances": 24,
-    "run_new_dated_twenty_year_address_records": 24,
-    "run_new_commercial_or_mixed": 11,
-    "run_new_guide_prices": 3,
-    "run_new_sale_prices": 8,
-    "run_new_rents": 13,
+    "checked_at": "2026-11-13T04:07:44.623944+00:00",
+    "run_new_appearances": 48,
+    "run_new_dated_twenty_year_address_records": 10,
+    "run_new_commercial_or_mixed": 7,
+    "run_new_guide_prices": 48,
+    "run_new_sale_prices": 0,
+    "run_new_rents": 0,
     "newly_covered_source_years": [
-      "2016"
+      "2026"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
@@ -1719,6 +1719,22 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "connect_uk_first_party_inventory": {
+      "source": "connect_uk_first_party_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T04:07:44.623944+00:00",
+      "run_new_appearances": 48,
+      "run_new_dated_twenty_year_address_records": 10,
+      "run_new_commercial_or_mixed": 7,
+      "run_new_guide_prices": 48,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "latest_deferred_launch": {
@@ -1744,15 +1760,15 @@
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
-  "next_growth_target": "Recover Venmore's indexed 2015 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
+  "next_growth_target": "Inventory Connect UK Auctions' surviving legacy realtime.connectukauctions.co.uk property pages through a sitemap, search-index or saved-page route, deduplicating exact date/address overlaps with this current-site inventory. If no finite legacy inventory is recoverable, batch another uncovered genuine auctioneer with an accessible multi-event catalogue archive. National completeness remains false.",
   "next_task": 10,
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-13T03:03:08.303253+00:00",
-    "source_key_candidate": "venmore-auctions-2015-indexed-details",
-    "auctioneer": "Venmore Auctions",
-    "source_format": "first-party retained individual property HTML pages",
-    "opportunity": "batch newly discovered 2015 and older indexed property pages through the reusable immutable-HTML runner, or rotate if the index is thin",
-    "next_growth_target": "Recover Venmore's indexed 2015 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
+    "checked_at": "2026-11-13T04:07:44.623944+00:00",
+    "source_key_candidate": "connect-uk-legacy-realtime-inventory",
+    "auctioneer": "Connect UK Auctions",
+    "source_format": "legacy first-party individual property pages",
+    "opportunity": "recover the older realtime subdomain's indexed property inventory",
+    "next_growth_target": "Inventory Connect UK Auctions' surviving legacy realtime.connectukauctions.co.uk property pages through a sitemap, search-index or saved-page route, deduplicating exact date/address overlaps with this current-site inventory. If no finite legacy inventory is recoverable, batch another uncovered genuine auctioneer with an accessible multi-event catalogue archive. National completeness remains false.",
     "national_completeness_verified": false
   },
   "prior_target_alias_reconciliation": {
@@ -7130,6 +7146,22 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "connect_uk_first_party_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T04:07:44.623944+00:00",
+      "run_new_appearances": 48,
+      "run_new_dated_twenty_year_address_records": 10,
+      "run_new_commercial_or_mixed": 7,
+      "run_new_guide_prices": 48,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "shonki_fliphtml_expansion": {
@@ -7224,5 +7256,50 @@
       "fetch_or_parse_failures": 37
     },
     "different_next_target": "Inventory Sunderlands' post-2018 property-auction result and catalogue assets, then batch every surviving address-level event through the same runner. If no later finite archive survives, move to another uncovered genuine auctioneer with an accessible multi-catalogue inventory."
+  },
+  "connect_uk_first_party_inventory": {
+    "checked_at": "2026-11-13T04:07:44.623944+00:00",
+    "source_url": "https://connectukauctions.co.uk/sitemap.xml",
+    "operator": {
+      "canonical_name": "Connect UK Auctions",
+      "legal_name": "CONNECT UK SALES LTD",
+      "company_number": "11808965",
+      "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+    },
+    "sitemap_property_urls": 48,
+    "detail_pages_captured": 48,
+    "complete_single_property_pages": 48,
+    "appearances_captured": 48,
+    "run_new_appearances": 48,
+    "run_new_address_records": 48,
+    "run_new_dated_twenty_year_address_records": 10,
+    "run_new_partial_lots": 0,
+    "run_new_undated_appearances": 8,
+    "run_new_future_dated_appearances": 30,
+    "run_new_guide_prices": 48,
+    "run_new_sale_prices": 0,
+    "run_new_rents": 0,
+    "run_new_commercial_or_mixed": 7,
+    "source_years": [
+      "2026"
+    ],
+    "newly_covered_source_years": [
+      "2026"
+    ],
+    "by_sector": {
+      "residential": 21,
+      "land": 20,
+      "commercial": 6,
+      "mixed-use": 1
+    },
+    "by_status": {
+      "available": 40,
+      "sold": 8
+    },
+    "failures": [],
+    "run_duplicate_source_evidence_excluded": 0,
+    "duplicate_source_evidence_exclusions": [],
+    "next_growth_target": "Inventory Connect UK Auctions' surviving legacy realtime.connectukauctions.co.uk property pages through a sitemap, search-index or saved-page route, deduplicating exact date/address overlaps with this current-site inventory. If no finite legacy inventory is recoverable, batch another uncovered genuine auctioneer with an accessible multi-event catalogue archive. National completeness remains false.",
+    "national_completeness_verified": false
   }
 }

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T03:06:50.129275+00:00",
-  "corpus_checkpoint": "2026-11-13T03:06:16.880668+00:00",
+  "generated_at": "2026-11-13T04:09:17.769944+00:00",
+  "corpus_checkpoint": "2026-11-13T04:08:41.965384+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1812,13 +1812,15 @@
       "name": "Connect UK Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/connect-uk-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Connect UK Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 48,
+      "years_with_retained_evidence": [
+        2026
+      ],
+      "with_guide_price": 10,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8237,7 +8239,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 461,
+  "directory_entries_not_linked": 460,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8306,6 +8308,7 @@
     "City & Rural Property Auctions": 166,
     "Clarke & Simpson": 170,
     "Clive Emson": 4152,
+    "Connect UK Auctions": 48,
     "Cooper and Tanner": 125,
     "Cottons": 7514,
     "Dawsons": 139,
@@ -8376,13 +8379,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309839,
-      "auction_ids_observed": 13947,
-      "with_guide_price": 111197,
+      "lot_appearances": 309849,
+      "auction_ids_observed": 13957,
+      "with_guide_price": 111207,
       "with_sale_price": 114333,
       "with_both_prices": 50370,
-      "marked_sold": 157519,
-      "marked_sold_without_sale_price": 43926
+      "marked_sold": 157525,
+      "marked_sold_without_sale_price": 43932
     },
     "by_auctioneer_and_year": [
       {
@@ -12872,6 +12875,17 @@
         "with_both_prices": 0,
         "marked_sold": 731,
         "marked_sold_without_sale_price": 208
+      },
+      {
+        "auctioneer": "Connect UK Auctions",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 10,
+        "with_guide_price": 10,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 6
       },
       {
         "auctioneer": "Cooper and Tanner",
@@ -17549,8 +17563,8 @@
         "marked_sold_without_sale_price": 3
       }
     ],
-    "undated_appearances": 6219,
-    "future_dated_appearances": 149,
+    "undated_appearances": 6227,
+    "future_dated_appearances": 179,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -18234,6 +18248,22 @@
       "run_new_rents": 13,
       "newly_covered_source_years": [
         "2016"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "connect_uk_first_party_inventory": {
+      "source": "connect_uk_first_party_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T04:07:44.623944+00:00",
+      "run_new_appearances": 48,
+      "run_new_dated_twenty_year_address_records": 10,
+      "run_new_commercial_or_mixed": 7,
+      "run_new_guide_prices": 48,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2026"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -24537,7 +24567,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T03:06:48.666989+00:00",
+    "checked_at": "2026-11-13T04:09:15.912851+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

@@ -1,0 +1,34 @@
+{
+  "auctioneer": "Connect UK Auctions",
+  "operator_legal_name": "CONNECT UK SALES LTD",
+  "operator_company_number": "11808965",
+  "source_auction_id": "connect-uk:cmtk7k29h000bq7jtoyifilnm",
+  "auction_date": "2026-11-18",
+  "auction_date_precision": "day",
+  "source_url": "https://connectukauctions.co.uk/property/cmtk7k29h000bq7jtoyifilnm",
+  "lots_captured": 1,
+  "published_lots_offered": 1,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "completion_scope": "one stable first-party single-property page",
+  "source_evidence": {
+    "sitemap": {
+      "source_url": "https://connectukauctions.co.uk/sitemap.xml",
+      "retrieved_at": "2026-11-13T04:06:53.970681+00:00",
+      "sha256": "8aeb6ae65c4b76fedbe9e9c632ad9bd6908f591db58e61a46eed155a5b6bf299",
+      "snapshot_path": "data/auction_history/sources/connect-uk-auctions/sitemap-property-8aeb6ae65c4b76fedbe9.xml.gz",
+      "basis": "complete first-party XML sitemap property-URL inventory"
+    },
+    "detail": {
+      "source_url": "https://connectukauctions.co.uk/property/cmtk7k29h000bq7jtoyifilnm",
+      "retrieved_at": "2026-11-13T04:07:20.091170+00:00",
+      "sha256": "0ea15dddcec03924381fb6603669b8e4687b3e92bcbbf1961974118af73df9cc",
+      "snapshot_path": "data/auction_history/sources/connect-uk-auctions/property-cmtk7k29h000bq7jtoyifilnm-0ea15dddcec03924381f.html.gz",
+      "basis": "first-party individual property detail page"
+    },
+    "basis": "stable first-party property URL and linked property detail page"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T04:07:44.621528+00:00"
+}

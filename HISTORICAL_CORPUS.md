@@ -3,6 +3,49 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Connect UK Auctions first-party property inventory
+
+- **Specific growth opportunity executed:** after the Venmore 2015 search index
+  exposed no usable older lots, collection rotated to an uncovered genuine
+  operator. One reusable runner reconciled all **48/48 stable property-detail
+  URLs** in Connect UK Auctions' first-party sitemap and retained the XML plus
+  every property page as checksum-addressed immutable evidence.
+- **Measured net gain:** **48 individual appearances / 48 full published address
+  records**. Of these, **10** have exact dates inside 13 November 2006–13
+  November 2026, **8** are explicitly undated modern-method listings, and **30**
+  are scheduled after the collection date. Future and undated records are
+  permanently banked but are not counted as historical-window growth. New
+  partial and duplicate-source/cross-source-overlap records are **0 / 0**.
+- **Sector and evidence gain:** all 48 pages add numeric guide evidence; achieved
+  prices and rents added are **0 / 0**. The all-record sector split is **6
+  commercial, 1 mixed-use, 20 land and 21 residential**. The
+  commercial/mixed-use subset is **7**, comprising **1 in-window, 2 undated and
+  4 future-dated** records. Starting bids remain separately labelled available
+  prices and are never treated as achieved prices.
+- **Operator and source-year reconciliation:** the footer identifies **CONNECT
+  UK SALES LTD (11808965), trading as Connect UK Auctions**. The exact EIG
+  directory label is now linked to that one operator rather than counted as a
+  branch or alias. The dated records add one represented source-year, **2026**.
+- **Coverage boundary:** the current sitemap inventory is fully reconciled, but
+  it is not a denominator for the operator's older realtime subdomain or its
+  national history. Each stable page is scoped as one single-property source;
+  the eight pages without an individual date retain null dates.
+- **Corpus after rebuild:** **319,375 appearances**, **306,817 address records**,
+  **12,558 partial records** and **309,849 in-window appearances**. In-window
+  evidence totals are **111,207 guides** and **114,333 achieved prices**.
+  Retained undated and future-dated totals are **6,227** and **179**.
+- **Integrity and publication:** SQLite integrity passes with 319,375 rows. The
+  178,304,455-byte compressed database reconstructs byte-for-byte from its 22
+  checksum-addressed publication parts. Protected collection/publication jobs
+  were not duplicated.
+- **Next concrete growth target:** inventory the surviving legacy
+  `realtime.connectukauctions.co.uk` property pages through a finite sitemap,
+  search-index or saved-page route and deduplicate exact date/address overlaps.
+  If no finite legacy inventory survives, rotate to another uncovered genuine
+  auctioneer with an accessible multi-event catalogue archive.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Venmore indexed 2016 multi-event recovery
 
 - **Specific growth opportunity executed:** the reusable immutable-HTML runner
