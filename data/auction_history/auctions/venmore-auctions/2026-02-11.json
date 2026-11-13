@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2026-02-11",
+  "auction_date": "2026-02-11",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1104383648-Venmore%20Auction%20February%20Catalogue%2026-compressed%20%281%29.pdf",
+  "published_lots": 25,
+  "catalogue_published_lots": 25,
+  "lots_captured": 25,
+  "online_listing_gap": 0,
+  "guides_captured": 25,
+  "rents_captured": 13,
+  "published_outcomes_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "first-party online property count compared with contiguous numbered order-of-lots table in complete first-party PDF",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=101",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1104383648-Venmore%20Auction%20February%20Catalogue%2026-compressed%20%281%29.pdf",
+    "retrieved_at": "2026-11-12T21:41:38.444890+00:00",
+    "sha256": "882e9dfa9b0c891151ffec4c1f6c828404dc77d60d9ae8fe1fdccad9335a0829",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=101",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-02-11-882e9dfa9b0c891151ff.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-02-11-882e9dfa9b0c891151ff.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2026-02-11-882e9dfa9b0c891151ff.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T21:41:38.527111+00:00"
+}

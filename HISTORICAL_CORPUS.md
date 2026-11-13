@@ -3,6 +3,43 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Venmore 2016–2026 retained-source recovery
+
+The complete protected Venmore checkpoint was reconciled into the current corpus
+without importing its stale generated totals or unrelated merge history. Two
+reusable runners cover 28 surviving first-party catalogue PDFs, 14 exact-dated
+addenda and retained indexed individual-detail pages. The bank preserves 319
+immutable first-party snapshots and 73 exact-dated event inventories.
+
+The recovery adds **1,445 net individual appearances**, all with exact published
+addresses and dates inside 13 November 2006–13 November 2026. The sector split is
+68 commercial, 136 mixed-use, 52 land, 898 residential and 291 unknown, so the
+commercial/mixed-use subset is **204**. It adds **1,119 guide prices, 44 achieved
+prices and 656 published annual-rent values**. Guide, achieved price and rent
+fields remain distinct; missing values remain null, and unusually large published
+rent text is retained with its immutable source rather than silently corrected.
+
+Every Venmore appearance ID, lot identity and original URL is unique. Comparison
+against the 313,445-row pre-bank database found **0 appearance-ID overlaps, 0
+canonical-URL overlaps and 0 exact date/address overlaps**. The gain therefore
+contains 1,445 newly dated address records, 0 partial records, 0 undated records,
+0 future-dated records and 0 duplicate source identities. `Venmore Auctions`
+remains one auctioneer/trading-name lineage; its 2016–2026 evidence adds **11
+source-years**, not eleven auctioneers.
+
+Rebuilt totals are **314,890 appearances, 303,574 address records, 11,316 partial
+records and 306,530 in-window appearances**, including **108,060 in-window guides
+and 112,892 in-window achieved prices**. Undated and future-dated totals remain
+5,056 and 184. National completeness remains false.
+
+Next concrete growth target: inventory Kivells' retained 2021 publisher profile
+for surviving exact-dated result books and batch every accessible individual card
+through the existing reusable FlipHTML runner. Reconcile each book against its own
+card denominator, preserve guides, achieved prices, outcomes and original page
+evidence, and keep `Kivells Auctions` within the existing Kivells operator lineage.
+If no 2021 books survive, record that blocker once and rotate to the remaining
+unreconciled City & Rural first-party result pages rather than refreshing Venmore.
+
 
 ## 11 November 2026 — Kivells 2022 retained result-book batch
 

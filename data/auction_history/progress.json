@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T18:21:33.625581+00:00",
-  "individual_lot_records_captured": 313445,
-  "records_with_address": 302129,
+  "generated_at": "2026-11-13T19:08:00.744105+00:00",
+  "individual_lot_records_captured": 314890,
+  "records_with_address": 303574,
   "partial_lot_records": 11316,
-  "exact_address_groups": 168054,
-  "groups_with_repeat_appearances": 42989,
+  "exact_address_groups": 168996,
+  "groups_with_repeat_appearances": 43230,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -133,7 +133,8 @@
     "The Auction Company": 123,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3114,
-    "Unknown auctioneer": 14
+    "Unknown auctioneer": 14,
+    "Venmore Auctions": 1445
   },
   "by_year": {
     "null": 5056,
@@ -151,33 +152,33 @@
     "2013": 6302,
     "2014": 8544,
     "2015": 7929,
-    "2016": 8671,
-    "2017": 8891,
-    "2018": 8294,
-    "2019": 7978,
-    "2020": 13958,
-    "2021": 21296,
-    "2022": 26725,
-    "2023": 33421,
-    "2024": 42334,
-    "2025": 48408,
-    "2026": 48371,
+    "2016": 8695,
+    "2017": 8908,
+    "2018": 8326,
+    "2019": 8005,
+    "2020": 14003,
+    "2021": 21380,
+    "2022": 26863,
+    "2023": 33667,
+    "2024": 42675,
+    "2025": 48676,
+    "2026": 48594,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42802,
-    "land": 19435,
+    "commercial": 42870,
+    "land": 19487,
     "mixed": 1,
-    "mixed-use": 47723,
-    "residential": 151875,
-    "unknown": 51609
+    "mixed-use": 47859,
+    "residential": 152773,
+    "unknown": 51900
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5040,
-  "catalogues_incomplete_or_unreconciled": 573,
+  "surviving_catalogues_completely_harvested": 5068,
+  "catalogues_incomplete_or_unreconciled": 618,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -190,13 +191,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305085,
-      "auction_ids_observed": 13716,
-      "with_guide_price": 106941,
-      "with_sale_price": 112848,
+      "lot_appearances": 306530,
+      "auction_ids_observed": 13789,
+      "with_guide_price": 108060,
+      "with_sale_price": 112892,
       "with_both_prices": 48964,
-      "marked_sold": 155752,
-      "marked_sold_without_sale_price": 43644
+      "marked_sold": 156003,
+      "marked_sold_without_sale_price": 43851
     },
     "by_auctioneer_and_year": [
       {
@@ -8855,6 +8856,127 @@
         "with_both_prices": 10,
         "marked_sold": 11,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2016,
+        "lot_appearances": 24,
+        "auction_ids_observed": 6,
+        "with_guide_price": 3,
+        "with_sale_price": 8,
+        "with_both_prices": 0,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 9
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2017,
+        "lot_appearances": 17,
+        "auction_ids_observed": 6,
+        "with_guide_price": 3,
+        "with_sale_price": 6,
+        "with_both_prices": 0,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2018,
+        "lot_appearances": 32,
+        "auction_ids_observed": 5,
+        "with_guide_price": 7,
+        "with_sale_price": 11,
+        "with_both_prices": 0,
+        "marked_sold": 22,
+        "marked_sold_without_sale_price": 11
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2019,
+        "lot_appearances": 27,
+        "auction_ids_observed": 7,
+        "with_guide_price": 2,
+        "with_sale_price": 11,
+        "with_both_prices": 0,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 8
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2020,
+        "lot_appearances": 45,
+        "auction_ids_observed": 8,
+        "with_guide_price": 9,
+        "with_sale_price": 8,
+        "with_both_prices": 0,
+        "marked_sold": 28,
+        "marked_sold_without_sale_price": 20
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2021,
+        "lot_appearances": 84,
+        "auction_ids_observed": 7,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 56,
+        "marked_sold_without_sale_price": 56
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2022,
+        "lot_appearances": 138,
+        "auction_ids_observed": 7,
+        "with_guide_price": 65,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 57,
+        "marked_sold_without_sale_price": 57
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2023,
+        "lot_appearances": 246,
+        "auction_ids_observed": 6,
+        "with_guide_price": 241,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 4
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2024,
+        "lot_appearances": 341,
+        "auction_ids_observed": 7,
+        "with_guide_price": 313,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 25,
+        "marked_sold_without_sale_price": 25
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2025,
+        "lot_appearances": 268,
+        "auction_ids_observed": 8,
+        "with_guide_price": 255,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 12
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2026,
+        "lot_appearances": 223,
+        "auction_ids_observed": 6,
+        "with_guide_price": 220,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
       }
     ],
     "undated_appearances": 5056,

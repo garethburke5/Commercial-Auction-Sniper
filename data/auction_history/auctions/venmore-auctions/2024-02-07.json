@@ -1,0 +1,38 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2024-02-07",
+  "auction_date": "2024-02-07",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/1025941254-Venmore%20Auction%20February%20Catalogue%2024%20%282%29-compressed.pdf",
+  "published_lots": 40,
+  "catalogue_published_lots": 40,
+  "lots_captured": 40,
+  "online_listing_gap": 0,
+  "guides_captured": 35,
+  "rents_captured": 16,
+  "published_outcomes_captured": 5,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=86",
+  "auction_date_basis": "exact date printed in first-party catalogue",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/1025941254-Venmore%20Auction%20February%20Catalogue%2024%20%282%29-compressed.pdf",
+    "retrieved_at": "2026-11-12T22:12:43.976249+00:00",
+    "sha256": "a1afb4d6e807ffa46980f9b3e9db5160859143850cffec8cc7974e0a050b4415",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=86",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-02-07-a1afb4d6e807ffa46980.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-02-07-a1afb4d6e807ffa46980.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2024-02-07-a1afb4d6e807ffa46980.pdf.gz.part-003"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T22:12:44.204033+00:00"
+}

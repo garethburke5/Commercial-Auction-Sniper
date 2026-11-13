@@ -1,0 +1,39 @@
+{
+  "auctioneer": "Venmore Auctions",
+  "trading_name": "Venmore Auctions",
+  "source_auction_id": "venmore-auctions:2023-12-06",
+  "auction_date": "2023-12-06",
+  "auction_date_precision": "day",
+  "source_url": "https://www.venmoreauctions.co.uk/userfiles/845477974-Venmore%20Auction%20December%20Catalogue%202023-compressed.pdf",
+  "published_lots": 47,
+  "catalogue_published_lots": 47,
+  "lots_captured": 47,
+  "online_listing_gap": 0,
+  "guides_captured": 47,
+  "rents_captured": 27,
+  "published_outcomes_captured": 0,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "denominator_reconciled": true,
+  "denominator_basis": "contiguous numbered order-of-lots table in complete first-party PDF; historical live grid no longer publishes a usable property denominator",
+  "completion_scope": "every numbered row in the printed order-of-lots table",
+  "source_event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=85",
+  "auction_date_basis": "exact date on first-party event page; matching month printed on first-party catalogue cover",
+  "source_evidence": {
+    "source_url": "https://www.venmoreauctions.co.uk/userfiles/845477974-Venmore%20Auction%20December%20Catalogue%202023-compressed.pdf",
+    "retrieved_at": "2026-11-12T22:12:38.718087+00:00",
+    "sha256": "e6a2b855ae294fae35e811c5ef9064e243d7a445ba7075d9a9792a16de02fb8d",
+    "basis": "complete first-party exact-dated property-auction catalogue PDF",
+    "archive_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
+    "event_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=85",
+    "snapshot_parts": [
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-12-06-e6a2b855ae294fae35e8.pdf.gz.part-001",
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-12-06-e6a2b855ae294fae35e8.pdf.gz.part-002",
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-12-06-e6a2b855ae294fae35e8.pdf.gz.part-003",
+      "data/auction_history/sources/venmore-auctions/catalogue-2023-12-06-e6a2b855ae294fae35e8.pdf.gz.part-004"
+    ],
+    "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF"
+  },
+  "errors": [],
+  "checked_at": "2026-11-12T22:12:38.975361+00:00"
+}
