@@ -119,7 +119,14 @@ def test_retained_date_range_ignores_null_dates():
 
 
 def test_configure_supports_retained_search_grids():
-    original = (hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG, hh.OPERATOR_METADATA)
+    original = (
+        hh.BASE,
+        hh.ARCHIVE_URL,
+        hh.AUCTIONEER,
+        hh.SLUG,
+        hh.OPERATOR_METADATA,
+        hh.ALLOW_MISSING_IDENTITY_EXCLUSIONS,
+    )
     try:
         hh.configure(
             "https://purplebricks.gotoproperties.co.uk/",
@@ -127,12 +134,21 @@ def test_configure_supports_retained_search_grids():
             "purplebricks-online-auctions",
             archive_path="/search",
             operator_metadata={"operator_legal_name": "Genle Limited"},
+            allow_missing_identity_exclusions=True,
         )
         assert hh.ARCHIVE_URL == "https://purplebricks.gotoproperties.co.uk/search"
         assert "lotResultType=All" in hh.archive_page_url(1)
         assert hh.OPERATOR_METADATA == {"operator_legal_name": "Genle Limited"}
+        assert hh.ALLOW_MISSING_IDENTITY_EXCLUSIONS is True
     finally:
-        hh.BASE, hh.ARCHIVE_URL, hh.AUCTIONEER, hh.SLUG, hh.OPERATOR_METADATA = original
+        (
+            hh.BASE,
+            hh.ARCHIVE_URL,
+            hh.AUCTIONEER,
+            hh.SLUG,
+            hh.OPERATOR_METADATA,
+            hh.ALLOW_MISSING_IDENTITY_EXCLUSIONS,
+        ) = original
 
 
 def test_committed_offer_cards_are_reconciled_but_not_admitted():
@@ -151,6 +167,30 @@ def test_committed_offer_cards_are_reconciled_but_not_admitted():
         "address": "1 Offer Road, London, E1 1AA",
         "source_url": "https://harman-healy.co.uk/lot/details/offer-only",
         "source_position": 1,
+    }]
+
+
+def test_deleted_url_card_is_explicit_identity_exclusion(monkeypatch):
+    fixture = """
+    <html><body><div>Showing results 1 - 1 of 1</div>
+    <div class="lot-panel"><h3 class="panel-title">Auction Ended -
+    <time datetime="2021-01-15T15:04:09.3570000">15 Jan 2021</time></h3>
+    <a href=""><h3 class="list-address">Rochroane Pinkham Lane, Cleobury Mortimer,
+    Kidderminster, DY14 8QF</h3></a>
+    <div class="list-guideprice">Result: <strong>Sold</strong></div></div>
+    </body></html>
+    """
+    monkeypatch.setattr(hh, "ALLOW_MISSING_IDENTITY_EXCLUSIONS", True)
+    assert hh.parse_page(fixture, 2, {}) == []
+    assert hh.missing_identity_cards(fixture, 2) == [{
+        "reason": "publisher_removed_stable_lot_identity",
+        "address": (
+            "Rochroane Pinkham Lane, Cleobury Mortimer, Kidderminster, DY14 8QF"
+        ),
+        "auction_date": "2021-01-15",
+        "source_position": 51,
+        "source_page": 2,
+        "treatment": "not admitted; no synthetic property or appearance identity created",
     }]
 
 

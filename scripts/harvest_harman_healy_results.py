@@ -29,6 +29,7 @@ ARCHIVE_URL = BASE + "/past-auctions"
 AUCTIONEER = "Harman Healy"
 SLUG = "harman-healy"
 OPERATOR_METADATA: dict[str, object] = {}
+ALLOW_MISSING_IDENTITY_EXCLUSIONS = False
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 PAGE_SIZE = 50
 COUNT_RE = re.compile(r"Showing\s+results\s+[\d,]+\s*-\s*[\d,]+\s+of\s+([\d,]+)", re.I)
@@ -118,6 +119,41 @@ def non_auction_offer_cards(html: str, page: int) -> list[dict]:
     return excluded
 
 
+def missing_identity_cards(html: str, page: int) -> list[dict]:
+    """Describe retained auction cards whose publisher removed the lot URL.
+
+    A URL-less card has no stable EIG identity and cannot safely be admitted:
+    the same address can appear in multiple auctions.  Aggregate platform
+    indexes may nevertheless retain hundreds of these deleted cards, so keep
+    their page evidence and denominator position explicit rather than
+    inventing an ID or rejecting thousands of intact UUID-backed rows.
+    """
+    excluded = []
+    for page_position, card in enumerate(BeautifulSoup(html, "lxml").select(".lot-panel"), 1):
+        if is_non_auction_offer_card(card):
+            continue
+        detail_node = card.select_one('a[href*="/lot/details/"]')
+        detail_url = urljoin(BASE, detail_node.get("href") or "") if detail_node else None
+        if detail_url and DETAIL_RE.search(detail_url):
+            continue
+        time_node = card.select_one("time[datetime]")
+        address_node = card.select_one(".list-address")
+        excluded.append(
+            {
+                "reason": "publisher_removed_stable_lot_identity",
+                "address": clean(address_node.get_text(" ", strip=True)) if address_node else None,
+                "auction_date": (
+                    datetime.fromisoformat(time_node["datetime"]).date().isoformat()
+                    if time_node else None
+                ),
+                "source_position": (page - 1) * PAGE_SIZE + page_position,
+                "source_page": page,
+                "treatment": "not admitted; no synthetic property or appearance identity created",
+            }
+        )
+    return excluded
+
+
 def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
     soup = BeautifulSoup(html, "lxml")
     cards = soup.select(".lot-panel")
@@ -139,6 +175,8 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         # values must remain null rather than causing the entire archive to
         # fail or being inferred from neighbouring cards.
         if not all((detail_url, id_match)):
+            if ALLOW_MISSING_IDENTITY_EXCLUSIONS:
+                continue
             raise ValueError(f"archive page {page} card {page_position} lacks a stable lot identity")
         source_id = id_match.group(1).lower()
         auction_date = (
@@ -211,13 +249,16 @@ def configure(
     slug: str,
     archive_path: str = "/past-auctions",
     operator_metadata: dict[str, object] | None = None,
+    allow_missing_identity_exclusions: bool = False,
 ) -> None:
     global BASE, ARCHIVE_URL, AUCTIONEER, SLUG, OPERATOR_METADATA
+    global ALLOW_MISSING_IDENTITY_EXCLUSIONS
     BASE = base.rstrip("/")
     ARCHIVE_URL = BASE + "/" + archive_path.lstrip("/")
     AUCTIONEER = auctioneer
     SLUG = slug
     OPERATOR_METADATA = dict(operator_metadata or {})
+    ALLOW_MISSING_IDENTITY_EXCLUSIONS = allow_missing_identity_exclusions
 
 
 def global_eig_source_ids(exclude_slug: str) -> dict[str, list[dict]]:
@@ -274,7 +315,7 @@ def harvest() -> None:
             page, raw, resolved = future.result()
             fetched[page] = (raw, resolved, None)
 
-    observed, evidence_pages, non_auction_exclusions = [], [], []
+    observed, evidence_pages, non_auction_exclusions, identity_exclusions = [], [], [], []
     for page in range(1, total_pages + 1):
         raw, resolved, saved_evidence = fetched[page]
         html = raw.decode("utf-8", "replace")
@@ -299,21 +340,31 @@ def harvest() -> None:
             corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
         rows = parse_page(html, page, evidence)
         exclusions = non_auction_offer_cards(html, page)
+        missing_identities = missing_identity_cards(html, page)
+        if missing_identities and not ALLOW_MISSING_IDENTITY_EXCLUSIONS:
+            raise ValueError(
+                f"archive page {page} contains {len(missing_identities)} auction cards "
+                "without a stable lot identity"
+            )
         expected_on_page = PAGE_SIZE if page < total_pages else expected - PAGE_SIZE * (total_pages - 1)
-        if len(rows) + len(exclusions) != expected_on_page:
+        if len(rows) + len(exclusions) + len(missing_identities) != expected_on_page:
             raise ValueError(
                 f"archive page {page} reconciled {len(rows)} auction rows plus "
-                f"{len(exclusions)} committed-offer exclusions of {expected_on_page} expected cards"
+                f"{len(exclusions)} committed-offer exclusions and {len(missing_identities)} "
+                f"missing-identity exclusions of {expected_on_page} expected cards"
             )
         observed.extend(rows)
         non_auction_exclusions.extend(exclusions)
+        identity_exclusions.extend(missing_identities)
         evidence_pages.append(evidence)
 
     identities = [row["appearance_id"] for row in observed]
-    if len(observed) + len(non_auction_exclusions) != expected or len(identities) != len(set(identities)):
+    if (len(observed) + len(non_auction_exclusions) + len(identity_exclusions) != expected
+            or len(identities) != len(set(identities))):
         raise ValueError(
             f"archive reconciled {len(observed)} auction rows, {len(non_auction_exclusions)} "
-            f"committed-offer exclusions and {len(set(identities))} identities of {expected} cards"
+            f"committed-offer exclusions, {len(identity_exclusions)} missing-identity exclusions "
+            f"and {len(set(identities))} identities of {expected} cards"
         )
 
     global_ids = global_eig_source_ids(SLUG)
@@ -352,8 +403,8 @@ def harvest() -> None:
         **OPERATOR_METADATA,
         "source_auction_id": f"{SLUG}:retained-past-auctions",
         "auction_date": None,
-        "catalogue_complete": True,
-        "source_rows_complete": True,
+        "catalogue_complete": not identity_exclusions,
+        "source_rows_complete": not identity_exclusions,
         "published_lots_offered": expected,
         "visible_source_rows": len(observed),
         "visible_source_cards": expected,
@@ -361,9 +412,17 @@ def harvest() -> None:
         "source_url": first_resolved,
         "pagination_reconciled": True,
         "denominator_reconciled": True,
-        "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+        "completion_scope": (
+            "every card across every page of the first-party retained grid was "
+            "reconciled; UUID-backed auction rows were admitted and publisher-deleted "
+            "URL-less cards were retained only as explicit identity exclusions"
+            if identity_exclusions else
+            "every lot card across every page of the first-party retained past-auctions grid"
+        ),
         "non_auction_property_cards_excluded": len(non_auction_exclusions),
         "non_auction_exclusions": non_auction_exclusions,
+        "missing_identity_cards_excluded": len(identity_exclusions),
+        "missing_identity_exclusions": identity_exclusions,
         "duplicate_source_evidence_excluded": len(overlap_exclusions),
         "duplicate_source_exclusions": overlap_exclusions,
         "source_evidence": evidence_pages,
@@ -398,12 +457,14 @@ def harvest() -> None:
         "new_source_years": sorted(years_after - years_before),
         "non_auction_property_cards_excluded": len(non_auction_exclusions),
         "non_auction_exclusions": non_auction_exclusions,
+        "missing_identity_cards_excluded": len(identity_exclusions),
+        "missing_identity_exclusions": identity_exclusions,
         "run_duplicate_source_evidence_excluded": len(overlap_exclusions),
         "duplicate_source_exclusions": overlap_exclusions,
         "date_range": retained_date_range(merged.values()),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
-        "catalogue_completion_claimed": True,
+        "catalogue_completion_claimed": not identity_exclusions,
         "completion_scope": state["completion_scope"],
         "failures": [],
     }

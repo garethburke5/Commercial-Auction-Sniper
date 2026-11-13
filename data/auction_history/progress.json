@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T06:13:52.341953+00:00",
-  "individual_lot_records_captured": 319523,
-  "records_with_address": 306965,
+  "generated_at": "2026-11-13T07:17:24.360099+00:00",
+  "individual_lot_records_captured": 321564,
+  "records_with_address": 309006,
   "partial_lot_records": 12558,
-  "exact_address_groups": 171095,
-  "groups_with_repeat_appearances": 43933,
+  "exact_address_groups": 172951,
+  "groups_with_repeat_appearances": 44088,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -54,6 +54,7 @@
     "Auction House Wales - Cardiff": 244,
     "Auction House Wales - Colwyn Bay": 36,
     "Auction House West Yorkshire": 223,
+    "Auction Local": 5,
     "Auction North": 37,
     "Auction Property Ltd": 51,
     "Auction Works": 653,
@@ -68,6 +69,7 @@
     "Boultons Harrisons Ltd": 62,
     "Bowen": 27,
     "Bradley Hall": 78,
+    "Brookvale Auctions": 33,
     "Brown&Co": 478,
     "Butters John Bee": 1446,
     "Cheffins": 761,
@@ -83,6 +85,7 @@
     "Edward Mellor": 12068,
     "First for Auctions": 1454,
     "Future Property Auctions": 76690,
+    "GOTO Group": 2003,
     "Goldings Auctions": 635,
     "H&H Land & Estates": 55,
     "Halls": 240,
@@ -141,7 +144,7 @@
     "Venmore Auctions": 1445
   },
   "by_year": {
-    "null": 6334,
+    "null": 6839,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -160,29 +163,29 @@
     "2017": 9038,
     "2018": 8901,
     "2019": 8096,
-    "2020": 14137,
-    "2021": 22150,
-    "2022": 27504,
-    "2023": 34005,
-    "2024": 42836,
-    "2025": 48740,
-    "2026": 48661,
-    "2027": 6
+    "2020": 14138,
+    "2021": 22261,
+    "2022": 27656,
+    "2023": 34452,
+    "2024": 43175,
+    "2025": 49084,
+    "2026": 48802,
+    "2027": 7
   },
   "by_sector": {
-    "commercial": 43121,
-    "land": 19901,
+    "commercial": 43140,
+    "land": 19964,
     "mixed": 1,
-    "mixed-use": 47991,
-    "residential": 154955,
-    "unknown": 53554
+    "mixed-use": 48010,
+    "residential": 156106,
+    "unknown": 54343
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5255,
-  "catalogues_incomplete_or_unreconciled": 778,
+  "surviving_catalogues_completely_harvested": 5285,
+  "catalogues_incomplete_or_unreconciled": 779,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -195,13 +198,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309890,
-      "auction_ids_observed": 13970,
-      "with_guide_price": 111248,
-      "with_sale_price": 114333,
-      "with_both_prices": 50370,
-      "marked_sold": 157534,
-      "marked_sold_without_sale_price": 43941
+      "lot_appearances": 311372,
+      "auction_ids_observed": 14874,
+      "with_guide_price": 111275,
+      "with_sale_price": 114439,
+      "with_both_prices": 50385,
+      "marked_sold": 158823,
+      "marked_sold_without_sale_price": 45124
     },
     "by_auctioneer_and_year": [
       {
@@ -4297,6 +4300,39 @@
         "marked_sold_without_sale_price": 2
       },
       {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2024,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2025,
+        "lot_appearances": 12,
+        "auction_ids_observed": 11,
+        "with_guide_price": 12,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2026,
+        "lot_appearances": 14,
+        "auction_ids_observed": 13,
+        "with_guide_price": 14,
+        "with_sale_price": 10,
+        "with_both_prices": 10,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 2
+      },
+      {
         "auctioneer": "Brown&Co",
         "year": 2020,
         "lot_appearances": 1,
@@ -5560,6 +5596,83 @@
         "with_both_prices": 0,
         "marked_sold": 970,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2020,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2021,
+        "lot_appearances": 111,
+        "auction_ids_observed": 90,
+        "with_guide_price": 0,
+        "with_sale_price": 6,
+        "with_both_prices": 0,
+        "marked_sold": 103,
+        "marked_sold_without_sale_price": 97
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2022,
+        "lot_appearances": 152,
+        "auction_ids_observed": 116,
+        "with_guide_price": 0,
+        "with_sale_price": 4,
+        "with_both_prices": 0,
+        "marked_sold": 115,
+        "marked_sold_without_sale_price": 111
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2023,
+        "lot_appearances": 447,
+        "auction_ids_observed": 233,
+        "with_guide_price": 0,
+        "with_sale_price": 7,
+        "with_both_prices": 0,
+        "marked_sold": 359,
+        "marked_sold_without_sale_price": 352
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2024,
+        "lot_appearances": 338,
+        "auction_ids_observed": 189,
+        "with_guide_price": 0,
+        "with_sale_price": 20,
+        "with_both_prices": 0,
+        "marked_sold": 315,
+        "marked_sold_without_sale_price": 295
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2025,
+        "lot_appearances": 332,
+        "auction_ids_observed": 192,
+        "with_guide_price": 0,
+        "with_sale_price": 43,
+        "with_both_prices": 0,
+        "marked_sold": 306,
+        "marked_sold_without_sale_price": 263
+      },
+      {
+        "auctioneer": "GOTO Group",
+        "year": 2026,
+        "lot_appearances": 74,
+        "auction_ids_observed": 58,
+        "with_guide_price": 0,
+        "with_sale_price": 11,
+        "with_both_prices": 0,
+        "marked_sold": 65,
+        "marked_sold_without_sale_price": 54
       },
       {
         "auctioneer": "Goldings Auctions",
@@ -9390,8 +9503,8 @@
         "marked_sold_without_sale_price": 3
       }
     ],
-    "undated_appearances": 6334,
-    "future_dated_appearances": 179,
+    "undated_appearances": 6839,
+    "future_dated_appearances": 233,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

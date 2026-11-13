@@ -3,6 +3,58 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — GOTO shared archive and uncovered EIG operator batch
+
+- **Specific growth opportunity executed:** one reusable shared-platform run
+  reconciled all **4,704 visible cards across 95 pages** of GOTO Group's
+  first-party aggregate property archive. A second manifest-driven run banked
+  the complete surviving first-party EIG grids for uncovered genuine operators
+  **Brookvale Auctions (33/33 cards)** and **Auction Local (5/5 cards)**. This
+  was one bounded batch, not a dated workflow step or deployment per event.
+- **Measured net gain:** **2,041 individual appearances / 2,041 address
+  records**, including **1,482 newly dated addresses inside the twenty-year
+  window** and **0 partial records**. The admitted rows add **38
+  commercial/mixed-use appearances**, **505 undated appearances** and **54
+  future-dated appearances**.
+- **Evidence gain:** the new rows preserve **38 numeric guides, 125 achieved
+  prices and 3 published rents** as distinct fields with their original URLs
+  and immutable snapshots. The post-rebuild in-window evidence totals increased
+  by **27 guides** and **106 achieved prices**; the difference from the
+  all-record gain is undated or future-dated evidence, not discarded data.
+- **Overlap and identity safeguards:** GOTO's aggregate archive exposed **4,441
+  stable property UUID cards**. The collector excluded **2,438 shared UUIDs**
+  already banked through branded/partner channels and admitted the remaining
+  **2,003** once. A further **263 publisher-retained cards** had lost their
+  stable property URL/UUID; their addresses, dates and source positions remain
+  recorded as exclusions, but no synthetic property or appearance identity was
+  created. GOTO catalogue completeness therefore remains false despite full
+  page/card reconciliation.
+- **Operator and source-year reconciliation:** GOTO Group is counted once as
+  the trading platform of **Genle Limited (09790404)**; branded and partner
+  skins are evidence channels rather than additional auctioneers. The newly
+  represented historical source-year pairs are **GOTO 2020-2026** and
+  **Brookvale 2024-2026** (**10 pairs**). GOTO 2027 and Auction Local 2026 are
+  retained as future-only evidence and are not reported as historical-window
+  coverage.
+- **Corpus after rebuild:** **321,564 appearances**, **309,006 address records**,
+  **12,558 partial records** and **311,372 in-window appearances**. In-window
+  evidence totals are **111,275 guides** and **114,439 achieved prices**;
+  retained undated and future-dated totals are **6,839** and **233**.
+- **Integrity and publication preparation:** SQLite contains **321,564
+  appearances** and passes full `PRAGMA integrity_check`. The
+  **179,792,854-byte** compressed database reconstructs from **22
+  checksum-addressed parts**. The source register has been rebuilt; protected
+  current-scan and history-bank jobs were inspected and not duplicated.
+- **Next concrete growth target:** build one reusable IAM-SOLD first-party
+  sold-property collector, beginning with the operator-level recently-sold
+  inventory and the public Wards and Miller Metcalfe `/properties/sold/`
+  routes. Enumerate stable property URLs across partner routes, preserve sale
+  dates and achieved prices where published, reconcile **IAM-SOLD Ltd
+  (07051399)** and its trading names once, and deduplicate the same property
+  across partner skins before claiming growth.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Halls missing 2025-2026 catalogue batch
 
 - **Specific growth opportunity executed:** the reusable Halls retained-index

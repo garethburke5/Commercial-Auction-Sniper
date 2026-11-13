@@ -81,6 +81,8 @@ on:
       - scripts/harvest_butters_john_bee_archive.py
       - tests/test_butters_john_bee_archive.py
       - scripts/harvest_purplebricks_online_auctions.py
+      - scripts/harvest_goto_group_property_archive.py
+      - config/eig_uncovered_archive_batch.json
       - scripts/harvest_robinson_hall_results.py
       - scripts/harvest_auction_hammer_midlands.py
       - scripts/reconcile_online_result_state_errors.py
@@ -1129,6 +1131,12 @@ jobs:
         if: startsWith(github.event.head_commit.message, 'Run focused Purplebricks archive expansion')
         timeout-minutes: 20
         run: python -u scripts/harvest_purplebricks_online_auctions.py
+      - name: Collect uncovered shared-platform archives as one bounded batch
+        if: startsWith(github.event.head_commit.message, 'Run focused shared-platform archive expansion')
+        timeout-minutes: 30
+        run: |
+          python -u scripts/harvest_goto_group_property_archive.py
+          python -u scripts/harvest_eig_retained_grids.py --manifest config/eig_uncovered_archive_batch.json --workers 16
       - name: Collect Bid and DAIG complete retained property archive
         if: inputs.focus == 'bid-daig' || startsWith(github.event.head_commit.message, 'Run focused Bid retained archive expansion')
         timeout-minutes: 30

@@ -37,6 +37,11 @@ SOURCES = {
         "base": "https://auction.bradleyhall.co.uk",
         "archive_path": "/search",
     },
+    "brookvale-auctions": {
+        "auctioneer": "Brookvale Auctions",
+        "base": "https://auction.brookvale.uk",
+        "archive_path": "/search",
+    },
     "brown-co": {
         "auctioneer": "Brown&Co",
         "base": "https://brownandco.eigonlineauctions.com",
@@ -77,6 +82,11 @@ SOURCES = {
         "operator_legal_name": "AUCTION NORTH LIMITED",
         "operator_company_number": "10762287",
         "partner_agents": ["Dynamic Property Group", "independent local property experts"],
+    },
+    "auction-local": {
+        "auctioneer": "Auction Local",
+        "base": "https://www.auctionlocal.co.uk",
+        "archive_path": "/search",
     },
     "sage-co-auctions": {
         "auctioneer": "Sage & Co Auctions",
