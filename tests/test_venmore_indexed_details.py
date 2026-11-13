@@ -5,11 +5,13 @@ import pytest
 from scripts import harvest_venmore_indexed_details as collector
 
 
-def test_manifest_reconciles_45_distinct_first_party_pages():
+def test_manifest_reconciles_72_distinct_first_party_pages():
     payload = collector.load_manifest()
-    assert payload["expected_pages"] == 45
-    assert len(payload["pages"]) == 45
+    assert payload["expected_pages"] == 72
+    assert len(payload["pages"]) == 72
     assert {page["auction_date"] for page in payload["pages"]} == {
+        "2019-02-13", "2019-04-04", "2019-05-23", "2019-07-18",
+        "2019-09-03", "2019-10-17", "2019-12-11",
         "2020-02-12", "2020-04-07", "2020-04-21", "2020-06-08",
         "2020-07-15", "2020-09-09", "2020-10-27", "2020-12-15",
     }

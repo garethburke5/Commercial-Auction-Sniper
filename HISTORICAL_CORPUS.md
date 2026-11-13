@@ -3,6 +3,41 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Venmore indexed 2019 all-event recovery
+
+- **Specific growth opportunity executed:** the immutable-HTML manifest runner
+  was expanded from the 2020 checkpoint to **27 additional indexed first-party
+  detail pages across all seven 2019 auction dates**. Previously retained 2020
+  pages were reused from their snapshots and were not refreshed. Every new page
+  reconciles its printed date, lot number and address before admission.
+- **Measured net gain:** **27 appearances / 27 address records / 27 exact-dated
+  in-window addresses**. New partial, null-address, undated, future-dated,
+  duplicate-source and cross-source-overlap records are all **0**. Venmore
+  source-year **2019** is newly covered.
+- **Sector and evidence gain:** **3 commercial, 8 mixed-use, 1 land and 15
+  residential** appearances; the commercial/mixed-use subset is **11**. The
+  pages add **2 numeric guides, 11 achieved prices and 20 published rents**.
+  Published outcomes remain distinct: 11 sold, seven sold prior, one sold after
+  and eight withdrawn.
+- **Coverage boundary:** the seven event pages remain cleared and no catalogue
+  denominator has been recovered. These 27 individually evidenced pages are
+  therefore partial event coverage, not seven complete catalogue inventories.
+- **Concurrent-main reconciliation:** the newer history-bank result on `main`
+  was merged before publication. Its retained shards add **93 appearances / 93
+  address records** beyond this Venmore batch, of which **90** are in-window;
+  they add **1 guide** and **58 achieved-price records**. These are reported as
+  concurrent merged evidence, not as Venmore collector growth.
+- **Corpus after combined rebuild:** **319,254 appearances**, **306,696 address
+  records**, **12,558 partial records** and **309,766 in-window appearances**.
+  In-window evidence includes **111,184 numeric guides** and **114,308 achieved
+  prices**. Undated and future-dated totals are **6,219** and **149**.
+- **Next concrete growth target:** admit Venmore 2018 and older pages only when
+  new search-index hits, saved files or catalogues appear; do not refresh the
+  cleared grids. Rotate immediately to another uncovered auctioneer archive
+  with a substantial accessible lot inventory.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Venmore indexed 2020 detail-page recovery
 
 - **Specific growth opportunity executed:** a reusable immutable-HTML runner

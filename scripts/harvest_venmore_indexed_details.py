@@ -37,11 +37,10 @@ DETAIL_HEADING = re.compile(
     r"(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})\s+-\s+(?P<address>.+)$"
 )
 NEXT_TARGET = (
-    "Batch Venmore's indexed 2019 detail pages through the same immutable-HTML "
-    "runner, beginning with the surviving December and October event pages. "
-    "Revisit the missing 2020 lot numbers only when an additional indexed URL, "
-    "catalogue or addendum provides new evidence; the cleared live grids are not "
-    "a denominator. Then rotate to another uncovered auctioneer archive. "
+    "Recover Venmore's indexed 2018 and older detail pages only through new "
+    "search-index hits, saved files or catalogues; do not refresh the cleared "
+    "event grids. In parallel rotate to another uncovered auctioneer archive "
+    "with substantial accessible lot inventories. "
     "National completeness remains false."
 )
 
@@ -245,6 +244,13 @@ def materialize(config, source_url, evidence, raw):
 
 def event_id(auction_date):
     return {
+        "2019-02-13": 43,
+        "2019-04-04": 44,
+        "2019-05-23": 45,
+        "2019-07-18": 46,
+        "2019-09-03": 47,
+        "2019-10-17": 48,
+        "2019-12-11": 49,
         "2020-02-12": 50,
         "2020-04-07": 51,
         "2020-04-21": 52,
@@ -309,7 +315,32 @@ def harvest():
         json.loads(summary_path.read_text(encoding="utf-8"))
         if summary_path.exists() else None
     )
-    if previous_summary and "batch_baseline_appearance_ids" in previous_summary:
+    manifest_grew = bool(
+        previous_summary
+        and int(previous_summary.get("indexed_detail_pages_in_batch", 0))
+        < int(manifest["expected_pages"])
+    )
+    if manifest_grew:
+        previous_count = int(previous_summary["indexed_detail_pages_in_batch"])
+        new_identities = {
+            (page["auction_date"], str(page["expected_lot_number"]))
+            for page in manifest["pages"][previous_count:]
+        }
+        baseline_ids = {
+            row["appearance_id"]
+            for row in existing
+            if (row.get("auction_date"), str(row.get("lot_number")))
+            not in new_identities
+        }
+        baseline_years = {
+            row["auction_date"][:4]
+            for row in existing
+            if row.get("auction_date") and row["appearance_id"] in baseline_ids
+        }
+    elif (
+        previous_summary
+        and "batch_baseline_appearance_ids" in previous_summary
+    ):
         baseline_ids = set(previous_summary["batch_baseline_appearance_ids"])
         baseline_years = set(previous_summary.get(
             "batch_baseline_source_years",
