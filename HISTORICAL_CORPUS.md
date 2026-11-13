@@ -25,7 +25,7 @@ progress is one evidenced auction lot appearance, never an auction date alone.
 - **Concurrent-main reconciliation:** the newer history-bank result on `main`
   was merged before publication. Its retained shards add **93 appearances / 93
   address records** beyond this Venmore batch, of which **90** are in-window;
-  they add **1 guide** and **58 achieved-price records**. These are reported as
+  they add **0 guides** and **58 achieved-price records**. These are reported as
   concurrent merged evidence, not as Venmore collector growth.
 - **Corpus after combined rebuild:** **319,254 appearances**, **306,696 address
   records**, **12,558 partial records** and **309,766 in-window appearances**.
