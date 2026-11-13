@@ -37,7 +37,7 @@ DETAIL_HEADING = re.compile(
     r"(?P<month>[A-Za-z]+)\s+(?P<year>\d{4})\s+-\s+(?P<address>.+)$"
 )
 NEXT_TARGET = (
-    "Recover Venmore's indexed 2018 and older detail pages only through new "
+    "Recover Venmore's indexed 2016 and older detail pages only through new "
     "search-index hits, saved files or catalogues; do not refresh the cleared "
     "event grids. In parallel rotate to another uncovered auctioneer archive "
     "with substantial accessible lot inventories. "
@@ -244,6 +244,17 @@ def materialize(config, source_url, evidence, raw):
 
 def event_id(auction_date):
     return {
+        "2017-02-17": 29,
+        "2017-04-04": 30,
+        "2017-05-17": 31,
+        "2017-09-13": 33,
+        "2017-10-31": 34,
+        "2017-12-13": 35,
+        "2018-02-14": 36,
+        "2018-05-16": 38,
+        "2018-07-11": 39,
+        "2018-09-12": 40,
+        "2018-10-31": 41,
         "2019-02-13": 43,
         "2019-04-04": 44,
         "2019-05-23": 45,
@@ -292,12 +303,12 @@ def persist_continuation(summary):
     payload["next_growth_target"] = NEXT_TARGET
     payload["prepared_follow_on_target"] = {
         "checked_at": summary["checked_at"],
-        "source_key_candidate": "venmore-auctions-2019-indexed-details",
+        "source_key_candidate": "venmore-auctions-2016-indexed-details",
         "auctioneer": SOURCE,
         "source_format": "first-party retained individual property HTML pages",
         "opportunity": (
-            "batch the surviving December and October 2019 indexed property pages "
-            "through the reusable immutable-HTML runner"
+            "batch newly discovered 2016 and older indexed property pages through "
+            "the reusable immutable-HTML runner, or rotate if the index is thin"
         ),
         "next_growth_target": NEXT_TARGET,
         "national_completeness_verified": False,

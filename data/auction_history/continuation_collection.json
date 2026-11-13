@@ -629,15 +629,16 @@
   "last_automated_growth": {
     "source": "venmore-auctions-indexed-details",
     "outcome": "completed",
-    "checked_at": "2026-11-13T00:19:17.533989+00:00",
-    "run_new_appearances": 27,
-    "run_new_dated_twenty_year_address_records": 27,
-    "run_new_commercial_or_mixed": 11,
-    "run_new_guide_prices": 2,
-    "run_new_sale_prices": 11,
-    "run_new_rents": 20,
+    "checked_at": "2026-11-13T02:08:18.595460+00:00",
+    "run_new_appearances": 49,
+    "run_new_dated_twenty_year_address_records": 49,
+    "run_new_commercial_or_mixed": 20,
+    "run_new_guide_prices": 10,
+    "run_new_sale_prices": 17,
+    "run_new_rents": 23,
     "newly_covered_source_years": [
-      "2019"
+      "2017",
+      "2018"
     ],
     "duplicate_source_evidence_excluded": 0,
     "national_completeness_verified": false
@@ -645,7 +646,7 @@
   "last_growth_attempt": {
     "checked_at": "2026-11-05T07:42:01.048265+00:00",
     "opportunity": "Recover saved first-party Shonki Brothers June 2024 lot 16, omitted only because the retained catalogue printed GUIDE PRICE with a semicolon.",
-    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher\u2019s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
+    "attempted_route": "Extended the reusable retained FlipHTML page parser to accept the publisher’s semicolon delimiter, proved 164/164 retained FlipHTML lot pages reconcile to their printed orders, banked the recovered exact-dated lot, rebuilt the database, merged source evidence and completed the historical publication checkpoint.",
     "net_new_appearances": 1,
     "new_address_records": 1,
     "new_partial_lots": 0,
@@ -702,7 +703,7 @@
       "marked_sold_without_sale_price": 43179
     },
     "national_completeness_verified": false,
-    "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
+    "different_next_target": "Collect City & Rural Property Auctions’ first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
   "last_manual_growth": {
     "checked_at": "2026-11-01T20:18:20.000Z",
@@ -1707,15 +1708,16 @@
     "venmore-auctions-indexed-details": {
       "source": "venmore-auctions-indexed-details",
       "outcome": "completed",
-      "checked_at": "2026-11-13T00:19:17.533989+00:00",
-      "run_new_appearances": 27,
-      "run_new_dated_twenty_year_address_records": 27,
-      "run_new_commercial_or_mixed": 11,
-      "run_new_guide_prices": 2,
-      "run_new_sale_prices": 11,
-      "run_new_rents": 20,
+      "checked_at": "2026-11-13T02:08:18.595460+00:00",
+      "run_new_appearances": 49,
+      "run_new_dated_twenty_year_address_records": 49,
+      "run_new_commercial_or_mixed": 20,
+      "run_new_guide_prices": 10,
+      "run_new_sale_prices": 17,
+      "run_new_rents": 23,
       "newly_covered_source_years": [
-        "2019"
+        "2017",
+        "2018"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -1744,15 +1746,15 @@
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
-  "next_growth_target": "Recover Venmore's indexed 2018 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
+  "next_growth_target": "Recover Venmore's indexed 2016 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
   "next_task": 10,
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-13T00:19:17.533989+00:00",
-    "source_key_candidate": "venmore-auctions-2019-indexed-details",
+    "checked_at": "2026-11-13T02:08:18.595460+00:00",
+    "source_key_candidate": "venmore-auctions-2016-indexed-details",
     "auctioneer": "Venmore Auctions",
     "source_format": "first-party retained individual property HTML pages",
-    "opportunity": "batch the surviving December and October 2019 indexed property pages through the reusable immutable-HTML runner",
-    "next_growth_target": "Recover Venmore's indexed 2018 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
+    "opportunity": "batch newly discovered 2016 and older indexed property pages through the reusable immutable-HTML runner, or rotate if the index is thin",
+    "next_growth_target": "Recover Venmore's indexed 2016 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
     "national_completeness_verified": false
   },
   "prior_target_alias_reconciliation": {
@@ -6924,22 +6926,6 @@
       "national_completeness_verified": false
     },
     {
-      "source": "venmore-auctions-indexed-details",
-      "outcome": "completed",
-      "checked_at": "2026-11-13T00:19:17.533989+00:00",
-      "run_new_appearances": 27,
-      "run_new_dated_twenty_year_address_records": 27,
-      "run_new_commercial_or_mixed": 11,
-      "run_new_guide_prices": 2,
-      "run_new_sale_prices": 11,
-      "run_new_rents": 20,
-      "newly_covered_source_years": [
-        "2019"
-      ],
-      "duplicate_source_evidence_excluded": 0,
-      "national_completeness_verified": false
-    },
-    {
       "source": "auction_house_regions",
       "outcome": "completed",
       "exit_code": 0,
@@ -7130,6 +7116,23 @@
       "diagnostic_tail": "ancy\": null,\n  \"published_result_count\": 76,\n  \"distinct_source_identities\": 76,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"archive_visible_inventory_reconciled\": true,\n  \"archive_reconciliation_note\": null,\n  \"appearances_captured\": 78,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_identity_exclusions\": 0,\n  \"exact_date_address_overlap_exclusions\": 0,\n  \"exact_overlap_reconciliation\": [],\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2025-04-22\",\n    \"2026-12-10\"\n  ],\n  \"by_status\": {\n    \"unknown\": 23,\n    \"sold_prior\": 22,\n    \"sold\": 32,\n    \"postponed\": 1\n  },\n  \"by_sector\": {\n    \"residential\": 47,\n    \"mixed-use\": 19,\n    \"land\": 8,\n    \"commercial\": 3,\n    \"unknown\": 1\n  },\n  \"by_attributed_auctioneer\": {\n    \"Bradley Hall\": 78\n  },\n  \"detail_pages_captured\": 76,\n  \"detail_recovery_complete\": true,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-11-13T00:17:23.497023+00:00\",\n  \"auctioneer\": \"Brown&Co\",\n  \"parser_version\": 8,\n  \"source_url\": \"https://brownandco.eigonlineauctions.com/search\",\n  \"platform_event_id\": null,\n  \"archive_sha256\": \"7021b4bdfd6f39e0303421736a85225c6b2cc37714252bf8203fce46f628a7d9\",\n  \"archive_page_count\": 10,\n  \"archive_page_rows\": [\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    21\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    50,\n    21\n  ],\n  \"visible_source_rows\": 471,\n  \"expected_visible_cards\": null,\n  \"event_advertised_lots\": null,\n  \"event_advertised_lot_discrepancy\": null,\n  \"past_results_index_lots\": null,\n  \"past_results_index_discrepancy\": null,\n  \"published_result_count\": 471,\n  \"distinct_source_identities\": 471,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"archive_visible_inventory_reconciled\": true,\n  \"archive_reconciliation_note\": null,\n  \"appearances_captured\": 478,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_identity_exclusions\": 0,\n  \"exact_date_address_overlap_exclusions\": 0,\n  \"exact_overlap_reconciliation\": [],\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2020-03-26\",\n    \"2026-12-08\"\n  ],\n  \"by_status\": {\n    \"sold\": 412,\n    \"sold_after\": 26,\n    \"unknown\": 21,\n    \"sold_prior\": 8,\n    \"withdrawn\": 6,\n    \"unsold\": 4,\n    \"postponed\": 1\n  },\n  \"by_sector\": {\n    \"residential\": 343,\n    \"unknown\": 58,\n    \"commercial\": 20,\n    \"land\": 52,\n    \"mixed-use\": 5\n  },\n  \"by_attributed_auctioneer\": {\n    \"Brown&Co\": 478\n  },\n  \"detail_pages_captured\": 471,\n  \"detail_recovery_complete\": true,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n{\n  \"checked_at\": \"2026-11-13T00:17:48.703200+00:00\",\n  \"auctioneer\": \"Clarke & Simpson\",\n  \"parser_version\": 8,\n  \"source_url\": \"https://clarke-simpson.eigonlineauctions.com/search\",\n  \"platform_event_id\": null,\n  \"archive_sha256\": \"16682df86a2179ab1dddec8faf655166d695bb98a73f0a293f9e5ff716693aff\",\n  \"archive_page_count\": 4,\n  \"archive_page_rows\": [\n    50,\n    50,\n    50,\n    20\n  ],\n  \"archive_page_visible_cards\": [\n    50,\n    50,\n    50,\n    20\n  ],\n  \"visible_source_rows\": 170,\n  \"expected_visible_cards\": null,\n  \"event_advertised_lots\": null,\n  \"event_advertised_lot_discrepancy\": null,\n  \"past_results_index_lots\": null,\n  \"past_results_index_discrepancy\": null,\n  \"published_result_count\": 170,\n  \"distinct_source_identities\": 170,\n  \"non_auction_property_cards_excluded\": 0,\n  \"non_auction_exclusions\": [],\n  \"archive_pagination_complete\": true,\n  \"archive_visible_inventory_reconciled\": true,\n  \"archive_reconciliation_note\": null,\n  \"appearances_captured\": 170,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_new_dated_twenty_year_address_records\": 0,\n  \"run_new_commercial_mixed\": 0,\n  \"run_new_guide_prices\": 0,\n  \"run_new_sale_prices\": 0,\n  \"run_new_rents\": 0,\n  \"run_new_undated\": 0,\n  \"run_new_future_dated\": 0,\n  \"run_duplicate_source_evidence_excluded\": 0,\n  \"duplicate_source_identity_exclusions\": 0,\n  \"exact_date_address_overlap_exclusions\": 0,\n  \"exact_overlap_reconciliation\": [],\n  \"new_source_years\": [],\n  \"date_range\": [\n    \"2021-04-21\",\n    \"2026-12-16\"\n  ],\n  \"by_status\": {\n    \"withdrawn\": 2,\n    \"unsold\": 43,\n    \"sold\": 95,\n    \"sold_prior\": 15,\n    \"unknown\": 4,\n    \"sold_after\": 8,\n    \"postponed\": 3\n  },\n  \"by_sector\": {\n    \"residential\": 130,\n    \"commercial\": 13,\n    \"land\": 22,\n    \"mixed-use\": 5\n  },\n  \"by_attributed_auctioneer\": {\n    \"Clarke & Simpson\": 170\n  },\n  \"detail_pages_captured\": 170,\n  \"detail_recovery_complete\": true,\n  \"detail_recovery_failures\": [],\n  \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\",\n  \"failures\": []\n}\n",
       "duration_seconds": 171.01,
       "checked_at": "2026-11-13T00:18:08.868811+00:00"
+    },
+    {
+      "source": "venmore-auctions-indexed-details",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T02:08:18.595460+00:00",
+      "run_new_appearances": 49,
+      "run_new_dated_twenty_year_address_records": 49,
+      "run_new_commercial_or_mixed": 20,
+      "run_new_guide_prices": 10,
+      "run_new_sale_prices": 17,
+      "run_new_rents": 23,
+      "newly_covered_source_years": [
+        "2017",
+        "2018"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   ],
   "shonki_fliphtml_expansion": {

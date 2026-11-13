@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T00:33:34.016220+00:00",
-  "corpus_checkpoint": "2026-11-13T00:32:18.881943+00:00",
+  "generated_at": "2026-11-13T02:09:58.420237+00:00",
+  "corpus_checkpoint": "2026-11-13T02:09:14.208086+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7904,8 +7904,10 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Venmore Auctions",
       "match_basis": "exact label",
-      "retained_appearances": 1372,
+      "retained_appearances": 1421,
       "years_with_retained_evidence": [
+        2017,
+        2018,
         2019,
         2020,
         2021,
@@ -7915,8 +7917,8 @@
         2025,
         2026
       ],
-      "with_guide_price": 1106,
-      "with_sale_price": 19,
+      "with_guide_price": 1116,
+      "with_sale_price": 36,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8366,20 +8368,20 @@
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3111,
     "Unknown auctioneer": 14,
-    "Venmore Auctions": 1372
+    "Venmore Auctions": 1421
   },
   "price_coverage": {
     "from_date": "2006-11-13",
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309766,
-      "auction_ids_observed": 13930,
-      "with_guide_price": 111184,
-      "with_sale_price": 114308,
+      "lot_appearances": 309815,
+      "auction_ids_observed": 13941,
+      "with_guide_price": 111194,
+      "with_sale_price": 114325,
       "with_both_prices": 50370,
-      "marked_sold": 157472,
-      "marked_sold_without_sale_price": 43904
+      "marked_sold": 157502,
+      "marked_sold_without_sale_price": 43917
     },
     "by_auctioneer_and_year": [
       {
@@ -17426,6 +17428,28 @@
       },
       {
         "auctioneer": "Venmore Auctions",
+        "year": 2017,
+        "lot_appearances": 17,
+        "auction_ids_observed": 6,
+        "with_guide_price": 3,
+        "with_sale_price": 6,
+        "with_both_prices": 0,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2018,
+        "lot_appearances": 32,
+        "auction_ids_observed": 5,
+        "with_guide_price": 7,
+        "with_sale_price": 11,
+        "with_both_prices": 0,
+        "marked_sold": 22,
+        "marked_sold_without_sale_price": 11
+      },
+      {
+        "auctioneer": "Venmore Auctions",
         "year": 2019,
         "lot_appearances": 27,
         "auction_ids_observed": 7,
@@ -18189,15 +18213,16 @@
     "venmore-auctions-indexed-details": {
       "source": "venmore-auctions-indexed-details",
       "outcome": "completed",
-      "checked_at": "2026-11-13T00:19:17.533989+00:00",
-      "run_new_appearances": 27,
-      "run_new_dated_twenty_year_address_records": 27,
-      "run_new_commercial_or_mixed": 11,
-      "run_new_guide_prices": 2,
-      "run_new_sale_prices": 11,
-      "run_new_rents": 20,
+      "checked_at": "2026-11-13T02:08:18.595460+00:00",
+      "run_new_appearances": 49,
+      "run_new_dated_twenty_year_address_records": 49,
+      "run_new_commercial_or_mixed": 20,
+      "run_new_guide_prices": 10,
+      "run_new_sale_prices": 17,
+      "run_new_rents": 23,
       "newly_covered_source_years": [
-        "2019"
+        "2017",
+        "2018"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -21139,7 +21164,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=48",
       "lots_captured": 5,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531809+00:00"
+      "checked_at": "2026-11-13T02:08:18.588557+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2020-06-08.json",
@@ -21148,7 +21173,34 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=58",
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.225100+00:00"
+      "checked_at": "2026-11-13T02:08:18.591596+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2018-10-31.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2018-10-31",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=41",
+      "lots_captured": 7,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.583883+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2017-04-04.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2017-04-04",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=30",
+      "lots_captured": 4,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.580140+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2018-07-11.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2018-07-11",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=39",
+      "lots_captured": 12,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.583135+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2019-12-11.json",
@@ -21157,7 +21209,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=49",
       "lots_captured": 8,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531924+00:00"
+      "checked_at": "2026-11-13T02:08:18.589098+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2020-04-21.json",
@@ -21166,7 +21218,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=52",
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.224903+00:00"
+      "checked_at": "2026-11-13T02:08:18.590901+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2021-07-07.json",
@@ -21184,7 +21236,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=46",
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531559+00:00"
+      "checked_at": "2026-11-13T02:08:18.587360+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2020-04-07.json",
@@ -21193,7 +21245,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=51",
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.224723+00:00"
+      "checked_at": "2026-11-13T02:08:18.590117+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2020-10-27.json",
@@ -21202,7 +21254,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=55",
       "lots_captured": 9,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.225767+00:00"
+      "checked_at": "2026-11-13T02:08:18.592959+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2022-09-07.json",
@@ -21214,6 +21266,15 @@
       "checked_at": "2026-11-12T23:24:34.266815+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2017-12-13.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2017-12-13",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=35",
+      "lots_captured": 2,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.582041+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/venmore-auctions/2021-05-19.json",
       "auctioneer": "Venmore Auctions",
       "auction_date": "2021-05-19",
@@ -21223,13 +21284,22 @@
       "checked_at": "2026-11-12T23:24:34.102388+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2017-10-31.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2017-10-31",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=34",
+      "lots_captured": 2,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.581659+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/venmore-auctions/2020-02-12.json",
       "auctioneer": "Venmore Auctions",
       "auction_date": "2020-02-12",
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=50",
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.224383+00:00"
+      "checked_at": "2026-11-13T02:08:18.589523+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2022-10-07.json",
@@ -21247,7 +21317,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=54",
       "lots_captured": 5,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.225618+00:00"
+      "checked_at": "2026-11-13T02:08:18.592524+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2021-10-20.json",
@@ -21277,13 +21347,31 @@
       "checked_at": "2026-11-12T23:24:34.301179+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2018-09-12.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2018-09-12",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=40",
+      "lots_captured": 5,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.583695+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/venmore-auctions/2020-12-15.json",
       "auctioneer": "Venmore Auctions",
       "auction_date": "2020-12-15",
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=56",
       "lots_captured": 7,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.225927+00:00"
+      "checked_at": "2026-11-13T02:08:18.593251+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2017-02-17.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2017-02-17",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=29",
+      "lots_captured": 2,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.576971+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2019-02-13.json",
@@ -21292,7 +21380,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=43",
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.530351+00:00"
+      "checked_at": "2026-11-13T02:08:18.584195+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2021-09-08.json",
@@ -21310,7 +21398,25 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=53",
       "lots_captured": 10,
       "errors": [],
-      "checked_at": "2026-11-13T00:00:21.225364+00:00"
+      "checked_at": "2026-11-13T02:08:18.591964+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2018-02-14.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2018-02-14",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=36",
+      "lots_captured": 5,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.582225+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2017-05-17.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2017-05-17",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=31",
+      "lots_captured": 4,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.580643+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2021-04-07.json",
@@ -21337,7 +21443,7 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=45",
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531408+00:00"
+      "checked_at": "2026-11-13T02:08:18.586738+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2021-12-08.json",
@@ -21349,13 +21455,22 @@
       "checked_at": "2026-11-12T23:24:34.180617+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2017-09-13.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2017-09-13",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=33",
+      "lots_captured": 3,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.581222+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/venmore-auctions/2019-09-03.json",
       "auctioneer": "Venmore Auctions",
       "auction_date": "2019-09-03",
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=47",
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531670+00:00"
+      "checked_at": "2026-11-13T02:08:18.588254+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/venmore-auctions/2022-12-07.json",
@@ -21373,7 +21488,16 @@
       "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=44",
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531270+00:00"
+      "checked_at": "2026-11-13T02:08:18.586026+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/venmore-auctions/2018-05-16.json",
+      "auctioneer": "Venmore Auctions",
+      "auction_date": "2018-05-16",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=38",
+      "lots_captured": 3,
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.582535+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-national/online-results.json",
@@ -24348,7 +24472,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T00:33:32.485674+00:00",
+    "checked_at": "2026-11-13T02:09:56.763101+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

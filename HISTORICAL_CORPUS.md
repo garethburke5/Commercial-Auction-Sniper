@@ -3,6 +3,39 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Venmore indexed 2017–2018 multi-event recovery
+
+- **Specific growth opportunity executed:** the reusable immutable-HTML runner
+  was expanded with **49 newly indexed first-party property pages across 11
+  auction dates**: six events in 2017 and five in 2018. Each live page was
+  fetched once, retained as a checksum-addressed snapshot and admitted only
+  after its printed event date, lot number and address reconciled with the
+  manifest. The 72 previously banked 2019–2020 pages were read from retained
+  snapshots and do not count as new growth.
+- **Measured net gain:** **49 appearances / 49 address records / 49 exact-dated
+  addresses inside the twenty-year window**. New partial-address, null-address,
+  undated, future-dated, duplicate-source and cross-source-overlap records are
+  all **0**. Venmore source-years **2017 and 2018** are newly covered.
+- **Sector and evidence gain:** **4 commercial, 16 mixed-use, 2 land, 26
+  residential and 1 unknown** appearances; the commercial/mixed-use subset is
+  **20**. The pages add **10 numeric guide or available-price records, 17
+  achieved prices and 23 published rents**. Published outcomes remain distinct:
+  20 sold, seven sold prior, three sold after and 19 withdrawn.
+- **Coverage boundary:** these are individually evidenced surviving pages, not
+  complete catalogues. All 121 URLs in the cumulative manifest reconcile, but
+  the cleared historical grids provide no lot denominator, so every newly
+  represented event remains partial and denominator-unreconciled.
+- **Corpus after rebuild:** **319,303 appearances**, **306,745 address records**,
+  **12,558 partial records** and **309,815 in-window appearances**. In-window
+  evidence includes **111,194 numeric guides** and **114,325 achieved prices**.
+  Undated and future-dated totals remain **6,219** and **149**.
+- **Next concrete growth target:** batch Venmore 2016 and older pages only when
+  new search-index hits, saved files or catalogues expose individual lots; do
+  not refresh cleared grids. If that index is thin, rotate to another uncovered
+  auctioneer archive with a substantial accessible lot inventory.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Venmore indexed 2019 all-event recovery
 
 - **Specific growth opportunity executed:** the immutable-HTML manifest runner

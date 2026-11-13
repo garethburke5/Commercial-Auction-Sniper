@@ -1,11 +1,38 @@
 {
-  "checked_at": "2026-11-13T00:19:17.533989+00:00",
+  "checked_at": "2026-11-13T02:08:18.595460+00:00",
   "auctioneer": "Venmore Auctions",
   "source_url": "https://www.venmoreauctions.co.uk/Past-Auctions",
-  "indexed_detail_pages_in_batch": 72,
-  "indexed_detail_pages_captured": 72,
-  "appearances_captured": 1372,
+  "indexed_detail_pages_in_batch": 121,
+  "indexed_detail_pages_captured": 121,
+  "appearances_captured": 1421,
   "batch_baseline_appearance_ids": [
+    "Venmore Auctions|venmore-auctions:2019-02-13|lot:25",
+    "Venmore Auctions|venmore-auctions:2019-02-13|lot:29",
+    "Venmore Auctions|venmore-auctions:2019-02-13|lot:35",
+    "Venmore Auctions|venmore-auctions:2019-02-13|lot:52",
+    "Venmore Auctions|venmore-auctions:2019-04-04|lot:11",
+    "Venmore Auctions|venmore-auctions:2019-04-04|lot:42",
+    "Venmore Auctions|venmore-auctions:2019-05-23|lot:44",
+    "Venmore Auctions|venmore-auctions:2019-05-23|lot:9",
+    "Venmore Auctions|venmore-auctions:2019-07-18|lot:24",
+    "Venmore Auctions|venmore-auctions:2019-07-18|lot:33",
+    "Venmore Auctions|venmore-auctions:2019-09-03|lot:24",
+    "Venmore Auctions|venmore-auctions:2019-09-03|lot:30",
+    "Venmore Auctions|venmore-auctions:2019-09-03|lot:55",
+    "Venmore Auctions|venmore-auctions:2019-09-03|lot:6",
+    "Venmore Auctions|venmore-auctions:2019-10-17|lot:13",
+    "Venmore Auctions|venmore-auctions:2019-10-17|lot:14",
+    "Venmore Auctions|venmore-auctions:2019-10-17|lot:15",
+    "Venmore Auctions|venmore-auctions:2019-10-17|lot:23",
+    "Venmore Auctions|venmore-auctions:2019-10-17|lot:39",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:13",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:16",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:28",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:29",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:3",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:38",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:50",
+    "Venmore Auctions|venmore-auctions:2019-12-11|lot:6",
     "Venmore Auctions|venmore-auctions:2020-02-12|lot:19",
     "Venmore Auctions|venmore-auctions:2020-02-12|lot:24",
     "Venmore Auctions|venmore-auctions:2020-02-12|lot:25",
@@ -1353,6 +1380,7 @@
     "Venmore Auctions|venmore-auctions:2026-10-21|lot:9"
   ],
   "batch_baseline_source_years": [
+    "2019",
     "2020",
     "2021",
     "2022",
@@ -1361,20 +1389,22 @@
     "2025",
     "2026"
   ],
-  "run_new_appearances": 27,
-  "run_new_address_records": 27,
+  "run_new_appearances": 49,
+  "run_new_address_records": 49,
   "run_new_partial_address_strings": 0,
-  "run_new_dated_twenty_year_address_records": 27,
+  "run_new_dated_twenty_year_address_records": 49,
   "run_new_partial_lots": 0,
-  "run_new_guide_prices": 2,
-  "run_new_sale_prices": 11,
-  "run_new_rents": 20,
+  "run_new_guide_prices": 10,
+  "run_new_sale_prices": 17,
+  "run_new_rents": 23,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
-  "run_new_commercial": 3,
-  "run_new_mixed_use": 8,
-  "run_new_commercial_or_mixed": 11,
+  "run_new_commercial": 4,
+  "run_new_mixed_use": 16,
+  "run_new_commercial_or_mixed": 20,
   "source_years": [
+    "2017",
+    "2018",
     "2019",
     "2020",
     "2021",
@@ -1385,21 +1415,347 @@
     "2026"
   ],
   "newly_covered_source_years": [
-    "2019"
+    "2017",
+    "2018"
   ],
   "by_sector": {
-    "residential": 15,
-    "mixed-use": 8,
-    "land": 1,
-    "commercial": 3
+    "residential": 26,
+    "mixed-use": 16,
+    "commercial": 4,
+    "land": 2,
+    "unknown": 1
   },
   "by_status": {
-    "withdrawn": 8,
+    "sold": 20,
+    "sold_after": 3,
     "sold_prior": 7,
-    "sold": 11,
-    "sold_after": 1
+    "withdrawn": 19
   },
   "auctions": {
+    "2017-02-17": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2017-02-17",
+      "auction_date": "2017-02-17",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=29",
+      "published_lots": null,
+      "lots_captured": 2,
+      "indexed_detail_pages_captured": 2,
+      "captured_lot_numbers": [
+        "35",
+        "39"
+      ],
+      "guides_captured": 0,
+      "sale_prices_captured": 1,
+      "rents_captured": 2,
+      "published_outcomes_captured": 2,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.576971+00:00"
+    },
+    "2017-04-04": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2017-04-04",
+      "auction_date": "2017-04-04",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=30",
+      "published_lots": null,
+      "lots_captured": 4,
+      "indexed_detail_pages_captured": 4,
+      "captured_lot_numbers": [
+        "4",
+        "11",
+        "30",
+        "32"
+      ],
+      "guides_captured": 0,
+      "sale_prices_captured": 1,
+      "rents_captured": 3,
+      "published_outcomes_captured": 4,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.580140+00:00"
+    },
+    "2017-05-17": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2017-05-17",
+      "auction_date": "2017-05-17",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=31",
+      "published_lots": null,
+      "lots_captured": 4,
+      "indexed_detail_pages_captured": 4,
+      "captured_lot_numbers": [
+        "6",
+        "21",
+        "26",
+        "27"
+      ],
+      "guides_captured": 0,
+      "sale_prices_captured": 2,
+      "rents_captured": 2,
+      "published_outcomes_captured": 4,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.580643+00:00"
+    },
+    "2017-09-13": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2017-09-13",
+      "auction_date": "2017-09-13",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=33",
+      "published_lots": null,
+      "lots_captured": 3,
+      "indexed_detail_pages_captured": 3,
+      "captured_lot_numbers": [
+        "22",
+        "53",
+        "61"
+      ],
+      "guides_captured": 2,
+      "sale_prices_captured": 0,
+      "rents_captured": 1,
+      "published_outcomes_captured": 3,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.581222+00:00"
+    },
+    "2017-10-31": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2017-10-31",
+      "auction_date": "2017-10-31",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=34",
+      "published_lots": null,
+      "lots_captured": 2,
+      "indexed_detail_pages_captured": 2,
+      "captured_lot_numbers": [
+        "13",
+        "48"
+      ],
+      "guides_captured": 1,
+      "sale_prices_captured": 1,
+      "rents_captured": 1,
+      "published_outcomes_captured": 2,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.581659+00:00"
+    },
+    "2017-12-13": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2017-12-13",
+      "auction_date": "2017-12-13",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=35",
+      "published_lots": null,
+      "lots_captured": 2,
+      "indexed_detail_pages_captured": 2,
+      "captured_lot_numbers": [
+        "35",
+        "51"
+      ],
+      "guides_captured": 0,
+      "sale_prices_captured": 1,
+      "rents_captured": 0,
+      "published_outcomes_captured": 2,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.582041+00:00"
+    },
+    "2018-02-14": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2018-02-14",
+      "auction_date": "2018-02-14",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=36",
+      "published_lots": null,
+      "lots_captured": 5,
+      "indexed_detail_pages_captured": 5,
+      "captured_lot_numbers": [
+        "10",
+        "20",
+        "51",
+        "58",
+        "62"
+      ],
+      "guides_captured": 1,
+      "sale_prices_captured": 1,
+      "rents_captured": 1,
+      "published_outcomes_captured": 5,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.582225+00:00"
+    },
+    "2018-05-16": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2018-05-16",
+      "auction_date": "2018-05-16",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=38",
+      "published_lots": null,
+      "lots_captured": 3,
+      "indexed_detail_pages_captured": 3,
+      "captured_lot_numbers": [
+        "9",
+        "36",
+        "41"
+      ],
+      "guides_captured": 1,
+      "sale_prices_captured": 0,
+      "rents_captured": 0,
+      "published_outcomes_captured": 3,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.582535+00:00"
+    },
+    "2018-07-11": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2018-07-11",
+      "auction_date": "2018-07-11",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=39",
+      "published_lots": null,
+      "lots_captured": 12,
+      "indexed_detail_pages_captured": 12,
+      "captured_lot_numbers": [
+        "11",
+        "14",
+        "17",
+        "19",
+        "27",
+        "29",
+        "33",
+        "36",
+        "37",
+        "41",
+        "46",
+        "49"
+      ],
+      "guides_captured": 3,
+      "sale_prices_captured": 3,
+      "rents_captured": 5,
+      "published_outcomes_captured": 12,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.583135+00:00"
+    },
+    "2018-09-12": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2018-09-12",
+      "auction_date": "2018-09-12",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=40",
+      "published_lots": null,
+      "lots_captured": 5,
+      "indexed_detail_pages_captured": 5,
+      "captured_lot_numbers": [
+        "12",
+        "14",
+        "16",
+        "34",
+        "52"
+      ],
+      "guides_captured": 1,
+      "sale_prices_captured": 2,
+      "rents_captured": 3,
+      "published_outcomes_captured": 5,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.583695+00:00"
+    },
+    "2018-10-31": {
+      "auctioneer": "Venmore Auctions",
+      "trading_name": "Venmore Auctions",
+      "source_auction_id": "venmore-auctions:2018-10-31",
+      "auction_date": "2018-10-31",
+      "auction_date_precision": "day",
+      "source_url": "https://www.venmoreauctions.co.uk/Property-Search?auctionID=41",
+      "published_lots": null,
+      "lots_captured": 7,
+      "indexed_detail_pages_captured": 7,
+      "captured_lot_numbers": [
+        "28",
+        "29",
+        "32",
+        "35",
+        "44",
+        "45",
+        "48"
+      ],
+      "guides_captured": 1,
+      "sale_prices_captured": 5,
+      "rents_captured": 5,
+      "published_outcomes_captured": 7,
+      "catalogue_complete": false,
+      "source_rows_complete": true,
+      "denominator_reconciled": false,
+      "denominator_basis": "all explicitly enumerated retained first-party detail URLs; the cleared historical event grid is not a lot denominator",
+      "completion_scope": "every detail URL in the checked indexed-page manifest",
+      "auction_date_basis": "exact date printed on every first-party detail page",
+      "errors": [],
+      "checked_at": "2026-11-13T02:08:18.583883+00:00"
+    },
     "2019-02-13": {
       "auctioneer": "Venmore Auctions",
       "trading_name": "Venmore Auctions",
@@ -1427,7 +1783,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.530351+00:00"
+      "checked_at": "2026-11-13T02:08:18.584195+00:00"
     },
     "2019-04-04": {
       "auctioneer": "Venmore Auctions",
@@ -1454,7 +1810,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531270+00:00"
+      "checked_at": "2026-11-13T02:08:18.586026+00:00"
     },
     "2019-05-23": {
       "auctioneer": "Venmore Auctions",
@@ -1481,7 +1837,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531408+00:00"
+      "checked_at": "2026-11-13T02:08:18.586738+00:00"
     },
     "2019-07-18": {
       "auctioneer": "Venmore Auctions",
@@ -1508,7 +1864,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531559+00:00"
+      "checked_at": "2026-11-13T02:08:18.587360+00:00"
     },
     "2019-09-03": {
       "auctioneer": "Venmore Auctions",
@@ -1537,7 +1893,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531670+00:00"
+      "checked_at": "2026-11-13T02:08:18.588254+00:00"
     },
     "2019-10-17": {
       "auctioneer": "Venmore Auctions",
@@ -1567,7 +1923,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531809+00:00"
+      "checked_at": "2026-11-13T02:08:18.588557+00:00"
     },
     "2019-12-11": {
       "auctioneer": "Venmore Auctions",
@@ -1600,7 +1956,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.531924+00:00"
+      "checked_at": "2026-11-13T02:08:18.589098+00:00"
     },
     "2020-02-12": {
       "auctioneer": "Venmore Auctions",
@@ -1629,7 +1985,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532028+00:00"
+      "checked_at": "2026-11-13T02:08:18.589523+00:00"
     },
     "2020-04-07": {
       "auctioneer": "Venmore Auctions",
@@ -1658,7 +2014,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532139+00:00"
+      "checked_at": "2026-11-13T02:08:18.590117+00:00"
     },
     "2020-04-21": {
       "auctioneer": "Venmore Auctions",
@@ -1687,7 +2043,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532234+00:00"
+      "checked_at": "2026-11-13T02:08:18.590901+00:00"
     },
     "2020-06-08": {
       "auctioneer": "Venmore Auctions",
@@ -1714,7 +2070,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532325+00:00"
+      "checked_at": "2026-11-13T02:08:18.591596+00:00"
     },
     "2020-07-15": {
       "auctioneer": "Venmore Auctions",
@@ -1749,7 +2105,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532612+00:00"
+      "checked_at": "2026-11-13T02:08:18.591964+00:00"
     },
     "2020-09-09": {
       "auctioneer": "Venmore Auctions",
@@ -1779,7 +2135,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532797+00:00"
+      "checked_at": "2026-11-13T02:08:18.592524+00:00"
     },
     "2020-10-27": {
       "auctioneer": "Venmore Auctions",
@@ -1813,7 +2169,7 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.532993+00:00"
+      "checked_at": "2026-11-13T02:08:18.592959+00:00"
     },
     "2020-12-15": {
       "auctioneer": "Venmore Auctions",
@@ -1845,13 +2201,13 @@
       "completion_scope": "every detail URL in the checked indexed-page manifest",
       "auction_date_basis": "exact date printed on every first-party detail page",
       "errors": [],
-      "checked_at": "2026-11-13T00:19:17.533099+00:00"
+      "checked_at": "2026-11-13T02:08:18.593251+00:00"
     }
   },
   "failures": [],
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_evidence_exclusions": [],
   "coverage_scope": "partial indexed-page recovery only; no event is complete until a source catalogue or reconciled first-party lot inventory is recovered",
-  "next_growth_target": "Recover Venmore's indexed 2018 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
+  "next_growth_target": "Recover Venmore's indexed 2016 and older detail pages only through new search-index hits, saved files or catalogues; do not refresh the cleared event grids. In parallel rotate to another uncovered auctioneer archive with substantial accessible lot inventories. National completeness remains false.",
   "national_completeness_verified": false
 }
