@@ -7,6 +7,28 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through — Fisher German and Sheldon Bosley Knight, 13 November 2026
+
+Two evidence routes added **68 net individual appearances / 68 address
+records**. Fisher German contributes ten legacy rows: a complete eight-lot
+15 February 2017 room event and two year-precision 2016 retrospective results.
+After that checkpoint, a reusable retained-result runner captured four complete
+Sheldon Bosley Knight result tables containing 58 rows across 2024 and 2025.
+
+The gain has **66 newly dated in-window addresses**, two undated/year-precision
+rows, zero partial or future rows, and zero duplicate-derived additions. Its
+sector split is 15 land, 11 residential and 42 unknown, with no evidenced
+commercial/mixed-use rows. It adds four guides and 24 achieved prices overall;
+three guides and 22 achieved prices are exact-dated and in-window. Original
+publisher URLs and immutable snapshots are retained. The SBK source limitation
+is explicit: the original PDFs now return 404, while complete publisher-issued
+tables survive in retained public search-index text.
+
+The rebuilt corpus contains **325,522 appearances** and the 185,908,693-byte
+gzip reconstructs from 23 checksum-addressed parts. The next target is the
+complete retained June, July and September 2025 SBK result tables, followed by
+its 2022–2024 first-party result assets. National completeness remains false.
+
 ## Follow-through — Bradleys retained inventory, 13 November 2026
 
 One reusable first-party runner reconciled all 107 stable property URLs in

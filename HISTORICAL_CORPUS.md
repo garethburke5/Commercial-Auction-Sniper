@@ -3,6 +3,46 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Fisher German legacy and Sheldon Bosley Knight retained results
+
+- **Specific growth opportunities executed:** Fisher German's indexed legacy
+  newsletter exposed four surviving first-party brochures and a complete
+  eight-lot 15 February 2017 room-auction inventory. After that small checkpoint,
+  collection switched sources and a reusable retained-result runner banked four
+  complete Sheldon Bosley Knight result tables from 2024 and 2025.
+- **Measured net gain:** **68 individual appearances / 68 address records**.
+  **66** are exact-dated addresses inside the preceding twenty-year window;
+  Fisher German contributes **two year-precision, undated 2016 results**. There
+  are zero partial, future-dated or duplicate-derived additions. Newly covered
+  source-years are Fisher German **2016 and 2017** and Sheldon Bosley Knight
+  **2024 and 2025**.
+- **Sector and price evidence:** the gain contains **15 land, 11 residential
+  and 42 unknown-sector appearances**, with no evidenced commercial/mixed-use
+  subset. It adds **four guides and 24 achieved prices overall**; three guides
+  and 22 achieved prices are attached to exact-dated in-window rows. No rent was
+  published. Unknown values remain null.
+- **Evidence and identity safeguards:** Fisher German is retained under the
+  existing canonical `Fisher German Online Auction` identity and attributed to
+  FISHER GERMAN LLP (OC317554). Sheldon Bosley Knight is attributed to SHELDON
+  BOSLEY KNIGHT LIMITED (10225947). Original publisher URLs, complete row
+  transcriptions, checksum-addressed source snapshots and the removed-PDF 404
+  limitation are preserved. No branch or trading-name aliases were counted as
+  new auctioneers.
+- **Corpus after rebuild:** **325,522 appearances**, **312,964 address records**,
+  **12,558 partial records** and **315,081 in-window appearances**. In-window
+  evidence totals are **114,886 guides** and **117,173 achieved prices**;
+  retained undated and future-dated totals are **6,943** and **378**.
+- **Publication preparation:** SQLite passes integrity and duplicate-ID checks.
+  The **185,908,693-byte** gzip reconstructs from **23 checksum-addressed
+  parts** with SHA-256
+  `2ec7568b86212c684d34c8402d5221cc63535cbbc69ac65b7d5b2df384259503`.
+- **Next concrete growth target:** extend the reusable Sheldon Bosley Knight
+  runner to the complete retained June, July and September 2025 result tables,
+  then inventory first-party 2022–2024 result PDFs and event articles. Do not
+  retry removed PDF bytes without a materially different recovery route.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Bradleys retained first-party inventory
 
 - **Specific growth opportunity executed:** a reusable retained-inventory

@@ -1,4 +1,55 @@
 {
+  "fisher_german_sbk_retained_results_2026_11_13": {
+    "checked_at": "2026-11-13T13:27:20.235014+00:00",
+    "sources": [
+      "Fisher German legacy first-party newsletter and brochures",
+      "Sheldon Bosley Knight retained publisher-issued result tables"
+    ],
+    "net_new_appearances": 68,
+    "new_address_records": 68,
+    "new_dated_address_records_in_twenty_year_window": 66,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_land_appearances": 15,
+    "new_residential_appearances": 11,
+    "new_unknown_sector_appearances": 42,
+    "new_guide_prices_overall": 4,
+    "new_guide_prices_exact_dated_in_window": 3,
+    "new_sale_prices_overall": 24,
+    "new_sale_prices_exact_dated_in_window": 22,
+    "new_rent_values": 0,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 2,
+    "new_future_dated_appearances": 0,
+    "duplicate_exact_date_address_exclusions": 0,
+    "newly_covered_source_years": {
+      "Fisher German Online Auction": [2016, 2017],
+      "Sheldon Bosley Knight": [2024, 2025]
+    },
+    "source_scope": {
+      "Fisher German": "complete retained eight-lot 15 February 2017 inventory plus two individually named 2016 retrospective results; unnamed retrospective lots excluded",
+      "Sheldon Bosley Knight": "four complete publisher-issued result tables, 58 of 58 rows; original PDF URLs now return 404 and retained public-index text is preserved"
+    },
+    "operator_reconciliation": "Fisher German remains the existing canonical auctioneer identity and is attributed to FISHER GERMAN LLP OC317554. Sheldon Bosley Knight is attributed to SHELDON BOSLEY KNIGHT LIMITED 10225947. Branches and trading names were not counted as additional auctioneers.",
+    "corpus_after_rebuild": {
+      "appearances": 325522,
+      "address_records": 312964,
+      "partial": 12558,
+      "in_window_appearances": 315081,
+      "in_window_guide_prices": 114886,
+      "in_window_sale_prices": 117173,
+      "undated": 6943,
+      "future_dated": 378
+    },
+    "publication_package": {
+      "compressed_bytes": 185908693,
+      "parts": 23,
+      "sha256": "2ec7568b86212c684d34c8402d5221cc63535cbbc69ac65b7d5b2df384259503"
+    },
+    "database_rebuild_verified": true,
+    "national_completeness_verified": false,
+    "next_growth_target": "Extend the reusable Sheldon Bosley Knight runner to complete retained June, July and September 2025 result tables, then inventory first-party 2022-2024 result PDFs and event articles."
+  },
   "bagshaws_2024_saved_narrative_follow_on": {
     "checked_at": "2026-11-05T13:08:23.413498+00:00",
     "source": "Bagshaws retained first-party 25 March and 20 May 2024 auction-page narrative inventories",

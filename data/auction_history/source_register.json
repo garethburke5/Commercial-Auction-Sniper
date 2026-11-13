@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T11:38:35.810823+00:00",
-  "corpus_checkpoint": "2026-11-13T11:34:54.926946+00:00",
+  "generated_at": "2026-11-13T13:28:00.737243+00:00",
+  "corpus_checkpoint": "2026-11-13T13:27:20.235014+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -6720,13 +6720,16 @@
       "name": "Sheldon Bosley Knight",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/sheldon-bosley-knight",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
+      "matched_corpus_label": "Sheldon Bosley Knight",
+      "match_basis": "exact label",
+      "retained_appearances": 58,
+      "years_with_retained_evidence": [
+        2024,
+        2025
+      ],
       "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "with_sale_price": 22,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8269,7 +8272,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 451,
+  "directory_entries_not_linked": 450,
   "corpus_labels": {
     "247 Property Auctions": 272,
     "321 Estates Online Auction": 6,
@@ -8400,7 +8403,7 @@
     "Ferndown Estates": 6,
     "Firmin & Co": 21,
     "First for Auctions": 1454,
-    "Fisher German Online Auction": 272,
+    "Fisher German Online Auction": 282,
     "FlexiAgent": 9,
     "Flint Real Estate": 1,
     "Fortis": 7,
@@ -8540,6 +8543,7 @@
     "Seel & Co": 460,
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
+    "Sheldon Bosley Knight": 58,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smith & Sons": 1007,
@@ -8588,13 +8592,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 315015,
-      "auction_ids_observed": 18509,
-      "with_guide_price": 114883,
-      "with_sale_price": 117151,
+      "lot_appearances": 315081,
+      "auction_ids_observed": 18514,
+      "with_guide_price": 114886,
+      "with_sale_price": 117173,
       "with_both_prices": 53066,
-      "marked_sold": 161539,
-      "marked_sold_without_sale_price": 45128
+      "marked_sold": 161572,
+      "marked_sold_without_sale_price": 45139
     },
     "by_auctioneer_and_year": [
       {
@@ -15012,6 +15016,17 @@
       },
       {
         "auctioneer": "Fisher German Online Auction",
+        "year": 2017,
+        "lot_appearances": 8,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German Online Auction",
         "year": 2021,
         "lot_appearances": 35,
         "auction_ids_observed": 35,
@@ -20588,6 +20603,28 @@
         "marked_sold_without_sale_price": 35
       },
       {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2024,
+        "lot_appearances": 24,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 10,
+        "with_both_prices": 0,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2025,
+        "lot_appearances": 34,
+        "auction_ids_observed": 3,
+        "with_guide_price": 0,
+        "with_sale_price": 12,
+        "with_both_prices": 0,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 8
+      },
+      {
         "auctioneer": "Signature Estates Online Auction",
         "year": 2022,
         "lot_appearances": 4,
@@ -22249,7 +22286,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 6941,
+    "undated_appearances": 6943,
     "future_dated_appearances": 378,
     "national_completeness_verified": false,
     "limits": [
@@ -29686,6 +29723,15 @@
       "checked_at": "2026-11-13T07:16:08.542388+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/fisher-german-legacy/2016-retrospective.json",
+      "auctioneer": "Fisher German Online Auction",
+      "auction_date": null,
+      "source_url": "https://fishergerman.briefyourmarket.com/PrintableNewsletter.aspx?Id=652",
+      "lots_captured": 2,
+      "errors": [],
+      "checked_at": "2026-11-13T13:19:39.176420+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/cottons/cottons-2023-09-13-a01ba76011e3.json",
       "auctioneer": "Cottons",
       "auction_date": "2023-09-13",
@@ -30570,7 +30616,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T11:38:33.923711+00:00",
+    "checked_at": "2026-11-13T13:28:00.035357+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

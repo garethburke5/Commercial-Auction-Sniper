@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T11:34:54.926946+00:00",
-  "individual_lot_records_captured": 325454,
-  "records_with_address": 312896,
+  "generated_at": "2026-11-13T13:27:20.235014+00:00",
+  "individual_lot_records_captured": 325522,
+  "records_with_address": 312964,
   "partial_lot_records": 12558,
-  "exact_address_groups": 176523,
-  "groups_with_repeat_appearances": 44296,
+  "exact_address_groups": 176587,
+  "groups_with_repeat_appearances": 44298,
   "by_auctioneer": {
     "247 Property Auctions": 272,
     "321 Estates Online Auction": 6,
@@ -135,7 +135,7 @@
     "Ferndown Estates": 6,
     "Firmin & Co": 21,
     "First for Auctions": 1454,
-    "Fisher German Online Auction": 272,
+    "Fisher German Online Auction": 282,
     "FlexiAgent": 9,
     "Flint Real Estate": 1,
     "Fortis": 7,
@@ -275,6 +275,7 @@
     "Seel & Co": 460,
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
+    "Sheldon Bosley Knight": 58,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smith & Sons": 1007,
@@ -319,7 +320,7 @@
     "webbssecureit": 1
   },
   "by_year": {
-    "null": 6941,
+    "null": 6943,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -335,32 +336,32 @@
     "2014": 8680,
     "2015": 8031,
     "2016": 8766,
-    "2017": 9039,
+    "2017": 9047,
     "2018": 8901,
     "2019": 8097,
     "2020": 14139,
     "2021": 22570,
     "2022": 28107,
     "2023": 35425,
-    "2024": 43891,
-    "2025": 49701,
+    "2024": 43915,
+    "2025": 49735,
     "2026": 49519,
     "2027": 9
   },
   "by_sector": {
     "commercial": 43461,
-    "land": 20326,
+    "land": 20341,
     "mixed": 1,
     "mixed-use": 48955,
-    "residential": 158094,
-    "unknown": 54617
+    "residential": 158105,
+    "unknown": 54659
   },
   "date_range": [
     "2002-10-31",
     "2027-01-26"
   ],
-  "surviving_catalogues_completely_harvested": 5450,
-  "catalogues_incomplete_or_unreconciled": 802,
+  "surviving_catalogues_completely_harvested": 5455,
+  "catalogues_incomplete_or_unreconciled": 803,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -373,13 +374,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 315015,
-      "auction_ids_observed": 18509,
-      "with_guide_price": 114883,
-      "with_sale_price": 117151,
+      "lot_appearances": 315081,
+      "auction_ids_observed": 18514,
+      "with_guide_price": 114886,
+      "with_sale_price": 117173,
       "with_both_prices": 53066,
-      "marked_sold": 161539,
-      "marked_sold_without_sale_price": 45128
+      "marked_sold": 161572,
+      "marked_sold_without_sale_price": 45139
     },
     "by_auctioneer_and_year": [
       {
@@ -6797,6 +6798,17 @@
       },
       {
         "auctioneer": "Fisher German Online Auction",
+        "year": 2017,
+        "lot_appearances": 8,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German Online Auction",
         "year": 2021,
         "lot_appearances": 35,
         "auction_ids_observed": 35,
@@ -12373,6 +12385,28 @@
         "marked_sold_without_sale_price": 35
       },
       {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2024,
+        "lot_appearances": 24,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 10,
+        "with_both_prices": 0,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Sheldon Bosley Knight",
+        "year": 2025,
+        "lot_appearances": 34,
+        "auction_ids_observed": 3,
+        "with_guide_price": 0,
+        "with_sale_price": 12,
+        "with_both_prices": 0,
+        "marked_sold": 20,
+        "marked_sold_without_sale_price": 8
+      },
+      {
         "auctioneer": "Signature Estates Online Auction",
         "year": 2022,
         "lot_appearances": 4,
@@ -14034,7 +14068,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 6941,
+    "undated_appearances": 6943,
     "future_dated_appearances": 378,
     "national_completeness_verified": false,
     "limits": [

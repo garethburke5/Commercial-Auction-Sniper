@@ -6,6 +6,35 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## Follow-through — Fisher German and Sheldon Bosley Knight, 13 November 2026
+
+Collection banked **68 net appearances / 68 address records** from two distinct
+growth routes. Fisher German's retained first-party newsletter and four linked
+brochures supplied a complete eight-lot 15 February 2017 event plus two
+individually named, year-precision 2016 retrospective results. Collection then
+switched to an uncovered genuine auctioneer: a reusable retained-result runner
+captured four complete Sheldon Bosley Knight tables containing 58 rows from
+2024 and 2025.
+
+The combined gain contains **66 exact-dated addresses inside the twenty-year
+window**, two undated/year-precision rows, zero partial rows, zero future rows
+and zero exact-date/address overlap exclusions. It adds 15 land, 11 residential
+and 42 unknown-sector appearances; no commercial/mixed-use appearance was
+evidenced. Four guides and 24 achieved prices were added overall, of which
+three guides and 22 achieved prices belong to exact-dated in-window rows. No
+rent was published.
+
+The rebuilt corpus contains **325,522 appearances**, 312,964 address records
+and 12,558 partial records. SQLite passes integrity and duplicate-ID checks;
+the 185,908,693-byte compressed database reconstructs from 23 checksum-addressed
+parts. Fisher German and Sheldon Bosley Knight legal operators are recorded
+without inflating branches or aliases. Original URLs and immutable snapshots
+are retained, including the fact that the four Sheldon Bosley Knight PDF URLs
+now return 404 and the complete tables survive only in retained public-index
+text. The next target is the complete retained June, July and September 2025
+SBK tables, followed by its 2022–2024 result assets. National completeness
+remains false.
+
 ## Implemented recovery
 
 - The historical workflow runs hourly with a 20-minute rotating collection budget, a per-task timeout, and a single concurrency group. It no longer stops after four fast tasks.
