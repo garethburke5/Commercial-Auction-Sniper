@@ -263,12 +263,15 @@
     "database_rebuild_verified": true,
     "sqlite_integrity_verified": true,
     "publication_parts_verified": 22,
+    "concurrent_main_net_new_appearances": 0,
+    "concurrent_main_existing_in_window_sale_prices_enriched": 6,
+    "concurrent_main_reconciliation_note": "Current-scan evidence committed to main during collection was merged before publication. It added no appearance rows and enriched six existing in-window rows with achieved-price evidence; those enrichments are separate from this collection run's 125 newly banked sale-price records.",
     "corpus_after_rebuild": {
       "appearances": 321564,
       "address_records": 309006,
       "in_window_appearances": 311372,
       "in_window_guide_prices": 111275,
-      "in_window_sale_prices": 114439,
+      "in_window_sale_prices": 114445,
       "partial": 12558,
       "undated": 6839,
       "future_dated": 233

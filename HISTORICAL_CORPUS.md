@@ -38,11 +38,16 @@ progress is one evidenced auction lot appearance, never an auction date alone.
   coverage.
 - **Corpus after rebuild:** **321,564 appearances**, **309,006 address records**,
   **12,558 partial records** and **311,372 in-window appearances**. In-window
-  evidence totals are **111,275 guides** and **114,439 achieved prices**;
+  evidence totals are **111,275 guides** and **114,445 achieved prices**;
   retained undated and future-dated totals are **6,839** and **233**.
+- **Concurrent-main reconciliation:** current-scan source evidence that landed on
+  `main` during this run was merged before publication. It added no further
+  appearance or address rows, but enriched **6 existing in-window appearances
+  with achieved-price evidence**. Those six enrichments are kept separate from
+  the **125 newly banked sale-price records** reported for this collection run.
 - **Integrity and publication preparation:** SQLite contains **321,564
   appearances** and passes full `PRAGMA integrity_check`. The
-  **179,792,854-byte** compressed database reconstructs from **22
+  **179,796,004-byte** compressed database reconstructs from **22
   checksum-addressed parts**. The source register has been rebuilt; protected
   current-scan and history-bank jobs were inspected and not duplicated.
 - **Next concrete growth target:** build one reusable IAM-SOLD first-party
