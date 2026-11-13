@@ -1,20 +1,18 @@
 {
-  "checked_at": "2026-11-12T18:54:32.864836+00:00",
+  "checked_at": "2026-11-13T07:13:41.449089+00:00",
   "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v1/auctionsArchived",
   "archive_auctions_discovered": 232,
   "archive_date_min": "2019-09-24",
   "archive_date_max": "2026-11-12",
   "catalogues_complete": 232,
   "catalogues_pending": 0,
-  "catalogues_attempted_this_run": 1,
+  "catalogues_attempted_this_run": 0,
   "catalogues_deferred_recent_403": 0,
-  "catalogues_eligible_after_deferrals": 1,
-  "selected_auction_uuids": [
-    "7516402a-08b9-407b-a8b9-f4193cef7df6"
-  ],
+  "catalogues_eligible_after_deferrals": 0,
+  "selected_auction_uuids": [],
   "appearances_captured": 76690,
-  "run_new_appearances": 159,
-  "run_new_address_records": 159,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "excluded_test_auctions": [
     {
@@ -65,6 +63,34 @@
     "basis": "first-party public BidJS archived-auction manifest"
   },
   "auctions": {
+    "11738": {
+      "auctioneer": "Future Property Auctions",
+      "source_auction_id": "future-property:7516402a-08b9-407b-a8b9-f4193cef7df6",
+      "source_numeric_auction_id": "11738",
+      "auction_uuid": "7516402a-08b9-407b-a8b9-f4193cef7df6",
+      "auction_title": "Timed Online Auction- Thursday 12th November 2026, 10am-3pm",
+      "auction_date": "2026-11-12",
+      "catalogue_complete": true,
+      "source_rows_complete": true,
+      "published_listing_count": 159,
+      "lots_captured": 159,
+      "pagination_reconciled": true,
+      "denominator_reconciled": true,
+      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
+      "completion_scope": "all listing UUIDs in the archived auction payload",
+      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/7516402a-08b9-407b-a8b9-f4193cef7df6",
+      "source_evidence": {
+        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/7516402a-08b9-407b-a8b9-f4193cef7df6",
+        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
+        "retrieved_at": "2026-11-12T18:54:32.617598+00:00",
+        "sha256": "b72ac3daedab841433f235e79b0fd65c703c033711c1249e6f231f30a4a4140a",
+        "snapshot_path": "data/auction_history/sources/future_property_auctions/11738/auction-b72ac3daedab8414.json.gz",
+        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-4f6c0c1c80d49cf9.json.gz",
+        "basis": "complete first-party public BidJS archived-auction payload"
+      },
+      "errors": [],
+      "checked_at": "2026-11-12T18:54:32.774577+00:00"
+    },
     "11609": {
       "auctioneer": "Future Property Auctions",
       "source_auction_id": "future-property:4aed3863-0352-475a-85df-0b73ed3222c0",
@@ -6532,34 +6558,6 @@
       },
       "errors": [],
       "checked_at": "2026-10-26T00:11:27.696111+00:00"
-    },
-    "11738": {
-      "auctioneer": "Future Property Auctions",
-      "source_auction_id": "future-property:7516402a-08b9-407b-a8b9-f4193cef7df6",
-      "source_numeric_auction_id": "11738",
-      "auction_uuid": "7516402a-08b9-407b-a8b9-f4193cef7df6",
-      "auction_title": "Timed Online Auction- Thursday 12th November 2026, 10am-3pm",
-      "auction_date": "2026-11-12",
-      "catalogue_complete": true,
-      "source_rows_complete": true,
-      "published_listing_count": 159,
-      "lots_captured": 159,
-      "pagination_reconciled": true,
-      "denominator_reconciled": true,
-      "denominator_basis": "complete first-party BidJS listing map for this archived auction",
-      "completion_scope": "all listing UUIDs in the archived auction payload",
-      "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/7516402a-08b9-407b-a8b9-f4193cef7df6",
-      "source_evidence": {
-        "source_url": "https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/7516402a-08b9-407b-a8b9-f4193cef7df6",
-        "public_url": "https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/",
-        "retrieved_at": "2026-11-12T18:54:32.617598+00:00",
-        "sha256": "b72ac3daedab841433f235e79b0fd65c703c033711c1249e6f231f30a4a4140a",
-        "snapshot_path": "data/auction_history/sources/future_property_auctions/11738/auction-b72ac3daedab8414.json.gz",
-        "archive_snapshot_path": "data/auction_history/sources/future_property_auctions/archive-4f6c0c1c80d49cf9.json.gz",
-        "basis": "complete first-party public BidJS archived-auction payload"
-      },
-      "errors": [],
-      "checked_at": "2026-11-12T18:54:32.774577+00:00"
     }
   },
   "deferred_failures": [],
