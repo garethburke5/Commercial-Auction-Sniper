@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 6
+PARSER_VERSION = 7
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
@@ -39,6 +39,14 @@ DEFAULT_FLIPHTML_2023_SEED = (
 DEFAULT_HALF_YEAR_2022_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-2022-half-year-review.json.gz"
+)
+DEFAULT_ANNUAL_2021_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2021-annual-review.json.gz"
+)
+DEFAULT_HALF_YEAR_2021_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2021-half-year-review.json.gz"
 )
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
@@ -785,6 +793,209 @@ def load_half_year_review_seed(path: Path = DEFAULT_HALF_YEAR_2022_SEED) -> dict
     return item
 
 
+def load_annual_2021_review_seed(path: Path = DEFAULT_ANNUAL_2021_SEED) -> dict:
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        seed = json.load(handle)
+    item = seed.get("book")
+    if seed.get("schema_version") != 1 or not item:
+        raise ValueError("Kivells 2021 annual review seed is not recognised")
+    if item.get("book_slug") != "lshn" or len(item.get("review_cards") or []) != 72:
+        raise ValueError("Kivells 2021 annual review seed has no 72-card inventory")
+    return item
+
+
+def load_half_year_2021_review_seed(path: Path = DEFAULT_HALF_YEAR_2021_SEED) -> dict:
+    with gzip.open(path, "rt", encoding="utf-8") as handle:
+        seed = json.load(handle)
+    item = seed.get("book")
+    if seed.get("schema_version") != 1 or not item:
+        raise ValueError("Kivells 2021 half-year review seed is not recognised")
+    if item.get("book_slug") != "hdbd" or len(item.get("unique_cards") or []) != 1:
+        raise ValueError("Kivells 2021 half-year review has no unique-card inventory")
+    return item
+
+
+def build_annual_2021_review_rows(
+    item: dict, pages: list[str], evidence: dict,
+    overlap_item: dict | None = None,
+    overlap_pages: list[str] | None = None,
+    overlap_evidence: dict | None = None,
+) -> list[tuple[dict, list[dict]]]:
+    """Build exact-dated rows from the complete 2021 annual result review.
+
+    The annual source publishes 72 individually identified sold cards across
+    ten sections and two further offered-lot outcomes without a property
+    identity.  The retained half-year review overlaps those cards but also
+    publishes one June property omitted by the later annual review.  That
+    distinct appearance is admitted once and the denominator conflict is kept.
+    """
+    events = item["review_events"]
+    cards = item["review_cards"]
+    if len(pages) != item["page_count"]:
+        raise ValueError(f"2021 annual review has {len(pages)} pages, expected {item['page_count']}")
+    if len({card["card_id"] for card in cards}) != len(cards):
+        raise ValueError("2021 annual review card identifiers are not unique")
+    if sum(event["offered_lots"] for event in events) != 74:
+        raise ValueError("2021 annual review offered-lot denominator is not 74")
+    if sum(event["sold_cards"] for event in events) != len(cards):
+        raise ValueError("2021 annual review sold-card denominator is not 72")
+    if sum(event["value_sold"] for event in events) != 16773000:
+        raise ValueError("2021 annual review grand value sold is not £16,773,000")
+
+    card_dates = Counter(card["auction_date"] for card in cards)
+    card_values = Counter()
+    for card in cards:
+        page_number = card["source_page_number"]
+        if not 1 <= page_number <= len(pages):
+            raise ValueError(f"2021 review card {card['card_id']} has an invalid source page")
+        page = clean(pages[page_number - 1]) or ""
+        title = clean(card["location"]) or ""
+        # Two-column spreads can interleave the locality suffixes in the
+        # accessible text layer.  The leading published property title remains
+        # stable and is sufficient alongside page, event and price checks.
+        title_anchor = clean(title.split(",", 1)[0]) or title
+        if title_anchor.casefold() not in page.casefold():
+            raise ValueError(f"2021 review page {page_number} is missing card title: {title}")
+        if not card.get("source_price_text_degraded"):
+            for field in ("guide_price", "sale_price"):
+                value = card.get(field)
+                if value is not None and f"£{value:,}" not in page:
+                    raise ValueError(
+                        f"2021 review page {page_number} is missing {field} for {card['card_id']}"
+                    )
+        card_values[card["auction_date"]] += card["sale_price"]
+
+    for event in events:
+        event_date = event["auction_date"]
+        if card_dates[event_date] != event["sold_cards"]:
+            raise ValueError(f"{event_date} sold-card denominator does not reconcile")
+        if card_values[event_date] != event["value_sold"]:
+            raise ValueError(f"{event_date} sold-card values do not reconcile")
+
+    unique_overlap_cards = []
+    if overlap_item is not None:
+        if overlap_pages is None or overlap_evidence is None:
+            raise ValueError("2021 half-year overlap source is incomplete")
+        if len(overlap_pages) != overlap_item["page_count"]:
+            raise ValueError("2021 half-year review page denominator does not reconcile")
+        unique_overlap_cards = overlap_item["unique_cards"]
+        for card in unique_overlap_cards:
+            page = clean(overlap_pages[card["source_page_number"] - 1]) or ""
+            if card["location"].casefold() not in page.casefold():
+                raise ValueError("2021 half-year unique card title is absent from its source page")
+            for field in ("guide_price", "sale_price"):
+                if f"£{card[field]:,}" not in page:
+                    raise ValueError(
+                        f"2021 half-year unique card is missing published {field}"
+                    )
+
+    results = []
+    for event in events:
+        event_date = event["auction_date"]
+        source_cards = []
+        event_cards = [card for card in cards if card["auction_date"] == event_date]
+        event_cards.extend(
+            card for card in unique_overlap_cards
+            if card["auction_date"] == event_date
+        )
+        for card in event_cards:
+            guide_text = card.get("guide_price_text")
+            if not guide_text and card.get("guide_price") is not None:
+                guide_text = f"Guide £{card['guide_price']:,}"
+                if card.get("guide_price_high") is not None:
+                    guide_text += f" - £{card['guide_price_high']:,}"
+            source_cards.append({
+                "lot_number": card["card_id"],
+                "location": card["location"],
+                "address": card["location"] if is_address(card["location"]) else None,
+                "guide_price": card.get("guide_price"),
+                "guide_price_high": card.get("guide_price_high"),
+                "guide_price_text": guide_text,
+                "sale_price": card["sale_price"],
+                "status": card.get("status") or "sold",
+                "source_result_text": f"SOLD £{card['sale_price']:,}",
+                "source_card_text": clean(" ".join(filter(None, (
+                    card["location"], card.get("description"), guide_text,
+                    f"SOLD £{card['sale_price']:,}",
+                )))),
+                "source_duplicate_count": 0,
+            })
+        state, rows = build_rows(
+            source_cards,
+            {
+                "auction_date": event_date,
+                "article_url": item["source_url"],
+                "published_lot_count": event["offered_lots"],
+            },
+            item["source_url"], evidence,
+        )
+        sectors_by_card = {
+            card["card_id"]: card.get("sector") for card in event_cards
+        }
+        missing = event["offered_lots"] - event["sold_cards"]
+        state.update(
+            parser_version=PARSER_VERSION,
+            source_format="FlipHTML5 2021 annual-review page-text inventory",
+            catalogue_complete=missing == 0,
+            source_rows_complete=True,
+            lots_captured=len(rows),
+            published_offered_lot_denominator=event["offered_lots"],
+            published_sold_result_denominator=event["sold_cards"],
+            published_value_sold=event["value_sold"],
+            unmatched_offered_outcomes_null=missing,
+            denominator_reconciled=True,
+            denominator_basis=(
+                "annual-review section statistics reconciled to every individually "
+                "published sold property card; unidentified unsold outcomes remain null"
+            ),
+            completion_scope="all individually identifiable 2021 annual-review sold cards",
+            page_assets_snapshotted=len(pages),
+            overlapping_half_year_review_url=item.get("overlap_source_url"),
+            overlapping_half_year_rows_admitted=0,
+            errors=[],
+        )
+        for row in rows:
+            if sectors_by_card.get(row["lot_number"]):
+                row["sector"] = sectors_by_card[row["lot_number"]]
+            if row["lot_number"].startswith("half-2021-"):
+                row["source_evidence"] = overlap_evidence
+            row["auction_date_basis"] = (
+                "exact date printed in the first-party 2021 annual-review event section"
+            )
+            row["identity_method"] = (
+                "exact_event_date_stable_review_card_and_first_party_result_title"
+            )
+        overlap_unique = sum(
+            card["auction_date"] == event_date for card in unique_overlap_cards
+        )
+        if overlap_unique:
+            state.update(
+                catalogue_complete=True,
+                lots_captured=len(rows),
+                half_year_review_offered_lot_denominator=15,
+                half_year_review_sold_result_denominator=15,
+                half_year_review_value_sold=2967000,
+                half_year_unique_cards_admitted=overlap_unique,
+                annual_review_cards_omitted_by_later_source=overlap_unique,
+                source_denominator_conflict={
+                    "half_year_review": {"offered": 15, "sold": 15, "value_sold": 2967000},
+                    "annual_review": {"offered": 14, "sold": 14, "value_sold": 2562000},
+                },
+                denominator_basis=(
+                    "merged exact individual cards from both retained first-party reviews; "
+                    "72 overlaps collapsed and the one half-year-only June property retained"
+                ),
+            )
+            for row in rows:
+                if row["lot_number"].startswith("half-2021-"):
+                    row["auction_date_basis"] = (
+                        "exact date printed in the first-party 2021 half-year-review event section"
+                    )
+        state["overlapping_half_year_rows_admitted"] = overlap_unique
+        results.append((state, rows))
+    return results
+
+
 def build_half_year_review_rows(
     item: dict, pages: list[str], evidence: dict,
 ) -> list[tuple[dict, list[dict]]]:
@@ -1145,6 +1356,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     failures = []
     completed_this_run = []
     completed_fliphtml_this_run = []
+    completed_annual_review_2021_this_run = []
     completed_half_year_review_this_run = []
     completed_may_this_run = []
     saved_by_date = {}
@@ -1270,6 +1482,27 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 row for row in merged.values()
                 if row.get("auction_date") == item["auction_date"]
             ]
+            prior_by_lot = {row.get("lot_number"): row for row in prior}
+            for row in rows:
+                old = prior_by_lot.get(row.get("lot_number"))
+                if not old:
+                    continue
+                if old.get("appearance_id") == row.get("appearance_id"):
+                    if old.get("superseded_record_evidence"):
+                        row["superseded_record_evidence"] = old[
+                            "superseded_record_evidence"
+                        ]
+                    continue
+                row["superseded_record_evidence"] = {
+                    "appearance_id": old.get("appearance_id"),
+                    "address": old.get("address"),
+                    "locality": old.get("locality"),
+                    "source_evidence": old.get("source_evidence"),
+                    "reason": (
+                        "parser correction retained without counting a second "
+                        "appearance for the same event and lot"
+                    ),
+                }
             for row in prior:
                 merged.pop(row["appearance_id"], None)
             for row in rows:
@@ -1288,6 +1521,62 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                     "error": f"{type(exc).__name__}: {exc}"[:500],
                 }
             )
+
+    annual_review_2021_url = None
+    half_year_review_2021_url = None
+    overlap_item_2021 = None
+    if DEFAULT_HALF_YEAR_2021_SEED.exists():
+        overlap_item_2021 = load_half_year_2021_review_seed()
+        half_year_review_2021_url = overlap_item_2021["source_url"]
+    if DEFAULT_ANNUAL_2021_SEED.exists():
+        annual_item = load_annual_2021_review_seed()
+        annual_review_2021_url = annual_item["source_url"]
+        if annual_review_2021_url not in completed or saved_only:
+            try:
+                pages = fliphtml_pages(annual_item)
+                evidence = snapshot_fliphtml_book(annual_item, pages)
+                overlap_item = None
+                overlap_pages = None
+                overlap_evidence = None
+                if overlap_item_2021 is not None:
+                    overlap_item = overlap_item_2021
+                    overlap_pages = fliphtml_pages(overlap_item)
+                    overlap_evidence = snapshot_fliphtml_book(
+                        overlap_item, overlap_pages,
+                    )
+                event_results = build_annual_2021_review_rows(
+                    annual_item, pages, evidence, overlap_item,
+                    overlap_pages, overlap_evidence,
+                )
+                for state, rows in event_results:
+                    event_date = state["auction_date"]
+                    sha = evidence["search_config_sha256"]
+                    corpus.save_json(
+                        corpus.DATA / "auctions/kivells-results" / f"{event_date}-{sha[:12]}-annual-review.json",
+                        state,
+                    )
+                    prior = [
+                        row for row in merged.values()
+                        if row.get("auction_date") == event_date
+                    ]
+                    for row in prior:
+                        merged.pop(row["appearance_id"], None)
+                    for row in rows:
+                        merged[row["appearance_id"]] = row
+                    print(
+                        "KIVELLS 2021 ANNUAL REVIEW", event_date, len(rows),
+                        "individually published sold cards", flush=True,
+                    )
+                completed.add(annual_review_2021_url)
+                if half_year_review_2021_url:
+                    completed.add(half_year_review_2021_url)
+                completed_annual_review_2021_this_run.append(annual_review_2021_url)
+            except Exception as exc:
+                failures.append({
+                    "auction_date": "2021-03-05/2021-11-17",
+                    "url": annual_review_2021_url,
+                    "error": f"{type(exc).__name__}: {exc}"[:500],
+                })
 
     half_year_review_url = None
     if DEFAULT_HALF_YEAR_2022_SEED.exists():
@@ -1422,6 +1711,41 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
             item["expected_sold_cards"] for item in FLIPHTML_2023_EVENTS
             if item["source_url"] in completed
         ),
+        "annual_review_2021_inventories_in_manifest": int(
+            annual_review_2021_url is not None
+        ),
+        "annual_review_2021_inventories_banked": int(
+            annual_review_2021_url is not None
+            and annual_review_2021_url in completed
+        ),
+        "annual_review_2021_inventories_completed_this_run": len(
+            completed_annual_review_2021_this_run
+        ),
+        "annual_review_2021_offered_lots": (
+            74 if annual_review_2021_url in completed else 0
+        ),
+        "annual_review_2021_individually_published_sold_cards": (
+            72 if annual_review_2021_url in completed else 0
+        ),
+        "annual_review_2021_unidentified_offered_outcomes": (
+            2 if annual_review_2021_url in completed else 0
+        ),
+        "annual_review_2021_overlapping_half_year_rows_admitted": (
+            1 if half_year_review_2021_url in completed else 0
+        ),
+        "half_year_review_2021_inventories_in_manifest": int(
+            half_year_review_2021_url is not None
+        ),
+        "half_year_review_2021_inventories_banked": int(
+            half_year_review_2021_url is not None
+            and half_year_review_2021_url in completed
+        ),
+        "half_year_review_2021_unique_cards_admitted": (
+            1 if half_year_review_2021_url in completed else 0
+        ),
+        "half_year_review_2021_duplicate_cards_collapsed": (
+            72 if half_year_review_2021_url in completed else 0
+        ),
         "half_year_review_inventories_in_manifest": int(half_year_review_url is not None),
         "half_year_review_inventories_banked": int(
             half_year_review_url is not None and half_year_review_url in completed
@@ -1465,6 +1789,18 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "covered_source_years": sorted({row["auction_date"][:4] for row in merged.values()}),
         "completed_source_urls": sorted(completed), "failures": failures,
     }
+    if total > len(before_ids):
+        summary["last_material_growth"] = {
+            "checked_at": summary["checked_at"],
+            "net_new_appearances": total - len(before_ids),
+            "new_address_records": after_counts["address"] - before_counts["address"],
+            "new_partial_lots": after_counts["partial"] - before_counts["partial"],
+            "new_guide_prices": after_counts["guide"] - before_counts["guide"],
+            "new_sale_prices": after_counts["sale"] - before_counts["sale"],
+            "new_rents": after_counts["rent"] - before_counts["rent"],
+        }
+    elif previous.get("last_material_growth"):
+        summary["last_material_growth"] = previous["last_material_growth"]
     corpus.save_json(summary_path, summary)
     print(json.dumps(summary, indent=2), flush=True)
     # Preserve and publish successful catalogues even if another event is

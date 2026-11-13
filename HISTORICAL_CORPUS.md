@@ -3,6 +3,50 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Kivells 2021 retained-review recovery
+
+The reusable Kivells FlipHTML runner now admits the retained 52-page 2021
+full-year auction review together with the overlapping 36-page half-year review.
+Ten exact auction dates reconcile to 72 individually identified sold cards in
+the annual review. The half-year source repeats those appearances but also
+publishes Tredhek Gardens, Gunnislake, which the later annual review omitted.
+The merge therefore collapses **72 overlapping source cards** and retains the one
+distinct half-year-only legal interest once, for **73 net new appearances**.
+
+All 73 appearances are exact-dated inside the twenty-year window and preserve
+their original source URL, guide and achieved price separately. They add **73
+guide prices and 73 achieved prices**, with no rents, undated rows or
+future-dated rows. Published descriptions support 3 commercial, 7 mixed-use, 32
+land and 31 residential classifications, so the commercial/mixed-use subset is
+**10**. The source rows contain 57 address-quality identities and 16 partial
+locations. A pre-existing malformed 2023 Kivells address that included guide
+text was corrected to a partial location during the integrity reparse, with its
+superseded row and source evidence retained; the corpus-level net change is
+therefore **56 address records and 17 partial records**.
+
+The annual review states 74 offered and 72 sold properties worth £16,773,000;
+the two individually unidentified unsold outcomes remain denominator-only nulls.
+For 23 June, the earlier half-year review states 15/15 sold for £2,967,000 while
+the later annual review states 14/14 for £2,562,000. Both denominators and values
+are preserved as a source conflict, and the one named property explaining the
+difference is retained rather than discarded. Ninety-six immutable source
+artifacts preserve both complete page-text inventories, viewer configurations,
+public HTML and per-page snapshots. Kivells remains one operator/trading-name
+lineage; **Kivells 2021 is one newly covered source-year**, not another
+auctioneer.
+
+Rebuilt totals are **314,963 appearances, 303,630 address records, 11,333
+partial records and 306,603 in-window appearances**, including **108,133
+in-window guides and 112,965 in-window achieved prices**. Undated and
+future-dated totals remain 5,056 and 184. National completeness remains false.
+
+Next concrete growth target: batch the retained Kivells 2020 result books from
+the same publisher profile—February (`vxyo`), July (`enrv`), September (`emqo`)
+and October (`grlr`)—through the reusable runner, then reconcile their cards
+against the retained full-year review (`zsfy`) before claiming growth. Preserve
+distinct catalogue interests, collapse review overlap, and keep the work within
+the existing Kivells operator lineage.
+
 ## 13 November 2026 — Venmore 2016–2026 retained-source recovery
 
 The complete protected Venmore checkpoint was reconciled into the current corpus

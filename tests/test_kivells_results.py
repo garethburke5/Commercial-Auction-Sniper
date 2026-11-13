@@ -1,10 +1,13 @@
 import json
 
 from scripts.harvest_kivells_results import (
-    DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED, DEFAULT_HALF_YEAR_2022_SEED,
+    DEFAULT_ANNUAL_2021_SEED, DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED,
+    DEFAULT_HALF_YEAR_2021_SEED, DEFAULT_HALF_YEAR_2022_SEED,
     EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
-    build_fliphtml_rows, build_half_year_review_rows, build_may_rows, build_rows,
+    build_annual_2021_review_rows, build_fliphtml_rows, build_half_year_review_rows,
+    build_may_rows, build_rows,
     extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
+    load_annual_2021_review_seed, load_half_year_2021_review_seed,
     load_half_year_review_seed, public_fliphtml_pages, parse_may_event_page, parse_text,
     saved_snapshot_dates, snapshot_metadata_path, status_from_text,
 )
@@ -51,6 +54,41 @@ def test_manifest_is_eleven_distinct_first_party_events_across_two_years():
     assert sum(event["auction_date"].startswith("2024-") for event in EVENTS) == 5
     assert sum(event["auction_date"].startswith("2025-") for event in EVENTS) == 6
     assert all(event["pdf_url"].startswith("https://www.kivells.com/media/Auctions/") for event in EVENTS)
+
+
+def test_2021_reviews_reconcile_and_admit_only_one_unique_overlap_card():
+    annual = load_annual_2021_review_seed(DEFAULT_ANNUAL_2021_SEED)
+    half = load_half_year_2021_review_seed(DEFAULT_HALF_YEAR_2021_SEED)
+    assert annual["page_count"] == 52
+    assert half["page_count"] == 36
+    assert len(annual["review_events"]) == 10
+    assert sum(event["offered_lots"] for event in annual["review_events"]) == 74
+    assert sum(event["sold_cards"] for event in annual["review_events"]) == 72
+    assert sum(event["value_sold"] for event in annual["review_events"]) == 16773000
+    assert half["overlap_assessment"] == {
+        "annual_cards_duplicated": 72,
+        "unique_card_ids": ["half-2021-20210623-15"],
+        "unique_cards_absent_from_annual": 1,
+    }
+    results = build_annual_2021_review_rows(
+        annual, fliphtml_pages(annual), {"source": "annual"},
+        half, fliphtml_pages(half), {"source": "half"},
+    )
+    states = {state["auction_date"]: state for state, _ in results}
+    rows = [row for _, event_rows in results for row in event_rows]
+    assert len(rows) == 73
+    assert len({row["appearance_id"] for row in rows}) == 73
+    assert sum(row["sale_price"] for row in rows) == 17178000
+    assert sum(row["sale_price"] is not None for row in rows) == 73
+    assert sum(row["guide_price"] is not None for row in rows) == 73
+    assert sum(row["auction_date"] == "2021-06-23" for row in rows) == 15
+    assert sum(row["lot_number"].startswith("half-2021-") for row in rows) == 1
+    assert states["2021-06-23"]["source_denominator_conflict"] == {
+        "annual_review": {"offered": 14, "sold": 14, "value_sold": 2562000},
+        "half_year_review": {"offered": 15, "sold": 15, "value_sold": 2967000},
+    }
+    assert states["2021-08-04"]["unmatched_offered_outcomes_null"] == 1
+    assert states["2021-09-21"]["unmatched_offered_outcomes_null"] == 1
 
 
 def test_2023_fliphtml_batch_reconciles_all_ten_event_denominators():

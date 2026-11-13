@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-11-13T19:08:00.744105+00:00",
-  "individual_lot_records_captured": 314890,
-  "records_with_address": 303574,
-  "partial_lot_records": 11316,
+  "generated_at": "2026-11-13T19:49:20.298983+00:00",
+  "individual_lot_records_captured": 314963,
+  "records_with_address": 303630,
+  "partial_lot_records": 11333,
   "exact_address_groups": 168996,
   "groups_with_repeat_appearances": 43230,
   "by_auctioneer": {
@@ -89,7 +89,7 @@
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
-    "Kivells": 413,
+    "Kivells": 486,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 598,
     "Landmark Auctions": 71,
@@ -157,7 +157,7 @@
     "2018": 8326,
     "2019": 8005,
     "2020": 14003,
-    "2021": 21380,
+    "2021": 21453,
     "2022": 26863,
     "2023": 33667,
     "2024": 42675,
@@ -166,19 +166,19 @@
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42870,
-    "land": 19487,
+    "commercial": 42873,
+    "land": 19519,
     "mixed": 1,
-    "mixed-use": 47859,
-    "residential": 152773,
+    "mixed-use": 47866,
+    "residential": 152804,
     "unknown": 51900
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5068,
-  "catalogues_incomplete_or_unreconciled": 618,
+  "surviving_catalogues_completely_harvested": 5076,
+  "catalogues_incomplete_or_unreconciled": 620,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -191,12 +191,12 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306530,
-      "auction_ids_observed": 13789,
-      "with_guide_price": 108060,
-      "with_sale_price": 112892,
-      "with_both_prices": 48964,
-      "marked_sold": 156003,
+      "lot_appearances": 306603,
+      "auction_ids_observed": 13799,
+      "with_guide_price": 108133,
+      "with_sale_price": 112965,
+      "with_both_prices": 49037,
+      "marked_sold": 156076,
       "marked_sold_without_sale_price": 43851
     },
     "by_auctioneer_and_year": [
@@ -6072,6 +6072,17 @@
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Kivells",
+        "year": 2021,
+        "lot_appearances": 73,
+        "auction_ids_observed": 10,
+        "with_guide_price": 73,
+        "with_sale_price": 73,
+        "with_both_prices": 73,
+        "marked_sold": 73,
         "marked_sold_without_sale_price": 0
       },
       {

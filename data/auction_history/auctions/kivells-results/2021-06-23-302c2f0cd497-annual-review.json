@@ -1,0 +1,45 @@
+{
+  "auctioneer": "Kivells",
+  "source_auction_id": "kivells-results:2021-06-23",
+  "auction_date": "2021-06-23",
+  "parser_version": 7,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "lots_captured": 15,
+  "numbered_lots_in_pdf": 15,
+  "published_lot_count_from_event_page": 14,
+  "denominator_reconciled": true,
+  "denominator_basis": "merged exact individual cards from both retained first-party reviews; 72 overlaps collapsed and the one half-year-only June property retained",
+  "completion_scope": "all individually identifiable 2021 annual-review sold cards",
+  "source_url": "https://online.fliphtml5.com/hoau/lshn/",
+  "article_url": "https://online.fliphtml5.com/hoau/lshn/",
+  "checked_at": "2026-11-13T19:48:39.155932+00:00",
+  "exact_source_card_duplicates_collapsed": 0,
+  "event_page_count_note": "event page describes 14 lots going under the hammer; PDF publishes 15 outcome cards",
+  "errors": [],
+  "source_format": "FlipHTML5 2021 annual-review page-text inventory",
+  "published_offered_lot_denominator": 14,
+  "published_sold_result_denominator": 14,
+  "published_value_sold": 2562000,
+  "unmatched_offered_outcomes_null": 0,
+  "page_assets_snapshotted": 52,
+  "overlapping_half_year_review_url": "https://online.fliphtml5.com/hoau/hdbd/",
+  "overlapping_half_year_rows_admitted": 1,
+  "half_year_review_offered_lot_denominator": 15,
+  "half_year_review_sold_result_denominator": 15,
+  "half_year_review_value_sold": 2967000,
+  "half_year_unique_cards_admitted": 1,
+  "annual_review_cards_omitted_by_later_source": 1,
+  "source_denominator_conflict": {
+    "half_year_review": {
+      "offered": 15,
+      "sold": 15,
+      "value_sold": 2967000
+    },
+    "annual_review": {
+      "offered": 14,
+      "sold": 14,
+      "value_sold": 2562000
+    }
+  }
+}

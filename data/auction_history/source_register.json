@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T19:10:39.785235+00:00",
-  "corpus_checkpoint": "2026-11-13T19:08:00.744105+00:00",
+  "generated_at": "2026-11-13T19:49:47.418268+00:00",
+  "corpus_checkpoint": "2026-11-13T19:49:20.298983+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4092,15 +4092,16 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Kivells",
       "match_basis": "existing evidenced source registry",
-      "retained_appearances": 413,
+      "retained_appearances": 486,
       "years_with_retained_evidence": [
+        2021,
         2022,
         2023,
         2024,
         2025
       ],
-      "with_guide_price": 408,
-      "with_sale_price": 325,
+      "with_guide_price": 481,
+      "with_sale_price": 398,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8285,7 +8286,7 @@
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
-    "Kivells": 413,
+    "Kivells": 486,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 598,
     "Landmark Auctions": 71,
@@ -8337,12 +8338,12 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306530,
-      "auction_ids_observed": 13789,
-      "with_guide_price": 108060,
-      "with_sale_price": 112892,
-      "with_both_prices": 48964,
-      "marked_sold": 156003,
+      "lot_appearances": 306603,
+      "auction_ids_observed": 13799,
+      "with_guide_price": 108133,
+      "with_sale_price": 112965,
+      "with_both_prices": 49037,
+      "marked_sold": 156076,
       "marked_sold_without_sale_price": 43851
     },
     "by_auctioneer_and_year": [
@@ -14222,6 +14223,17 @@
       },
       {
         "auctioneer": "Kivells",
+        "year": 2021,
+        "lot_appearances": 73,
+        "auction_ids_observed": 10,
+        "with_guide_price": 73,
+        "with_sale_price": 73,
+        "with_both_prices": 73,
+        "marked_sold": 73,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Kivells",
         "year": 2022,
         "lot_appearances": 80,
         "auction_ids_observed": 7,
@@ -17621,6 +17633,14 @@
       "newly_covered_source_years": [],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "venmore-auctions-retained-chain": {
+      "source": "venmore-auctions-retained-chain",
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-13T19:08:00.744105+00:00",
+      "net_new_appearances": 1445,
+      "diagnostic_tail": "Recovered the complete protected 2016-2026 Venmore chain: 1,445 exact-dated address appearances, 204 commercial/mixed-use, 1,119 guides, 44 achieved prices and 656 rents. Preserved 319 immutable first-party snapshots across 73 event inventories. Exact appearance-ID, canonical-URL and date/address overlaps: 0."
     },
     "first_party_sitemap:connect-uk-auctions": {
       "source": "first_party_sitemap:connect-uk-auctions",
@@ -22870,13 +22890,31 @@
       "checked_at": "2026-11-13T00:01:55.272511+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/kivells-results/2021-08-04-302c2f0cd497-annual-review.json",
+      "auctioneer": "Kivells",
+      "auction_date": "2021-08-04",
+      "source_url": "https://online.fliphtml5.com/hoau/lshn/",
+      "lots_captured": 12,
+      "errors": [],
+      "checked_at": "2026-11-13T19:48:39.156110+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/kivells-results/2022-02-23-63babcc5e610-review.json",
       "auctioneer": "Kivells",
       "auction_date": "2022-02-23",
       "source_url": "https://online.fliphtml5.com/hoau/uzqf/",
       "lots_captured": 13,
       "errors": [],
-      "checked_at": "2026-11-11T16:13:30.026309+00:00"
+      "checked_at": "2026-11-13T19:48:39.165907+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/kivells-results/2021-09-21-302c2f0cd497-annual-review.json",
+      "auctioneer": "Kivells",
+      "auction_date": "2021-09-21",
+      "source_url": "https://online.fliphtml5.com/hoau/lshn/",
+      "lots_captured": 19,
+      "errors": [],
+      "checked_at": "2026-11-13T19:48:39.156339+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/kivells-results/2022-05-04-63babcc5e610-review.json",
@@ -22885,7 +22923,7 @@
       "source_url": "https://online.fliphtml5.com/hoau/uzqf/",
       "lots_captured": 13,
       "errors": [],
-      "checked_at": "2026-11-11T16:13:30.026727+00:00"
+      "checked_at": "2026-11-13T19:48:39.166225+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-leicestershire/regional-online-results.json",
@@ -23557,7 +23595,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T19:10:38.128072+00:00",
+    "checked_at": "2026-11-13T19:49:46.976071+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
