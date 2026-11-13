@@ -1,0 +1,133 @@
+{
+  "auctioneer": "Auction Works",
+  "source_auction_id": "auction-works:2026-11-27",
+  "auction_date": "2026-11-27",
+  "source_url": "https://www.auctionworks.co.uk/search",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://www.auctionworks.co.uk/search",
+      "retrieved_at": "2026-11-13T15:43:04.459980+00:00",
+      "sha256": "c3baa27e31b64caf73e40382d426d5455887284b0e6212df6ac8f56889da6d59",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-1-c3baa27e31b64caf.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=2",
+      "retrieved_at": "2026-11-13T15:43:04.561611+00:00",
+      "sha256": "4d576bc4652d9004b5826dd060fc18966e9a4669c24d52ee70412089c2be9efa",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-2-4d576bc4652d9004.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=3",
+      "retrieved_at": "2026-11-13T15:43:04.661204+00:00",
+      "sha256": "5bb5c02a85108805bf4154523bc5e060c3bab8516afc75506dd32a8b58c16f12",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-3-5bb5c02a85108805.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=4",
+      "retrieved_at": "2026-11-13T15:43:04.778024+00:00",
+      "sha256": "a2628d7ff47d61d09c4def8432e5bf23c93e24e9f9bc4c3e22489de0a5ca9323",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-4-a2628d7ff47d61d0.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 4,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=5",
+      "retrieved_at": "2026-11-13T15:43:04.875920+00:00",
+      "sha256": "757f9b44001ea7193f5ae1d28871410d5736ada234a34a8d718c711e39401503",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-5-757f9b44001ea719.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 5,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=6",
+      "retrieved_at": "2026-11-13T15:43:04.974449+00:00",
+      "sha256": "02782de49d61e106581ec38da710329533995e460c98d7daa1d874804f3a34b3",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-6-02782de49d61e106.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 6,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=7",
+      "retrieved_at": "2026-11-13T15:43:05.070940+00:00",
+      "sha256": "bc441e284814342eb79c3c4ea0bfa1345b4b6e722b97eb73cb59adf497a307c4",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-7-bc441e284814342e.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 7,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=8",
+      "retrieved_at": "2026-11-13T15:43:05.169686+00:00",
+      "sha256": "3f00d4c6538248afaa628c2dd5fea80c0e819c135978a61082b463ad0cf76d1e",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-8-3f00d4c6538248af.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 8,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=9",
+      "retrieved_at": "2026-11-13T15:43:05.268000+00:00",
+      "sha256": "852d548b1e634e5cb7af7a36717c5bb6fbfa74e14d711e1d52f3e3287f0d7201",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-9-852d548b1e634e5c.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 9,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=10",
+      "retrieved_at": "2026-11-13T15:43:05.367372+00:00",
+      "sha256": "037bc910a49d823a64c358afa70d9182b49eb87eb76b6e99b8409ca8f42a2d69",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-10-037bc910a49d823a.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 10,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=11",
+      "retrieved_at": "2026-11-13T15:43:05.468689+00:00",
+      "sha256": "76852cc0336b871da85728c7a81f79d7c6c06d455f0c4a63f3f629184981778c",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-11-76852cc0336b871d.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 11,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=12",
+      "retrieved_at": "2026-11-13T15:43:05.606544+00:00",
+      "sha256": "995f91ce81ddf5416cdf2fea0043e2fdb6b56fafc4269edcc2461e9b836b0eec",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-12-995f91ce81ddf541.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 12,
+      "page_count": 13
+    },
+    {
+      "source_url": "https://www.auctionworks.co.uk/search?page=13",
+      "retrieved_at": "2026-11-13T15:43:05.707944+00:00",
+      "sha256": "e26f8b5c9a8eefb05a735a9b9ede3eb0f30922634c64793e6ef91897be0aa6dd",
+      "snapshot_path": "data/auction_history/sources/auction-works/past-auctions-page-13-e26f8b5c9a8eefb0.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 13,
+      "page_count": 13
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-13T15:44:11.476796+00:00"
+}
