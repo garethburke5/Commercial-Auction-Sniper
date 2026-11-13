@@ -3,6 +3,41 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Venmore indexed 2016 multi-event recovery
+
+- **Specific growth opportunity executed:** the reusable immutable-HTML runner
+  was expanded with **24 newly indexed first-party property pages across six
+  2016 auction dates**. Every page reconciles its printed exact date, lot number
+  and address with the manifest; original URLs, published outcomes and
+  checksum-addressed source snapshots are retained. The 121 previously banked
+  2017–2020 pages were read from retained snapshots and are not new growth.
+- **Measured net gain:** **24 appearances / 24 address records / 24 exact-dated
+  addresses inside the twenty-year window**. New partial-address, null-address,
+  undated, future-dated, duplicate-source and cross-source-overlap records are
+  all **0**. Venmore source-year **2016** is newly covered.
+- **Sector and evidence gain:** **1 commercial, 10 mixed-use, 1 land, 10
+  residential and 2 unknown** appearances; the commercial/mixed-use subset is
+  **11**. The pages add **3 numeric guide records, 8 achieved prices and 13
+  published rents**. Published outcomes remain distinct: 14 sold, two sold
+  after, one sold prior and seven withdrawn.
+- **Coverage boundary:** all **145/145** URLs in the cumulative manifest now
+  reconcile, but the six newly represented 2016 events remain partial because
+  their cleared grids supply no original lot denominator. The source-year gain
+  is not a claim of six complete catalogues or national coverage.
+- **Corpus after rebuild:** **319,327 appearances**, **306,769 address records**,
+  **12,558 partial records** and **309,839 in-window appearances**. In-window
+  evidence includes **111,197 numeric guides** and **114,333 achieved prices**.
+  Undated and future-dated totals remain **6,219** and **149**.
+- **Publication validation:** the rebuilt 1,511,006,208-byte SQLite database
+  passes `PRAGMA integrity_check`; its 22-part checksum-addressed publication
+  reconstructs byte-for-byte to the generated database.
+- **Next concrete growth target:** batch Venmore 2015 and older pages only when
+  new search-index hits, saved files or catalogues expose individual lots; do
+  not refresh cleared grids. If that index is thin, rotate to another uncovered
+  auctioneer archive with a substantial accessible lot inventory.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Venmore indexed 2017–2018 multi-event recovery
 
 - **Specific growth opportunity executed:** the reusable immutable-HTML runner

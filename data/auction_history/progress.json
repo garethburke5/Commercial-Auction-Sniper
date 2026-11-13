@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T02:09:14.208086+00:00",
-  "individual_lot_records_captured": 319303,
-  "records_with_address": 306745,
+  "generated_at": "2026-11-13T03:06:16.880668+00:00",
+  "individual_lot_records_captured": 319327,
+  "records_with_address": 306769,
   "partial_lot_records": 12558,
-  "exact_address_groups": 170898,
-  "groups_with_repeat_appearances": 43925,
+  "exact_address_groups": 170920,
+  "groups_with_repeat_appearances": 43926,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -136,7 +136,7 @@
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3111,
     "Unknown auctioneer": 14,
-    "Venmore Auctions": 1421
+    "Venmore Auctions": 1445
   },
   "by_year": {
     "null": 6219,
@@ -154,7 +154,7 @@
     "2013": 6364,
     "2014": 8680,
     "2015": 8031,
-    "2016": 8742,
+    "2016": 8766,
     "2017": 9038,
     "2018": 8901,
     "2019": 8096,
@@ -168,19 +168,19 @@
     "2027": 6
   },
   "by_sector": {
-    "commercial": 43103,
-    "land": 19831,
+    "commercial": 43104,
+    "land": 19832,
     "mixed": 1,
-    "mixed-use": 47967,
-    "residential": 154852,
-    "unknown": 53549
+    "mixed-use": 47977,
+    "residential": 154862,
+    "unknown": 53551
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
   "surviving_catalogues_completely_harvested": 5204,
-  "catalogues_incomplete_or_unreconciled": 655,
+  "catalogues_incomplete_or_unreconciled": 661,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -193,13 +193,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309815,
-      "auction_ids_observed": 13941,
-      "with_guide_price": 111194,
-      "with_sale_price": 114325,
+      "lot_appearances": 309839,
+      "auction_ids_observed": 13947,
+      "with_guide_price": 111197,
+      "with_sale_price": 114333,
       "with_both_prices": 50370,
-      "marked_sold": 157502,
-      "marked_sold_without_sale_price": 43917
+      "marked_sold": 157519,
+      "marked_sold_without_sale_price": 43926
     },
     "by_auctioneer_and_year": [
       {
@@ -9243,6 +9243,17 @@
         "with_both_prices": 10,
         "marked_sold": 11,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Venmore Auctions",
+        "year": 2016,
+        "lot_appearances": 24,
+        "auction_ids_observed": 6,
+        "with_guide_price": 3,
+        "with_sale_price": 8,
+        "with_both_prices": 0,
+        "marked_sold": 17,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Venmore Auctions",
