@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-13T04:08:41.965384+00:00",
-  "individual_lot_records_captured": 319375,
-  "records_with_address": 306817,
+  "generated_at": "2026-11-13T05:26:41.957556+00:00",
+  "individual_lot_records_captured": 319492,
+  "records_with_address": 306934,
   "partial_lot_records": 12558,
-  "exact_address_groups": 170967,
-  "groups_with_repeat_appearances": 43927,
+  "exact_address_groups": 171065,
+  "groups_with_repeat_appearances": 43932,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -61,6 +61,7 @@
     "Bagshaws": 373,
     "Barnard Marcus Auctions": 6701,
     "Barnett Ross": 7601,
+    "Barney Estates": 117,
     "Bid.": 254,
     "BidX1": 294,
     "Bond Wolfe": 9582,
@@ -140,7 +141,7 @@
     "Venmore Auctions": 1445
   },
   "by_year": {
-    "null": 6227,
+    "null": 6334,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -165,23 +166,23 @@
     "2023": 34005,
     "2024": 42836,
     "2025": 48724,
-    "2026": 48636,
+    "2026": 48646,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 43110,
-    "land": 19852,
+    "commercial": 43118,
+    "land": 19895,
     "mixed": 1,
-    "mixed-use": 47978,
-    "residential": 154883,
-    "unknown": 53551
+    "mixed-use": 47990,
+    "residential": 154934,
+    "unknown": 53554
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
   "surviving_catalogues_completely_harvested": 5252,
-  "catalogues_incomplete_or_unreconciled": 661,
+  "catalogues_incomplete_or_unreconciled": 778,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -194,13 +195,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309849,
-      "auction_ids_observed": 13957,
-      "with_guide_price": 111207,
+      "lot_appearances": 309859,
+      "auction_ids_observed": 13967,
+      "with_guide_price": 111217,
       "with_sale_price": 114333,
       "with_both_prices": 50370,
-      "marked_sold": 157525,
-      "marked_sold_without_sale_price": 43932
+      "marked_sold": 157534,
+      "marked_sold_without_sale_price": 43941
     },
     "by_auctioneer_and_year": [
       {
@@ -4008,6 +4009,17 @@
         "with_both_prices": 0,
         "marked_sold": 86,
         "marked_sold_without_sale_price": 36
+      },
+      {
+        "auctioneer": "Barney Estates",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 10,
+        "with_guide_price": 10,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Bid.",
@@ -9378,7 +9390,7 @@
         "marked_sold_without_sale_price": 3
       }
     ],
-    "undated_appearances": 6227,
+    "undated_appearances": 6334,
     "future_dated_appearances": 179,
     "national_completeness_verified": false,
     "limits": [

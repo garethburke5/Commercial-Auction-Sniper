@@ -1,0 +1,41 @@
+{
+  "auctioneer": "Barney Estates",
+  "operator_legal_name": "BARNEY ESTATES LIMITED",
+  "operator_company_number": "12821397",
+  "source_auction_id": "barney-estates:25772",
+  "auction_date": null,
+  "auction_date_precision": null,
+  "source_url": "https://www.barneyestates.co.uk/property/land-off-wrenbury-heath-road-newtown-sound-nantwich-cw5-8bg-2/",
+  "lots_captured": 1,
+  "published_lots_offered": null,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
+  "completion_scope": "stable individual property page; no original event/catalogue denominator",
+  "source_evidence": {
+    "sitemap": {
+      "source_url": "https://www.barneyestates.co.uk/property-sitemap.xml",
+      "retrieved_at": "2026-11-13T05:24:54.299117+00:00",
+      "sha256": "304a8bdac90af8db0b7528ffd5412a19bb36b8a4ee711e0c7757fb419cec2827",
+      "snapshot_path": "data/auction_history/sources/barney-estates/sitemap-property-304a8bdac90af8db0b75.xml.gz",
+      "basis": "complete first-party XML property-sitemap inventory at retrieval time"
+    },
+    "detail": {
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-wrenbury-heath-road-newtown-sound-nantwich-cw5-8bg-2/",
+      "retrieved_at": "2026-11-13T05:21:57.303841+00:00",
+      "sha256": "c99e6ded48b6911e6f88a47fb2cc9cdeb955fd9c2a0fe52b427c03a411efc8fe",
+      "snapshot_path": "data/auction_history/sources/barney-estates/property-25772-c99e6ded48b6911e6f88.html.gz",
+      "basis": "immutable first-pass property snapshot reused after live sitemap reconciliation"
+    },
+    "operator": {
+      "source_url": "https://www.barneyestates.co.uk/",
+      "retrieved_at": "2026-11-13T05:24:59.903833+00:00",
+      "sha256": "37f2fe80b804219edcee9cc07e3f44d05b1fc2e934987c4d559b468bb77af987",
+      "snapshot_path": "data/auction_history/sources/barney-estates/operator-homepage-37f2fe80b804219edcee.html.gz",
+      "basis": "first-party footer legal and trading-name statement"
+    },
+    "basis": "finite first-party property sitemap and stable individual auction property page"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T05:25:29.645676+00:00"
+}

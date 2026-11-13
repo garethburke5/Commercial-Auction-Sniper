@@ -3,6 +3,56 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Barney Estates finite property-inventory recovery
+
+- **Specific growth opportunity executed:** collection moved from Connect UK’s
+  blocked legacy subdomain to uncovered genuine auctioneer Barney Estates. A
+  reusable runner reconciled all **128/128** URLs in the official property
+  sitemap and retained the sitemap, operator page and every property page as
+  checksum-addressed immutable evidence. A second pass reused those saved
+  snapshots after a live sitemap check rather than refetching the inventory.
+- **Measured net gain:** **117 individual appearances / 117 full published
+  address or named-property records**. **10** have exact auction dates inside 13
+  November 2006–13 November 2026; the other **107** retain null dates because
+  their pages do not publish an admissible auction date. New partial, future
+  and duplicate-source/cross-source-overlap records are **0 / 0 / 0**.
+- **Sector and evidence gain:** **8 commercial, 12 mixed-use, 43 land, 51
+  residential and 3 unknown** appearances; the commercial/mixed-use subset is
+  **20**. The pages add **112 numeric guides, 1 explicit achieved price and 6
+  annual rents**. Other numeric price text remains separately labelled and is
+  never promoted to an achieved price.
+- **Exclusions and date integrity:** **10 non-auction property pages and one
+  empty property shell** remain immutable source evidence but are deliberately
+  excluded from appearance counts. Planning and vacant-possession dates are not
+  auction dates. The first-party pages therefore reconcile as **117 auction
+  properties + 11 exclusions = 128 sitemap URLs**.
+- **Operator and coverage boundary:** the first-party footer identifies
+  **BARNEY ESTATES LIMITED (12821397), trading as Barney Estates and
+  Auctioneers**. That trading name is one operator, not a second auctioneer.
+  Dated evidence adds Barney Estates source-year **2026**, but individual
+  property pages have no original event/catalogue denominator; all 117 remain
+  incomplete and denominator-unreconciled rather than inflating complete
+  catalogue counts.
+- **Connect UK blocker recorded:** only three legacy detail pages were exposed
+  by the search index, no finite first-party inventory survived, and direct
+  retrieval returned HTTP 503. Do not revisit that route without a materially
+  different saved-page, cache or index inventory.
+- **Corpus after rebuild:** **319,492 appearances**, **306,934 address records**,
+  **12,558 partial records** and **309,859 in-window appearances**. In-window
+  evidence totals are **111,217 guides** and **114,333 achieved prices**.
+  Retained undated and future-dated totals are **6,334** and **179**.
+- **Integrity and publication:** SQLite integrity passes with 319,492 rows. The
+  178,420,490-byte compressed database reconstructs byte-for-byte from its 22
+  checksum-addressed publication parts. Protected collection/publication jobs
+  were not duplicated.
+- **Next concrete growth target:** extend Barney Estates only through a
+  materially different retained-event or historical search-index route that
+  adds exact dates or outcomes. If no larger first-party inventory is
+  recoverable, batch another uncovered genuine auctioneer with an accessible
+  multi-event catalogue archive.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Connect UK Auctions first-party property inventory
 
 - **Specific growth opportunity executed:** after the Venmore 2015 search index

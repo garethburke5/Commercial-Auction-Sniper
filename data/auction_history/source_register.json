@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T04:09:17.769944+00:00",
-  "corpus_checkpoint": "2026-11-13T04:08:41.965384+00:00",
+  "generated_at": "2026-11-13T05:27:18.889103+00:00",
+  "corpus_checkpoint": "2026-11-13T05:26:41.957556+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1196,13 +1196,15 @@
       "name": "Barney Estates",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/barney-estates",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Barney Estates",
+      "match_basis": "exact label",
+      "retained_appearances": 117,
+      "years_with_retained_evidence": [
+        2026
+      ],
+      "with_guide_price": 10,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8239,7 +8241,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 460,
+  "directory_entries_not_linked": 459,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8296,6 +8298,7 @@
     "Bagshaws": 373,
     "Barnard Marcus Auctions": 6701,
     "Barnett Ross": 7601,
+    "Barney Estates": 117,
     "Bid.": 254,
     "BidX1": 294,
     "Bond Wolfe": 9582,
@@ -8379,13 +8382,13 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309849,
-      "auction_ids_observed": 13957,
-      "with_guide_price": 111207,
+      "lot_appearances": 309859,
+      "auction_ids_observed": 13967,
+      "with_guide_price": 111217,
       "with_sale_price": 114333,
       "with_both_prices": 50370,
-      "marked_sold": 157525,
-      "marked_sold_without_sale_price": 43932
+      "marked_sold": 157534,
+      "marked_sold_without_sale_price": 43941
     },
     "by_auctioneer_and_year": [
       {
@@ -12193,6 +12196,17 @@
         "with_both_prices": 0,
         "marked_sold": 86,
         "marked_sold_without_sale_price": 36
+      },
+      {
+        "auctioneer": "Barney Estates",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 10,
+        "with_guide_price": 10,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Bid.",
@@ -17563,7 +17577,7 @@
         "marked_sold_without_sale_price": 3
       }
     ],
-    "undated_appearances": 6227,
+    "undated_appearances": 6334,
     "future_dated_appearances": 179,
     "national_completeness_verified": false,
     "limits": [
@@ -18262,6 +18276,22 @@
       "run_new_guide_prices": 48,
       "run_new_sale_prices": 0,
       "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2026"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "barney_estates_first_party_inventory": {
+      "source": "barney_estates_first_party_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T05:25:29.651000+00:00",
+      "run_new_appearances": 117,
+      "run_new_dated_twenty_year_address_records": 10,
+      "run_new_commercial_or_mixed": 20,
+      "run_new_guide_prices": 112,
+      "run_new_sale_prices": 1,
+      "run_new_rents": 6,
       "newly_covered_source_years": [
         "2026"
       ],
@@ -22782,6 +22812,1059 @@
       "checked_at": "2026-11-01T23:16:59.192797+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/barney-estates/27082.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/nutwood-wormley-west-end-road-broxbourne-en10-7qn/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645091+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26192.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-crockington-lane-seisdon-wolverhampton-wv5-7en/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645539+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26979.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-elm-park-cranleigh-surrey-gu6-8nj/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643446+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27077.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-bowerland-lane-lingfield-rh7-6df-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647612+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24810.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/1-brookside-gardens-enfield-en1-4qg/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640980+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26037.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/dale-cross-pumphouse-lane-bromsgrove-b60-1qn/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648160+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26737.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-07-22",
+      "source_url": "https://www.barneyestates.co.uk/property/20-chapel-street-yaxley-peterborough-pe7-3ln/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645230+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27040.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/6-cliff-road-folkestone-ct20-2jd/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644234+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27146.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-and-stable-off-petersfield-road-froxfield-petersfield-gu32-1bx/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644756+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27534.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/the-graviners-colnbrook-by-pass-colnbrook-heathrow-slough-sl3-0eh/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649920+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26377.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-north-east-spring-well-lane-rickmansworth-wd3-8ux/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642090+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26717.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-07-22",
+      "source_url": "https://www.barneyestates.co.uk/property/53-castle-street-boston-pe21-8pr/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642746+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26858.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-08-05",
+      "source_url": "https://www.barneyestates.co.uk/property/3-manor-road-fishponds-bristol-bs16-2jd/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644099+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27237.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/19-cooperative-street-stanton-hill-ng17-3hb/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.650233+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/22413.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-48b-high-town-road/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638114+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25674.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-broomer-farm-chichester-po20-7ax/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646609+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27675.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-high-street-sherington-mk16-9qp/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.650793+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26898.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/shalford-redfants-manor-hulls-lane-shalford-cm7-5hu/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643030+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/21995.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/56a-high-street-biddulph/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638818+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24879.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/12-14-manor-house-yard-melbourn-street-royston-sg8-7bz/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639180+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24960.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/572-kings-road-fulham-london-sw6-2dy-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640262+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26758.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/28-honeysuckle-court-woodston-peterborough-pe2-9jt/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642159+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26973.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-hallams-lane-timberland-lincoln-ln4-3ry-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643279+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26711.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/south-view-road-walton-peterborough/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642677+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24702.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/flat-35-treherne-court-tooting-bec-road-london-sw17-8bj/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638559+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27219.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-new-road-hill-downe-orpington-br6-7ja/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646054+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26783.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-to-the-west-of-holden-gardens-guardsman-close-warley-brentwood-cm14-5aq/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646724+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27657.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-to-the-south-of-church-lane-broxbourne-en10-7qe-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.650483+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24114.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-rowhill-road-dartford-kent-da2-7qq/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.637941+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27589.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-church-road-flitwick-bedford-mk45-5al-3/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649577+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27518.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-of-approx-1-acre-finchampstead-road-finchampstead-wokingham-rg40-3jy/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649732+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26126.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-church-road-little-gaddesden-berkhamstead-hp4-1nz/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641561+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/22300.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-east-of-bennetts-lane/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648367+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27012.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-sandy-lodge-lane-northwood-ha6-2ja-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643615+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/19216.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/the-paddock-guildford-surrey-gu1/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.637180+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24094.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-and-outbuildings-romsey-road-ower-romsey-so51-6ah/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638378+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24365.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/25-eva-road-romford-london-rm6/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638733+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/21427.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-dagnall-road-edlesborough/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.637594+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26765.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-07-22",
+      "source_url": "https://www.barneyestates.co.uk/property/18-blacksmiths-grove-fishtoft-boston-pe21-0bf/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644994+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25860.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-lying-to-the-west-of-yockley-close-camberley-gu15-1qg/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641197+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26998.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/accessways-to-the-land-of-colnbrook-by-pass-sl3-0et/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644597+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25562.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-pollard-lane-leeds-ls13-1ea/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645457+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26243.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-lying-to-the-east-of-swan-lane-sandhurst-gu47-9da/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643146+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24966.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/24-high-street-twyford-berkshire-rg10-9ag/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640792+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26893.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/braintree-paddock-redfants-manor-hulls-lane-shalford-cm7-5hu/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644166+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26299.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-of-brookfield-avenue-farnham-gu9-9te/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647833+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25740.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-pollard-lane-leeds-ls13-1ea-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647324+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27503.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/70-glaisdale-gardens-wolverhampton-wv6-0tu/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648506+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24920.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/units-15-and-16-heath-road-darlaston-ws10-8xe/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639513+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26729.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/32-chapel-street-yaxley-peterborough-pe7-3ln/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642600+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26930.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-redfants-manor-hulls-lane-shalford-cm7-5hu/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643963+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25027.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-mablethorpe-hall-alford-road-mablethorpe-ln12-1px/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640330+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26279.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-ermin-street-lambourn-woodlands-hungerford-rg17-7ts/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641894+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27079.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-wormley-west-end-road-broxbourne-en10-7qn/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646855+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25769.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-wrenbury-heath-road-newtown-sound-nantwich-cw5-8bg/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645917+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25772.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-wrenbury-heath-road-newtown-sound-nantwich-cw5-8bg-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645676+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24523.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-bromley-road-ardleigh-colchester-co7-7sf/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638030+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27524.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-finchampstead-road-finchampstead-wokingham-rg40-3jy/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648598+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27546.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/somerton-2-5-acre-site-off-somerton-road-ardley-bicester-ox27-7pf/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649131+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27253.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-ness-road-erith-london-da8-2ld/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646538+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27489.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/unit-6-station-road-pulborough-rh20-1rl/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648296+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26692.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/orchard-street-boston-pe21-8pl/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642961+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27204.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-bowerland-lane-lingfield-rh7-6df-3/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647491+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25016.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/311-breck-road-everton-liverpool-l5-6pt/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640186+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26853.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-08-05",
+      "source_url": "https://www.barneyestates.co.uk/property/511-fishponds-road-fishponds-bristol-bs16-3al/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643688+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25140.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-daglingworth-cirencester-gloucestershire-gl7-7ae/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645610+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24827.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/1-chadwell-heath-lane-romford-rm6-4ls/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639029+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26842.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-08-05",
+      "source_url": "https://www.barneyestates.co.uk/property/454-fishponds-road-fishponds-bristol-bs16-3du/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643755+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/22307.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-watnall-road-hucknall/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638302+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26753.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/25-silver-street-woodston-peterborough-pe2-9bu/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642242+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25765.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-on-wrenbury-heath-road-newtown-sound-nantwich-cw5-8bg/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645987+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24915.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/42-vulcan-way-new-addington-croydon-cr0-9ug/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639388+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27446.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-bray-road-maidenhead-sl6-1ue/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647906+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26704.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-07-22",
+      "source_url": "https://www.barneyestates.co.uk/property/charles-street-eastfield-peterborough-pe1-5ep/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647254+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26848.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/434-fishponds-road-fishponds-bristol-bs16-3du/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647111+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/20538.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-heathrow-airport/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646451+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24992.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/71-braemar-avenue-neasden-london-nw10-0dr/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639593+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/20126.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/merstow-green-evesham/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.636058+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27439.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-hartsbourne-field-grimsdyke-cottages-old-redding-harrow-ha3-6sf/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647391+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27162.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-forest-hill-hartford-northwich-cw8-2ar/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.645301+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25430.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-butts-farm-rareridge-lane-bishops-waltham-so32-1pe/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644378+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27412.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/strategic-land-site-off-rye-hill-lane-broughton-hackett-worcester-wr7-4bp/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647977+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24121.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-berryfields-gated-road-quarrendon-aylesbury-hp22-4aa/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.638479+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27593.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/124-skye-close-alwalton-peterborough-pe2-6dl/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.650573+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26744.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/37-christopher-close-dogsthorpe-peterborough-pe1-3ya/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642375+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25645.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/100-sherborne-road-bury-st-edmunds-ip33-2et/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640525+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/22673.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/269a-portobello-road/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639109+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26270.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/leisure-facility-at-282-wellingborough-road-wellingborough-nn8-4bw/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641706+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/22269.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/clay-hill-house-wey-hill-haslemere/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.637038+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26224.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-hornbeam-close-leighton-buzzard-lu7-3fe/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641637+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25182.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-lodsworth-house-petworth-gu28-9by/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641774+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24892.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/cornerstone-vetinary-centre-wolverhampton-wv10-8et/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639249+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25797.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/15-hallams-lane-timberland-lincoln-ln4-3ry/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641385+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27498.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-waltham-road-nazeing-waltham-abbey-en9-2dy/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.650717+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25488.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-shirley-church-road-croydon-cr0-5af/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640398+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27418.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/freehold-detached-double-garage-copper-beech-close-gu22-0px/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648945+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27543.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/ardley-4-3-acre-stategic-site-off-ardley-road-bicester-ox27-7pb/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649051+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27481.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-pitwines-close-poole-bh15-1ed/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.648044+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27561.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-church-road-flitwick-bedford-mk45-5al/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649388+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25004.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/3-queens-road-morden-london/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640007+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27223.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/5-7-acre-dog-walking-field-new-road-hill-downe-orpington-br6-7ja/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646344+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27120.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-shirley-church-road-croydon-cr0-5af-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644516+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24858.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/parcel-a-land-off-rance-lane-upton-st-leonards-gloucester-gl4-8ab/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646996+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27582.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-church-road-flitwick-bedford-mk45-5al-2/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.649659+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/24900.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/4-6-thayers-farm-road-beckenham-br3-4lz/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.639319+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27142.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-petersfield-road-froxfield-petersfield-gu32-1bx/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644824+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26907.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/manor-stables-redfants-manor-hulls-lane-shalford-cm7-5hu/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.644032+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27403.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-to-the-south-of-church-lane-broxbourne-en10-7qe/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.650351+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25788.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/11-hallams-lane-timberland-lincoln-ln4-3ry/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.641488+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26836.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-08-05",
+      "source_url": "https://www.barneyestates.co.uk/property/462-fishponds-road-fishponds-bristol-bs16-3du/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643821+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/25853.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-near-roxburgh-close-camberley-gu15-1as/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.640599+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26443.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-woodlands-road-irby-wirral-ch61-2xd/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647184+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26830.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-08-05",
+      "source_url": "https://www.barneyestates.co.uk/property/41-oldbury-court-road-bristol-bs16-2jf/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643891+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26863.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": "2026-08-05",
+      "source_url": "https://www.barneyestates.co.uk/property/14-overnhurst-court-overnhill-road-bristol-bs16-5dr/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.643351+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26697.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/kings-court-kirton-boston-pe20-1jy/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.642888+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/27071.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-off-bowerland-lane-lingfield-rh7-6df/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.647754+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/26951.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/property/land-at-the-moors-pangbourne-rg8-7nb/",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T05:25:29.646927+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/halls/2025-09-26.json",
       "auctioneer": "Halls",
       "auction_date": "2025-09-26",
@@ -24567,7 +25650,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T04:09:15.912851+00:00",
+    "checked_at": "2026-11-13T05:27:17.306642+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
