@@ -6,6 +6,29 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## Follow-through — Sheldon Bosley Knight mid-2025 batch, 13 November 2026
+
+The reusable retained-result runner banked three additional complete
+publisher-issued tables: 18 June (7 rows), 30 July (10 rows) and 10 September
+2025 (9 rows). The **26 net appearances** are all address records and exact-dated
+inside the twenty-year window. There are no partial, undated, future-dated or
+duplicate-derived additions. SBK 2025 was already represented, so the gain is
+three new complete event inventories rather than a newly covered source-year.
+
+The sector split is three land, two residential and 21 unknown, with no
+evidenced commercial/mixed-use rows. Eight achieved prices were added; guides
+and rents remain null. A withdrawn June row has £50,000 printed in the source's
+purchase-price column. The collector preserves that literal publication text
+and conflict note but does not promote it to an achieved sale price.
+
+The rebuilt corpus contains **325,548 appearances**, 312,990 address records
+and 315,107 in-window appearances. The reusable runner was also tightened so
+previously banked rows, immutable snapshots and event states are reused rather
+than timestamp-refreshed. The database package contains 23 checksum-addressed
+parts totalling 185,919,547 bytes. The next concrete target is SBK's first-party
+2022–2024 result PDFs and event articles, prioritising complete result tables.
+National completeness remains false.
+
 ## Follow-through — Fisher German and Sheldon Bosley Knight, 13 November 2026
 
 Collection banked **68 net appearances / 68 address records** from two distinct

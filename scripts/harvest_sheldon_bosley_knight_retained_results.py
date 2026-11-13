@@ -1,7 +1,7 @@
 """Bank removed Sheldon Bosley Knight result sheets from retained index text.
 
 The original SBK-issued PDF URLs now return 404, but public search indexes
-retain complete result tables for four events.  This offline batch preserves
+retain complete result tables for seven events.  This offline batch preserves
 the original publisher URLs, exact printed dates, every named row, outcomes
 and disclosed purchase prices.  It deliberately does not claim guide prices
 or any event whose full result table is not retained.
@@ -11,6 +11,7 @@ from __future__ import annotations
 from collections import Counter
 from datetime import date
 import json
+import gzip
 from pathlib import Path
 import re
 import sys
@@ -26,8 +27,11 @@ OPERATOR = "SHELDON BOSLEY KNIGHT LIMITED"
 COMPANY_NUMBER = "10225947"
 
 
-def lot(number, address, status, sale_price=None):
-    return {"lot_number": str(number), "address": address, "status": status, "sale_price": sale_price}
+def lot(number, address, status, sale_price=None, published_price_text=None):
+    row = {"lot_number": str(number), "address": address, "status": status, "sale_price": sale_price}
+    if published_price_text is not None:
+        row["published_price_text"] = published_price_text
+    return row
 
 
 EVENTS = (
@@ -101,6 +105,53 @@ EVENTS = (
         ),
     },
     {
+        "auction_date": "2025-06-18",
+        "source_url": "https://www.sheldonbosleyknight.co.uk/wp-content/uploads/2025/06/SBK-Auctions-Auction-Results-Sheet-June-2025.pdf",
+        "published_lot_denominator": 7,
+        "lots": (
+            lot(1, "7 Cartwright Drive, Oadby, Leicester, LE2 5HN", "sold", 230000),
+            lot(2, "20 The Close, Cleeve Prior, Evesham, WR11 8LF", "sold prior"),
+            lot(3, "The Former Avon Sports & Social Club, Waterside, Evesham, WR11 1BS", "unsold"),
+            lot(4, "34 High Street, Alcester, B49 5AB", "unsold"),
+            lot(5, "2 Manor Cottages, Main Road, Ansty, CV7 9HZ", "withdrawn", published_price_text="£50,000"),
+            lot(6, "19 Warden Road, Coventry, CV6 3EH", "sold prior"),
+            lot(7, "21 Evans Lane, Kidlington, OX5 2HX", "sold prior"),
+        ),
+    },
+    {
+        "auction_date": "2025-07-30",
+        "source_url": "https://www.sheldonbosleyknight.co.uk/wp-content/uploads/2025/07/MRF-0175-SBK-AG-Auction-Results-Sheet-July-2025.pdf",
+        "published_lot_denominator": 10,
+        "lots": (
+            lot(1, "Land on the North Side of Mill Lane, Syston, Leicester, LE7 1NS", "sold", 24500),
+            lot(2, "89 Knightthorpe Road, Loughborough, LE11 5JR", "sold", 210000),
+            lot(3, "The Former Avon Sports & Social Club, Waterside, Evesham, Worcestershire, WR11 1BS", "unsold"),
+            lot(4, "Tugby House, Chapel Lane, Tugby, Leicestershire, LE7 9WA", "sold", 410000),
+            lot(5, "Pike Cottage, 164 High Street, Broadway, WR12 7AJ", "withdrawn"),
+            lot(6, "Fern Cottage, Spring Hill, New Arley, Arley, CV7 8FF", "sold prior"),
+            lot(7, "173 Arbury Road, Nuneaton, CV10 7NH", "unsold"),
+            lot(8, "Land on the North side of 19-21, Port Street, Evesham, WR11 3LD", "sold", 20000),
+            lot(9, "130 High Street, Evesham, WR11 4EJ", "sold", 171000),
+            lot(10, "Land at Tree Tops Farm, Stonewold Avon, Dassett, Southam, CV47 2AQ", "sold", 168500),
+        ),
+    },
+    {
+        "auction_date": "2025-09-10",
+        "source_url": "https://www.sheldonbosleyknight.co.uk/wp-content/uploads/2025/09/MRF-0238-SBK-AUC-Auction-Results-Sheet-September-2025.pdf",
+        "published_lot_denominator": 9,
+        "lots": (
+            lot(1, "7 Owletts End, Pinvin, Pershore, WR10 2EX", "unsold"),
+            lot(2, "2 Thelsford Cottages, Wellesbourne, CV35 9EJ", "sold prior"),
+            lot(3, "2 Manor Cottages, Main Road, Ansty, CV7 9HZ", "withdrawn"),
+            lot(4, "The Cottage, Hallaton Road, Tugby, Leicestershire, LE7 9WB", "sold prior"),
+            lot(5, "173 Arbury Road, Nuneaton, CV10 7NH", "sold prior"),
+            lot(6, "The Old Slaughter House, Butchers Lane, Lower Brailes, Warwickshire, OX15 5NB", "unsold"),
+            lot(7, "38 Marmion Close, Market Harborough, Leicestershire, LE16 9GS", "sold prior"),
+            lot(8, "3b Avenue Road, Stratford-Upon-Avon, CV37 6UY", "unsold"),
+            lot(9, "3a Avenue Road, Stratford-upon-Avon, CV37 6UY", "sold", 461000),
+        ),
+    },
+    {
         "auction_date": "2025-12-03",
         "source_url": "https://www.sheldonbosleyknight.co.uk/wp-content/uploads/2025/12/MRF-0405-SBK-AUC-Results-December-2025.pdf",
         "published_lot_denominator": 11,
@@ -131,7 +182,9 @@ def retained_text(event: dict) -> str:
         f"Auction date {event['auction_date']}", "LOT No. | ADDRESS OF LOT | RESULT | PURCHASE PRICE",
     ]
     for row in event["lots"]:
-        price = f"£{row['sale_price']:,}" if row.get("sale_price") is not None else "Undisclosed or blank"
+        price = row.get("published_price_text")
+        if price is None:
+            price = f"£{row['sale_price']:,}" if row.get("sale_price") is not None else "Undisclosed or blank"
         lines.append(f"{row['lot_number']} | {row['address']} | {row['status']} | {price}")
     return "\n".join(lines)
 
@@ -159,6 +212,12 @@ def snapshot_event(event: dict) -> dict:
         "source_tier": "retained_search_cache_text",
         "publisher_url_current_status": 404,
     }
+    if path.exists():
+        with gzip.open(path, "rt", encoding="utf-8") as handle:
+            retained = json.load(handle)
+        if retained.get("retained_text") != raw.decode("utf-8"):
+            raise ValueError(f"immutable retained snapshot mismatch for {event['auction_date']}")
+        return retained["evidence"]
     corpus.save_gzip(path, {"evidence": evidence, "retained_text": raw.decode("utf-8")})
     return evidence
 
@@ -173,7 +232,11 @@ def appearance(event: dict, item: dict, evidence: dict) -> dict:
         address=item["address"], postcode=postcode.group().upper() if postcode else None,
         locality=item["address"], sector=corpus.sector(item["address"]),
         status=item["status"], sale_price=item.get("sale_price"),
-        source_result_text=(f"{item['status']}; £{item['sale_price']:,}" if item.get("sale_price") is not None else item["status"]),
+        source_result_text=(
+            f"{item['status']}; {item['published_price_text']} printed in purchase-price column"
+            if item.get("published_price_text") is not None
+            else (f"{item['status']}; £{item['sale_price']:,}" if item.get("sale_price") is not None else item["status"])
+        ),
         record_quality="address_record", auction_date_precision="day",
         auction_date_basis="exact date printed by the SBK-issued result sheet",
         identity_method="publisher_result_sheet_event_and_lot_number",
@@ -183,6 +246,9 @@ def appearance(event: dict, item: dict, evidence: dict) -> dict:
     )
     if event.get("date_note"):
         row["source_date_note"] = event["date_note"]
+    if item.get("published_price_text") is not None:
+        row["published_purchase_price_text"] = item["published_price_text"]
+        row["price_evidence_note"] = "numeric text printed in purchase-price column conflicts with non-sale outcome; retained literally and not promoted to sale_price"
     return row
 
 
@@ -223,12 +289,16 @@ def harvest() -> None:
     excluded = [row for row in candidate if (row["auction_date"], normalize(row["address"])) in overlap_keys]
     admitted = [row for row in candidate if row not in excluded]
     merged = dict(before)
-    merged.update({row["appearance_id"]: row for row in admitted})
+    for row in admitted:
+        merged.setdefault(row["appearance_id"], row)
     corpus.write_rows(f"{SLUG}/retained-results", list(merged.values()))
     added = [row for key, row in merged.items() if key not in before]
     for event_date, state in states.items():
+        state_path = corpus.DATA / "auctions" / SLUG / f"{event_date}.json"
+        if state_path.exists():
+            continue
         state["lots_captured"] = sum(row["auction_date"] == event_date for row in admitted)
-        corpus.save_json(corpus.DATA / "auctions" / SLUG / f"{event_date}.json", state)
+        corpus.save_json(state_path, state)
 
     summary = {
         "checked_at": corpus.now(), "auctioneer": SOURCE,
@@ -253,9 +323,9 @@ def harvest() -> None:
         "by_status": dict(Counter(row.get("status") or "unknown" for row in added)),
         "run_duplicate_exact_date_address_exclusions": len(excluded),
         "new_source_years": sorted({row["auction_date"][:4] for row in added}),
-        "source_limit": "four complete SBK-issued result tables survive in public search-index text; original PDF URLs now return 404 and no other event is claimed complete",
+        "source_limit": "seven complete SBK-issued result tables survive in public search-index text; no other event is claimed complete",
         "national_completeness_verified": False,
-        "next_growth_target": "Extend the reusable Sheldon Bosley Knight result runner to the complete retained June, July and September 2025 result tables, then inventory the first-party 2022-2024 result PDFs and event articles. Admit only full result tables or individual property evidence and do not retry removed PDF bytes without a new route.",
+        "next_growth_target": "Inventory and batch the first-party Sheldon Bosley Knight 2022-2024 result PDFs and event articles, starting with complete result tables and using named article results only as partial evidence. Do not retry missing PDF bytes without a new route.",
     }
     corpus.save_json(corpus.DATA / "sheldon_bosley_knight_retained_results_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)

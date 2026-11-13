@@ -1,4 +1,47 @@
 {
+  "sheldon_bosley_knight_mid_2025_results_2026_11_13": {
+    "checked_at": "2026-11-13T14:10:19.944964+00:00",
+    "source": "Sheldon Bosley Knight retained publisher-issued result tables",
+    "event_dates": ["2025-06-18", "2025-07-30", "2025-09-10"],
+    "published_rows_reconciled": 26,
+    "net_new_appearances": 26,
+    "new_address_records": 26,
+    "new_dated_address_records_in_twenty_year_window": 26,
+    "new_commercial_appearances": 0,
+    "new_mixed_use_appearances": 0,
+    "new_land_appearances": 3,
+    "new_residential_appearances": 2,
+    "new_unknown_sector_appearances": 21,
+    "new_guide_prices": 0,
+    "new_sale_prices": 8,
+    "new_rent_values": 0,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "duplicate_exact_date_address_exclusions": 0,
+    "newly_covered_source_years": [],
+    "newly_covered_complete_event_inventories": 3,
+    "price_conflict_preserved": "2025-06-18 lot 5 is withdrawn but prints £50,000 in the purchase-price column; literal text retained separately and sale_price remains null",
+    "immutable_reuse_improvement": "existing source snapshots, appearances and event states are reused rather than timestamp-refreshed",
+    "corpus_after_rebuild": {
+      "appearances": 325548,
+      "address_records": 312990,
+      "partial": 12558,
+      "in_window_appearances": 315107,
+      "in_window_guide_prices": 114886,
+      "in_window_sale_prices": 117181,
+      "undated": 6943,
+      "future_dated": 378
+    },
+    "publication_package": {
+      "compressed_bytes": 185919547,
+      "parts": 23,
+      "sha256": "500eee42d7051ebfe88d3eafb9569cf8d08a3afc29631a005fe82e883ac12b93"
+    },
+    "database_rebuild_verified": true,
+    "national_completeness_verified": false,
+    "next_growth_target": "Inventory and batch Sheldon Bosley Knight first-party 2022-2024 result PDFs and event articles, prioritising complete result tables and treating named article results as partial event evidence."
+  },
   "fisher_german_sbk_retained_results_2026_11_13": {
     "checked_at": "2026-11-13T13:27:20.235014+00:00",
     "sources": [

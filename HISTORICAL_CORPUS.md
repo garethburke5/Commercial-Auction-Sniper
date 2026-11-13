@@ -3,6 +3,39 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Sheldon Bosley Knight mid-2025 result batch
+
+- **Specific growth opportunity executed:** the reusable Sheldon Bosley Knight
+  retained-result runner was extended across three complete publisher-issued
+  tables: 18 June (7 lots), 30 July (10 lots) and 10 September 2025 (9 lots).
+  All 26 published rows were reconciled and preserved in one serial batch.
+- **Measured net gain:** **26 individual appearances / 26 address records**, all
+  exact-dated inside the preceding twenty-year window. There are **zero partial,
+  undated, future-dated or duplicate-derived additions**. The batch covers three
+  additional SBK event dates in 2025; it does not claim a newly represented
+  source-year because SBK 2025 was already present.
+- **Sector and price evidence:** the gain contains **three land, two residential
+  and 21 unknown-sector appearances**, with no evidenced commercial/mixed-use
+  subset. It adds **eight achieved prices, zero guides and zero rents**. One
+  withdrawn June lot has `£50,000` printed in the purchase-price column; that
+  literal conflict is retained separately while `sale_price` stays null.
+- **Immutable reuse safeguard:** the runner now reuses existing snapshot
+  evidence, rows and event states instead of refreshing their timestamps. Only
+  the three new complete tables and 26 missing appearances were added.
+- **Corpus after rebuild:** **325,548 appearances**, **312,990 address records**,
+  **12,558 partial records** and **315,107 in-window appearances**. In-window
+  evidence totals are **114,886 guides** and **117,181 achieved prices**;
+  retained undated and future-dated totals remain **6,943** and **378**.
+- **Publication preparation:** the **185,919,547-byte** gzip reconstructs from
+  **23 checksum-addressed parts** with SHA-256
+  `500eee42d7051ebfe88d3eafb9569cf8d08a3afc29631a005fe82e883ac12b93`.
+- **Next concrete growth target:** inventory and batch SBK's first-party
+  2022–2024 result PDFs and event articles, prioritising complete result tables.
+  Named article results may be banked as partial event evidence but must not be
+  presented as complete catalogues.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Fisher German legacy and Sheldon Bosley Knight retained results
 
 - **Specific growth opportunities executed:** Fisher German's indexed legacy

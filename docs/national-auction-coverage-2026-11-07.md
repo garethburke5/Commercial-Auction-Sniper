@@ -7,6 +7,26 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through — Sheldon Bosley Knight mid-2025 batch, 13 November 2026
+
+Three complete publisher-issued result tables were added through the reusable
+SBK runner: 18 June, 30 July and 10 September 2025. They contribute **26 net
+individual appearances / 26 exact-dated in-window address records**, with zero
+partial, undated, future-dated or duplicate-derived rows. This adds three
+complete event inventories but no new source-year because SBK 2025 was already
+represented.
+
+The gain contains three land, two residential and 21 unknown-sector rows, no
+evidenced commercial/mixed-use rows, eight achieved prices, zero guides and
+zero rents. A source inconsistency on one withdrawn lot is preserved literally:
+£50,000 appears in the purchase-price column but is not counted as a sale.
+Existing immutable evidence is now reused rather than timestamp-refreshed.
+
+The rebuilt corpus contains 325,548 appearances. Its 185,919,547-byte gzip
+reconstructs from 23 checksum-addressed parts. The next target is a batched
+inventory of SBK's 2022–2024 first-party result PDFs and event articles.
+National completeness remains false.
+
 ## Follow-through — Fisher German and Sheldon Bosley Knight, 13 November 2026
 
 Two evidence routes added **68 net individual appearances / 68 address
