@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Bradleys Online Auction",
+  "trading_name": "Bradleys Property Auctions",
+  "source_auction_id": "bradleys-first-party:22129526",
+  "auction_date": "2026-07-15",
+  "auction_date_precision": "day",
+  "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22129526/sales",
+  "lots_captured": 1,
+  "published_lots_offered": null,
+  "catalogue_complete": false,
+  "source_rows_complete": true,
+  "denominator_reconciled": false,
+  "completion_scope": "stable retained property page; no original event/catalogue denominator",
+  "source_evidence": {
+    "inventory": {
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/sales/tag-auction/page-7",
+      "retrieved_at": "2026-11-13T11:29:45.138120+00:00",
+      "sha256": "7e50652beeb0ec15de1cb13de350a9aa9d641d3c6448b276937cd6bd0279c41a",
+      "snapshot_path": "data/auction_history/sources/bradleys-first-party/inventory-page-7-7e50652beeb0ec15de1c.html.gz",
+      "basis": "finite first-party auction-tag search page"
+    },
+    "detail": {
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22129526/sales",
+      "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+      "sha256": "02926262e3151d69a9af41f2b1b07f2403c585bea22b11baefde225d97db795a",
+      "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-22129526-02926262e3151d69a9af.html.gz",
+      "basis": "immutable first-party individual auction-property detail page"
+    },
+    "basis": "finite first-party auction-tag inventory and stable individual property page"
+  },
+  "errors": [],
+  "checked_at": "2026-11-13T11:30:05.082257+00:00"
+}

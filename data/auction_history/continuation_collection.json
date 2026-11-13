@@ -747,17 +747,21 @@
     "national_completeness_verified": false
   },
   "last_automated_growth": {
-    "source": "bamboo_marketplace_and_carter_jonas_expansion",
+    "source": "bradleys_first_party_auction_inventory",
     "outcome": "completed",
-    "checked_at": "2026-11-13T10:04:24.073063+00:00",
-    "run_new_appearances": 3820,
-    "run_new_dated_twenty_year_address_records": 3597,
-    "run_new_commercial_or_mixed": 1256,
-    "run_new_guide_prices": 3820,
-    "run_new_sale_prices": 2681,
+    "checked_at": "2026-11-13T11:30:05.085407+00:00",
+    "run_new_appearances": 23,
+    "run_new_dated_twenty_year_address_records": 11,
+    "run_new_commercial_or_mixed": 1,
+    "run_new_guide_prices": 22,
+    "run_new_sale_prices": 0,
     "run_new_rents": 0,
-    "new_historical_source_year_pairs": 392,
-    "duplicate_source_evidence_excluded": 1236,
+    "newly_covered_source_years": [
+      "2017",
+      "2019",
+      "2020"
+    ],
+    "duplicate_source_evidence_excluded": 73,
     "national_completeness_verified": false
   },
   "last_growth_attempt": {
@@ -1883,6 +1887,24 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "bradleys_first_party_auction_inventory": {
+      "source": "bradleys_first_party_auction_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T11:30:05.085407+00:00",
+      "run_new_appearances": 23,
+      "run_new_dated_twenty_year_address_records": 11,
+      "run_new_commercial_or_mixed": 1,
+      "run_new_guide_prices": 22,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2017",
+        "2019",
+        "2020"
+      ],
+      "duplicate_source_evidence_excluded": 73,
+      "national_completeness_verified": false
     }
   },
   "latest_deferred_launch": {
@@ -1908,15 +1930,15 @@
     "national_completeness_verified": false
   },
   "national_completeness_verified": false,
-  "next_growth_target": "Recover Bradleys Online Auction's pre-2021 first-party history from indexed individual property pages and surviving event/catalogue assets, batching every accessible catalogue through one reusable runner and deduplicating against the 424 Bamboo appearances already banked. If no finite Bradleys inventory survives, rotate the same recovery route to Stags and Fisher German instead of refreshing Bamboo. National completeness remains false.",
+  "next_growth_target": "Batch Fisher German pre-Bamboo first-party auction-property pages and surviving catalogue/result assets through one reusable retained-inventory runner, prioritising exact event dates and achieved prices and deduplicating shared-platform evidence. Revisit Stags' retained traditional-event pages only if a route recovers their lost lot payloads. National completeness remains false.",
   "next_task": 11,
   "prepared_follow_on_target": {
-    "checked_at": "2026-11-13T10:04:24.073063+00:00",
-    "source_key_candidate": "bradleys-pre-2021-first-party-history",
-    "auctioneer": "Bradleys Online Auction",
-    "source_format": "indexed first-party individual property pages and surviving event/catalogue assets",
-    "opportunity": "recover pre-2021 evidence not present in the 424-property Bamboo marketplace holding and batch all accessible catalogues through one reusable runner",
-    "next_growth_target": "Recover Bradleys Online Auction's pre-2021 first-party history from indexed individual property pages and surviving event/catalogue assets, batching every accessible catalogue through one reusable runner and deduplicating against the 424 Bamboo appearances already banked. If no finite Bradleys inventory survives, rotate the same recovery route to Stags and Fisher German instead of refreshing Bamboo. National completeness remains false.",
+    "checked_at": "2026-11-13T11:30:05.085407+00:00",
+    "source_key_candidate": "fisher-german-pre-bamboo",
+    "auctioneer": "Fisher German",
+    "source_format": "retained first-party property or catalogue pages",
+    "opportunity": "batch retained pre-Bamboo auction property pages with exact dates and results",
+    "next_growth_target": "Batch Fisher German pre-Bamboo first-party auction-property pages and surviving catalogue/result assets through one reusable retained-inventory runner, prioritising exact event dates and achieved prices and deduplicating shared-platform evidence. Revisit Stags' retained traditional-event pages only if a route recovers their lost lot payloads. National completeness remains false.",
     "national_completeness_verified": false
   },
   "prior_target_alias_reconciliation": {
@@ -1931,7 +1953,7 @@
     "banked_appearances": 13,
     "exact_date_address_overlaps": 31
   },
-  "prior_target_blocker": "Connect UK's legacy realtime subdomain exposed only three search-index detail URLs, no finite sitemap or catalogue denominator, and direct first-party retrieval returned HTTP 503. Do not retry without a materially different saved-page, cache or index inventory route.",
+  "prior_target_blocker": "Stags' 13 retained traditional-event URLs survive with exact event headings, but every direct page now exposes only null Homeflow placeholder cards and no property address, guide or result payload. Do not retry this route without a cache, saved catalogue or materially different payload recovery path.",
   "runs": [
     {
       "source": "auction_house_northeast",
@@ -7356,6 +7378,24 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    {
+      "source": "bradleys_first_party_auction_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T11:30:05.085407+00:00",
+      "run_new_appearances": 23,
+      "run_new_dated_twenty_year_address_records": 11,
+      "run_new_commercial_or_mixed": 1,
+      "run_new_guide_prices": 22,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2017",
+        "2019",
+        "2020"
+      ],
+      "duplicate_source_evidence_excluded": 73,
+      "national_completeness_verified": false
     }
   ],
   "shonki_fliphtml_expansion": {
@@ -7747,5 +7787,1250 @@
     "duplicate_source_evidence_exclusions": [],
     "next_growth_target": "Build one reusable Auction Property Ltd first-party multi-event runner over the 32 linked /past-auction-dates event pages and address-level /sold-properties results. Reconcile exact event denominators, dates, guides and outcomes before claiming growth, and deduplicate any shared-platform evidence. National completeness remains false.",
     "national_completeness_verified": false
+  },
+  "bradleys_first_party_auction_inventory": {
+    "checked_at": "2026-11-13T11:30:05.085407+00:00",
+    "source_url": "https://www.bradleys-estate-agents.co.uk/properties/sales/tag-auction",
+    "operator": {
+      "canonical_name": "Bradleys Online Auction",
+      "trading_name": "Bradleys Property Auctions",
+      "branches_and_trading_names_are_not_counted_as_separate_auctioneers": true
+    },
+    "inventory_property_urls": 107,
+    "detail_pages_captured": 107,
+    "auction_property_pages": 96,
+    "tagged_non_auction_pages_excluded": 11,
+    "exclusions": [
+      {
+        "source_lot_id": "20467097",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467097/sales",
+        "inventory_page": 1,
+        "address": "Powderham Road, Newton Abbot, Devon, TQ12",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467097/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "23b82000badf148a5ba5d56b927d57d485ac1bf8f1c391bb40294e04058ccf4e",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-20467097-23b82000badf148a5ba5.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "22282218",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22282218/sales",
+        "inventory_page": 1,
+        "address": "36 Old Abbey Court, Salmon Pool Lane, Exeter, Devon, EX2",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22282218/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "9410ee9e0e37045d897e72c495dbc519755529a8c9e9904d3dd2061ce0db1982",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-22282218-9410ee9e0e37045d897e.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "20470110",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20470110/sales",
+        "inventory_page": 2,
+        "address": "Connaught Avenue, Plymouth, Devon, PL4",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20470110/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "5df399b15b211b4c45befef62b163d73f6bd3911db6e60ffc506cd7110c84774",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-20470110-5df399b15b211b4c45be.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "20470111",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20470111/sales",
+        "inventory_page": 2,
+        "address": "Connaught Avenue, Plymouth, Devon, PL4",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20470111/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "de8a6a2dd6bfbd1aaca0006d674fdfdc99389265a61c83e27d03c060413220b8",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-20470111-de8a6a2dd6bfbd1aaca0.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "21087190",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21087190/sales",
+        "inventory_page": 2,
+        "address": "Thatched Cottage, St. Hilary, Penzance, Cornwall, TR20",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21087190/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "5efc0f2a4376ad86f746ba1b5943821d347919d23d8af08b5f4891ec92a4c4ac",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-21087190-5efc0f2a4376ad86f746.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "21901632",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21901632/sales",
+        "inventory_page": 3,
+        "address": "Maycross House, Par Moor Road, Par, Cornwall, PL24",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21901632/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "8616b4cd4cb8094bdbd01c9bfa7fafcfcceca23e4833db8b52a56f1147e50b1e",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-21901632-8616b4cd4cb8094bdbd0.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "22162265",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22162265/sales",
+        "inventory_page": 3,
+        "address": "Perinville Road, Babbacombe, Torquay, Devon, TQ1",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22162265/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "43067fc57ca8bed8c385a60f37e37b43a25d9b3fa9bce5421c75293a35570bed",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-22162265-43067fc57ca8bed8c385.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "21641628",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21641628/sales",
+        "inventory_page": 4,
+        "address": "Flat 4, Brook Meadow Court, Exmouth Road, Budleigh Salterton, Devon, EX9",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21641628/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "ed9f79f8c3ea816f907d617c66a044016405219e9a1b582c21dcb980216c5440",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-21641628-ed9f79f8c3ea816f907d.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "20467136",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467136/sales",
+        "inventory_page": 5,
+        "address": "Silver Street, Buckfastleigh, Devon, TQ11",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467136/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "92fb3efc5805280c85d1911ed4a02552f4fba04f3116ba29098748e9eecb40de",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-20467136-92fb3efc5805280c85d1.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "20467137",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467137/sales",
+        "inventory_page": 6,
+        "address": "Kings Cottages, Newton Abbot, Devon, TQ12",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467137/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "4ededaac12c58600ae4778206d056dca037c1393d5bb3f73b47ae6cc126956a6",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-20467137-4ededaac12c58600ae47.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      },
+      {
+        "source_lot_id": "20467219",
+        "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467219/sales",
+        "inventory_page": 6,
+        "address": "Howards Way, Newton Abbot, Devon, TQ12",
+        "excluded_reason": "auction-tag property detail lacks published auction text",
+        "source_evidence": {
+          "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467219/sales",
+          "retrieved_at": "2026-11-13T11:29:31.729253+00:00",
+          "sha256": "bd7e888689c6195aac6801628a3fe0c8db41ba76fe309ddb22db00d4be41defe",
+          "snapshot_path": "data/auction_history/sources/bradleys-first-party/property-20467219-bd7e888689c6195aac68.html.gz",
+          "basis": "immutable first-party individual auction-property detail page"
+        }
+      }
+    ],
+    "stable_property_pages_reconciled": 96,
+    "catalogue_or_event_completeness_claimed": false,
+    "appearances_captured": 23,
+    "run_new_appearances": 23,
+    "run_new_address_records": 23,
+    "run_new_dated_twenty_year_address_records": 11,
+    "run_new_partial_lots": 0,
+    "run_new_undated_appearances": 11,
+    "run_new_future_dated_appearances": 1,
+    "run_new_guide_prices": 22,
+    "run_new_sale_prices": 0,
+    "run_new_rents": 0,
+    "run_new_commercial_or_mixed": 1,
+    "source_years": [
+      "2017",
+      "2019",
+      "2020",
+      "2025",
+      "2026"
+    ],
+    "newly_covered_source_years": [
+      "2017",
+      "2019",
+      "2020"
+    ],
+    "by_sector": {
+      "unknown": 9,
+      "residential": 10,
+      "mixed-use": 1,
+      "land": 3
+    },
+    "by_status": {
+      "under_offer": 22,
+      "unknown": 1
+    },
+    "failures": [],
+    "run_duplicate_source_evidence_excluded": 73,
+    "duplicate_source_evidence_exclusions": [
+      {
+        "source_lot_id": "20457837",
+        "auction_date": "2021-03-25",
+        "address": "St Marys Manor House, Ashburton Road, Bovey Tracey, Newton Abbot, TQ13",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6037974ee5f40c000423b6c3",
+            "auction_date": "2021-03-25",
+            "address": "1 St Marys Manor House, Ashburton Road, Bovey Tracey, TQ13 9BY",
+            "postcode": "TQ13 9BY"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469411",
+        "auction_date": "2024-08-21",
+        "address": "Lower Brimley Close, Teignmouth, Devon, TQ14",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:669780d5e4103334d6c3711c",
+            "auction_date": "2024-08-21",
+            "address": "Lower Brimley Close, Teignmouth, Devon, TQ14 8LG",
+            "postcode": "TQ14 8LG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20670675",
+        "auction_date": null,
+        "address": "Westhill House, Tors Road, Okehampton, Devon, EX20",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65cfb8c5ed077c3eb7abaf8a",
+            "auction_date": "2025-04-11",
+            "address": "Tors Road, Okehampton, Devon, EX20 1EF",
+            "postcode": "EX20 1EF"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21524851",
+        "auction_date": null,
+        "address": "Sea Spray, Battery Hill, Portreath, Redruth, Cornwall, TR16",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:698c79c9ddd2067aa39fe1b9",
+            "auction_date": "2026-05-06",
+            "address": "Sea Spray. 1 Battery Hill , Portreath , Redruth , TR16 4NR",
+            "postcode": "TR16 4NR"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21649798",
+        "auction_date": "2026-06-18",
+        "address": "Tattenham Corner (Pendennis House), Jubilee Road, Pensilva, Liskeard, Cornwall, PL14",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69f0a7a2909f033994d6559c",
+            "auction_date": "2026-06-18",
+            "address": "Pendennis House, Jubilee Road, Pensilva, PL14 5QL",
+            "postcode": "PL14 5QL"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21918716",
+        "auction_date": "2026-09-29",
+        "address": "Hulham Road, Exmouth, Devon, EX8",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a50b8c02cfb44d52ddc500b",
+            "auction_date": "2026-09-29",
+            "address": "25 Hulham Road, Exmouth, Devon, EX8 3JZ",
+            "postcode": "EX8 3JZ"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22131793",
+        "auction_date": null,
+        "address": "North View Road, Brixham, Devon, TQ5",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6aa0002b29cf3ede15a0b8af",
+            "auction_date": "2026-11-12",
+            "address": "16 North View Road, Brixham, Devon, TQ5 9TT",
+            "postcode": "TQ5 9TT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22239241",
+        "auction_date": "2026-11-26",
+        "address": "Lyndhurst Road, Exmouth, Devon, EX8",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6adb29a529cb4d2739b99ce7",
+            "auction_date": "2026-11-26",
+            "address": "66 Lyndhurst Road, Exmouth, Devon, EX8 3DT",
+            "postcode": "EX8 3DT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20466945",
+        "auction_date": "2024-08-28",
+        "address": "Keyberry Road, Newton Abbot, Devon, TQ12",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:664b28210504030847481bd4",
+            "auction_date": "2024-08-23",
+            "address": "19 keyberry road, newton abbot, tq121bx",
+            "postcode": "TQ121BX"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469540",
+        "auction_date": "2024-04-05",
+        "address": "Looe Street, Plymouth, Devon, PL4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65ddcbc70f0647276643792a",
+            "auction_date": "2024-04-05",
+            "address": "38 Looe Street, Plymouth, PL4 0EB",
+            "postcode": "PL4 0EB"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21634110",
+        "auction_date": "2026-10-01",
+        "address": "Greenfield Road, Watchet, Somerset, TA23",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69e0a7ebbfd7cefc792fdb14",
+            "auction_date": "2026-10-31",
+            "address": "1 Greenfield Road, Watchet, Somerset, TA23 0FF",
+            "postcode": "TA23 0FF"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21807320",
+        "auction_date": "2026-12-14",
+        "address": "Billacombe Road, Plymouth, Devon, PL9",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a27fa9993063021b0da8a5b",
+            "auction_date": "2026-12-14",
+            "address": "106 Billacombe Road, Plymouth, Devon, PL9 7EZ",
+            "postcode": "PL9 7EZ"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22260225",
+        "auction_date": "2026-11-11",
+        "address": "Barley Lane, Exeter, Devon, EX4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:68f637f31f978dfbbab91058",
+            "auction_date": "2026-11-11",
+            "address": "22 Barley Lane, St Thomas, Exeter, EX4 1TD",
+            "postcode": "EX4 1TD"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22308682",
+        "auction_date": null,
+        "address": "Rectory Road, St. Stephen, St. Austell, Cornwall, PL26",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6af1f3ff57841e8e4f807c5b",
+            "auction_date": "2026-12-10",
+            "address": "45 Rectory Road, St. Stephen, St. Austell, PL26 7RL",
+            "postcode": "PL26 7RL"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20460847",
+        "auction_date": null,
+        "address": "Stonall, Spreyton, Crediton, Devon, EX17",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65819b594b67847b2b21da8e",
+            "auction_date": "2024-02-14",
+            "address": "Stonall, Spreyton, Crediton, EX17 5AG",
+            "postcode": "EX17 5AG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20466906",
+        "auction_date": "2023-07-28",
+        "address": "Burnley Close, Newton Abbot, Devon, TQ12",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:64ac00034b568321f3dc7d75",
+            "auction_date": "2023-07-28",
+            "address": "2 Burnley Close, Newton Abbot, TQ12 1YB",
+            "postcode": "TQ12 1YB"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469731",
+        "auction_date": "2023-09-08",
+        "address": "2 Wotton Cross, Saltash, Cornwall, PL12",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:64ddf7cd19e0b8759e3517d9",
+            "auction_date": "2023-09-08",
+            "address": "2 Wotton Cross, Landrake, PL12 5AA",
+            "postcode": "PL12 5AA"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20475162",
+        "auction_date": null,
+        "address": "Highfield Crescent, Paignton, Devon, TQ3",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:67990657c6c5b3c0bae5d24f",
+            "auction_date": "2025-03-06",
+            "address": "39 Highfield Crescent, Paignton, Devon, TQ3 3TR",
+            "postcode": "TQ3 3TR"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21861495",
+        "auction_date": null,
+        "address": "The Gazebo, Peak Hill Road, Sidmouth, Devon, EX10",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69e643eac8d5aae586a13584",
+            "auction_date": "2026-08-11",
+            "address": "The Gazebo Peak Hill Road, Sidmouth, Devon, EX10 0NW",
+            "postcode": "EX10 0NW"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21861679",
+        "auction_date": "2026-11-26",
+        "address": "Greenbank Avenue, Kingsteignton, Newton Abbot, Devon, TQ12",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6ac7b1da52cd2dbe8d1eea18",
+            "auction_date": "2026-11-26",
+            "address": "4 Greenbank Avenue, Kingsteignton, Newton Abbot, TQ12 3JX",
+            "postcode": "TQ12 3JX"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21971204",
+        "auction_date": "2025-03-07",
+        "address": "Devon Heath, Chudleigh Knighton, Chudleigh, Newton Abbot, TQ13",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:67922c1b5f12d2dfaf53f59d",
+            "auction_date": "2025-03-07",
+            "address": "Devon Heath, Chudleigh Knighton, Chudleigh, TQ13 0HA",
+            "postcode": "TQ13 0HA"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22238812",
+        "auction_date": "2026-11-26",
+        "address": "Littleham Road, Exmouth, Devon, EX8",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6ada147ed0928c77d67a6124",
+            "auction_date": "2026-11-26",
+            "address": "49 Littleham Road, Exmouth, Devon, EX8 2QL",
+            "postcode": "EX8 2QL"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20457247",
+        "auction_date": "2025-03-03",
+        "address": "Churchfields Drive, Bovey Tracey, Devon, TQ13",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:674701ade0fd8c8bd5706d35",
+            "auction_date": "2025-03-03",
+            "address": "35 Churchfields Drive, Bovey Tracey, Devon, TQ13 9QU",
+            "postcode": "TQ13 9QU"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20460827",
+        "auction_date": null,
+        "address": "1 Westhill Cottages, Morchard Bishop, Crediton, Devon, EX17",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6658380fc3d0f3f58a25a235",
+            "auction_date": "2024-06-28",
+            "address": "1 Westhill Cottages, Morchard Bishop, Crediton, EX17 6RH",
+            "postcode": "EX17 6RH"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469569",
+        "auction_date": "2023-06-30",
+        "address": "Haroldsleigh Avenue, Plymouth, Devon, PL5",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6477660c5223a85623d7216f",
+            "auction_date": "2023-06-05",
+            "address": "21 Haroldsleigh Avenue, Plymouth, PL5 3AW",
+            "postcode": "PL5 3AW"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469783",
+        "auction_date": "2023-04-06",
+        "address": "West Down Road, Plymouth, Devon, PL2",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6405cd5e4c382d4f01eda83f",
+            "auction_date": "2023-04-06",
+            "address": "West Down Road, Plymouth, Devon, PL2 3HG",
+            "postcode": "PL2 3HG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21478445",
+        "auction_date": "2023-08-04",
+        "address": "Flat 2, Priory Lodge, Priory Lawn Terrace, Plymouth, Devon, PL3",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:643929b17113a4195cc7dab8",
+            "auction_date": "2023-08-17",
+            "address": "2 Priory Lodge, Plymouth, PL3 5EB",
+            "postcode": "PL3 5EB"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22045207",
+        "auction_date": null,
+        "address": "Oxford Street, Exeter, Devon, EX2",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a82efd974824e67867e5752",
+            "auction_date": "2026-10-14",
+            "address": "34 Oxford Street, Exeter, EX2 9AG",
+            "postcode": "EX2 9AG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22137188",
+        "auction_date": "2021-10-22",
+        "address": "Pasley Street, Plymouth, Devon, PL2",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:613b79946e335a4c2431f1fb",
+            "auction_date": "2021-10-22",
+            "address": "136 Pasley Street, Plymouth, PL2 1DT",
+            "postcode": "PL2 1DT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22180999",
+        "auction_date": null,
+        "address": "Melody Cottage, Commercial Road, Mousehole, Penzance, Cornwall, TR19",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69a5be51d87a3710f595cb2d",
+            "auction_date": "2026-05-11",
+            "address": "Melody Cottage , Commercial Road, Penzance , TR19 6QG",
+            "postcode": "TR19 6QG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22286609",
+        "auction_date": null,
+        "address": "7-9, Fore Street, Brixham, Devon, TQ5",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6ab6546c71dd373e9694f404",
+            "auction_date": null,
+            "address": "7-9 Fore Street, Brixham, Devon, TQ5 8AA",
+            "postcode": "TQ5 8AA"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469609",
+        "auction_date": "2023-10-20",
+        "address": "Bickham Park Road, Plymouth, Devon, PL3",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65117bc4ac5417526152841d",
+            "auction_date": "2023-09-26",
+            "address": "25 Bickham Park Road, Plymouth, PL3 4QJ",
+            "postcode": "PL3 4QJ"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469985",
+        "auction_date": "2021-12-10",
+        "address": "Highclere Gardens, Plymouth, Devon, PL6",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:618bac571420fa26354a02de",
+            "auction_date": "2021-12-10",
+            "address": "4 Highclere Gardens, Plymouth, PL6 7EA",
+            "postcode": "PL6 7EA"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21419571",
+        "auction_date": "2026-02-26",
+        "address": "Eagle Cottages, Bonhay Road, Exeter, Devon, EX4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6932c4b03f4a1a5cf1fdf110",
+            "auction_date": "2026-02-26",
+            "address": "10 Eagle Cottages , Exeter, EX4 3AA",
+            "postcode": "EX4 3AA"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21437714",
+        "auction_date": null,
+        "address": "Queen Street, Newton Abbot, Devon, TQ12",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6909e0a880bddc84bfd0c599",
+            "auction_date": "2026-11-17",
+            "address": "175 Queen Street, Newton Abbot, Devon, TQ12 2BS",
+            "postcode": "TQ12 2BS"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21501098",
+        "auction_date": "2021-01-29",
+        "address": "Diamond Avenue, Plymouth, Devon, PL4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:5ff6f51a2232a1000444c1d3",
+            "auction_date": "2021-01-29",
+            "address": "11 DIAMOND AVENUE, Plymouth, PL4 8QD",
+            "postcode": "PL4 8QD"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21503140",
+        "auction_date": null,
+        "address": "Conway Crescent, Paignton, Devon, TQ4",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69a68e4ad49017a968099d52",
+            "auction_date": "2026-06-22",
+            "address": "6 Conway Crescent, Paignton, Devon, TQ4 5LG",
+            "postcode": "TQ4 5LG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21912462",
+        "auction_date": "2026-11-09",
+        "address": "Westcliff, Teignmouth, Devon, TQ14",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a4fac9292c6d03e1c60cfe7",
+            "auction_date": "2026-11-09",
+            "address": "17 Westcliff, Teignmouth, Devon, TQ14 8EX",
+            "postcode": "TQ14 8EX"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22029941",
+        "auction_date": "2026-10-30",
+        "address": "Avenue Terrace, Churston Ferrers, Brixham, Devon, TQ5",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a33e69091b83b348639cde1",
+            "auction_date": "2026-11-29",
+            "address": "7 Avenue Terrace, Churston Ferrers, Brixham, TQ5 0JD",
+            "postcode": "TQ5 0JD"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22200416",
+        "auction_date": null,
+        "address": "Homestill, Fairview, Church Street, Sidford, Sidmouth, EX10",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6ab25f11aeb7e31b0c7b225e",
+            "auction_date": "2026-11-25",
+            "address": "1 Fairview, Church Street, Sidford, EX10 9RH",
+            "postcode": "EX10 9RH"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22304593",
+        "auction_date": "2026-12-14",
+        "address": "Beacon Heath, Beacon Heath, Exeter, Devon, EX4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6aee0c7d7aa3cb88a54927a0",
+            "auction_date": "2026-12-14",
+            "address": "5 Beacon Heath, Beacon Heath, Exeter, EX4 8NW",
+            "postcode": "EX4 8NW"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469901",
+        "auction_date": "2022-07-29",
+        "address": "Ganges Road, Plymouth, Devon, PL2",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:62bc1be786cd6a3a9b3e6506",
+            "auction_date": "2022-07-29",
+            "address": "38 Ganges Road, Plymouth, pl2 3az",
+            "postcode": "PL2 3AZ"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20470011",
+        "auction_date": "2021-10-15",
+        "address": "Ivydale Road, Plymouth, PL4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:61434627b6ee9e02a6d63c0f",
+            "auction_date": "2021-10-15",
+            "address": "10 Ivydale Road, Plymouth, PL4 7DE",
+            "postcode": "PL4 7DE"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20849932",
+        "auction_date": "2025-11-21",
+        "address": "North Street, Okehampton, Devon, EX20",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:687e0c242f635e372d15b191",
+            "auction_date": "2025-11-21",
+            "address": "62 North Street, Okehampton, Devon, EX20 1AR",
+            "postcode": "EX20 1AR"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22025943",
+        "auction_date": null,
+        "address": "Bowden Engineering, Market Lane, Ottery St. Mary, Devon, EX11",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69e631afe3908419a6836feb",
+            "auction_date": "2026-09-16",
+            "address": "Bowden Engineering Market Lane, Ottery St. Mary, Devon, EX11 1AH",
+            "postcode": "EX11 1AH"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20457645",
+        "auction_date": "2023-09-15",
+        "address": "Priory, Bovey Tracey, Newton Abbot, Devon, TQ13",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:64d21a689035483daf7eaffe",
+            "auction_date": "2023-09-15",
+            "address": "21 Priory, Bovey Tracey, Devon, TQ13 9HU",
+            "postcode": "TQ13 9HU"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20467220",
+        "auction_date": null,
+        "address": "Holbeam Close, Newton Abbot, Devon, TQ12",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:64ac00034b568321f3dc7d75",
+            "auction_date": "2023-07-28",
+            "address": "2 Burnley Close, Newton Abbot, TQ12 1YB",
+            "postcode": "TQ12 1YB"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469827",
+        "auction_date": "2022-10-21",
+        "address": "1A, Rochester Road, Plymouth, Devon, PL4",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6331c281048de67995cdc89d",
+            "auction_date": "2022-11-01",
+            "address": "1a Rochester Road, Plymouth, PL4 6HU",
+            "postcode": "PL4 6HU"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21061447",
+        "auction_date": "2026-10-06",
+        "address": "Madges, Dolton, Winkleigh, Devon, EX19",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a7f3afd74824e67866fc3cc",
+            "auction_date": "2026-10-27",
+            "address": "Madges Cottage Dolton, Winkleigh, Devon, EX19 8QR",
+            "postcode": "EX19 8QR"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21078445",
+        "auction_date": "2026-01-23",
+        "address": "FFF, Wyndham Street West, Plymouth, Devon, PL1",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:68dd3eb7f7c0f05d29233d59",
+            "auction_date": "2026-01-15",
+            "address": "FFF 9 Wyndham Street West, Stonehouse, Plymouth, PL1 5EP",
+            "postcode": "PL1 5EP"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22285236",
+        "auction_date": "2026-11-25",
+        "address": "Essex Street, Plymouth, Devon, PL1",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6aeaea1ab3ed93b723580423",
+            "auction_date": "2026-11-25",
+            "address": "16 Essex Street, Plymouth, Devon, PL1 5HB",
+            "postcode": "PL1 5HB"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22298418",
+        "auction_date": "2026-11-30",
+        "address": "The Croft, South Zeal, Okehampton, Devon, EX20",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6af1c8ad7aa3cb88a559248d",
+            "auction_date": "2026-11-30",
+            "address": "21 The Croft, South Zeal, Okehampton, EX20 2NX",
+            "postcode": "EX20 2NX"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22305234",
+        "auction_date": null,
+        "address": "The Bungalow, South Roskear Terrace, Camborne, TR14",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6af20258eead38511dfa4e24",
+            "auction_date": "2026-12-02",
+            "address": "The Bungalow , South Roskear Terrace, Camborne, TR14 8NT",
+            "postcode": "TR14 8NT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469435",
+        "auction_date": null,
+        "address": "Downside Avenue, Plymouth, Devon, PL6",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:667415ba42d06fbae93518b5",
+            "auction_date": "2024-07-24",
+            "address": "4 Downside Avenue, Devon, Plymouth, PL6 5SD",
+            "postcode": "PL6 5SD"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469559",
+        "auction_date": "2024-04-26",
+        "address": "Maker View, Plymouth, Devon, PL3",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65f18dbd700dbb6e902a06a0",
+            "auction_date": "2024-04-26",
+            "address": "14 maker view, Plymouth, PL3 4EY",
+            "postcode": "PL3 4EY"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20470080",
+        "auction_date": "2021-04-23",
+        "address": "Chedworth Street, Plymouth, Devon, PL4",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:60684d57747dad0004cf45ea",
+            "auction_date": "2021-04-23",
+            "address": "13 Chedworth Street, Plymouth, PL4 8NT",
+            "postcode": "PL4 8NT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20881653",
+        "auction_date": "2021-11-19",
+        "address": "Durham Cottages, Plymouth, PL1",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:617ae6545856aa1930eefbb7",
+            "auction_date": "2021-11-19",
+            "address": "2 Durham Cottages, Plymouth, PL1 5HT",
+            "postcode": "PL1 5HT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21671038",
+        "auction_date": "2026-06-05",
+        "address": "Union Street, Camborne, Cornwall, TR14",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:69fcac6e9d9402804131e503",
+            "auction_date": "2026-07-03",
+            "address": "26 Union Street, Camborne, TR14 8HG",
+            "postcode": "TR14 8HG"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21897289",
+        "auction_date": "2026-07-27",
+        "address": "1A Enfield Cottages, St James Place, Torquay, Devon, TQ1",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a3a53a232b41a3da4890095",
+            "auction_date": "2026-07-30",
+            "address": "1 Enfield Cottages 1 Enfield Cottages, St. James Place, Torquay, TQ1 3LT",
+            "postcode": "TQ1 3LT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22131150",
+        "auction_date": "2026-10-15",
+        "address": "Allen Vale, Liskeard, Cornwall, PL14",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6aad3dc53a789b06e6d112ab",
+            "auction_date": "2026-10-15",
+            "address": "14 Allen Vale, Liskeard, Cornwall, PL14 4HL",
+            "postcode": "PL14 4HL"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20466798",
+        "auction_date": "2024-08-01",
+        "address": "Flat A, Eastgate House, East Street, Okehampton, Devon, EX20",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:662675402428a80c32b394ca",
+            "auction_date": "2024-07-30",
+            "address": "East Street, Okehampton, Devon, EX20 1AS",
+            "postcode": "EX20 1AS"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20466941",
+        "auction_date": "2024-09-13",
+        "address": "Plot Of Land, To The North Of Hole Farm, Whiddon Down, Nr Okehampton, Devon, EX20",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:66d9bd720eb964d1d2eab18a",
+            "auction_date": "2024-09-05",
+            "address": "To The North Of Hole Farm, Whiddon Down, Nr Okehampton, EX20 2QT",
+            "postcode": "EX20 2QT"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20467042",
+        "auction_date": null,
+        "address": "Flat 2, Highweek Road, Newton Abbot, Devon, TQ12",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:64cd16669d0bb9481abcf580",
+            "auction_date": "2023-08-15",
+            "address": "Flat 2, 30 Highweek Road, Newton Abbot, TQ12 1TP",
+            "postcode": "TQ12 1TP"
+          },
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:676e7ab4f592469b745edbcf",
+            "auction_date": "2025-01-30",
+            "address": "Flat 3, 14 Keyberry Road, Newton Abbot, TQ12 1BU",
+            "postcode": "TQ12 1BU"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469720",
+        "auction_date": null,
+        "address": "Healy Place, Plymouth, Devon, PL2",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65083c8c48407405f4827e23",
+            "auction_date": "2023-09-27",
+            "address": "Healy Place, Plymouth, Devon, PL2 1AZ",
+            "postcode": "PL2 1AZ"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469739",
+        "auction_date": "2023-07-28",
+        "address": "Lower Fore Street, Saltash, Cornwall, PL12",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:644919f2d34b0b58a73c8f45",
+            "auction_date": "2023-07-27",
+            "address": "51-53 Lower Fore Street, Saltash, Cornwall, PL12 6JQ",
+            "postcode": "PL12 6JQ"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21115191",
+        "auction_date": "2025-11-12",
+        "address": "1a - 7a and 10a - 12a Inclusive 10 Garages At Moyses Meadow, Okehampton, Devon, EX20",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:68dbe3ffba54e086413b62b5",
+            "auction_date": "2025-11-12",
+            "address": "1a - 7a and 10a - 12a Inclusive 10 Garages At Moyses Meadow, Okehampton, Devon, EX20 1JY",
+            "postcode": "EX20 1JY"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21177392",
+        "auction_date": "2025-11-24",
+        "address": "GFF, Neswick Street, Plymouth, Devon, PL1",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6904754526e2e084e21799b1",
+            "auction_date": "2025-11-26",
+            "address": "GFF 65 Neswick Street, Stonehouse, Plymouth, PL1 5JN",
+            "postcode": "PL1 5JN"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20466986",
+        "auction_date": "2024-02-22",
+        "address": "Garage 11C-15C, Moyses Meadow, Okehampton, Devon, EX20",
+        "reason": "same Bradleys retained address with close date within 31 days; overlapping or rescheduled evidence",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:65d62ecb2c70bb3f047b059f",
+            "auction_date": "2024-02-21",
+            "address": "Moyses Meadow, Okehampton, Devon, EX20 1JY",
+            "postcode": "EX20 1JY"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20469449",
+        "auction_date": "2024-08-01",
+        "address": "Land, Chesterfield Road, Plymouth, Devon, PL3",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6687c8730090660631ce860f",
+            "auction_date": "2024-08-01",
+            "address": "17 chesterfield road, plymouth, pl3 6bd",
+            "postcode": "PL3 6BD"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "20568220",
+        "auction_date": null,
+        "address": "PLOT 1, Jubilee Place, Pendeen, Penzance, Cornwall, TR19",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:609bbbb1eade920004785a96",
+            "auction_date": "2021-08-31",
+            "address": "8 Jubilee Place, Pendeen, Penzance, TR19 7SN",
+            "postcode": "TR19 7SN"
+          },
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:62b70a09dc70eb3a1eb49ae1",
+            "auction_date": "2022-11-10",
+            "address": "Jubilee Place, Pendeen, Penzance, TR19 7SH",
+            "postcode": "TR19 7SH"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21141590",
+        "auction_date": "2025-11-12",
+        "address": "Garage, Trefusis Place, Exmouth, Devon, EX8",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:68f25e10e711fe1e72d90e19",
+            "auction_date": "2025-11-12",
+            "address": "Garage, 6 Trefusis Place, Exmouth, Devon, Exmouth, EX8 2AR",
+            "postcode": "EX8 2AR"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "21900489",
+        "auction_date": null,
+        "address": "Garage Adj To Manor Way, Manor Way, Heamoor, Penzance, Cornwall, TR18",
+        "reason": "undated Bradleys retained address already banked; stale date not a new appearance",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6a01df99339593836b77fde1",
+            "auction_date": "2026-08-27",
+            "address": "Garage To The South Of Manor Way, Heamoor, Penzance, TR18 3HX",
+            "postcode": "TR18 3HX"
+          }
+        ]
+      },
+      {
+        "source_lot_id": "22091739",
+        "auction_date": "2026-09-29",
+        "address": "Land At, Stony Lane, Gunnislake, Cornwall, PL18",
+        "reason": "same Bradleys auction date and matching retained address/postcode",
+        "existing": [
+          {
+            "appearance_id": "Bradleys Online Auction|bamboo:6aa15189b1394e046f474937",
+            "auction_date": "2026-09-29",
+            "address": "Land Stony Lane, Gunnislake, Cornwall, PL18 9ED",
+            "postcode": "PL18 9ED"
+          }
+        ]
+      }
+    ],
+    "next_growth_target": "Batch Fisher German pre-Bamboo first-party auction-property pages and surviving catalogue/result assets through one reusable retained-inventory runner, prioritising exact event dates and achieved prices and deduplicating shared-platform evidence. Revisit Stags' retained traditional-event pages only if a route recovers their lost lot payloads. National completeness remains false.",
+    "national_completeness_verified": false,
+    "stags_traditional_event_blocker": "Stags' 13 retained traditional-event URLs survive with exact event headings, but every direct page now exposes only null Homeflow placeholder cards and no property address, guide or result payload. Do not retry this route without a cache, saved catalogue or materially different payload recovery path."
   }
 }

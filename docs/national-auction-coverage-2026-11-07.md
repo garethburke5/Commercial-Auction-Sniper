@@ -7,6 +7,28 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through — Bradleys retained inventory, 13 November 2026
+
+One reusable first-party runner reconciled all 107 stable property URLs in
+Bradleys' ten-page auction-tag inventory. It banked **23 net individual
+appearances / 23 address records** after excluding **73 overlapping or stale-date
+pages** and 11 tag-only pages without auction evidence. The gain contains **11
+newly dated addresses inside the twenty-year window**, 11 undated appearances,
+one future-dated appearance and zero partial records. It adds one
+commercial/mixed-use appearance, 22 guides, zero achieved prices and zero rents;
+source-years 2017, 2019 and 2020 are newly represented.
+
+The rebuilt corpus contains 325,454 appearances and passes SQLite integrity and
+duplicate-ID checks. Its 185,879,921-byte gzip reconstructs byte-for-byte from
+23 checksum-addressed publication parts. No current scan, history-bank or
+publication workflow was duplicated.
+
+Stags' retained traditional-event route was checked once through a materially
+different first-party path: the 13 event headings survive, but the lot payloads
+have degraded to null Homeflow placeholders. The next growth target is Fisher
+German's pre-Bamboo first-party inventory and surviving catalogue/result assets,
+batched through one runner. National completeness remains false.
+
 
 ## Persisted historical gain — 12:17 UTC
 

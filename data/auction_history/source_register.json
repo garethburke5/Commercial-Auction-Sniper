@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-13T10:06:11.010356+00:00",
-  "corpus_checkpoint": "2026-11-13T10:05:37.384942+00:00",
+  "generated_at": "2026-11-13T11:38:35.810823+00:00",
+  "corpus_checkpoint": "2026-11-13T11:34:54.926946+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8352,7 +8352,7 @@
     "Bovingdons": 1,
     "Bowen": 27,
     "Bradley Hall": 78,
-    "Bradleys Online Auction": 424,
+    "Bradleys Online Auction": 447,
     "Breckon & Breckon": 1,
     "Brookvale": 1,
     "Brookvale Auctions": 33,
@@ -8588,9 +8588,9 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 315004,
-      "auction_ids_observed": 18498,
-      "with_guide_price": 114872,
+      "lot_appearances": 315015,
+      "auction_ids_observed": 18509,
+      "with_guide_price": 114883,
       "with_sale_price": 117151,
       "with_both_prices": 53066,
       "marked_sold": 161539,
@@ -13032,6 +13032,39 @@
       },
       {
         "auctioneer": "Bradleys Online Auction",
+        "year": 2017,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Online Auction",
+        "year": 2019,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Online Auction",
+        "year": 2020,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Online Auction",
         "year": 2021,
         "lot_appearances": 69,
         "auction_ids_observed": 69,
@@ -13077,9 +13110,9 @@
       {
         "auctioneer": "Bradleys Online Auction",
         "year": 2025,
-        "lot_appearances": 65,
-        "auction_ids_observed": 65,
-        "with_guide_price": 65,
+        "lot_appearances": 66,
+        "auction_ids_observed": 66,
+        "with_guide_price": 66,
         "with_sale_price": 56,
         "with_both_prices": 56,
         "marked_sold": 56,
@@ -13088,9 +13121,9 @@
       {
         "auctioneer": "Bradleys Online Auction",
         "year": 2026,
-        "lot_appearances": 56,
-        "auction_ids_observed": 56,
-        "with_guide_price": 56,
+        "lot_appearances": 63,
+        "auction_ids_observed": 63,
+        "with_guide_price": 63,
         "with_sale_price": 44,
         "with_both_prices": 44,
         "marked_sold": 44,
@@ -22216,8 +22249,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 6930,
-    "future_dated_appearances": 377,
+    "undated_appearances": 6941,
+    "future_dated_appearances": 378,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -22949,6 +22982,24 @@
         "2026"
       ],
       "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "bradleys_first_party_auction_inventory": {
+      "source": "bradleys_first_party_auction_inventory",
+      "outcome": "completed",
+      "checked_at": "2026-11-13T11:30:05.085407+00:00",
+      "run_new_appearances": 23,
+      "run_new_dated_twenty_year_address_records": 11,
+      "run_new_commercial_or_mixed": 1,
+      "run_new_guide_prices": 22,
+      "run_new_sale_prices": 0,
+      "run_new_rents": 0,
+      "newly_covered_source_years": [
+        "2017",
+        "2019",
+        "2020"
+      ],
+      "duplicate_source_evidence_excluded": 73,
       "national_completeness_verified": false
     },
     "bowen": {
@@ -23841,6 +23892,213 @@
       "lots_captured": 25,
       "errors": [],
       "checked_at": "2026-11-08T01:36:58.083987+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21313935.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-01-20",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21313935/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.080893+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21086723.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21086723/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.080642+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21768384.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21768384/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.081937+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/22022569.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-09-14",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22022569/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.081497+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/22045960.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-09-29",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22045960/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.079431+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20466955.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2020-06-08",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20466955/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.084611+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20467088.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467088/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.079991+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20460254.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20460254/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.084246+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20467841.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2025-03-21",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467841/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.084812+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20467222.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467222/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.080329+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21634716.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-05-14",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21634716/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.081119+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20467216.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2019-11-18",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467216/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.083127+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20469445.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20469445/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.085033+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/22310376.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-12-11",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22310376/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.079694+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21605108.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21605108/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.079811+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21237071.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-05-29",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21237071/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.083592+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/22129526.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-07-15",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22129526/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.082257+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/22076909.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2026-09-28",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/22076909/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.083943+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20467204.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20467204/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.082966+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20469566.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20469566/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.081725+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20460260.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20460260/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.084936+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/21708923.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": null,
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/21708923/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.078553+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/bradleys-first-party/20460257.json",
+      "auctioneer": "Bradleys Online Auction",
+      "auction_date": "2017-10-03",
+      "source_url": "https://www.bradleys-estate-agents.co.uk/properties/20460257/sales",
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-13T11:30:05.084500+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/clive-emson/231.json",
@@ -30312,7 +30570,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-13T10:06:10.488105+00:00",
+    "checked_at": "2026-11-13T11:38:33.923711+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

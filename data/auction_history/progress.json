@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-13T10:05:37.384942+00:00",
-  "individual_lot_records_captured": 325431,
-  "records_with_address": 312873,
+  "generated_at": "2026-11-13T11:34:54.926946+00:00",
+  "individual_lot_records_captured": 325454,
+  "records_with_address": 312896,
   "partial_lot_records": 12558,
   "exact_address_groups": 176523,
   "groups_with_repeat_appearances": 44296,
@@ -87,7 +87,7 @@
     "Bovingdons": 1,
     "Bowen": 27,
     "Bradley Hall": 78,
-    "Bradleys Online Auction": 424,
+    "Bradleys Online Auction": 447,
     "Breckon & Breckon": 1,
     "Brookvale": 1,
     "Brookvale Auctions": 33,
@@ -319,7 +319,7 @@
     "webbssecureit": 1
   },
   "by_year": {
-    "null": 6930,
+    "null": 6941,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -335,32 +335,32 @@
     "2014": 8680,
     "2015": 8031,
     "2016": 8766,
-    "2017": 9038,
+    "2017": 9039,
     "2018": 8901,
-    "2019": 8096,
-    "2020": 14138,
+    "2019": 8097,
+    "2020": 14139,
     "2021": 22570,
     "2022": 28107,
     "2023": 35425,
     "2024": 43891,
-    "2025": 49700,
-    "2026": 49511,
+    "2025": 49701,
+    "2026": 49519,
     "2027": 9
   },
   "by_sector": {
     "commercial": 43461,
-    "land": 20323,
+    "land": 20326,
     "mixed": 1,
-    "mixed-use": 48954,
-    "residential": 158084,
-    "unknown": 54608
+    "mixed-use": 48955,
+    "residential": 158094,
+    "unknown": 54617
   },
   "date_range": [
     "2002-10-31",
     "2027-01-26"
   ],
   "surviving_catalogues_completely_harvested": 5450,
-  "catalogues_incomplete_or_unreconciled": 779,
+  "catalogues_incomplete_or_unreconciled": 802,
   "catalogue_fetch_or_parse_failures": 33,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -373,9 +373,9 @@
     "through_date": "2026-11-13",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 315004,
-      "auction_ids_observed": 18498,
-      "with_guide_price": 114872,
+      "lot_appearances": 315015,
+      "auction_ids_observed": 18509,
+      "with_guide_price": 114883,
       "with_sale_price": 117151,
       "with_both_prices": 53066,
       "marked_sold": 161539,
@@ -4817,6 +4817,39 @@
       },
       {
         "auctioneer": "Bradleys Online Auction",
+        "year": 2017,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Online Auction",
+        "year": 2019,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Online Auction",
+        "year": 2020,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Online Auction",
         "year": 2021,
         "lot_appearances": 69,
         "auction_ids_observed": 69,
@@ -4862,9 +4895,9 @@
       {
         "auctioneer": "Bradleys Online Auction",
         "year": 2025,
-        "lot_appearances": 65,
-        "auction_ids_observed": 65,
-        "with_guide_price": 65,
+        "lot_appearances": 66,
+        "auction_ids_observed": 66,
+        "with_guide_price": 66,
         "with_sale_price": 56,
         "with_both_prices": 56,
         "marked_sold": 56,
@@ -4873,9 +4906,9 @@
       {
         "auctioneer": "Bradleys Online Auction",
         "year": 2026,
-        "lot_appearances": 56,
-        "auction_ids_observed": 56,
-        "with_guide_price": 56,
+        "lot_appearances": 63,
+        "auction_ids_observed": 63,
+        "with_guide_price": 63,
         "with_sale_price": 44,
         "with_both_prices": 44,
         "marked_sold": 44,
@@ -14001,8 +14034,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 6930,
-    "future_dated_appearances": 377,
+    "undated_appearances": 6941,
+    "future_dated_appearances": 378,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

@@ -3,6 +3,48 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 13 November 2026 — Bradleys retained first-party inventory
+
+- **Specific growth opportunity executed:** a reusable retained-inventory
+  collector reconciled all **107 stable property URLs** across ten pages of
+  Bradleys' first-party auction-tag inventory, captured every detail page and
+  preserved immutable inventory and property snapshots. Of those pages, **96**
+  contain auction text; **11 tag-only pages** were excluded because their
+  details publish no auction evidence.
+- **Measured net gain:** **23 individual appearances / 23 address records**.
+  **11** are newly dated address records inside the preceding twenty-year
+  window, **11 are explicitly undated**, **one is future-dated** and **zero are
+  partial records**. The newly represented historical source-years are
+  **2017, 2019 and 2020**.
+- **Sector and price evidence:** the admitted rows add **one
+  commercial/mixed-use appearance** (ten residential, three land, one
+  mixed-use and nine unknown overall), **22 numeric guides, zero achieved
+  prices and zero rents**. Unknown values remain null rather than inferred.
+- **Overlap safeguards:** **73 retained Bradleys pages** were excluded from
+  the growth claim because they reconcile to already banked Bamboo-era
+  appearances, exact address/date evidence, stale dates or close-date
+  reschedules. `Bradleys Property Auctions` is retained as a trading name of
+  canonical **Bradleys Online Auction**, not counted as another auctioneer.
+- **Corpus after rebuild:** **325,454 appearances**, **312,896 address
+  records**, **12,558 partial records** and **315,015 in-window appearances**.
+  In-window evidence totals are **114,883 guides** and **117,151 achieved
+  prices**; retained undated and future-dated totals are **6,941** and **378**.
+- **Integrity and publication preparation:** SQLite contains all 325,454 rows,
+  has no duplicate appearance IDs and passes full `PRAGMA integrity_check`.
+  The **185,879,921-byte** compressed database reconstructs byte-for-byte from
+  **23 checksum-addressed parts**; the storage test suite passes.
+- **Blocked route recorded once:** Stags' 13 retained traditional-event URLs
+  still expose exact event headings, but their live pages now return only null
+  Homeflow placeholder cards and no address, guide or result payload. That
+  route is not to be retried without a cache, saved catalogue or materially
+  different payload-recovery path.
+- **Next concrete growth target:** batch Fisher German's pre-Bamboo first-party
+  auction-property pages and surviving catalogue/result assets through one
+  reusable runner, prioritising exact event dates and achieved prices and
+  deduplicating shared-platform evidence.
+
+National completeness remains **false**.
+
 ## 13 November 2026 — Bamboo marketplace and Carter Jonas archive batch
 
 - **Specific growth opportunity executed:** collection moved away from Auction
