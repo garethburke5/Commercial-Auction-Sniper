@@ -4249,7 +4249,7 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - All 18 migrated payloads and their retrieval URLs are retained immutably. Stable-ID and strong exact-evidence checks found no duplicate among these additions; archive-wide overlaps remain excluded, and related legal interests remain separate.
 - Killens and Stags organisation/branch labels are provenance only. The recovered appearances add no new legal operator or source-year because 2023 and 2024 were already represented.
 - Rebuilt totals are **319,342 appearances**, **307,991 addresses**, **310,761 in-window appearances**, **112,238 in-window guides**, **115,840 in-window achieved prices**, **11,351 partial**, **5,125 undated** and **336 future-dated** records. The packaged database and source register were regenerated from the complete bank.
-- Different next target: inventory Auction Inspire and Auction Local together, select the larger surviving individually dated first-party archive, and batch its multi-event inventory through a reusable collector. Do not count directory entries, platform labels or branches as properties or new auctioneers.
+- Different next target: inventory Shepherd Commercial's first-party auction-search pagination as one bounded multi-event archive, then batch every surviving individually dated result/detail lot through a reusable collector. Reconcile Shepherd Commercial Ltd, John Shepherd Chartered Surveyors and branch labels before counting the operator. Auction Inspire and Auction Local remain bounded zero-growth routes until a materially different lot-bearing source appears.
 - National completeness remains **false**.
 
 ## 2026-11-14 — Sunderlands 2016–2018 result-sheet batch
