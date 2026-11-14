@@ -4,7 +4,7 @@
   "auction_date": "2026-12-03",
   "catalogue_complete": false,
   "saved_inventory_reconciled": true,
-  "completion_scope": "all Shepherd rows retained in the saved production board for this date; not the original catalogue denominator",
+  "completion_scope": "all auction-property cards in the current Shepherd Deals Done denominator; not the original catalogue denominator",
   "lots_captured": 13,
   "source_snapshot": {
     "source_url": "saved:data/properties.json",
@@ -14,5 +14,13 @@
     "evidence_tier": "saved first-party detail records from protected production collection"
   },
   "errors": [],
-  "checked_at": "2026-11-14T13:17:50.341134+00:00"
+  "checked_at": "2026-11-14T14:19:38.898592+00:00",
+  "deals_done_inventory_reconciled": true,
+  "deals_done_source_snapshot": {
+    "source_url": "https://www.shepherd.co.uk/deals-done/",
+    "retrieved_at": "2026-11-14T14:19:00.980428+00:00",
+    "response_sha256": "15d14ec935f1416f1ffbd89043c69e76ffff2f92a49866c5e6974b2b47615704",
+    "snapshot_path": "data/auction_history/sources/shepherd-commercial/deals-done-index-15d14ec935f1416f.html.gz",
+    "evidence_tier": "complete rendered first-party Deals Done card denominator"
+  }
 }

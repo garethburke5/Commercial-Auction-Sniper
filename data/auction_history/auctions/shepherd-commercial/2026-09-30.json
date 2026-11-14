@@ -1,0 +1,18 @@
+{
+  "auctioneer": "Shepherd Commercial Auctions",
+  "source_auction_id": "shepherd:2026-09-30",
+  "auction_date": "2026-09-30",
+  "catalogue_complete": false,
+  "deals_done_inventory_reconciled": true,
+  "completion_scope": "all auction-property cards in the current Shepherd Deals Done denominator; not the original catalogue denominator",
+  "lots_captured": 5,
+  "deals_done_source_snapshot": {
+    "source_url": "https://www.shepherd.co.uk/deals-done/",
+    "retrieved_at": "2026-11-14T14:19:00.980428+00:00",
+    "response_sha256": "15d14ec935f1416f1ffbd89043c69e76ffff2f92a49866c5e6974b2b47615704",
+    "snapshot_path": "data/auction_history/sources/shepherd-commercial/deals-done-index-15d14ec935f1416f.html.gz",
+    "evidence_tier": "complete rendered first-party Deals Done card denominator"
+  },
+  "errors": [],
+  "checked_at": "2026-11-14T14:19:38.898075+00:00"
+}

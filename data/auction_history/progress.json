@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-14T13:18:57.092434+00:00",
-  "individual_lot_records_captured": 319370,
-  "records_with_address": 308019,
+  "generated_at": "2026-11-14T14:21:11.088885+00:00",
+  "individual_lot_records_captured": 319422,
+  "records_with_address": 308071,
   "partial_lot_records": 11351,
   "exact_address_groups": 172829,
   "groups_with_repeat_appearances": 43461,
@@ -273,7 +273,7 @@
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
     "Sheldon Bosley Knight": 26,
-    "Shepherd Commercial Auctions": 28,
+    "Shepherd Commercial Auctions": 80,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smart Property Auctions": 15,
@@ -343,24 +343,24 @@
     "2022": 27332,
     "2023": 34663,
     "2024": 43461,
-    "2025": 49405,
-    "2026": 49425,
+    "2025": 49406,
+    "2026": 49476,
     "2027": 8
   },
   "by_sector": {
-    "commercial": 43237,
+    "commercial": 43246,
     "land": 19996,
     "mixed": 1,
-    "mixed-use": 48838,
-    "residential": 155114,
-    "unknown": 52184
+    "mixed-use": 48871,
+    "residential": 155122,
+    "unknown": 52186
   },
   "date_range": [
     "2002-10-31",
     "2027-01-26"
   ],
   "surviving_catalogues_completely_harvested": 5272,
-  "catalogues_incomplete_or_unreconciled": 624,
+  "catalogues_incomplete_or_unreconciled": 629,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -373,13 +373,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310776,
-      "auction_ids_observed": 17635,
-      "with_guide_price": 112253,
+      "lot_appearances": 310828,
+      "auction_ids_observed": 17640,
+      "with_guide_price": 112305,
       "with_sale_price": 115840,
       "with_both_prices": 51910,
-      "marked_sold": 159157,
-      "marked_sold_without_sale_price": 44057
+      "marked_sold": 159218,
+      "marked_sold_without_sale_price": 44118
     },
     "by_auctioneer_and_year": [
       {
@@ -12154,14 +12154,25 @@
       },
       {
         "auctioneer": "Shepherd Commercial Auctions",
-        "year": 2026,
-        "lot_appearances": 15,
+        "year": 2025,
+        "lot_appearances": 1,
         "auction_ids_observed": 1,
-        "with_guide_price": 15,
+        "with_guide_price": 1,
         "with_sale_price": 0,
         "with_both_prices": 0,
-        "marked_sold": 0,
-        "marked_sold_without_sale_price": 0
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Shepherd Commercial Auctions",
+        "year": 2026,
+        "lot_appearances": 66,
+        "auction_ids_observed": 5,
+        "with_guide_price": 66,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 60,
+        "marked_sold_without_sale_price": 60
       },
       {
         "auctioneer": "Signature Estates Online Auction",

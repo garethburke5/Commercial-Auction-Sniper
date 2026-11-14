@@ -1,0 +1,155 @@
+{
+  "checked_at": "2026-11-14T14:19:38.995938+00:00",
+  "source": "shepherd-deals-done",
+  "auctioneer": "Shepherd Commercial Auctions",
+  "index_url": "https://www.shepherd.co.uk/deals-done/",
+  "source_snapshot": {
+    "source_url": "https://www.shepherd.co.uk/deals-done/",
+    "retrieved_at": "2026-11-14T14:19:00.980428+00:00",
+    "response_sha256": "15d14ec935f1416f1ffbd89043c69e76ffff2f92a49866c5e6974b2b47615704",
+    "snapshot_path": "data/auction_history/sources/shepherd-commercial/deals-done-index-15d14ec935f1416f.html.gz",
+    "evidence_tier": "complete rendered first-party Deals Done card denominator"
+  },
+  "total_deal_cards": 273,
+  "auction_property_cards": 61,
+  "detail_pages_captured": 61,
+  "detail_page_errors": [],
+  "appearances_captured_from_deals_done": 52,
+  "run_new_appearances": 52,
+  "run_new_address_records": 52,
+  "run_new_dated_twenty_year_address_records": 52,
+  "run_new_partial_lots": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_new_commercial_or_mixed": 42,
+  "run_new_guide_prices": 52,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 2,
+  "run_new_published_outcomes": 61,
+  "run_enriched_existing_appearances": 9,
+  "run_new_outcomes_on_existing_appearances": 9,
+  "run_duplicate_source_evidence_excluded": 9,
+  "duplicate_evidence": [
+    {
+      "source_lot_id": "10104",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10104"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10104"
+      ]
+    },
+    {
+      "source_lot_id": "9608",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|9608"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|9608"
+      ]
+    },
+    {
+      "source_lot_id": "9609",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|9609"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|9609"
+      ]
+    },
+    {
+      "source_lot_id": "4135",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|4135"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|4135"
+      ]
+    },
+    {
+      "source_lot_id": "10129",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10129"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10129"
+      ]
+    },
+    {
+      "source_lot_id": "10149",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10149"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10149"
+      ]
+    },
+    {
+      "source_lot_id": "10126",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10126"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10126"
+      ]
+    },
+    {
+      "source_lot_id": "9870",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|9870"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|9870"
+      ]
+    },
+    {
+      "source_lot_id": "10142",
+      "reason": "same first-party Shepherd detail identity",
+      "matched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10142"
+      ],
+      "enriched_appearance_ids": [
+        "Shepherd Commercial Auctions|shepherd:2026-10-22|10142"
+      ]
+    }
+  ],
+  "related_interest_candidates_preserved": 0,
+  "related_interest_candidate_ids": [],
+  "new_source_years": [
+    "2025"
+  ],
+  "source_event_dates": [
+    "2025-12-04",
+    "2026-04-16",
+    "2026-06-18",
+    "2026-08-20",
+    "2026-09-30",
+    "2026-10-22"
+  ],
+  "by_date": {
+    "2025-12-04": 1,
+    "2026-04-16": 8,
+    "2026-06-18": 9,
+    "2026-08-20": 22,
+    "2026-09-30": 5,
+    "2026-10-22": 16
+  },
+  "by_sector_new": {
+    "mixed-use": 33,
+    "commercial": 9,
+    "residential": 8,
+    "unknown": 2
+  },
+  "deals_done_inventory_reconciled": true,
+  "historical_archive_complete": false,
+  "operator_reconciliation_pending": true,
+  "national_completeness_verified": false
+}
