@@ -1263,3 +1263,18 @@ def test_shepherd_deals_done_uses_one_batched_branch_checkpoint():
     assert checkpoint < publish
     assert "inputs.focus != 'shepherd-deals-done'" in WORKFLOW[publish:publish + 500]
     assert "git add data/auction_history/sources/shepherd-commercial" in WORKFLOW[checkpoint:publish]
+
+
+def test_estate_agent_sitemaps_use_one_batched_nonpublishing_checkpoint():
+    assert "- estate-agent-auction-sitemaps" in WORKFLOW
+    start = WORKFLOW.index("- name: Collect first-party estate-agent sitemap auction properties")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    block = WORKFLOW[start:bounded]
+    assert "scripts/harvest_estate_agent_auction_sitemaps.py --workers 32" in block
+    assert "tests/test_estate_agent_auction_sitemaps.py" in block
+    checkpoint = WORKFLOW.index("- name: Save focused estate-agent sitemap checkpoint")
+    publish = WORKFLOW.index("- name: Publish checkpoint without changing the live board")
+    assert checkpoint < publish
+    assert "inputs.focus != 'estate-agent-auction-sitemaps'" in WORKFLOW[publish:publish + 700]
+    assert "data/auction_history/sources/abbotfox" in WORKFLOW[checkpoint:publish]
+    assert "data/auction_history/sources/bramleys" in WORKFLOW[checkpoint:publish]

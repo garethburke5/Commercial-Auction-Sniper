@@ -1,0 +1,59 @@
+{
+  "checked_at": "2026-11-14T15:50:28.296356+00:00",
+  "source": "estate-agent-auction-sitemaps",
+  "inventories": {
+    "abbotfox": {
+      "sitemap_url": "https://www.abbotfox.co.uk/sitemap.xml",
+      "property_detail_urls_checked": 696,
+      "auction_property_pages": 6,
+      "inventory_reconciled": true,
+      "sitemap_snapshot_path": "data/auction_history/sources/abbotfox/sitemap-eda3b7ebcb2c8b45.xml.gz",
+      "sitemap_response_sha256": "eda3b7ebcb2c8b45b7f8acfe5d943be71e92b82122081a7077deb58725808700"
+    },
+    "bramleys": {
+      "sitemap_url": "https://www.bramleys.com/sitemap.xml",
+      "property_detail_urls_checked": 510,
+      "auction_property_pages": 2,
+      "inventory_reconciled": true,
+      "sitemap_snapshot_path": "data/auction_history/sources/bramleys/sitemap-06f30278d316b0f1.xml.gz",
+      "sitemap_response_sha256": "06f30278d316b0f17c914d0b62c469894a495e3dc2fc46eef00ff95d70dd5cf6"
+    }
+  },
+  "run_new_appearances": 8,
+  "run_new_address_records": 8,
+  "run_new_dated_twenty_year_address_records": 2,
+  "run_new_partial_address_records": 8,
+  "run_new_undated": 1,
+  "run_new_future_dated": 5,
+  "run_new_commercial_or_mixed": 0,
+  "run_new_guide_prices": 8,
+  "run_new_sale_prices": 1,
+  "run_new_rents": 0,
+  "run_new_published_outcomes": 3,
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_evidence": [],
+  "related_interest_candidates_preserved": 0,
+  "related_interest_candidate_ids": [],
+  "new_source_years": [
+    {
+      "auctioneer": "Bramleys",
+      "year": "2026"
+    },
+    {
+      "auctioneer": "abbotFox",
+      "year": "2026"
+    }
+  ],
+  "by_source_new": {
+    "abbotFox": 6,
+    "Bramleys": 2
+  },
+  "by_sector_new": {
+    "residential": 8
+  },
+  "errors": [],
+  "historical_archive_complete": false,
+  "operator_reconciliation_pending": true,
+  "national_completeness_verified": false,
+  "next_growth_target": "Cundalls first-party past property-auction catalogue and result inventory"
+}

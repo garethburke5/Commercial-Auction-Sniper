@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-14T14:21:11.088885+00:00",
-  "individual_lot_records_captured": 319422,
-  "records_with_address": 308071,
+  "generated_at": "2026-11-14T15:51:44.364619+00:00",
+  "individual_lot_records_captured": 319430,
+  "records_with_address": 308079,
   "partial_lot_records": 11351,
-  "exact_address_groups": 172829,
+  "exact_address_groups": 172835,
   "groups_with_repeat_appearances": 43461,
   "by_auctioneer": {
     "247 Property Auctions": 272,
@@ -88,6 +88,7 @@
     "Bowen": 27,
     "Bradley Hall": 79,
     "Bradleys Online Auction": 426,
+    "Bramleys": 2,
     "Breckon & Breckon": 1,
     "Brookvale": 1,
     "Brown&Co": 478,
@@ -313,13 +314,14 @@
     "Williams & Goodwin / All Wales Auction": 186,
     "Woods Homes": 1,
     "Woolley & Wallis Online Auction": 7,
+    "abbotFox": 6,
     "i love homes online auction": 1,
     "myauction": 35,
     "sandersonjames": 10,
     "webbssecureit": 1
   },
   "by_year": {
-    "null": 5125,
+    "null": 5126,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -344,7 +346,7 @@
     "2023": 34663,
     "2024": 43461,
     "2025": 49406,
-    "2026": 49476,
+    "2026": 49483,
     "2027": 8
   },
   "by_sector": {
@@ -352,7 +354,7 @@
     "land": 19996,
     "mixed": 1,
     "mixed-use": 48871,
-    "residential": 155122,
+    "residential": 155130,
     "unknown": 52186
   },
   "date_range": [
@@ -360,7 +362,7 @@
     "2027-01-26"
   ],
   "surviving_catalogues_completely_harvested": 5272,
-  "catalogues_incomplete_or_unreconciled": 629,
+  "catalogues_incomplete_or_unreconciled": 635,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -373,13 +375,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310828,
-      "auction_ids_observed": 17640,
-      "with_guide_price": 112305,
-      "with_sale_price": 115840,
-      "with_both_prices": 51910,
-      "marked_sold": 159218,
-      "marked_sold_without_sale_price": 44118
+      "lot_appearances": 310830,
+      "auction_ids_observed": 17642,
+      "with_guide_price": 112307,
+      "with_sale_price": 115841,
+      "with_both_prices": 51911,
+      "marked_sold": 159220,
+      "marked_sold_without_sale_price": 44119
     },
     "by_auctioneer_and_year": [
       {
@@ -4902,6 +4904,17 @@
         "with_both_prices": 44,
         "marked_sold": 44,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bramleys",
+        "year": 2026,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
       },
       {
         "auctioneer": "Breckon & Breckon",
@@ -13671,6 +13684,17 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "abbotFox",
+        "year": 2026,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "i love homes online auction",
         "year": 2022,
         "lot_appearances": 1,
@@ -13737,8 +13761,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5125,
-    "future_dated_appearances": 349,
+    "undated_appearances": 5126,
+    "future_dated_appearances": 354,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
