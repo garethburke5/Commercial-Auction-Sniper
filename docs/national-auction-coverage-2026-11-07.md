@@ -1,5 +1,33 @@
 # UK auction coverage checkpoint — 7 November 2026
 
+## 14 November 2026 — Bamboo shared-marketplace expansion
+
+The shared Bamboo marketplace reconciles to **5,013 stable listing identities
+on 251 pages**. The reusable runner captured 4,995 detail payloads and retained
+their original URLs, published organisation/branch provenance and one immutable
+combined snapshot. Eighteen indexed pages expose no `propertyData`, so this is
+an explicitly partial source state rather than a completeness claim.
+
+Net banking is **3,363 appearances and address records** after excluding 753
+already-banked Bamboo stable IDs and 879 strong exact-evidence overlaps. The
+bank adds **3,168 dated addresses inside the twenty-year window**, 137 future
+rows and 58 undated rows; partial-address additions are zero. Forty-six
+same-date/address records with different evidence remain separate related-
+interest candidates. The commercial/mixed-use subset is **1,133**. Evidence
+growth is **3,363 guides, 2,307 achieved prices and 316 rents** across source-
+years 2021–2026.
+
+The 176 marketplace organisation labels and their branches remain source
+provenance, not 176 newly verified legal auctioneers. Rebuilt totals are
+**319,324 appearances, 307,973 addresses and 310,745 in-window appearances**,
+with 112,222 in-window guides and 115,826 achieved prices. National
+completeness remains false.
+
+Next target: recover the 18 missing detail identities through retained HTML,
+the attributed organisation's white-label host or archival evidence. The
+consolidated 4,995-detail snapshot is resumable, so successful recovery must not
+restart the completed denominator or repeat the current marketplace bank.
+
 ## 14 November 2026 — Hunters complete Bamboo expansion
 
 The three queued Henry Sykes numeric identities were duplicate aliases of rows

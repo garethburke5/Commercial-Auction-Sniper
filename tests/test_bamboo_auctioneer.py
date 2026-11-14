@@ -1,7 +1,13 @@
 from datetime import datetime, timezone
 import json
 
-from scripts.harvest_bamboo_auctioneer import extract_next_data, row_from_property
+from scripts.harvest_bamboo_auctioneer import (
+    duplicate_evidence_reason,
+    extract_next_data,
+    marketplace_attribution,
+    published_rent,
+    row_from_property,
+)
 
 
 def test_extract_next_data():
@@ -107,3 +113,34 @@ def test_missing_close_date_is_preserved_as_undated():
     assert row["auction_date"] is None
     assert row["status"] == "unknown"
     assert row["auction_date_basis"].startswith("no close date")
+
+
+def test_published_rent_requires_context_and_annualises_cadence():
+    assert published_rent("Currently tenanted with a rental income of £200 PCM") == (
+        2400,
+        "tenanted with a rental income of £200 PCM",
+    )
+    assert published_rent("Guide price £200 per month") == (None, None)
+
+
+def test_marketplace_attribution_keeps_branch_as_provenance():
+    auctioneer, provenance = marketplace_attribution({
+        "organisation": "example",
+        "organisationDetails": {
+            "_id": "org-id",
+            "name": "example",
+            "display": "Example Auctions",
+            "externalAddress": "https://example.test/auctions",
+            "branch": {"_id": "branch-id", "name": "city", "display": "City Branch"},
+        },
+    })
+    assert auctioneer == "Example Auctions"
+    assert provenance["source_organisation_id"] == "org-id"
+    assert provenance["source_branch_display"] == "City Branch"
+    assert provenance["branch_not_counted_as_auctioneer"] is True
+
+
+def test_duplicate_evidence_requires_more_than_date_and_address():
+    row = {"guide_price": 100000, "sale_price": None, "description": "A shop and flat"}
+    assert duplicate_evidence_reason(row, [{"guide_price": 100000}]) == "exact date/address and guide price"
+    assert duplicate_evidence_reason(row, [{"guide_price": 90000, "description": "A separate garage"}]) is None

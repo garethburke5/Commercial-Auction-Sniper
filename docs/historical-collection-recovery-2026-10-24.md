@@ -6,6 +6,30 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: Bamboo shared marketplace
+
+The shared marketplace index reconciles all **5,013 stable identities across
+251 pages**. A resumable batch captured 4,995 detail payloads; 18 indexed pages
+currently lack `propertyData`, so the state remains partial and those identities
+are the explicit missing denominator. The combined source snapshot replaces
+thousands of transient per-detail checkpoints without losing property evidence.
+
+Stable-ID reconciliation excluded 753 rows already banked through Bamboo
+white-label sources. A corpus-wide date/address pass excluded another 879 rows
+only where guide, achieved price or description evidence strongly matched, and
+preserved 46 materially different same-address/date candidates as possible
+related interests. The resulting bank adds **3,363 appearances**, including
+**3,168 dated address records in the twenty-year window**, 137 future-dated and
+58 undated rows; partial-address additions are zero.
+
+The commercial/mixed-use subset is **1,133**. Actual evidence growth is 3,363
+guides, 2,307 achieved prices and 316 rents. Published organisation and branch
+fields are retained as provenance and are not promoted to new legal auctioneer
+counts. National completeness remains false. The next recovery route is the 18
+missing identities via retained HTML, attributed white-label hosts or archival
+evidence, using the consolidated cache rather than refetching the 4,995
+completed identities.
+
 ## 14 November follow-through: Hunters complete Bamboo archive
 
 The three planned Henry Sykes numeric pages were exact aliases of already

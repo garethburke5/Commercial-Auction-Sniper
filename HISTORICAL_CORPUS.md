@@ -3,6 +3,44 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Bamboo shared-marketplace expansion
+
+The reusable Bamboo runner reconciled the shared marketplace to **5,013 unique
+stable listings across 251 pages** and captured **4,995 individual detail
+payloads** in one immutable combined snapshot. Eighteen indexed identities
+currently return pages without `propertyData`; the source is therefore
+explicitly partial, not complete, and those identities remain the resumable
+recovery denominator.
+
+After excluding **753 stable IDs** already banked from white-label sources and
+**879 strong exact-evidence overlaps** (same date/address plus matching guide,
+achieved price or substantially identical description), the run banks **3,363
+net new appearances and address records**. It preserves 46 same-date/address
+candidates with materially different evidence as possible related legal
+interests rather than deleting them. Historical growth is **3,168 exact-dated
+addresses inside the rolling twenty-year window**; 137 future-dated and 58
+undated rows are banked separately, with zero partial-address rows.
+
+The additions contain **291 commercial and 842 mixed-use appearances** (1,133
+combined), plus 1,678 residential, 340 land and 212 unknown-sector rows. Actual
+evidence growth is **3,363 guide prices, 2,307 achieved prices and 316 rents**.
+The source adds marketplace evidence for 2021–2026 across 176 published
+organisation labels. Organisation and branch fields are provenance only: the
+Bamboo platform, its branches and those labels are not automatically counted
+as new legal auctioneers.
+
+The rebuilt union contains **319,324 appearances, 307,973 address records,
+11,351 partial records and 310,745 in-window appearances**, including **112,222
+in-window guides and 115,826 in-window achieved prices**. Wider-corpus
+exceptions are 5,128 undated and 331 future-dated appearances. National
+completeness remains false.
+
+Next concrete growth target: recover the 18 indexed Bamboo identities that do
+not expose `propertyData` through a materially different route (retained HTML,
+organisation white-label host or web archive), while using the consolidated
+4,995-detail cache so no completed identity is refetched. Admit only individual
+evidence absent from the stable-ID and exact-evidence exclusions.
+
 ## 14 November 2026 — Hunters complete Bamboo archive
 
 The prepared Henry Sykes numeric identities `168708`, `169432` and `163384`
