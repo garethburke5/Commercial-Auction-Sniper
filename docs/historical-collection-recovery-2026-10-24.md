@@ -6,6 +6,32 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November shared-platform growth checkpoint
+
+The reusable Bamboo shared-platform collector reconciled the complete current
+public index (251 pages and 5,013 stable property IDs) before selecting the exact
+`bradleys` organisation. All 426 selected detail payloads were captured and
+banked as 426 net new address-bearing appearances: 408 exact-dated records in
+the twenty-year window, 16 future records, two undated records and no partials.
+The evidence adds 18 commercial/mixed-use appearances in total (16 in-window),
+426 guides, 377 achieved prices and six rents.
+
+Cross-corpus streaming checks found zero stable-ID/URL overlaps and zero exact
+date/address overlaps. The immutable snapshot retains the matched index rows and
+all property details, while original property URLs and individual close dates
+remain on each appearance. BRADLEYS ESTATE AGENTS LTD. (03682747) is one operator;
+branches and trading labels are attribution, not new auctioneers. Source-years
+2021–2026 are newly established for this operator. The surviving-index inventory
+is complete at 426/426, but deleted listings and earlier Bradleys platforms remain
+unverified.
+
+The rebuilt corpus contains 314,154 appearances, 302,838 addresses, 11,316
+partials and 305,796 in-window appearances. In-window guide and achieved-price
+counts are 107,683 and 113,513. No collection or publication workflow was
+started. The next concrete growth target is the 271-property Fisher German
+organisation on the same shared platform, using the reusable runner only after
+operator and overlap reconciliation. National completeness remains false.
+
 ## Implemented recovery
 
 - The historical workflow runs hourly with a 20-minute rotating collection budget, a per-task timeout, and a single concurrency group. It no longer stops after four fast tasks.

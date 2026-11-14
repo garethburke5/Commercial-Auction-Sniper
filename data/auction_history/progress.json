@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-14T19:31:29.780013+00:00",
-  "individual_lot_records_captured": 313728,
-  "records_with_address": 302412,
+  "generated_at": "2026-11-14T20:23:08.571822+00:00",
+  "individual_lot_records_captured": 314154,
+  "records_with_address": 302838,
   "partial_lot_records": 11316,
-  "exact_address_groups": 168344,
-  "groups_with_repeat_appearances": 42992,
+  "exact_address_groups": 168764,
+  "groups_with_repeat_appearances": 42996,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -66,6 +66,7 @@
     "Boultons Harrisons Ltd": 62,
     "Bowen": 27,
     "Bradley Hall": 79,
+    "Bradleys Estate Agents": 426,
     "Brown&Co": 478,
     "Butters John Bee": 1446,
     "Carter Jonas": 47,
@@ -133,7 +134,7 @@
     "Unknown auctioneer": 14
   },
   "by_year": {
-    "null": 5048,
+    "null": 5050,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -153,27 +154,27 @@
     "2018": 8294,
     "2019": 7978,
     "2020": 13957,
-    "2021": 21359,
-    "2022": 26781,
-    "2023": 33493,
-    "2024": 42407,
-    "2025": 48457,
-    "2026": 48371,
+    "2021": 21428,
+    "2022": 26851,
+    "2023": 33588,
+    "2024": 42460,
+    "2025": 48522,
+    "2026": 48443,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42805,
-    "land": 19659,
+    "commercial": 42814,
+    "land": 19692,
     "mixed": 1,
-    "mixed-use": 47729,
-    "residential": 151926,
-    "unknown": 51608
+    "mixed-use": 47738,
+    "residential": 152289,
+    "unknown": 51620
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 4990,
+  "surviving_catalogues_completely_harvested": 4991,
   "catalogues_incomplete_or_unreconciled": 562,
   "catalogue_fetch_or_parse_failures": 39,
   "limits": [
@@ -187,12 +188,12 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305388,
-      "auction_ids_observed": 14047,
-      "with_guide_price": 107275,
-      "with_sale_price": 113136,
-      "with_both_prices": 49257,
-      "marked_sold": 156018,
+      "lot_appearances": 305796,
+      "auction_ids_observed": 14455,
+      "with_guide_price": 107683,
+      "with_sale_price": 113513,
+      "with_both_prices": 49634,
+      "marked_sold": 156395,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -4232,6 +4233,72 @@
         "with_both_prices": 29,
         "marked_sold": 31,
         "marked_sold_without_sale_price": 2
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2021,
+        "lot_appearances": 69,
+        "auction_ids_observed": 69,
+        "with_guide_price": 69,
+        "with_sale_price": 69,
+        "with_both_prices": 69,
+        "marked_sold": 69,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2022,
+        "lot_appearances": 70,
+        "auction_ids_observed": 70,
+        "with_guide_price": 70,
+        "with_sale_price": 69,
+        "with_both_prices": 69,
+        "marked_sold": 69,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2023,
+        "lot_appearances": 95,
+        "auction_ids_observed": 95,
+        "with_guide_price": 95,
+        "with_sale_price": 94,
+        "with_both_prices": 94,
+        "marked_sold": 94,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2024,
+        "lot_appearances": 53,
+        "auction_ids_observed": 53,
+        "with_guide_price": 53,
+        "with_sale_price": 45,
+        "with_both_prices": 45,
+        "marked_sold": 45,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2025,
+        "lot_appearances": 65,
+        "auction_ids_observed": 65,
+        "with_guide_price": 65,
+        "with_sale_price": 56,
+        "with_both_prices": 56,
+        "marked_sold": 56,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2026,
+        "lot_appearances": 56,
+        "auction_ids_observed": 56,
+        "with_guide_price": 56,
+        "with_sale_price": 44,
+        "with_both_prices": 44,
+        "marked_sold": 44,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Brown&Co",
@@ -8865,8 +8932,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5048,
-    "future_dated_appearances": 172,
+    "undated_appearances": 5050,
+    "future_dated_appearances": 188,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

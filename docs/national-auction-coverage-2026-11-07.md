@@ -8,6 +8,33 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Bradleys shared-platform archive, 14 November
+
+The reusable Bamboo shared-platform collector first reconciled 251 public index
+pages and all 5,013 stable IDs, then captured all 426 rows attributed to the exact
+`bradleys` organisation. The bank gains 426 address-bearing appearances: 408
+exact-dated inside the twenty-year window, 16 future-dated and two undated. No
+partial or duplicate-derived appearance was admitted. Stable-ID/URL and exact
+date/address comparisons against the existing corpus both returned zero overlaps.
+
+The batch contains nine commercial, nine mixed-use, 33 land, 363 residential and
+12 unknown properties. Sixteen commercial/mixed-use appearances are in-window.
+It adds 426 guide prices, 377 achieved prices and six rents; the in-window subsets
+are 408 guides, 377 achieved prices and six rents. All individual URLs, close
+dates, published outcomes and matched source payloads are retained immutably.
+
+Bradleys Estate Agents source-years 2021–2026 are newly represented. BRADLEYS
+ESTATE AGENTS LTD. (03682747) remains one operator across offices, branches and
+online-auction labels. Completeness is limited to the surviving shared-platform
+inventory and does not cover deleted listings or earlier platforms.
+
+The rebuilt corpus holds 314,154 appearances, 302,838 address records and 305,796
+in-window appearances. No external collection, bank or publication workflow was
+launched. The next high-yield target is Fisher German's 271 surviving properties
+on the same platform, using the same denominator and overlap controls. National
+completeness remains false.
+
+
 ## Persisted historical gain — Carter Jonas retained archive, 14 November
 
 The reusable Bamboo collector reconciled 47/47 visible Carter Jonas property

@@ -4,6 +4,45 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 14 November 2026 — Bradleys shared Bamboo archive
+
+The reusable shared-platform Bamboo runner reconciled all **251 public index
+pages, 5,013 stable property identities and 426 exact `bradleys` detail
+payloads**. It banked **426 net new individual appearances and 426 address
+records**. Strict cross-corpus checks found no matching stable ID, original URL
+or exact date/address appearance, so no overlapping evidence was counted as
+growth.
+
+Of the additions, **408 are exact-dated inside the preceding twenty-year
+window**, 16 are future-dated and two are undated; no partial record was
+admitted. The sector split is nine commercial, nine mixed-use, 33 land, 363
+residential and 12 unknown. Sixteen commercial/mixed-use records are inside
+the window, one is future-dated and one is undated.
+
+All 426 records preserve a published guide price; 377 preserve an achieved
+price and six preserve published rent evidence. The in-window subset adds 408
+guides, all 377 achieved prices and all six rents. Published outcomes remain
+distinct: 377 sold, 16 available and 33 unknown. Original stable property URLs,
+individual close dates and the matched index/detail payloads are retained in a
+content-addressed immutable snapshot.
+
+This establishes Bradleys Estate Agents source-years **2021–2026**. BRADLEYS
+ESTATE AGENTS LTD. (company 03682747) is the reconciled operator; offices,
+branches and online-auction labels are not counted as additional auctioneers.
+Completeness applies only to listings surviving in the public shared-platform
+index, not deleted listings or earlier platforms.
+
+Rebuilt corpus totals are **314,154 appearances, 302,838 address records,
+11,316 partial records and 305,796 in-window appearances**, with **107,683
+in-window guides and 113,513 in-window achieved prices**. Undated and future
+totals are 5,050 and 188.
+
+Next serial growth target: run the same denominator-reconciling shared-platform
+collector for Fisher German's 271 surviving Bamboo properties, first proving
+operator/trading-name lineage and excluding stable-ID, URL and exact-date/address
+overlaps. National completeness remains false.
+
+
 ## 14 November 2026 — Carter Jonas retained Bamboo archive
 
 The reusable Bamboo white-label collector reconciled all three public index pages

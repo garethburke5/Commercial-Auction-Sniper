@@ -7,6 +7,7 @@ from scripts.harvest_bamboo_auctioneer import (
     published_rent,
     row_from_property,
 )
+from scripts.harvest_bamboo_shared_platform import collect_index
 
 
 def test_extract_next_data():
@@ -141,3 +142,26 @@ def test_asset_type_wins_over_neighbourhood_commercial_words():
 def test_published_rent_is_preserved_without_inference():
     assert published_rent("The shop produces £12,500 per annum.") == (12500, "£12,500 per annum")
     assert published_rent("Vacant possession; estimated rental value £12,500") == (None, None)
+
+
+def test_shared_index_reconciles_pages_and_stable_ids(monkeypatch):
+    pages = {
+        "https://app.bambooproptech.com/": {
+            "propertiesData": {"data": [{"_id": "1"}, {"_id": "2"}], "meta": {"totalCount": 3}}
+        },
+        "https://app.bambooproptech.com/?page=2": {
+            "propertiesData": {"data": [{"_id": "3"}], "meta": {"totalCount": 3}}
+        },
+    }
+    monkeypatch.setattr(
+        "scripts.harvest_bamboo_shared_platform.fetch",
+        lambda url: json.dumps({"url": url}).encode(),
+    )
+    monkeypatch.setattr(
+        "scripts.harvest_bamboo_shared_platform.page_props",
+        lambda raw: pages[json.loads(raw)["url"]],
+    )
+    rows, page_count, total_count = collect_index("app.bambooproptech.com", workers=1)
+    assert [row["_id"] for row in rows] == ["1", "2", "3"]
+    assert page_count == 2
+    assert total_count == 3
