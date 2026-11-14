@@ -1249,3 +1249,17 @@ def test_retained_grid_manifest_does_not_launch_current_snapshot_writer():
         "&& needs.collection_scope.outputs.collect == 'true'"
         in current_workflow
     )
+
+
+def test_shepherd_deals_done_uses_one_batched_branch_checkpoint():
+    assert "- shepherd-deals-done" in WORKFLOW
+    start = WORKFLOW.index("- name: Collect Shepherd Deals Done auction-property archive")
+    bounded = WORKFLOW.index("- name: Resume bounded archive batch")
+    block = WORKFLOW[start:bounded]
+    assert "scripts/harvest_shepherd_deals_done.py --workers 12" in block
+    assert "tests/test_shepherd_deals_done.py" in block
+    checkpoint = WORKFLOW.index("- name: Save focused Shepherd Deals Done checkpoint")
+    publish = WORKFLOW.index("- name: Publish checkpoint without changing the live board")
+    assert checkpoint < publish
+    assert "inputs.focus != 'shepherd-deals-done'" in WORKFLOW[publish:publish + 500]
+    assert "git add data/auction_history/sources/shepherd-commercial" in WORKFLOW[checkpoint:publish]
