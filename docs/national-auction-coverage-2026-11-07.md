@@ -770,8 +770,10 @@ Killens and Stags organisation and branch values remain provenance and are not
 counted as new auctioneers. No new source-year is claimed.
 
 Corpus totals after rebuild are **319,342 appearances, 307,991 addresses, 11,351
-partials and 310,761 in-window appearances**. The next concrete target is the
-unlinked Auction Inspire / Auction Local pair: inventory both first-party
-surfaces once, then batch the larger individually dated multi-event archive
-through a reusable collector with operator and platform-label reconciliation.
-National completeness remains false.
+partials and 310,761 in-window appearances**. The next concrete target is
+Shepherd Commercial's first-party auction-search pagination: inventory it once
+as a bounded multi-event archive, then batch every surviving individually dated
+result/detail lot through a reusable collector. Reconcile Shepherd Commercial
+Ltd, John Shepherd Chartered Surveyors and branch labels before counting the
+operator. Auction Inspire and Auction Local remain terminal until a materially
+different lot-bearing route appears. National completeness remains false.
