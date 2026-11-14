@@ -1,0 +1,46 @@
+{
+  "checked_at": "2026-11-14T13:17:50.341225+00:00",
+  "source": "shepherd-commercial",
+  "auctioneer": "Shepherd Commercial Auctions",
+  "source_file": "data/properties.json",
+  "source_snapshot": {
+    "source_url": "saved:data/properties.json",
+    "retrieved_at": "2026-11-09T06:48:42.381707+00:00",
+    "response_sha256": "47b0ced774728e0ae24419c036757d34cdfd1de72abd1f551a7aba6274f6d769",
+    "snapshot_path": "data/auction_history/sources/shepherd-commercial/saved-properties-47b0ced774728e0a.json.gz",
+    "evidence_tier": "saved first-party detail records from protected production collection"
+  },
+  "visible_saved_source_rows": 28,
+  "distinct_source_identities": 28,
+  "appearances_captured": 28,
+  "run_new_appearances": 28,
+  "run_new_address_records": 28,
+  "run_new_dated_twenty_year_address_records": 15,
+  "run_new_partial_lots": 0,
+  "run_new_undated": 0,
+  "run_new_future_dated": 13,
+  "run_new_commercial_or_mixed": 27,
+  "run_new_guide_prices": 28,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_duplicate_source_evidence_excluded": 0,
+  "related_interest_candidates_preserved": 0,
+  "duplicate_evidence": [],
+  "related_interest_candidate_ids": [],
+  "new_source_years": [
+    "2026"
+  ],
+  "by_date": {
+    "2026-10-22": 15,
+    "2026-12-03": 13
+  },
+  "by_sector": {
+    "commercial": 17,
+    "mixed-use": 10,
+    "residential": 1
+  },
+  "saved_source_inventory_reconciled": true,
+  "historical_archive_complete": false,
+  "operator_reconciliation_pending": true,
+  "national_completeness_verified": false
+}

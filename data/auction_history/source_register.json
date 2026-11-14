@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T11:59:42.178104+00:00",
-  "corpus_checkpoint": "2026-11-14T11:59:21.945198+00:00",
+  "generated_at": "2026-11-14T13:19:14.712889+00:00",
+  "corpus_checkpoint": "2026-11-14T13:18:57.092434+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8516,6 +8516,7 @@
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
     "Sheldon Bosley Knight": 26,
+    "Shepherd Commercial Auctions": 28,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smart Property Auctions": 15,
@@ -8565,9 +8566,9 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310761,
-      "auction_ids_observed": 17634,
-      "with_guide_price": 112238,
+      "lot_appearances": 310776,
+      "auction_ids_observed": 17635,
+      "with_guide_price": 112253,
       "with_sale_price": 115840,
       "with_both_prices": 51910,
       "marked_sold": 159157,
@@ -20345,6 +20346,17 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Shepherd Commercial Auctions",
+        "year": 2026,
+        "lot_appearances": 15,
+        "auction_ids_observed": 1,
+        "with_guide_price": 15,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Signature Estates Online Auction",
         "year": 2022,
         "lot_appearances": 4,
@@ -21908,7 +21920,7 @@
       }
     ],
     "undated_appearances": 5125,
-    "future_dated_appearances": 336,
+    "future_dated_appearances": 349,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -26855,6 +26867,24 @@
       "checked_at": "2026-11-13T22:28:59.546891+00:00"
     },
     {
+      "state_file": "data/auction_history/auctions/shepherd-commercial/2026-12-03.json",
+      "auctioneer": "Shepherd Commercial Auctions",
+      "auction_date": "2026-12-03",
+      "source_url": null,
+      "lots_captured": 13,
+      "errors": [],
+      "checked_at": "2026-11-14T13:17:50.341134+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/shepherd-commercial/2026-10-22.json",
+      "auctioneer": "Shepherd Commercial Auctions",
+      "auction_date": "2026-10-22",
+      "source_url": null,
+      "lots_captured": 15,
+      "errors": [],
+      "checked_at": "2026-11-14T13:17:50.340988+00:00"
+    },
+    {
       "state_file": "data/auction_history/auctions/auction-house-southyorkshire/online-results.json",
       "auctioneer": "Auction House South Yorkshire",
       "auction_date": null,
@@ -28475,7 +28505,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T11:59:41.825611+00:00",
+    "checked_at": "2026-11-14T13:19:14.366141+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

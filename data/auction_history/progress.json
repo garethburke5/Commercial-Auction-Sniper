@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-14T11:59:21.945198+00:00",
-  "individual_lot_records_captured": 319342,
-  "records_with_address": 307991,
+  "generated_at": "2026-11-14T13:18:57.092434+00:00",
+  "individual_lot_records_captured": 319370,
+  "records_with_address": 308019,
   "partial_lot_records": 11351,
   "exact_address_groups": 172829,
   "groups_with_repeat_appearances": 43461,
@@ -273,6 +273,7 @@
     "SellMyHome.co.uk Online Auction": 3,
     "Sharpes Auctions": 1237,
     "Sheldon Bosley Knight": 26,
+    "Shepherd Commercial Auctions": 28,
     "Signature Estates Online Auction": 4,
     "Smart Estate Agent": 1,
     "Smart Property Auctions": 15,
@@ -343,15 +344,15 @@
     "2023": 34663,
     "2024": 43461,
     "2025": 49405,
-    "2026": 49397,
+    "2026": 49425,
     "2027": 8
   },
   "by_sector": {
-    "commercial": 43220,
+    "commercial": 43237,
     "land": 19996,
     "mixed": 1,
-    "mixed-use": 48828,
-    "residential": 155113,
+    "mixed-use": 48838,
+    "residential": 155114,
     "unknown": 52184
   },
   "date_range": [
@@ -359,7 +360,7 @@
     "2027-01-26"
   ],
   "surviving_catalogues_completely_harvested": 5272,
-  "catalogues_incomplete_or_unreconciled": 622,
+  "catalogues_incomplete_or_unreconciled": 624,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -372,9 +373,9 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310761,
-      "auction_ids_observed": 17634,
-      "with_guide_price": 112238,
+      "lot_appearances": 310776,
+      "auction_ids_observed": 17635,
+      "with_guide_price": 112253,
       "with_sale_price": 115840,
       "with_both_prices": 51910,
       "marked_sold": 159157,
@@ -12152,6 +12153,17 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Shepherd Commercial Auctions",
+        "year": 2026,
+        "lot_appearances": 15,
+        "auction_ids_observed": 1,
+        "with_guide_price": 15,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Signature Estates Online Auction",
         "year": 2022,
         "lot_appearances": 4,
@@ -13715,7 +13727,7 @@
       }
     ],
     "undated_appearances": 5125,
-    "future_dated_appearances": 336,
+    "future_dated_appearances": 349,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
