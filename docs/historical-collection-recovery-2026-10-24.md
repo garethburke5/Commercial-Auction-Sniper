@@ -4240,6 +4240,18 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Next concrete target: Auction House Online event 62275, principally dated 1 October 2024, with 41 first-party cards at `/past-auctions/62275?lotResultType=All`. One card is individually dated 24 September 2024 and must retain that date. Source config and its assertion are prepared in [`3eae2b3fc40cd30a6a9fcd74b501bd9f4318c14a`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/3eae2b3fc40cd30a6a9fcd74b501bd9f4318c14a) and [`3a6a818a5fa0bc2ec1b1385401edc2ca67912222`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/3a6a818a5fa0bc2ec1b1385401edc2ca67912222). Do not launch it while another writer is active.
 - National completeness remains **false**.
 
+## 2026-11-14 — Migrated Bamboo detail recovery completed
+
+- The retained marketplace index exposed **5,013 stable identities** while the immutable consolidated bundle contained **4,995 detail payloads**. All 18 missing handles were recovered from Bamboo's migrated `app.bambooproptech.com` Next.js route without refetching the completed bundle.
+- The reusable runner now reads both legacy `propertyData` and migrated `propertyResponse` payloads, accepts alternate detail hosts and a saved index, and keeps its consolidated bundle checkpoint during interrupted recovery. This prevents an interrupted 18-handle pass from becoming a 5,013-page refresh.
+- Net banked gain is **18 appearances / 18 addresses / 15 exact-dated addresses inside the rolling 20-year window**. Three additional Killens appearances are explicitly future-dated 19 November 2026. Added partial and undated records are **0 / 0**.
+- Sector gain is **2 commercial, 14 mixed-use, 1 land and 1 residential**; commercial/mixed-use growth is **16**. Evidence gain is **18 guides, 14 achieved prices and 0 rents**.
+- All 18 migrated payloads and their retrieval URLs are retained immutably. Stable-ID and strong exact-evidence checks found no duplicate among these additions; archive-wide overlaps remain excluded, and related legal interests remain separate.
+- Killens and Stags organisation/branch labels are provenance only. The recovered appearances add no new legal operator or source-year because 2023 and 2024 were already represented.
+- Rebuilt totals are **319,342 appearances**, **307,991 addresses**, **310,761 in-window appearances**, **112,238 in-window guides**, **115,840 in-window achieved prices**, **11,351 partial**, **5,125 undated** and **336 future-dated** records. The packaged database and source register were regenerated from the complete bank.
+- Different next target: inventory Auction Inspire and Auction Local together, select the larger surviving individually dated first-party archive, and batch its multi-event inventory through a reusable collector. Do not count directory entries, platform labels or branches as properties or new auctioneers.
+- National completeness remains **false**.
+
 ## 2026-11-14 — Sunderlands 2016–2018 result-sheet batch
 
 - The City & Rural saved event shells contained no individual lot links, and the complete public Durrants 2021–2022 media inventory contained no auction result or catalogue PDF. Both zero-growth routes are bounded pending a materially different lot-bearing source.
