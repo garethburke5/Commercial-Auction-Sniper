@@ -5,6 +5,8 @@ from scripts.harvest_bamboo_auctioneer import (
     duplicate_evidence_reason,
     extract_next_data,
     marketplace_attribution,
+    property_payload,
+    published_auction_date,
     published_rent,
     row_from_property,
 )
@@ -18,6 +20,17 @@ def test_extract_next_data():
         + "</script></html>"
     ).encode()
     assert extract_next_data(raw) == payload
+
+
+def test_property_payload_accepts_marketplace_and_fusion_shapes():
+    for key in ("propertyData", "propertyResponse"):
+        payload = {"props": {"pageProps": {key: {"_id": "lot-id", "handle": "lot"}}}}
+        raw = (
+            '<html><script id="__NEXT_DATA__" type="application/json">'
+            + json.dumps(payload)
+            + "</script></html>"
+        ).encode()
+        assert property_payload(raw)["_id"] == "lot-id"
 
 
 def test_row_preserves_exact_close_prices_and_identity():
@@ -113,6 +126,50 @@ def test_missing_close_date_is_preserved_as_undated():
     assert row["auction_date"] is None
     assert row["status"] == "unknown"
     assert row["auction_date_basis"].startswith("no close date")
+
+
+def test_fusion_bid_timestamp_recovers_event_date_without_inventing_end_time():
+    item = {
+        "_id": "fusion-id",
+        "handle": "retired-lot",
+        "title": "Land",
+        "type": "Land",
+        "fullAddress": "Land at Example Road, EX1 1AA",
+        "postcode": "EX1 1AA",
+        "guidePrice": 80000,
+        "highestBid": 88000,
+        "isReserveMet": True,
+        "bids": [
+            {"amount": 80000, "createdAt": "2023-04-27T17:44:33.286Z"},
+            {"amount": 88000, "createdAt": "2023-04-27T17:45:03.097Z"},
+        ],
+    }
+    row = row_from_property(
+        item,
+        "Example",
+        "example",
+        "example.test",
+        {},
+        datetime(2026, 1, 1, tzinfo=timezone.utc),
+    )
+    assert row["auction_date"] == "2023-04-27"
+    assert row["auction_end_time"] is None
+    assert row["auction_date_basis"].startswith("exact event date from latest published bid")
+    assert row["sale_price"] == 88000
+
+
+def test_description_recovers_only_explicit_auction_date():
+    item = {
+        "description": (
+            "Planning permission dated 3rd May 2023. "
+            "Live/hybrid auction, ending on 19th November 2026."
+        )
+    }
+    assert published_auction_date(item) == (
+        "2026-11-19",
+        None,
+        "exact auction date explicitly published in retained Bamboo property description",
+    )
 
 
 def test_published_rent_requires_context_and_annualises_cadence():
