@@ -82,6 +82,21 @@ SOURCES = {
             "as a new auctioneer, and admit only individually dated historical lots."
         ),
     },
+    "smart-property-auctions": {
+        "auctioneer": "Smart Property Auctions",
+        "base": "https://www.smartpropertyauctions.co.uk",
+        # The first-party dedicated past-auctions grid is finite and currently
+        # publishes 15 individually dated outcomes.  A third-party directory
+        # advertises 28 historic entries, but that is not a first-party lot
+        # denominator and must not inflate this capture.
+        "archive_path": "/past-auctions?lotResultType=All&order=RecentlyEnded",
+        "operator_legal_name": "CAPITAL PRESTIGE LIMITED",
+        "operator_company_number": "06079839",
+        # Preserve only one appearance when another platform already holds an
+        # unambiguous exact date/address match.
+        "exclude_exact_cross_source_overlaps": True,
+        "preserve_batch_baseline": True,
+    },
     "property-auction-agent": {
         "auctioneer": "Property Auction Agent",
         "base": "https://propertyauctionagent.eigonlineauctions.com",

@@ -698,6 +698,32 @@
       "inventory_equivalence_verified": false,
       "assessment": "THE AUCTION GROUP LIMITED (12685958) is retained as one genuine operator. The dedicated four-page historical grid is separate from the generic search surface, whose 35 upcoming rows are not historical appearances.",
       "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Smart Property Auctions",
+      "source": "Smart Property Auctions",
+      "canonical_network": null,
+      "parent_family": "CAPITAL PRESTIGE LIMITED",
+      "source_url": "https://www.smartpropertyauctions.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded",
+      "collector": "scripts.harvest_eig_retained_grids",
+      "shared_feed": null,
+      "relationship_evidence": "https://www.smartpropertyauctions.co.uk/",
+      "inventory_equivalence_verified": false,
+      "assessment": "Smart Property Auctions is retained as the trading platform operated by CAPITAL PRESTIGE LIMITED (06079839). The separate dormant directory company is not counted as the archive operator or another auctioneer.",
+      "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Auction Property Ltd",
+      "source": "Auction Property Ltd",
+      "canonical_network": null,
+      "parent_family": "AUCTION PROPERTY LTD",
+      "source_url": "https://auctionproperty.co.uk/past-auction-dates/",
+      "collector": "scripts.harvest_auction_property_events",
+      "shared_feed": null,
+      "relationship_evidence": "https://auctionproperty.co.uk/about-auction-property/",
+      "inventory_equivalence_verified": false,
+      "assessment": "AUCTION PROPERTY LTD (12828051) is one genuine operator. Event pages and repeated property-detail URLs are evidence within that operator and are not counted as separate auctioneers.",
+      "verified_on": "2026-11-14"
     }
   ],
   "priority_assessments": [

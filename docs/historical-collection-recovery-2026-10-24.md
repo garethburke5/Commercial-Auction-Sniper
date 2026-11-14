@@ -6,6 +6,28 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: Auction Property and Smart Property
+
+The planned pair produced **66 net appearances**, all dated address records in
+the twenty-year window. Smart Property's dedicated first-party grid reconciles
+15 cards and 15 details. The new Auction Property event-batch collector
+traverses all 32 indexed event pages, banks the 51 cards surviving across 19
+events, and preserves 13 empty/repurposed shells without calling them lots.
+Historical event dates and outcomes come from the event snapshots, not mutable
+property-detail pages that may describe a later relisting.
+
+The additions contain 8 commercial and 2 mixed-use appearances, 21 guides, no
+published achieved prices and no rents. Partial, undated, future-dated and
+duplicate additions are zero. Auction Property Ltd is one operator under
+AUCTION PROPERTY LTD (12828051); Smart Property Auctions is operated as a
+trading platform by CAPITAL PRESTIGE LIMITED (06079839). Source years are
+2023–2026 and 2025–2026 respectively. National completeness remains false.
+
+The next bounded discovery batch is Auction Inspire and Auction Local. Select
+the larger accessible individually dated first-party archive, reconcile the
+legal operator and platform labels, and collect its multi-event inventory
+through a reusable runner rather than creating per-event workflow steps.
+
 ## 14 November follow-through: The Auction Group retained archive
 
 The dedicated first-party past-auctions grid supplied **157/157** individual

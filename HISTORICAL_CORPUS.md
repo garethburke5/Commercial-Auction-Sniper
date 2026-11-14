@@ -3,6 +3,43 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Auction Property and Smart Property batch
+
+Two distinct first-party archives were processed without launching a workflow
+writer. Smart Property Auctions' dedicated EIG past grid reconciles **15/15
+cards** and all 15 detail pages. Auction Property Ltd's reusable event runner
+traverses all **32** links on its past-auction index and reconciles every
+surviving property card: **51 cards across 19 populated event pages**. Thirteen
+empty or repurposed shells are retained as bounded non-property evidence and
+are not counted as lots. Mutable Auction Property detail pages are not allowed
+to overwrite the exact historical date or outcome printed on an event page.
+
+Net growth is **66 appearances and 66 exact-dated address records inside the
+rolling twenty-year window**. No partial, undated, future-dated, duplicate-
+source or exact date/address overlap was admitted. Sectors are 48 residential,
+8 commercial, 5 land, 2 mixed-use and 3 unknown, so the commercial/mixed-use
+subset is **10**. Evidence growth is **21 guide prices, 0 achieved prices and 0
+rents**; missing amounts remain null.
+
+Auction Property Ltd adds source-years **2023–2026** under AUCTION PROPERTY LTD
+(12828051). Smart Property Auctions adds **2025–2026** as the trading platform
+operated by CAPITAL PRESTIGE LIMITED (06079839); the separate dormant company
+name is not treated as this archive's operator or another auctioneer. Original
+URLs and immutable snapshots of both indexes, all 32 Auction Property event
+pages, the Smart grid and all Smart detail pages are retained.
+
+The rebuilt union contains **315,420 appearances, 304,069 address records,
+11,351 partial records and 307,060 in-window appearances**, including **108,538
+in-window guides and 113,117 in-window achieved prices**. Retained wider-corpus
+exceptions remain 5,056 undated and 184 future-dated appearances. National
+completeness remains false.
+
+Next concrete growth target: inventory Auction Inspire and Auction Local as one
+bounded first-party discovery batch, select the operator with the larger
+individually dated lot archive, and bank that complete surviving multi-event
+inventory through a reusable collector after legal-operator and shared-platform
+reconciliation.
+
 ## 14 November 2026 — The Auction Group retained-grid batch
 
 The first-party dedicated past-auctions route exposed a finite four-page

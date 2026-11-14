@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T05:34:23.940885+00:00",
-  "corpus_checkpoint": "2026-11-14T05:33:41.044244+00:00",
+  "generated_at": "2026-11-14T06:11:12.521370+00:00",
+  "corpus_checkpoint": "2026-11-14T06:10:38.137285+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -948,13 +948,18 @@
       "name": "Auction Property Ltd",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/auction-property-ltd",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Auction Property Ltd",
+      "match_basis": "exact label",
+      "retained_appearances": 51,
+      "years_with_retained_evidence": [
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 6,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -6748,13 +6753,16 @@
       "name": "Smart Property Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/smart-property-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Smart Property Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 15,
+      "years_with_retained_evidence": [
+        2025,
+        2026
+      ],
+      "with_guide_price": 15,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8212,7 +8220,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 461,
+  "directory_entries_not_linked": 459,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8264,6 +8272,7 @@
     "Auction House Wales - Colwyn Bay": 36,
     "Auction House West Yorkshire": 223,
     "Auction North": 37,
+    "Auction Property Ltd": 51,
     "Auction Works": 653,
     "BTG Eddisons": 3036,
     "Bagshaws": 373,
@@ -8332,6 +8341,7 @@
     "Seel & Co": 460,
     "Sharpes Auctions": 1237,
     "Sheldon Bosley Knight": 26,
+    "Smart Property Auctions": 15,
     "Smith & Sons": 1007,
     "Strettons": 199,
     "Sunderlands": 61,
@@ -8351,13 +8361,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306994,
-      "auction_ids_observed": 13922,
-      "with_guide_price": 108517,
+      "lot_appearances": 307060,
+      "auction_ids_observed": 13953,
+      "with_guide_price": 108538,
       "with_sale_price": 113117,
       "with_both_prices": 49187,
-      "marked_sold": 156400,
-      "marked_sold_without_sale_price": 44023
+      "marked_sold": 156425,
+      "marked_sold_without_sale_price": 44048
     },
     "by_auctioneer_and_year": [
       {
@@ -11758,6 +11768,50 @@
         "with_both_prices": 0,
         "marked_sold": 1,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2024,
+        "lot_appearances": 28,
+        "auction_ids_observed": 6,
+        "with_guide_price": 2,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2025,
+        "lot_appearances": 13,
+        "auction_ids_observed": 7,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 9
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 5,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Auction Works",
@@ -16468,6 +16522,28 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Smart Property Auctions",
+        "year": 2025,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Smart Property Auctions",
+        "year": 2026,
+        "lot_appearances": 12,
+        "auction_ids_observed": 9,
+        "with_guide_price": 12,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 6
+      },
+      {
         "auctioneer": "Smith & Sons",
         "year": 2014,
         "lot_appearances": 25,
@@ -17759,6 +17835,40 @@
         "2016",
         "2017",
         "2018"
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "eig_retained_grid:smart-property-auctions": {
+      "source": "eig_retained_grid:smart-property-auctions",
+      "outcome": "completed",
+      "checked_at": "2026-11-14T06:03:41.438993+00:00",
+      "run_new_appearances": 15,
+      "run_new_dated_twenty_year_address_records": 15,
+      "run_new_commercial_or_mixed": 0,
+      "run_new_guide_prices": 15,
+      "run_new_sale_prices": 0,
+      "newly_covered_source_years": [
+        2025,
+        2026
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
+    },
+    "auction-property-ltd": {
+      "source": "auction-property-ltd",
+      "outcome": "completed",
+      "checked_at": "2026-11-14T06:09:15.519861+00:00",
+      "run_new_appearances": 51,
+      "run_new_dated_twenty_year_address_records": 51,
+      "run_new_commercial_or_mixed": 10,
+      "run_new_guide_prices": 6,
+      "run_new_sale_prices": 0,
+      "newly_covered_source_years": [
+        "2023",
+        "2024",
+        "2025",
+        "2026"
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
@@ -23776,7 +23886,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T05:34:22.417324+00:00",
+    "checked_at": "2026-11-14T06:11:10.852019+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

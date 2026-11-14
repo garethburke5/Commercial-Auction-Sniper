@@ -1,5 +1,30 @@
 # UK auction coverage checkpoint — 7 November 2026
 
+## 14 November 2026 — Auction Property and Smart Property expansion
+
+The persisted two-source target produced **66 net new individual appearances**,
+all exact-dated address records inside the twenty-year window. Smart Property
+Auctions contributes 15/15 cards from its dedicated first-party past grid.
+Auction Property Ltd contributes all 51 cards still visible across 19 of the 32
+events on its first-party past-auction index. The other 13 event shells are
+empty or repurposed and remain non-property evidence, not captured lots.
+
+The commercial/mixed-use subset is **10** (8 commercial and 2 mixed-use).
+Evidence growth is **21 guides, 0 achieved prices and 0 rents**. Added partial,
+undated, future-dated and duplicate appearances are zero. Auction Property adds
+source-years 2023–2026; Smart Property adds 2025–2026.
+
+Auction Property Ltd is retained once under AUCTION PROPERTY LTD (12828051).
+Smart Property Auctions is retained as the trading platform operated by CAPITAL
+PRESTIGE LIMITED (06079839), without counting directory/company-name aliases as
+additional auctioneers. The rebuilt corpus contains 315,420 appearances,
+304,069 addresses and 307,060 in-window appearances, with 108,538 in-window
+guides and 113,117 achieved prices. National completeness remains false.
+
+Next target: inventory Auction Inspire and Auction Local as one bounded
+first-party discovery batch, then collect the larger individually dated archive
+through a reusable multi-event runner after operator/platform reconciliation.
+
 ## 14 November 2026 — The Auction Group retained-grid expansion
 
 The dedicated first-party historical grid reconciles **157/157 individual

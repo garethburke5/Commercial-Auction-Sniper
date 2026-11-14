@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-14T05:33:41.044244+00:00",
-  "individual_lot_records_captured": 315354,
-  "records_with_address": 304003,
+  "generated_at": "2026-11-14T06:10:38.137285+00:00",
+  "individual_lot_records_captured": 315420,
+  "records_with_address": 304069,
   "partial_lot_records": 11351,
-  "exact_address_groups": 169182,
-  "groups_with_repeat_appearances": 43235,
+  "exact_address_groups": 169246,
+  "groups_with_repeat_appearances": 43237,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -56,6 +56,7 @@
     "Auction House Wales - Colwyn Bay": 36,
     "Auction House West Yorkshire": 223,
     "Auction North": 37,
+    "Auction Property Ltd": 51,
     "Auction Works": 653,
     "BTG Eddisons": 3036,
     "Bagshaws": 373,
@@ -124,6 +125,7 @@
     "Seel & Co": 460,
     "Sharpes Auctions": 1237,
     "Sheldon Bosley Knight": 26,
+    "Smart Property Auctions": 15,
     "Smith & Sons": 1007,
     "Strettons": 199,
     "Sunderlands": 61,
@@ -161,25 +163,25 @@
     "2020": 14056,
     "2021": 21453,
     "2022": 26881,
-    "2023": 33667,
-    "2024": 42684,
-    "2025": 48758,
-    "2026": 48660,
+    "2023": 33670,
+    "2024": 42712,
+    "2025": 48774,
+    "2026": 48679,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42891,
-    "land": 19635,
+    "commercial": 42899,
+    "land": 19640,
     "mixed": 1,
-    "mixed-use": 47877,
-    "residential": 153041,
-    "unknown": 51909
+    "mixed-use": 47879,
+    "residential": 153089,
+    "unknown": 51912
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5196,
+  "surviving_catalogues_completely_harvested": 5240,
   "catalogues_incomplete_or_unreconciled": 622,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
@@ -193,13 +195,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306994,
-      "auction_ids_observed": 13922,
-      "with_guide_price": 108517,
+      "lot_appearances": 307060,
+      "auction_ids_observed": 13953,
+      "with_guide_price": 108538,
       "with_sale_price": 113117,
       "with_both_prices": 49187,
-      "marked_sold": 156400,
-      "marked_sold_without_sale_price": 44023
+      "marked_sold": 156425,
+      "marked_sold_without_sale_price": 44048
     },
     "by_auctioneer_and_year": [
       {
@@ -3600,6 +3602,50 @@
         "with_both_prices": 0,
         "marked_sold": 1,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 1,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2024,
+        "lot_appearances": 28,
+        "auction_ids_observed": 6,
+        "with_guide_price": 2,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2025,
+        "lot_appearances": 13,
+        "auction_ids_observed": 7,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 9
+      },
+      {
+        "auctioneer": "Auction Property Ltd",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 5,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Auction Works",
@@ -8308,6 +8354,28 @@
         "with_both_prices": 3,
         "marked_sold": 3,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Smart Property Auctions",
+        "year": 2025,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 3
+      },
+      {
+        "auctioneer": "Smart Property Auctions",
+        "year": 2026,
+        "lot_appearances": 12,
+        "auction_ids_observed": 9,
+        "with_guide_price": 12,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 6
       },
       {
         "auctioneer": "Smith & Sons",
