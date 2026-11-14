@@ -1,5 +1,32 @@
 # UK auction coverage checkpoint — 7 November 2026
 
+## 14 November 2026 — Shepherd saved-detail banking
+
+The saved production corpus exposed **28 uncaptured first-party Shepherd
+property details**. A reusable importer has now banked all 28 original URLs and
+their individual evidence in one immutable snapshot. Fifteen records are dated
+22 October 2026 inside the rolling twenty-year window; thirteen are explicitly
+future-dated 3 December 2026. There are no partial, undated or duplicate-source
+admissions.
+
+Sector growth is **17 commercial, 10 mixed-use and 1 residential** appearances,
+including 15 historical commercial/mixed-use records. Evidence growth is
+**28 guides, 0 achieved prices and 1 rent**. Shepherd 2026 is a newly
+represented source-year. Website availability state is not an auction outcome,
+and unknown results and sale prices remain null.
+
+The saved inventory reconciles 28/28, but Shepherd's wider archive is not
+complete. Shepherd Commercial Auctions, Shepherd Commercial Ltd, John Shepherd
+Chartered Surveyors and branch labels remain pending canonical reconciliation;
+aliases and branches are not counted as extra auctioneers. Rebuilt totals are
+**319,370 appearances, 308,019 addresses and 310,776 in-window appearances**.
+Protected run [43598865183](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43598865183)
+leaves the live board unchanged.
+
+Next national target: batch Shepherd's live first-party auction-search
+pagination and deals-done/result pages, excluding the 28 saved identities and
+all exact date/address overlaps. National completeness remains **false**.
+
 ## 14 November 2026 — Bamboo shared-marketplace expansion
 
 The shared Bamboo marketplace reconciles to **5,013 stable listing identities

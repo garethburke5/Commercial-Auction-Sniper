@@ -6,6 +6,18 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: Shepherd saved first-party details
+
+- Growth opportunity executed: 28 individually evidenced Shepherd detail rows already present in the protected production source file but absent from the historical appearance bank.
+- The reusable importer preserves all 28 original first-party URLs, individual dates, guide evidence, the published rent, descriptions and sectors in a content-addressed immutable snapshot. Current/archive website state is not promoted to an auction outcome.
+- Net banked growth is **28 appearances and 28 addresses**: **15 exact-dated records inside the rolling twenty-year window**, **13 explicitly future-dated**, and zero partial or undated admissions. Exact-evidence duplicates excluded and related-interest candidates are both zero.
+- Sector growth is **17 commercial, 10 mixed-use and 1 residential**; the in-window subset is 9 commercial and 6 mixed-use. Evidence growth is **28 guides, 0 achieved prices and 1 rent**.
+- Shepherd 2026 is one newly represented source-year. The saved source inventory reconciles 28/28, but the wider historical archive remains incomplete. Shepherd Commercial Auctions, Shepherd Commercial Ltd, John Shepherd Chartered Surveyors and branch labels remain pending canonical reconciliation and are not counted as separate operators.
+- Rebuilt totals are **319,370 appearances, 308,019 addresses, 310,776 in-window appearances, 112,253 in-window guides and 115,840 in-window achieved prices**. Exceptions are 11,351 partial, 5,125 undated and 349 future-dated records.
+- Protected run [43598865183](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43598865183) banks only to the dispatched branch; the live board and main publication checkpoint remain untouched.
+- Next target: traverse Shepherd's live first-party auction-search pagination plus deals-done/result pages as one bounded multi-event archive and admit only uncaptured individual detail lots after exact-overlap exclusion.
+- National completeness remains **false**.
+
 ## 14 November follow-through: Bamboo shared marketplace
 
 The shared marketplace index reconciles all **5,013 stable identities across

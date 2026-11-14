@@ -3,6 +3,43 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Shepherd saved first-party detail checkpoint
+
+The protected production corpus already held **28 individually evidenced
+Shepherd first-party detail records** that were absent from the historical
+appearance bank. A reusable saved-source importer now preserves the original
+detail URLs, one content-addressed immutable source snapshot, individual dates,
+guides, rents, descriptions and property types. It keeps the current/archive
+website state separate from auction outcomes, which remain unknown unless the
+source publishes one.
+
+The bank adds **28 appearances and 28 address records**. Fifteen are
+exact-dated 22 October 2026 records inside the rolling twenty-year window;
+thirteen are explicitly future-dated 3 December 2026 records. Added partial and
+undated records are zero. No exact-evidence duplicate was admitted and no
+related legal interest was collapsed.
+
+Sector growth is **17 commercial, 10 mixed-use and 1 residential** appearances;
+the historical subset is 9 commercial and 6 mixed-use. Evidence growth is
+**28 guides, 0 achieved prices and 1 rent**. Shepherd 2026 is a newly
+represented source-year. The saved 28/28 inventory is reconciled, but this is
+not a complete Shepherd historical archive.
+
+Corpus totals after rebuild are **319,370 appearances, 308,019 address
+records, 11,351 partials and 310,776 in-window appearances**. Window evidence
+totals are **112,253 guides and 115,840 achieved prices**; exceptions include
+5,125 undated and 349 future-dated records. The protected run is
+[43598865183](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43598865183),
+and the live board remains unchanged.
+
+Next concrete growth target: traverse Shepherd Commercial's live first-party
+auction-search pagination and deals-done/result pages as one bounded
+multi-event archive, then batch every surviving uncaptured detail lot through
+the reusable runner. Exclude these 28 identities and all exact date/address
+overlaps. Reconcile Shepherd Commercial Ltd, John Shepherd Chartered Surveyors
+and branch labels before counting the operator. National completeness remains
+false.
+
 ## 14 November 2026 — Bamboo shared-marketplace expansion
 
 The reusable Bamboo runner reconciled the shared marketplace to **5,013 unique
