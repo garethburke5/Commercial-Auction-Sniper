@@ -7,6 +7,35 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through checkpoint — Kivells 2018 publisher-profile batch
+
+The reusable rendered-book runner processed four retained first-party Kivells
+2018 result books together: Spring (`dspe`), Summer (`kqfu`), September (`hmxm`)
+and November (`kaqb`). The bank adds **41 net appearances**, all exact-dated
+address records inside the twenty-year window. The commercial/mixed-use subset
+is **9**: 6 commercial and 3 mixed-use, alongside 18 residential and 14 land.
+
+New evidence comprises **41 guides, 6 exact achieved prices and 0 rents**.
+Published outcomes are 24 sold and 17 unknown/guide-only; 18 sold cards do not
+publish an exact achieved amount, so those values remain null. Partial,
+undated, future-dated and duplicate additions are all zero.
+
+The event denominators reconcile to 6, 13, 12 and 10 visible cards. Forty-seven
+original page images, accessible page text, public HTML and viewer configs are
+retained with hashes in a reconstructable split archive. Kivells remains one
+operator lineage; the batch adds four reconciled event inventories and one
+newly represented Kivells source-year, 2018, not another auctioneer.
+
+Rebuilt totals are **315,097 appearances, 303,760 address records and 306,737
+in-window appearances**, including 108,266 guides and 113,043 achieved prices.
+The protected collection/publication jobs were not duplicated. National
+coverage remains unverified.
+
+Next growth target: batch the retained Kivells June 2022 (`ninr`) and October
+2022 (`irpy`) result books with the full-year review (`fluu`), reconciling the
+duplicate May (`laym`) and September (`slxn`) copies against already banked
+evidence before admitting any individual card.
+
 ## Follow-through checkpoint — Kivells 2019 publisher-profile batch
 
 Four omitted Kivells 2019 result books were recovered from the complete

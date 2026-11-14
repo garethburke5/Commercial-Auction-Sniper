@@ -26,7 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
 
 
-PARSER_VERSION = 8
+PARSER_VERSION = 9
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 DEFAULT_FLIPHTML_SEED = (
     Path(__file__).resolve().parents[1]
@@ -59,6 +59,10 @@ DEFAULT_RENDERED_2019_SEED = (
 DEFAULT_RENDERED_2019_PROFILE_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-2019-profile-rendered-books.json.gz"
+)
+DEFAULT_RENDERED_2018_PROFILE_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2018-profile-rendered-books.json.gz"
 )
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
@@ -850,6 +854,14 @@ def load_rendered_2019_profile_seed(
     )
 
 
+def load_rendered_2018_profile_seed(
+    path: Path = DEFAULT_RENDERED_2018_PROFILE_SEED,
+) -> dict:
+    return load_rendered_seed(
+        path, expected_books=4, expected_events=4, expected_cards=41,
+    )
+
+
 def load_rendered_2020_seed(path: Path = DEFAULT_RENDERED_2020_SEED) -> dict:
     return load_rendered_seed(
         path, expected_books=5, expected_events=6, expected_cards=53,
@@ -1544,6 +1556,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     completed_fliphtml_this_run = []
     completed_rendered_2019_this_run = []
     completed_rendered_2019_profile_this_run = []
+    completed_rendered_2018_profile_this_run = []
     completed_rendered_2020_this_run = []
     completed_annual_review_2021_this_run = []
     completed_half_year_review_this_run = []
@@ -1711,8 +1724,15 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 }
             )
 
-    rendered_urls_by_year = {"2019": [], "2019-profile": [], "2020": []}
+    rendered_urls_by_year = {
+        "2018-profile": [], "2019": [], "2019-profile": [], "2020": [],
+    }
     rendered_batches = (
+        (
+            "2018-profile", DEFAULT_RENDERED_2018_PROFILE_SEED,
+            load_rendered_2018_profile_seed,
+            completed_rendered_2018_profile_this_run,
+        ),
         ("2019", DEFAULT_RENDERED_2019_SEED, load_rendered_2019_seed, completed_rendered_2019_this_run),
         (
             "2019-profile", DEFAULT_RENDERED_2019_PROFILE_SEED,
@@ -1775,6 +1795,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                     "error": f"{type(exc).__name__}: {exc}"[:500],
                 })
 
+    rendered_2018_profile_urls = rendered_urls_by_year["2018-profile"]
     rendered_2019_urls = rendered_urls_by_year["2019"]
     rendered_2019_profile_urls = rendered_urls_by_year["2019-profile"]
     rendered_2020_urls = rendered_urls_by_year["2020"]
@@ -1983,6 +2004,30 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "rendered_2020_aggregate_only_outcomes_not_admitted": (
             9 if rendered_2020_urls and all(
                 url in completed for url in rendered_2020_urls
+            ) else 0
+        ),
+        "rendered_2018_profile_books_in_manifest": len(
+            rendered_2018_profile_urls
+        ),
+        "rendered_2018_profile_books_banked": sum(
+            url in completed for url in rendered_2018_profile_urls
+        ),
+        "rendered_2018_profile_books_completed_this_run": len(
+            completed_rendered_2018_profile_this_run
+        ),
+        "rendered_2018_profile_individually_identified_cards": (
+            41 if rendered_2018_profile_urls and all(
+                url in completed for url in rendered_2018_profile_urls
+            ) else 0
+        ),
+        "rendered_2018_profile_guide_prices_published": (
+            41 if rendered_2018_profile_urls and all(
+                url in completed for url in rendered_2018_profile_urls
+            ) else 0
+        ),
+        "rendered_2018_profile_sold_prices_published": (
+            6 if rendered_2018_profile_urls and all(
+                url in completed for url in rendered_2018_profile_urls
             ) else 0
         ),
         "rendered_2019_books_in_manifest": len(rendered_2019_urls),

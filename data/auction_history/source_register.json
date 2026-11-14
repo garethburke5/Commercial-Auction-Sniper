@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T00:25:12.332520+00:00",
-  "corpus_checkpoint": "2026-11-14T00:24:42.359485+00:00",
+  "generated_at": "2026-11-14T01:08:15.858555+00:00",
+  "corpus_checkpoint": "2026-11-14T01:07:46.825287+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4092,8 +4092,9 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Kivells",
       "match_basis": "existing evidenced source registry",
-      "retained_appearances": 579,
+      "retained_appearances": 620,
       "years_with_retained_evidence": [
+        2018,
         2019,
         2020,
         2021,
@@ -4102,8 +4103,8 @@
         2024,
         2025
       ],
-      "with_guide_price": 573,
-      "with_sale_price": 468,
+      "with_guide_price": 614,
+      "with_sale_price": 474,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -8288,7 +8289,7 @@
     "Hollis Morgan": 813,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
-    "Kivells": 579,
+    "Kivells": 620,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 598,
     "Landmark Auctions": 71,
@@ -8340,13 +8341,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306696,
-      "auction_ids_observed": 13810,
-      "with_guide_price": 108225,
-      "with_sale_price": 113037,
-      "with_both_prices": 49107,
-      "marked_sold": 156156,
-      "marked_sold_without_sale_price": 43859
+      "lot_appearances": 306737,
+      "auction_ids_observed": 13814,
+      "with_guide_price": 108266,
+      "with_sale_price": 113043,
+      "with_both_prices": 49113,
+      "marked_sold": 156180,
+      "marked_sold_without_sale_price": 43877
     },
     "by_auctioneer_and_year": [
       {
@@ -14222,6 +14223,17 @@
         "with_both_prices": 0,
         "marked_sold": 0,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Kivells",
+        "year": 2018,
+        "lot_appearances": 41,
+        "auction_ids_observed": 4,
+        "with_guide_price": 41,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 24,
+        "marked_sold_without_sale_price": 18
       },
       {
         "auctioneer": "Kivells",
@@ -23646,7 +23658,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T00:25:11.894412+00:00",
+    "checked_at": "2026-11-14T01:08:15.266087+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

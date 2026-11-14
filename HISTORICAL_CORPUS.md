@@ -3,6 +3,42 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Kivells 2018 publisher-profile result-book batch
+
+Four retained first-party Kivells result books were processed together through
+the reusable rendered-book runner: Spring (`dspe`), Summer (`kqfu`), September
+(`hmxm`) and November (`kaqb`). The bank adds **41 net individual appearances**
+across the exact 27 March, 27 June, 19 September and 14 November 2018 auction
+dates. All 47 original large WebP pages, four viewer configurations, accessible
+page text, public HTML and checksums are retained in a byte-reconstructable
+20-part immutable archive.
+
+All 41 additions are address-quality records inside the twenty-year window:
+18 residential, 14 land, 6 commercial and 3 mixed-use appearances. The
+commercial/mixed-use subset is therefore **9**. Every card publishes a guide,
+adding **41 guide-price observations**. Six Spring cards publish exact achieved
+prices; the other 18 sold outcomes publish no achieved amount and stay null.
+No rent is published. Outcomes remain distinct at 24 sold and 17 unknown or
+guide-only. Partial, undated, future-dated and duplicate additions are all zero.
+
+The four result-book denominators reconcile exactly to 6, 13, 12 and 10 cards.
+The Spring result book retains six individual cards even though a later article
+summarises five principal lots; the six-card primary inventory is preserved
+without inventing or discarding a property. Kivells remains one operator and
+its trading names or branches are not counted again. This adds four reconciled
+event inventories and one newly represented Kivells source-year, **2018**.
+
+The rebuilt union contains **315,097 appearances, 303,760 address records,
+11,337 partial records and 306,737 in-window appearances**, including **108,266
+in-window guides and 113,043 in-window achieved prices**. Undated and
+future-dated totals remain 5,056 and 184. National completeness remains false.
+
+Next concrete growth target: process the retained Kivells June 2022 result book
+(`ninr`), October 2022 result book (`irpy`) and full-year review (`fluu`) as one
+profile batch. Reconcile the duplicate May (`laym`) and September (`slxn`)
+copies against the already banked half-year and event books, admitting only
+uncaptured individual cards and never promoting annual aggregates.
+
 ## 14 November 2026 — Kivells 2019 publisher-profile result-book batch
 
 The complete retained Kivells FlipHTML publisher profile exposed four omitted
