@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-14T11:49:53.725197+00:00",
-  "individual_lot_records_captured": 319324,
-  "records_with_address": 307973,
+  "generated_at": "2026-11-14T11:59:21.945198+00:00",
+  "individual_lot_records_captured": 319342,
+  "records_with_address": 307991,
   "partial_lot_records": 11351,
-  "exact_address_groups": 172813,
-  "groups_with_repeat_appearances": 43459,
+  "exact_address_groups": 172829,
+  "groups_with_repeat_appearances": 43461,
   "by_auctioneer": {
     "247 Property Auctions": 272,
     "321 Estates Online Auction": 6,
@@ -183,7 +183,7 @@
     "Joseph Scott & Co": 5,
     "Kal Sangra Shonki Brothers": 464,
     "Keller Williams UK": 41,
-    "Killens Online Auction": 17,
+    "Killens Online Auction": 28,
     "Kinetic Estate Agents Online Auction": 9,
     "Kivells": 638,
     "Knight Frank Auctions": 290,
@@ -281,7 +281,7 @@
     "Snowgate": 5,
     "Sold Online Auction": 7,
     "Spencer & Leigh": 7,
-    "Stags Online Auction": 346,
+    "Stags Online Auction": 353,
     "Steve Gooch": 21,
     "Strettons": 199,
     "Sunderlands": 61,
@@ -318,7 +318,7 @@
     "webbssecureit": 1
   },
   "by_year": {
-    "null": 5128,
+    "null": 5125,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -340,27 +340,27 @@
     "2020": 14056,
     "2021": 21762,
     "2022": 27332,
-    "2023": 34651,
-    "2024": 43458,
+    "2023": 34663,
+    "2024": 43461,
     "2025": 49405,
-    "2026": 49391,
+    "2026": 49397,
     "2027": 8
   },
   "by_sector": {
-    "commercial": 43218,
-    "land": 19995,
+    "commercial": 43220,
+    "land": 19996,
     "mixed": 1,
-    "mixed-use": 48814,
-    "residential": 155112,
+    "mixed-use": 48828,
+    "residential": 155113,
     "unknown": 52184
   },
   "date_range": [
     "2002-10-31",
     "2027-01-26"
   ],
-  "surviving_catalogues_completely_harvested": 5271,
-  "catalogues_incomplete_or_unreconciled": 623,
-  "catalogue_fetch_or_parse_failures": 50,
+  "surviving_catalogues_completely_harvested": 5272,
+  "catalogues_incomplete_or_unreconciled": 622,
+  "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -372,12 +372,12 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310745,
-      "auction_ids_observed": 17618,
-      "with_guide_price": 112222,
-      "with_sale_price": 115826,
-      "with_both_prices": 51896,
-      "marked_sold": 159143,
+      "lot_appearances": 310761,
+      "auction_ids_observed": 17634,
+      "with_guide_price": 112238,
+      "with_sale_price": 115840,
+      "with_both_prices": 51910,
+      "marked_sold": 159157,
       "marked_sold_without_sale_price": 44057
     },
     "by_auctioneer_and_year": [
@@ -8458,12 +8458,23 @@
       {
         "auctioneer": "Killens Online Auction",
         "year": 2023,
-        "lot_appearances": 2,
-        "auction_ids_observed": 2,
-        "with_guide_price": 2,
-        "with_sale_price": 1,
-        "with_both_prices": 1,
-        "marked_sold": 1,
+        "lot_appearances": 7,
+        "auction_ids_observed": 7,
+        "with_guide_price": 7,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2024,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -12462,12 +12473,12 @@
       {
         "auctioneer": "Stags Online Auction",
         "year": 2023,
-        "lot_appearances": 70,
-        "auction_ids_observed": 70,
-        "with_guide_price": 70,
-        "with_sale_price": 53,
-        "with_both_prices": 53,
-        "marked_sold": 53,
+        "lot_appearances": 77,
+        "auction_ids_observed": 77,
+        "with_guide_price": 77,
+        "with_sale_price": 59,
+        "with_both_prices": 59,
+        "marked_sold": 59,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -13595,9 +13606,9 @@
       {
         "auctioneer": "Williams & Goodwin / All Wales Auction",
         "year": 2026,
-        "lot_appearances": 20,
-        "auction_ids_observed": 20,
-        "with_guide_price": 20,
+        "lot_appearances": 21,
+        "auction_ids_observed": 21,
+        "with_guide_price": 21,
         "with_sale_price": 19,
         "with_both_prices": 19,
         "marked_sold": 19,
@@ -13703,8 +13714,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5128,
-    "future_dated_appearances": 331,
+    "undated_appearances": 5125,
+    "future_dated_appearances": 336,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

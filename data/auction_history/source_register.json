@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T11:50:19.769927+00:00",
-  "corpus_checkpoint": "2026-11-14T11:49:53.725197+00:00",
+  "generated_at": "2026-11-14T11:59:42.178104+00:00",
+  "corpus_checkpoint": "2026-11-14T11:59:21.945198+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8426,7 +8426,7 @@
     "Joseph Scott & Co": 5,
     "Kal Sangra Shonki Brothers": 464,
     "Keller Williams UK": 41,
-    "Killens Online Auction": 17,
+    "Killens Online Auction": 28,
     "Kinetic Estate Agents Online Auction": 9,
     "Kivells": 638,
     "Knight Frank Auctions": 290,
@@ -8524,7 +8524,7 @@
     "Snowgate": 5,
     "Sold Online Auction": 7,
     "Spencer & Leigh": 7,
-    "Stags Online Auction": 346,
+    "Stags Online Auction": 353,
     "Steve Gooch": 21,
     "Strettons": 199,
     "Sunderlands": 61,
@@ -8565,12 +8565,12 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310745,
-      "auction_ids_observed": 17618,
-      "with_guide_price": 112222,
-      "with_sale_price": 115826,
-      "with_both_prices": 51896,
-      "marked_sold": 159143,
+      "lot_appearances": 310761,
+      "auction_ids_observed": 17634,
+      "with_guide_price": 112238,
+      "with_sale_price": 115840,
+      "with_both_prices": 51910,
+      "marked_sold": 159157,
       "marked_sold_without_sale_price": 44057
     },
     "by_auctioneer_and_year": [
@@ -16651,12 +16651,23 @@
       {
         "auctioneer": "Killens Online Auction",
         "year": 2023,
-        "lot_appearances": 2,
-        "auction_ids_observed": 2,
-        "with_guide_price": 2,
-        "with_sale_price": 1,
-        "with_both_prices": 1,
-        "marked_sold": 1,
+        "lot_appearances": 7,
+        "auction_ids_observed": 7,
+        "with_guide_price": 7,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2024,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -20655,12 +20666,12 @@
       {
         "auctioneer": "Stags Online Auction",
         "year": 2023,
-        "lot_appearances": 70,
-        "auction_ids_observed": 70,
-        "with_guide_price": 70,
-        "with_sale_price": 53,
-        "with_both_prices": 53,
-        "marked_sold": 53,
+        "lot_appearances": 77,
+        "auction_ids_observed": 77,
+        "with_guide_price": 77,
+        "with_sale_price": 59,
+        "with_both_prices": 59,
+        "marked_sold": 59,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -21788,9 +21799,9 @@
       {
         "auctioneer": "Williams & Goodwin / All Wales Auction",
         "year": 2026,
-        "lot_appearances": 20,
-        "auction_ids_observed": 20,
-        "with_guide_price": 20,
+        "lot_appearances": 21,
+        "auction_ids_observed": 21,
+        "with_guide_price": 21,
         "with_sale_price": 19,
         "with_both_prices": 19,
         "marked_sold": 19,
@@ -21896,8 +21907,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5128,
-    "future_dated_appearances": 331,
+    "undated_appearances": 5125,
+    "future_dated_appearances": 336,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -23523,88 +23534,6 @@
       "lots_captured": 3,
       "errors": [],
       "checked_at": "2026-10-04T14:26:22.170348+00:00"
-    },
-    {
-      "state_file": "data/auction_history/auctions/bamboo-marketplace/bamboo-archive.json",
-      "auctioneer": "Bamboo marketplace",
-      "auction_date": null,
-      "source_url": "https://app.bambooauctions.com/",
-      "lots_captured": 3363,
-      "errors": [
-        {
-          "source_id": "65d767444f690a625193f74f",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6448eedcb7e8fa312caebd03",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6acfaaef4d87d75058fc558b",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "65d768b14cd2bf2bbd0f492c",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6acfb2254d87d75058fca232",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6448e36dd78cab2e5a9f4569",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6acfb7511c4a1740eaf3607c",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "65d76a1dd2903f25b8f16441",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6448f71a9e1bd62a52f74f20",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6448e0b0d219a92a9b566299",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "640483434e20b6217c63b397",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "640486b84e20b6217c63b3b1",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6448109c98ce581c4be4c8f0",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6404887c15290035096816e4",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "64048017eed9b453ad5d6531",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "640485236ca0d157b5e10b15",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "63f780d78aa50e14fcb58997",
-          "error": "KeyError: 'propertyData'"
-        },
-        {
-          "source_id": "6448e965d1698e598e128fff",
-          "error": "KeyError: 'propertyData'"
-        }
-      ],
-      "checked_at": "2026-11-14T09:58:28.473606+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-southwest/online-results.json",
@@ -28546,7 +28475,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T11:50:19.280167+00:00",
+    "checked_at": "2026-11-14T11:59:41.825611+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
