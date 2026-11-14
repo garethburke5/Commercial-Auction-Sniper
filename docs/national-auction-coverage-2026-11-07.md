@@ -8,6 +8,30 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Fisher German shared-platform archive, 14 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 271 exact `fishergerman` rows. The bank gains
+271 address-bearing appearances: 263 exact-dated inside the twenty-year window and
+eight future-dated. Partial, undated and duplicate-derived additions are zero.
+Stable-ID/URL and exact date/address comparisons both returned zero overlaps.
+
+The batch contains ten commercial, 13 mixed-use, 97 land, 143 residential and eight
+unknown properties. Twenty-two commercial/mixed-use appearances are in-window. It
+adds 271 guide prices, 214 achieved prices and 11 rents; the in-window subsets are
+263 guides, 214 achieved prices and 11 rents. Individual dates, URLs, outcomes and
+matched payloads are retained immutably.
+
+Fisher German source-years 2021–2026 are newly represented. FISHER GERMAN LLP
+(OC317554) remains one operator across offices, merged practices and online-auction
+labels. Completeness is limited to the surviving shared-platform inventory.
+
+The rebuilt corpus holds 314,425 appearances, 303,109 address records and 306,059
+in-window appearances. No external workflow was launched. The next high-yield
+target is The Property People's 186 surviving Bamboo rows after operator
+reconciliation. National completeness remains false.
+
+
 ## Persisted historical gain — Bradleys shared-platform archive, 14 November
 
 The reusable Bamboo shared-platform collector first reconciled 251 public index

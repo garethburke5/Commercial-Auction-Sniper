@@ -4,6 +4,41 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 14 November 2026 — Fisher German shared Bamboo archive
+
+The reusable shared-platform Bamboo runner reconciled the same complete **251-page,
+5,013-ID public marketplace** and captured all **271 exact `fishergerman` detail
+payloads**. It banked **271 net new appearances and 271 address records**. No
+stable-ID, original-URL or exact date/address overlap was found against the existing
+corpus.
+
+Of the additions, **263 are exact-dated inside the preceding twenty-year window**
+and eight are future-dated. There are no partial or undated additions. The sector
+split is ten commercial, 13 mixed-use, 97 land, 143 residential and eight unknown;
+22 commercial/mixed-use records are in-window and one is future-dated.
+
+All 271 preserve a published guide price; 214 preserve an achieved price and 11
+preserve published rent evidence. The in-window subset adds 263 guides, all 214
+achieved prices and all 11 rents. Published outcomes remain separate: 214 sold,
+eight available and 49 unknown. Individual dates, original stable URLs and the
+matched index/detail payloads are retained in a content-addressed immutable
+snapshot.
+
+This establishes Fisher German source-years **2021–2026**. FISHER GERMAN LLP
+(company OC317554) is the reconciled operator; offices, merged practices and
+online-auction labels are not counted as additional auctioneers. Completeness is
+limited to the listings surviving in the public shared-platform index.
+
+Rebuilt corpus totals are **314,425 appearances, 303,109 address records, 11,316
+partial records and 306,059 in-window appearances**, with **107,946 in-window
+guides and 113,727 in-window achieved prices**. Undated and future totals are
+5,050 and 196.
+
+Next serial growth target: verify the operator lineage and capture The Property
+People's 186 surviving Bamboo properties with the same runner and overlap controls.
+National completeness remains false.
+
+
 ## 14 November 2026 — Bradleys shared Bamboo archive
 
 The reusable shared-platform Bamboo runner reconciled all **251 public index

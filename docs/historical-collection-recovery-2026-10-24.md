@@ -6,6 +6,27 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November Fisher German shared-platform growth checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 271 rows attributed to exact organisation
+`fishergerman`. It banked 271 net address-bearing appearances: 263 exact-dated
+inside the twenty-year window, eight future-dated, zero undated and zero partial.
+The evidence adds 23 commercial/mixed-use appearances in total (22 in-window),
+271 guides, 214 achieved prices and 11 rents.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact date/address
+overlaps. FISHER GERMAN LLP (OC317554) is one operator; offices, merged practices
+and online-auction labels are not separate auctioneers. Source-years 2021–2026 are
+newly established for this operator. The retained inventory is complete at 271/271
+for the surviving shared-platform index, not for deleted listings or earlier systems.
+
+The rebuilt corpus contains 314,425 appearances, 303,109 addresses, 11,316 partials
+and 306,059 in-window appearances. In-window guide and achieved-price counts are
+107,946 and 113,727. No external collection or publication workflow was started.
+The next target is The Property People's 186-row shared-platform inventory after
+operator-lineage verification. National completeness remains false.
+
 ## 14 November shared-platform growth checkpoint
 
 The reusable Bamboo shared-platform collector reconciled the complete current
