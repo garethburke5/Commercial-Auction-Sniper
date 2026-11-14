@@ -3,6 +3,46 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Hunters complete Bamboo archive
+
+The prepared Henry Sykes numeric identities `168708`, `169432` and `163384`
+were checked first. They are alternate first-party IDs for three appearances
+already banked from the retained grid (Lyppiatt Road and Westbourne Terrace on
+7 January 2026, and Bird Street on 15 October 2025), so they remain duplicate
+evidence and do not inflate growth. The run then rotated to a materially
+different uncovered source.
+
+Hunters Property Auctions' first-party Bamboo archive reconciles **491/491
+stable listings across 25 pages**. Every detail payload, original URL and a
+content-addressed immutable index/detail snapshot is retained. Net banking is
+**491 appearances and 491 address records**: **467 exact-dated historical
+addresses inside the rolling twenty-year window**, 10 future-dated appearances
+and 14 undated appearances. The future and undated rows are permanently
+preserved but excluded from the historical-growth figure. Partial records are
+zero. A corpus-wide exact date/normalized-address check found zero overlapping
+appearances, and the source contains 491 unique stable IDs.
+
+The archive adds **28 commercial and 92 mixed-use appearances** (120 combined),
+alongside 309 residential, 9 land and 53 unknown-sector rows. Actual evidence
+growth is **491 guide prices, 369 achieved prices and 0 rents**, with unknown
+values left null. Newly represented Hunters source-years are **2021–2026**.
+
+Hunters Property Auctions is retained as the auction trading source operated
+by **JW AUCTIONS LIMITED (13052757)**. HUNTERS PROPERTY AUCTIONS LIMITED is a
+former company name; Hunters branches and Bamboo are not counted as additional
+auctioneers. The rebuilt union contains **315,961 appearances, 304,610 address
+records, 11,351 partial records and 307,577 in-window appearances**, including
+**109,054 in-window guides and 113,519 in-window achieved prices**. Wider-corpus
+exceptions are 5,070 undated and 194 future-dated appearances. National
+completeness remains false.
+
+Next concrete growth target: extend the reusable runner to Bamboo's shared
+first-party marketplace, whose live reconciled denominator is **5,013 stable
+listings**. Preserve each detail's organisation and branch attribution, exclude
+the 491 Hunters and 271 already banked 247 Property identities plus exact
+date/address overlaps, and do not count the platform or branch labels as new
+auctioneers.
+
 ## 14 November 2026 — Henry Sykes retained-grid batch
 
 The planned Auction Inspire/Auction Local discovery pair was bounded without

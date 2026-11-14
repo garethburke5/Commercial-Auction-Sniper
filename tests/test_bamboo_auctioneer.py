@@ -40,6 +40,9 @@ def test_row_preserves_exact_close_prices_and_identity():
         "247auction.bambooauctions.com",
         {"source_url": "https://247auction.bambooauctions.com/"},
         datetime(2026, 10, 26, tzinfo=timezone.utc),
+        "EXAMPLE AUCTIONS LIMITED",
+        "12345678",
+        ["Example Auctions"],
     )
     assert row["appearance_id"] == "247 Property Auctions|bamboo:63440bcd111e9348081dd163"
     assert row["auction_date"] == "2022-11-03"
@@ -48,6 +51,9 @@ def test_row_preserves_exact_close_prices_and_identity():
     assert row["status"] == "sold"
     assert row["sector"] == "mixed-use"
     assert row["record_quality"] == "address_record"
+    assert row["operator_legal_name"] == "EXAMPLE AUCTIONS LIMITED"
+    assert row["operator_company_number"] == "12345678"
+    assert row["historical_trading_names_not_counted_as_auctioneers"] == ["Example Auctions"]
 
 
 def test_unmet_reserve_does_not_become_sale_evidence():

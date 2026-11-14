@@ -91,6 +91,9 @@ def row_from_property(
     host: str,
     evidence: dict,
     now_utc: datetime | None = None,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
+    historical_trading_names: list[str] | None = None,
 ) -> dict:
     source_id = str(item.get("_id") or item.get("id") or "").strip()
     handle = str(item.get("handle") or "").strip()
@@ -161,11 +164,22 @@ def row_from_property(
         source_status=item.get("status"),
         reserve_met=reserve_met,
         bid_count=len(item.get("bids") or []),
+        operator_legal_name=operator_legal_name,
+        operator_company_number=operator_company_number,
+        historical_trading_names_not_counted_as_auctioneers=historical_trading_names or [],
     )
     return row
 
 
-def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
+def harvest(
+    host: str,
+    auctioneer: str,
+    slug: str,
+    workers: int = 10,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
+    historical_trading_names: list[str] | None = None,
+) -> dict:
     base = f"https://{host}/"
     first_raw = fetch(base)
     first_props = page_props(first_raw)
@@ -237,12 +251,27 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     }
     now_utc = datetime.now(timezone.utc)
     rows = [
-        row_from_property(detail_payloads[source_id], auctioneer, slug, host, evidence, now_utc)
+        row_from_property(
+            detail_payloads[source_id],
+            auctioneer,
+            slug,
+            host,
+            evidence,
+            now_utc,
+            operator_legal_name,
+            operator_company_number,
+            historical_trading_names,
+        )
         for source_id in sorted(detail_payloads)
     ]
     appearance_path = corpus.DATA / "appearances" / slug / "bamboo-archive.jsonl.gz"
     existing_ids = {row["appearance_id"] for row in corpus.iter_rows(appearance_path)} if appearance_path.exists() else set()
     new_rows = [row for row in rows if row["appearance_id"] not in existing_ids]
+    previous_source_years = {
+        row["auction_date"][:4]
+        for row in corpus.iter_rows(appearance_path)
+        if row.get("auction_date")
+    } if appearance_path.exists() else set()
     retained = corpus.write_rows(f"{slug}/bamboo-archive", rows)
     if retained != total_count:
         raise SystemExit(f"retained {retained} rows; reconciled source exposes {total_count}")
@@ -251,6 +280,13 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     historical_rows = [row for row in rows if row.get("auction_date") and row["auction_date"] <= today]
     future_rows = [row for row in rows if row.get("auction_date") and row["auction_date"] > today]
     undated_rows = [row for row in rows if not row.get("auction_date")]
+    new_historical_rows = [row for row in new_rows if row.get("auction_date") and row["auction_date"] <= today]
+    new_future_rows = [row for row in new_rows if row.get("auction_date") and row["auction_date"] > today]
+    new_undated_rows = [row for row in new_rows if not row.get("auction_date")]
+    twenty_year_cutoff = now_utc.replace(year=now_utc.year - 20).date().isoformat()
+    new_source_years = sorted(
+        {row["auction_date"][:4] for row in new_historical_rows} - previous_source_years
+    )
     state = {
         "auctioneer": auctioneer,
         "source_auction_id": f"{slug}:bamboo-archive",
@@ -266,6 +302,9 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         "errors": [],
         "checked_at": corpus.now(),
         "completion_scope": "all listings in the surviving public Bamboo white-label archive; not a claim that deleted listings or earlier platforms are covered",
+        "operator_legal_name": operator_legal_name,
+        "operator_company_number": operator_company_number,
+        "historical_trading_names_not_counted_as_auctioneers": historical_trading_names or [],
     }
     corpus.save_json(corpus.DATA / "auctions" / slug / "bamboo-archive.json", state)
     summary = {
@@ -274,6 +313,25 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         "source_url": base,
         "archive_appearances_captured": retained,
         "run_new_appearances": len(new_rows),
+        "run_new_historical_appearances": len(new_historical_rows),
+        "run_new_address_records": sum(bool(row.get("address")) for row in new_rows),
+        "run_new_dated_twenty_year_address_records": sum(
+            bool(row.get("address"))
+            and bool(row.get("auction_date"))
+            and twenty_year_cutoff <= row["auction_date"] <= today
+            for row in new_rows
+        ),
+        "run_new_partial_lots": sum(not row.get("address") for row in new_rows),
+        "run_new_future_dated_records": len(new_future_rows),
+        "run_new_undated_records": len(new_undated_rows),
+        "run_new_commercial_or_mixed": sum(
+            row.get("sector") in {"commercial", "mixed-use"} for row in new_rows
+        ),
+        "run_new_guide_price_evidence": sum(row.get("guide_price") is not None for row in new_rows),
+        "run_new_sale_price_evidence": sum(row.get("sale_price") is not None for row in new_rows),
+        "run_new_rent_evidence": sum(row.get("annual_rent") is not None for row in new_rows),
+        "run_duplicate_source_evidence_excluded": 0,
+        "new_source_years": new_source_years,
         "address_records": sum(bool(row.get("address")) for row in rows),
         "partial_lots": sum(not row.get("address") for row in rows),
         "dated_historical_records": len(historical_rows),
@@ -289,6 +347,9 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         "denominator_reconciled": True,
         "complete": True,
         "completion_scope": state["completion_scope"],
+        "operator_legal_name": operator_legal_name,
+        "operator_company_number": operator_company_number,
+        "historical_trading_names_not_counted_as_auctioneers": historical_trading_names or [],
     }
     corpus.save_json(corpus.DATA / f"{slug.replace('-', '_')}_bamboo_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
@@ -301,5 +362,16 @@ if __name__ == "__main__":
     parser.add_argument("--auctioneer", default="247 Property Auctions")
     parser.add_argument("--slug", default="247-property-auctions")
     parser.add_argument("--workers", type=int, default=10)
+    parser.add_argument("--operator-legal-name")
+    parser.add_argument("--operator-company-number")
+    parser.add_argument("--historical-trading-name", action="append", default=[])
     args = parser.parse_args()
-    harvest(args.host, args.auctioneer, args.slug, args.workers)
+    harvest(
+        args.host,
+        args.auctioneer,
+        args.slug,
+        args.workers,
+        args.operator_legal_name,
+        args.operator_company_number,
+        args.historical_trading_name,
+    )

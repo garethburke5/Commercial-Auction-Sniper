@@ -1,5 +1,31 @@
 # UK auction coverage checkpoint — 7 November 2026
 
+## 14 November 2026 — Hunters complete Bamboo expansion
+
+The three queued Henry Sykes numeric identities were duplicate aliases of rows
+already banked and add no appearances. The run rotated to Hunters Property
+Auctions' first-party Bamboo archive and reconciled **491 unique listings on 25
+pages**, with all detail pages and an immutable combined snapshot retained.
+
+Net banking is **491 appearances and 491 address records**. Of these, **467 are
+exact-dated historical addresses inside the twenty-year window**; 10 are future
+dated and 14 undated, reported separately and not presented as historical
+growth. There are no partial rows and no exact date/address overlaps with the
+pre-existing corpus. The commercial/mixed-use subset is **120**. Evidence
+growth is **491 guides, 369 achieved prices and 0 rents**, across newly covered
+Hunters source-years 2021–2026.
+
+Hunters Property Auctions is one trading source operated by JW AUCTIONS LIMITED
+(13052757); its former company name, branches and Bamboo platform attribution
+do not increase the auctioneer count. Rebuilt totals are **315,961 appearances,
+304,610 addresses and 307,577 in-window appearances**, with 109,054 in-window
+guides and 113,519 achieved prices. National completeness remains false.
+
+Next target: adapt the same reusable runner to Bamboo's shared marketplace
+inventory of 5,013 stable listings, retain organisation and branch attribution,
+and exclude the already banked Hunters/247 stable IDs and exact overlaps before
+claiming growth.
+
 ## 14 November 2026 — Henry Sykes retained-grid expansion
 
 The original Auction Inspire/Auction Local discovery pair yielded no bankable

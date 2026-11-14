@@ -6,6 +6,29 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: Hunters complete Bamboo archive
+
+The three planned Henry Sykes numeric pages were exact aliases of already
+banked date/address appearances and were not admitted. A different accessible
+source then produced **491 net appearances** from Hunters Property Auctions'
+fully reconciled first-party Bamboo archive: 491 unique stable listings across
+25 pages and all 491 detail payloads.
+
+All 491 rows have addresses. Historical growth is **467 exact-dated address
+records inside the twenty-year window**; 10 future-dated and 14 undated records
+are banked separately, with zero partial records. Corpus-wide exact
+date/normalized-address reconciliation found zero overlap. The
+commercial/mixed-use subset is **120**. Actual new evidence is **491 guides,
+369 achieved prices and 0 rents**, and source-years 2021–2026 are newly
+represented for Hunters.
+
+Hunters Property Auctions is the trading source operated by JW AUCTIONS LIMITED
+(13052757). The former HUNTERS PROPERTY AUCTIONS LIMITED name, Hunters branches
+and Bamboo platform label are not additional auctioneers. National completeness
+remains false. The next batch is the public Bamboo marketplace's 5,013 stable
+listings, using organisation/branch attribution and stable-ID plus exact-overlap
+exclusions for the already banked Hunters and 247 Property rows.
+
 ## 14 November follow-through: Henry Sykes retained archive
 
 Auction Inspire exposed no surviving first-party lot archive, while Auction
