@@ -3,6 +3,45 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Kivells 2019 publisher-profile result-book batch
+
+The complete retained Kivells FlipHTML publisher profile exposed four omitted
+2019 result books: February (`sydt`), June (`huwr`), September (`nuot`) and
+November (`efvr`). The reusable rendered-book runner processed them together,
+alongside the aggregate-only annual review (`qeav`), without adding a dated
+workflow step per event. The bank adds **30 net individual appearances** across
+four exact auction dates. All 82 original large page images, five viewer
+configurations, public page text, public HTML and checksums are retained in a
+byte-reconstructable 42-part immutable archive.
+
+All 30 additions are address-quality records inside the twenty-year window:
+12 residential, 15 land, 1 commercial and 2 mixed-use appearances. The
+commercial/mixed-use subset is therefore **3**. The cards add **30 guide
+prices, 17 exact achieved prices and 1 annual rent**. Published outcomes remain
+distinct: 18 sold, 2 sold prior, 8 unknown/guide-only and 2 withdrawn. Twenty
+cards publish a sold outcome, but three of those do not publish an exact
+achieved price and remain null. No partial, undated, future-dated or duplicate
+appearance was admitted.
+
+The annual review states more than £10 million sold at a 94% success rate but
+does not attach its unlabelled image-price panels to safely identifiable
+properties. It is preserved as aggregate supporting evidence and contributes
+no additional appearances. Overlap with the four event books and the already
+banked May book is not counted twice. This opens four newly inventoried event
+catalogues and five retained source books, but zero new operator/source-years:
+Kivells 2019 was already represented and Kivells remains one existing lineage.
+
+The rebuilt union contains **315,056 appearances, 303,719 address records,
+11,337 partial records and 306,696 in-window appearances**, including **108,225
+in-window guides and 113,037 in-window achieved prices**. Undated and
+future-dated totals remain 5,056 and 184. National completeness remains false.
+
+Next concrete growth target: batch the four accessible retained 2018 Kivells
+result books exposed by the same profile — Spring SOLD (`dspe`), Summer Results
+(`kqfu`), September Results (`hmxm`) and November Results (`kaqb`) — through the
+same runner. Reconcile exact event dates and annual-review overlap before
+claiming individual growth.
+
 ## 13 November 2026 — Kivells May 2019 retained result book
 
 The reusable rendered-FlipHTML runner is now year-parameterised rather than

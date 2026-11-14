@@ -3,13 +3,15 @@ import json
 from scripts.harvest_kivells_results import (
     DEFAULT_ANNUAL_2021_SEED, DEFAULT_FLIPHTML_2023_SEED, DEFAULT_FLIPHTML_SEED,
     DEFAULT_HALF_YEAR_2021_SEED, DEFAULT_HALF_YEAR_2022_SEED,
-    DEFAULT_RENDERED_2019_SEED, DEFAULT_RENDERED_2020_SEED,
+    DEFAULT_RENDERED_2019_PROFILE_SEED, DEFAULT_RENDERED_2019_SEED,
+    DEFAULT_RENDERED_2020_SEED,
     EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
     build_annual_2021_review_rows, build_fliphtml_rows, build_half_year_review_rows,
-    build_may_rows, build_rendered_2020_rows, build_rows,
+    build_may_rows, build_rendered_rows, build_rendered_2020_rows, build_rows,
     extract_may_review, fliphtml_pages, is_address, load_fliphtml_seed, money,
     load_annual_2021_review_seed, load_half_year_2021_review_seed,
-    load_half_year_review_seed, load_rendered_2019_seed, load_rendered_2020_seed,
+    load_half_year_review_seed, load_rendered_2019_profile_seed,
+    load_rendered_2019_seed, load_rendered_2020_seed,
     public_fliphtml_pages,
     parse_may_event_page, parse_text,
     saved_snapshot_dates, snapshot_metadata_path, status_from_text,
@@ -118,7 +120,47 @@ def test_rendered_2020_batch_banks_only_identifiable_cards_and_null_prices():
     assert states["2020-07-24"]["extra_guide_only_cards_outside_published_denominator"] == 1
     assert states["2020-09-09"]["individual_sale_prices_published"] == 7
     assert states["2020-10-28"]["individual_sale_prices_published"] == 8
-    assert all(row["auction_date"].startswith("2020-") for row in rows)
+
+
+def test_rendered_2019_profile_batch_preserves_all_cards_and_annual_aggregate():
+    seed = load_rendered_2019_profile_seed(DEFAULT_RENDERED_2019_PROFILE_SEED)
+    pages = {book["book_slug"]: fliphtml_pages(book) for book in seed["books"]}
+    evidence = {
+        book["book_slug"]: {"source_url": book["source_url"]}
+        for book in seed["books"]
+    }
+    results = build_rendered_rows(seed, pages, evidence)
+    states = {state["auction_date"]: state for state, _ in results}
+    rows = [row for _, event_rows in results for row in event_rows]
+
+    assert len(seed["books"]) == 5
+    assert len(results) == 4
+    assert [len(event_rows) for _, event_rows in results] == [9, 8, 7, 6]
+    assert len(rows) == 30
+    assert len({row["appearance_id"] for row in rows}) == 30
+    assert sum(bool(row["address"]) for row in rows) == 30
+    assert sum(row["guide_price"] is not None for row in rows) == 30
+    assert sum(row["sale_price"] is not None for row in rows) == 17
+    assert sum(row["annual_rent"] is not None for row in rows) == 1
+    assert sum(row["sector"] in {"commercial", "mixed-use"} for row in rows) == 3
+    assert {row["auction_date"] for row in rows} == {
+        "2019-02-27", "2019-06-26", "2019-09-04", "2019-11-06",
+    }
+    assert all(state["published_value_sold"] is None for state in states.values())
+    assert all(state["unallocated_published_value_sold"] is None for state in states.values())
+    assert all(state["denominator_reconciled"] for state in states.values())
+    assert seed["unidentified_event_groups"] == [{
+        "label": "2019 annual-review aggregate",
+        "source_book_slug": "qeav",
+        "source_page_number": 2,
+        "published_value_sold_text": "over £10,000,000",
+        "published_sales_success_rate_percent": 94,
+        "reason": (
+            "the annual review publishes a portfolio aggregate and unlabelled "
+            "image-price panels; it is retained as supporting evidence but not "
+            "promoted to additional property appearances"
+        ),
+    }]
 
 
 def test_rendered_2019_may_book_banks_ten_cards_and_preserves_unsold_price_null():

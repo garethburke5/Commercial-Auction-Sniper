@@ -56,6 +56,10 @@ DEFAULT_RENDERED_2019_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-2019-rendered-books.json.gz"
 )
+DEFAULT_RENDERED_2019_PROFILE_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2019-profile-rendered-books.json.gz"
+)
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
 ANNUAL_2023_REVIEW_URL = "https://fliphtml5.com/hoau/vcml/Kivells_Collective_Property_Auction_Full_Year_Review_2023_/"
@@ -838,6 +842,14 @@ def load_rendered_2019_seed(path: Path = DEFAULT_RENDERED_2019_SEED) -> dict:
     )
 
 
+def load_rendered_2019_profile_seed(
+    path: Path = DEFAULT_RENDERED_2019_PROFILE_SEED,
+) -> dict:
+    return load_rendered_seed(
+        path, expected_books=5, expected_events=4, expected_cards=30,
+    )
+
+
 def load_rendered_2020_seed(path: Path = DEFAULT_RENDERED_2020_SEED) -> dict:
     return load_rendered_seed(
         path, expected_books=5, expected_events=6, expected_cards=53,
@@ -861,8 +873,9 @@ def build_rendered_rows(
         for packed in event["cards"]:
             (
                 card_id, slug, page_number, location, guide_low, guide_high,
-                sale_price, status, sector,
+                sale_price, status, sector, *optional,
             ) = packed
+            annual_rent = optional[0] if optional else None
             if card_id in seen_ids:
                 raise ValueError(f"duplicate rendered card id: {card_id}")
             seen_ids.add(card_id)
@@ -892,6 +905,10 @@ def build_rendered_rows(
                 "guide_price_high": guide_high,
                 "guide_price_text": guide_text,
                 "sale_price": sale_price,
+                "annual_rent": annual_rent,
+                "rent_text": (
+                    f"£{annual_rent:,} per annum" if annual_rent is not None else None
+                ),
                 "status": status,
                 "sector": sector,
                 "source_result_text": result_text,
@@ -918,6 +935,8 @@ def build_rendered_rows(
         )
         for row, card in zip(rows, cards):
             row["sector"] = card["sector"]
+            row["annual_rent"] = card["annual_rent"]
+            row["rent_text"] = card["rent_text"]
             row["source_evidence"] = source_by_card[card["lot_number"]]
             row["source_url"] = source_by_card[card["lot_number"]]["source_url"]
             row["auction_date_basis"] = event.get("auction_date_basis") or (
@@ -928,6 +947,7 @@ def build_rendered_rows(
                 "exact_event_date_stable_rendered_page_card_and_first_party_title"
             )
         known_value = sum(row.get("sale_price") or 0 for row in rows)
+        published_value = event.get("published_value_sold")
         missing_identity = max(0, event["offered_lots"] - len(rows))
         extra_cards = max(0, len(rows) - event["offered_lots"])
         state.update(
@@ -938,7 +958,7 @@ def build_rendered_rows(
             lots_captured=len(rows),
             published_offered_lot_denominator=event["offered_lots"],
             published_sold_result_denominator=event["published_sold_lots"],
-            published_value_sold=event["published_value_sold"],
+            published_value_sold=published_value,
             identified_card_count=len(rows),
             unidentified_offered_outcomes_null=missing_identity,
             extra_guide_only_cards_outside_published_denominator=extra_cards,
@@ -946,7 +966,10 @@ def build_rendered_rows(
                 row.get("sale_price") is not None for row in rows
             ),
             individual_sale_prices_sum=known_value,
-            unallocated_published_value_sold=event["published_value_sold"] - known_value,
+            unallocated_published_value_sold=(
+                published_value - known_value
+                if published_value is not None else None
+            ),
             denominator_reconciled=(missing_identity == 0 and extra_cards == 0),
             denominator_basis=(
                 "individual property cards are banked once across overlapping monthly "
@@ -1520,6 +1543,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     completed_this_run = []
     completed_fliphtml_this_run = []
     completed_rendered_2019_this_run = []
+    completed_rendered_2019_profile_this_run = []
     completed_rendered_2020_this_run = []
     completed_annual_review_2021_this_run = []
     completed_half_year_review_this_run = []
@@ -1687,9 +1711,14 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 }
             )
 
-    rendered_urls_by_year = {"2019": [], "2020": []}
+    rendered_urls_by_year = {"2019": [], "2019-profile": [], "2020": []}
     rendered_batches = (
         ("2019", DEFAULT_RENDERED_2019_SEED, load_rendered_2019_seed, completed_rendered_2019_this_run),
+        (
+            "2019-profile", DEFAULT_RENDERED_2019_PROFILE_SEED,
+            load_rendered_2019_profile_seed,
+            completed_rendered_2019_profile_this_run,
+        ),
         ("2020", DEFAULT_RENDERED_2020_SEED, load_rendered_2020_seed, completed_rendered_2020_this_run),
     )
     for rendered_year, rendered_path, rendered_loader, completed_rendered_this_run in rendered_batches:
@@ -1747,6 +1776,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
                 })
 
     rendered_2019_urls = rendered_urls_by_year["2019"]
+    rendered_2019_profile_urls = rendered_urls_by_year["2019-profile"]
     rendered_2020_urls = rendered_urls_by_year["2020"]
 
     annual_review_2021_url = None
@@ -1970,6 +2000,25 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "rendered_2019_sold_prices_published": (
             9 if rendered_2019_urls and all(
                 url in completed for url in rendered_2019_urls
+            ) else 0
+        ),
+        "rendered_2019_profile_books_in_manifest": len(
+            rendered_2019_profile_urls
+        ),
+        "rendered_2019_profile_books_banked": sum(
+            url in completed for url in rendered_2019_profile_urls
+        ),
+        "rendered_2019_profile_books_completed_this_run": len(
+            completed_rendered_2019_profile_this_run
+        ),
+        "rendered_2019_profile_individually_identified_cards": (
+            30 if rendered_2019_profile_urls and all(
+                url in completed for url in rendered_2019_profile_urls
+            ) else 0
+        ),
+        "rendered_2019_profile_aggregate_only_reviews_not_admitted": (
+            1 if rendered_2019_profile_urls and all(
+                url in completed for url in rendered_2019_profile_urls
             ) else 0
         ),
         "annual_review_2021_inventories_in_manifest": int(

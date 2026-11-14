@@ -7,6 +7,34 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through checkpoint — Kivells 2019 publisher-profile batch
+
+Four omitted Kivells 2019 result books were recovered from the complete
+retained FlipHTML publisher profile and processed through the reusable
+multi-book runner. The bank adds **30 net appearances** across the exact 27
+February, 26 June, 4 September and 6 November auction dates. All 30 are dated
+address records inside the twenty-year window; 3 are commercial or mixed-use.
+New evidence comprises **30 guides, 17 exact achieved prices and 1 annual
+rent**. Partial, undated, future-dated and duplicate gains are zero.
+
+The source cards preserve 18 sold, 2 sold-prior, 8 unknown/guide-only and 2
+withdrawn outcomes. Three sold outcomes have no published exact price and stay
+null. The fifth retained book is an annual review reporting more than £10m and
+94% success without safely identified property cards; it is banked as aggregate
+support only and does not inflate the property count. Event-book and May-review
+overlap is deduplicated.
+
+This adds four newly inventoried event catalogues and five source books, but no
+new operator/source-year because Kivells 2019 was already covered within the
+existing operator lineage. Rebuilt totals are **315,056 appearances, 303,719
+address records and 306,696 in-window appearances**, including 108,225 guides
+and 113,037 achieved prices. The protected collection/publication jobs were not
+duplicated. National coverage remains unverified.
+
+Next growth target: batch the accessible 2018 Kivells Spring SOLD (`dspe`),
+Summer Results (`kqfu`), September Results (`hmxm`) and November Results
+(`kaqb`) books through the same runner, reconciling exact dates and overlap.
+
 ## Follow-through checkpoint — Kivells May 2019
 
 The retained 20-page Kivells May 2019 result book was processed through the

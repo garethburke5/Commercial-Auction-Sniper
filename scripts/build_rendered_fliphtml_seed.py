@@ -91,6 +91,11 @@ def main() -> None:
         config_text = config_path.read_text(errors="replace")
         if not config_text.strip():
             raise ValueError(f"empty viewer config for {slug}")
+        public_html_path = args.source_dir / slug / "public.html"
+        public_html = (
+            public_html_path.read_text(errors="replace")
+            if public_html_path.exists() else None
+        )
         item = {
             **spec,
             "retrieved_at": datetime.now(timezone.utc).isoformat(),
@@ -106,11 +111,15 @@ def main() -> None:
             "search_config_size_bytes": len(search_text.encode()),
             "config_sha256": digest(config_text.encode()),
             "config_size_bytes": len(config_text.encode()),
-            "recovery_route": (
+            "recovery_route": spec.get("recovery_route") or (
                 "first-party retained large WebP pages; deterministic local OCR "
                 "after the retired search-text endpoint returned 404"
             ),
         }
+        if public_html is not None:
+            item["public_text_html"] = public_html
+            item["public_text_sha256"] = digest(public_html.encode())
+            item["public_text_size_bytes"] = len(public_html.encode())
         if archive:
             item["rendered_page_archive"] = archive
         books.append(item)
