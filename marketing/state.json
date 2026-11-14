@@ -1214,6 +1214,52 @@
       "schedule_origin": "agent",
       "due_at": "2026-11-20T08:30:00.000Z",
       "buffer_id": "6af8e490e5a113497ab13c42"
+    },
+    "facebook:73c025353cab3da44345": {
+      "service": "facebook",
+      "channel_id": "6adb59c3778b240e2f9cee6d",
+      "kind": "property",
+      "property_id": "73c025353cab3da44345",
+      "caption_hash": "affbf16f4d545b9b6eae400bfdcaddc0dea765a209a6a6296919a087fdaea7d7",
+      "fingerprint": "261df80cd286b1fcc24439603e296985e0d5428360fc8308cac11a9b40429d1a",
+      "asset_key": "1 3 and 3a west street mexborough south yorkshire s64 9hz|",
+      "status": "pending",
+      "created_at": "2026-11-14T22:45:07.044817+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "https://www.pugh-auctions.com/property/202610131447sq_k7ea",
+        "observed_at": "2026-11-14T18:10:33.003556+00:00",
+        "facts": {
+          "address": "1 , 3 & 3a West Street, Mexborough, South Yorkshire S64 9HZ",
+          "auction_date": "2026-12-01",
+          "guide_price": 65000.0,
+          "guide_price_upper": null,
+          "annual_rent": 9700.0,
+          "tenure": null,
+          "status": "CURRENT",
+          "source_availability": null
+        },
+        "history": [],
+        "source_text_sha256": "05eff562cd24d1827c606ba17a6dc76d68dfca2daa1b07de9d20165bb8a9dc92",
+        "calculation": "9700.0 / 65000.0 * 100"
+      },
+      "editorial_interest": {
+        "eligible": true,
+        "score": 36.97435897435898,
+        "reasons": [
+          "accessible guide price",
+          "high gross yield at guide",
+          "multiple commercial units"
+        ],
+        "question": "At this guide price, what would you examine first: the lease terms or the building’s running costs?",
+        "details": [
+          "The offering comprises three commercial units."
+        ]
+      },
+      "caption": "1 , 3 & 3a West Street, Mexborough, South Yorkshire S64 9HZ\n\nPugh / BTG Eddisons · 1 December 2026 · Guide £65,000\n\nThe advertised annual rent of £9,700 produces a 14.92% gross yield at the guide price, before purchase and running costs.\n\nThe offering comprises three commercial units.\n\nAt this guide price, what would you examine first: the lease terms or the building’s running costs?\n\nCheck the tenancy terms, buyer’s fees and legal pack when assessing your bid.\n\nExplore the property and its free snapshot on Auction Geek:\nhttps://auctiongeek.co.uk/property/73c025353cab3da44345/1-3-3a-west-street-mexborough-south-yorkshire-s64-9hz/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=73c025353cab3da44345",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/0d022bf82330b87165b6d47c.jpg",
+      "schedule_origin": "agent",
+      "due_at": "2026-11-18T09:41:00+00:00"
     }
   },
   "attempts": [
@@ -1441,6 +1487,12 @@
       "at": "2026-11-14T22:45:07.044817+00:00",
       "action": "schedule",
       "result": "scheduled"
+    },
+    {
+      "key": "facebook:73c025353cab3da44345",
+      "at": "2026-11-14T22:45:07.044817+00:00",
+      "action": "schedule",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-11-09T07:12:02.946702+00:00"
