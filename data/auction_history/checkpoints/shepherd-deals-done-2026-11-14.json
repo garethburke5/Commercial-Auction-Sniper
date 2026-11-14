@@ -1,0 +1,80 @@
+{
+  "checked_at": "2026-11-14T14:21:11+00:00",
+  "source": "shepherd-deals-done",
+  "opportunity": "Complete first-party Shepherd Deals Done index: 273 deal cards, 61 explicitly labelled Auction Property",
+  "collection_run_id": 43604014606,
+  "banked_commit": "dd9543ce694cf0f2706d55319dd340ff948e25ba",
+  "collector_commit": "930a451adc054570f1697797af2f8aa6aaf2fd21",
+  "source_inventory": {
+    "total_deal_cards": 273,
+    "auction_property_cards": 61,
+    "detail_pages_captured": 61,
+    "detail_page_errors": 0,
+    "event_dates": {
+      "2025-12-04": 1,
+      "2026-04-16": 8,
+      "2026-06-18": 9,
+      "2026-08-20": 22,
+      "2026-09-30": 5,
+      "2026-10-22": 16
+    },
+    "deals_done_inventory_reconciled": true,
+    "wider_historical_archive_complete": false
+  },
+  "measured_growth": {
+    "net_new_appearances": 52,
+    "new_address_records": 52,
+    "new_dated_address_records_in_twenty_year_window": 52,
+    "new_partial_lots": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "new_commercial_appearances": 9,
+    "new_mixed_use_appearances": 33,
+    "commercial_or_mixed_use": 42,
+    "new_residential_appearances": 8,
+    "new_unknown_sector_appearances": 2,
+    "new_guide_price_fields": 52,
+    "rows_with_published_guide_revisions": 6,
+    "new_sale_price_fields": 0,
+    "newly_populated_rent_fields": 3,
+    "new_published_outcome_states": 61,
+    "new_outcomes_on_existing_appearances": 9,
+    "duplicate_source_appearances_excluded": 9,
+    "related_interest_candidates_preserved": 0,
+    "newly_covered_source_years": [
+      2025
+    ]
+  },
+  "published_outcomes": {
+    "sold": 50,
+    "sold_prior": 10,
+    "sold_at_auction": 1,
+    "numeric_achieved_prices_published": 0,
+    "note": "Published sold states are preserved without inventing achieved prices."
+  },
+  "corpus_after_rebuild": {
+    "appearances": 319422,
+    "address_records": 308071,
+    "in_window_appearances": 310828,
+    "in_window_guide_prices": 112305,
+    "in_window_sale_prices": 115840,
+    "partial": 11351,
+    "undated": 5125,
+    "future_dated": 349
+  },
+  "operator_reconciliation": "Shepherd Commercial Auctions, Shepherd Commercial Ltd, John Shepherd Chartered Surveyors and branch labels remain pending canonical reconciliation; aliases and branches are not counted as additional auctioneers.",
+  "publication": {
+    "database_rebuild_verified": true,
+    "package_integrity_verified": true,
+    "live_board_unchanged": true,
+    "main_unchanged": true
+  },
+  "next_growth_target": {
+    "auctioneer": "Aston Vaughan",
+    "route": "https://www.astonvaughan.co.uk/auctions/previous-auction-results/",
+    "action": "Batch the first-party previous-auction results as one multi-event archive, beginning with the exposed September 2026 result; traverse every surviving event and linked individual property page, preserving guides, achieved prices, rents and outcomes separately.",
+    "operator_reconciliation": "Reconcile Aston Vaughan Auctions with Aston Vaughan Lettings Ltd before counting the operator.",
+    "rationale": "A materially different uncovered genuine auctioneer with an official previous-results surface stating five traditional auctions per year; avoids completed or bounded Kivells 2022, Cheffins 549, City & Rural, Durrants, Auction Inspire and Auction Local routes."
+  },
+  "national_completeness_verified": false
+}
