@@ -91,6 +91,8 @@ def row_from_property(
     host: str,
     evidence: dict,
     now_utc: datetime | None = None,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
 ) -> dict:
     source_id = str(item.get("_id") or item.get("id") or "").strip()
     handle = str(item.get("handle") or "").strip()
@@ -161,11 +163,20 @@ def row_from_property(
         source_status=item.get("status"),
         reserve_met=reserve_met,
         bid_count=len(item.get("bids") or []),
+        operator_legal_name=operator_legal_name,
+        operator_company_number=operator_company_number,
     )
     return row
 
 
-def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
+def harvest(
+    host: str,
+    auctioneer: str,
+    slug: str,
+    workers: int = 10,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
+) -> dict:
     base = f"https://{host}/"
     first_raw = fetch(base)
     first_props = page_props(first_raw)
@@ -237,7 +248,16 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     }
     now_utc = datetime.now(timezone.utc)
     rows = [
-        row_from_property(detail_payloads[source_id], auctioneer, slug, host, evidence, now_utc)
+        row_from_property(
+            detail_payloads[source_id],
+            auctioneer,
+            slug,
+            host,
+            evidence,
+            now_utc,
+            operator_legal_name=operator_legal_name,
+            operator_company_number=operator_company_number,
+        )
         for source_id in sorted(detail_payloads)
     ]
     appearance_path = corpus.DATA / "appearances" / slug / "bamboo-archive.jsonl.gz"
@@ -253,6 +273,8 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     undated_rows = [row for row in rows if not row.get("auction_date")]
     state = {
         "auctioneer": auctioneer,
+        "operator_legal_name": operator_legal_name,
+        "operator_company_number": operator_company_number,
         "source_auction_id": f"{slug}:bamboo-archive",
         "source_url": base,
         "source_rows_complete": True,
@@ -271,6 +293,12 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     summary = {
         "checked_at": corpus.now(),
         "auctioneer": auctioneer,
+        "operator": {
+            "canonical_name": auctioneer,
+            "company_name": operator_legal_name,
+            "company_number": operator_company_number,
+            "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True,
+        },
         "source_url": base,
         "archive_appearances_captured": retained,
         "run_new_appearances": len(new_rows),
@@ -300,6 +328,15 @@ if __name__ == "__main__":
     parser.add_argument("--host", default="247auction.bambooauctions.com")
     parser.add_argument("--auctioneer", default="247 Property Auctions")
     parser.add_argument("--slug", default="247-property-auctions")
+    parser.add_argument("--operator-legal-name")
+    parser.add_argument("--operator-company-number")
     parser.add_argument("--workers", type=int, default=10)
     args = parser.parse_args()
-    harvest(args.host, args.auctioneer, args.slug, args.workers)
+    harvest(
+        args.host,
+        args.auctioneer,
+        args.slug,
+        args.workers,
+        args.operator_legal_name,
+        args.operator_company_number,
+    )

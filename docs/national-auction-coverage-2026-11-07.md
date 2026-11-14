@@ -8,6 +8,35 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Carter Jonas retained archive, 14 November
+
+The reusable Bamboo collector reconciled 47/47 visible Carter Jonas property
+pages across three public archive pages and banked 47 net address-bearing
+appearances. Forty-four are exact-dated inside the twenty-year window, two are
+future-dated and one is undated; partial and duplicate-identity additions are
+zero. The batch contains eight commercial, eight mixed-use, 18 land, 12
+residential and one unknown record. Fifteen commercial/mixed-use records are
+inside the window.
+
+All 47 additions preserve a guide price and 40 preserve an achieved price. The
+in-window additions are 44 guides and 40 achieved prices; no rent was published.
+Strict cross-source date/address comparison found no overlap. Carter Jonas
+source-years 2021-2026 are newly represented. Carter Jonas LLP (OC304417) remains
+one operator lineage across offices and branches.
+
+The complete public Bamboo index and each stable detail payload were retained as
+immutable source evidence. Completeness applies only to the surviving 47-page
+archive, not deleted listings or earlier platforms. The rebuilt corpus now holds
+313,366 appearances, 302,050 address records and 305,044 in-window appearances.
+No collection or publication workflow was launched during this checkpoint.
+
+The bounded Durrants publisher/platform route recovered only exact 2021-2022
+calendar dates, not individual property evidence, so it contributed zero growth
+and is not being refreshed again. The next high-yield target is the first-party
+Stags recent-auction results archive, batched event-by-event through a reusable
+runner. National completeness remains false.
+
+
 ## Persisted historical gain — 12:17 UTC
 
 The reusable retained-grid runner reconciled eight Auction House Online events and

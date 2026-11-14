@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Search retained publisher and platform copies for Durrants' exact 2021-2022 calendar dates, then rotate to another uncovered high-yield auctioneer/source-year if no individual catalogue inventory survives. Batch additions through this reusable manifest runner and keep national completeness false.",
+  "next_growth_target": "Inventory and batch Stags' first-party Recent Auctions Results event pages and their individual View Properties routes through a reusable event runner. Reconcile all Stags branches and offices to one operator lineage, preserve every published date, guide, achieved price and outcome, exclude exact overlapping evidence, and keep national completeness false.",
   "runs": [
     {
       "source": "anderson_garland_results",
@@ -5211,6 +5211,68 @@
       "incomplete_catalogue_states": 556,
       "fetch_or_parse_failures": 31
     },
+    "national_completeness_verified": false
+  },
+  "carter_jonas_bamboo_growth": {
+    "checked_at": "2026-11-14T18:44:30.871928+00:00",
+    "source_url": "https://carterjonas.bambooauctions.com/",
+    "visible_source_rows": 47,
+    "detail_pages_captured": 47,
+    "net_new_appearances": 47,
+    "new_address_records": 47,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 44,
+    "new_undated_appearances": 1,
+    "new_future_dated_appearances": 2,
+    "commercial_or_mixed_use": 16,
+    "commercial_or_mixed_use_in_twenty_year_window": 15,
+    "sector_breakdown": {
+      "commercial": 8,
+      "mixed-use": 8,
+      "land": 18,
+      "residential": 12,
+      "unknown": 1
+    },
+    "new_guide_prices": 47,
+    "new_guide_prices_in_twenty_year_window": 44,
+    "new_sale_prices": 40,
+    "new_sale_prices_in_twenty_year_window": 40,
+    "new_rent_values": 0,
+    "source_years_observed": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "newly_covered_source_years": [
+      2021,
+      2022,
+      2023,
+      2024,
+      2025,
+      2026
+    ],
+    "exact_date_address_overlaps_excluded": 0,
+    "duplicate_appearance_ids": 0,
+    "duplicate_source_lot_ids": 0,
+    "pagination_reconciled": true,
+    "denominator_reconciled": true,
+    "operator_reconciliation": "CARTER JONAS LLP (company OC304417) is the canonical operator; branches and offices remain attribution within that lineage and are not counted as separate auctioneers.",
+    "completion_scope": "All listings in the surviving public Carter Jonas Bamboo archive; not a claim that deleted listings or earlier platforms are covered.",
+    "database_rebuild_verified": true,
+    "publication_started": false,
+    "prior_target_blocker": "Retained publisher and platform searches recovered Durrants' exact 2021-2022 calendar dates but no surviving individual property inventory. The bounded route added zero appearances and should be revisited only if a materially different property-level source emerges.",
+    "corpus_after_rebuild": {
+      "appearances": 313366,
+      "address_records": 302050,
+      "partial": 11316,
+      "in_window_appearances": 305044,
+      "in_window_guide_prices": 106931,
+      "in_window_sale_prices": 112865
+    },
+    "next_growth_target": "Batch Stags' first-party recent-auction result events and individual View Properties pages through a reusable runner, preserving published dates, prices, outcomes and immutable evidence while reconciling branches to one operator lineage.",
     "national_completeness_verified": false
   },
   "city_rural_catalogue_followup": {

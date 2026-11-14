@@ -4,6 +4,44 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 14 November 2026 — Carter Jonas retained Bamboo archive
+
+The reusable Bamboo white-label collector reconciled all three public index pages
+and all **47 stable Carter Jonas property detail pages**. It banked **47 net new
+individual appearances and 47 address records**: 44 exact-dated records inside the
+preceding twenty-year window, two future-dated records and one undated record. No
+partial lot, duplicate appearance identity or exact date/address cross-source
+overlap was admitted.
+
+The full sector split is eight commercial, eight mixed-use, 18 land, 12
+residential and one unknown. The in-window commercial/mixed-use subset is 15;
+the remaining mixed-use record is undated. The retained payloads add **47 guide
+prices and 40 achieved prices** in total, including 44 guides and all 40 achieved
+prices inside the window. They publish no rent evidence. Individual close dates,
+outcomes, original stable property URLs and the complete index/detail payloads are
+preserved in immutable snapshots.
+
+This establishes Carter Jonas source-years **2021, 2022, 2023, 2024, 2025 and
+2026**. Carter Jonas LLP (company OC304417) is the reconciled operator; office and
+branch attribution remains within that lineage and is not counted as additional
+auctioneers. Completeness is limited to the 47 listings surviving in the public
+Bamboo archive and does not claim coverage of removed properties or earlier
+platforms.
+
+The preceding Durrants route was bounded after retained publisher/platform
+searches recovered exact 2021-2022 auction calendar dates but no surviving
+individual property inventory. It therefore added zero properties and is not
+treated as growth. Rebuilt corpus totals are **313,366 appearances, 302,050
+address records, 11,316 partial records and 305,044 in-window appearances**, with
+**106,931 in-window guides and 112,865 in-window achieved prices**.
+
+Next serial growth target: batch Stags' first-party recent-auction result events
+and their individual `View Properties` pages through a reusable event runner.
+Reconcile all Stags offices and branches to one operator lineage, preserve each
+published date, guide, achieved price and outcome, and exclude exact overlapping
+evidence before claiming growth. National completeness remains false.
+
+
 ## 11 November 2026 — Kivells 2022 retained result-book batch
 
 Historical collection run [43047973493](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43047973493)
