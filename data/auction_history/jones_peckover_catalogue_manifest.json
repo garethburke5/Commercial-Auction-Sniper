@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "auctioneer": "Jones Peckover",
+  "events": [
+    {
+      "auction_date": "2026-04-15",
+      "source_url": "https://www.jonespeckover.co.uk/downloads/lot-1-cae-hafod-y-bryn.pdf",
+      "source_format": "pdf",
+      "expected_text": ["Cae Hafod Y Bryn", "15TH APRIL 2026", "Guide Price £40,000"],
+      "lots": [
+        {
+          "lot_number": "1",
+          "source_lot_id": "2026-04-15-cae-hafod-y-bryn",
+          "address": "1.94 Acres at Cae Hafod Y Bryn, James Park, Dyserth, LL18 6AG",
+          "postcode": "LL18 6AG",
+          "description": "1.94 acre parcel of agricultural land with river frontage and gated road access.",
+          "sector": "land",
+          "guide_price": 40000,
+          "guide_price_text": "Guide Price £40,000",
+          "status": "unknown"
+        }
+      ]
+    },
+    {
+      "auction_date": "2026-04-15",
+      "source_url": "https://www.jonespeckover.co.uk/downloads/lot-2-engine-hill.pdf",
+      "source_format": "pdf",
+      "expected_text": ["Engine Hill", "15TH APRIL 2026", "Guide Price £300,000"],
+      "lots": [
+        {
+          "lot_number": "2",
+          "source_lot_id": "2026-04-15-engine-hill",
+          "address": "Engine Hill, Bodelwyddan, LL18 5YA",
+          "postcode": "LL18 5YA",
+          "description": "Approximately 20.25 acres of agricultural land in two enclosures with road access and mains water.",
+          "sector": "land",
+          "guide_price": 300000,
+          "guide_price_text": "Guide Price £300,000",
+          "status": "unknown"
+        }
+      ]
+    },
+    {
+      "auction_date": "2026-06-10",
+      "source_url": "https://alto-live.s3.amazonaws.com/XGTMXXzAUjfRb6KHPli1kjxIm3M/-wddIUBApdH6VhAVQqSqylH3Pz4/Brochure/%5B0%5D/fHw0DKKWc0-m5DY79JAjSw.pdf",
+      "source_format": "pdf",
+      "expected_text": ["Pen y Bryn Farm", "10TH JUNE 2026", "GUIDE PRICE £400,000", "GUIDE PRICE £80,000", "GUIDE PRICE £140,000"],
+      "lots": [
+        {
+          "lot_number": "1",
+          "source_lot_id": "2026-06-10-pen-y-bryn-1",
+          "address": "Lot 1, Pen y Bryn Farm, Penycae, LL14 1UA",
+          "postcode": "LL14 1UA",
+          "description": "Three-bedroom farmhouse, outbuildings and 14.43 acres.",
+          "sector": "mixed-use",
+          "guide_price": 400000,
+          "guide_price_text": "Guide Price £400,000",
+          "status": "unknown"
+        },
+        {
+          "lot_number": "2",
+          "source_lot_id": "2026-06-10-pen-y-bryn-2",
+          "address": "Lot 2, Land and Stone Outbuilding at Pen y Bryn Farm, Penycae, LL14 1UA",
+          "postcode": "LL14 1UA",
+          "description": "7.89 acres with road access and a redundant stone outbuilding.",
+          "sector": "land",
+          "guide_price": 80000,
+          "guide_price_text": "Guide Price £80,000",
+          "status": "unknown"
+        },
+        {
+          "lot_number": "3",
+          "source_lot_id": "2026-06-10-pen-y-bryn-3",
+          "address": "Lot 3, Land at Pen y Bryn Farm, Penycae, LL14 1UA",
+          "postcode": "LL14 1UA",
+          "description": "14.06 acres of pasture land in three enclosures with road access.",
+          "sector": "land",
+          "guide_price": 140000,
+          "guide_price_text": "Guide Price £140,000",
+          "status": "unknown"
+        }
+      ]
+    }
+  ]
+}

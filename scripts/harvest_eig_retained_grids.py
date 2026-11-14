@@ -52,6 +52,16 @@ SOURCES = {
         "base": "https://higginsdrysdale.eigonlineauctions.com",
         "archive_path": "/search",
     },
+    "jones-peckover": {
+        "auctioneer": "Jones Peckover",
+        "base": "https://jonespeckover.eigonlineauctions.com",
+        "archive_path": "/search",
+        # Jones Peckover's Denbigh office is a branch of the same partnership,
+        # not a second auctioneer.  The branded EIG archive is therefore banked
+        # once under the reconciled operator name.
+        "historical_trading_names": ["Jones Peckover Denbigh"],
+        "exclude_exact_cross_source_overlaps": True,
+    },
     "the-property-auction-house": {
         "auctioneer": "The Property Auction House",
         "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
@@ -5938,7 +5948,7 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
-PARSER_VERSION = 8
+PARSER_VERSION = 9
 
 
 def clean(value: str | None) -> str | None:
@@ -6029,7 +6039,7 @@ def classify_sector(address: str | None, text: str | None) -> str:
     address_text = (clean(address) or "").casefold()
     detail_text = (clean(text) or "").casefold()
     combined = f"{address_text} {detail_text}"
-    if re.search(r"\b(land|plot|woodland|grazing|roadway)\b", address_text):
+    if re.search(r"\b(land|plot|woodland|grazing|roadway|field|acres?)\b", address_text):
         return "land"
     if re.search(
         r"\b(mixed[ -]?use|commercial (?:and|with) residential|residential (?:and|with) commercial|"
@@ -6038,8 +6048,8 @@ def classify_sector(address: str | None, text: str | None) -> str:
     ):
         return "mixed-use"
     if re.search(
-        r"\b(commercial unit|shop|retail|office|public house|pub|inn|church|chapel|theatre|"
-        r"hospital|telephone exchange|ground rents?|warehouse|industrial)\b",
+        r"\b(commercial unit|shop|retail|office|public house|pub|inn|social club|church|chapel|"
+        r"theatre|hospital|telephone exchange|ground rents?|warehouse|industrial)\b",
         address_text,
     ):
         return "commercial"

@@ -673,6 +673,23 @@
       "shared_feed": null,
       "relationship_evidence": "https://www.kivells.com/property-auctions",
       "verified_on": "2026-11-11"
+    },
+    {
+      "brand": "Jones Peckover Denbigh",
+      "source": "Jones Peckover",
+      "canonical_network": null,
+      "parent_family": "Jones Peckover",
+      "region_slug": "denbigh",
+      "regional_labels": [
+        "Denbigh"
+      ],
+      "source_url": "https://www.jonespeckover.co.uk/en/properties-for-auction/index.php",
+      "collector": "scripts.harvest_eig_retained_grids and scripts.harvest_jones_peckover_catalogues",
+      "shared_feed": "jones-peckover",
+      "relationship_evidence": "https://www.jonespeckover.co.uk/downloads/lot-1-cae-hafod-y-bryn.pdf",
+      "inventory_equivalence_verified": false,
+      "assessment": "The Denbigh directory entry is a Jones Peckover office label evidenced by the same branded first-party catalogue; it is reconciled to one auctioneer without claiming branch-specific historical completeness.",
+      "verified_on": "2026-11-14"
     }
   ],
   "priority_assessments": [

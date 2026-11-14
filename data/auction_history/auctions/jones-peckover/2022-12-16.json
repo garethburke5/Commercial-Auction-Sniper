@@ -1,0 +1,25 @@
+{
+  "auctioneer": "Jones Peckover",
+  "source_auction_id": "jones-peckover:2022-12-16",
+  "auction_date": "2022-12-16",
+  "source_url": "https://jonespeckover.eigonlineauctions.com/search",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://jonespeckover.eigonlineauctions.com/search",
+      "retrieved_at": "2026-11-14T18:11:10.268991+00:00",
+      "sha256": "5e7c2426d855e95a1e02397349b1a85c82ebf90e501be59c8e865b5aae0f6e5f",
+      "snapshot_path": "data/auction_history/sources/jones-peckover/past-auctions-page-1-5e7c2426d855e95a.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-14T18:11:35.302455+00:00"
+}

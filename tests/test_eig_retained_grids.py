@@ -237,6 +237,21 @@ def test_brown_co_uses_full_first_party_search_archive():
     }
 
 
+def test_jones_peckover_uses_reconciled_operator_and_full_eig_archive():
+    assert grids.SOURCES["jones-peckover"] == {
+        "auctioneer": "Jones Peckover",
+        "base": "https://jonespeckover.eigonlineauctions.com",
+        "archive_path": "/search",
+        "historical_trading_names": ["Jones Peckover Denbigh"],
+        "exclude_exact_cross_source_overlaps": True,
+    }
+
+
+def test_field_and_social_club_assets_are_not_misclassified_as_houses():
+    assert grids.classify_sector("Pump Field, Llangollen", "Agricultural pasture") == "land"
+    assert grids.classify_sector("West Shore Social Club, Llandudno", "Development site") == "commercial"
+
+
 def test_numeric_eig_lot_ids_are_preserved_as_stable_identities():
     numeric = GRID.replace(
         "85c11d6d-40f5-4b78-80c1-f360ee721c0b", "193314"

@@ -2087,6 +2087,17 @@ The bounded Auction House South West / Bristol & West route exposes no pre-2018 
 - **Next concrete growth target:** extend the same reusable saved-PDF runner across Kivells' accessible 2024 first-party event results. Start with the proven 12 June 2024 PDF (**13 numbered lots**), then inventory and batch the official result PDFs for 17 January, 21 February, 20 March, 17 April, 15 May, 24 July, 4 September, 9 October and 13 November. Annual and half-year review totals are discovery evidence only; bank only individual result cards with exact dates and preserve all outcomes.
 - National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
 
+## 14 November 2026 — Jones Peckover first source bank
+
+- **Specific growth opportunity executed:** Jones Peckover had zero retained appearances, while its branded EIG archive exposed a complete ten-card surviving grid and three first-party 2026 PDFs exposed five separately numbered property interests. The existing reusable EIG collector now supports this operator, and one manifest-driven PDF runner batches all three catalogues rather than creating event-specific jobs.
+- **Measured net gain:** **15 individual appearances**, all full address records with exact dates inside 14 November 2006–14 November 2026. New partial, undated, future-dated and duplicate records are **0 / 0 / 0 / 0**.
+- **Sector and evidence gain:** **1 commercial, 1 mixed-use, 8 land and 5 residential** appearances. The batch adds **15 guide prices, 4 achieved prices and 0 rents**. Six EIG outcomes remain unsold, four retain their numeric sold prices, and the five catalogue-only outcomes and sale amounts remain null.
+- **Inventory and identities:** all **10/10** EIG cards, **10/10** detail pages, three immutable PDFs and **5/5** numbered PDF interests reconcile. The three Pen y Bryn legal interests remain separate appearances; the auction venue postcode is not used as a property postcode.
+- **Branch reconciliation:** `Jones Peckover Denbigh` is evidenced as an office/branch label of Jones Peckover and is mapped to the single operator rather than counted as a second auctioneer. Source years **2022, 2023 and 2026** are newly represented, but deleted earlier inventory remains unknown.
+- **Corpus after verified rebuild:** **313,334 appearances**, **302,018 address records**, **11,316 partial records** and **305,015 in-window appearances**. In-window evidence totals are **106,902 guides** and **112,829 achieved prices**; retained exceptions are **5,047 undated** and **152 future-dated** appearances.
+- **Next concrete growth target:** batch the accessible Durrants 2021–2022 retained catalogue copies through the existing manifest collector, preserving individual dates, identities, guides and outcomes, then rotate to another uncovered genuine operator if those platform copies do not survive.
+- National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
+
 ## 11 November 2026 — Durrants retained result-sheet batch
 
 - **Specific growth opportunity executed:** the official Durrants property-auction calendar exposed ten retained first-party result PDFs. One reusable runner discovered, downloaded, snapshotted and parsed all ten sheets rather than adding a dated workflow per event.

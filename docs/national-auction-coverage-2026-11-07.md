@@ -436,6 +436,15 @@ The next serial target is persisted but untriggered: 29 linked 2019 catalogues, 
 - **Next batch:** reuse the saved-PDF runner for the official 2024 Kivells event-result inventory, beginning with the exact-dated 12 June sheet (13 numbered lots), then batch the official January, February, March, April, May, July, September, October and November result PDFs. Review articles remain discovery evidence only.
 - National completeness remains **false** pending source-by-source lot inventory and auctioneer/branch/trading-name reconciliation.
 
+## 14 November 2026 — Jones Peckover coverage checkpoint
+
+- The previously uncovered genuine auctioneer now has **15** retained, exact-dated address appearances across **2022, 2023 and 2026**: ten reconciled lots from its branded EIG archive and five separately numbered interests from three immutable first-party PDFs.
+- Growth is **15 appearances / 15 in-window dated addresses / 2 commercial-or-mixed-use**. Evidence growth is **15 guides / 4 achieved prices / 0 rents**; partial, undated, future-dated and duplicate additions are all zero.
+- `Jones Peckover Denbigh` is reconciled as a branch/office label of Jones Peckover and is not counted as a new operator. The surviving grid and PDFs are complete only within their published denominators; older deleted inventory remains unverified.
+- The rebuilt corpus contains **313,334 appearances**, **302,018 addresses**, **305,015 in-window appearances**, **106,902 in-window guides** and **112,829 in-window achieved prices**.
+- **Next target:** batch accessible Durrants 2021–2022 retained catalogue copies through the existing manifest runner; do not repeat removed Rightmove-object requests without a new route.
+- National completeness remains **false** pending source-by-source lot inventory and auctioneer/branch/trading-name reconciliation.
+
 ## 11 November 2026 — Kivells 2024 source-year checkpoint
 
 - Direct collection run [43004491044](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43004491044) and saved-file recovery [43006013384](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43006013384) permanently banked five exact-dated first-party Kivells result PDFs. The saved November text-layer token `USOLD` was reconciled to `UNSOLD` without redownloading or replacing the immutable source file.
