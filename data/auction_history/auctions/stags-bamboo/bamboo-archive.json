@@ -1,0 +1,48 @@
+{
+  "auctioneer": "Stags",
+  "operator_legal_name": null,
+  "operator_company_number": null,
+  "source_auction_id": "stags-bamboo:bamboo-archive",
+  "source_url": "https://stags.bambooauctions.com/",
+  "source_rows_complete": true,
+  "catalogue_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "visible_source_rows": 353,
+  "lots_captured": 353,
+  "detail_payloads_captured": 346,
+  "index_fallback_rows": 7,
+  "page_count": 18,
+  "errors": [
+    {
+      "source_id": "63f780d78aa50e14fcb58997",
+      "error": "KeyError: 'propertyData'"
+    },
+    {
+      "source_id": "6448109c98ce581c4be4c8f0",
+      "error": "KeyError: 'propertyData'"
+    },
+    {
+      "source_id": "6448e0b0d219a92a9b566299",
+      "error": "KeyError: 'propertyData'"
+    },
+    {
+      "source_id": "6448e36dd78cab2e5a9f4569",
+      "error": "KeyError: 'propertyData'"
+    },
+    {
+      "source_id": "6448e965d1698e598e128fff",
+      "error": "KeyError: 'propertyData'"
+    },
+    {
+      "source_id": "6448eedcb7e8fa312caebd03",
+      "error": "KeyError: 'propertyData'"
+    },
+    {
+      "source_id": "6448f71a9e1bd62a52f74f20",
+      "error": "KeyError: 'propertyData'"
+    }
+  ],
+  "checked_at": "2026-11-14T19:22:27.474056+00:00",
+  "completion_scope": "all listings in the surviving public Bamboo white-label archive; not a claim that deleted listings or earlier platforms are covered"
+}

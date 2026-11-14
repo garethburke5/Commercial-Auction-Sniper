@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-14T22:04:04.007758+00:00",
-  "individual_lot_records_captured": 313319,
-  "records_with_address": 302003,
+  "generated_at": "2026-11-14T22:17:39.340462+00:00",
+  "individual_lot_records_captured": 314611,
+  "records_with_address": 303295,
   "partial_lot_records": 11316,
-  "exact_address_groups": 167956,
-  "groups_with_repeat_appearances": 42983,
+  "exact_address_groups": 169210,
+  "groups_with_repeat_appearances": 43005,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -66,8 +66,10 @@
     "Boultons Harrisons Ltd": 62,
     "Bowen": 27,
     "Bradley Hall": 79,
+    "Bradleys Estate Agents": 426,
     "Brown&Co": 478,
     "Butters John Bee": 1446,
+    "Carter Jonas": 47,
     "Cheffins": 740,
     "City & Rural Property Auctions": 166,
     "Clarke & Simpson": 170,
@@ -79,6 +81,7 @@
     "Durrants": 37,
     "Edward Mellor": 10339,
     "First for Auctions": 1454,
+    "Fisher German": 271,
     "Future Property Auctions": 76690,
     "Goldings Auctions": 635,
     "Harman Healy": 1528,
@@ -120,6 +123,7 @@
     "Seel & Co": 460,
     "Sharpes Auctions": 1237,
     "Smith & Sons": 1007,
+    "Stags": 362,
     "Strettons": 199,
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
@@ -128,10 +132,11 @@
     "The Auction Company": 123,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3114,
-    "Unknown auctioneer": 14
+    "Unknown auctioneer": 14,
+    "Williams & Goodwin The Property People": 186
   },
   "by_year": {
-    "null": 5047,
+    "null": 5063,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -151,29 +156,29 @@
     "2018": 8294,
     "2019": 7978,
     "2020": 13957,
-    "2021": 21296,
-    "2022": 26725,
-    "2023": 33413,
-    "2024": 42327,
-    "2025": 48390,
-    "2026": 48309,
+    "2021": 21490,
+    "2022": 26920,
+    "2023": 33663,
+    "2024": 42535,
+    "2025": 48630,
+    "2026": 48498,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42789,
-    "land": 19405,
+    "commercial": 42842,
+    "land": 19807,
     "mixed": 1,
-    "mixed-use": 47714,
-    "residential": 151804,
-    "unknown": 51606
+    "mixed-use": 47768,
+    "residential": 152562,
+    "unknown": 51631
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 4987,
+  "surviving_catalogues_completely_harvested": 4993,
   "catalogues_incomplete_or_unreconciled": 562,
-  "catalogue_fetch_or_parse_failures": 32,
+  "catalogue_fetch_or_parse_failures": 39,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -185,13 +190,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 305000,
-      "auction_ids_observed": 13659,
-      "with_guide_price": 106887,
-      "with_sale_price": 112825,
-      "with_both_prices": 48946,
-      "marked_sold": 155700,
-      "marked_sold_without_sale_price": 43615
+      "lot_appearances": 306232,
+      "auction_ids_observed": 14891,
+      "with_guide_price": 108119,
+      "with_sale_price": 113885,
+      "with_both_prices": 50006,
+      "marked_sold": 156767,
+      "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
       {
@@ -4232,6 +4237,72 @@
         "marked_sold_without_sale_price": 2
       },
       {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2021,
+        "lot_appearances": 69,
+        "auction_ids_observed": 69,
+        "with_guide_price": 69,
+        "with_sale_price": 69,
+        "with_both_prices": 69,
+        "marked_sold": 69,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2022,
+        "lot_appearances": 70,
+        "auction_ids_observed": 70,
+        "with_guide_price": 70,
+        "with_sale_price": 69,
+        "with_both_prices": 69,
+        "marked_sold": 69,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2023,
+        "lot_appearances": 95,
+        "auction_ids_observed": 95,
+        "with_guide_price": 95,
+        "with_sale_price": 94,
+        "with_both_prices": 94,
+        "marked_sold": 94,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2024,
+        "lot_appearances": 53,
+        "auction_ids_observed": 53,
+        "with_guide_price": 53,
+        "with_sale_price": 45,
+        "with_both_prices": 45,
+        "marked_sold": 45,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2025,
+        "lot_appearances": 65,
+        "auction_ids_observed": 65,
+        "with_guide_price": 65,
+        "with_sale_price": 56,
+        "with_both_prices": 56,
+        "marked_sold": 56,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Bradleys Estate Agents",
+        "year": 2026,
+        "lot_appearances": 56,
+        "auction_ids_observed": 56,
+        "with_guide_price": 56,
+        "with_sale_price": 44,
+        "with_both_prices": 44,
+        "marked_sold": 44,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Brown&Co",
         "year": 2020,
         "lot_appearances": 1,
@@ -4329,6 +4400,72 @@
         "with_both_prices": 105,
         "marked_sold": 197,
         "marked_sold_without_sale_price": 92
+      },
+      {
+        "auctioneer": "Carter Jonas",
+        "year": 2021,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Carter Jonas",
+        "year": 2022,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Carter Jonas",
+        "year": 2023,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Carter Jonas",
+        "year": 2024,
+        "lot_appearances": 12,
+        "auction_ids_observed": 12,
+        "with_guide_price": 12,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Carter Jonas",
+        "year": 2025,
+        "lot_appearances": 15,
+        "auction_ids_observed": 15,
+        "with_guide_price": 15,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 11,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Carter Jonas",
+        "year": 2026,
+        "lot_appearances": 9,
+        "auction_ids_observed": 9,
+        "with_guide_price": 9,
+        "with_sale_price": 9,
+        "with_both_prices": 9,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Cheffins",
@@ -5396,6 +5533,72 @@
         "with_both_prices": 0,
         "marked_sold": 328,
         "marked_sold_without_sale_price": 108
+      },
+      {
+        "auctioneer": "Fisher German",
+        "year": 2021,
+        "lot_appearances": 35,
+        "auction_ids_observed": 35,
+        "with_guide_price": 35,
+        "with_sale_price": 31,
+        "with_both_prices": 31,
+        "marked_sold": 31,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German",
+        "year": 2022,
+        "lot_appearances": 42,
+        "auction_ids_observed": 42,
+        "with_guide_price": 42,
+        "with_sale_price": 33,
+        "with_both_prices": 33,
+        "marked_sold": 33,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German",
+        "year": 2023,
+        "lot_appearances": 43,
+        "auction_ids_observed": 43,
+        "with_guide_price": 43,
+        "with_sale_price": 37,
+        "with_both_prices": 37,
+        "marked_sold": 37,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German",
+        "year": 2024,
+        "lot_appearances": 39,
+        "auction_ids_observed": 39,
+        "with_guide_price": 39,
+        "with_sale_price": 32,
+        "with_both_prices": 32,
+        "marked_sold": 32,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German",
+        "year": 2025,
+        "lot_appearances": 77,
+        "auction_ids_observed": 77,
+        "with_guide_price": 77,
+        "with_sale_price": 60,
+        "with_both_prices": 60,
+        "marked_sold": 60,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Fisher German",
+        "year": 2026,
+        "lot_appearances": 27,
+        "auction_ids_observed": 27,
+        "with_guide_price": 27,
+        "with_sale_price": 21,
+        "with_both_prices": 21,
+        "marked_sold": 21,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Future Property Auctions",
@@ -8269,6 +8472,72 @@
         "marked_sold_without_sale_price": 11
       },
       {
+        "auctioneer": "Stags",
+        "year": 2021,
+        "lot_appearances": 61,
+        "auction_ids_observed": 61,
+        "with_guide_price": 61,
+        "with_sale_price": 61,
+        "with_both_prices": 61,
+        "marked_sold": 61,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Stags",
+        "year": 2022,
+        "lot_appearances": 53,
+        "auction_ids_observed": 53,
+        "with_guide_price": 53,
+        "with_sale_price": 47,
+        "with_both_prices": 47,
+        "marked_sold": 47,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Stags",
+        "year": 2023,
+        "lot_appearances": 77,
+        "auction_ids_observed": 77,
+        "with_guide_price": 77,
+        "with_sale_price": 53,
+        "with_both_prices": 53,
+        "marked_sold": 53,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Stags",
+        "year": 2024,
+        "lot_appearances": 68,
+        "auction_ids_observed": 68,
+        "with_guide_price": 68,
+        "with_sale_price": 55,
+        "with_both_prices": 55,
+        "marked_sold": 55,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Stags",
+        "year": 2025,
+        "lot_appearances": 52,
+        "auction_ids_observed": 52,
+        "with_guide_price": 52,
+        "with_sale_price": 35,
+        "with_both_prices": 35,
+        "marked_sold": 36,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Stags",
+        "year": 2026,
+        "lot_appearances": 33,
+        "auction_ids_observed": 33,
+        "with_guide_price": 33,
+        "with_sale_price": 20,
+        "with_both_prices": 20,
+        "marked_sold": 26,
+        "marked_sold_without_sale_price": 6
+      },
+      {
         "auctioneer": "Strettons",
         "year": 2026,
         "lot_appearances": 199,
@@ -8729,10 +8998,76 @@
         "with_both_prices": 10,
         "marked_sold": 11,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Williams & Goodwin The Property People",
+        "year": 2021,
+        "lot_appearances": 27,
+        "auction_ids_observed": 27,
+        "with_guide_price": 27,
+        "with_sale_price": 27,
+        "with_both_prices": 27,
+        "marked_sold": 27,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Williams & Goodwin The Property People",
+        "year": 2022,
+        "lot_appearances": 27,
+        "auction_ids_observed": 27,
+        "with_guide_price": 27,
+        "with_sale_price": 27,
+        "with_both_prices": 27,
+        "marked_sold": 27,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Williams & Goodwin The Property People",
+        "year": 2023,
+        "lot_appearances": 32,
+        "auction_ids_observed": 32,
+        "with_guide_price": 32,
+        "with_sale_price": 32,
+        "with_both_prices": 32,
+        "marked_sold": 32,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Williams & Goodwin The Property People",
+        "year": 2024,
+        "lot_appearances": 36,
+        "auction_ids_observed": 36,
+        "with_guide_price": 36,
+        "with_sale_price": 27,
+        "with_both_prices": 27,
+        "marked_sold": 27,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Williams & Goodwin The Property People",
+        "year": 2025,
+        "lot_appearances": 31,
+        "auction_ids_observed": 31,
+        "with_guide_price": 31,
+        "with_sale_price": 26,
+        "with_both_prices": 26,
+        "marked_sold": 26,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Williams & Goodwin The Property People",
+        "year": 2026,
+        "lot_appearances": 20,
+        "auction_ids_observed": 20,
+        "with_guide_price": 20,
+        "with_sale_price": 19,
+        "with_both_prices": 19,
+        "marked_sold": 19,
+        "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5047,
-    "future_dated_appearances": 152,
+    "undated_appearances": 5063,
+    "future_dated_appearances": 196,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
