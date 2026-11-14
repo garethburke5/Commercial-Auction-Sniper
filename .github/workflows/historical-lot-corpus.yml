@@ -32,6 +32,7 @@ on:
           - rebuild
           - dawsons
           - bagshaws-saved-narratives
+          - bamboo-marketplace
   push:
     branches: [main]
     paths:
@@ -224,7 +225,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: main
+          ref: ${{ github.event_name == 'workflow_dispatch' && github.ref_name || 'main' }}
           fetch-depth: 1
       - name: Move queued collection to current main
         if: github.event_name == 'schedule' || github.event_name == 'push'
@@ -1588,6 +1589,19 @@ jobs:
         timeout-minutes: 15
         run: python -u scripts/harvest_durrants_results.py
 
+      - name: Recover missing Bamboo marketplace detail payloads
+        if: inputs.focus == 'bamboo-marketplace'
+        timeout-minutes: 15
+        run: |
+          python -u scripts/harvest_bamboo_auctioneer.py \
+            --host app.bambooauctions.com \
+            --auctioneer "Bamboo marketplace" \
+            --slug bamboo-marketplace \
+            --marketplace \
+            --workers 8 \
+            --saved-index data/auction_history/sources/bamboo-marketplace/bamboo/index-14835603928b3c13.json.gz \
+            --alternate-detail-host app.bambooproptech.com
+
       - name: Bank newly saved source-corpus lots
         if: always()
         timeout-minutes: 5
@@ -1603,8 +1617,22 @@ jobs:
       - name: Reconcile the historical source register and remaining gaps
         if: always() && steps.rebuild.outcome == 'success'
         run: python scripts/history_source_register.py
+      - name: Save focused Bamboo checkpoint to the dispatched branch
+        if: always() && steps.rebuild.outcome == 'success' && inputs.focus == 'bamboo-marketplace'
+        run: |
+          set -euo pipefail
+          git config user.name 'Auction Sniper History Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add data/auction_history/appearances/bamboo-marketplace
+          git add data/auction_history/auctions/bamboo-marketplace
+          git add data/auction_history/sources/bamboo-marketplace
+          git add data/auction_history/bamboo_marketplace_bamboo_collection.json
+          git add data/auction_history/progress.json data/auction_history/source_register.json
+          git add -A data/auction_history/database_parts
+          git commit -m 'Bank migrated Bamboo marketplace property details'
+          git push origin "HEAD:${GITHUB_REF_NAME}"
       - name: Publish checkpoint without changing the live board
-        if: always() && steps.rebuild.outcome == 'success'
+        if: always() && steps.rebuild.outcome == 'success' && inputs.focus != 'bamboo-marketplace'
         run: |
           set -euo pipefail
           test -s data/auction_history/progress.json
