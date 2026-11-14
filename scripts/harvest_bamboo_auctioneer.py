@@ -76,6 +76,22 @@ def page_props(raw: bytes) -> dict:
     return extract_next_data(raw)["props"]["pageProps"]
 
 
+def property_payload(raw: bytes) -> dict:
+    """Extract a property from either the marketplace or Fusion page shape.
+
+    Bamboo's migrated ``app.bambooproptech.com`` host redirects some retired
+    marketplace listings to ``bamboofusion.co.uk``.  Those pages retain the
+    complete individual lot payload under ``propertyResponse`` even when the
+    current marketplace page no longer exposes ``propertyData``.
+    """
+    props = page_props(raw)
+    for key in ("propertyData", "propertyResponse"):
+        value = props.get(key)
+        if isinstance(value, dict) and value:
+            return value
+    raise ValueError("page has no propertyData or propertyResponse payload")
+
+
 def exact_date(value: str | None) -> str | None:
     if not value:
         return None
@@ -83,6 +99,59 @@ def exact_date(value: str | None) -> str | None:
         return datetime.fromisoformat(value.replace("Z", "+00:00")).date().isoformat()
     except ValueError:
         return None
+
+
+PUBLISHED_DATE_RE = re.compile(
+    r"\b(\d{1,2})(?:st|nd|rd|th)?\s+"
+    r"(January|February|March|April|May|June|July|August|September|October|November|December)"
+    r"\s+(\d{4})\b",
+    re.I,
+)
+
+
+def published_auction_date(item: dict) -> tuple[str | None, str | None, str]:
+    """Recover an exact date without promoting mutable or unrelated dates.
+
+    Retired Fusion lots sometimes omit ``endDate`` while retaining their room
+    bid timestamps.  Future hybrid lots can omit both but publish the auction
+    date in the description.  The basis is returned with the value so these
+    fallbacks remain distinguishable from an exact platform close timestamp.
+    """
+    end_time = corpus.clean(item.get("endDate")) or None
+    date = exact_date(end_time)
+    if date:
+        return date, end_time, "exact close date in public Bamboo property payload"
+
+    bid_times = []
+    for bid in item.get("bids") or []:
+        if not isinstance(bid, dict):
+            continue
+        value = corpus.clean(bid.get("createdAt")) or corpus.clean(bid.get("timestamp"))
+        if exact_date(value):
+            bid_times.append(value)
+    if bid_times:
+        latest = max(bid_times)
+        return (
+            exact_date(latest),
+            None,
+            "exact event date from latest published bid timestamp on retained Bamboo Fusion payload",
+        )
+
+    description = clean_html(item.get("description")) or ""
+    for match in PUBLISHED_DATE_RE.finditer(description):
+        sentence_start = description.rfind(".", 0, match.start()) + 1
+        sentence_end = description.find(".", match.end())
+        if sentence_end < 0:
+            sentence_end = len(description)
+        context = description[sentence_start:sentence_end].lower()
+        if "auction" not in context and "ending" not in context:
+            continue
+        try:
+            date = datetime.strptime(" ".join(match.groups()), "%d %B %Y").date().isoformat()
+        except ValueError:
+            continue
+        return date, None, "exact auction date explicitly published in retained Bamboo property description"
+    return None, None, "no close date published in retained Bamboo property evidence"
 
 
 def clean_html(value: str | None) -> str | None:
@@ -179,7 +248,7 @@ def row_from_property(
 ) -> dict:
     source_id = str(item.get("_id") or item.get("id") or "").strip()
     handle = str(item.get("handle") or "").strip()
-    date = exact_date(item.get("endDate"))
+    date, exact_end_time, auction_date_basis = published_auction_date(item)
     if not source_id or not handle:
         raise ValueError("property payload has no stable id/handle")
     original_url = f"https://{host}/property/{handle}"
@@ -207,11 +276,13 @@ def row_from_property(
     now_utc = now_utc or datetime.now(timezone.utc)
     reserve_met = item.get("isReserveMet") is True
     end_time = None
-    if item.get("endDate"):
-        end_time = datetime.fromisoformat(item["endDate"].replace("Z", "+00:00"))
+    if exact_end_time:
+        end_time = datetime.fromisoformat(exact_end_time.replace("Z", "+00:00"))
         if end_time.tzinfo is None:
             end_time = end_time.replace(tzinfo=timezone.utc)
-    ended = end_time is not None and end_time <= now_utc
+    ended = (end_time is not None and end_time <= now_utc) or (
+        end_time is None and date is not None and date <= now_utc.date().isoformat()
+    )
     highest_bid = positive_money(item.get("highestBid"))
     status = "sold" if ended and reserve_met else ("available" if not ended else "unknown")
     sale_price = highest_bid if status == "sold" else None
@@ -235,7 +306,7 @@ def row_from_property(
         sale_price=sale_price,
         annual_rent=annual_rent,
         rent_text=rent_text,
-        status=status if end_time is not None else "unknown",
+        status=status if date is not None else "unknown",
         description=description,
         sector=corpus.sector(" ".join(v for v in (title, property_type, description) if v)),
         epc=corpus.clean(item.get("epcRating")) or None,
@@ -244,8 +315,8 @@ def row_from_property(
         identity_method="bamboo_stable_property_id",
         record_quality="address_record" if address else "partial_lot",
         source_evidence=evidence,
-        auction_date_basis="exact close date in public Bamboo property payload" if date else "no close date published in public Bamboo property payload",
-        auction_end_time=item.get("endDate"),
+        auction_date_basis=auction_date_basis,
+        auction_end_time=exact_end_time,
         source_status=item.get("status"),
         reserve_met=reserve_met,
         bid_count=len(item.get("bids") or []),
@@ -265,30 +336,45 @@ def harvest(
     operator_company_number: str | None = None,
     historical_trading_names: list[str] | None = None,
     marketplace: bool = False,
+    alternate_detail_hosts: list[str] | None = None,
+    saved_index_path: str | None = None,
 ) -> dict:
     base = f"https://{host}/"
-    first_raw = fetch(base)
-    first_props = page_props(first_raw)
-    first_index = first_props["propertiesData"]
-    total_count = int(first_index["meta"]["totalCount"])
-    page_size = len(first_index["data"])
-    if total_count < 1 or page_size < 1:
-        raise SystemExit("Bamboo archive exposed no properties")
-    page_count = math.ceil(total_count / page_size)
-
-    index_pages: dict[int, dict] = {1: first_index}
-
-    def collect_page(number: int) -> tuple[int, dict]:
-        raw = fetch(base + f"?page={number}")
-        return number, page_props(raw)["propertiesData"]
-
     worker_limit = 24 if marketplace else 12
-    with ThreadPoolExecutor(max_workers=max(1, min(workers, worker_limit))) as executor:
-        jobs = [executor.submit(collect_page, page) for page in range(2, page_count + 1)]
-        for future in as_completed(jobs):
-            number, payload = future.result()
-            index_pages[number] = payload
-            print(f"BAMBOO INDEX {number}/{page_count}", flush=True)
+    supplied_index_path = Path(saved_index_path) if saved_index_path else None
+    if supplied_index_path and not supplied_index_path.is_absolute():
+        supplied_index_path = corpus.ROOT / supplied_index_path
+    if supplied_index_path:
+        index_snapshot = corpus.read_gzip(supplied_index_path)
+        total_count = int(index_snapshot["total_count"])
+        page_size = int(index_snapshot["page_size"])
+        page_count = int(index_snapshot["page_count"])
+        index_pages = {
+            number: payload
+            for number, payload in enumerate(index_snapshot["index_pages"], start=1)
+        }
+        print(f"BAMBOO SAVED INDEX {total_count} rows/{page_count} pages", flush=True)
+    else:
+        first_raw = fetch(base)
+        first_props = page_props(first_raw)
+        first_index = first_props["propertiesData"]
+        total_count = int(first_index["meta"]["totalCount"])
+        page_size = len(first_index["data"])
+        if total_count < 1 or page_size < 1:
+            raise SystemExit("Bamboo archive exposed no properties")
+        page_count = math.ceil(total_count / page_size)
+        index_pages = {1: first_index}
+
+        def collect_page(number: int) -> tuple[int, dict]:
+            raw = fetch(base + f"?page={number}")
+            return number, page_props(raw)["propertiesData"]
+
+        with ThreadPoolExecutor(max_workers=max(1, min(workers, worker_limit))) as executor:
+            jobs = [executor.submit(collect_page, page) for page in range(2, page_count + 1)]
+            for future in as_completed(jobs):
+                number, payload = future.result()
+                index_pages[number] = payload
+                print(f"BAMBOO INDEX {number}/{page_count}", flush=True)
 
     index_rows = [item for page in sorted(index_pages) for item in index_pages[page]["data"]]
     by_id = {str(item.get("_id") or item.get("id")): item for item in index_rows}
@@ -297,17 +383,20 @@ def harvest(
     if len(by_id) != total_count:
         raise SystemExit(f"Bamboo pagination contains {total_count - len(by_id)} duplicate stable ids")
 
-    index_snapshot = {
-        "source_url": base,
-        "retrieved_at": corpus.now(),
-        "total_count": total_count,
-        "page_size": page_size,
-        "page_count": page_count,
-        "index_pages": [index_pages[page] for page in sorted(index_pages)],
-    }
+    if not supplied_index_path:
+        index_snapshot = {
+            "source_url": base,
+            "retrieved_at": corpus.now(),
+            "total_count": total_count,
+            "page_size": page_size,
+            "page_count": page_count,
+            "index_pages": [index_pages[page] for page in sorted(index_pages)],
+        }
     index_bytes = json.dumps(index_snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     index_sha = corpus.digest(index_bytes)
-    index_path = corpus.DATA / "sources" / slug / "bamboo" / f"index-{index_sha[:16]}.json.gz"
+    index_path = supplied_index_path or (
+        corpus.DATA / "sources" / slug / "bamboo" / f"index-{index_sha[:16]}.json.gz"
+    )
     if not index_path.exists():
         corpus.save_gzip(index_path, index_snapshot)
 
@@ -316,6 +405,11 @@ def harvest(
     if cache_state_path.exists():
         cache_state = json.loads(cache_state_path.read_text())
     cached_entries = cache_state.get("details") if isinstance(cache_state.get("details"), dict) else {}
+    detail_source_urls = (
+        cache_state.get("detail_source_urls")
+        if isinstance(cache_state.get("detail_source_urls"), dict)
+        else {}
+    )
     detail_payloads: dict[str, dict] = {}
     valid_cached_entries = {}
     bundle_relative = cache_state.get("bundle_snapshot_path")
@@ -323,6 +417,7 @@ def harvest(
         bundle_path = corpus.ROOT / bundle_relative
         if bundle_path.exists():
             bundle = read_snapshot_bundle(bundle_path)
+            detail_source_urls.update(bundle.get("detail_source_urls") or {})
             for detail in bundle.get("property_details", []):
                 source_id = str(detail.get("_id") or detail.get("id"))
                 if source_id in by_id:
@@ -345,20 +440,38 @@ def harvest(
         "index_snapshot_path": str(index_path.relative_to(corpus.ROOT)),
         "index_sha256": index_sha,
         "expected_details": total_count,
+        # Keep the consolidated checkpoint reachable while the missing-detail
+        # requests are in flight.  Without this field, an interrupted recovery
+        # forgets the already banked bundle and attempts the whole archive again.
+        "bundle_snapshot_path": bundle_relative,
         "details": valid_cached_entries,
+        "detail_source_urls": detail_source_urls,
         "checked_at": corpus.now(),
     }
     corpus.save_json(cache_state_path, cache_state)
     if detail_payloads:
         print(f"BAMBOO RESUME {len(detail_payloads)}/{total_count}", flush=True)
 
-    def collect_detail(summary: dict) -> tuple[str, dict]:
+    recovery_hosts = [
+        value.removeprefix("https://").removeprefix("http://").strip("/")
+        for value in (alternate_detail_hosts or [])
+        if value
+    ]
+
+    def collect_detail(summary: dict) -> tuple[str, dict, str]:
         source_id = str(summary.get("_id") or summary.get("id"))
-        url = urljoin(base, "property/" + summary["handle"])
-        detail = page_props(fetch(url))["propertyData"]
-        if str(detail.get("_id") or detail.get("id")) != source_id:
-            raise ValueError(f"detail identity mismatch for {source_id}")
-        return source_id, detail
+        urls = [f"https://{value}/property/{summary['handle']}" for value in recovery_hosts]
+        urls.append(urljoin(base, "property/" + summary["handle"]))
+        errors = []
+        for url in dict.fromkeys(urls):
+            try:
+                detail = property_payload(fetch(url))
+                if str(detail.get("_id") or detail.get("id")) != source_id:
+                    raise ValueError(f"detail identity mismatch for {source_id}")
+                return source_id, detail, url
+            except Exception as exc:
+                errors.append(f"{url}: {type(exc).__name__}: {exc}")
+        raise ValueError("; ".join(errors))
 
     missing_summaries = [summary for source_id, summary in by_id.items() if source_id not in detail_payloads]
     failures = []
@@ -367,11 +480,12 @@ def harvest(
         for future in as_completed(jobs):
             expected_id = jobs[future]
             try:
-                source_id, detail = future.result()
+                source_id, detail, detail_url = future.result()
             except Exception as exc:  # retain every successful checkpoint before failing the run
                 failures.append({"source_id": expected_id, "error": f"{type(exc).__name__}: {exc}"})
                 continue
             detail_payloads[source_id] = detail
+            detail_source_urls[source_id] = detail_url
             detail_bytes = json.dumps(detail, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
             detail_sha = corpus.digest(detail_bytes)
             detail_path = corpus.DATA / "sources" / slug / "bamboo" / "details" / f"{source_id}-{detail_sha[:16]}.json.gz"
@@ -407,6 +521,12 @@ def harvest(
         "index_sha256": index_sha,
         "index_pages": [index_pages[page] for page in sorted(index_pages)],
         "property_details": [detail_payloads[source_id] for source_id in sorted(detail_payloads)],
+        "detail_source_urls": {
+            source_id: detail_source_urls[source_id]
+            for source_id in sorted(detail_payloads)
+            if source_id in detail_source_urls
+        },
+        "alternate_detail_hosts": recovery_hosts,
         "detail_payloads_captured": len(detail_payloads),
         "missing_detail_payloads": total_count - len(detail_payloads),
         "complete": source_complete,
@@ -424,6 +544,7 @@ def harvest(
         snapshot_path.unlink()
     cache_state["bundle_snapshot_path"] = str(snapshot_reference.relative_to(corpus.ROOT))
     cache_state["details"] = {}
+    cache_state["detail_source_urls"] = detail_source_urls
     cache_state["failures"] = failures
     cache_state["checked_at"] = corpus.now()
     corpus.save_json(cache_state_path, cache_state)
@@ -614,6 +735,16 @@ if __name__ == "__main__":
     parser.add_argument("--operator-company-number")
     parser.add_argument("--historical-trading-name", action="append", default=[])
     parser.add_argument("--marketplace", action="store_true")
+    parser.add_argument(
+        "--alternate-detail-host",
+        action="append",
+        default=[],
+        help="Try this migrated Bamboo host before the primary host for missing details",
+    )
+    parser.add_argument(
+        "--saved-index",
+        help="Reuse an immutable index snapshot and request only missing detail identities",
+    )
     args = parser.parse_args()
     harvest(
         args.host,
@@ -624,4 +755,6 @@ if __name__ == "__main__":
         args.operator_company_number,
         args.historical_trading_name,
         args.marketplace,
+        args.alternate_detail_host,
+        args.saved_index,
     )
