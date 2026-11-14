@@ -746,3 +746,32 @@ appearances**. National completeness remains false.
 The next concrete target is a substantial accessible multi-event archive for
 an uncovered genuine auctioneer, prioritising Auction Inspire, Auction Local
 or another first-party result surface from the source/year register.
+
+## 14 November 2026 — Bamboo marketplace inventory reconciled
+
+The saved 5,013-row marketplace index and 4,995-detail immutable bundle exposed
+one bounded growth opportunity: 18 indexed identities whose original detail
+pages no longer published `propertyData`. A materially different migrated host
+returned all 18 as `propertyResponse` payloads. The reusable runner fetched only
+those missing handles and now preserves the bundle checkpoint across interrupted
+recoveries.
+
+The bank adds **18 appearances and 18 address records**: **15 exact-dated inside
+the rolling 20-year window**, **3 explicitly future-dated**, and no partial or
+undated records. Sector growth is **2 commercial, 14 mixed-use, 1 land and 1
+residential**. Evidence growth is **18 guides, 14 achieved prices and 0 rents**.
+No recovered identity duplicated an existing appearance; archive-wide duplicate
+evidence remains excluded and related legal interests remain separate.
+
+The surviving marketplace denominator now reconciles **5,013/5,013 detail
+payloads across 251 index pages**. This is completion of that surviving shared
+platform inventory, not proof of deleted earlier lots or national coverage.
+Killens and Stags organisation and branch values remain provenance and are not
+counted as new auctioneers. No new source-year is claimed.
+
+Corpus totals after rebuild are **319,342 appearances, 307,991 addresses, 11,351
+partials and 310,761 in-window appearances**. The next concrete target is the
+unlinked Auction Inspire / Auction Local pair: inventory both first-party
+surfaces once, then batch the larger individually dated multi-event archive
+through a reusable collector with operator and platform-label reconciliation.
+National completeness remains false.
