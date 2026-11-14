@@ -6,6 +6,28 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: Henry Sykes retained archive
+
+Auction Inspire exposed no surviving first-party lot archive, while Auction
+Local's live first-party past-auctions route explicitly returned 0–0 of 0 and
+its generic search showed future lots only. Those bounded blockers are not
+reported as property growth. The run rotated to Henry Sykes' accessible
+first-party archive instead of repeating either exhausted route.
+
+The dedicated past-auctions grid and all 50 detail pages reconcile. The bank
+adds **50 net appearances**, all exact-dated address records in the rolling
+twenty-year window, including one mixed-use record. Added partial, undated,
+future-dated, duplicate-source and exact-overlap records are zero. Actual
+evidence growth is **49 guides, 33 achieved prices and 4 rents** across newly
+represented source-years 2025 and 2026.
+
+Henry Sykes Auctions is one operator under HENRY SYKES AUCTIONS LIMITED; the
+historical `Henry Sykes` label is retained as a trading name and not counted as
+a separate auctioneer. National completeness remains false. The next batch is
+the older indexed Henry Sykes numeric-detail route set, beginning with 168708,
+169432 and 163384, admitted only when the individual date and non-overlap can
+be verified.
+
 ## 14 November follow-through: Auction Property and Smart Property
 
 The planned pair produced **66 net appearances**, all dated address records in

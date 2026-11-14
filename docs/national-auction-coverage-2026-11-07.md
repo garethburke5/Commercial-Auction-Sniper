@@ -1,5 +1,32 @@
 # UK auction coverage checkpoint — 7 November 2026
 
+## 14 November 2026 — Henry Sykes retained-grid expansion
+
+The original Auction Inspire/Auction Local discovery pair yielded no bankable
+historical lots: no surviving first-party Auction Inspire lot surface was
+found, and Auction Local's live first-party past-auctions route explicitly
+reported 0–0 of 0. Its generic search exposed future lots only. The run moved
+to a different uncovered first-party source rather than refreshing either
+bounded route.
+
+Henry Sykes Auctions contributes **50/50 individually dated cards** from its
+dedicated historical grid, with all 50 detail pages and immutable snapshots
+retained. Net growth is **50 appearances and 50 address records**, all inside
+the twenty-year window. The commercial/mixed-use subset is **1**. Evidence
+growth is **49 guides, 33 achieved prices and 4 rents**; added partial, undated,
+future-dated and duplicate records are zero. Source-years 2025 and 2026 are
+newly represented.
+
+Henry Sykes Auctions is retained once under HENRY SYKES AUCTIONS LIMITED, with
+`Henry Sykes` treated as its historical trading name. The rebuilt corpus now
+contains **315,470 appearances, 304,119 address records and 307,110 in-window
+appearances**, including 108,587 guides and 113,150 achieved prices in-window.
+National completeness remains false.
+
+Next target: batch older indexed Henry Sykes numeric-detail identities that
+have fallen outside the 50-card grid, starting with 168708, 169432 and 163384,
+while excluding already banked identities and exact date/address appearances.
+
 ## 14 November 2026 — Auction Property and Smart Property expansion
 
 The persisted two-source target produced **66 net new individual appearances**,

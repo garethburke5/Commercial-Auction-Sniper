@@ -1,0 +1,25 @@
+{
+  "auctioneer": "Henry Sykes Auctions",
+  "source_auction_id": "henry-sykes-auctions:2026-01-05",
+  "auction_date": "2026-01-05",
+  "source_url": "https://onlineauctions.henrysykes.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://onlineauctions.henrysykes.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded",
+      "retrieved_at": "2026-11-14T07:12:57.573964+00:00",
+      "sha256": "fd90df925863afb21dc2476c29ac4e4b0fb8bfb4d2de3b1698d3de3b16cf6deb",
+      "snapshot_path": "data/auction_history/sources/henry-sykes-auctions/past-auctions-page-1-fd90df925863afb2.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 1
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-14T07:13:40.992594+00:00"
+}

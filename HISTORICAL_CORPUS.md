@@ -3,6 +3,42 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Henry Sykes retained-grid batch
+
+The planned Auction Inspire/Auction Local discovery pair was bounded without
+claiming directory rows as property growth. Auction Inspire exposed no
+surviving first-party lot surface. Auction Local's live first-party
+`/past-auctions` route explicitly reconciled to **0–0 of 0**; its generic search
+surface contained future lots only. The run therefore rotated to a materially
+different uncovered source with an accessible individual-lot inventory.
+
+Henry Sykes Auctions' dedicated first-party past-auctions grid reconciles
+**50/50 cards** on one page. The reusable retained-grid runner captured all 50
+detail pages and preserved the grid, original lot URLs and immutable snapshots.
+Net growth is **50 appearances and 50 exact-dated address records inside the
+rolling twenty-year window**. Added partial, undated, future-dated, duplicate-
+source and exact date/address overlap records are all zero.
+
+The batch contains 36 residential, 6 land, 7 unknown and 1 mixed-use appearance,
+so the commercial/mixed-use subset is **1**. It adds **49 guide prices, 33
+achieved prices and 4 rents**, preserved as separate published fields, across
+the newly represented source-years **2025 and 2026**. Outcomes are 33 sold, 3
+sold after, 6 sold prior, 4 unsold and 4 withdrawn.
+
+Henry Sykes Auctions is retained once under HENRY SYKES AUCTIONS LIMITED. The
+shorter historical label `Henry Sykes` is a trading name, not another
+auctioneer. The rebuilt union contains **315,470 appearances, 304,119 address
+records, 11,351 partial records and 307,110 in-window appearances**, including
+**108,587 in-window guides and 113,150 in-window achieved prices**. Wider-corpus
+exceptions remain 5,056 undated and 184 future-dated appearances. National
+completeness remains false.
+
+Next concrete growth target: recover Henry Sykes' older first-party numeric
+detail identities that have fallen outside the retained 50-card grid, beginning
+with the indexed 2025 routes `/lot/details/168708`, `/169432` and `/163384`.
+Batch only individually dated lots through a reusable manifest and exclude
+identities or exact date/address appearances already banked.
+
 ## 14 November 2026 — Auction Property and Smart Property batch
 
 Two distinct first-party archives were processed without launching a workflow

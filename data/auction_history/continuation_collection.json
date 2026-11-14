@@ -128,47 +128,32 @@
     "different_next_target": "Batch the retained Kivells June 2022 result book (ninr), October 2022 result book (irpy) and full-year review (fluu). Reconcile duplicate May (laym) and September (slxn) copies against already banked half-year and event evidence, admitting only uncaptured individual cards."
   },
   "last_growth_attempt": {
-    "checked_at": "2026-11-14T06:09:15.519861+00:00",
-    "opportunity": "Auction Property Ltd and Smart Property Auctions first-party historical batch",
-    "attempted_route": "Captured Smart Property Auctions' complete 15-card dedicated past grid through the reusable EIG runner, then traversed every Auction Property past-event link and banked all surviving individual cards while retaining empty/repurposed shells as non-property evidence.",
-    "net_new_appearances": 66,
-    "new_address_records": 66,
+    "checked_at": "2026-11-14T07:13:40.993291+00:00",
+    "opportunity": "Henry Sykes Auctions complete first-party retained grid",
+    "attempted_route": "Auction Inspire exposed no surviving first-party lot surface and Auction Local's official past-properties grid reconciled to 0/0. Rotated to Henry Sykes' dedicated 50-card first-party retained past-auctions grid and captured every detail page.",
+    "net_new_appearances": 50,
+    "new_address_records": 50,
     "new_partial_lots": 0,
-    "new_dated_address_records_in_twenty_year_window": 66,
-    "commercial_or_mixed_use": 10,
-    "new_guide_prices": 21,
-    "new_sale_prices": 0,
-    "new_rent_values": 0,
+    "new_dated_address_records_in_twenty_year_window": 50,
+    "commercial_or_mixed_use": 1,
+    "new_guide_prices": 49,
+    "new_sale_prices": 33,
+    "new_rent_values": 4,
     "new_undated_appearances": 0,
     "new_future_dated_appearances": 0,
-    "newly_covered_source_years": {
-      "Smart Property Auctions": [
-        2025,
-        2026
-      ],
-      "Auction Property Ltd": [
-      2023,
-      2024,
+    "newly_covered_source_years": [
       2025,
       2026
-      ]
-    },
+    ],
     "duplicate_source_evidence_excluded": 0,
-    "operator_reconciliation": "Smart Property Auctions is a trading platform of CAPITAL PRESTIGE LIMITED (06079839); Auction Property Ltd is AUCTION PROPERTY LTD (12828051). Directory and platform labels are not counted as additional auctioneers.",
-    "corpus_after_rebuild": {
-      "appearances": 315420,
-      "address_records": 304069,
-      "partial": 11351,
-      "in_window_appearances": 307060,
-      "in_window_guide_prices": 108538,
-      "in_window_sale_prices": 113117,
-      "undated": 5056,
-      "future_dated": 184
-    },
+    "reconciled_visible_cards": 50,
+    "immutable_archive_sha256": "d245439c798f3175b2599195327e8a9b8712089fca4b09b9b2800065af1f6631",
+    "detail_recovery_deferred_reason": null,
+    "operator_reconciliation": "Henry Sykes Auctions is retained under HENRY SYKES AUCTIONS LIMITED; historical names, branches and platform labels are not counted as additional auctioneers.",
     "national_completeness_verified": false,
-    "different_next_target": "Inventory Auction Inspire and Auction Local as one bounded first-party discovery batch. Select the operator whose public archive exposes the larger individually dated lot inventory, then bank its complete surviving multi-event grid through a reusable collector; reconcile legal operators and shared-platform labels before counting either as a new auctioneer."
+    "different_next_target": "Recover Henry Sykes' older first-party numeric detail identities that have fallen outside the 50-card retained grid, beginning with the indexed 2025 routes /lot/details/168708, /169432 and /163384. Batch only individually dated lots through a reusable manifest and exclude identities or exact date/address appearances already banked."
   },
-  "next_growth_target": "Inventory Auction Inspire and Auction Local as one bounded first-party discovery batch. Select the operator whose public archive exposes the larger individually dated lot inventory, then bank its complete surviving multi-event grid through a reusable collector; reconcile legal operators and shared-platform labels before counting either as a new auctioneer.",
+  "next_growth_target": "Recover Henry Sykes' older first-party numeric detail identities that have fallen outside the 50-card retained grid, beginning with the indexed 2025 routes /lot/details/168708, /169432 and /163384. Batch only individually dated lots through a reusable manifest and exclude identities or exact date/address appearances already banked.",
   "runs": [
     {
       "source": "btg_eddisons_catalogues",
@@ -5111,6 +5096,13 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "eig_retained_grid:henry-sykes-auctions": {
+      "source": "eig_retained_grid:henry-sykes-auctions",
+      "outcome": "completed",
+      "checked_at": "2026-11-14T07:13:40.993291+00:00",
+      "net_new_appearances": 50,
+      "diagnostic_tail": "{\"checked_at\": \"2026-11-14T07:13:40.993291+00:00\", \"auctioneer\": \"Henry Sykes Auctions\", \"parser_version\": 13, \"source_url\": \"https://onlineauctions.henrysykes.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded\", \"platform_event_id\": null, \"archive_sha256\": \"d245439c798f3175b2599195327e8a9b8712089fca4b09b9b2800065af1f6631\", \"archive_page_count\": 1, \"archive_page_rows\": [50], \"archive_page_visible_cards\": [50], \"visible_source_rows\": 50, \"expected_visible_cards\": null, \"event_advertised_lots\": null, \"event_advertised_lot_discrepancy\": null, \"past_results_index_lots\": null, \"past_results_index_discrepancy\": null, \"published_result_count\": 50, \"distinct_source_identities\": 50, \"non_auction_property_cards_excluded\": 0, \"non_auction_exclusions\": [], \"archive_pagination_complete\": true, \"archive_visible_inventory_reconciled\": true, \"archive_reconciliation_note\": null, \"appearances_captured\": 50, \"run_new_appearances\": 50, \"run_new_address_records\": 50, \"run_new_partial_lots\": 0, \"run_new_dated_twenty_year_address_records\": 50, \"run_new_commercial_mixed\": 1, \"run_new_guide_prices\": 49, \"run_new_sale_prices\": 33, \"run_new_rents\": 4, \"run_new_undated\": 0, \"run_new_future_dated\": 0, \"run_duplicate_source_evidence_excluded\": 0, \"duplicate_source_identity_exclusions\": 0, \"exact_date_address_overlap_exclusions\": 0, \"exact_overlap_reconciliation\": [], \"new_source_years\": [2025, 2026], \"date_range\": [\"2025-09-11\", \"2026-10-21\"], \"by_status\": {\"sold\": 33, \"sold_after\": 3, \"sold_prior\": 6, \"unsold\": 4, \"withdrawn\": 4}, \"by_sector\": {\"residential\": 36, \"land\": 6, \"unknown\": 7, \"mixed-use\": 1}, \"by_attributed_auctioneer\": {\"Henry Sykes Auctions\": 50}, \"detail_pages_captured\": 50, \"detail_recovery_complete\": true, \"detail_recovery_deferred_reason\": null, \"detail_recovery_failures\": [], \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\", \"failures\": [], \"batch_baseline_appearance_ids\": [], \"operator_legal_name\": \"HENRY SYKES AUCTIONS LIMITED\", \"operator_company_number\": null, \"historical_trading_names_not_counted_as_auctioneers\": [\"Henry Sykes\"], \"merged_firms_not_counted_as_auctioneers\": [], \"partner_agents_not_counted_as_auctioneers\": []}"
     }
   },
   "last_automated_growth": {

@@ -282,6 +282,18 @@ def test_brown_co_uses_full_first_party_search_archive():
     }
 
 
+def test_henry_sykes_uses_dedicated_historical_grid_and_operator_boundary():
+    source = grids.SOURCES["henry-sykes-auctions"]
+    assert source["auctioneer"] == "Henry Sykes Auctions"
+    assert source["base"] == "https://onlineauctions.henrysykes.co.uk"
+    assert source["archive_path"] == (
+        "/past-auctions?lotResultType=All&order=RecentlyEnded"
+    )
+    assert source["operator_legal_name"] == "HENRY SYKES AUCTIONS LIMITED"
+    assert source["historical_trading_names"] == ["Henry Sykes"]
+    assert source["exclude_exact_cross_source_overlaps"] is True
+
+
 def test_numeric_eig_lot_ids_are_preserved_as_stable_identities():
     numeric = GRID.replace(
         "85c11d6d-40f5-4b78-80c1-f360ee721c0b", "193314"

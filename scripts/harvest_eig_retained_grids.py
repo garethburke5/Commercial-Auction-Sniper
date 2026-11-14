@@ -97,6 +97,33 @@ SOURCES = {
         "exclude_exact_cross_source_overlaps": True,
         "preserve_batch_baseline": True,
     },
+    "henry-sykes-auctions": {
+        "auctioneer": "Henry Sykes Auctions",
+        "base": "https://onlineauctions.henrysykes.co.uk",
+        # The generic search page includes the next scheduled lot.  The
+        # dedicated first-party past-auctions grid is a finite 50-card
+        # historical inventory and publishes an individual end date and
+        # outcome for every retained lot.
+        "archive_path": "/past-auctions?lotResultType=All&order=RecentlyEnded",
+        "operator_legal_name": "HENRY SYKES AUCTIONS LIMITED",
+        "historical_trading_names": ["Henry Sykes"],
+        "exclude_exact_cross_source_overlaps": True,
+        "preserve_batch_baseline": True,
+        "persist_growth_checkpoint": True,
+        "checkpoint_route_description": (
+            "Auction Inspire exposed no surviving first-party lot surface and "
+            "Auction Local's official past-properties grid reconciled to 0/0. "
+            "Rotated to Henry Sykes' dedicated 50-card first-party retained "
+            "past-auctions grid and captured every detail page."
+        ),
+        "next_growth_target": (
+            "Recover Henry Sykes' older first-party numeric detail identities "
+            "that have fallen outside the 50-card retained grid, beginning with "
+            "the indexed 2025 routes /lot/details/168708, /169432 and /163384. "
+            "Batch only individually dated lots through a reusable manifest and "
+            "exclude identities or exact date/address appearances already banked."
+        ),
+    },
     "property-auction-agent": {
         "auctioneer": "Property Auction Agent",
         "base": "https://propertyauctionagent.eigonlineauctions.com",

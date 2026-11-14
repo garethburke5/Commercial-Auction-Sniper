@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T06:11:12.521370+00:00",
-  "corpus_checkpoint": "2026-11-14T06:10:38.137285+00:00",
+  "generated_at": "2026-11-14T07:16:51.347253+00:00",
+  "corpus_checkpoint": "2026-11-14T07:16:18.984295+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -3651,13 +3651,16 @@
       "name": "Henry Sykes Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/henry-sykes-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Henry Sykes Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 50,
+      "years_with_retained_evidence": [
+        2025,
+        2026
+      ],
+      "with_guide_price": 49,
+      "with_sale_price": 33,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8220,7 +8223,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 459,
+  "directory_entries_not_linked": 458,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8302,6 +8305,7 @@
     "Future Property Auctions": 76690,
     "Goldings Auctions": 635,
     "Harman Healy": 1528,
+    "Henry Sykes Auctions": 50,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
@@ -8361,13 +8365,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307060,
-      "auction_ids_observed": 13953,
-      "with_guide_price": 108538,
-      "with_sale_price": 113117,
-      "with_both_prices": 49187,
-      "marked_sold": 156425,
-      "marked_sold_without_sale_price": 44048
+      "lot_appearances": 307110,
+      "auction_ids_observed": 13983,
+      "with_guide_price": 108587,
+      "with_sale_price": 113150,
+      "with_both_prices": 49220,
+      "marked_sold": 156467,
+      "marked_sold_without_sale_price": 44057
     },
     "by_auctioneer_and_year": [
       {
@@ -13970,6 +13974,28 @@
         "marked_sold_without_sale_price": 13
       },
       {
+        "auctioneer": "Henry Sykes Auctions",
+        "year": 2025,
+        "lot_appearances": 15,
+        "auction_ids_observed": 5,
+        "with_guide_price": 15,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Henry Sykes Auctions",
+        "year": 2026,
+        "lot_appearances": 35,
+        "auction_ids_observed": 25,
+        "with_guide_price": 34,
+        "with_sale_price": 21,
+        "with_both_prices": 21,
+        "marked_sold": 30,
+        "marked_sold_without_sale_price": 9
+      },
+      {
         "auctioneer": "Higgins Drysdale National Property Auctions",
         "year": 2021,
         "lot_appearances": 3,
@@ -18204,6 +18230,13 @@
       ],
       "duplicate_source_evidence_excluded": 0,
       "national_completeness_verified": false
+    },
+    "eig_retained_grid:henry-sykes-auctions": {
+      "source": "eig_retained_grid:henry-sykes-auctions",
+      "outcome": "completed",
+      "checked_at": "2026-11-14T07:13:40.993291+00:00",
+      "net_new_appearances": 50,
+      "diagnostic_tail": "{\"checked_at\": \"2026-11-14T07:13:40.993291+00:00\", \"auctioneer\": \"Henry Sykes Auctions\", \"parser_version\": 13, \"source_url\": \"https://onlineauctions.henrysykes.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded\", \"platform_event_id\": null, \"archive_sha256\": \"d245439c798f3175b2599195327e8a9b8712089fca4b09b9b2800065af1f6631\", \"archive_page_count\": 1, \"archive_page_rows\": [50], \"archive_page_visible_cards\": [50], \"visible_source_rows\": 50, \"expected_visible_cards\": null, \"event_advertised_lots\": null, \"event_advertised_lot_discrepancy\": null, \"past_results_index_lots\": null, \"past_results_index_discrepancy\": null, \"published_result_count\": 50, \"distinct_source_identities\": 50, \"non_auction_property_cards_excluded\": 0, \"non_auction_exclusions\": [], \"archive_pagination_complete\": true, \"archive_visible_inventory_reconciled\": true, \"archive_reconciliation_note\": null, \"appearances_captured\": 50, \"run_new_appearances\": 50, \"run_new_address_records\": 50, \"run_new_partial_lots\": 0, \"run_new_dated_twenty_year_address_records\": 50, \"run_new_commercial_mixed\": 1, \"run_new_guide_prices\": 49, \"run_new_sale_prices\": 33, \"run_new_rents\": 4, \"run_new_undated\": 0, \"run_new_future_dated\": 0, \"run_duplicate_source_evidence_excluded\": 0, \"duplicate_source_identity_exclusions\": 0, \"exact_date_address_overlap_exclusions\": 0, \"exact_overlap_reconciliation\": [], \"new_source_years\": [2025, 2026], \"date_range\": [\"2025-09-11\", \"2026-10-21\"], \"by_status\": {\"sold\": 33, \"sold_after\": 3, \"sold_prior\": 6, \"unsold\": 4, \"withdrawn\": 4}, \"by_sector\": {\"residential\": 36, \"land\": 6, \"unknown\": 7, \"mixed-use\": 1}, \"by_attributed_auctioneer\": {\"Henry Sykes Auctions\": 50}, \"detail_pages_captured\": 50, \"detail_recovery_complete\": true, \"detail_recovery_deferred_reason\": null, \"detail_recovery_failures\": [], \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\", \"failures\": [], \"batch_baseline_appearance_ids\": [], \"operator_legal_name\": \"HENRY SYKES AUCTIONS LIMITED\", \"operator_company_number\": null, \"historical_trading_names_not_counted_as_auctioneers\": [\"Henry Sykes\"], \"merged_firms_not_counted_as_auctioneers\": [], \"partner_agents_not_counted_as_auctioneers\": []}"
     }
   },
   "unresolved_catalogues": [
@@ -23886,7 +23919,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T06:11:10.852019+00:00",
+    "checked_at": "2026-11-14T07:16:49.592539+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

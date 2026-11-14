@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-14T06:10:38.137285+00:00",
-  "individual_lot_records_captured": 315420,
-  "records_with_address": 304069,
+  "generated_at": "2026-11-14T07:16:18.984295+00:00",
+  "individual_lot_records_captured": 315470,
+  "records_with_address": 304119,
   "partial_lot_records": 11351,
-  "exact_address_groups": 169246,
-  "groups_with_repeat_appearances": 43237,
+  "exact_address_groups": 169293,
+  "groups_with_repeat_appearances": 43240,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -86,6 +86,7 @@
     "Future Property Auctions": 76690,
     "Goldings Auctions": 635,
     "Harman Healy": 1528,
+    "Henry Sykes Auctions": 50,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "John Francis": 1407,
@@ -165,23 +166,23 @@
     "2022": 26881,
     "2023": 33670,
     "2024": 42712,
-    "2025": 48774,
-    "2026": 48679,
+    "2025": 48789,
+    "2026": 48714,
     "2027": 6
   },
   "by_sector": {
     "commercial": 42899,
-    "land": 19640,
+    "land": 19646,
     "mixed": 1,
-    "mixed-use": 47879,
-    "residential": 153089,
-    "unknown": 51912
+    "mixed-use": 47880,
+    "residential": 153125,
+    "unknown": 51919
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5240,
+  "surviving_catalogues_completely_harvested": 5270,
   "catalogues_incomplete_or_unreconciled": 622,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
@@ -195,13 +196,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307060,
-      "auction_ids_observed": 13953,
-      "with_guide_price": 108538,
-      "with_sale_price": 113117,
-      "with_both_prices": 49187,
-      "marked_sold": 156425,
-      "marked_sold_without_sale_price": 44048
+      "lot_appearances": 307110,
+      "auction_ids_observed": 13983,
+      "with_guide_price": 108587,
+      "with_sale_price": 113150,
+      "with_both_prices": 49220,
+      "marked_sold": 156467,
+      "marked_sold_without_sale_price": 44057
     },
     "by_auctioneer_and_year": [
       {
@@ -5802,6 +5803,28 @@
         "with_both_prices": 0,
         "marked_sold": 62,
         "marked_sold_without_sale_price": 13
+      },
+      {
+        "auctioneer": "Henry Sykes Auctions",
+        "year": 2025,
+        "lot_appearances": 15,
+        "auction_ids_observed": 5,
+        "with_guide_price": 15,
+        "with_sale_price": 12,
+        "with_both_prices": 12,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Henry Sykes Auctions",
+        "year": 2026,
+        "lot_appearances": 35,
+        "auction_ids_observed": 25,
+        "with_guide_price": 34,
+        "with_sale_price": 21,
+        "with_both_prices": 21,
+        "marked_sold": 30,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Higgins Drysdale National Property Auctions",
