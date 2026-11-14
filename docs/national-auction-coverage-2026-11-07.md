@@ -7,6 +7,34 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Follow-through checkpoint — Kivells June and October 2022
+
+Two retained first-party Kivells result books were processed together through
+the reusable rendered-book runner. The batch adds **18 net appearances** on 28
+June and 19 October 2022: **4 dated addresses and 14 dated locality-only partial
+records**, all inside the twenty-year window. The commercial/mixed-use subset
+is **4** (2 commercial and 2 mixed-use), alongside 13 land and 1 residential.
+
+New evidence comprises **18 guides, 17 exact achieved prices and 0 rents**.
+Published outcomes are 17 sold and 1 unsold; the unsold Gunnislake commercial
+lot retains a null achieved price. Added undated, future-dated and duplicate
+appearances are all zero.
+
+All 4 June and 14 October cards reconcile to the visible first-party books.
+Forty hashed source pages, OCR text and viewer configs are retained with exact
+URLs and checksums in a reconstructable archive. Kivells remains one operator.
+The two event inventories are new, but Kivells 2022 was already represented,
+so newly covered source-years are zero.
+
+Rebuilt totals are **315,115 appearances, 303,764 address records and 306,755
+in-window appearances**, including 108,284 guides and 113,060 achieved prices.
+National coverage remains unverified.
+
+Next growth target: recover Cheffins' registered zero-card 19 June 2019
+catalogue (`catalogue-549`) through the existing catalogue runner. Treat the
+Kivells annual review and May/September copies as bounded overlap evidence and
+admit no duplicate card.
+
 ## Follow-through checkpoint — Kivells 2018 publisher-profile batch
 
 The reusable rendered-book runner processed four retained first-party Kivells

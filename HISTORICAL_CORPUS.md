@@ -3,6 +3,41 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Kivells June and October 2022 result-book batch
+
+The retained June (`ninr`) and October (`irpy`) first-party result books were
+recovered together through the public FlipHTML runtime inventory and processed
+through the reusable rendered-book runner. The bank adds **18 net individual
+appearances** across the exact 28 June and 19 October 2022 auction dates. All 40
+hashed large WebP pages, OCR text, viewer configurations, exact page URLs and
+checksums are retained in a byte-reconstructable 14-part immutable archive.
+
+The additions comprise **4 dated address records and 14 dated locality-only
+partial records**, all inside the twenty-year window. Sectors are 13 land, 1
+residential, 2 commercial and 2 mixed-use, so the commercial/mixed-use subset
+is **4**. Evidence growth is **18 guides, 17 exact achieved prices and 0 rents**.
+The sole missing achieved amount belongs to the Gunnislake card explicitly
+published as `UNSOLD`; it remains null. No undated, future-dated or duplicate
+appearance was admitted.
+
+The two first-party denominators reconcile exactly to 4 and 14 individual
+cards. Kivells remains one operator lineage. The event inventories are new,
+but Kivells 2022 was already represented, so newly covered source-years are
+**0**. The annual review (`fluu`) and May/September copies (`laym`, `slxn`)
+remain bounded overlap evidence and are not presumed to add properties.
+
+The rebuilt union contains **315,115 appearances, 303,764 address records,
+11,351 partial records and 306,755 in-window appearances**, including **108,284
+in-window guides and 113,060 in-window achieved prices**. Undated and
+future-dated totals remain 5,056 and 184. National completeness remains false.
+
+Next concrete growth target: recover the registered zero-card Cheffins 19 June
+2019 catalogue (`catalogue-549`). Adjacent retained Cheffins catalogues contain
+14–28 individual lots, making this a material missing-year inventory. Batch its
+lot pages through the existing catalogue runner; if the shell exposes no
+individual inventory, record that route once and rotate to a different
+uncovered source/year rather than refreshing it.
+
 ## 14 November 2026 — Kivells 2018 publisher-profile result-book batch
 
 Four retained first-party Kivells result books were processed together through

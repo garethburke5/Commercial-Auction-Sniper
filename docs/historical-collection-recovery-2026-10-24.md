@@ -6,6 +6,28 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: Kivells 2022 hashed-page recovery
+
+The reusable rendered-book bridge now accepts explicit per-page source URLs,
+which is required by newer FlipHTML books whose large WebP assets use immutable
+hash names instead of sequential filenames. The June (`ninr`) and October
+(`irpy`) result books were recovered as one batch: all 40 page images, OCR text,
+viewer configs and checksums are retained and both denominators reconcile.
+
+The database adds **18 exact-dated individual appearances**: 4 address records
+and 14 locality-only partials, all within the rolling window. The additions
+include 4 commercial/mixed-use appearances, 18 guides and 17 achieved prices.
+One October commercial card is explicitly unsold, so its achieved price stays
+null. Undated, future-dated and duplicate additions are zero. Kivells 2022 was
+already represented; this adds two event inventories and no new source-year.
+
+The rebuilt database contains 315,115 appearances and the generated package
+was rebuilt from merged source evidence. National completeness remains false.
+The full-year review and May/September copies are overlap-reconciliation
+sources, not assumed growth. The next material target is Cheffins catalogue
+549 (19 June 2019), currently registered with zero cards while adjacent
+Cheffins catalogues retain substantial individual inventories.
+
 ## 13 November follow-through: rendered historical books
 
 The reusable Kivells collector now accepts a validated rendered-page manifest,

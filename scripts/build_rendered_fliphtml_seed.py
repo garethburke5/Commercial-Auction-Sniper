@@ -67,6 +67,12 @@ def main() -> None:
     for spec in manifest["books"]:
         slug = spec["book_slug"]
         pages = []
+        explicit_page_source_urls = spec.get("page_source_urls")
+        if explicit_page_source_urls is not None and len(explicit_page_source_urls) != spec["page_count"]:
+            raise ValueError(
+                f"{slug} has {len(explicit_page_source_urls)} page source URLs, "
+                f"expected {spec['page_count']}"
+            )
         page_source_urls = []
         page_image_sha256 = []
         for page_number in range(1, spec["page_count"] + 1):
@@ -81,6 +87,8 @@ def main() -> None:
                 page_text = fallback.read_text(errors="replace")
             pages.append(page_text)
             page_source_urls.append(
+                explicit_page_source_urls[page_number - 1]
+                if explicit_page_source_urls is not None else
                 f"https://online.fliphtml5.com/hoau/{slug}/files/large/{page_number}.webp"
             )
             page_image_sha256.append(digest(image_raw))

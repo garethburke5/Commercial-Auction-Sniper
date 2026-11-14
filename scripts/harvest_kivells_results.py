@@ -64,6 +64,10 @@ DEFAULT_RENDERED_2018_PROFILE_SEED = (
     Path(__file__).resolve().parents[1]
     / "data/historical_source_corpus/kivells-results/fliphtml5-2018-profile-rendered-books.json.gz"
 )
+DEFAULT_RENDERED_2022_REMAINING_SEED = (
+    Path(__file__).resolve().parents[1]
+    / "data/historical_source_corpus/kivells-results/fliphtml5-2022-remaining-rendered-books.json.gz"
+)
 
 ANNUAL_2023_ARTICLE_URL = "https://www.kivells.com/residentialsales/auctions/news/-9"
 ANNUAL_2023_REVIEW_URL = "https://fliphtml5.com/hoau/vcml/Kivells_Collective_Property_Auction_Full_Year_Review_2023_/"
@@ -868,6 +872,14 @@ def load_rendered_2020_seed(path: Path = DEFAULT_RENDERED_2020_SEED) -> dict:
     )
 
 
+def load_rendered_2022_remaining_seed(
+    path: Path = DEFAULT_RENDERED_2022_REMAINING_SEED,
+) -> dict:
+    return load_rendered_seed(
+        path, expected_books=2, expected_events=2, expected_cards=18,
+    )
+
+
 def build_rendered_rows(
     seed: dict, pages_by_slug: dict[str, list[str]], evidence_by_slug: dict[str, dict],
 ) -> list[tuple[dict, list[dict]]]:
@@ -1558,6 +1570,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     completed_rendered_2019_profile_this_run = []
     completed_rendered_2018_profile_this_run = []
     completed_rendered_2020_this_run = []
+    completed_rendered_2022_remaining_this_run = []
     completed_annual_review_2021_this_run = []
     completed_half_year_review_this_run = []
     completed_may_this_run = []
@@ -1726,6 +1739,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
 
     rendered_urls_by_year = {
         "2018-profile": [], "2019": [], "2019-profile": [], "2020": [],
+        "2022-remaining": [],
     }
     rendered_batches = (
         (
@@ -1740,6 +1754,11 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
             completed_rendered_2019_profile_this_run,
         ),
         ("2020", DEFAULT_RENDERED_2020_SEED, load_rendered_2020_seed, completed_rendered_2020_this_run),
+        (
+            "2022-remaining", DEFAULT_RENDERED_2022_REMAINING_SEED,
+            load_rendered_2022_remaining_seed,
+            completed_rendered_2022_remaining_this_run,
+        ),
     )
     for rendered_year, rendered_path, rendered_loader, completed_rendered_this_run in rendered_batches:
         if not rendered_path.exists():
@@ -1799,6 +1818,7 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
     rendered_2019_urls = rendered_urls_by_year["2019"]
     rendered_2019_profile_urls = rendered_urls_by_year["2019-profile"]
     rendered_2020_urls = rendered_urls_by_year["2020"]
+    rendered_2022_remaining_urls = rendered_urls_by_year["2022-remaining"]
 
     annual_review_2021_url = None
     half_year_review_2021_url = None
@@ -2004,6 +2024,30 @@ def harvest(saved_only: bool = False, fliphtml_seed_path: Path = DEFAULT_FLIPHTM
         "rendered_2020_aggregate_only_outcomes_not_admitted": (
             9 if rendered_2020_urls and all(
                 url in completed for url in rendered_2020_urls
+            ) else 0
+        ),
+        "rendered_2022_remaining_books_in_manifest": len(
+            rendered_2022_remaining_urls
+        ),
+        "rendered_2022_remaining_books_banked": sum(
+            url in completed for url in rendered_2022_remaining_urls
+        ),
+        "rendered_2022_remaining_books_completed_this_run": len(
+            completed_rendered_2022_remaining_this_run
+        ),
+        "rendered_2022_remaining_individually_identified_cards": (
+            18 if rendered_2022_remaining_urls and all(
+                url in completed for url in rendered_2022_remaining_urls
+            ) else 0
+        ),
+        "rendered_2022_remaining_guide_prices_published": (
+            18 if rendered_2022_remaining_urls and all(
+                url in completed for url in rendered_2022_remaining_urls
+            ) else 0
+        ),
+        "rendered_2022_remaining_sale_prices_published": (
+            17 if rendered_2022_remaining_urls and all(
+                url in completed for url in rendered_2022_remaining_urls
             ) else 0
         ),
         "rendered_2018_profile_books_in_manifest": len(

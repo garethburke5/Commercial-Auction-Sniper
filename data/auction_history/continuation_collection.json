@@ -80,7 +80,7 @@
     "different_next_target": "Prepare and collect Auction House Online event 57095, principally dated 9 April 2024. The verified first-party no-query inventory exposes 28 of 28 individual property cards with published 8 and 9 April dates, including a three-storey commercial building, land and garages, tenanted property, residential evidence, published rents, guides and extensive achieved prices. Add one strict 28-card source contract using /past-auctions/57095 and an isolated trigger only after writer clearance. Preserve each card's individual end date, original URL and immutable snapshot, and exclude exact date/address overlaps before claiming growth. National completeness remains false."
   },
   "prior_target_blocker": "Goldings' later first-party 22 July 2020 result archive reports 13 lots offered but exposes no individual result cards, while the retained cached catalogue preserves 14 advertised lot pages. The removed or withdrawn lot cannot be identified from the surviving evidence, so the catalogue/result denominator remains unreconciled and every outcome and sale price stays null. Do not revisit that result route unless an individual result sheet, card snapshot or other materially different source survives.",
-  "last_growth_attempt": {
+  "prior_growth_attempt": {
     "checked_at": "2026-11-14T01:08:15+00:00",
     "opportunity": "Kivells retained 2018 publisher-profile result-book batch",
     "attempted_route": "Processed the retained Spring, Summer, September and November 2018 result books together through the reusable rendered-book runner. Preserved every original large WebP page, accessible text, public HTML and viewer configuration, then rebuilt the national database from the merged evidence.",
@@ -127,7 +127,53 @@
     "national_completeness_verified": false,
     "different_next_target": "Batch the retained Kivells June 2022 result book (ninr), October 2022 result book (irpy) and full-year review (fluu). Reconcile duplicate May (laym) and September (slxn) copies against already banked half-year and event evidence, admitting only uncaptured individual cards."
   },
-  "next_growth_target": "Batch the retained Kivells June 2022 result book (ninr), October 2022 result book (irpy) and full-year review (fluu). Reconcile duplicate May (laym) and September (slxn) copies against already banked half-year and event evidence, admitting only uncaptured individual cards.",
+  "last_growth_attempt": {
+    "checked_at": "2026-11-14T02:37:31+00:00",
+    "opportunity": "Kivells retained June and October 2022 result books",
+    "attempted_route": "Recovered both complete first-party FlipHTML books through their public runtime thumbnail inventories, saved all 40 hashed large WebP pages, OCR text and viewer configurations, and processed the two catalogues together through the reusable rendered-book runner.",
+    "net_new_appearances": 18,
+    "new_address_records": 4,
+    "new_partial_lots": 14,
+    "new_dated_address_records_in_twenty_year_window": 4,
+    "new_dated_partial_records_in_twenty_year_window": 14,
+    "commercial_or_mixed_use": 4,
+    "new_commercial_appearances": 2,
+    "new_mixed_use_appearances": 2,
+    "new_residential_appearances": 1,
+    "new_land_appearances": 13,
+    "new_unknown_sector_appearances": 0,
+    "new_guide_prices": 18,
+    "new_sale_prices": 17,
+    "new_rent_values": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "newly_covered_source_years": [],
+    "newly_reconciled_event_inventories": 2,
+    "newly_banked_source_books": 2,
+    "duplicate_appearances_admitted": 0,
+    "reconciled_visible_cards": 18,
+    "immutable_source_page_images": 40,
+    "published_outcomes": {
+      "sold": 17,
+      "unsold": 1,
+      "sold_without_exact_price": 0
+    },
+    "source_denominator_note": "The June and October books reconcile exactly to four and fourteen individual cards. The October Gunnislake lot is explicitly UNSOLD and retains a null achieved price. Locality-only titles remain partial records rather than invented addresses.",
+    "operator_reconciliation": "Kivells remains one existing auctioneer/trading-name lineage. Kivells 2022 was already represented, so these are two new event inventories but zero newly covered source-years.",
+    "corpus_after_rebuild": {
+      "appearances": 315115,
+      "address_records": 303764,
+      "in_window_appearances": 306755,
+      "in_window_guide_prices": 108284,
+      "in_window_sale_prices": 113060,
+      "partial": 11351,
+      "undated": 5056,
+      "future_dated": 184
+    },
+    "national_completeness_verified": false,
+    "different_next_target": "Recover the registered zero-card Cheffins 19 June 2019 catalogue (catalogue 549), whose adjacent retained Cheffins catalogues contain 14-28 individual lots. Batch its lot pages through the existing catalogue runner and move to another uncovered source/year if the catalogue shell exposes no individual inventory. Separately use Kivells fluu/laym/slxn only for bounded overlap reconciliation, not as assumed growth."
+  },
+  "next_growth_target": "Recover the registered zero-card Cheffins 19 June 2019 catalogue (catalogue 549), whose adjacent retained Cheffins catalogues contain 14-28 individual lots. Batch its lot pages through the existing catalogue runner and move to another uncovered source/year if the catalogue shell exposes no individual inventory. Separately use Kivells fluu/laym/slxn only for bounded overlap reconciliation, not as assumed growth.",
   "runs": [
     {
       "source": "btg_eddisons_catalogues",

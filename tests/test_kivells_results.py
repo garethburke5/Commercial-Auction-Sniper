@@ -6,6 +6,7 @@ from scripts.harvest_kivells_results import (
     DEFAULT_RENDERED_2018_PROFILE_SEED, DEFAULT_RENDERED_2019_PROFILE_SEED,
     DEFAULT_RENDERED_2019_SEED,
     DEFAULT_RENDERED_2020_SEED,
+    DEFAULT_RENDERED_2022_REMAINING_SEED,
     EVENTS, FLIPHTML_2023_EVENTS, MAY_EVENT, MAY_RESULTS,
     build_annual_2021_review_rows, build_fliphtml_rows, build_half_year_review_rows,
     build_may_rows, build_rendered_rows, build_rendered_2020_rows, build_rows,
@@ -14,6 +15,7 @@ from scripts.harvest_kivells_results import (
     load_half_year_review_seed, load_rendered_2018_profile_seed,
     load_rendered_2019_profile_seed,
     load_rendered_2019_seed, load_rendered_2020_seed,
+    load_rendered_2022_remaining_seed,
     public_fliphtml_pages,
     parse_may_event_page, parse_text,
     saved_snapshot_dates, snapshot_metadata_path, status_from_text,
@@ -122,6 +124,31 @@ def test_rendered_2020_batch_banks_only_identifiable_cards_and_null_prices():
     assert states["2020-07-24"]["extra_guide_only_cards_outside_published_denominator"] == 1
     assert states["2020-09-09"]["individual_sale_prices_published"] == 7
     assert states["2020-10-28"]["individual_sale_prices_published"] == 8
+
+
+def test_rendered_2022_remaining_batch_preserves_prices_statuses_and_sectors():
+    seed = load_rendered_2022_remaining_seed(DEFAULT_RENDERED_2022_REMAINING_SEED)
+    pages = {book["book_slug"]: fliphtml_pages(book) for book in seed["books"]}
+    evidence = {
+        book["book_slug"]: {"source_url": book["source_url"]}
+        for book in seed["books"]
+    }
+    results = build_rendered_rows(seed, pages, evidence)
+    states = {state["auction_date"]: state for state, _ in results}
+    rows = [row for _, event_rows in results for row in event_rows]
+
+    assert [len(event_rows) for _, event_rows in results] == [4, 14]
+    assert len(rows) == 18
+    assert len({row["appearance_id"] for row in rows}) == 18
+    assert sum(bool(row["address"]) for row in rows) == 4
+    assert sum(row["guide_price"] is not None for row in rows) == 18
+    assert sum(row["sale_price"] is not None for row in rows) == 17
+    assert sum(row["status"] == "unsold" for row in rows) == 1
+    assert sum(row["sector"] in {"commercial", "mixed-use"} for row in rows) == 4
+    assert {row["auction_date"] for row in rows} == {"2022-06-28", "2022-10-19"}
+    assert states["2022-06-28"]["published_value_sold"] == 337000
+    assert states["2022-10-19"]["published_value_sold"] == 1488000
+    assert all(state["denominator_reconciled"] for state in states.values())
 
 
 def test_rendered_2018_profile_batch_preserves_all_individual_cards():
