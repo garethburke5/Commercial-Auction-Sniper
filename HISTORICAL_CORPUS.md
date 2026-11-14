@@ -4,6 +4,44 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 14 November 2026 — Carter Jonas retained Bamboo archive
+
+The reusable Bamboo white-label collector reconciled all three public index pages
+and all **47 stable Carter Jonas property detail pages**. It banked **47 net new
+individual appearances and 47 address records**: 44 exact-dated records inside the
+preceding twenty-year window, two future-dated records and one undated record. No
+partial lot, duplicate appearance identity or exact date/address cross-source
+overlap was admitted.
+
+The full sector split is eight commercial, eight mixed-use, 18 land, 12
+residential and one unknown. The in-window commercial/mixed-use subset is 15;
+the remaining mixed-use record is undated. The retained payloads add **47 guide
+prices and 40 achieved prices** in total, including 44 guides and all 40 achieved
+prices inside the window. They publish no rent evidence. Individual close dates,
+outcomes, original stable property URLs and the complete index/detail payloads are
+preserved in immutable snapshots.
+
+This establishes Carter Jonas source-years **2021, 2022, 2023, 2024, 2025 and
+2026**. Carter Jonas LLP (company OC304417) is the reconciled operator; office and
+branch attribution remains within that lineage and is not counted as additional
+auctioneers. Completeness is limited to the 47 listings surviving in the public
+Bamboo archive and does not claim coverage of removed properties or earlier
+platforms.
+
+The preceding Durrants route was bounded after retained publisher/platform
+searches recovered exact 2021-2022 auction calendar dates but no surviving
+individual property inventory. It therefore added zero properties and is not
+treated as growth. Rebuilt corpus totals are **313,366 appearances, 302,050
+address records, 11,316 partial records and 305,044 in-window appearances**, with
+**106,931 in-window guides and 112,865 in-window achieved prices**.
+
+Next serial growth target: batch Stags' first-party recent-auction result events
+and their individual `View Properties` pages through a reusable event runner.
+Reconcile all Stags offices and branches to one operator lineage, preserve each
+published date, guide, achieved price and outcome, and exclude exact overlapping
+evidence before claiming growth. National completeness remains false.
+
+
 ## 11 November 2026 — Kivells 2022 retained result-book batch
 
 Historical collection run [43047973493](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43047973493)
@@ -2086,6 +2124,18 @@ The bounded Auction House South West / Bristol & West route exposes no pre-2018 
 - **Publication:** exact-revision publication run [42990018359](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42990018359) passed both Pages source-to-live verification and `auctiongeek.co.uk` production data/code/indexing verification for bank commit `8a52d2d99256adf404414e72339bd37f96cd22bd`.
 - **Next concrete growth target:** extend the same reusable saved-PDF runner across Kivells' accessible 2024 first-party event results. Start with the proven 12 June 2024 PDF (**13 numbered lots**), then inventory and batch the official result PDFs for 17 January, 21 February, 20 March, 17 April, 15 May, 24 July, 4 September, 9 October and 13 November. Annual and half-year review totals are discovery evidence only; bank only individual result cards with exact dates and preserve all outcomes.
 - National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
+
+## 14 November 2026 — Stags Bamboo and Homeflow archive reconciliation
+
+- **Specific growth opportunity executed:** the reusable Bamboo runner reconciled all **353 stable property rows across 18 pages** in Stags' surviving white-label archive, while a new all-sector Homeflow runner reconciled all **39 current auction-tag rows across four pages** and their detail particulars. Seven retired Bamboo details had lost their rich `propertyData`; their stable index rows, dates, addresses, guides and immutable source evidence were retained explicitly as index fallbacks instead of losing those properties.
+- **Measured net gain:** **362 individual Stags appearances and 362 address records** after merging 30 same-property/same-date cross-platform overlaps. Of these, **344 are exact-dated address records inside 14 November 2006–14 November 2026** and **18 are future-dated**. Added partial and undated records are **0 / 0**. Nine Homeflow rows with different published dates or no same-appearance match remain distinct; a rescheduled date is not treated as a duplicate.
+- **Sector and evidence gain:** **8 commercial, 7 mixed-use, 236 land, 110 residential and 1 unknown**; the commercial/mixed-use subset is **15**. The batch adds **362 guide observations, 271 achieved-price observations and 11 published annual rents**. Guide and achieved prices remain separate; absent values remain null.
+- **Deduplication and provenance:** the 30 merged Homeflow rows retain their original URLs, branch attribution, guide observations and immutable snapshot references on the canonical Bamboo appearances. A full-corpus exact address/date comparison found **0 additional overlaps**. The two source inventories exposed 392 rows, reconciling to 362 canonical appearances without discarding source evidence.
+- **Operator reconciliation:** all **21 Stags office/department directory labels** are mapped to the single `Stags` corpus operator and are not counted as separate auctioneers. The source register now links each label to 362 retained appearances across **six newly represented Stags source-years: 2021–2026**.
+- **Bounded blocker:** thirteen official 2019–2020 Recent Auctions event shells survive, but their embedded property arrays are null and the individual grids have been removed. That route is recorded and must not be retried without a retained asset or materially different snapshot source.
+- **Corpus totals after rebuild:** **313,728 appearances**, **302,412 address records**, **11,316 partial records** and **305,388 in-window appearances**. Window evidence totals are **107,275 guides** and **113,136 achieved prices**. Retained exceptions are **5,048 undated** and **172 future-dated** appearances.
+- **Next concrete growth target:** batch the still-uncollected Kivells 2024 first-party January-April result books (**51 published result cards**) through the existing reusable saved-PDF runner, then reconcile the exact-dated 15 May 14-lot inventory. Rotate to another uncovered source-year if an event has no individual property evidence.
+- Publication has not been started from this checkpoint. National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
 
 ## 11 November 2026 — Durrants retained result-sheet batch
 

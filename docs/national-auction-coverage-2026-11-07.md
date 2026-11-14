@@ -8,6 +8,35 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Carter Jonas retained archive, 14 November
+
+The reusable Bamboo collector reconciled 47/47 visible Carter Jonas property
+pages across three public archive pages and banked 47 net address-bearing
+appearances. Forty-four are exact-dated inside the twenty-year window, two are
+future-dated and one is undated; partial and duplicate-identity additions are
+zero. The batch contains eight commercial, eight mixed-use, 18 land, 12
+residential and one unknown record. Fifteen commercial/mixed-use records are
+inside the window.
+
+All 47 additions preserve a guide price and 40 preserve an achieved price. The
+in-window additions are 44 guides and 40 achieved prices; no rent was published.
+Strict cross-source date/address comparison found no overlap. Carter Jonas
+source-years 2021-2026 are newly represented. Carter Jonas LLP (OC304417) remains
+one operator lineage across offices and branches.
+
+The complete public Bamboo index and each stable detail payload were retained as
+immutable source evidence. Completeness applies only to the surviving 47-page
+archive, not deleted listings or earlier platforms. The rebuilt corpus now holds
+313,366 appearances, 302,050 address records and 305,044 in-window appearances.
+No collection or publication workflow was launched during this checkpoint.
+
+The bounded Durrants publisher/platform route recovered only exact 2021-2022
+calendar dates, not individual property evidence, so it contributed zero growth
+and is not being refreshed again. The next high-yield target is the first-party
+Stags recent-auction results archive, batched event-by-event through a reusable
+runner. National completeness remains false.
+
+
 ## Persisted historical gain — 12:17 UTC
 
 The reusable retained-grid runner reconciled eight Auction House Online events and
@@ -435,6 +464,17 @@ The next serial target is persisted but untriggered: 29 linked 2019 catalogues, 
 - Corpus totals are **312,456 appearances**, **301,425 address records**, **11,031 partial records**, **304,145 in-window appearances**, **106,386 in-window guides** and **112,394 in-window achieved prices**. Exact-revision publication run [42990018359](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42990018359) passed both Pages and `auctiongeek.co.uk` verification.
 - **Next batch:** reuse the saved-PDF runner for the official 2024 Kivells event-result inventory, beginning with the exact-dated 12 June sheet (13 numbered lots), then batch the official January, February, March, April, May, July, September, October and November result PDFs. Review articles remain discovery evidence only.
 - National completeness remains **false** pending source-by-source lot inventory and auctioneer/branch/trading-name reconciliation.
+
+## 14 November 2026 — Stags platform archive checkpoint
+
+- Stags' surviving Bamboo archive exposes **353 stable individual properties across 18 reconciled pages**; the current first-party Homeflow auction tag exposes **39 properties across four reconciled pages**. Thirty same-property/same-date rows overlap, leaving **362 net appearances** while preserving both source URLs and immutable evidence.
+- Growth is **362 addresses**, comprising **344 exact-dated records inside the rolling 20-year window**, **18 future-dated**, **0 undated** and **0 partial** records. A wider-corpus exact date/address comparison found **0 other duplicates**.
+- All-sector capture comprises **8 commercial, 7 mixed-use, 236 land, 110 residential and 1 unknown**. Price/rent evidence comprises **362 guides, 271 achieved prices and 11 published annual rents**.
+- Seven retired Bamboo detail pages no longer expose rich property payloads. Their stable index rows remain individually evidenced and are explicitly flagged as fallbacks; this is not a claim that deleted pre-archive listings are covered.
+- The directory's **21 Stags office/department labels** now reconcile to one `Stags` corpus operator rather than 21 auctioneers. Retained Stags evidence spans the newly represented source-years **2021–2026**.
+- The thirteen official 2019–2020 event pages are a bounded blocker: the surviving shells contain null property arrays and no lot grids. Revisit only if a retained object or materially different snapshot route is found.
+- Rebuilt totals are **313,728 appearances**, **302,412 addresses**, **305,388 in-window appearances**, **107,275 in-window guides** and **113,136 in-window achieved prices**. Publication has not been launched from this checkpoint.
+- **Next target:** use the existing Kivells saved-PDF batch runner on the still-uncollected January-April 2024 result books (51 published cards), then reconcile the 15 May 14-lot event. National completeness remains **false**.
 
 ## 11 November 2026 — Kivells 2024 source-year checkpoint
 
