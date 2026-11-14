@@ -592,3 +592,28 @@ Cheffins catalogue `549` moved from a registered 21-lot/zero-card gap to a recon
 All 21 records fall inside the rolling 20-year window. Added partial, undated, future-dated and duplicate-source records are zero. Cheffins 2019 and the operator were already represented, so this adds one complete event inventory but zero source-years and zero auctioneers. Corpus totals after rebuild are 315,136 appearances, 303,785 addresses, 11,351 partials and 306,776 in-window appearances.
 
 The next national growth target is the five registered zero-card City & Rural Property Auctions events across 2022, 2025 and 2026, processed as one catalogue/subdomain batch beginning with the three recent live/room events. Existing City & Rural date/address/lot identities must be excluded. If no catalogue survives, move once to an uncovered Durrants 2021–2022 asset. National completeness remains false.
+
+## 14 November 2026 — Sunderlands 2016–2018 follow-through
+
+Five retained City & Rural event shells and the complete public Durrants
+2021–2022 media inventory yielded no individual lot-bearing catalogue object.
+Their evidence and revisit conditions are persisted; neither route should be
+refreshed without a materially different recovery surface.
+
+Sunderlands' first-party previous-results archive supplied the next material
+batch: **14 complete result sheets and 61/61 individual property rows**. The
+bank adds **61 appearances and 61 exact-dated address records inside the
+twenty-year window**, with no partial, undated, future-dated or duplicate
+admissions. Sector growth is 36 land, 23 residential and 2 unknown, with zero
+commercial/mixed-use additions. Evidence growth is **55 guide observations, 29
+achieved-price observations and 0 rents**.
+
+Three source-years, 2016–2018, are newly represented for Sunderlands.
+Sunderlands & Thompsons and Sunderlands are one operator lineage under
+SUNDERLANDS 1862 LLP (OC338911), not two auctioneers. Corpus totals are
+**315,197 appearances, 303,846 addresses, 11,351 partials and 306,837 in-window
+appearances**. National completeness remains false.
+
+The next concrete target is a substantial accessible multi-event archive for
+an uncovered genuine auctioneer, prioritising Auction Inspire, Auction Local
+or another first-party result surface from the source/year register.

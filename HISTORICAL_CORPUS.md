@@ -3,6 +3,48 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — Sunderlands 2016–2018 result-sheet batch
+
+Sunderlands' surviving first-party previous-results archive exposed fourteen
+exact-dated two-page result PDFs. One reusable manifest runner validated and
+banked all **61/61 individually printed property rows** across 14 events from
+27 January 2016 to 26 October 2018. The original PDF URLs, content hashes and
+fourteen immutable PDF snapshots are retained. Three June 2017 rows publish no
+lot number and remain null; separately offered Waterloo Mill interests and ten
+separately offered development plots remain distinct appearances.
+
+Net growth after corpus-wide exact date/address reconciliation is **61
+appearances and 61 exact-dated address records inside the rolling twenty-year
+window**. There are no partial, undated, future-dated or duplicate additions.
+Sectors are 36 land, 23 residential and 2 unknown; commercial/mixed-use growth
+is **0**. The result sheets add **55 guide prices and 29 achieved prices**, with
+no published rent. Three unnumbered rows publish no guide, three October 2018
+guides are obscured by result stamps, and those values remain null.
+
+All fourteen event denominators reconcile completely. Sunderlands & Thompsons
+and Sunderlands are retained as historical trading names of the same legal
+operator, SUNDERLANDS 1862 LLP (OC338911), and are not counted as separate
+auctioneers. This adds three newly represented Sunderlands source-years:
+**2016, 2017 and 2018**.
+
+The rebuilt union contains **315,197 appearances, 303,846 address records,
+11,351 partial records and 306,837 in-window appearances**, including **108,360
+in-window guides and 113,089 in-window achieved prices**. National completeness
+remains false.
+
+Two bounded routes produced no property growth and are not scheduled for
+refresh: five saved City & Rural zero-card event shells expose no catalogue or
+property links, while Durrants' complete public 2021–2022 WordPress media
+inventory contains no result/catalogue PDF behind its retained event dates.
+Either route is revisited only if a materially different lot-bearing object is
+identified.
+
+Next concrete growth target: batch the first substantial accessible
+individual-lot archive for an uncovered genuine auctioneer from the
+source/year register, prioritising Auction Inspire, Auction Local or another
+first-party multi-event result surface. Reconcile aliases before counting a
+new auctioneer and keep national completeness false.
+
 ## 14 November 2026 — Kivells June and October 2022 result-book batch
 
 The retained June (`ninr`) and October (`irpy`) first-party result books were

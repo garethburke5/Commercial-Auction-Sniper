@@ -4130,6 +4130,16 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Next concrete target: Auction House Online event 62275, principally dated 1 October 2024, with 41 first-party cards at `/past-auctions/62275?lotResultType=All`. One card is individually dated 24 September 2024 and must retain that date. Source config and its assertion are prepared in [`3eae2b3fc40cd30a6a9fcd74b501bd9f4318c14a`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/3eae2b3fc40cd30a6a9fcd74b501bd9f4318c14a) and [`3a6a818a5fa0bc2ec1b1385401edc2ca67912222`](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/3a6a818a5fa0bc2ec1b1385401edc2ca67912222). Do not launch it while another writer is active.
 - National completeness remains **false**.
 
+## 2026-11-14 — Sunderlands 2016–2018 result-sheet batch
+
+- The City & Rural saved event shells contained no individual lot links, and the complete public Durrants 2021–2022 media inventory contained no auction result or catalogue PDF. Both zero-growth routes are bounded pending a materially different lot-bearing source.
+- The fallback route recovered all **14** first-party Sunderlands result PDFs spanning 2016–2018 and reconciled **61/61 individual rows** through one reusable manifest runner.
+- Net banked growth is **61 appearances**, all 61 full addresses with exact dates inside the rolling twenty-year window. Added partial, undated, future-dated and cross-source duplicate records are **0**.
+- Sector growth is **36 land, 23 residential and 2 unknown**; commercial/mixed-use growth is **0**. Actual evidence growth is **55 guides, 29 achieved prices and 0 rents**. Unknown or obscured values remain null.
+- Fourteen complete event inventories and three newly represented source-years (**2016, 2017 and 2018**) are added. Sunderlands & Thompsons and Sunderlands are reconciled to SUNDERLANDS 1862 LLP (OC338911) and are not counted as separate auctioneers.
+- The rebuilt corpus contains **315,197 appearances**, **303,846 addresses**, **11,351 partials** and **306,837 in-window appearances**. National completeness remains false.
+- Next target: select and batch an accessible multi-event individual-lot archive for an uncovered genuine auctioneer, prioritising Auction Inspire, Auction Local or the next first-party result surface in the source/year register.
+
 ## 2026-10-31 22:05 UTC — historical launch deferred behind active production writer
 
 - Intended growth opportunity: Auction House Online event `62275`, principally dated 1 October 2024, with 41 first-party cards at `/past-auctions/62275?lotResultType=All`. Its source configuration, assertion and isolated trigger were already prepared.
