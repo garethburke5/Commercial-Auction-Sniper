@@ -4667,3 +4667,14 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - The scheduled main collection run immediately preceding this recovery completed successfully with unchanged property/address/partial totals; its downstream publication checkpoint was protected and no duplicate collector was launched.
 - Different next target: batch the five zero-card City & Rural Property Auctions event states dated 15 November and 7 December 2022, 29 January and 17 December 2025, and 24 June 2026 through the existing catalogue/subdomain runner. Begin with the three recent live/room events and exclude existing City & Rural identities. If no catalogue survives, rotate to a Durrants 2021–2022 source-year asset instead of refreshing Cheffins.
 - National completeness remains **false**.
+
+## 2026-11-14 — Cundalls and Graham Watkins focused inventory batch
+
+- One selected-source invocation of the reusable estate-agent runner banked **19 net appearances / 19 addresses**: Cundalls 1 and Graham Watkins & Co 18.
+- **13** newly dated addresses fall inside the rolling 20-year window; **6** are future-dated, **0** undated and **19** partial-address records. Exact duplicate and related-interest exclusions are both zero.
+- Sector gain is **5 commercial, 3 mixed-use, 7 land, 2 residential and 2 unknown**. Evidence gain is **19 guides, 0 achieved prices and 1 rent**; missing outcomes and achieved prices remain null.
+- Cundalls' 58-URL mixed auction sitemap contains one surviving property-specific public-auction lot. Its venue postcode is not used as the property's postcode. Graham Watkins combines seven direct live/seeded details with eleven exact-dated retained first-party detail texts whose origin pages now fail or omit the date; that manifest remains partial and explicitly source-tiered.
+- New source-years are **Cundalls 2024** and **Graham Watkins & Co 2026**. Branches and trading references are reconciled without inflating the auctioneer count.
+- Rebuilt totals are **319,449 appearances, 308,098 addresses and 310,843 in-window appearances**, with **112,320 in-window guides** and **115,841 in-window achieved prices**.
+- Next target: Jones Peckover's first-party detail/PDF inventory, beginning with id `34635925` at Penycae (10 June 2026). Do not repeat the Property Auction Company HTTP-403 route without a materially different access path.
+- National completeness remains **false**.

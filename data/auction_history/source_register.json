@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T15:52:20.594208+00:00",
-  "corpus_checkpoint": "2026-11-14T15:51:44.364619+00:00",
+  "generated_at": "2026-11-14T17:23:14.040945+00:00",
+  "corpus_checkpoint": "2026-11-14T17:22:38.331527+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -3339,13 +3339,15 @@
       "name": "Graham Watkins & Co",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/graham-watkins-co",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Graham Watkins & Co",
+      "match_basis": "exact label",
+      "retained_appearances": 18,
+      "years_with_retained_evidence": [
+        2026
+      ],
+      "with_guide_price": 12,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8251,7 +8253,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 450,
+  "directory_entries_not_linked": 449,
   "corpus_labels": {
     "247 Property Auctions": 272,
     "321 Estates Online Auction": 6,
@@ -8363,6 +8365,7 @@
     "Cooper and Tanner": 125,
     "Cottons": 7514,
     "Country Property Auctions": 58,
+    "Cundalls": 1,
     "Dacres Online Auction": 9,
     "Dart & Partners": 1,
     "David Cosby": 2,
@@ -8399,6 +8402,7 @@
     "Global Property Consulting Online Auction": 1,
     "Goldings Auctions": 635,
     "Good Property Auctions": 17,
+    "Graham Watkins & Co": 18,
     "Hamilton Fletcher": 1,
     "Harbourside Property Group": 1,
     "Harman Healy": 1528,
@@ -8572,13 +8576,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310830,
-      "auction_ids_observed": 17642,
-      "with_guide_price": 112307,
+      "lot_appearances": 310843,
+      "auction_ids_observed": 17648,
+      "with_guide_price": 112320,
       "with_sale_price": 115841,
       "with_both_prices": 51911,
-      "marked_sold": 159220,
-      "marked_sold_without_sale_price": 44119
+      "marked_sold": 159221,
+      "marked_sold_without_sale_price": 44120
     },
     "by_auctioneer_and_year": [
       {
@@ -14170,6 +14174,17 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Cundalls",
+        "year": 2024,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
         "auctioneer": "Dacres Online Auction",
         "year": 2023,
         "lot_appearances": 8,
@@ -15608,6 +15623,17 @@
         "with_sale_price": 2,
         "with_both_prices": 2,
         "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Graham Watkins & Co",
+        "year": 2026,
+        "lot_appearances": 12,
+        "auction_ids_observed": 5,
+        "with_guide_price": 12,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -21959,7 +21985,7 @@
       }
     ],
     "undated_appearances": 5126,
-    "future_dated_appearances": 354,
+    "future_dated_appearances": 360,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -22508,11 +22534,11 @@
     },
     "estate-agent-auction-sitemaps": {
       "source": "estate-agent-auction-sitemaps",
-      "checked_at": "2026-11-14T15:50:28.296356+00:00",
+      "checked_at": "2026-11-14T17:21:36.709853+00:00",
       "status": "completed current sitemap inventories",
-      "new_appearances": 8,
-      "new_dated_twenty_year_address_records": 2,
-      "next_target": "Cundalls first-party past property-auction catalogue and result inventory"
+      "new_appearances": 19,
+      "new_dated_twenty_year_address_records": 13,
+      "next_target": "Jones Peckover first-party property-for-auction details and PDF catalogue inventory, starting with property id 34635925 (Penycae, 10 June 2026)"
     },
     "cheffins-catalogue-549-pdf": {
       "source": "cheffins-catalogue-549-pdf",
@@ -23279,6 +23305,60 @@
       "lots_captured": 37,
       "errors": [],
       "checked_at": "2026-11-13T22:29:01.656206+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/graham-watkins/2026-11-18.json",
+      "auctioneer": "Graham Watkins & Co",
+      "auction_date": "2026-11-18",
+      "source_url": null,
+      "lots_captured": 6,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.709712+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/graham-watkins/2026-10-14.json",
+      "auctioneer": "Graham Watkins & Co",
+      "auction_date": "2026-10-14",
+      "source_url": null,
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.709619+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/graham-watkins/2026-06-17.json",
+      "auctioneer": "Graham Watkins & Co",
+      "auction_date": "2026-06-17",
+      "source_url": null,
+      "lots_captured": 2,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.708795+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/graham-watkins/2026-09-16.json",
+      "auctioneer": "Graham Watkins & Co",
+      "auction_date": "2026-09-16",
+      "source_url": null,
+      "lots_captured": 3,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.709522+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/graham-watkins/2026-08-12.json",
+      "auctioneer": "Graham Watkins & Co",
+      "auction_date": "2026-08-12",
+      "source_url": null,
+      "lots_captured": 3,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.709416+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/graham-watkins/2026-07-22.json",
+      "auctioneer": "Graham Watkins & Co",
+      "auction_date": "2026-07-22",
+      "source_url": null,
+      "lots_captured": 3,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.709220+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-national/online-results.json",
@@ -25340,6 +25420,15 @@
       "lots_captured": 1855,
       "errors": [],
       "checked_at": "2026-11-13T22:27:06.035542+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/cundalls/2024-09-25.json",
+      "auctioneer": "Cundalls",
+      "auction_date": "2024-09-25",
+      "source_url": null,
+      "lots_captured": 1,
+      "errors": [],
+      "checked_at": "2026-11-14T17:21:36.706717+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/robinson-hall/2025-10-22-117455.json",
@@ -28651,7 +28740,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T15:52:19.152437+00:00",
+    "checked_at": "2026-11-14T17:23:12.282532+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

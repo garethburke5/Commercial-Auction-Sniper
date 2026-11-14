@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-14T15:51:44.364619+00:00",
-  "individual_lot_records_captured": 319430,
-  "records_with_address": 308079,
+  "generated_at": "2026-11-14T17:22:38.331527+00:00",
+  "individual_lot_records_captured": 319449,
+  "records_with_address": 308098,
   "partial_lot_records": 11351,
-  "exact_address_groups": 172835,
+  "exact_address_groups": 172837,
   "groups_with_repeat_appearances": 43461,
   "by_auctioneer": {
     "247 Property Auctions": 272,
@@ -116,6 +116,7 @@
     "Cooper and Tanner": 125,
     "Cottons": 7514,
     "Country Property Auctions": 58,
+    "Cundalls": 1,
     "Dacres Online Auction": 9,
     "Dart & Partners": 1,
     "David Cosby": 2,
@@ -152,6 +153,7 @@
     "Global Property Consulting Online Auction": 1,
     "Goldings Auctions": 635,
     "Good Property Auctions": 17,
+    "Graham Watkins & Co": 18,
     "Hamilton Fletcher": 1,
     "Harbourside Property Group": 1,
     "Harman Healy": 1528,
@@ -344,25 +346,25 @@
     "2021": 21762,
     "2022": 27332,
     "2023": 34663,
-    "2024": 43461,
+    "2024": 43462,
     "2025": 49406,
-    "2026": 49483,
+    "2026": 49501,
     "2027": 8
   },
   "by_sector": {
-    "commercial": 43246,
-    "land": 19996,
+    "commercial": 43251,
+    "land": 20003,
     "mixed": 1,
-    "mixed-use": 48871,
-    "residential": 155130,
-    "unknown": 52186
+    "mixed-use": 48874,
+    "residential": 155132,
+    "unknown": 52188
   },
   "date_range": [
     "2002-10-31",
     "2027-01-26"
   ],
   "surviving_catalogues_completely_harvested": 5272,
-  "catalogues_incomplete_or_unreconciled": 635,
+  "catalogues_incomplete_or_unreconciled": 642,
   "catalogue_fetch_or_parse_failures": 32,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -375,13 +377,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 310830,
-      "auction_ids_observed": 17642,
-      "with_guide_price": 112307,
+      "lot_appearances": 310843,
+      "auction_ids_observed": 17648,
+      "with_guide_price": 112320,
       "with_sale_price": 115841,
       "with_both_prices": 51911,
-      "marked_sold": 159220,
-      "marked_sold_without_sale_price": 44119
+      "marked_sold": 159221,
+      "marked_sold_without_sale_price": 44120
     },
     "by_auctioneer_and_year": [
       {
@@ -5973,6 +5975,17 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "Cundalls",
+        "year": 2024,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
         "auctioneer": "Dacres Online Auction",
         "year": 2023,
         "lot_appearances": 8,
@@ -7411,6 +7424,17 @@
         "with_sale_price": 2,
         "with_both_prices": 2,
         "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Graham Watkins & Co",
+        "year": 2026,
+        "lot_appearances": 12,
+        "auction_ids_observed": 5,
+        "with_guide_price": 12,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -13762,7 +13786,7 @@
       }
     ],
     "undated_appearances": 5126,
-    "future_dated_appearances": 354,
+    "future_dated_appearances": 360,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

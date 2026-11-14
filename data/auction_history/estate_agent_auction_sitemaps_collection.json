@@ -1,59 +1,69 @@
 {
-  "checked_at": "2026-11-14T15:50:28.296356+00:00",
+  "checked_at": "2026-11-14T17:21:36.709853+00:00",
   "source": "estate-agent-auction-sitemaps",
   "inventories": {
-    "abbotfox": {
-      "sitemap_url": "https://www.abbotfox.co.uk/sitemap.xml",
-      "property_detail_urls_checked": 696,
-      "auction_property_pages": 6,
+    "cundalls": {
+      "inventory_url": "https://www.cundalls.co.uk/sitemap.xml",
+      "inventory_kind": "xml",
+      "property_detail_urls_checked": 58,
+      "auction_property_pages": 1,
       "inventory_reconciled": true,
-      "sitemap_snapshot_path": "data/auction_history/sources/abbotfox/sitemap-eda3b7ebcb2c8b45.xml.gz",
-      "sitemap_response_sha256": "eda3b7ebcb2c8b45b7f8acfe5d943be71e92b82122081a7077deb58725808700"
+      "inventory_snapshot_path": "data/auction_history/sources/cundalls/inventory-2b18b87726ba35f9.xml.gz",
+      "inventory_response_sha256": "2b18b87726ba35f949fe51837e371703ec664778e82572c1efc7b71446c25293"
     },
-    "bramleys": {
-      "sitemap_url": "https://www.bramleys.com/sitemap.xml",
-      "property_detail_urls_checked": 510,
-      "auction_property_pages": 2,
+    "graham-watkins": {
+      "inventory_url": "https://www.grahamwatkins.co.uk/property-auctions/current-auction-properties",
+      "inventory_kind": "html",
+      "property_detail_urls_checked": 7,
+      "auction_property_pages": 18,
       "inventory_reconciled": true,
-      "sitemap_snapshot_path": "data/auction_history/sources/bramleys/sitemap-06f30278d316b0f1.xml.gz",
-      "sitemap_response_sha256": "06f30278d316b0f17c914d0b62c469894a495e3dc2fc46eef00ff95d70dd5cf6"
+      "inventory_snapshot_path": "data/auction_history/sources/graham-watkins/inventory-79c189ee979ec2c5.html.gz",
+      "inventory_response_sha256": "79c189ee979ec2c5b711fdc264c094bb061cb1931f4b316077aa22859bf324bf",
+      "retained_manifest_path": "data/historical_source_corpus/graham-watkins/retained-2026-auction-details.json",
+      "retained_snapshot_path": "data/auction_history/sources/graham-watkins/retained-auction-details-9c2fee19164ccd31.json.gz",
+      "retained_rows": 11,
+      "catalogue_complete": false
     }
   },
-  "run_new_appearances": 8,
-  "run_new_address_records": 8,
-  "run_new_dated_twenty_year_address_records": 2,
-  "run_new_partial_address_records": 8,
-  "run_new_undated": 1,
-  "run_new_future_dated": 5,
-  "run_new_commercial_or_mixed": 0,
-  "run_new_guide_prices": 8,
-  "run_new_sale_prices": 1,
-  "run_new_rents": 0,
-  "run_new_published_outcomes": 3,
+  "run_new_appearances": 19,
+  "run_new_address_records": 19,
+  "run_new_dated_twenty_year_address_records": 13,
+  "run_new_partial_address_records": 19,
+  "run_new_undated": 0,
+  "run_new_future_dated": 6,
+  "run_new_commercial_or_mixed": 8,
+  "run_new_guide_prices": 19,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 1,
+  "run_new_published_outcomes": 1,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_evidence": [],
   "related_interest_candidates_preserved": 0,
   "related_interest_candidate_ids": [],
   "new_source_years": [
     {
-      "auctioneer": "Bramleys",
-      "year": "2026"
+      "auctioneer": "Cundalls",
+      "year": "2024"
     },
     {
-      "auctioneer": "abbotFox",
+      "auctioneer": "Graham Watkins & Co",
       "year": "2026"
     }
   ],
   "by_source_new": {
-    "abbotFox": 6,
-    "Bramleys": 2
+    "Cundalls": 1,
+    "Graham Watkins & Co": 18
   },
   "by_sector_new": {
-    "residential": 8
+    "mixed-use": 3,
+    "land": 7,
+    "unknown": 2,
+    "residential": 2,
+    "commercial": 5
   },
   "errors": [],
   "historical_archive_complete": false,
-  "operator_reconciliation_pending": true,
+  "operator_reconciliation_pending": false,
   "national_completeness_verified": false,
-  "next_growth_target": "Cundalls first-party past property-auction catalogue and result inventory"
+  "next_growth_target": "Jones Peckover first-party property-for-auction details and PDF catalogue inventory, starting with property id 34635925 (Penycae, 10 June 2026)"
 }

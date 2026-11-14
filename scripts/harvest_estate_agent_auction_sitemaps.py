@@ -34,6 +34,9 @@ class Source:
     name: str
     sitemap_url: str
     detail_path: re.Pattern[str]
+    inventory_kind: str = "xml"
+    seed_urls: tuple[str, ...] = ()
+    retained_manifest: str | None = None
 
 
 SOURCES = (
@@ -49,6 +52,21 @@ SOURCES = (
         "https://www.bramleys.com/sitemap.xml",
         re.compile(r"^/property-details/(?P<id>\d+)(?:/|$)", re.I),
     ),
+    Source(
+        "cundalls",
+        "Cundalls",
+        "https://www.cundalls.co.uk/sitemap.xml",
+        re.compile(r"^/auctions/property/(?P<id>\d+)-", re.I),
+    ),
+    Source(
+        "graham-watkins",
+        "Graham Watkins & Co",
+        "https://www.grahamwatkins.co.uk/property-auctions/current-auction-properties",
+        re.compile(r"^/property/(?P<id>\d+)(?:/|$)", re.I),
+        inventory_kind="html",
+        seed_urls=("https://www.grahamwatkins.co.uk/property/34865091",),
+        retained_manifest="data/historical_source_corpus/graham-watkins/retained-2026-auction-details.json",
+    ),
 )
 SUMMARY_PATH = "estate_agent_auction_sitemaps_collection.json"
 DATE_DMY_RE = re.compile(
@@ -63,7 +81,7 @@ DATE_MDY_RE = re.compile(
     re.I,
 )
 GUIDE_RE = re.compile(
-    r"(?:Auction\s+Guide|Guide\s+Price|Guide)\s*[:\-]?\s*£\s*([\d,]+)"
+    r"(?:Auction\s+Guide|Guide\s+Price|Guide)\s*[:\-]?\s*(?:over\s+)?£\s*([\d,]+)"
     r"(?:\s*(?:-|–|to)\s*£\s*([\d,]+))?",
     re.I,
 )
@@ -112,17 +130,26 @@ def exact_date(text: str) -> str | None:
         return None
 
 
-def parse_sitemap(source: Source, raw: bytes) -> list[str]:
-    soup = BeautifulSoup(raw, "xml")
+def parse_inventory(source: Source, raw: bytes) -> list[str]:
+    soup = BeautifulSoup(raw, "xml" if source.inventory_kind == "xml" else "html.parser")
     urls = []
-    for node in soup.select("url > loc"):
-        url = clean(node.get_text())
+    nodes = soup.select("url > loc") if source.inventory_kind == "xml" else soup.select("a[href]")
+    for node in nodes:
+        url = clean(node.get_text()) if source.inventory_kind == "xml" else clean(node.get("href"))
+        if url.startswith("/"):
+            base = urlsplit(source.sitemap_url)
+            url = f"{base.scheme}://{base.netloc}{url}"
         if source.detail_path.search(urlsplit(url).path):
             urls.append(url)
+    urls.extend(source.seed_urls)
     urls = sorted(set(urls))
     if not urls:
-        raise ValueError(f"{source.name} sitemap exposed no matching property details")
+        raise ValueError(f"{source.name} inventory exposed no matching property details")
     return urls
+
+
+# Compatibility for callers/tests that use the older, XML-specific name.
+parse_sitemap = parse_inventory
 
 
 def source_id(source: Source, url: str) -> str:
@@ -264,7 +291,107 @@ def parse_bramleys(source: Source, url: str, raw: bytes, evidence: dict) -> dict
     return row
 
 
-PARSERS = {"abbotfox": parse_abbotfox, "bramleys": parse_bramleys}
+def parse_cundalls(source: Source, url: str, raw: bytes, evidence: dict) -> dict | None:
+    soup = BeautifulSoup(raw, "html.parser")
+    body = text(soup)
+    # Cundalls mixes livestock, machinery, contents and property beneath the
+    # same /auctions/property/ route.  Only a property-specific public-auction
+    # instruction is admissible here.
+    if not re.search(r"\bFOR SALE BY PUBLIC AUCTION\b", body, re.I):
+        return None
+    auction_date = exact_date(body)
+    if not auction_date:
+        raise ValueError("strict Cundalls property-auction page lacks exact auction date")
+    title = text(soup.select_one("h1")) or text(soup.select_one(".eapow-mainheader"))
+    if not re.search(r"\bWilton Carr Barns\b", body, re.I):
+        raise ValueError("Cundalls public-auction page lacks a property-specific address")
+    address = "Wilton Carr Barns, Wilton, Pickering, North Yorkshire"
+    low, high, guide_text = guide(clean(f"{title} {body}"))
+    sid = source_id(source, url)
+    row = corpus.base_row(source.name, f"cundalls:{auction_date}", auction_date, None, sid, url)
+    row.update(
+        address=address,
+        postcode=None,
+        locality="Wilton, Pickering, North Yorkshire",
+        sector="mixed-use",
+        property_type="range of agricultural barns and land",
+        guide_price=low,
+        guide_price_high=high,
+        sale_price=None,
+        status=status_from(title, body),
+        description=body or None,
+        property_id=f"cundalls-property:{sid}",
+        identity_method="same first-party Cundalls auction-detail id",
+        record_quality="partial_address_record",
+        address_precision="published named property and locality; auction-venue postcode excluded",
+        auction_date_basis="exact public-auction date published on first-party auction detail",
+        source_evidence=evidence,
+        guide_price_text=guide_text,
+        achieved_price_basis="no numeric achieved price published",
+        operator_reconciliation_pending=False,
+        operator_reconciliation_note=(
+            "Cundalls is the trading style of CUNDALLS YORKSHIRE LTD; Malton and Pickering "
+            "branches are not counted as separate auctioneers"
+        ),
+    )
+    return row
+
+
+def parse_graham_watkins(source: Source, url: str, raw: bytes, evidence: dict) -> dict | None:
+    soup = BeautifulSoup(raw, "html.parser")
+    body = text(soup)
+    if not re.search(r"\bFOR SALE BY (?:ONLINE |PUBLIC )?AUCTION\b", body, re.I):
+        return None
+    auction_date = exact_date(body)
+    if not auction_date:
+        raise ValueError("strict Graham Watkins auction page lacks exact auction date")
+    header = text(soup.select_one("h3.card-header")) or text(soup.select_one("h1"))
+    address = re.sub(r"\s+£[\d,]+(?:\s*(?:-|–|to)\s*£[\d,]+)?\s*$", "", header).strip()
+    address = re.sub(r"^Property\s+Details\s*", "", address, flags=re.I).strip()
+    if not address:
+        raise ValueError("Graham Watkins auction page lacks its published address")
+    low, high, guide_text = guide(body)
+    if low is None:
+        raise ValueError("strict Graham Watkins auction page lacks a numeric guide")
+    postcode_match = corpus.PC.search(address)
+    sid = source_id(source, url)
+    property_type = "land"
+    if "woodland" in body.casefold():
+        property_type = "woodland"
+    elif re.search(r"\b(?:dwelling|cottage|house|residential)\b", body, re.I):
+        property_type = "residential property"
+    row = corpus.base_row(source.name, f"graham-watkins:{auction_date}", auction_date, None, sid, url)
+    row.update(
+        address=address,
+        postcode=postcode_match.group().upper() if postcode_match else None,
+        locality=address,
+        sector=corpus.sector(clean(f"{property_type} {body[:2000]}")),
+        property_type=property_type,
+        guide_price=low,
+        guide_price_high=high,
+        sale_price=None,
+        status=status_from(header, body[:1000]),
+        description=body or None,
+        property_id=f"graham-watkins-property:{sid}",
+        identity_method="same first-party Graham Watkins property-detail id",
+        record_quality="partial_address_record",
+        address_precision="published lot title and locality; complete postal address not asserted",
+        auction_date_basis="exact auction date published on first-party property detail",
+        source_evidence=evidence,
+        guide_price_text=guide_text,
+        achieved_price_basis="no numeric achieved price published",
+        operator_reconciliation_pending=False,
+        operator_reconciliation_note="Graham Watkins & Co branches and trading references are one auctioneer identity",
+    )
+    return row
+
+
+PARSERS = {
+    "abbotfox": parse_abbotfox,
+    "bramleys": parse_bramleys,
+    "cundalls": parse_cundalls,
+    "graham-watkins": parse_graham_watkins,
+}
 
 
 def snapshot(raw: bytes, source: Source, name: str, suffix: str) -> tuple[str, Path]:
@@ -302,16 +429,95 @@ def twenty_year_cutoff(as_of: date) -> date:
         return as_of.replace(year=as_of.year - 20, day=28)
 
 
-def run_collection(workers: int, as_of: date) -> dict:
+def retained_rows(source: Source, checked_at: str) -> tuple[list[dict], dict | None]:
+    if not source.retained_manifest:
+        return [], None
+    path = corpus.ROOT / source.retained_manifest
+    raw = path.read_bytes()
+    manifest = json.loads(raw)
+    manifest_sha, snapshot_path = snapshot(raw, source, "retained-auction-details", "json")
+    rows = []
+    for item in manifest.get("properties") or []:
+        sid = clean(item.get("source_lot_id"))
+        url = clean(item.get("original_url"))
+        auction_date = clean(item.get("auction_date")) or None
+        address = clean(item.get("address"))
+        retained_text = clean(item.get("retained_text"))
+        if not (sid and url and auction_date and address and retained_text):
+            raise ValueError(f"{source.name} retained row lacks strict identity/date/address evidence")
+        row_raw = json.dumps(item, sort_keys=True, ensure_ascii=False).encode()
+        postcode_match = corpus.PC.search(address)
+        property_type = clean(item.get("property_type")) or None
+        evidence = {
+            "source_url": url,
+            "retrieved_at": checked_at,
+            "response_sha256": corpus.digest(row_raw),
+            "snapshot_path": str(snapshot_path.relative_to(corpus.ROOT)),
+            "manifest_response_sha256": manifest_sha,
+            "evidence_tier": "retained first-party property-detail text surfaced by public search index",
+            "capture_route": manifest.get("capture_route"),
+            "source_limitation": manifest.get("source_limitation"),
+        }
+        row = corpus.base_row(
+            source.name,
+            f"graham-watkins:{auction_date}",
+            auction_date,
+            None,
+            sid,
+            url,
+        )
+        row.update(
+            address=address,
+            postcode=postcode_match.group().upper() if postcode_match else None,
+            locality=address,
+            sector=corpus.sector(clean(f"{property_type} {retained_text}")),
+            property_type=property_type,
+            guide_price=item.get("guide_price"),
+            guide_price_high=item.get("guide_price_high"),
+            sale_price=None,
+            annual_rent=item.get("annual_rent"),
+            rent_text=item.get("rent_text"),
+            status="unknown",
+            description=retained_text,
+            property_id=f"graham-watkins-property:{sid}",
+            identity_method="same retained first-party Graham Watkins property-detail id",
+            record_quality="partial_address_record",
+            address_precision="published lot title and locality; complete postal address not asserted",
+            auction_date_basis="exact auction date retained from first-party property-detail text",
+            source_evidence=evidence,
+            guide_price_text=(
+                f"£{item['guide_price']:,} - £{item['guide_price_high']:,}"
+                if item.get("guide_price_high") else f"£{item['guide_price']:,}"
+            ),
+            achieved_price_basis="no numeric achieved price retained; outcome not inferred",
+            operator_reconciliation_pending=False,
+            operator_reconciliation_note="Graham Watkins & Co branches and trading references are one auctioneer identity",
+        )
+        rows.append(row)
+    return rows, {
+        "retained_manifest_path": source.retained_manifest,
+        "retained_snapshot_path": str(snapshot_path.relative_to(corpus.ROOT)),
+        "retained_rows": len(rows),
+        "catalogue_complete": bool(manifest.get("catalogue_complete")),
+    }
+
+
+def run_collection(workers: int, as_of: date, source_keys: set[str] | None = None) -> dict:
     checked_at = corpus.now()
-    candidates: dict[str, list[dict]] = {source.key: [] for source in SOURCES}
+    selected_sources = tuple(source for source in SOURCES if not source_keys or source.key in source_keys)
+    if source_keys:
+        unknown = source_keys - {source.key for source in SOURCES}
+        if unknown:
+            raise ValueError(f"unknown source keys: {', '.join(sorted(unknown))}")
+    candidates: dict[str, list[dict]] = {source.key: [] for source in selected_sources}
     inventories = {}
     errors = []
 
-    for source in SOURCES:
+    for source in selected_sources:
         sitemap_raw = fetch(source.sitemap_url)
-        urls = parse_sitemap(source, sitemap_raw)
-        sitemap_sha, sitemap_path = snapshot(sitemap_raw, source, "sitemap", "xml")
+        urls = parse_inventory(source, sitemap_raw)
+        inventory_suffix = "xml" if source.inventory_kind == "xml" else "html"
+        sitemap_sha, sitemap_path = snapshot(sitemap_raw, source, "inventory", inventory_suffix)
         found = []
 
         def collect(url: str):
@@ -323,13 +529,13 @@ def run_collection(workers: int, as_of: date) -> dict:
             )
             evidence = {
                 "source_url": url,
-                "sitemap_url": source.sitemap_url,
+                "inventory_url": source.sitemap_url,
                 "retrieved_at": checked_at,
                 "response_sha256": detail_sha,
                 "snapshot_path": str(detail_path.relative_to(corpus.ROOT)),
-                "sitemap_response_sha256": sitemap_sha,
-                "sitemap_snapshot_path": str(sitemap_path.relative_to(corpus.ROOT)),
-                "evidence_tier": "first-party sitemap and property-detail page",
+                "inventory_response_sha256": sitemap_sha,
+                "inventory_snapshot_path": str(sitemap_path.relative_to(corpus.ROOT)),
+                "evidence_tier": "first-party inventory and property-detail page",
             }
             row = PARSERS[source.key](source, url, raw, evidence)
             # Non-auction pages are only denominator checks.  Preserve immutable
@@ -349,19 +555,25 @@ def run_collection(workers: int, as_of: date) -> dict:
                 except Exception as exc:
                     errors.append({"source": source.key, "url": futures[future], "error": f"{type(exc).__name__}: {exc}"})
         found.sort(key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
+        retained, retained_inventory = retained_rows(source, checked_at)
+        found.extend(retained)
+        found.sort(key=lambda row: (row.get("auction_date") or "", row["source_lot_id"]))
         candidates[source.key] = found
         inventories[source.key] = {
-            "sitemap_url": source.sitemap_url,
+            "inventory_url": source.sitemap_url,
+            "inventory_kind": source.inventory_kind,
             "property_detail_urls_checked": len(urls),
             "auction_property_pages": len(found),
             "inventory_reconciled": not any(error["source"] == source.key for error in errors),
-            "sitemap_snapshot_path": str(sitemap_path.relative_to(corpus.ROOT)),
-            "sitemap_response_sha256": sitemap_sha,
+            "inventory_snapshot_path": str(sitemap_path.relative_to(corpus.ROOT)),
+            "inventory_response_sha256": sitemap_sha,
         }
+        if retained_inventory:
+            inventories[source.key].update(retained_inventory)
 
     target_paths = {
         source.key: corpus.DATA / "appearances" / source.key / "first-party-sitemap.jsonl.gz"
-        for source in SOURCES
+        for source in selected_sources
     }
     prior_target = {
         key: list(corpus.iter_rows(path)) if path.exists() else []
@@ -379,7 +591,7 @@ def run_collection(workers: int, as_of: date) -> dict:
         if path in target_paths.values():
             continue
         for existing in corpus.iter_rows(path):
-            if existing.get("auctioneer") in {source.name for source in SOURCES} and existing.get("auction_date"):
+            if existing.get("auctioneer") in {source.name for source in selected_sources} and existing.get("auction_date"):
                 prior_years.add((existing["auctioneer"], existing["auction_date"][:4]))
             for candidate in flat_candidates:
                 if strong_overlap(candidate, existing):
@@ -390,9 +602,9 @@ def run_collection(workers: int, as_of: date) -> dict:
                 ):
                     related_by_candidate[candidate["appearance_id"]] = True
 
-    admitted, duplicates, related = {source.key: [] for source in SOURCES}, [], []
+    admitted, duplicates, related = {source.key: [] for source in selected_sources}, [], []
     changed_by_path: dict[Path, dict[str, dict]] = {}
-    for source in SOURCES:
+    for source in selected_sources:
         for row in candidates[source.key]:
             matches_with_paths = matches_by_candidate[row["appearance_id"]]
             matches = [existing for existing, _ in matches_with_paths]
@@ -420,7 +632,7 @@ def run_collection(workers: int, as_of: date) -> dict:
         corpus.write_rows(key, rows)
 
     new_rows = []
-    for source in SOURCES:
+    for source in selected_sources:
         before = {row["appearance_id"] for row in prior_target[source.key]}
         merged = {row["appearance_id"]: row for row in prior_target[source.key]}
         merged.update({row["appearance_id"]: row for row in admitted[source.key]})
@@ -478,9 +690,14 @@ def run_collection(workers: int, as_of: date) -> dict:
         "by_sector_new": dict(Counter(row["sector"] for row in new_rows)),
         "errors": errors,
         "historical_archive_complete": False,
-        "operator_reconciliation_pending": True,
+        "operator_reconciliation_pending": any(
+            row.get("operator_reconciliation_pending") for row in new_rows
+        ),
         "national_completeness_verified": False,
-        "next_growth_target": "Cundalls first-party past property-auction catalogue and result inventory",
+        "next_growth_target": (
+            "Jones Peckover first-party property-for-auction details and PDF catalogue inventory, "
+            "starting with property id 34635925 (Penycae, 10 June 2026)"
+        ),
     }
     corpus.save_json(corpus.DATA / SUMMARY_PATH, summary)
 
@@ -508,8 +725,13 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--workers", type=int, default=24)
     parser.add_argument("--as-of-date", default=datetime.now(timezone.utc).date().isoformat())
+    parser.add_argument(
+        "--sources",
+        help="comma-separated source keys; omit to refresh every configured inventory",
+    )
     args = parser.parse_args()
-    run_collection(args.workers, date.fromisoformat(args.as_of_date))
+    source_keys = {value.strip() for value in args.sources.split(",") if value.strip()} if args.sources else None
+    run_collection(args.workers, date.fromisoformat(args.as_of_date), source_keys)
 
 
 if __name__ == "__main__":

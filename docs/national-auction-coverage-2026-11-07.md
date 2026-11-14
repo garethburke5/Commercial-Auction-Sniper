@@ -804,3 +804,29 @@ result/detail lot through a reusable collector. Reconcile Shepherd Commercial
 Ltd, John Shepherd Chartered Surveyors and branch labels before counting the
 operator. Auction Inspire and Auction Local remain terminal until a materially
 different lot-bearing route appears. National completeness remains false.
+
+## 14 November 2026 — Cundalls and Graham Watkins inventory batch
+
+The reusable estate-agent collector now supports selected multi-source runs. It
+reconciled Cundalls' 58 mixed auction URLs to one surviving property-specific
+public-auction lot and combined seven direct Graham Watkins detail pages with
+eleven exact-dated retained first-party detail texts. Chattel pages and deleted
+shells are excluded; the retained Graham Watkins manifest remains incomplete.
+
+The bank adds **19 appearances and 19 address records**. **13** are exact-dated
+inside the rolling twenty-year window, **6** are future-dated and none are
+undated. All 19 remain partial-address records. Commercial/mixed-use growth is
+**8**; evidence growth is **19 guides, 0 achieved prices and 1 rent**. The sole
+published `Sold STC` outcome has no inferred sale amount.
+
+No exact duplicate or related-interest row was collapsed. Cundalls 2024 and
+Graham Watkins & Co 2026 are newly represented source-years. Cundalls'
+Malton/Pickering branches and Graham Watkins branch/trading references are not
+counted as separate auctioneers. Corpus totals are **319,449 appearances,
+308,098 addresses and 310,843 in-window appearances**. National completeness
+remains false.
+
+Next target: batch Jones Peckover's first-party property-for-auction detail and
+PDF catalogue inventory, starting with property id `34635925` (Penycae, 10 June
+2026). The Property Auction Company HTTP-403 route is terminal until a
+materially different retrieval surface exists.

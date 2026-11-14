@@ -32,6 +32,28 @@ def evidence():
     return {"response_sha256": "detail", "source_url": "fixture"}
 
 
+def cundalls_html():
+    return b"""
+    <html><head><title>Sold STC - Wilton Carr Barns</title></head><body>
+      <h1>Wilton, Pickering - Guide Price &pound;150,000 - &pound;175,000</h1>
+      <p>FOR SALE BY PUBLIC AUCTION at Pickering Recreational Club YO18 7LA
+      on Wednesday 25th September 2024.</p>
+      <p>Wilton Carr Barns, Wilton, Pickering, North Yorkshire comprise a range
+      of brick and slate agricultural barns with six acres and possible
+      commercial or residential alternate uses.</p>
+    </body></html>
+    """
+
+
+def graham_html(address, auction_date, guide):
+    return f"""
+    <html><body><h3 class="card-header">{address} {guide}</h3>
+      <h3>FOR SALE BY ONLINE AUCTION {auction_date}</h3>
+      <p>Pasture land. Auction Guide - {guide}.</p>
+    </body></html>
+    """.encode()
+
+
 def configure_tmp(monkeypatch, tmp_path):
     monkeypatch.setattr(corpus, "ROOT", tmp_path)
     monkeypatch.setattr(corpus, "DATA", tmp_path / "data/auction_history")
@@ -104,7 +126,7 @@ def test_bramleys_rejects_generic_auction_boilerplate():
 
 def test_batched_run_reports_past_future_and_undated_without_duplicates(monkeypatch, tmp_path):
     configure_tmp(monkeypatch, tmp_path)
-    abbot, bramleys = collector.SOURCES
+    abbot, bramleys = collector.SOURCES[:2]
     abbot_undated = "https://www.abbotfox.co.uk/sales/properties-for-sale/property/194-church-view-close"
     abbot_future = "https://www.abbotfox.co.uk/sales/properties-for-sale/property/5849-fir-close"
     abbot_false = "https://www.abbotfox.co.uk/sales/properties-for-sale/property/999-private-sale"
@@ -137,7 +159,7 @@ def test_batched_run_reports_past_future_and_undated_without_duplicates(monkeypa
         ),
     }
     monkeypatch.setattr(collector, "fetch", lambda url: payloads[url])
-    summary = collector.run_collection(3, date(2026, 11, 14))
+    summary = collector.run_collection(3, date(2026, 11, 14), {"abbotfox", "bramleys"})
     assert summary["run_new_appearances"] == 3
     assert summary["run_new_dated_twenty_year_address_records"] == 1
     assert summary["run_new_future_dated"] == 1
@@ -148,8 +170,56 @@ def test_batched_run_reports_past_future_and_undated_without_duplicates(monkeypa
     assert summary["inventories"]["abbotfox"]["property_detail_urls_checked"] == 3
     assert summary["inventories"]["bramleys"]["auction_property_pages"] == 1
 
-    rerun = collector.run_collection(3, date(2026, 11, 14))
+    rerun = collector.run_collection(3, date(2026, 11, 14), {"abbotfox", "bramleys"})
     assert rerun["run_new_appearances"] == 0
     assert rerun["run_new_future_dated"] == 0
     assert rerun["run_new_undated"] == 0
+
+
+def test_cundalls_excludes_auction_venue_postcode_and_preserves_mixed_use():
+    source = collector.SOURCES[2]
+    row = collector.parse_cundalls(
+        source,
+        "https://www.cundalls.co.uk/auctions/property/12484785-wilton-pickering",
+        cundalls_html(),
+        evidence(),
+    )
+    assert row["auction_date"] == "2024-09-25"
+    assert row["address"] == "Wilton Carr Barns, Wilton, Pickering, North Yorkshire"
+    assert row["postcode"] is None
+    assert row["guide_price"] == 150000
+    assert row["guide_price_high"] == 175000
+    assert row["sector"] == "mixed-use"
+    assert row["sale_price"] is None
+
+
+def test_graham_watkins_direct_and_retained_rows_keep_price_and_rent_types(monkeypatch, tmp_path):
+    configure_tmp(monkeypatch, tmp_path)
+    source = collector.SOURCES[3]
+    row = collector.parse_graham_watkins(
+        source,
+        "https://www.grahamwatkins.co.uk/property/34865091",
+        graham_html("Bemersley Road, Bemersley", "Wednesday 16th September 2026", "£40,000"),
+        evidence(),
+    )
+    assert row["auction_date"] == "2026-09-16"
+    assert row["guide_price"] == 40000
+    assert row["sale_price"] is None
+
+    manifest_path = tmp_path / source.retained_manifest
+    manifest_path.parent.mkdir(parents=True)
+    manifest_path.write_text(
+        '{"catalogue_complete":false,"capture_route":"retained",'
+        '"source_limitation":"partial","properties":[{'
+        '"source_lot_id":"34645300","original_url":"https://www.grahamwatkins.co.uk/property/34645300",'
+        '"auction_date":"2026-06-17","address":"Clamgoose Lane, Kingsley",'
+        '"property_type":"land","guide_price":150000,"guide_price_high":200000,'
+        '"annual_rent":1200,"rent_text":"£1,200 per annum",'
+        '"retained_text":"FOR SALE BY ONLINE AUCTION WEDNESDAY 17TH JUNE 2026. Guide £150,000 - £200,000."}]}'
+    )
+    rows, inventory = collector.retained_rows(source, "2026-11-14T00:00:00Z")
+    assert len(rows) == 1
+    assert rows[0]["annual_rent"] == 1200
+    assert rows[0]["sale_price"] is None
+    assert inventory["catalogue_complete"] is False
 
