@@ -1590,7 +1590,10 @@ jobs:
         run: python -u scripts/harvest_durrants_results.py
 
       - name: Recover missing Bamboo marketplace detail payloads
-        if: inputs.focus == 'bamboo-marketplace'
+        # Focused recoveries must still bank source evidence when an unrelated
+        # admission test fails. Downstream rebuild/checkpoint steps already use
+        # always() for the same reason.
+        if: always() && inputs.focus == 'bamboo-marketplace'
         timeout-minutes: 15
         run: |
           python -u scripts/harvest_bamboo_auctioneer.py \
