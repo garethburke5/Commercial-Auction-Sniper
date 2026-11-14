@@ -1261,6 +1261,52 @@
       "schedule_origin": "agent",
       "due_at": "2026-11-18T09:41:00.000Z",
       "buffer_id": "6af8e493b9a106584c737643"
+    },
+    "facebook:1d57ebe109dfb175800e": {
+      "service": "facebook",
+      "channel_id": "6adb59c3778b240e2f9cee6d",
+      "kind": "property",
+      "property_id": "1d57ebe109dfb175800e",
+      "caption_hash": "5215819bfd44773bb9873cac6a878f8d5766d41dbf976e1b21da25a797683f31",
+      "fingerprint": "fad09dc76921c5e29c2d48d50ce63b547996192e5ea966c9da69c57739aedafb",
+      "asset_key": "21a and 21b mansfield road nottingham ng1 3fb|freehold",
+      "status": "pending",
+      "created_at": "2026-11-14T22:45:07.044817+00:00",
+      "topic_key": null,
+      "evidence": {
+        "url": "https://www.auctionestates.co.uk/property/21a-21b-mansfield-road-nottingham-ng1-3fb-372645",
+        "observed_at": "2026-11-14T18:15:39.219984+00:00",
+        "facts": {
+          "address": "21A & 21B Mansfield Road, Nottingham, NG1 3FB",
+          "auction_date": "2026-12-10",
+          "guide_price": 160000.0,
+          "guide_price_upper": null,
+          "annual_rent": 18450.0,
+          "tenure": "Freehold",
+          "status": "CURRENT",
+          "source_availability": null
+        },
+        "history": [],
+        "source_text_sha256": "8446c50c23b5f68b0cf4d9d5f708d5c18de3d26eebe45c21fbee2cc0084389b3",
+        "calculation": "18450.0 / 160000.0 * 100"
+      },
+      "editorial_interest": {
+        "eligible": true,
+        "score": 35.84375,
+        "reasons": [
+          "accessible guide price",
+          "high gross yield at guide",
+          "multiple commercial units"
+        ],
+        "question": "At this guide price, what would you examine first: the lease terms or the building’s running costs?",
+        "details": [
+          "The offering comprises two commercial units."
+        ]
+      },
+      "caption": "21A & 21B Mansfield Road, Nottingham, NG1 3FB\n\nAuction Estates · 10 December 2026 · Guide £160,000+\n\nThe advertised annual rent of £18,450 produces a 11.53% gross yield at the guide price, before purchase and running costs.\n\nTenure: Freehold.\n\nThe offering comprises two commercial units.\n\nAt this guide price, what would you examine first: the lease terms or the building’s running costs?\n\nCheck the tenancy terms, buyer’s fees and legal pack when assessing your bid.\n\nExplore the property and its free snapshot on Auction Geek:\nhttps://auctiongeek.co.uk/property/1d57ebe109dfb175800e/21a-21b-mansfield-road-nottingham-ng1-3fb/?utm_source=facebook&utm_medium=organic_social&utm_campaign=auction_properties&utm_content=1d57ebe109dfb175800e",
+      "image_url": "https://raw.githubusercontent.com/garethburke5/Commercial-Auction-Sniper/main/marketing/media/37cc53c79e595595c46560da.jpg",
+      "schedule_origin": "agent",
+      "due_at": "2026-11-19T09:39:00+00:00"
     }
   },
   "attempts": [
@@ -1494,6 +1540,12 @@
       "at": "2026-11-14T22:45:07.044817+00:00",
       "action": "schedule",
       "result": "scheduled"
+    },
+    {
+      "key": "facebook:1d57ebe109dfb175800e",
+      "at": "2026-11-14T22:45:07.044817+00:00",
+      "action": "schedule",
+      "result": "pending"
     }
   ],
   "last_checked_at": "2026-11-09T07:12:02.946702+00:00"
