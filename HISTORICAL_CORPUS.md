@@ -2349,6 +2349,17 @@ The bounded Auction House South West / Bristol & West route exposes no pre-2018 
 - **Next concrete growth target:** extend the same reusable saved-PDF runner across Kivells' accessible 2024 first-party event results. Start with the proven 12 June 2024 PDF (**13 numbered lots**), then inventory and batch the official result PDFs for 17 January, 21 February, 20 March, 17 April, 15 May, 24 July, 4 September, 9 October and 13 November. Annual and half-year review totals are discovery evidence only; bank only individual result cards with exact dates and preserve all outcomes.
 - National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
 
+## 14 November 2026 — Cheffins June 2019 catalogue recovery
+
+- **Specific growth opportunity executed:** Cheffins catalogue `549` was registered as a 21-lot event with zero retained cards. A materially different first-party route recovered the complete 40-page June 2019 catalogue PDF and processed it through a reusable configured PDF fallback in the existing Cheffins runner.
+- **Measured net gain:** **21 individual appearances**, all full address records dated 19 June 2019 inside the rolling 20-year window. New partial, undated, future-dated and duplicate source identities are **0 / 0 / 0 / 0**.
+- **Sector gain:** **3 commercial, 1 mixed-use, 7 land and 10 residential** appearances; the commercial/mixed-use subset is **4**.
+- **Actual evidence gain:** **21 guide prices, 0 achieved prices and 5 rents**. The catalogue publishes no outcomes or sale prices, so all 21 outcomes and achieved-price fields remain null/unknown.
+- **Inventory reconciliation:** the official archive denominator of 21 matches numbered lots 1–21 in the retained PDF. The PDF, zero-card result shell, exact-date news page and results index are preserved immutably with their original URLs. Cheffins 2019 was already represented, so newly covered source-years are **0**; one complete event inventory is newly reconciled.
+- **Corpus totals after rebuild:** **315,136 appearances**, **303,785 address records**, **11,351 partial records** and **306,776 in-window appearances**. Window evidence totals are **108,305 guides** and **113,060 achieved prices**. Retained exceptions remain **5,056 undated** and **184 future-dated** appearances.
+- **Next concrete growth target:** batch the five registered zero-card City & Rural Property Auctions events dated 15 November and 7 December 2022, 29 January and 17 December 2025, and 24 June 2026 through the existing catalogue/subdomain runner, beginning with the three recent live/room events. Admit only individually evidenced lots absent from the existing 166-row City & Rural corpus; rotate to an uncovered Durrants 2021–2022 asset if no linked catalogue survives.
+- National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
+
 ## 13 November 2026 — Bruton Knowles retained auction-source batch
 
 - **Specific growth opportunity executed:** one reusable five-event manifest runner processed the surviving Bruton Knowles public-auction article and particulars together with exact joint-agent catalogue/lot evidence from Cottons, Pugh & Co, Savills Auctions and Hollis Morgan. Seven original HTML/PDF sources were preserved as immutable snapshots; all ten individually named lots were validated against extracted source text.

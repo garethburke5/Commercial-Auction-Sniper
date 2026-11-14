@@ -46,6 +46,8 @@ ADDENDUM_LOT_RE = re.compile(
     r"(.*?)(?=^\s*LOT\s+0*[0-9]+[A-Z]?\b|^\s*ENTRIES\b|\Z)"
 )
 ADDENDUM_RECOVERY_VERSION = 2
+PDF_RECOVERY_VERSION = 2
+MAX_PDF_SNAPSHOT_PART_BYTES = 700_000
 DATE_RECOVERY = {
     "549": {
         "auction_date": "2019-06-19",
@@ -53,6 +55,60 @@ DATE_RECOVERY = {
         "required": re.compile(r"21\s+lots.*Wednesday\s+19\s+June\s+2019", re.I | re.S),
     },
 }
+PDF_RECOVERY = {
+    "549": {
+        "url": BASE + "/ugc-1/1/2/0/property_auction_catalogue_june_2019.pdf",
+        "auction_date": "2019-06-19",
+        "lot_pages": {
+            1: (7, "land"), 2: (8, "land"), 3: (9, "land"),
+            4: (10, "land"), 5: (11, "land"), 6: (12, "land"),
+            7: (13, "commercial"), 8: (15, "mixed-use"),
+            9: (16, "commercial"), 10: (17, "commercial"),
+            11: (18, "residential"), 12: (19, "residential"),
+            13: (22, "residential"), 14: (23, "residential"),
+            15: (24, "residential"), 16: (25, "residential"),
+            17: (26, "residential"), 18: (27, "residential"),
+            19: (28, "residential"), 20: (29, "residential"),
+            21: (30, "land"),
+        },
+    },
+}
+
+PDF_HEADER_MONEY_RE = re.compile(
+    r"^\s*£\s*([\d,]+)(?:\s*[-\u2013\u2014]+\s*)?\+?\s*$"
+)
+PDF_RENT_PATTERNS = (
+    re.compile(r"Rental\s+income\s+of\s+£\s*([\d,]+)\s+per\s+annum", re.I),
+    re.compile(r"current\s+rent\s+of\s+£\s*([\d,]+)\s+per\s+annum", re.I),
+    re.compile(r"at\s+a\s+rent\s+of\s+£\s*([\d,]+)\s+per\s+annum", re.I),
+    re.compile(r"\(£\s*([\d,]+)\s+per\s+year\)", re.I),
+)
+
+
+def save_pdf_snapshot(catalogue_id, raw, sha):
+    base = corpus.DATA / "sources/cheffins" / (
+        f"catalogue-{catalogue_id}-pdf-{sha[:16]}.pdf.gz"
+    )
+    compressed = gzip.compress(raw, mtime=0)
+    paths = [base] if len(compressed) <= MAX_PDF_SNAPSHOT_PART_BYTES else [
+        Path(f"{base}.part-{offset // MAX_PDF_SNAPSHOT_PART_BYTES + 1:03d}")
+        for offset in range(0, len(compressed), MAX_PDF_SNAPSHOT_PART_BYTES)
+    ]
+    if not all(path.exists() for path in paths):
+        if any(path.exists() for path in paths):
+            raise ValueError(f"incomplete immutable snapshot at {base}")
+        for index, path in enumerate(paths):
+            start = index * MAX_PDF_SNAPSHOT_PART_BYTES
+            corpus.atomic(path, compressed[start:start + MAX_PDF_SNAPSHOT_PART_BYTES])
+    recovered = gzip.decompress(b"".join(path.read_bytes() for path in paths))
+    if corpus.digest(recovered) != sha:
+        raise ValueError(f"immutable snapshot digest mismatch at {base}")
+    if len(paths) == 1:
+        return {"snapshot_path": str(paths[0].relative_to(corpus.ROOT))}
+    return {
+        "snapshot_parts": [str(path.relative_to(corpus.ROOT)) for path in paths],
+        "snapshot_encoding": "concatenate parts, then gzip-decompress to recover source PDF",
+    }
 
 
 def clean(value) -> str | None:
@@ -224,6 +280,150 @@ def denominator_gap_rows(catalogue: dict, auction_date: str, evidence: dict,
     return rows
 
 
+def parse_pdf_lot_page(layout_text: str, plain_text: str, expected_lot: int) -> dict:
+    """Extract one validated catalogue heading from a retained PDF page.
+
+    Cheffins' 2019 PDF places its heading last in the PDF text stream.  The
+    layout extractor preserves the heading columns, so the address is the
+    non-price text between the final standalone lot number and ``Guide Price``.
+    """
+    lines = layout_text.splitlines()
+    guide_indexes = [
+        index for index, line in enumerate(lines)
+        if "guide" in line.casefold() and "price" in line.casefold()
+    ]
+    if not guide_indexes:
+        raise ValueError(f"PDF lot {expected_lot} page has no guide heading")
+    guide_index = guide_indexes[-1]
+    number_indexes = [
+        index for index, line in enumerate(lines[:guide_index])
+        if re.fullmatch(r"\s*\d{1,3}\s*", line)
+    ]
+    if not number_indexes:
+        raise ValueError(f"PDF lot {expected_lot} page has no standalone lot number")
+    number_index = number_indexes[-1]
+    actual_lot = int(lines[number_index].strip())
+    if actual_lot != expected_lot:
+        raise ValueError(f"PDF lot page expected {expected_lot}, found {actual_lot}")
+
+    address_lines = []
+    for line in reversed(lines[number_index + 1:guide_index]):
+        if line.strip() and not PDF_HEADER_MONEY_RE.fullmatch(line):
+            address_lines.append(re.sub(r"\s+", " ", line).strip())
+    address = clean(" ".join(filter(None, address_lines)))
+    if not address:
+        raise ValueError(f"PDF lot {expected_lot} page has no address heading")
+
+    guide_values = []
+    for line in lines[max(0, number_index - 2):guide_index]:
+        if match := PDF_HEADER_MONEY_RE.fullmatch(line):
+            guide_values.append(int(match.group(1).replace(",", "")))
+    if not guide_values:
+        raise ValueError(f"PDF lot {expected_lot} page has no guide value")
+    guide_price = min(guide_values)
+    guide_price_high = max(guide_values) if len(set(guide_values)) > 1 else None
+
+    normalized = clean(plain_text) or ""
+    description_match = re.search(
+        r"\bDescription\s+(.+?)(?=\s+(?:Location|Planning|Tenanc(?:y|ies)|"
+        r"Accommodation|General\s+Remarks|Auctioneers?\s+Note|VAT)\b)",
+        normalized, re.I | re.S,
+    )
+    description = clean(description_match.group(1)) if description_match else None
+    annual_rent = None
+    rent_text = None
+    for pattern in PDF_RENT_PATTERNS:
+        if match := pattern.search(normalized):
+            annual_rent = int(match.group(1).replace(",", ""))
+            rent_text = clean(normalized[max(0, match.start() - 80):match.end() + 120])
+            break
+    return {
+        "lot_number": str(actual_lot),
+        "address": address,
+        "guide_price": guide_price,
+        "guide_price_high": guide_price_high,
+        "annual_rent": annual_rent,
+        "rent_text": rent_text,
+        "description": description,
+    }
+
+
+def pdf_catalogue_rows(pdf_raw: bytes, catalogue: dict, evidence: dict,
+                       recovery: dict) -> tuple[dict, list[dict]]:
+    """Bank every configured lot page from a first-party catalogue PDF."""
+    reader = PdfReader(BytesIO(pdf_raw))
+    rows = []
+    expected_lots = catalogue["published_lots"]
+    page_specs = recovery["lot_pages"]
+    if set(page_specs) != set(range(1, expected_lots + 1)):
+        raise ValueError("PDF recovery lot inventory does not match published denominator")
+    for position, lot_number in enumerate(sorted(page_specs), 1):
+        page_number, sector = page_specs[lot_number]
+        if page_number < 1 or page_number > len(reader.pages):
+            raise ValueError(f"PDF lot {lot_number} page {page_number} is out of range")
+        page = reader.pages[page_number - 1]
+        item = parse_pdf_lot_page(
+            page.extract_text(extraction_mode="layout") or "",
+            page.extract_text() or "",
+            lot_number,
+        )
+        source_id = f"pdf-lot-{lot_number}"
+        source_url = f"{evidence['source_url']}#page={page_number}"
+        row = corpus.base_row(
+            "Cheffins", f"cheffins:{catalogue['catalogue_id']}",
+            recovery["auction_date"], item["lot_number"], source_id, source_url,
+        )
+        postcode_match = corpus.PC.search(item["address"])
+        row.update(
+            appearance_id=(f"Cheffins|catalogue:{catalogue['catalogue_id']}|"
+                           f"pdf-lot:{lot_number}"),
+            address=item["address"],
+            postcode=postcode_match.group().upper() if postcode_match else None,
+            locality=item["address"],
+            sector=sector,
+            description=item["description"],
+            status="unknown",
+            guide_price=item["guide_price"],
+            guide_price_high=item["guide_price_high"],
+            annual_rent=item["annual_rent"],
+            rent_text=item["rent_text"],
+            property_id=None,
+            identity_method="source_catalogue_pdf_lot_number",
+            record_quality="address_record",
+            source_position=position,
+            source_page_number=page_number,
+            source_status_text=None,
+            source_result_text=None,
+            source_evidence=evidence,
+        )
+        rows.append(row)
+
+    state = {
+        "auctioneer": "Cheffins",
+        "source_auction_id": f"cheffins:{catalogue['catalogue_id']}",
+        "auction_date": recovery["auction_date"],
+        "catalogue_complete": True,
+        "source_rows_complete": True,
+        "published_lots_offered": expected_lots,
+        "visible_source_rows": len(rows),
+        "lots_captured": len(rows),
+        "source_url": catalogue["url"],
+        "pagination_reconciled": True,
+        "denominator_reconciled": len(rows) == expected_lots,
+        "denominator_basis": "published Number of lots and complete first-party catalogue PDF",
+        "completion_scope": "all numbered lot headings in the retained first-party catalogue PDF",
+        "partial_reason": None,
+        "auction_date_basis": "exact date printed on first-party catalogue PDF",
+        "pdf_recovery_version": PDF_RECOVERY_VERSION,
+        "pdf_lots_recovered": len(rows),
+        "source_sha256": evidence["sha256"],
+        "pdf_source_evidence": evidence,
+        "errors": [],
+        "checked_at": corpus.now(),
+    }
+    return state, rows
+
+
 def node_text(node, selector: str) -> str | None:
     match = node.select_one(selector)
     return clean(match.get_text(" ", strip=True)) if match else None
@@ -342,7 +542,9 @@ def harvest(workers: int = 6) -> None:
                 old_state.get("published_lots_offered") == catalogue["published_lots"] and
                 old_state.get("lots_captured") == len(old_rows) and
                 (old_state.get("catalogue_complete") or
-                 old_state.get("addendum_recovery_version") == ADDENDUM_RECOVERY_VERSION)):
+                 (old_state.get("addendum_recovery_version") == ADDENDUM_RECOVERY_VERSION and
+                  (catalogue["catalogue_id"] not in PDF_RECOVERY or
+                   old_state.get("pdf_recovery_version") == PDF_RECOVERY_VERSION)))):
             states[catalogue["catalogue_id"]] = old_state
             run_rows.extend(old_rows)
             reused += 1
@@ -406,6 +608,23 @@ def harvest(workers: int = 6) -> None:
                                       addendum_evidence, rows)
             state, rows = parse_catalogue(html, catalogue, evidence, date_override, recovered)
             state["addendum_source_evidence"] = addendum_evidence
+        pdf_recovery = PDF_RECOVERY.get(catalogue["catalogue_id"])
+        if pdf_recovery and not rows:
+            pdf_raw, pdf_url = get(pdf_recovery["url"])
+            pdf_sha = corpus.digest(pdf_raw)
+            pdf_evidence = {
+                "source_url": pdf_url,
+                "catalogue_url": catalogue["url"],
+                "retrieved_at": corpus.now(),
+                "sha256": pdf_sha,
+                "catalogue_snapshot_path": evidence["snapshot_path"],
+                "basis": "complete first-party property-auction catalogue PDF",
+                **save_pdf_snapshot(catalogue["catalogue_id"], pdf_raw, pdf_sha),
+            }
+            state, rows = pdf_catalogue_rows(
+                pdf_raw, catalogue, pdf_evidence, pdf_recovery,
+            )
+            state["catalogue_shell_source_evidence"] = evidence
         if not state["catalogue_complete"]:
             visible_rows = len(rows)
             gaps = denominator_gap_rows(catalogue, state["auction_date"], evidence, rows)
@@ -450,6 +669,12 @@ def harvest(workers: int = 6) -> None:
         "appearances_captured": total, "run_new_appearances": total - len(before_ids),
         "run_new_address_records": sum(bool(row.get("address")) for row in added),
         "run_new_partial_lots": sum(not row.get("address") for row in added),
+        "run_new_commercial_or_mixed_use": sum(
+            row.get("sector") in {"commercial", "mixed-use"} for row in added
+        ),
+        "run_new_guide_prices": sum(row.get("guide_price") is not None for row in added),
+        "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
+        "run_new_rents": sum(row.get("annual_rent") is not None for row in added),
         "by_sector": dict(Counter(row.get("sector") for row in merged.values())),
         "index_evidence": index_evidence, "auctions": states, "failures": failures}
     corpus.save_json(corpus.DATA / "cheffins_collection.json", summary)

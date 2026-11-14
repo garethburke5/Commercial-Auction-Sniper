@@ -1,6 +1,6 @@
 from scripts.harvest_cheffins_history import (
-    addendum_rows, denominator_gap_rows, discover_catalogues, parse_addendum,
-    parse_catalogue, status_and_price,
+    PDF_RECOVERY, addendum_rows, denominator_gap_rows, discover_catalogues,
+    parse_addendum, parse_catalogue, parse_pdf_lot_page, status_and_price,
 )
 
 
@@ -131,3 +131,38 @@ def test_denominator_gap_rows_refuse_zero_card_and_lettered_sequences():
     assert denominator_gap_rows(catalogue, "2019-06-19", {}, []) == []
     assert denominator_gap_rows(catalogue, "2019-06-19", {},
                                 [{"lot_number": "1"}, {"lot_number": "2A"}]) == []
+
+
+def test_pdf_lot_heading_preserves_address_guide_range_and_rent():
+    layout = """
+       Rental income of £42,000 per annum
+                                                              £250,000
+       7
+                     Cambridgeshire, PE27 5AD
+                                                           £225,000-
+                     8 & 8a The Pavement, St Ives,
+                                                                Guide Price*
+       LOT
+    """
+    plain = """
+    Description A prominent three storey commercial investment in St Ives.
+    Location The property is in the town centre.
+    Rental income of £42,000 per annum.
+    """
+    item = parse_pdf_lot_page(layout, plain, 7)
+    assert item["address"] == "8 & 8a The Pavement, St Ives, Cambridgeshire, PE27 5AD"
+    assert item["guide_price"] == 225000
+    assert item["guide_price_high"] == 250000
+    assert item["annual_rent"] == 42000
+    assert item["description"] == "A prominent three storey commercial investment in St Ives."
+
+
+def test_june_2019_pdf_recovery_reconciles_all_published_lot_slots():
+    recovery = PDF_RECOVERY["549"]
+    assert recovery["auction_date"] == "2019-06-19"
+    assert set(recovery["lot_pages"]) == set(range(1, 22))
+    sectors = [sector for _, sector in recovery["lot_pages"].values()]
+    assert sectors.count("land") == 7
+    assert sectors.count("residential") == 10
+    assert sectors.count("commercial") == 3
+    assert sectors.count("mixed-use") == 1

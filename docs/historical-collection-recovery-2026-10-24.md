@@ -4511,3 +4511,15 @@ Next concrete target: collect Auction House Online event **64325** dated **10 De
 - Corpus totals are **311,801 appearances**, **300,848 addressed records**, **303,511 in-window appearances**, **105,867 guides**, and **112,189 achieved prices**. National completeness remains false.
 - Exact-revision publication run `42431017499` passed before the next target was persisted.
 - Next target: the complete surviving linked 2018 Auction House Online archive, **2 catalogues / 4 cards**. This is a small year-completion checkpoint; the following run must switch to a different uncovered source/year.
+
+## 2026-11-14 — Cheffins catalogue 549 recovered from first-party PDF
+
+- The Cheffins archive advertised **21 lots** for 19 June 2019 while the saved catalogue shell exposed zero cards. The complete first-party catalogue PDF was recovered through a materially different route and retained with the shell, date-page and results-index evidence.
+- The reusable Cheffins collector now supports configured PDF recoveries: it validates the numbered-lot inventory, extracts addresses, guide ranges and annual rents, retains original page URLs and immutable bytes, and leaves unprinted outcomes and achieved prices null.
+- Net banked gain is **21 appearances and 21 full addresses**, all exact-dated inside the preceding 20-year window. Added partial, undated, future-dated and duplicate-source records are all **0**.
+- Added sectors are **3 commercial, 1 mixed-use, 7 land and 10 residential**. Evidence gain is **21 guides, 0 achieved prices and 5 rents**. The PDF contains no published results; no sale status or amount was inferred.
+- The archive denominator and numbered PDF inventory reconcile **21/21**, producing one new complete event inventory. Cheffins 2019 was already represented, so newly covered source-years are **0** and no new auctioneer/operator is claimed.
+- Rebuilt totals are **315,136 appearances**, **303,785 addresses**, **306,776 in-window appearances**, **108,305 in-window guides**, **113,060 in-window achieved prices**, **11,351 partial**, **5,056 undated** and **184 future-dated** records.
+- The scheduled main collection run immediately preceding this recovery completed successfully with unchanged property/address/partial totals; its downstream publication checkpoint was protected and no duplicate collector was launched.
+- Different next target: batch the five zero-card City & Rural Property Auctions event states dated 15 November and 7 December 2022, 29 January and 17 December 2025, and 24 June 2026 through the existing catalogue/subdomain runner. Begin with the three recent live/room events and exclude existing City & Rural identities. If no catalogue survives, rotate to a Durrants 2021–2022 source-year asset instead of refreshing Cheffins.
+- National completeness remains **false**.

@@ -584,3 +584,11 @@ The protected historical lane merged three source expansions and rebuilt from so
 Sealeys' direct grid and detail requests return HTTP 403, while the public browser-rendered grid exposes 27/27 distinct lot cards. The normalized rendered snapshot, original lot URLs, individual outcome/end timestamps and published result text are banked immutably. Detail-only values remain null and detail enrichment is explicitly deferred. Sealeys Auctions and Sealeys Walker Jarvis are reconciled as one operator under SEALEYS ESTATE AGENTS LIMITED (04020881), not additional auctioneers.
 
 The next national-coverage target is the 25-card Sealeys past-auction event index: capture it once through the same rendered-snapshot route, batch surviving event catalogues, and exclude individual lots already present in the rolling grid. National completeness remains false.
+
+## 14 November 2026 — Cheffins June 2019 zero-card recovery
+
+Cheffins catalogue `549` moved from a registered 21-lot/zero-card gap to a reconciled **21/21** first-party event inventory. A reusable PDF fallback recovered **21 exact-dated address appearances**: 3 commercial, 1 mixed-use, 7 land and 10 residential. It adds 21 guides and five rents; the catalogue does not publish outcomes or achieved prices, so those values remain null. The immutable PDF, archive shell, date evidence and results index retain their original URLs and hashes.
+
+All 21 records fall inside the rolling 20-year window. Added partial, undated, future-dated and duplicate-source records are zero. Cheffins 2019 and the operator were already represented, so this adds one complete event inventory but zero source-years and zero auctioneers. Corpus totals after rebuild are 315,136 appearances, 303,785 addresses, 11,351 partials and 306,776 in-window appearances.
+
+The next national growth target is the five registered zero-card City & Rural Property Auctions events across 2022, 2025 and 2026, processed as one catalogue/subdomain batch beginning with the three recent live/room events. Existing City & Rural date/address/lot identities must be excluded. If no catalogue survives, move once to an uncovered Durrants 2021–2022 asset. National completeness remains false.
