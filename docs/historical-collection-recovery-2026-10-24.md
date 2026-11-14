@@ -6,6 +6,25 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 14 November follow-through: The Auction Group retained archive
+
+The dedicated first-party past-auctions grid supplied **157/157** individual
+historical cards across four fully reconciled pages, and all 157 detail pages
+were captured without failure. The bank adds 157 exact-dated address
+appearances inside the rolling twenty-year window, including 3 commercial and
+2 mixed-use records. Added partial, undated, future-dated and duplicate rows
+are zero.
+
+Actual evidence growth is 157 guides, 28 achieved prices and one rent. All
+outcomes and amounts retain their original source roles. The generic search
+surface's 35 upcoming rows were deliberately excluded rather than treated as
+historical growth. The Auction Group is one operator under THE AUCTION GROUP
+LIMITED (12685958), and its 2024–2026 source-years are newly represented.
+
+The next batch target is the separate first-party archive pair for Auction
+Property Ltd and Smart Property Auctions using the same EIG runner. National
+completeness remains false.
+
 ## 14 November follow-through: Kivells 2022 hashed-page recovery
 
 The reusable rendered-book bridge now accepts explicit per-page source URLs,

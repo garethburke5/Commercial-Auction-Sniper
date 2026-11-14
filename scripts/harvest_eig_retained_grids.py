@@ -57,6 +57,31 @@ SOURCES = {
         "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
         "archive_path": "/search",
     },
+    "the-auction-group": {
+        "auctioneer": "The Auction Group",
+        "base": "https://online.the-auctiongroup.co.uk",
+        # The generic search surface mixes 35 upcoming lots into the retained
+        # inventory.  The dedicated past-auctions route is a finite,
+        # individually dated result grid and therefore keeps future rows out
+        # of the historical bank.
+        "archive_path": "/past-auctions?lotResultType=All&order=RecentlyEnded",
+        "operator_legal_name": "THE AUCTION GROUP LIMITED",
+        "operator_company_number": "12685958",
+        "exclude_exact_cross_source_overlaps": True,
+        "preserve_batch_baseline": True,
+        "persist_growth_checkpoint": True,
+        "checkpoint_route_description": (
+            "Captured all four pages of the dedicated first-party past-auctions "
+            "grid and all 157 detail pages, excluding the 35 upcoming rows that "
+            "appear only on the generic search surface."
+        ),
+        "next_growth_target": (
+            "Resolve and batch the first-party past-auction grids for Auction "
+            "Property Ltd and Smart Property Auctions through this reusable EIG "
+            "runner. Reconcile legal operators and aliases before counting either "
+            "as a new auctioneer, and admit only individually dated historical lots."
+        ),
+    },
     "property-auction-agent": {
         "auctioneer": "Property Auction Agent",
         "base": "https://propertyauctionagent.eigonlineauctions.com",
@@ -6547,13 +6572,11 @@ def persist_growth_checkpoint(source: dict, summary: dict) -> None:
     state = json.loads(path.read_text()) if path.exists() else {"runs": []}
     state["last_growth_attempt"] = {
         "checked_at": summary["checked_at"],
-        "opportunity": (
-            f"{source['auctioneer']} complete browser-rendered first-party retained grid"
-        ),
-        "attempted_route": (
-            "Normalized the complete public browser-rendered EIG grid after direct HTTP "
-            "returned 403, preserved an immutable source snapshot, reconciled every card, "
-            "excluded exact cross-source overlaps, and deferred blocked detail enrichment."
+        "opportunity": f"{source['auctioneer']} complete first-party retained grid",
+        "attempted_route": source.get(
+            "checkpoint_route_description",
+            "Captured the complete retained first-party grid, preserved immutable source "
+            "snapshots, reconciled every visible card and excluded exact cross-source overlaps.",
         ),
         "net_new_appearances": summary["run_new_appearances"],
         "new_address_records": summary["run_new_address_records"],
@@ -6577,8 +6600,15 @@ def persist_growth_checkpoint(source: dict, summary: dict) -> None:
             "detail_recovery_deferred_reason"
         ),
         "operator_reconciliation": (
-            "Sealeys Auctions and the Sealeys Walker Jarvis trading style are retained "
-            "under SEALEYS ESTATE AGENTS LIMITED (04020881), not counted as separate auctioneers."
+            f"{source['auctioneer']} is retained under "
+            f"{source.get('operator_legal_name') or 'its verified operator lineage'}"
+            + (
+                f" ({source['operator_company_number']})"
+                if source.get("operator_company_number")
+                else ""
+            )
+            + "; historical names, branches and platform labels are not counted as "
+            "additional auctioneers."
         ),
         "national_completeness_verified": False,
         "different_next_target": source["next_growth_target"],
@@ -6587,7 +6617,11 @@ def persist_growth_checkpoint(source: dict, summary: dict) -> None:
     state["national_completeness_verified"] = False
     state.setdefault("latest_by_source", {})[f"eig_retained_grid:{source['slug']}"] = {
         "source": f"eig_retained_grid:{source['slug']}",
-        "outcome": "completed_with_deferred_detail_route",
+        "outcome": (
+            "completed"
+            if summary.get("detail_recovery_complete")
+            else "completed_with_deferred_detail_route"
+        ),
         "checked_at": summary["checked_at"],
         "net_new_appearances": summary["run_new_appearances"],
         "diagnostic_tail": json.dumps(summary, ensure_ascii=False),

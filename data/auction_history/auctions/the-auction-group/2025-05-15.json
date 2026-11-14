@@ -1,0 +1,52 @@
+{
+  "auctioneer": "The Auction Group",
+  "source_auction_id": "the-auction-group:2025-05-15",
+  "auction_date": "2025-05-15",
+  "source_url": "https://online.the-auctiongroup.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 2,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded",
+      "retrieved_at": "2026-11-14T05:26:03.852409+00:00",
+      "sha256": "c0f113a5af8e9ff4021fb2b0804b841c6eea43ce9b4c36d7731d6ea71a2d9119",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-1-c0f113a5af8e9ff4.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded&page=2",
+      "retrieved_at": "2026-11-14T05:26:03.928406+00:00",
+      "sha256": "a9ddab6bd4bd55c843af1ef42fe09f557218738b414d0596fd93d1bedadc2eb2",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-2-a9ddab6bd4bd55c8.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded&page=3",
+      "retrieved_at": "2026-11-14T05:26:03.998416+00:00",
+      "sha256": "c16103c000e1a97797eedbd32c3c421ddb2231554fbd35b05ca6fd9b3b7658cf",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-3-c16103c000e1a977.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded&page=4",
+      "retrieved_at": "2026-11-14T05:26:04.110676+00:00",
+      "sha256": "acd0991ea0c6f284c81eda3a30cdf9a527b86eec95abec0fdc75774f48415229",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-4-acd0991ea0c6f284.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 4,
+      "page_count": 4
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-14T05:27:16.426119+00:00"
+}

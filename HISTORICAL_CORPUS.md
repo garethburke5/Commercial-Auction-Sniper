@@ -3,6 +3,39 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 14 November 2026 — The Auction Group retained-grid batch
+
+The first-party dedicated past-auctions route exposed a finite four-page
+archive of **157/157 individually dated property cards** (50, 50, 50 and 7).
+The reusable EIG retained-grid runner captured every card and all **157 detail
+pages**, preserving original URLs, outcomes, dates, guide and achieved prices,
+rent evidence and immutable content-addressed snapshots. The generic search
+surface also exposed 35 upcoming rows; those future lots were intentionally
+excluded from the historical bank.
+
+Net growth is **157 appearances and 157 exact-dated address records inside the
+rolling twenty-year window**. There are no partial, undated, future-dated,
+duplicate-source or exact date/address overlap admissions. Sectors are 144
+residential, 3 commercial, 2 mixed-use, 1 land and 7 unknown, giving a
+commercial/mixed-use subset of **5**. Evidence growth is **157 guide prices, 28
+achieved prices and 1 rent**; guide, achieved price and rent remain separate.
+
+The archive adds three newly represented source-years, **2024, 2025 and 2026**.
+The Auction Group is retained as one genuine operator under THE AUCTION GROUP
+LIMITED (12685958); platform and trading labels are not counted as additional
+auctioneers. Deleted earlier lots are not claimed and national completeness
+remains false.
+
+The rebuilt union contains **315,354 appearances, 304,003 address records,
+11,351 partial records and 306,994 in-window appearances**, including **108,517
+in-window guides and 113,117 in-window achieved prices**. Retained exceptions
+remain 5,056 undated and 184 future-dated appearances from the wider corpus.
+
+Next concrete growth target: resolve and batch the first-party past-auction
+grids for Auction Property Ltd and Smart Property Auctions through the same
+reusable runner. Reconcile legal operators and aliases before counting either
+as a new auctioneer, and admit only individually dated historical lots.
+
 ## 14 November 2026 — Sunderlands 2016–2018 result-sheet batch
 
 Sunderlands' surviving first-party previous-results archive exposed fourteen

@@ -1,0 +1,86 @@
+{
+  "checked_at": "2026-11-14T05:27:16.428287+00:00",
+  "auctioneer": "The Auction Group",
+  "parser_version": 13,
+  "source_url": "https://online.the-auctiongroup.co.uk/past-auctions?lotResultType=All&order=RecentlyEnded",
+  "platform_event_id": null,
+  "archive_sha256": "480afe401667c93e190c7acf279070d906cd7de1aed70033a231cb80be494461",
+  "archive_page_count": 4,
+  "archive_page_rows": [
+    50,
+    50,
+    50,
+    7
+  ],
+  "archive_page_visible_cards": [
+    50,
+    50,
+    50,
+    7
+  ],
+  "visible_source_rows": 157,
+  "expected_visible_cards": null,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 157,
+  "distinct_source_identities": 157,
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "archive_pagination_complete": true,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 157,
+  "run_new_appearances": 157,
+  "run_new_address_records": 157,
+  "run_new_partial_lots": 0,
+  "run_new_dated_twenty_year_address_records": 157,
+  "run_new_commercial_mixed": 5,
+  "run_new_guide_prices": 157,
+  "run_new_sale_prices": 28,
+  "run_new_rents": 1,
+  "run_new_undated": 0,
+  "run_new_future_dated": 0,
+  "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
+  "new_source_years": [
+    2024,
+    2025,
+    2026
+  ],
+  "date_range": [
+    "2024-09-11",
+    "2026-11-13"
+  ],
+  "by_status": {
+    "sold_prior": 96,
+    "sold": 19,
+    "sold_after": 41,
+    "unsold": 1
+  },
+  "by_sector": {
+    "residential": 144,
+    "mixed-use": 2,
+    "unknown": 7,
+    "land": 1,
+    "commercial": 3
+  },
+  "by_attributed_auctioneer": {
+    "The Auction Group": 157
+  },
+  "detail_pages_captured": 157,
+  "detail_recovery_complete": true,
+  "detail_recovery_deferred_reason": null,
+  "detail_recovery_failures": [],
+  "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
+  "failures": [],
+  "batch_baseline_appearance_ids": [],
+  "operator_legal_name": "THE AUCTION GROUP LIMITED",
+  "operator_company_number": "12685958",
+  "historical_trading_names_not_counted_as_auctioneers": [],
+  "merged_firms_not_counted_as_auctioneers": [],
+  "partner_agents_not_counted_as_auctioneers": []
+}

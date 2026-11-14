@@ -1,5 +1,28 @@
 # UK auction coverage checkpoint — 7 November 2026
 
+## 14 November 2026 — The Auction Group retained-grid expansion
+
+The dedicated first-party historical grid reconciles **157/157 individual
+lots** across four pages, with all 157 detail pages and immutable source
+snapshots retained. Net growth is **157 appearances**, all exact-dated address
+records inside the rolling twenty-year window. The commercial/mixed-use subset
+is **5** (3 commercial and 2 mixed-use); added partial, undated, future-dated
+and duplicate appearances are zero.
+
+Evidence growth is **157 guides, 28 achieved prices and 1 rent**. The generic
+search route also contains 35 upcoming lots; those were intentionally excluded
+from historical banking and are not reported as loss or growth. The Auction
+Group is one operator under THE AUCTION GROUP LIMITED (12685958), adding
+source-years 2024, 2025 and 2026 without inflating the auctioneer count.
+
+The rebuilt corpus contains 315,354 appearances, 304,003 addresses and 306,994
+in-window appearances. Window evidence totals are 108,517 guides and 113,117
+achieved prices; national completeness remains false.
+
+Next target: batch Auction Property Ltd and Smart Property Auctions through
+the reusable EIG runner after operator/alias reconciliation. National
+completeness remains false.
+
 ## Scope and current verdict
 
 All UK auction houses, their branches and trading names; every property sector;

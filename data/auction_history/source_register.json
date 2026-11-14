@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-14T04:23:03.899294+00:00",
-  "corpus_checkpoint": "2026-11-14T04:21:46.672847+00:00",
+  "generated_at": "2026-11-14T05:34:23.940885+00:00",
+  "corpus_checkpoint": "2026-11-14T05:33:41.044244+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -7474,13 +7474,17 @@
       "name": "The Auction Group",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/the-auction-group",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "The Auction Group",
+      "match_basis": "exact label",
+      "retained_appearances": 157,
+      "years_with_retained_evidence": [
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 157,
+      "with_sale_price": 28,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8208,7 +8212,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 462,
+  "directory_entries_not_linked": 461,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8336,6 +8340,7 @@
     "Symonds & Sampson": 1142,
     "TW Gaze": 28,
     "The Auction Company": 123,
+    "The Auction Group": 157,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3114,
     "Unknown auctioneer": 14,
@@ -8346,13 +8351,13 @@
     "through_date": "2026-11-14",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306837,
-      "auction_ids_observed": 13831,
-      "with_guide_price": 108360,
-      "with_sale_price": 113089,
-      "with_both_prices": 49159,
-      "marked_sold": 156244,
-      "marked_sold_without_sale_price": 43895
+      "lot_appearances": 306994,
+      "auction_ids_observed": 13922,
+      "with_guide_price": 108517,
+      "with_sale_price": 113117,
+      "with_both_prices": 49187,
+      "marked_sold": 156400,
+      "marked_sold_without_sale_price": 44023
     },
     "by_auctioneer_and_year": [
       {
@@ -16958,6 +16963,39 @@
         "marked_sold_without_sale_price": 22
       },
       {
+        "auctioneer": "The Auction Group",
+        "year": 2024,
+        "lot_appearances": 9,
+        "auction_ids_observed": 5,
+        "with_guide_price": 9,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "The Auction Group",
+        "year": 2025,
+        "lot_appearances": 82,
+        "auction_ids_observed": 43,
+        "with_guide_price": 82,
+        "with_sale_price": 16,
+        "with_both_prices": 16,
+        "marked_sold": 82,
+        "marked_sold_without_sale_price": 66
+      },
+      {
+        "auctioneer": "The Auction Group",
+        "year": 2026,
+        "lot_appearances": 66,
+        "auction_ids_observed": 43,
+        "with_guide_price": 66,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 66,
+        "marked_sold_without_sale_price": 55
+      },
+      {
         "auctioneer": "The Property Auction House",
         "year": 2022,
         "lot_appearances": 19,
@@ -18038,6 +18076,24 @@
       "checked_at": "2026-11-13T16:24:57.917640+00:00",
       "net_new_appearances": 27,
       "diagnostic_tail": "{\"checked_at\": \"2026-11-13T16:24:57.917640+00:00\", \"auctioneer\": \"Sealeys Auctions\", \"parser_version\": 13, \"source_url\": \"https://auctions.sealeys.co.uk/search?view=Grid\", \"platform_event_id\": null, \"archive_sha256\": \"06619cf046e4799f0345411359f8664af2306ba15d50cc5e64080c48ec034c5e\", \"archive_page_count\": 1, \"archive_page_rows\": [27], \"archive_page_visible_cards\": [27], \"visible_source_rows\": 27, \"expected_visible_cards\": 27, \"event_advertised_lots\": null, \"event_advertised_lot_discrepancy\": null, \"past_results_index_lots\": null, \"past_results_index_discrepancy\": null, \"published_result_count\": 27, \"distinct_source_identities\": 27, \"non_auction_property_cards_excluded\": 0, \"non_auction_exclusions\": [], \"archive_pagination_complete\": true, \"archive_visible_inventory_reconciled\": true, \"archive_reconciliation_note\": null, \"appearances_captured\": 27, \"run_new_appearances\": 27, \"run_new_address_records\": 27, \"run_new_partial_lots\": 0, \"run_new_dated_twenty_year_address_records\": 25, \"run_new_commercial_mixed\": 8, \"run_new_guide_prices\": 2, \"run_new_sale_prices\": 7, \"run_new_rents\": 1, \"run_new_undated\": 0, \"run_new_future_dated\": 2, \"run_duplicate_source_evidence_excluded\": 0, \"duplicate_source_identity_exclusions\": 0, \"exact_date_address_overlap_exclusions\": 0, \"exact_overlap_reconciliation\": [], \"new_source_years\": [2025, 2026], \"date_range\": [\"2025-01-23\", \"2026-12-10\"], \"by_status\": {\"sold_prior\": 7, \"unsold\": 6, \"sold\": 6, \"sold_after\": 6, \"unknown\": 2}, \"by_sector\": {\"residential\": 14, \"unknown\": 3, \"commercial\": 4, \"land\": 2, \"mixed-use\": 4}, \"by_attributed_auctioneer\": {\"Sealeys Auctions\": 27}, \"detail_pages_captured\": 0, \"detail_recovery_complete\": false, \"detail_recovery_deferred_reason\": \"first-party detail pages return HTTP 403 outside the browser-rendered route\", \"detail_recovery_failures\": [], \"completion_scope\": \"every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed\", \"failures\": [], \"batch_baseline_appearance_ids\": [], \"operator_legal_name\": \"SEALEYS ESTATE AGENTS LIMITED\", \"operator_company_number\": \"04020881\", \"historical_trading_names_not_counted_as_auctioneers\": [\"Sealeys Walker Jarvis\"], \"merged_firms_not_counted_as_auctioneers\": [], \"partner_agents_not_counted_as_auctioneers\": []}"
+    },
+    "eig_retained_grid:the-auction-group": {
+      "source": "eig_retained_grid:the-auction-group",
+      "outcome": "completed",
+      "checked_at": "2026-11-14T05:27:16.428287+00:00",
+      "net_new_appearances": 157,
+      "run_new_dated_twenty_year_address_records": 157,
+      "run_new_commercial_or_mixed": 5,
+      "run_new_guide_prices": 157,
+      "run_new_sale_prices": 28,
+      "run_new_rents": 1,
+      "newly_covered_source_years": [
+        2024,
+        2025,
+        2026
+      ],
+      "duplicate_source_evidence_excluded": 0,
+      "national_completeness_verified": false
     }
   },
   "unresolved_catalogues": [
@@ -23720,7 +23776,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-14T04:23:03.404598+00:00",
+    "checked_at": "2026-11-14T05:34:22.417324+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
