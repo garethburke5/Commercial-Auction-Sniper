@@ -6,6 +6,30 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November Andrews shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 129 rows attributed to exact organisation `andrews`.
+It banked 129 net address-bearing appearances: 95 exact-dated inside the twenty-year
+window, 13 future-dated, 21 undated and zero partial. The evidence adds one
+commercial appearance outside the window, 129 guides, 93 achieved prices and six
+rents; the in-window price/rent subsets are 95, 93 and five.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps. ANDREWS ESTATE AGENTS LIMITED (00700540) is the estate-agency
+operator within the Andrews Property Group headed by ANDREWS & PARTNERS LIMITED
+(00235326). Group, trading-name, branch and representative-office labels are not
+separate auctioneers. Source-years 2025–2026 are newly established. The retained
+inventory is complete at 129/129 for the surviving shared index, not for deleted
+listings or earlier systems.
+
+The rebuilt corpus contains 314,894 appearances, 303,578 addresses, 11,316
+partials and 306,462 in-window appearances. In-window guide and achieved-price
+counts are 108,349 and 114,069. The latest 50 workflow runs were checked and no
+generated-data writer or publisher was active; no external workflow was launched.
+The next target is Hunters' 491-row shared-platform inventory after operator-lineage
+verification. National completeness remains false.
+
 ## 15 November Rocket Auctions shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public

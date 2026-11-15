@@ -8,6 +8,33 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Andrews, 15 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 129 exact `andrews` rows. The bank gains
+129 address-bearing appearances: 95 exact-dated inside the twenty-year window,
+13 future-dated and 21 undated. Partial and duplicate-derived additions are zero.
+Stable-ID/URL and exact normalized date/address comparisons returned zero overlaps.
+
+The batch contains one commercial, one land, 125 residential and two unknown
+properties. The commercial record is outside the window, so the in-window
+commercial/mixed-use subset is zero. It adds 129 guide prices, 93 achieved prices
+and six rents; the in-window subsets are 95 guides, 93 achieved prices and five
+rents. Individual URLs, dates, outcomes and matched payloads are retained immutably.
+
+Andrews source-years 2025–2026 are newly represented. ANDREWS ESTATE AGENTS LIMITED
+(00700540) is the estate-agency operator inside the Andrews Property Group headed
+by ANDREWS & PARTNERS LIMITED (00235326). Group, trading-name, branch and office
+labels are reconciled without inflating the auctioneer count. Completeness is
+limited to the surviving shared-platform inventory.
+
+The rebuilt corpus holds 314,894 appearances, 303,578 address records and 306,462
+in-window appearances. No generated-data workflow or publisher was active and no
+duplicate workflow was launched. The next high-yield target is Hunters' 491
+surviving Bamboo rows after operator reconciliation. National completeness remains
+false.
+
+
 ## Persisted historical gain — Rocket Auctions, 15 November
 
 The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable

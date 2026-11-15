@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-15T00:02:57.592113+00:00",
-  "individual_lot_records_captured": 314765,
-  "records_with_address": 303449,
+  "generated_at": "2026-11-15T01:04:07.864631+00:00",
+  "individual_lot_records_captured": 314894,
+  "records_with_address": 303578,
   "partial_lot_records": 11316,
-  "exact_address_groups": 169363,
-  "groups_with_repeat_appearances": 43006,
+  "exact_address_groups": 169482,
+  "groups_with_repeat_appearances": 43014,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -12,6 +12,7 @@
     "Allsop": 45007,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
+    "Andrews": 129,
     "Astleys": 29,
     "Auction Agent": 25,
     "Auction Estates": 2072,
@@ -137,7 +138,7 @@
     "Williams & Goodwin The Property People": 186
   },
   "by_year": {
-    "null": 5071,
+    "null": 5092,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -161,23 +162,23 @@
     "2022": 26921,
     "2023": 33667,
     "2024": 42577,
-    "2025": 48690,
-    "2026": 48537,
+    "2025": 48703,
+    "2026": 48632,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42846,
-    "land": 19816,
+    "commercial": 42847,
+    "land": 19817,
     "mixed": 1,
     "mixed-use": 47771,
-    "residential": 152697,
-    "unknown": 51634
+    "residential": 152822,
+    "unknown": 51636
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 4994,
+  "surviving_catalogues_completely_harvested": 4995,
   "catalogues_incomplete_or_unreconciled": 562,
   "catalogue_fetch_or_parse_failures": 39,
   "limits": [
@@ -191,12 +192,12 @@
     "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306367,
-      "auction_ids_observed": 15026,
-      "with_guide_price": 108254,
-      "with_sale_price": 113976,
-      "with_both_prices": 50097,
-      "marked_sold": 156858,
+      "lot_appearances": 306462,
+      "auction_ids_observed": 15121,
+      "with_guide_price": 108349,
+      "with_sale_price": 114069,
+      "with_both_prices": 50190,
+      "marked_sold": 156951,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -715,6 +716,28 @@
         "with_sale_price": 3,
         "with_both_prices": 3,
         "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrews",
+        "year": 2025,
+        "lot_appearances": 13,
+        "auction_ids_observed": 13,
+        "with_guide_price": 13,
+        "with_sale_price": 13,
+        "with_both_prices": 13,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrews",
+        "year": 2026,
+        "lot_appearances": 82,
+        "auction_ids_observed": 82,
+        "with_guide_price": 82,
+        "with_sale_price": 80,
+        "with_both_prices": 80,
+        "marked_sold": 80,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -9122,8 +9145,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5071,
-    "future_dated_appearances": 207,
+    "undated_appearances": 5092,
+    "future_dated_appearances": 220,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

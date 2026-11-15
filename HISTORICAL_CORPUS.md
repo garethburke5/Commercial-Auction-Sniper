@@ -4,6 +4,41 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 15 November 2026 — Andrews shared Bamboo archive
+
+The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
+public Bamboo marketplace** and captured all **129 exact `andrews` detail
+payloads**. It banked **129 net new appearances and 129 address records**. No
+stable-ID, original-URL or exact normalized date/address overlap was found against
+the existing corpus.
+
+Of the additions, **95 are exact-dated inside the preceding twenty-year window**,
+13 are future-dated and 21 are undated. There are no partial additions. The sector
+split is one commercial, one land, 125 residential and two unknown. The commercial
+record is outside the window, so the in-window commercial/mixed-use subset is zero.
+
+All 129 preserve a published guide price; 93 preserve an achieved price and six
+preserve published rent evidence. The in-window subset adds 95 guides, all 93
+achieved prices and five rents. Published outcomes remain separate: 93 sold, 13
+available and 23 unknown. Individual dates, original stable URLs and the matched
+index/detail payloads are retained in a content-addressed immutable snapshot.
+
+This establishes Andrews source-years **2025–2026**. ANDREWS ESTATE AGENTS LIMITED
+(company 00700540) is the estate-agency operator inside the Andrews Property Group,
+whose holding company is ANDREWS & PARTNERS LIMITED (company 00235326). Group,
+trading-name, branch and representative-office labels are not additional
+auctioneers. Completeness is limited to listings surviving in the shared index.
+
+The rebuilt corpus holds **314,894 appearances, 303,578 address records, 11,316
+partial records and 306,462 in-window appearances**, with **108,349 in-window
+guides and 114,069 in-window achieved prices**. Undated and future totals are
+5,092 and 220.
+
+Next serial growth target: verify Hunters' operator lineage and capture its 491
+surviving Bamboo properties with the same runner and overlap controls. National
+completeness remains false.
+
+
 ## 15 November 2026 — Rocket Auctions shared Bamboo archive
 
 The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID

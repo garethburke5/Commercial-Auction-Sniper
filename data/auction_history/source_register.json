@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T00:02:15.232844+00:00",
-  "corpus_checkpoint": "2026-11-14T22:17:39.340462+00:00",
+  "generated_at": "2026-11-15T01:03:25.416223+00:00",
+  "corpus_checkpoint": "2026-11-15T00:02:57.592113+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8434,6 +8434,7 @@
     "Pugh Auctioneers": 6896,
     "Purplebricks Online Auctions": 2451,
     "Robinson & Hall": 546,
+    "Rocket Auctions": 154,
     "SDL Property Auctions": 443,
     "SW Property Auctions": 204,
     "Sage & Co Auctions": 18,
@@ -8458,16 +8459,16 @@
     "Williams & Goodwin The Property People": 186
   },
   "price_coverage": {
-    "from_date": "2006-11-14",
-    "through_date": "2026-11-14",
+    "from_date": "2006-11-15",
+    "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306232,
-      "auction_ids_observed": 14891,
-      "with_guide_price": 108119,
-      "with_sale_price": 113885,
-      "with_both_prices": 50006,
-      "marked_sold": 156767,
+      "lot_appearances": 306367,
+      "auction_ids_observed": 15026,
+      "with_guide_price": 108254,
+      "with_sale_price": 113976,
+      "with_both_prices": 50097,
+      "marked_sold": 156858,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -12566,9 +12567,9 @@
       {
         "auctioneer": "Bradleys Estate Agents",
         "year": 2026,
-        "lot_appearances": 56,
-        "auction_ids_observed": 56,
-        "with_guide_price": 56,
+        "lot_appearances": 57,
+        "auction_ids_observed": 57,
+        "with_guide_price": 57,
         "with_sale_price": 44,
         "with_both_prices": 44,
         "marked_sold": 44,
@@ -16139,6 +16140,61 @@
         "marked_sold_without_sale_price": 23
       },
       {
+        "auctioneer": "Rocket Auctions",
+        "year": 2022,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Rocket Auctions",
+        "year": 2023,
+        "lot_appearances": 4,
+        "auction_ids_observed": 4,
+        "with_guide_price": 4,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Rocket Auctions",
+        "year": 2024,
+        "lot_appearances": 42,
+        "auction_ids_observed": 42,
+        "with_guide_price": 42,
+        "with_sale_price": 31,
+        "with_both_prices": 31,
+        "marked_sold": 31,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Rocket Auctions",
+        "year": 2025,
+        "lot_appearances": 60,
+        "auction_ids_observed": 60,
+        "with_guide_price": 60,
+        "with_sale_price": 37,
+        "with_both_prices": 37,
+        "marked_sold": 37,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Rocket Auctions",
+        "year": 2026,
+        "lot_appearances": 27,
+        "auction_ids_observed": 27,
+        "with_guide_price": 27,
+        "with_sale_price": 21,
+        "with_both_prices": 21,
+        "marked_sold": 21,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "SDL Property Auctions",
         "year": 2022,
         "lot_appearances": 99,
@@ -17338,8 +17394,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5063,
-    "future_dated_appearances": 196,
+    "undated_appearances": 5071,
+    "future_dated_appearances": 207,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -23289,7 +23345,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-15T00:02:13.783000+00:00",
+    "checked_at": "2026-11-15T01:03:23.927824+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
