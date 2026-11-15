@@ -1,232 +1,232 @@
 {
-  "checked_at": "2026-11-15T02:20:45.782136+00:00",
+  "checked_at": "2026-11-15T10:08:27.072092+00:00",
   "seed_auctions": 43,
-  "catalogues_complete": 0,
+  "catalogues_complete": 43,
   "property_appearances_captured": 294,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "detail_pages_reused_after_live_index_reconciliation": 0,
+  "detail_pages_reused_after_live_index_reconciliation": 294,
   "by_sector": {
     "commercial": 130,
     "residential": 164
   },
-  "auctions": {},
-  "failures": [
-    {
-      "auction_id": "4561",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4561&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4561&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+  "auctions": {
+    "4561": {
+      "published_result_count": 10,
+      "lots_captured": 10,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "6854",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6854&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6854&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "6854": {
+      "published_result_count": 19,
+      "lots_captured": 19,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7260",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7260&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7260&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7260": {
+      "published_result_count": 19,
+      "lots_captured": 19,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7445",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7445&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7445&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7445": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2838",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2838&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2838&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2838": {
+      "published_result_count": 20,
+      "lots_captured": 20,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "3184",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3184&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3184&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "3184": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "3185",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3185&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3185&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "3185": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "3200",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3200&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3200&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "3200": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "3182",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3182&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3182&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "3182": {
+      "published_result_count": 10,
+      "lots_captured": 10,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "5857",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=5857&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=5857&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "5857": {
+      "published_result_count": 24,
+      "lots_captured": 24,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7569",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7569&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7569&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7569": {
+      "published_result_count": 4,
+      "lots_captured": 4,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7593",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7593&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7593&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7593": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2221",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2221&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2221&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2221": {
+      "published_result_count": 10,
+      "lots_captured": 10,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2454",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2454&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2454&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2454": {
+      "published_result_count": 10,
+      "lots_captured": 10,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2767",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2767&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2767&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2767": {
+      "published_result_count": 5,
+      "lots_captured": 5,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2808",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2808&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2808&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2808": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2852",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2852&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2852&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2852": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2860",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2860&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2860&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2860": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2886",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2886&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2886&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2886": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2916",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2916&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2916&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2916": {
+      "published_result_count": 2,
+      "lots_captured": 2,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "2936",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2936&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=2936&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "2936": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "3083",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3083&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=3083&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "3083": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "4321",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4321&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4321&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "4321": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "4451",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4451&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4451&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "4451": {
+      "published_result_count": 9,
+      "lots_captured": 9,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "4506",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4506&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4506&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "4506": {
+      "published_result_count": 2,
+      "lots_captured": 2,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "4547",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4547&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4547&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "4547": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "4553",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4553&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=4553&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "4553": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "5711",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=5711&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=5711&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "5711": {
+      "published_result_count": 15,
+      "lots_captured": 15,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "5969",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=5969&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=5969&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "5969": {
+      "published_result_count": 20,
+      "lots_captured": 20,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "6016",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6016&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6016&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "6016": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "6024",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6024&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6024&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "6024": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "6293",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6293&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6293&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "6293": {
+      "published_result_count": 23,
+      "lots_captured": 23,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "6366",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6366&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6366&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "6366": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "6378",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6378&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=6378&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "6378": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7024",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7024&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7024&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7024": {
+      "published_result_count": 29,
+      "lots_captured": 29,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7147",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7147&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7147&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7147": {
+      "published_result_count": 19,
+      "lots_captured": 19,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7215",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7215&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7215&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7215": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7263",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7263&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7263&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7263": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7269",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7269&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7269&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7269": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7379",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7379&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7379&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7379": {
+      "published_result_count": 20,
+      "lots_captured": 20,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7386",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7386&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7386&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7386": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7432",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7432&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7432&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7432": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     },
-    {
-      "auction_id": "7455",
-      "url": "https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7455&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43",
-      "error": "HTTPError: 500 Server Error: Internal Server Error for url: https://bidx1.com/en/united-kingdom/property-for-auction?auctionids=7455&firstload=true&group_by_region=false&ismapsearch=true&page=1&region=2&salestatus=34%2C36%2C37%2C38%2C39%2C40%2C41%2C42%2C43"
+    "7455": {
+      "published_result_count": 1,
+      "lots_captured": 1,
+      "catalogue_complete": true
     }
-  ]
+  },
+  "failures": []
 }
