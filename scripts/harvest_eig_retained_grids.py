@@ -5923,9 +5923,7 @@ SOURCES = {
     "the-auction-company": {
         "auctioneer": "The Auction Company",
         "base": "https://auctions.theauctioncompany.co.uk",
-    },
-}
-    "auction-house-online-2018-12-14": {
+    },    "auction-house-online-2018-12-14": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
         "archive_path": "/past-auctions/7962",
@@ -5957,7 +5955,7 @@ SOURCES = {
         "detail_attempts": 2,
         "detail_timeout": 45,
     },
-
+}
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 # EIG's newer white labels expose UUIDs while surviving older grids retain
 # platform-wide numeric lot IDs.  Both are stable first-party identities.
