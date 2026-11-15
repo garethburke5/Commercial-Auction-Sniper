@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T06:14:20.451630+00:00",
-  "corpus_checkpoint": "2026-11-15T06:12:25.267972+00:00",
+  "generated_at": "2026-11-15T08:20:02.028567+00:00",
+  "corpus_checkpoint": "2026-11-15T08:17:37.433163+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8134,13 +8134,17 @@
       "name": "West Wales Properties",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/west-wales-properties",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "West Wales Properties",
+      "match_basis": "exact label",
+      "retained_appearances": 40,
+      "years_with_retained_evidence": [
+        2022,
+        2023,
+        2024
+      ],
+      "with_guide_price": 40,
+      "with_sale_price": 15,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8340,7 +8344,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 445,
+  "directory_entries_not_linked": 444,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8349,6 +8353,7 @@
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
     "Andrews": 129,
+    "Arron James Online Auction": 32,
     "Astleys": 29,
     "Auction Agent": 25,
     "Auction Estates": 2072,
@@ -8424,6 +8429,7 @@
     "Harman Healy": 1528,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
+    "Howkins & Harrison": 32,
     "Hunters Auctions": 491,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
@@ -8476,6 +8482,7 @@
     "Town & Country Property Auctions": 3114,
     "Unknown auctioneer": 14,
     "Webbers": 99,
+    "West Wales Properties": 40,
     "Williams & Goodwin The Property People": 186
   },
   "price_coverage": {
@@ -8483,12 +8490,12 @@
     "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307154,
-      "auction_ids_observed": 15813,
-      "with_guide_price": 109041,
-      "with_sale_price": 114574,
-      "with_both_prices": 50695,
-      "marked_sold": 157456,
+      "lot_appearances": 307254,
+      "auction_ids_observed": 15913,
+      "with_guide_price": 109141,
+      "with_sale_price": 114637,
+      "with_both_prices": 50758,
+      "marked_sold": 157519,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -9029,6 +9036,50 @@
         "with_sale_price": 80,
         "with_both_prices": 80,
         "marked_sold": 80,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Arron James Online Auction",
+        "year": 2022,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Arron James Online Auction",
+        "year": 2024,
+        "lot_appearances": 11,
+        "auction_ids_observed": 11,
+        "with_guide_price": 11,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 11,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Arron James Online Auction",
+        "year": 2025,
+        "lot_appearances": 11,
+        "auction_ids_observed": 11,
+        "with_guide_price": 11,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Arron James Online Auction",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 7,
+        "with_guide_price": 7,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -14345,6 +14396,61 @@
         "marked_sold_without_sale_price": 16
       },
       {
+        "auctioneer": "Howkins & Harrison",
+        "year": 2022,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Howkins & Harrison",
+        "year": 2023,
+        "lot_appearances": 12,
+        "auction_ids_observed": 12,
+        "with_guide_price": 12,
+        "with_sale_price": 10,
+        "with_both_prices": 10,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Howkins & Harrison",
+        "year": 2024,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Howkins & Harrison",
+        "year": 2025,
+        "lot_appearances": 6,
+        "auction_ids_observed": 6,
+        "with_guide_price": 6,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Howkins & Harrison",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Hunters Auctions",
         "year": 2021,
         "lot_appearances": 65,
@@ -17667,6 +17773,39 @@
         "marked_sold_without_sale_price": 0
       },
       {
+        "auctioneer": "West Wales Properties",
+        "year": 2022,
+        "lot_appearances": 14,
+        "auction_ids_observed": 14,
+        "with_guide_price": 14,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "West Wales Properties",
+        "year": 2023,
+        "lot_appearances": 14,
+        "auction_ids_observed": 14,
+        "with_guide_price": 14,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "West Wales Properties",
+        "year": 2024,
+        "lot_appearances": 12,
+        "auction_ids_observed": 12,
+        "with_guide_price": 12,
+        "with_sale_price": 2,
+        "with_both_prices": 2,
+        "marked_sold": 2,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Williams & Goodwin The Property People",
         "year": 2021,
         "lot_appearances": 27,
@@ -17734,7 +17873,7 @@
       }
     ],
     "undated_appearances": 5109,
-    "future_dated_appearances": 237,
+    "future_dated_appearances": 241,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -23684,7 +23823,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-15T06:14:18.909200+00:00",
+    "checked_at": "2026-11-15T08:20:00.498358+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

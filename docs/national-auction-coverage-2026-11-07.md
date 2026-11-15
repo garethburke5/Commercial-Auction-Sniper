@@ -7,6 +7,28 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Persisted historical gain — three shared-platform operators, 15 November
+
+One protected batch reconciled the 251-page, 5,013-ID Bamboo index once and banked
+all 104 exact rows for West Wales Properties (40), Howkins & Harrison (32), and
+Arron James Online Auction (32). The gain is 104 address-bearing appearances:
+100 exact-dated inside the twenty-year window, four future-dated, zero undated and
+zero partial. No stable-ID, URL or cross-corpus exact date/address overlap was
+found. Three West Wales entries sharing a date/address are separate land parcels,
+not duplicates, because their stable IDs, URLs and published acreages differ.
+
+The all-sector batch contains one commercial, two mixed-use, 23 land, 69
+residential and nine unknown appearances. It adds 104 guides, 63 achieved prices
+and one rent; the in-window subsets are 100, 63 and one. Twelve operator-source-
+years are newly represented. Franchise offices, branches and trading-name
+variants were reconciled without inflating the three genuine operator counts.
+
+The rebuilt corpus holds 315,724 appearances, 304,408 address records and 307,254
+in-window appearances. The protected current scan and Savills jobs were inspected
+through terminal cancellation, no duplicate workflow was launched, and unrelated
+main evidence was preserved. Next target: the 32 surviving Tutis Estates Bamboo
+rows after an exact-denominator refresh. National completeness remains false.
+
 
 ## Persisted historical gain — Keller Williams UK, 15 November
 

@@ -5963,5 +5963,77 @@
     "publication_started": false,
     "next_growth_target": "After both protected runs reach terminal states, inspect and merge any newly banked main evidence, then execute config/bamboo_shared_growth_batch.json to capture up to 104 surviving West Wales Properties, Howkins & Harrison and Arron James appearances in one reconciled-index batch; deduplicate before rebuilding and publishing.",
     "national_completeness_verified": false
+  },
+  "bamboo_shared_operator_batch_growth": {
+    "checked_at": "2026-11-15T08:17:37.433163+00:00",
+    "opportunity": "Capture the complete surviving Bamboo inventories for West Wales Properties, Howkins & Harrison and Arron James in one protected shared-index batch.",
+    "source_url": "https://app.bambooproptech.com/",
+    "shared_platform_pages_reconciled": 251,
+    "shared_platform_rows_reconciled": 5013,
+    "operators_banked": {
+      "West Wales Properties": 40,
+      "Howkins & Harrison": 32,
+      "Arron James Online Auction": 32
+    },
+    "visible_operator_rows": 104,
+    "detail_pages_captured": 104,
+    "net_new_appearances": 104,
+    "new_address_records": 104,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 100,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 4,
+    "commercial_or_mixed_use": 3,
+    "commercial_or_mixed_use_in_twenty_year_window": 3,
+    "sector_breakdown": {
+      "commercial": 1,
+      "mixed-use": 2,
+      "land": 23,
+      "residential": 69,
+      "unknown": 9
+    },
+    "new_guide_prices": 104,
+    "new_guide_prices_in_twenty_year_window": 100,
+    "new_sale_prices": 63,
+    "new_sale_prices_in_twenty_year_window": 63,
+    "new_rent_values": 1,
+    "new_rent_values_in_twenty_year_window": 1,
+    "outcome_breakdown": {
+      "sold": 63,
+      "available": 4,
+      "unknown": 37
+    },
+    "source_years_observed": [2022, 2023, 2024, 2025, 2026],
+    "newly_covered_operator_source_years": 12,
+    "newly_covered_source_years_by_operator": {
+      "West Wales Properties": [2022, 2023, 2024],
+      "Howkins & Harrison": [2022, 2023, 2024, 2025, 2026],
+      "Arron James Online Auction": [2022, 2024, 2025, 2026]
+    },
+    "exact_date_address_overlaps_excluded": 0,
+    "stable_id_or_url_overlaps_excluded": 0,
+    "duplicate_appearance_ids": 0,
+    "duplicate_source_lot_ids": 0,
+    "related_legal_interests_retained": 3,
+    "related_legal_interests_note": "Three separately published Eastmoor Park land parcels share a date and postal address but have distinct stable IDs, URLs and parcel acreages (1.5, 2.2 and 2 acres); they remain separate appearances rather than duplicates.",
+    "pagination_reconciled": true,
+    "denominator_reconciled": true,
+    "operator_reconciliation": "ASKENS LIMITED and its franchise companies are reconciled under the West Wales Properties auction label; HOWKINS AND HARRISON LLP is the Howkins & Harrison operator; ARRON JAMES LTD is the Arron James Online Auction operator. Branches, franchise offices and spelling variants are not counted as extra auctioneers.",
+    "completion_scope": "All 104 exact-organisation listings surviving in the 5013-row shared public Bamboo index; not a claim that deleted listings or earlier systems are covered.",
+    "database_rebuild_verified": true,
+    "publication_started": false,
+    "writer_protection": "Auction Sniper Scan run 43685703675 and Savills bulk run 43685042160 were both inspected through terminal cancellation with no banked history; the latest 30 runs showed no active writer or publisher. Main advanced only for social-marketing state and was merged before collection; no duplicate external workflow was launched.",
+    "corpus_after_rebuild": {
+      "appearances": 315724,
+      "address_records": 304408,
+      "partial": 11316,
+      "in_window_appearances": 307254,
+      "in_window_guide_prices": 109141,
+      "in_window_sale_prices": 114637,
+      "undated": 5109,
+      "future_dated": 241
+    },
+    "next_growth_target": "Capture Tutis Estates' 32 surviving tutisestates Bamboo properties in the next shared-index batch after confirming the exact denominator; TUTIS ESTATES LIMITED (company 07845303) and the firm's official property-auctions page establish the operator, and stable-ID, URL and exact-date/address overlap controls remain mandatory.",
+    "national_completeness_verified": false
   }
 }

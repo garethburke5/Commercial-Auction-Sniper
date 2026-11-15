@@ -6,6 +6,29 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November protected three-operator Bamboo gain
+
+Auction Sniper Scan run 43685703675 and Savills bulk run 43685042160 reached
+terminal cancellation without banking history. The latest workflow inventory
+showed no active writer or publisher; main's unrelated social state was merged
+before collection. No duplicate workflow was launched.
+
+The reusable batch runner then collected the shared 251-page, 5,013-ID index once
+and captured all 104 validated operator rows: West Wales Properties 40, Howkins &
+Harrison 32 and Arron James Online Auction 32. The bank gains 104 address-bearing
+appearances: 100 in-window, four future-dated, zero undated and zero partial. It
+adds three in-window commercial/mixed-use appearances, 104 guides (100 in-window),
+63 achieved prices and one rent. Twelve operator-source-years are newly covered.
+
+No stable-ID, URL or cross-corpus date/address overlap was found. Three same-date,
+same-address Eastmoor Park entries are distinct published land parcels with
+different stable IDs, URLs and acreages, so they are related legal interests
+rather than duplicates. The rebuilt corpus contains 315,724 appearances, 304,408
+addresses and 307,254 in-window appearances. The next target is Tutis Estates'
+32 surviving Bamboo rows after refreshing its exact denominator; the official
+auction page and TUTIS ESTATES LIMITED (07845303) establish the operator.
+National completeness remains false.
+
 ## 15 November protected-writer batch preparation
 
 No collection growth is claimed for this checkpoint. At 07:09 UTC, Auction

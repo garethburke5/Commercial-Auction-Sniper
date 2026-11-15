@@ -3,6 +3,42 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 15 November 2026 — three-operator shared Bamboo batch
+
+The batch runner reconciled the complete **251-page, 5,013-ID public Bamboo
+marketplace once** and reused that immutable index for three exact organisations.
+It banked **104 net new appearances and 104 address records**: West Wales
+Properties 40, Howkins & Harrison 32, and Arron James Online Auction 32. Corpus-wide
+stable-ID, original-URL and exact normalized date/address checks found no overlap
+with earlier evidence.
+
+Of the additions, **100 are exact-dated inside the preceding twenty-year window**,
+four are future-dated, and none is partial or undated. The sector split is one
+commercial, two mixed-use, 23 land, 69 residential and nine unknown; all three
+commercial/mixed-use appearances are in-window. Three West Wales rows at one
+date/address are deliberately retained as separate legal parcels because their
+stable IDs, URLs and published acreages (1.5, 2.2 and 2 acres) differ.
+
+The batch adds **104 guides, 63 achieved prices and one rent**; the in-window
+subsets are 100, 63 and one. Outcomes remain separate: 63 sold, four available
+and 37 unknown. It establishes 12 operator-source-years: West Wales 2022–2024,
+Howkins & Harrison 2022–2026, and Arron James 2022 plus 2024–2026.
+
+ASKENS LIMITED and its franchise companies are reconciled under West Wales
+Properties without counting offices as auctioneers; HOWKINS AND HARRISON LLP and
+ARRON JAMES LTD are the other canonical operators. Completeness remains limited
+to listings surviving in the shared index.
+
+The rebuilt corpus holds **315,724 appearances, 304,408 address records, 11,316
+partial records and 307,254 in-window appearances**, with **109,141 in-window
+guides and 114,637 in-window achieved prices**. Undated and future totals are
+5,109 and 241.
+
+Next concrete growth target: capture the 32 surviving `tutisestates` Bamboo
+properties after one fresh exact-denominator check. TUTIS ESTATES LIMITED
+(07845303) and the firm's official auction page establish the operator. National
+completeness remains false.
+
 
 ## 15 November 2026 — Keller Williams UK shared Bamboo archive
 
