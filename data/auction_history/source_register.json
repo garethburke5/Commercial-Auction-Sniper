@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T03:10:20.139424+00:00",
-  "corpus_checkpoint": "2026-11-15T03:07:20.269644+00:00",
+  "generated_at": "2026-11-15T04:12:49.066673+00:00",
+  "corpus_checkpoint": "2026-11-15T04:11:22.672480+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -4302,13 +4302,20 @@
       "name": "Lodge & Thomas",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/lodge-thomas",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Lodge & Thomas",
+      "match_basis": "exact label",
+      "retained_appearances": 60,
+      "years_with_retained_evidence": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 59,
+      "with_sale_price": 51,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8333,7 +8340,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 446,
+  "directory_entries_not_linked": 445,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8426,6 +8433,7 @@
     "Landmark Auctions": 71,
     "Landwood Property Auctions": 2742,
     "Lextons Auctions Ltd": 268,
+    "Lodge & Thomas": 60,
     "Lot9 Auction House": 34,
     "Loveitts": 582,
     "Maggs & Allen": 108,
@@ -8473,12 +8481,12 @@
     "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307020,
-      "auction_ids_observed": 15679,
-      "with_guide_price": 108907,
-      "with_sale_price": 114489,
-      "with_both_prices": 50610,
-      "marked_sold": 157371,
+      "lot_appearances": 307079,
+      "auction_ids_observed": 15738,
+      "with_guide_price": 108966,
+      "with_sale_price": 114540,
+      "with_both_prices": 50661,
+      "marked_sold": 157422,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -15006,6 +15014,72 @@
         "marked_sold_without_sale_price": 32
       },
       {
+        "auctioneer": "Lodge & Thomas",
+        "year": 2021,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Lodge & Thomas",
+        "year": 2022,
+        "lot_appearances": 11,
+        "auction_ids_observed": 11,
+        "with_guide_price": 11,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 11,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Lodge & Thomas",
+        "year": 2023,
+        "lot_appearances": 15,
+        "auction_ids_observed": 15,
+        "with_guide_price": 15,
+        "with_sale_price": 14,
+        "with_both_prices": 14,
+        "marked_sold": 14,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Lodge & Thomas",
+        "year": 2024,
+        "lot_appearances": 9,
+        "auction_ids_observed": 9,
+        "with_guide_price": 9,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Lodge & Thomas",
+        "year": 2025,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Lodge & Thomas",
+        "year": 2026,
+        "lot_appearances": 13,
+        "auction_ids_observed": 13,
+        "with_guide_price": 13,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 11,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Lot9 Auction House",
         "year": 2022,
         "lot_appearances": 4,
@@ -17558,7 +17632,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5108,
+    "undated_appearances": 5109,
     "future_dated_appearances": 236,
     "national_completeness_verified": false,
     "limits": [
@@ -23509,7 +23583,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-15T03:10:18.550382+00:00",
+    "checked_at": "2026-11-15T04:12:47.249935+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

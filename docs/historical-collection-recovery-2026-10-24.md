@@ -6,6 +6,32 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November Lodge & Thomas shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 60 rows attributed to exact organisation
+`lodgeandthomas`. It banked 60 net address-bearing appearances: 59 exact-dated
+inside the twenty-year window, one undated, zero future-dated and zero partial.
+The evidence adds seven commercial/mixed-use appearances, 60 guides, 51 achieved
+prices and no published rents; the in-window price subsets are 59 and 51.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps. Lodge & Thomas is an RICS-regulated partnership. The firm
+and RICS identify Andrew Body, Ross Collins and Edward Harris as current partners.
+Care & Co is incorporated with Lodge & Thomas and is not a second current
+auctioneer, while earlier evidence retains its historical label. Source-years
+2021–2026 are newly established. The retained inventory is complete at 60/60 for
+the surviving property index, not for deleted listings, chattels, livestock or
+earlier systems.
+
+The rebuilt corpus contains 315,544 appearances, 304,228 addresses, 11,316
+partials and 307,079 in-window appearances. In-window guide and achieved-price
+counts are 108,966 and 114,540. The latest 50 workflow runs were checked and no
+generated-data writer or publisher was active; main remained at the checkpoint
+already merged into the protected chain and no external workflow was launched.
+The next target is My Auction's 35-row inventory after exact operator-lineage
+verification. National completeness remains false.
+
 ## 15 November Webbers shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public

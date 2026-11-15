@@ -5729,5 +5729,63 @@
     },
     "next_growth_target": "Verify Lodge & Thomas' legal/operator lineage and capture its 60 surviving Bamboo properties through the reusable shared-platform runner, excluding stable-ID, URL and exact-date/address overlaps.",
     "national_completeness_verified": false
+  },
+  "lodge_thomas_shared_bamboo_growth": {
+    "checked_at": "2026-11-15T04:08:51.030383+00:00",
+    "opportunity": "Capture every Lodge & Thomas property surviving in Bamboo's shared public marketplace through the reusable exact-organisation runner.",
+    "source_url": "https://app.bambooproptech.com/",
+    "shared_platform_pages_reconciled": 251,
+    "shared_platform_rows_reconciled": 5013,
+    "visible_operator_rows": 60,
+    "detail_pages_captured": 60,
+    "net_new_appearances": 60,
+    "new_address_records": 60,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 59,
+    "new_undated_appearances": 1,
+    "new_future_dated_appearances": 0,
+    "commercial_or_mixed_use": 7,
+    "commercial_or_mixed_use_in_twenty_year_window": 7,
+    "sector_breakdown": {
+      "commercial": 6,
+      "mixed-use": 1,
+      "land": 30,
+      "residential": 23
+    },
+    "new_guide_prices": 60,
+    "new_guide_prices_in_twenty_year_window": 59,
+    "new_sale_prices": 51,
+    "new_sale_prices_in_twenty_year_window": 51,
+    "new_rent_values": 0,
+    "new_rent_values_in_twenty_year_window": 0,
+    "outcome_breakdown": {
+      "sold": 51,
+      "unknown": 9
+    },
+    "source_years_observed": [2021, 2022, 2023, 2024, 2025, 2026],
+    "newly_covered_source_years": [2021, 2022, 2023, 2024, 2025, 2026],
+    "exact_date_address_overlaps_excluded": 0,
+    "stable_id_or_url_overlaps_excluded": 0,
+    "duplicate_appearance_ids": 0,
+    "duplicate_source_lot_ids": 0,
+    "pagination_reconciled": true,
+    "denominator_reconciled": true,
+    "operator_reconciliation": "Lodge & Thomas is an RICS-regulated partnership, not a limited company. The firm and RICS identify Andrew Body, Ross Collins and Edward Harris as its partners. Care & Co is incorporated with Lodge & Thomas and is not counted as a second current auctioneer, while historical Care & Co evidence remains separately attributed. Bamboo Auctions is the online property-auction technology partner.",
+    "completion_scope": "All 60 lodgeandthomas listings surviving in the 5013-row shared public Bamboo index; not a claim that deleted listings, non-property auction inventories or earlier systems are covered.",
+    "database_rebuild_verified": true,
+    "publication_started": false,
+    "writer_protection": "The latest 50 workflow runs and main revision were checked before collection; no scan, history-bank, historical collector or publisher was active, main remained at the evidence checkpoint already merged into the protected branch, and no duplicate external workflow was launched.",
+    "corpus_after_rebuild": {
+      "appearances": 315544,
+      "address_records": 304228,
+      "partial": 11316,
+      "in_window_appearances": 307079,
+      "in_window_guide_prices": 108966,
+      "in_window_sale_prices": 114540,
+      "undated": 5109,
+      "future_dated": 236
+    },
+    "next_growth_target": "Resolve My Auction's exact legal/operator lineage and, if it is a distinct genuine auctioneer, capture its 35 surviving Bamboo properties through the reusable shared-platform runner with stable-ID, URL and exact-date/address overlap controls.",
+    "national_completeness_verified": false
   }
 }

@@ -8,6 +8,34 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Lodge & Thomas, 15 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 60 exact `lodgeandthomas` rows. The bank
+gains 60 address-bearing appearances: 59 exact-dated inside the twenty-year
+window and one undated. Partial, future-dated and duplicate-derived additions are
+zero. Stable-ID/URL and exact normalized date/address comparisons returned zero
+overlaps.
+
+The batch contains six commercial, one mixed-use, 30 land and 23 residential
+properties. All seven commercial/mixed-use appearances are in-window. It adds 60
+guide prices and 51 achieved prices, with 59 and 51 respectively in-window; no
+published rent was present. Individual URLs, dates, outcomes and matched payloads
+are retained immutably.
+
+Lodge & Thomas source-years 2021–2026 are newly represented. The operator is an
+RICS-regulated partnership. Care & Co is incorporated with Lodge & Thomas and is
+not counted as a second current auctioneer, while historical attribution remains
+distinct. Bamboo Auctions is the technology provider. Completeness is limited to
+the surviving shared-platform property inventory.
+
+The rebuilt corpus holds 315,544 appearances, 304,228 address records and 307,079
+in-window appearances. No generated-data workflow or publisher was active and no
+duplicate workflow was launched. The next target is My Auction's 35 surviving
+Bamboo rows after exact operator reconciliation. National completeness remains
+false.
+
+
 ## Persisted historical gain — Webbers, 15 November
 
 The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
