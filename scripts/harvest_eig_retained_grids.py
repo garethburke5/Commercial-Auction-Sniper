@@ -5925,19 +5925,6 @@ SOURCES = {
         "base": "https://auctions.theauctioncompany.co.uk",
     },
 }
-HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
-# EIG's newer white labels expose UUIDs while surviving older grids retain
-# platform-wide numeric lot IDs.  Both are stable first-party identities.
-LOT_ID_RE = re.compile(r"/lot/details/([0-9a-f-]{36}|\d+)(?:[/?#]|$)", re.I)
-ISO_DATE_RE = re.compile(r"^(20\d{2}-\d{2}-\d{2})")
-MONEY_RE = re.compile(r"£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
-GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
-RENT_RE = re.compile(
-    r"£\s*([\d,]+(?:\.\d+)?)\s*"
-    r"(per\s+annum|annually|p\.?\s*a\.?|per\s+calendar\s+month|"
-    r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
-    re.I,
-)
     "auction-house-online-2018-12-14": {
         "auctioneer": "Auction House Online",
         "base": "https://online.auctionhouse.co.uk",
@@ -5971,6 +5958,19 @@ RENT_RE = re.compile(
         "detail_timeout": 45,
     },
 
+HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
+# EIG's newer white labels expose UUIDs while surviving older grids retain
+# platform-wide numeric lot IDs.  Both are stable first-party identities.
+LOT_ID_RE = re.compile(r"/lot/details/([0-9a-f-]{36}|\d+)(?:[/?#]|$)", re.I)
+ISO_DATE_RE = re.compile(r"^(20\d{2}-\d{2}-\d{2})")
+MONEY_RE = re.compile(r"£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
+GUIDE_RE = re.compile(r"Guide Price of\s*£?\s*([\d,]+(?:\.\d+)?)\s*([MK])?", re.I)
+RENT_RE = re.compile(
+    r"£\s*([\d,]+(?:\.\d+)?)\s*"
+    r"(per\s+annum|annually|p\.?\s*a\.?|per\s+calendar\s+month|"
+    r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
+    re.I,
+)
 PARSER_VERSION = 8
 
 

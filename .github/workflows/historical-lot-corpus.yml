@@ -410,7 +410,7 @@ jobs:
         timeout-minutes: 15
         run: python -u scripts/harvest_eig_retained_grids.py landmark-auctions --workers 16
       - name: Collect Auction House Online 2018 retained archive batch
-        if: startsWith(github.event.head_commit.message, 'Run focused Auction House Online 2018 retained archive batch')
+        if: ${{ always() && startsWith(github.event.head_commit.message, 'Run focused Auction House Online 2018 retained archive batch') }}
         timeout-minutes: 15
         run: python -u scripts/harvest_eig_retained_grids.py --manifest config/retained_grid_batch_next.json --workers 8
 
