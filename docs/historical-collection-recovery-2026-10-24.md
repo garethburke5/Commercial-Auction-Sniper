@@ -6,6 +6,32 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November Keller Williams UK shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 41 rows attributed to exact organisation
+`kellerwilliams`. It banked 41 net address-bearing appearances: 40 exact-dated
+inside the twenty-year window, one future-dated, zero undated and zero partial.
+The evidence adds one mixed-use appearance, 41 guides, 25 achieved prices and
+three published rents; the in-window subsets are one, 40, 25 and three.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps. Keller Williams UK provides the central auction channel
+powered by Bamboo, while its UK market centres, offices and agents are
+independently owned or operated. Those labels are not inflated into additional
+auctioneers in this exact inventory and original listing text preserves the
+contributing agent. Source-years 2021–2026 are newly established. The retained
+inventory is complete at 41/41 for the surviving shared index, not for deleted
+listings or earlier systems.
+
+The rebuilt corpus contains 315,620 appearances, 304,304 addresses, 11,316
+partials and 307,154 in-window appearances. In-window guide and achieved-price
+counts are 109,041 and 114,574. The latest workflow runs were checked and no
+generated-data writer or publisher was active; the protected evidence chain was
+preserved and no external workflow was launched. The next target is West Wales
+Properties' 40-row shared-platform inventory after exact operator/trading-name
+reconciliation. National completeness remains false.
+
 ## 15 November My Auction shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public

@@ -8,6 +8,33 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Keller Williams UK, 15 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 41 exact `kellerwilliams` rows. The bank
+gains 41 address-bearing appearances: 40 exact-dated inside the twenty-year
+window and one future-dated for 20 November 2026. Partial, undated and
+duplicate-derived additions are zero. Stable-ID/URL and exact normalized
+date/address comparisons returned zero overlaps.
+
+The batch contains one mixed-use, two land, 37 residential and one unknown
+property. It adds 41 guides, 25 achieved prices and three published rents; the
+in-window subsets are 40, 25 and three. Individual URLs, dates, outcomes and
+matched payloads are retained immutably.
+
+Keller Williams UK source-years 2021–2026 are newly represented. The central UK
+auction channel is powered by Bamboo; independently owned or operated market
+centres, offices and agents are reconciled as attribution rather than inflated
+into additional auctioneers, while original listing text preserves the agent.
+Completeness is limited to the surviving shared-platform inventory.
+
+The rebuilt corpus holds 315,620 appearances, 304,304 address records and 307,154
+in-window appearances. No generated-data workflow or publisher was active and no
+duplicate workflow was launched. The next target is West Wales Properties' 40
+surviving Bamboo rows after legal-operator and trading-name reconciliation.
+National completeness remains false.
+
+
 ## Persisted historical gain — My Auction, 15 November
 
 The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable

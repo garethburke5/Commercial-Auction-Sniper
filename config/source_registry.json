@@ -839,6 +839,24 @@
       "verified_on": "2026-11-15"
     },
     {
+      "brand": "Keller Williams UK",
+      "source": "Keller Williams UK",
+      "canonical_network": "Keller Williams",
+      "parent_family": "Keller Williams Realty, Inc. and independently owned UK market centres",
+      "region_slug": null,
+      "regional_labels": [
+        "Keller Williams UK",
+        "Keller Williams"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:kellerwilliams",
+      "relationship_evidence": "https://www.kwuk.com/property-auction",
+      "inventory_equivalence_verified": false,
+      "assessment": "Keller Williams UK provides the central property-auction channel powered by Bamboo. Keller Williams Realty, Inc. is responsible for central processing, while UK market centres, offices and agents are independently owned or operated; those office and agent labels are attribution within this exact shared auction inventory and are not counted as additional auctioneers. Original listing text retains the contributing agent. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
       "brand": "Stags Barnstaple", "source": "Stags",
       "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
       "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"

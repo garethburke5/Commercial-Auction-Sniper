@@ -4,6 +4,43 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 15 November 2026 — Keller Williams UK shared Bamboo archive
+
+The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
+public Bamboo marketplace** and captured all **41 exact `kellerwilliams` detail
+payloads**. It banked **41 net new appearances and 41 address records**. No
+stable-ID, original-URL or exact normalized date/address overlap was found against
+the existing corpus.
+
+Of the additions, **40 are exact-dated inside the preceding twenty-year window**
+and one is a future listing dated 20 November 2026. There are no partial or
+undated additions. The sector split is one mixed-use, two land, 37 residential
+and one unknown; the mixed-use record is in-window.
+
+All 41 preserve a published guide price, 25 preserve an achieved price and three
+preserve published rent evidence. The in-window subset adds 40 guides, all 25
+achieved prices and all three rents. Published outcomes remain separate: 25 sold,
+one available and 15 unknown. Individual dates, original stable URLs and the
+matched index/detail payloads are retained in content-addressed immutable
+snapshots.
+
+This establishes Keller Williams UK source-years **2021–2026**. Keller Williams
+UK provides the central property-auction channel powered by Bamboo. UK market
+centres, offices and agents are independently owned or operated and are not
+counted as separate auctioneers in this exact shared inventory; original listing
+text retains the contributing agent. Completeness is limited to listings
+surviving in the shared index.
+
+The rebuilt corpus holds **315,620 appearances, 304,304 address records, 11,316
+partial records and 307,154 in-window appearances**, with **109,041 in-window
+guides and 114,574 in-window achieved prices**. Undated and future totals are
+5,109 and 237.
+
+Next serial growth target: reconcile West Wales Properties' legal operator and
+trading names, then capture its 40 surviving Bamboo properties with the same
+runner and overlap controls. National completeness remains false.
+
+
 ## 15 November 2026 — My Auction shared Bamboo archive
 
 The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
