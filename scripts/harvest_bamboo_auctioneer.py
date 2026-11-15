@@ -84,6 +84,42 @@ def positive_money(value) -> int | float | None:
     return int(parsed) if isinstance(parsed, float) and parsed.is_integer() else parsed
 
 
+def published_rent(text: str | None) -> tuple[int | float | None, str | None]:
+    """Return only an explicitly published annual rent, never an inferred one."""
+    match = re.search(
+        r"(?i)(£\s*[\d,]+(?:\.\d+)?\s*(?:per\s+annum|p\.?\s*a\.?))",
+        text or "",
+    )
+    if not match:
+        return None, None
+    number = re.search(r"[\d,]+(?:\.\d+)?", match.group(1))
+    return (positive_money(number.group()) if number else None, match.group(1))
+
+
+def bamboo_sector(property_type: str | None, title: str | None, address: str | None,
+                  description: str | None) -> str:
+    """Prefer Bamboo's asset type over locality words in long particulars."""
+    kind = corpus.clean(property_type).lower()
+    evidence = " ".join(v for v in (title, description) if v)
+    if kind == "land":
+        return "land"
+    if kind in {"residential", "detached", "semi-detached", "terraced", "flat", "bungalow", "house"}:
+        return "residential"
+    if kind == "commercial":
+        classified = corpus.sector(evidence[:2500], commercial=True)
+        return "mixed-use" if classified == "mixed-use" else "commercial"
+    if kind == "other":
+        label = corpus.clean(address).lower()
+        if re.search(r"\b(?:land|barns?|farm buildings?|land and buildings|roundhouse)\b", label):
+            return "land"
+        if re.search(r"\b(?:church|chapel|fire station|workshop|engine house)\b", label):
+            return "commercial"
+        if re.search(r"\b(?:house|cottage|view|linhay|pool)\b", label):
+            return "residential"
+        return "unknown"
+    return corpus.sector(evidence)
+
+
 def row_from_property(
     item: dict,
     auctioneer: str,
@@ -91,6 +127,8 @@ def row_from_property(
     host: str,
     evidence: dict,
     now_utc: datetime | None = None,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
 ) -> dict:
     source_id = str(item.get("_id") or item.get("id") or "").strip()
     handle = str(item.get("handle") or "").strip()
@@ -117,6 +155,7 @@ def row_from_property(
         postcode = postcode.upper()
 
     description = clean_html(item.get("description"))
+    annual_rent, rent_text = published_rent(description)
     property_type = corpus.clean(item.get("type")) or None
     title = corpus.clean(item.get("title")) or None
     now_utc = now_utc or datetime.now(timezone.utc)
@@ -149,7 +188,9 @@ def row_from_property(
         sale_price=sale_price,
         status=status if end_time is not None else "unknown",
         description=description,
-        sector=corpus.sector(" ".join(v for v in (title, property_type, description) if v)),
+        annual_rent=annual_rent,
+        rent_text=rent_text,
+        sector=bamboo_sector(property_type, title, address, description),
         epc=corpus.clean(item.get("epcRating")) or None,
         vat_togc="VAT applicable" if item.get("isVatApplicable") is True else None,
         image_urls=images,
@@ -161,11 +202,20 @@ def row_from_property(
         source_status=item.get("status"),
         reserve_met=reserve_met,
         bid_count=len(item.get("bids") or []),
+        operator_legal_name=operator_legal_name,
+        operator_company_number=operator_company_number,
     )
     return row
 
 
-def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
+def harvest(
+    host: str,
+    auctioneer: str,
+    slug: str,
+    workers: int = 10,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
+) -> dict:
     base = f"https://{host}/"
     first_raw = fetch(base)
     first_props = page_props(first_raw)
@@ -197,6 +247,7 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         raise SystemExit(f"Bamboo pagination contains {total_count - len(by_id)} duplicate stable ids")
 
     detail_payloads: dict[str, dict] = {}
+    detail_failures: dict[str, str] = {}
 
     def collect_detail(summary: dict) -> tuple[str, dict]:
         source_id = str(summary.get("_id") or summary.get("id"))
@@ -209,8 +260,15 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as executor:
         jobs = {executor.submit(collect_detail, summary): source_id for source_id, summary in by_id.items()}
         for position, future in enumerate(as_completed(jobs), 1):
-            source_id, detail = future.result()
-            detail_payloads[source_id] = detail
+            source_id = jobs[future]
+            try:
+                returned_id, detail = future.result()
+                detail_payloads[returned_id] = detail
+            except Exception as exc:
+                # A stable index row remains individual property evidence when
+                # a retired detail URL loses only its rich property payload.
+                detail_payloads[source_id] = by_id[source_id]
+                detail_failures[source_id] = f"{type(exc).__name__}: {exc}"
             if position % 20 == 0 or position == total_count:
                 print(f"BAMBOO DETAIL {position}/{total_count}", flush=True)
 
@@ -222,6 +280,7 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         "page_count": page_count,
         "index_pages": [index_pages[page] for page in sorted(index_pages)],
         "property_details": [detail_payloads[source_id] for source_id in sorted(detail_payloads)],
+        "detail_failures": detail_failures,
     }
     snapshot_bytes = json.dumps(snapshot_value, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
     snapshot_sha = corpus.digest(snapshot_bytes)
@@ -237,7 +296,16 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     }
     now_utc = datetime.now(timezone.utc)
     rows = [
-        row_from_property(detail_payloads[source_id], auctioneer, slug, host, evidence, now_utc)
+        row_from_property(
+            detail_payloads[source_id],
+            auctioneer,
+            slug,
+            host,
+            evidence,
+            now_utc,
+            operator_legal_name=operator_legal_name,
+            operator_company_number=operator_company_number,
+        )
         for source_id in sorted(detail_payloads)
     ]
     appearance_path = corpus.DATA / "appearances" / slug / "bamboo-archive.jsonl.gz"
@@ -253,6 +321,8 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     undated_rows = [row for row in rows if not row.get("auction_date")]
     state = {
         "auctioneer": auctioneer,
+        "operator_legal_name": operator_legal_name,
+        "operator_company_number": operator_company_number,
         "source_auction_id": f"{slug}:bamboo-archive",
         "source_url": base,
         "source_rows_complete": True,
@@ -261,9 +331,10 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         "denominator_reconciled": True,
         "visible_source_rows": total_count,
         "lots_captured": len(rows),
-        "detail_payloads_captured": len(detail_payloads),
+        "detail_payloads_captured": len(detail_payloads) - len(detail_failures),
+        "index_fallback_rows": len(detail_failures),
         "page_count": page_count,
-        "errors": [],
+        "errors": [{"source_id": source_id, "error": error} for source_id, error in sorted(detail_failures.items())],
         "checked_at": corpus.now(),
         "completion_scope": "all listings in the surviving public Bamboo white-label archive; not a claim that deleted listings or earlier platforms are covered",
     }
@@ -271,6 +342,12 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
     summary = {
         "checked_at": corpus.now(),
         "auctioneer": auctioneer,
+        "operator": {
+            "canonical_name": auctioneer,
+            "company_name": operator_legal_name,
+            "company_number": operator_company_number,
+            "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True,
+        },
         "source_url": base,
         "archive_appearances_captured": retained,
         "run_new_appearances": len(new_rows),
@@ -279,6 +356,8 @@ def harvest(host: str, auctioneer: str, slug: str, workers: int = 10) -> dict:
         "dated_historical_records": len(historical_rows),
         "future_dated_records": len(future_rows),
         "undated_records": len(undated_rows),
+        "detail_payloads_captured": len(detail_payloads) - len(detail_failures),
+        "index_fallback_rows": len(detail_failures),
         "with_guide_price": sum(row.get("guide_price") is not None for row in rows),
         "with_sale_price": sum(row.get("sale_price") is not None for row in rows),
         "commercial_or_mixed": sum(row.get("sector") in {"commercial", "mixed-use"} for row in rows),
@@ -300,6 +379,15 @@ if __name__ == "__main__":
     parser.add_argument("--host", default="247auction.bambooauctions.com")
     parser.add_argument("--auctioneer", default="247 Property Auctions")
     parser.add_argument("--slug", default="247-property-auctions")
+    parser.add_argument("--operator-legal-name")
+    parser.add_argument("--operator-company-number")
     parser.add_argument("--workers", type=int, default=10)
     args = parser.parse_args()
-    harvest(args.host, args.auctioneer, args.slug, args.workers)
+    harvest(
+        args.host,
+        args.auctioneer,
+        args.slug,
+        args.workers,
+        args.operator_legal_name,
+        args.operator_company_number,
+    )

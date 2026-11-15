@@ -4,6 +4,193 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 15 November 2026 — Rocket Auctions shared Bamboo archive
+
+The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
+public Bamboo marketplace** and captured all **154 exact `rocketauctions` detail
+payloads**. It banked **154 net new appearances and 154 address records**. No
+stable-ID, original-URL or exact normalized date/address overlap was found against
+the existing corpus.
+
+Of the additions, **134 are exact-dated inside the preceding twenty-year window**,
+12 are future-dated and eight are undated. There are no partial additions. The
+sector split is four commercial, three mixed-use, nine land, 135 residential and
+three unknown; all seven commercial/mixed-use records are in-window.
+
+All 154 preserve a published guide price; 91 preserve an achieved price and eight
+preserve published rent evidence. The in-window subset adds 134 guides, all 91
+achieved prices and all eight rents. Published outcomes remain separate: 91 sold,
+12 available and 51 unknown. Individual dates, original stable URLs and the
+matched index/detail payloads are retained in a content-addressed immutable
+snapshot.
+
+This establishes Rocket Auctions source-years **2022–2026**. ROCKET AUCTIONS LTD
+(company 14433901) is the reconciled operator. Bamboo Proptech is the service
+layer and partner estate-agent branches remain their own operators. The 35
+separately labelled `myauction` rows remain outside this batch pending exact
+historical operator evidence. Completeness is limited to listings surviving in
+the public shared-platform index.
+
+The rebuilt corpus holds **314,765 appearances, 303,449 address records, 11,316
+partial records and 306,367 in-window appearances**, with **108,254 in-window
+guides and 113,976 in-window achieved prices**. Undated and future totals are
+5,071 and 207. The rolling window advanced to 15 November during this run, moving
+one previously future record elsewhere into the in-window total independently of
+Rocket's 134 additions.
+
+Next serial growth target: verify Andrews' operator lineage and capture its 129
+surviving Bamboo properties with the same runner and overlap controls. National
+completeness remains false.
+
+
+## 14 November 2026 — Williams & Goodwin / All Wales Auction shared Bamboo archive
+
+The reusable shared-platform Bamboo runner reconciled the complete **251-page,
+5,013-ID public marketplace** and captured all **186 exact `thepropertypeople`
+detail payloads**. It banked **186 net new appearances and 186 address records**.
+No stable-ID, original-URL or exact date/address overlap was found against the
+existing corpus.
+
+Of the additions, **173 are exact-dated inside the preceding twenty-year window**
+and 13 are undated. There are no future-dated or partial additions. The sector
+split is 18 commercial, 17 mixed-use, 18 land, 130 residential and three unknown;
+32 commercial/mixed-use records are in-window.
+
+All 186 preserve a published guide price; 158 preserve an achieved price and 13
+preserve published rent evidence. The in-window subset adds 173 guides, all 158
+achieved prices and 12 rents. Published outcomes remain separate: 158 sold and
+28 unknown. Individual dates, original stable URLs and the matched index/detail
+payloads are retained in a content-addressed immutable snapshot.
+
+This establishes Williams & Goodwin The Property People source-years **2021–2026**.
+WILLIAMS & GOODWIN, THE PROPERTY PEOPLE LIMITED (company 04534881) is the
+reconciled operator; Williams & Goodwin, The Property People and All Wales Auction
+are labels within that lineage, not additional auctioneers. Completeness is limited
+to listings surviving in the public shared-platform index, excluding deleted
+listings, partner-agent catalogues and earlier platforms.
+
+Rebuilt corpus totals are **314,611 appearances, 303,295 address records, 11,316
+partial records and 306,232 in-window appearances**, with **108,119 in-window
+guides and 113,885 in-window achieved prices**. Undated and future totals are
+5,063 and 196.
+
+Next serial growth target: verify Rocket Auctions' operator lineage and capture
+its 154 surviving Bamboo properties with the same runner and overlap controls.
+National completeness remains false.
+
+
+## 14 November 2026 — Fisher German shared Bamboo archive
+
+The reusable shared-platform Bamboo runner reconciled the same complete **251-page,
+5,013-ID public marketplace** and captured all **271 exact `fishergerman` detail
+payloads**. It banked **271 net new appearances and 271 address records**. No
+stable-ID, original-URL or exact date/address overlap was found against the existing
+corpus.
+
+Of the additions, **263 are exact-dated inside the preceding twenty-year window**
+and eight are future-dated. There are no partial or undated additions. The sector
+split is ten commercial, 13 mixed-use, 97 land, 143 residential and eight unknown;
+22 commercial/mixed-use records are in-window and one is future-dated.
+
+All 271 preserve a published guide price; 214 preserve an achieved price and 11
+preserve published rent evidence. The in-window subset adds 263 guides, all 214
+achieved prices and all 11 rents. Published outcomes remain separate: 214 sold,
+eight available and 49 unknown. Individual dates, original stable URLs and the
+matched index/detail payloads are retained in a content-addressed immutable
+snapshot.
+
+This establishes Fisher German source-years **2021–2026**. FISHER GERMAN LLP
+(company OC317554) is the reconciled operator; offices, merged practices and
+online-auction labels are not counted as additional auctioneers. Completeness is
+limited to the listings surviving in the public shared-platform index.
+
+Rebuilt corpus totals are **314,425 appearances, 303,109 address records, 11,316
+partial records and 306,059 in-window appearances**, with **107,946 in-window
+guides and 113,727 in-window achieved prices**. Undated and future totals are
+5,050 and 196.
+
+Next serial growth target: verify the operator lineage and capture The Property
+People's 186 surviving Bamboo properties with the same runner and overlap controls.
+National completeness remains false.
+
+
+## 14 November 2026 — Bradleys shared Bamboo archive
+
+The reusable shared-platform Bamboo runner reconciled all **251 public index
+pages, 5,013 stable property identities and 426 exact `bradleys` detail
+payloads**. It banked **426 net new individual appearances and 426 address
+records**. Strict cross-corpus checks found no matching stable ID, original URL
+or exact date/address appearance, so no overlapping evidence was counted as
+growth.
+
+Of the additions, **408 are exact-dated inside the preceding twenty-year
+window**, 16 are future-dated and two are undated; no partial record was
+admitted. The sector split is nine commercial, nine mixed-use, 33 land, 363
+residential and 12 unknown. Sixteen commercial/mixed-use records are inside
+the window, one is future-dated and one is undated.
+
+All 426 records preserve a published guide price; 377 preserve an achieved
+price and six preserve published rent evidence. The in-window subset adds 408
+guides, all 377 achieved prices and all six rents. Published outcomes remain
+distinct: 377 sold, 16 available and 33 unknown. Original stable property URLs,
+individual close dates and the matched index/detail payloads are retained in a
+content-addressed immutable snapshot.
+
+This establishes Bradleys Estate Agents source-years **2021–2026**. BRADLEYS
+ESTATE AGENTS LTD. (company 03682747) is the reconciled operator; offices,
+branches and online-auction labels are not counted as additional auctioneers.
+Completeness applies only to listings surviving in the public shared-platform
+index, not deleted listings or earlier platforms.
+
+Rebuilt corpus totals are **314,154 appearances, 302,838 address records,
+11,316 partial records and 305,796 in-window appearances**, with **107,683
+in-window guides and 113,513 in-window achieved prices**. Undated and future
+totals are 5,050 and 188.
+
+Next serial growth target: run the same denominator-reconciling shared-platform
+collector for Fisher German's 271 surviving Bamboo properties, first proving
+operator/trading-name lineage and excluding stable-ID, URL and exact-date/address
+overlaps. National completeness remains false.
+
+
+## 14 November 2026 — Carter Jonas retained Bamboo archive
+
+The reusable Bamboo white-label collector reconciled all three public index pages
+and all **47 stable Carter Jonas property detail pages**. It banked **47 net new
+individual appearances and 47 address records**: 44 exact-dated records inside the
+preceding twenty-year window, two future-dated records and one undated record. No
+partial lot, duplicate appearance identity or exact date/address cross-source
+overlap was admitted.
+
+The full sector split is eight commercial, eight mixed-use, 18 land, 12
+residential and one unknown. The in-window commercial/mixed-use subset is 15;
+the remaining mixed-use record is undated. The retained payloads add **47 guide
+prices and 40 achieved prices** in total, including 44 guides and all 40 achieved
+prices inside the window. They publish no rent evidence. Individual close dates,
+outcomes, original stable property URLs and the complete index/detail payloads are
+preserved in immutable snapshots.
+
+This establishes Carter Jonas source-years **2021, 2022, 2023, 2024, 2025 and
+2026**. Carter Jonas LLP (company OC304417) is the reconciled operator; office and
+branch attribution remains within that lineage and is not counted as additional
+auctioneers. Completeness is limited to the 47 listings surviving in the public
+Bamboo archive and does not claim coverage of removed properties or earlier
+platforms.
+
+The preceding Durrants route was bounded after retained publisher/platform
+searches recovered exact 2021-2022 auction calendar dates but no surviving
+individual property inventory. It therefore added zero properties and is not
+treated as growth. Rebuilt corpus totals are **313,366 appearances, 302,050
+address records, 11,316 partial records and 305,044 in-window appearances**, with
+**106,931 in-window guides and 112,865 in-window achieved prices**.
+
+Next serial growth target: batch Stags' first-party recent-auction result events
+and their individual `View Properties` pages through a reusable event runner.
+Reconcile all Stags offices and branches to one operator lineage, preserve each
+published date, guide, achieved price and outcome, and exclude exact overlapping
+evidence before claiming growth. National completeness remains false.
+
+
 ## 11 November 2026 — Kivells 2022 retained result-book batch
 
 Historical collection run [43047973493](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/43047973493)
@@ -2086,6 +2273,18 @@ The bounded Auction House South West / Bristol & West route exposes no pre-2018 
 - **Publication:** exact-revision publication run [42990018359](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/42990018359) passed both Pages source-to-live verification and `auctiongeek.co.uk` production data/code/indexing verification for bank commit `8a52d2d99256adf404414e72339bd37f96cd22bd`.
 - **Next concrete growth target:** extend the same reusable saved-PDF runner across Kivells' accessible 2024 first-party event results. Start with the proven 12 June 2024 PDF (**13 numbered lots**), then inventory and batch the official result PDFs for 17 January, 21 February, 20 March, 17 April, 15 May, 24 July, 4 September, 9 October and 13 November. Annual and half-year review totals are discovery evidence only; bank only individual result cards with exact dates and preserve all outcomes.
 - National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
+
+## 14 November 2026 — Stags Bamboo and Homeflow archive reconciliation
+
+- **Specific growth opportunity executed:** the reusable Bamboo runner reconciled all **353 stable property rows across 18 pages** in Stags' surviving white-label archive, while a new all-sector Homeflow runner reconciled all **39 current auction-tag rows across four pages** and their detail particulars. Seven retired Bamboo details had lost their rich `propertyData`; their stable index rows, dates, addresses, guides and immutable source evidence were retained explicitly as index fallbacks instead of losing those properties.
+- **Measured net gain:** **362 individual Stags appearances and 362 address records** after merging 30 same-property/same-date cross-platform overlaps. Of these, **344 are exact-dated address records inside 14 November 2006–14 November 2026** and **18 are future-dated**. Added partial and undated records are **0 / 0**. Nine Homeflow rows with different published dates or no same-appearance match remain distinct; a rescheduled date is not treated as a duplicate.
+- **Sector and evidence gain:** **8 commercial, 7 mixed-use, 236 land, 110 residential and 1 unknown**; the commercial/mixed-use subset is **15**. The batch adds **362 guide observations, 271 achieved-price observations and 11 published annual rents**. Guide and achieved prices remain separate; absent values remain null.
+- **Deduplication and provenance:** the 30 merged Homeflow rows retain their original URLs, branch attribution, guide observations and immutable snapshot references on the canonical Bamboo appearances. A full-corpus exact address/date comparison found **0 additional overlaps**. The two source inventories exposed 392 rows, reconciling to 362 canonical appearances without discarding source evidence.
+- **Operator reconciliation:** all **21 Stags office/department directory labels** are mapped to the single `Stags` corpus operator and are not counted as separate auctioneers. The source register now links each label to 362 retained appearances across **six newly represented Stags source-years: 2021–2026**.
+- **Bounded blocker:** thirteen official 2019–2020 Recent Auctions event shells survive, but their embedded property arrays are null and the individual grids have been removed. That route is recorded and must not be retried without a retained asset or materially different snapshot source.
+- **Corpus totals after rebuild:** **313,728 appearances**, **302,412 address records**, **11,316 partial records** and **305,388 in-window appearances**. Window evidence totals are **107,275 guides** and **113,136 achieved prices**. Retained exceptions are **5,048 undated** and **172 future-dated** appearances.
+- **Next concrete growth target:** batch the still-uncollected Kivells 2024 first-party January-April result books (**51 published result cards**) through the existing reusable saved-PDF runner, then reconcile the exact-dated 15 May 14-lot inventory. Rotate to another uncovered source-year if an event has no individual property evidence.
+- Publication has not been started from this checkpoint. National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
 
 ## 11 November 2026 — Durrants retained result-sheet batch
 

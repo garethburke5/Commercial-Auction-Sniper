@@ -673,6 +673,183 @@
       "shared_feed": null,
       "relationship_evidence": "https://www.kivells.com/property-auctions",
       "verified_on": "2026-11-11"
+    },
+    {
+      "brand": "Bradleys Estate Agents",
+      "source": "Bradleys Estate Agents",
+      "canonical_network": null,
+      "parent_family": "Bradleys Estate Agents Ltd",
+      "region_slug": null,
+      "regional_labels": [
+        "Bradleys Online Auctions",
+        "Bradleys Estate Agents"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:bradleys",
+      "relationship_evidence": "https://www.bradleys-estate-agents.co.uk/about-us/",
+      "inventory_equivalence_verified": false,
+      "assessment": "BRADLEYS ESTATE AGENTS LTD. (company 03682747) is one operator; office, branch and online-auction labels are attribution within that lineage and are not counted as separate auctioneers. The surviving shared-platform inventory is reconciled, but deleted listings and earlier platforms remain unverified.",
+      "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Fisher German",
+      "source": "Fisher German",
+      "canonical_network": null,
+      "parent_family": "Fisher German LLP",
+      "region_slug": null,
+      "regional_labels": [
+        "Fisher German",
+        "Fisher German Online Auctions"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:fishergerman",
+      "relationship_evidence": "https://www.fishergerman.co.uk/privacy-notice",
+      "inventory_equivalence_verified": false,
+      "assessment": "FISHER GERMAN LLP (company OC317554) is one operator; offices, merged practices and online-auction labels are attribution within that lineage and are not counted as separate auctioneers. The surviving shared-platform inventory is reconciled, but deleted listings and earlier platforms remain unverified.",
+      "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Williams & Goodwin The Property People",
+      "source": "Williams & Goodwin The Property People",
+      "canonical_network": null,
+      "parent_family": "Williams & Goodwin, The Property People Limited",
+      "region_slug": null,
+      "regional_labels": [
+        "Williams & Goodwin",
+        "The Property People",
+        "All Wales Auction"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:thepropertypeople",
+      "relationship_evidence": "https://www.allwalesauction.com/about-us.html",
+      "inventory_equivalence_verified": false,
+      "assessment": "WILLIAMS & GOODWIN, THE PROPERTY PEOPLE LIMITED (company 04534881) is the canonical operator. Williams & Goodwin, The Property People and All Wales Auction are reconciled labels within that lineage and are not counted as separate auctioneers. The surviving shared-platform inventory is reconciled, but deleted listings, partner-agent lots and earlier platforms remain unverified.",
+      "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Rocket Auctions",
+      "source": "Rocket Auctions",
+      "canonical_network": null,
+      "parent_family": "Rocket Auctions Ltd",
+      "region_slug": null,
+      "regional_labels": [
+        "Rocket Auctions"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:rocketauctions",
+      "relationship_evidence": "https://rocketauctions.co.uk/about-us/",
+      "inventory_equivalence_verified": false,
+      "assessment": "ROCKET AUCTIONS LTD (company 14433901) is the canonical operator. Bamboo Proptech is the shared-platform service and partner estate-agent branches remain their own operators, not Rocket Auction branches. The 35 separately labelled myauction rows are not folded into Rocket pending exact historical operator evidence. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Stags Barnstaple", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Bideford", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Bridport", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Dartmouth", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Dulverton", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Exeter", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Farm Agency", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "department label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Honiton", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Kingsbridge", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Launceston", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Okehampton", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Plymouth", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags South Molton", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Taunton", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Tavistock", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Tiverton", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Torquay", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Truro", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Wadebridge", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Wellington", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "Stags Yeovil", "source": "Stags",
+      "source_url": "https://www.stags.co.uk/offices", "relationship_evidence": "https://www.stags.co.uk/offices",
+      "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer", "verified_on": "2026-11-14"
     }
   ],
   "priority_assessments": [

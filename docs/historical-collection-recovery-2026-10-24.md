@@ -6,6 +6,103 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November Rocket Auctions shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 154 rows attributed to exact organisation
+`rocketauctions`. It banked 154 net address-bearing appearances: 134 exact-dated
+inside the twenty-year window, 12 future-dated, eight undated and zero partial.
+The evidence adds seven commercial/mixed-use appearances, 154 guides, 91 achieved
+prices and eight rents; the in-window subsets are seven, 134, 91 and eight.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps. ROCKET AUCTIONS LTD (14433901) is one operator; Bamboo
+Proptech is the service layer and partner estate-agent branches remain distinct
+operators. The 35 `myauction` rows are not folded into Rocket without exact
+historical operator evidence. Source-years 2022–2026 are newly established for
+Rocket. The retained inventory is complete at 154/154 for the surviving shared
+index, not for deleted listings, the separate My Auction inventory or earlier
+systems.
+
+The rebuilt corpus contains 314,765 appearances, 303,449 addresses, 11,316
+partials and 306,367 in-window appearances. In-window guide and achieved-price
+counts are 108,254 and 113,976. Scheduled scan 43647817442 ended cancelled during
+collection after preserving its candidate diagnostic; validation and publication
+were skipped, and no duplicate external workflow was started. The next target is
+Andrews' 129-row shared-platform inventory after operator-lineage verification.
+National completeness remains false.
+
+## 14 November Williams & Goodwin / All Wales Auction shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 186 rows attributed to exact organisation
+`thepropertypeople`. It banked 186 net address-bearing appearances: 173 exact-dated
+inside the twenty-year window, 13 undated, zero future-dated and zero partial.
+The evidence adds 35 commercial/mixed-use appearances in total (32 in-window),
+186 guides, 158 achieved prices and 13 rents.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact date/address
+overlaps. WILLIAMS & GOODWIN, THE PROPERTY PEOPLE LIMITED (04534881) is one
+operator; Williams & Goodwin, The Property People and All Wales Auction are
+reconciled labels, not separate auctioneers. Source-years 2021–2026 are newly
+established for this operator. The retained inventory is complete at 186/186 for
+the surviving shared-platform index, not for deleted listings, partner-agent
+catalogues or earlier systems.
+
+The rebuilt corpus contains 314,611 appearances, 303,295 addresses, 11,316 partials
+and 306,232 in-window appearances. In-window guide and achieved-price counts are
+108,119 and 113,885. The active scheduled historical writer was allowed to finish,
+its checkpoint was merged without discarding evidence, and no duplicate external
+workflow was started. The next target is Rocket Auctions' 154-row shared-platform
+inventory after operator-lineage verification. National completeness remains false.
+
+## 14 November Fisher German shared-platform growth checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 271 rows attributed to exact organisation
+`fishergerman`. It banked 271 net address-bearing appearances: 263 exact-dated
+inside the twenty-year window, eight future-dated, zero undated and zero partial.
+The evidence adds 23 commercial/mixed-use appearances in total (22 in-window),
+271 guides, 214 achieved prices and 11 rents.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact date/address
+overlaps. FISHER GERMAN LLP (OC317554) is one operator; offices, merged practices
+and online-auction labels are not separate auctioneers. Source-years 2021–2026 are
+newly established for this operator. The retained inventory is complete at 271/271
+for the surviving shared-platform index, not for deleted listings or earlier systems.
+
+The rebuilt corpus contains 314,425 appearances, 303,109 addresses, 11,316 partials
+and 306,059 in-window appearances. In-window guide and achieved-price counts are
+107,946 and 113,727. No external collection or publication workflow was started.
+The next target is The Property People's 186-row shared-platform inventory after
+operator-lineage verification. National completeness remains false.
+
+## 14 November shared-platform growth checkpoint
+
+The reusable Bamboo shared-platform collector reconciled the complete current
+public index (251 pages and 5,013 stable property IDs) before selecting the exact
+`bradleys` organisation. All 426 selected detail payloads were captured and
+banked as 426 net new address-bearing appearances: 408 exact-dated records in
+the twenty-year window, 16 future records, two undated records and no partials.
+The evidence adds 18 commercial/mixed-use appearances in total (16 in-window),
+426 guides, 377 achieved prices and six rents.
+
+Cross-corpus streaming checks found zero stable-ID/URL overlaps and zero exact
+date/address overlaps. The immutable snapshot retains the matched index rows and
+all property details, while original property URLs and individual close dates
+remain on each appearance. BRADLEYS ESTATE AGENTS LTD. (03682747) is one operator;
+branches and trading labels are attribution, not new auctioneers. Source-years
+2021–2026 are newly established for this operator. The surviving-index inventory
+is complete at 426/426, but deleted listings and earlier Bradleys platforms remain
+unverified.
+
+The rebuilt corpus contains 314,154 appearances, 302,838 addresses, 11,316
+partials and 305,796 in-window appearances. In-window guide and achieved-price
+counts are 107,683 and 113,513. No collection or publication workflow was
+started. The next concrete growth target is the 271-property Fisher German
+organisation on the same shared platform, using the reusable runner only after
+operator and overlap reconciliation. National completeness remains false.
+
 ## Implemented recovery
 
 - The historical workflow runs hourly with a 20-minute rotating collection budget, a per-task timeout, and a single concurrency group. It no longer stops after four fast tasks.
