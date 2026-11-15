@@ -8,6 +8,33 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Hunters Auctions, 15 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 491 exact `hunters` rows. The bank gains
+491 address-bearing appearances: 467 exact-dated inside the twenty-year window,
+10 future-dated and 14 undated. Partial and duplicate-derived additions are zero.
+Stable-ID/URL and exact normalized date/address comparisons returned zero overlaps.
+
+The batch contains six commercial, 13 mixed-use, six land, 460 residential and six
+unknown properties. All 19 commercial/mixed-use appearances are in-window. It adds
+491 guide prices, 369 achieved prices and 28 rents; the in-window subsets are 467
+guides, 369 achieved prices and 27 rents. Individual URLs, dates, outcomes and
+matched payloads are retained immutably.
+
+Hunters Auctions source-years 2021–2026 are newly represented. J W AUCTIONS LIMITED
+(13052757) independently owns and operates this Hunters franchise with the written
+consent of HUNTERS FRANCHISING LIMITED. The auction trading label is one operator;
+the franchisor, group-owned branches and other franchisees are neither counted as
+additional auctioneers nor folded into this inventory. Completeness is limited to
+the surviving shared-platform inventory.
+
+The rebuilt corpus holds 315,385 appearances, 304,069 address records and 306,929
+in-window appearances. No generated-data workflow or publisher was active and no
+duplicate workflow was launched. The next high-yield target is Webbers' 99 surviving
+Bamboo rows after operator reconciliation. National completeness remains false.
+
+
 ## Persisted historical gain — Andrews, 15 November
 
 The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable

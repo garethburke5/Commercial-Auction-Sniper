@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T01:03:25.416223+00:00",
-  "corpus_checkpoint": "2026-11-15T00:02:57.592113+00:00",
+  "generated_at": "2026-11-15T02:10:40.174856+00:00",
+  "corpus_checkpoint": "2026-11-15T02:08:54.120552+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8334,6 +8334,7 @@
     "Allsop": 45007,
     "Allsop Commercial": 68,
     "Anderson & Garland": 29,
+    "Andrews": 129,
     "Astleys": 29,
     "Auction Agent": 25,
     "Auction Estates": 2072,
@@ -8409,6 +8410,7 @@
     "Harman Healy": 1528,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
+    "Hunters Auctions": 491,
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
     "Kivells": 413,
@@ -8463,12 +8465,12 @@
     "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 306367,
-      "auction_ids_observed": 15026,
-      "with_guide_price": 108254,
-      "with_sale_price": 113976,
-      "with_both_prices": 50097,
-      "marked_sold": 156858,
+      "lot_appearances": 306929,
+      "auction_ids_observed": 15588,
+      "with_guide_price": 108816,
+      "with_sale_price": 114438,
+      "with_both_prices": 50559,
+      "marked_sold": 157320,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -8987,6 +8989,28 @@
         "with_sale_price": 3,
         "with_both_prices": 3,
         "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrews",
+        "year": 2025,
+        "lot_appearances": 13,
+        "auction_ids_observed": 13,
+        "with_guide_price": 13,
+        "with_sale_price": 13,
+        "with_both_prices": 13,
+        "marked_sold": 13,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Andrews",
+        "year": 2026,
+        "lot_appearances": 82,
+        "auction_ids_observed": 82,
+        "with_guide_price": 82,
+        "with_sale_price": 80,
+        "with_both_prices": 80,
+        "marked_sold": 80,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -14303,6 +14327,72 @@
         "marked_sold_without_sale_price": 16
       },
       {
+        "auctioneer": "Hunters Auctions",
+        "year": 2021,
+        "lot_appearances": 65,
+        "auction_ids_observed": 65,
+        "with_guide_price": 65,
+        "with_sale_price": 49,
+        "with_both_prices": 49,
+        "marked_sold": 49,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Hunters Auctions",
+        "year": 2022,
+        "lot_appearances": 75,
+        "auction_ids_observed": 75,
+        "with_guide_price": 75,
+        "with_sale_price": 58,
+        "with_both_prices": 58,
+        "marked_sold": 58,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Hunters Auctions",
+        "year": 2023,
+        "lot_appearances": 98,
+        "auction_ids_observed": 98,
+        "with_guide_price": 98,
+        "with_sale_price": 76,
+        "with_both_prices": 76,
+        "marked_sold": 76,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Hunters Auctions",
+        "year": 2024,
+        "lot_appearances": 100,
+        "auction_ids_observed": 100,
+        "with_guide_price": 100,
+        "with_sale_price": 84,
+        "with_both_prices": 84,
+        "marked_sold": 84,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Hunters Auctions",
+        "year": 2025,
+        "lot_appearances": 63,
+        "auction_ids_observed": 63,
+        "with_guide_price": 63,
+        "with_sale_price": 54,
+        "with_both_prices": 54,
+        "marked_sold": 54,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Hunters Auctions",
+        "year": 2026,
+        "lot_appearances": 66,
+        "auction_ids_observed": 66,
+        "with_guide_price": 66,
+        "with_sale_price": 48,
+        "with_both_prices": 48,
+        "marked_sold": 48,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "John Francis",
         "year": 2013,
         "lot_appearances": 78,
@@ -17394,8 +17484,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5071,
-    "future_dated_appearances": 207,
+    "undated_appearances": 5106,
+    "future_dated_appearances": 230,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -23345,7 +23435,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-15T01:03:23.927824+00:00",
+    "checked_at": "2026-11-15T02:10:39.793598+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

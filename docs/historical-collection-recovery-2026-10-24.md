@@ -6,6 +6,31 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November Hunters Auctions shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 491 rows attributed to exact organisation `hunters`.
+It banked 491 net address-bearing appearances: 467 exact-dated inside the twenty-year
+window, 10 future-dated, 14 undated and zero partial. The evidence adds 19
+commercial/mixed-use appearances, 491 guides, 369 achieved prices and 28 rents;
+the in-window price/rent subsets are 467, 369 and 27.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps. J W AUCTIONS LIMITED (13052757) independently owns and
+operates Hunters Auctions with the written consent of HUNTERS FRANCHISING LIMITED.
+The Hunters auction trading label is one operator; the franchisor, group-owned
+branches and other franchisees are not folded into this inventory or counted as
+additional auctioneers. Source-years 2021–2026 are newly established. The retained
+inventory is complete at 491/491 for the surviving shared index, not for deleted
+listings or earlier systems.
+
+The rebuilt corpus contains 315,385 appearances, 304,069 addresses, 11,316
+partials and 306,929 in-window appearances. In-window guide and achieved-price
+counts are 108,816 and 114,438. The latest 50 workflow runs were checked and no
+generated-data writer or publisher was active; no external workflow was launched.
+The next target is Webbers' 99-row shared-platform inventory after operator-lineage
+verification. National completeness remains false.
+
 ## 15 November Andrews shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
