@@ -4,6 +4,40 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 15 November 2026 — My Auction shared Bamboo archive
+
+The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
+public Bamboo marketplace** and captured all **35 exact `myauction` detail
+payloads**. It banked **35 net new appearances and 35 address records**. No
+stable-ID, original-URL or exact normalized date/address overlap was found against
+the existing corpus, including Rocket Auctions.
+
+All 35 additions are exact-dated inside the preceding twenty-year window. There
+are no partial, undated or future-dated additions. The sector split is one
+mixed-use, two land, 31 residential and one unknown; the mixed-use record is
+in-window.
+
+All 35 preserve a published guide price, nine preserve an achieved price and 12
+preserve published rent evidence. Published outcomes remain separate: nine sold
+and 26 unknown. Individual dates, original stable URLs and the matched index/detail
+payloads are retained in a content-addressed immutable snapshot.
+
+This establishes My Auction source-years **2022–2024**. MY AUCTION LTD (company
+12079924) operated the auction house launched in 2019. My Auction merged with
+Bamboo in March 2024 to form Rocket Auctions; its exact historical rows remain
+attributed to My Auction and are not relabelled or double-counted as Rocket.
+Completeness is limited to listings surviving in the shared index.
+
+The rebuilt corpus holds **315,579 appearances, 304,263 address records, 11,316
+partial records and 307,114 in-window appearances**, with **109,001 in-window
+guides and 114,549 in-window achieved prices**. Undated and future totals remain
+5,109 and 236.
+
+Next serial growth target: verify Keller Williams' exact UK branch/operator
+attribution and capture its 41 surviving Bamboo properties if they form one
+evidenced inventory. National completeness remains false.
+
+
 ## 15 November 2026 — Lodge & Thomas shared Bamboo archive
 
 The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID

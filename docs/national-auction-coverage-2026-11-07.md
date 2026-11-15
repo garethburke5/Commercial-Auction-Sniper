@@ -8,6 +8,33 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — My Auction, 15 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 35 exact `myauction` rows. The bank gains
+35 address-bearing appearances, all exact-dated inside the twenty-year window.
+Partial, undated, future-dated and duplicate-derived additions are zero.
+Stable-ID/URL and exact normalized date/address comparisons returned zero overlaps,
+including against Rocket Auctions.
+
+The batch contains one mixed-use, two land, 31 residential and one unknown
+property. It adds 35 guide prices, nine achieved prices and 12 rents, all
+in-window. Individual URLs, dates, outcomes and matched payloads are retained
+immutably.
+
+My Auction source-years 2022–2024 are newly represented. MY AUCTION LTD
+(12079924) operated the historical auction house. Its March 2024 merger with
+Bamboo formed Rocket Auctions, but exact My Auction rows retain their original
+operator rather than being relabelled or double-counted. Completeness is limited
+to the surviving shared-platform inventory.
+
+The rebuilt corpus holds 315,579 appearances, 304,263 address records and 307,114
+in-window appearances. No generated-data workflow or publisher was active and no
+duplicate workflow was launched. The next target is Keller Williams' 41 surviving
+Bamboo rows after exact UK branch/operator reconciliation. National completeness
+remains false.
+
+
 ## Persisted historical gain — Lodge & Thomas, 15 November
 
 The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable

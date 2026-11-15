@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-15T04:11:22.672480+00:00",
-  "individual_lot_records_captured": 315544,
-  "records_with_address": 304228,
+  "generated_at": "2026-11-15T05:12:14.564354+00:00",
+  "individual_lot_records_captured": 315579,
+  "records_with_address": 304263,
   "partial_lot_records": 11316,
-  "exact_address_groups": 170114,
+  "exact_address_groups": 170149,
   "groups_with_repeat_appearances": 43028,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -102,6 +102,7 @@
     "Loveitts": 582,
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
+    "My Auction": 35,
     "Network Auctions": 1202,
     "Newlands Property": 9,
     "Online Property Auction Group": 51,
@@ -162,26 +163,26 @@
     "2019": 7978,
     "2020": 13957,
     "2021": 21563,
-    "2022": 27013,
-    "2023": 33804,
-    "2024": 42704,
+    "2022": 27027,
+    "2023": 33820,
+    "2024": 42709,
     "2025": 48799,
     "2026": 48740,
     "2027": 6
   },
   "by_sector": {
     "commercial": 42861,
-    "land": 19856,
+    "land": 19858,
     "mixed": 1,
-    "mixed-use": 47793,
-    "residential": 153390,
-    "unknown": 51643
+    "mixed-use": 47794,
+    "residential": 153421,
+    "unknown": 51644
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 4998,
+  "surviving_catalogues_completely_harvested": 4999,
   "catalogues_incomplete_or_unreconciled": 562,
   "catalogue_fetch_or_parse_failures": 39,
   "limits": [
@@ -195,12 +196,12 @@
     "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307079,
-      "auction_ids_observed": 15738,
-      "with_guide_price": 108966,
-      "with_sale_price": 114540,
-      "with_both_prices": 50661,
-      "marked_sold": 157422,
+      "lot_appearances": 307114,
+      "auction_ids_observed": 15773,
+      "with_guide_price": 109001,
+      "with_sale_price": 114549,
+      "with_both_prices": 50670,
+      "marked_sold": 157431,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -7155,6 +7156,39 @@
         "with_both_prices": 0,
         "marked_sold": 1097,
         "marked_sold_without_sale_price": 76
+      },
+      {
+        "auctioneer": "My Auction",
+        "year": 2022,
+        "lot_appearances": 14,
+        "auction_ids_observed": 14,
+        "with_guide_price": 14,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "My Auction",
+        "year": 2023,
+        "lot_appearances": 16,
+        "auction_ids_observed": 16,
+        "with_guide_price": 16,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "My Auction",
+        "year": 2024,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Network Auctions",

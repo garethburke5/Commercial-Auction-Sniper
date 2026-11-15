@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T04:12:49.066673+00:00",
-  "corpus_checkpoint": "2026-11-15T04:11:22.672480+00:00",
+  "generated_at": "2026-11-15T05:13:50.580972+00:00",
+  "corpus_checkpoint": "2026-11-15T05:12:14.564354+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -8438,6 +8438,7 @@
     "Loveitts": 582,
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
+    "My Auction": 35,
     "Network Auctions": 1202,
     "Newlands Property": 9,
     "Online Property Auction Group": 51,
@@ -8481,12 +8482,12 @@
     "through_date": "2026-11-15",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 307079,
-      "auction_ids_observed": 15738,
-      "with_guide_price": 108966,
-      "with_sale_price": 114540,
-      "with_both_prices": 50661,
-      "marked_sold": 157422,
+      "lot_appearances": 307114,
+      "auction_ids_observed": 15773,
+      "with_guide_price": 109001,
+      "with_sale_price": 114549,
+      "with_both_prices": 50670,
+      "marked_sold": 157431,
       "marked_sold_without_sale_price": 43622
     },
     "by_auctioneer_and_year": [
@@ -15441,6 +15442,39 @@
         "with_both_prices": 0,
         "marked_sold": 1097,
         "marked_sold_without_sale_price": 76
+      },
+      {
+        "auctioneer": "My Auction",
+        "year": 2022,
+        "lot_appearances": 14,
+        "auction_ids_observed": 14,
+        "with_guide_price": 14,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "My Auction",
+        "year": 2023,
+        "lot_appearances": 16,
+        "auction_ids_observed": 16,
+        "with_guide_price": 16,
+        "with_sale_price": 5,
+        "with_both_prices": 5,
+        "marked_sold": 5,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "My Auction",
+        "year": 2024,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Network Auctions",
@@ -23583,7 +23617,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-15T04:12:47.249935+00:00",
+    "checked_at": "2026-11-15T05:13:49.012694+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }

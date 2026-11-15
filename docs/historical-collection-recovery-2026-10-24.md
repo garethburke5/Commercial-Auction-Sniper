@@ -6,6 +6,32 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November My Auction shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 35 rows attributed to exact organisation `myauction`.
+It banked 35 net address-bearing appearances, all exact-dated inside the
+twenty-year window, with zero partial, undated or future-dated additions. The
+evidence adds one mixed-use appearance, 35 guides, nine achieved prices and 12
+published rents, all in-window.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps, including against Rocket Auctions. MY AUCTION LTD
+(12079924) operated the auction house launched in 2019. My Auction merged with
+Bamboo in March 2024 to form Rocket Auctions, but its exact historical rows remain
+under their original operator and are not counted again in Rocket's separate
+inventory. Source-years 2022–2024 are newly established. The retained inventory
+is complete at 35/35 for the surviving shared index, not for deleted listings or
+pre-Bamboo systems.
+
+The rebuilt corpus contains 315,579 appearances, 304,263 addresses, 11,316
+partials and 307,114 in-window appearances. In-window guide and achieved-price
+counts are 109,001 and 114,549. The latest workflow runs were checked and no
+generated-data writer or publisher was active; main remained at the checkpoint
+already merged into the protected chain and no external workflow was launched.
+The next target is Keller Williams' 41-row shared-platform inventory after exact
+UK branch/operator reconciliation. National completeness remains false.
+
 ## 15 November Lodge & Thomas shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
