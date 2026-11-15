@@ -6,6 +6,32 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November Webbers shared-platform checkpoint
+
+The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public
+marketplace and captured all 99 rows attributed to exact organisation `webbers`.
+It banked 99 net address-bearing appearances: 91 exact-dated inside the twenty-year
+window, six future-dated, two undated and zero partial. The evidence adds 10
+commercial/mixed-use appearances, 99 guides, 51 achieved prices and two rents;
+the in-window price/rent subsets are 91, 51 and two.
+
+Cross-corpus checks found zero stable-ID/URL overlaps and zero exact normalized
+date/address overlaps. WEBBERS PROPERTY SERVICES LIMITED (02908137) is the
+canonical operator. Its 13 interconnected offices and Webbers trading labels are
+not separate auctioneers; Fine & Country marketing remains outside this exact
+inventory without matching source evidence, and Bamboo Auctions is the technology
+provider. Source-years 2021–2026 are newly established. The retained inventory is
+complete at 99/99 for the surviving shared index, not for deleted listings or
+earlier systems.
+
+The rebuilt corpus contains 315,484 appearances, 304,168 addresses, 11,316
+partials and 307,020 in-window appearances. In-window guide and achieved-price
+counts are 108,907 and 114,489. Fresh main checkpoint 507c12e was merged before
+the rebuild, preserving its source evidence; no generated-data workflow or
+publisher was active and no external workflow was launched. The next target is
+Lodge & Thomas' 60-row shared-platform inventory after operator-lineage
+verification. National completeness remains false.
+
 ## 15 November Hunters Auctions shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public

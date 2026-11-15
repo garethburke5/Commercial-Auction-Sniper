@@ -8,6 +8,35 @@ appearances, retaining older evidence too. National coverage is NOT yet verified
 A commercial website filter is not permission to discard residential or land records.
 
 
+## Persisted historical gain — Webbers, 15 November
+
+The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable
+IDs before capturing every one of the 99 exact `webbers` rows. The bank gains 99
+address-bearing appearances: 91 exact-dated inside the twenty-year window, six
+future-dated and two undated. Partial and duplicate-derived additions are zero.
+Stable-ID/URL and exact normalized date/address comparisons returned zero overlaps.
+
+The batch contains two commercial, eight mixed-use, three land, 85 residential
+and one unknown property. All 10 commercial/mixed-use appearances are in-window.
+It adds 99 guide prices, 51 achieved prices and two rents; the in-window subsets
+are 91 guides, 51 achieved prices and two rents. Individual URLs, dates, outcomes
+and matched payloads are retained immutably.
+
+Webbers source-years 2021–2026 are newly represented. WEBBERS PROPERTY SERVICES
+LIMITED (02908137) is the canonical operator. Its 13 interconnected offices and
+Webbers trading labels are reconciled without inflating the auctioneer count;
+Fine & Country marketing is not folded into this exact inventory without matching
+evidence, while Bamboo Auctions is the technology provider. Completeness is
+limited to the surviving shared-platform inventory.
+
+The rebuilt corpus holds 315,484 appearances, 304,168 address records and 307,020
+in-window appearances. Fresh main checkpoint 507c12e was merged without discarding
+source evidence; no generated-data workflow or publisher was active and no
+duplicate workflow was launched. The next high-yield target is Lodge & Thomas'
+60 surviving Bamboo rows after operator reconciliation. National completeness
+remains false.
+
+
 ## Persisted historical gain — Hunters Auctions, 15 November
 
 The reusable Bamboo runner reconciled 251 public index pages and all 5,013 stable

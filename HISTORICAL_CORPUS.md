@@ -4,6 +4,42 @@ This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
 
+## 15 November 2026 — Webbers shared Bamboo archive
+
+The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
+public Bamboo marketplace** and captured all **99 exact `webbers` detail
+payloads**. It banked **99 net new appearances and 99 address records**. No
+stable-ID, original-URL or exact normalized date/address overlap was found against
+the existing corpus.
+
+Of the additions, **91 are exact-dated inside the preceding twenty-year window**,
+six are future-dated and two are undated. There are no partial additions. The
+sector split is two commercial, eight mixed-use, three land, 85 residential and
+one unknown; all 10 commercial/mixed-use records are in-window.
+
+All 99 preserve a published guide price; 51 preserve an achieved price and two
+preserve published rent evidence. The in-window subset adds 91 guides, all 51
+achieved prices and both rents. Published outcomes remain separate: 51 sold, six
+available and 42 unknown. Individual dates, original stable URLs and the matched
+index/detail payloads are retained in a content-addressed immutable snapshot.
+
+This establishes Webbers source-years **2021–2026**. WEBBERS PROPERTY SERVICES
+LIMITED (company 02908137) is the canonical operator. Its 13 interconnected
+offices and Webbers trading labels are one auctioneer; Fine & Country marketing
+is not folded into this inventory without exact source evidence. Bamboo Auctions
+is the technology provider. Completeness is limited to listings surviving in the
+shared index.
+
+The rebuilt corpus holds **315,484 appearances, 304,168 address records, 11,316
+partial records and 307,020 in-window appearances**, with **108,907 in-window
+guides and 114,489 in-window achieved prices**. Undated and future totals are
+5,108 and 236.
+
+Next serial growth target: verify Lodge & Thomas' legal/operator lineage and
+capture its 60 surviving Bamboo properties with the same runner and overlap
+controls. National completeness remains false.
+
+
 ## 15 November 2026 — Hunters Auctions shared Bamboo archive
 
 The reusable shared-platform runner reconciled the complete **251-page, 5,013-ID
