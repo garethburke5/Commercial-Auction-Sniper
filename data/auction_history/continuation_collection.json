@@ -1,11 +1,12 @@
 {
-  "generated_at": "2026-11-15T17:57:13.774Z",
+  "generated_at": "2026-11-15T20:58:21Z",
   "status": "target_persisted",
   "previous_run": {
-    "run_id": 43728265844,
-    "commit": "7ac3a5aca24f607c7935001c17bd8eb6cbc5e9a1",
-    "net_new_appearances": 79,
-    "auctioneer": "Bradley Hall"
+    "run_id": 43756039175,
+    "commit": "147722d9374522cf44583d9013fb5ea30889bd8d",
+    "net_new_appearances": 0,
+    "auctioneer": "All Wales Auction",
+    "result": "Focused All Wales collector was skipped because the bounded continuation admission test failed before collection; the workflow nevertheless rebuilt and published the unchanged bank checkpoint."
   },
   "runs": [
     {
@@ -13,16 +14,25 @@
       "status": "completed_with_checkpoint",
       "result": "Clarke & Simpson collector was not executed because the bounded-continuation test failed before collection; the job nevertheless rebuilt and published the saved-lot checkpoint.",
       "failure": "tests/test_history_continuation.py::test_banked_continuation_checkpoint_is_valid_json expected a top-level runs list; existing continuation file lacked it.",
-      "bank_commit": "6fac737eec6bd33b13c2541d20e0d5e093aa5296",
+      "bank_commit": "6fac737ee",
+      "net_new_appearances": 0
+    },
+    {
+      "run_id": 43756039175,
+      "status": "completed_with_checkpoint",
+      "result": "All Wales collector was not executed because the continuation checkpoint lacked the required next_task integer; the workflow still banked the unchanged generated checkpoint.",
+      "failure": "tests/test_history_continuation.py::test_banked_continuation_checkpoint_is_valid_json expected a top-level next_task integer.",
+      "bank_commit": "147722d9374522cf44583d9013fb5ea30889bd8d",
       "net_new_appearances": 0
     }
   ],
+  "next_task": 0,
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
     "operator_south": "Peter Alan Limited",
     "source_route": "All Wales Auction first-party catalogue PDFs",
-    "rationale": "Clarke & Simpson is already represented at 170 appearances on main, so do not refresh it. All Wales Auction remains at zero retained appearances while its first-party catalogue archive exposes address-level lot material and explicitly identifies the North/South regional lots. This is a materially different operator/source route with multi-year surviving evidence.",
+    "rationale": "Clarke & Simpson is already represented at 170 appearances on main. All Wales Auction remains at zero retained appearances while its first-party catalogue archive exposes multi-year address-level lot material. This is a materially different operator/source route.",
     "evidence": [
       "https://www.allwalesauction.com/about-us.html",
       "https://www.allwalesauction.com/catalogue.php",
@@ -54,7 +64,7 @@
       }
     ],
     "known_evidence_count": 0,
-    "priority": "Build one reusable first-party PDF/OCR runner for these catalogues, snapshot each source once, extract every individually evidenced All Wales lot with exact event date, address/locality, guide, published outcome and achieved price where present, reconcile North/South brand and legal-operator attribution without alias double-counting, deduplicate against the corpus, then rebuild and publish. Keep any non-property/unclear rows null or excluded rather than inferred."
+    "priority": "Run one reusable first-party PDF/OCR batch, snapshot each source once, extract every individually evidenced lot, preserve exact event date/address/locality/guide/outcome/achieved price, reconcile North/South operator lineage, deduplicate, rebuild and publish. Unknown values remain null."
   },
-  "storage_warning": "GitHub Actions previously reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs."
+  "storage_warning": "GitHub Actions reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs."
 }
