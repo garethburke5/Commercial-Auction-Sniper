@@ -71,9 +71,10 @@ def harvest(
     workers: int = 10,
     operator_legal_name: str | None = None,
     operator_company_number: str | None = None,
+    index_bundle: tuple[list[dict], int, int] | None = None,
 ) -> dict:
     base = f"https://{host}/"
-    index_rows, page_count, global_count = collect_index(host, workers)
+    index_rows, page_count, global_count = index_bundle or collect_index(host, workers)
     matches = [row for row in index_rows if row.get("organisation") == organisation]
     if len(matches) != expected_count:
         counts = Counter(row.get("organisation") or "(none)" for row in index_rows)
@@ -223,20 +224,90 @@ def harvest(
     return summary
 
 
+def harvest_batch(
+    operators: list[dict],
+    host: str = "app.bambooproptech.com",
+    workers: int = 10,
+) -> list[dict]:
+    """Harvest multiple exact organisations from one reconciled shared index."""
+    if not operators:
+        raise ValueError("batch config must contain at least one operator")
+    index_bundle = collect_index(host, workers)
+    index_counts = Counter(row.get("organisation") or "(none)" for row in index_bundle[0])
+    seen_organisations: set[str] = set()
+    seen_slugs: set[str] = set()
+    for operator in operators:
+        required = {"organisation", "auctioneer", "slug", "expected_count"}
+        missing = sorted(required - operator.keys())
+        if missing:
+            raise ValueError(f"batch operator is missing required keys: {', '.join(missing)}")
+        organisation = operator["organisation"]
+        slug = operator["slug"]
+        if organisation in seen_organisations or slug in seen_slugs:
+            raise ValueError("batch organisations and slugs must be unique")
+        seen_organisations.add(organisation)
+        seen_slugs.add(slug)
+        actual = index_counts[organisation]
+        expected = int(operator["expected_count"])
+        if actual != expected:
+            raise ValueError(
+                f"organisation {organisation!r} exposes {actual} rows, expected {expected}; "
+                "batch stopped before writing any operator"
+            )
+    summaries = []
+    for operator in operators:
+        summaries.append(harvest(
+            operator["organisation"],
+            operator["auctioneer"],
+            operator["slug"],
+            int(operator["expected_count"]),
+            host=host,
+            workers=workers,
+            operator_legal_name=operator.get("operator_legal_name"),
+            operator_company_number=operator.get("operator_company_number"),
+            index_bundle=index_bundle,
+        ))
+    return summaries
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--organisation", required=True)
-    parser.add_argument("--auctioneer", required=True)
-    parser.add_argument("--slug", required=True)
-    parser.add_argument("--expected-count", required=True, type=int)
+    parser.add_argument("--organisation")
+    parser.add_argument("--auctioneer")
+    parser.add_argument("--slug")
+    parser.add_argument("--expected-count", type=int)
+    parser.add_argument(
+        "--batch-config",
+        type=Path,
+        help="JSON array of operator objects; the shared index is fetched only once",
+    )
     parser.add_argument("--host", default="app.bambooproptech.com")
     parser.add_argument("--workers", type=int, default=10)
     parser.add_argument("--operator-legal-name")
     parser.add_argument("--operator-company-number")
     args = parser.parse_args()
-    harvest(
-        args.organisation, args.auctioneer, args.slug, args.expected_count,
-        host=args.host, workers=args.workers,
-        operator_legal_name=args.operator_legal_name,
-        operator_company_number=args.operator_company_number,
-    )
+    if args.batch_config:
+        if any(value is not None for value in (
+            args.organisation, args.auctioneer, args.slug, args.expected_count,
+            args.operator_legal_name, args.operator_company_number,
+        )):
+            parser.error("--batch-config cannot be combined with single-operator options")
+        config = json.loads(args.batch_config.read_text())
+        if not isinstance(config, list):
+            parser.error("--batch-config must contain a JSON array")
+        harvest_batch(config, host=args.host, workers=args.workers)
+    else:
+        missing = [name for name, value in (
+            ("--organisation", args.organisation),
+            ("--auctioneer", args.auctioneer),
+            ("--slug", args.slug),
+            ("--expected-count", args.expected_count),
+        ) if value is None]
+        if missing:
+            parser.error(f"single-operator mode requires {', '.join(missing)}")
+        harvest(
+            args.organisation, args.auctioneer, args.slug, args.expected_count,
+            host=args.host, workers=args.workers,
+            operator_legal_name=args.operator_legal_name,
+            operator_company_number=args.operator_company_number,
+        )

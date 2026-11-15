@@ -5906,5 +5906,62 @@
     },
     "next_growth_target": "Reconcile West Wales Properties' legal operator and trading names, then capture the 40 surviving westwalesproperties Bamboo properties through the reusable shared-platform runner with stable-ID, URL and exact-date/address overlap controls.",
     "national_completeness_verified": false
+  },
+  "bamboo_shared_batch_runner_preflight": {
+    "checked_at": "2026-11-15T07:09:26+00:00",
+    "opportunity": "Prepare one protected shared-index batch for West Wales Properties, Howkins & Harrison and Arron James rather than rescanning and deploying one dated operator step at a time.",
+    "net_new_appearances": 0,
+    "new_address_records": 0,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 0,
+    "new_undated_appearances": 0,
+    "new_future_dated_appearances": 0,
+    "commercial_or_mixed_use": 0,
+    "new_guide_prices": 0,
+    "new_sale_prices": 0,
+    "new_rent_values": 0,
+    "collection_growth_claimed": false,
+    "read_only_preflight": {
+      "shared_platform_pages_reconciled": 251,
+      "shared_platform_rows_reconciled": 5013,
+      "westwalesproperties_rows": 40,
+      "westwalesproperties_unique_ids": 40,
+      "westwalesproperties_unique_handles": 40
+    },
+    "prepared_batch": [
+      {
+        "organisation": "westwalesproperties",
+        "auctioneer": "West Wales Properties",
+        "expected_count": 40,
+        "operator": "ASKENS LIMITED / West Wales Properties franchise companies",
+        "company_number": "03304253"
+      },
+      {
+        "organisation": "howkinsandharrison",
+        "auctioneer": "Howkins & Harrison",
+        "expected_count": 32,
+        "operator": "HOWKINS AND HARRISON LLP",
+        "company_number": "OC316701"
+      },
+      {
+        "organisation": "arronjames",
+        "auctioneer": "Arron James Online Auction",
+        "expected_count": 32,
+        "operator": "ARRON JAMES LTD",
+        "company_number": "11649468"
+      }
+    ],
+    "reusable_collector_improvement": "Batch mode collects the shared 251-page index once, validates every organisation denominator and unique slug before any generated write, then reuses that immutable index bundle for each operator.",
+    "focused_tests_passed": 10,
+    "writer_blocker": {
+      "auction_sniper_scan_run": 43685703675,
+      "auction_sniper_scan_state": "in_progress: Run production collectors",
+      "savills_bulk_history_run": 43685042160,
+      "savills_bulk_history_state": "in_progress: actions/checkout@v4",
+      "reason_collection_not_started": "Concurrent generated-data collection was active; starting the prepared batch would risk conflicting publication or source-bank writes."
+    },
+    "publication_started": false,
+    "next_growth_target": "After both protected runs reach terminal states, inspect and merge any newly banked main evidence, then execute config/bamboo_shared_growth_batch.json to capture up to 104 surviving West Wales Properties, Howkins & Harrison and Arron James appearances in one reconciled-index batch; deduplicate before rebuilding and publishing.",
+    "national_completeness_verified": false
   }
 }

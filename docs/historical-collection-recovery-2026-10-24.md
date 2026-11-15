@@ -6,6 +6,29 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November protected-writer batch preparation
+
+No collection growth is claimed for this checkpoint. At 07:09 UTC, Auction
+Sniper Scan run 43685703675 remained inside its production collectors and Savills
+bulk historical run 43685042160 remained inside checkout. Both can write or
+publish generated evidence, so a concurrent historical batch was not started.
+
+Read-only reconciliation nevertheless confirmed 40 unique stable IDs and 40
+unique handles for exact Bamboo organisation `westwalesproperties` across all
+251 pages and 5,013 current index rows. Official operator evidence identifies
+ASKENS LIMITED (03304253) as West Wales Properties' franchisor and says the
+offices are operated by individual franchise companies. Branches and franchise
+labels therefore remain provenance rather than new auctioneer counts.
+
+The shared-platform runner now supports a JSON operator batch that downloads the
+global index once, validates every organisation denominator and unique slug
+before any generated write, and then reuses the reconciled bundle. Ten focused
+tests pass. The prepared first batch covers West Wales Properties (40), Howkins
+& Harrison (32) and Arron James (32), for up to 104 appearances. The next safe
+growth action is to verify both protected runs have ended, merge any new main
+evidence, execute `config/bamboo_shared_growth_batch.json`, exclude overlaps,
+and rebuild. National completeness remains false.
+
 ## 15 November Keller Williams UK shared-platform checkpoint
 
 The reusable Bamboo runner reconciled the complete 251-page, 5,013-ID public

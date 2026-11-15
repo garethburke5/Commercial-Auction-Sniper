@@ -7,7 +7,7 @@ from scripts.harvest_bamboo_auctioneer import (
     published_rent,
     row_from_property,
 )
-from scripts.harvest_bamboo_shared_platform import collect_index
+from scripts.harvest_bamboo_shared_platform import collect_index, harvest_batch
 
 
 def test_extract_next_data():
@@ -165,3 +165,66 @@ def test_shared_index_reconciles_pages_and_stable_ids(monkeypatch):
     assert [row["_id"] for row in rows] == ["1", "2", "3"]
     assert page_count == 2
     assert total_count == 3
+
+
+def test_shared_batch_reuses_one_reconciled_index(monkeypatch):
+    bundle = ([
+        {"_id": "1", "organisation": "first"},
+        {"_id": "2", "organisation": "second"},
+    ], 1, 2)
+    calls = []
+    monkeypatch.setattr(
+        "scripts.harvest_bamboo_shared_platform.collect_index",
+        lambda host, workers: bundle,
+    )
+
+    def fake_harvest(organisation, auctioneer, slug, expected_count, **kwargs):
+        calls.append((organisation, auctioneer, slug, expected_count, kwargs))
+        return {"auctioneer": auctioneer}
+
+    monkeypatch.setattr("scripts.harvest_bamboo_shared_platform.harvest", fake_harvest)
+    result = harvest_batch([
+        {
+            "organisation": "first",
+            "auctioneer": "First Auctions",
+            "slug": "first-auctions",
+            "expected_count": 1,
+        },
+        {
+            "organisation": "second",
+            "auctioneer": "Second Auctions",
+            "slug": "second-auctions",
+            "expected_count": 1,
+            "operator_legal_name": "SECOND LIMITED",
+            "operator_company_number": "01234567",
+        },
+    ], workers=3)
+
+    assert result == [{"auctioneer": "First Auctions"}, {"auctioneer": "Second Auctions"}]
+    assert len(calls) == 2
+    assert all(call[4]["index_bundle"] is bundle for call in calls)
+    assert calls[1][4]["operator_legal_name"] == "SECOND LIMITED"
+    assert calls[1][4]["operator_company_number"] == "01234567"
+
+
+def test_shared_batch_validates_every_denominator_before_writes(monkeypatch):
+    monkeypatch.setattr(
+        "scripts.harvest_bamboo_shared_platform.collect_index",
+        lambda host, workers: ([{"_id": "1", "organisation": "first"}], 1, 1),
+    )
+    calls = []
+    monkeypatch.setattr(
+        "scripts.harvest_bamboo_shared_platform.harvest",
+        lambda *args, **kwargs: calls.append((args, kwargs)),
+    )
+
+    try:
+        harvest_batch([
+            {"organisation": "first", "auctioneer": "First", "slug": "first", "expected_count": 1},
+            {"organisation": "second", "auctioneer": "Second", "slug": "second", "expected_count": 1},
+        ])
+    except ValueError as exc:
+        assert "before writing any operator" in str(exc)
+    else:
+        raise AssertionError("batch denominator drift was not rejected")
+    assert calls == []
