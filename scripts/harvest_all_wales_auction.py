@@ -1,13 +1,12 @@
-"""Collect the surviving first-party All Wales Auction PDF catalogues.
+"""Collect the surviving first-party All Wales Auction catalogue PDFs.
 
-The retained catalogues are dated event snapshots. Each PDF is downloaded once,
-hashed, preserved as a compressed base64 snapshot, then split conservatively by
-published lot number. Unknown address/price/outcome fields remain null rather
-than being inferred from narrative text.
+Each retained catalogue is an event snapshot. Download each source once, hash and
+preserve it, then extract only the explicitly identified All Wales lot range.
+Unavailable sources are checkpointed and do not prevent accessible catalogues from
+being banked. Unknown outcomes/prices remain null.
 """
 from __future__ import annotations
 import argparse, base64, gzip, io, json, re, sys
-from datetime import date
 from pathlib import Path
 import requests
 from pypdf import PdfReader
@@ -16,22 +15,22 @@ import historical_corpus as corpus
 
 HEADERS={"User-Agent":"Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 CATALOGUES=[
- {"date":"2020-11-30","url":"https://www.allwalesauction.com/downloads/301120-december-2020-full-catalogue.pdf","lots":(118,126),"label":"2020-11-30"},
- {"date":"2021-03-01","url":"https://www.allwalesauction.com/downloads/220221-march-catalogue.pdf","lots":(131,136),"label":"2021-03"},
- {"date":"2021-05-01","url":"https://www.allwalesauction.com/downloads/full-catalogue-may-2021.pdf","lots":(115,120),"label":"2021-05"},
- {"date":"2021-07-12","url":"https://www.allwalesauction.com/downloads/120721-july-catalogue.pdf","lots":(157,162),"label":"2021-07"},
+ {"date":"2020-12-15","url":"https://www.allwalesauction.com/downloads/301120-december-2020-full-catalogue.pdf","lots":(118,126),"label":"2020-12-15"},
+ {"date":"2021-03-09","url":"https://www.allwalesauction.com/downloads/220221-march-catalogue.pdf","lots":(131,136),"label":"2021-03-09"},
+ {"date":"2021-05-18","url":"https://www.allwalesauction.com/downloads/full-catalogue-may-2021.pdf","lots":(115,120),"label":"2021-05-18"},
+ {"date":"2021-07-27","url":"https://www.allwalesauction.com/downloads/120721-july-catalogue.pdf","lots":(157,162),"label":"2021-07-27"},
 ]
 PC=corpus.PC
-MONEY=re.compile(r"£\s*([\d,]+(?:\.\d+)?)",re.I)
-LOT=re.compile(r"(?im)^\s*lot\s+(\d+)\b")
+LOT=re.compile(r"(?im)^\s*lot\s+(\d+[A-Z]?)\b")
 GUIDE=re.compile(r"(?i)(?:guide|asking)\s*(?:price)?\s*[:£-]?\s*£?\s*([\d,]+(?:\.\d+)?)")
-SOLD=re.compile(r"(?i)(?:sold|sold prior|selling price|achieved|price achieved)\s*[:£-]?\s*£?\s*([\d,]+(?:\.\d+)?)")
-STATUS=re.compile(r"(?i)\b(sold prior|sold|withdrawn|unsold|not sold|no bid|available)\b")
+ACHIEVED=re.compile(r"(?i)\b(?:sold\s+(?:for|at)|selling\s+price|price\s+achieved|achieved)\s*[:£-]?\s*£?\s*([\d,]+(?:\.\d+)?)")
+EXPLICIT_STATUS=re.compile(r"(?im)^\s*(sold prior|sold|withdrawn|unsold|no bid|not sold|postponed)\s*$")
 
-def clean(s): return re.sub(r"\s+"," ",s or "").strip(" ,\xa0")
+def clean(s):
+    return re.sub(r"\s+"," ",s or "").strip(" ,\xa0")
 
 def money(m):
-    try: return int(round(float(m.group(1).replace(",","")))
+    try: return int(round(float(m.group(1).replace(",",""))))
     except Exception: return None
 
 def extract_pdf(raw):
@@ -42,7 +41,8 @@ def parse_lots(text,cfg,evidence):
     matches=list(LOT.finditer(text)); rows=[]
     lo,hi=cfg["lots"]
     for i,m in enumerate(matches):
-        n=int(m.group(1))
+        token=m.group(1)
+        n=int(re.match(r"\d+",token).group())
         if not (lo<=n<=hi): continue
         block=text[m.end():matches[i+1].start() if i+1<len(matches) else len(text)]
         block=clean(block)
@@ -53,27 +53,27 @@ def parse_lots(text,cfg,evidence):
             before=block[max(0,pm.start()-240):pm.start()]
             lines=[clean(x) for x in re.split(r"[.;]\s+|\n",before) if clean(x)]
             address=clean((lines[-1] if lines else "")+" "+postcode) or None
-        gm=GUIDE.search(block); sm=SOLD.search(block); st=STATUS.search(block)
+        gm=GUIDE.search(block)
+        am=ACHIEVED.search(block)
+        sm=EXPLICIT_STATUS.search(block)
         guide=money(gm) if gm else None
-        sale=money(sm) if sm else None
-        status=clean(st.group(1)).casefold().replace(" ","_") if st else "unknown"
-        if status=="sold" and sale is None:
-            # A bare sold marker is evidence of outcome, not a price.
-            sale=None
-        source_id=f"all-wales-auction:{cfg['label']}:lot:{n}"
-        row=corpus.base_row("All Wales Auction",source_id,cfg["date"],str(n),source_id,cfg["url"])
+        sale=money(am) if am else None
+        status=clean(sm.group(1)).casefold().replace(" ","_") if sm else None
+        source_id=f"all-wales-auction:{cfg['label']}:lot:{token}"
+        row=corpus.base_row("All Wales Auction",source_id,cfg["date"],token,source_id,cfg["url"])
         row.update({
-          "appearance_id":f"All Wales Auction|{cfg['date']}|lot:{n}",
+          "appearance_id":f"All Wales Auction|{cfg['date']}|lot:{token}",
           "address":address,"postcode":postcode,"locality":None,
           "sector":corpus.sector(block),"property_type":None,
           "guide_price":guide,"sale_price":sale,"status":status,
           "description":block[:2500],"image_urls":[],"property_id":None,
-          "identity_method":"first_party_catalogue_date_and_published_lot_number",
+          "identity_method":"first_party_catalogue_event_date_and_published_lot_number",
           "record_quality":"address_record" if address else "partial",
           "source_position":n,"source_property_id":source_id,
-          "source_price_label":None,"source_price_text":None,
-          "source_result_flag":clean(st.group(1)) if st else None,
-          "auction_date_basis":"published catalogue event date",
+          "source_price_label":"guide" if guide is not None else None,
+          "source_price_text":clean(gm.group(0)) if gm else None,
+          "source_result_flag":clean(sm.group(1)) if sm else None,
+          "auction_date_basis":"published catalogue auction event date",
           "source_evidence":evidence,
         })
         rows.append(row)
@@ -87,9 +87,22 @@ def harvest():
     existing=list(corpus.iter_rows(out)) if out.exists() else []
     before={r["appearance_id"] for r in existing}
     for cfg in CATALOGUES:
-        r=requests.get(cfg["url"],headers=HEADERS,timeout=90); r.raise_for_status()
+        try:
+            r=requests.get(cfg["url"],headers=HEADERS,timeout=90)
+            if r.status_code == 404:
+                summaries.append({"date":cfg["date"],"source_url":cfg["url"],"expected_lots":cfg["lots"][1]-cfg["lots"][0]+1,
+                                  "captured_lots":0,"complete":False,"source_failure":"HTTP 404"})
+                continue
+            r.raise_for_status()
+        except requests.RequestException as exc:
+            summaries.append({"date":cfg["date"],"source_url":cfg["url"],"expected_lots":cfg["lots"][1]-cfg["lots"][0]+1,
+                              "captured_lots":0,"complete":False,"source_failure":f"{type(exc).__name__}: {exc}"})
+            continue
         raw=r.content
-        if len(raw)<10000: raise ValueError("unexpectedly short PDF: "+cfg["url"])
+        if len(raw)<10000:
+            summaries.append({"date":cfg["date"],"source_url":cfg["url"],"expected_lots":cfg["lots"][1]-cfg["lots"][0]+1,
+                              "captured_lots":0,"complete":False,"source_failure":"unexpectedly short PDF"})
+            continue
         sha=corpus.digest(raw)
         snap=corpus.DATA/"sources/all-wales-auction"/f"{cfg['label']}-{sha[:16]}.json.gz"
         evidence={"source_url":r.url,"retrieved_at":corpus.now(),"sha256":sha,
@@ -106,7 +119,6 @@ def harvest():
     merged={r["appearance_id"]:r for r in existing}
     for r in observed:
         if r["appearance_id"] in merged and merged[r["appearance_id"]] != r:
-            # Never overwrite a previously banked row with a parser variant.
             continue
         merged[r["appearance_id"]]=r
     corpus.write_rows("all_wales_auction/canonical",list(merged.values()))
@@ -117,7 +129,8 @@ def harvest():
       "run_new_partial_lots":sum(not r.get("address")) for r in added,
       "run_new_guides":sum(r.get("guide_price") is not None for r in added),
       "run_new_sale_prices":sum(r.get("sale_price") is not None for r in added),
-      "commercial_mixed_use":sum((r.get("sector") or "").casefold() in {"commercial","mixed-use"} for r in added)}
+      "commercial_mixed_use":sum((r.get("sector") or "").casefold() in {"commercial","mixed-use"} for r in added),
+      "source_failures":[s for s in summaries if s.get("source_failure")]}
     corpus.save_json(corpus.DATA/"all_wales_auction_collection.json",summary)
     print(json.dumps(summary,indent=2),flush=True)
 
