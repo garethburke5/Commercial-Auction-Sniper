@@ -1,22 +1,22 @@
 {
-  "generated_at": "2026-11-15T15:03:21+00:00",
-  "status": "next_growth_target",
+  "generated_at": "2026-11-15T16:04:11+00:00",
+  "status": "collection_triggered",
   "previous_run": {
-    "run_id": 43716856279,
-    "commit": "c3a5076cc40f514e8c15f02ae8e5ad4b78878595",
+    "run_id": 43728265844,
+    "commit": "7ac3a5aca24f607c7935001c17bd8eb6cbc5e9a1",
     "net_new_appearances": 0
   },
   "target": {
-    "auctioneer": "Auction Works",
-    "operator": "Auction Works",
-    "source_route": "first-party Auction Works /search EIG retained-grid archive",
-    "rationale": "All Wales Bamboo has individually evidenced pages but no reconciled surviving index/archive route; move to a distinct accessible EIG archive with an existing complete retained-grid collector. EIG currently shows 53 Auction Works sales in the last 12 months and the source register has no retained corpus appearances for this operator.",
+    "auctioneer": "Bradley Hall",
+    "operator": "Bradley Hall",
+    "source_route": "EIG retained-grid archive / existing reusable harvest_eig_retained_grids.py bradley-hall",
+    "rationale": "Auction Works is already represented in the main corpus at 653 appearances; do not repeat it. Bradley Hall is a genuine zero-retained-appearance EIG operator with an existing workflow collector and first-party/EIG route. Prioritise this materially different source over stale Auction Works continuation state.",
     "evidence": [
-      "https://www.auctionworks.co.uk/search",
-      "https://www.eigpropertyauctions.co.uk/auctioneer/auction-works"
+      "https://www.eigpropertyauctions.co.uk/auctioneer/bradley-hall-auctions",
+      "https://www.bradleyhall.co.uk/"
     ],
-    "known_evidence_count": "EIG reports 53 properties sold across 107 auctions in the last 12 months; this is discovery evidence, not a corpus denominator.",
-    "priority": "Run the existing retained-grid collector against the complete first-party /search archive, reconcile every page/card and detail, deduplicate exact date/address overlaps, then rebuild and publish."
+    "known_evidence_count": "Source register currently records 0 retained appearances; individual lot count must be established by the complete retained-grid reconciliation.",
+    "priority": "Run the existing Bradley Hall retained-grid collector, reconcile every retained page/card/detail, deduplicate exact date/address overlaps against the corpus, then rebuild and publish."
   },
   "storage_warning": "GitHub Actions previously reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs."
 }
