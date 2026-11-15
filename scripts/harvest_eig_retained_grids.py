@@ -5938,6 +5938,39 @@ RENT_RE = re.compile(
     r"per\s+month|monthly|p\.?\s*c\.?\s*m\.?)\b",
     re.I,
 )
+    "auction-house-online-2018-12-14": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/7962",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 3,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
+    "auction-house-online-2018-02-16": {
+        "auctioneer": "Auction House Online",
+        "base": "https://online.auctionhouse.co.uk",
+        "archive_path": "/past-auctions/4359",
+        "archive_attempts": 3,
+        "archive_timeout": 90,
+        "operator_legal_name": "AUCTION HOUSE UK LIMITED",
+        "operator_company_number": "06025583",
+        "auctioneer_from_detail": True,
+        "unpaginated_event": True,
+        "expected_visible_cards": 1,
+        "exclude_exact_cross_source_overlaps": True,
+        "allow_incomplete_detail_recovery": True,
+        "detail_attempts": 2,
+        "detail_timeout": 45,
+    },
+
 PARSER_VERSION = 8
 
 
