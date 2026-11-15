@@ -126,7 +126,7 @@ def harvest():
     summary={"checked_at":corpus.now(),"catalogues":summaries,
       "appearances_captured":len(observed),"run_new_appearances":len(added),
       "run_new_address_records":sum(bool(r.get("address")) for r in added),
-      "run_new_partial_lots":sum(not r.get("address")) for r in added,
+      "run_new_partial_lots":sum(1 for r in added if not r.get("address")),
       "run_new_guides":sum(r.get("guide_price") is not None for r in added),
       "run_new_sale_prices":sum(r.get("sale_price") is not None for r in added),
       "commercial_mixed_use":sum((r.get("sector") or "").casefold() in {"commercial","mixed-use"} for r in added),
