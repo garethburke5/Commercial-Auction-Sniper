@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-15T14:00:00+00:00",
+  "generated_at": "2026-11-15T15:03:21+00:00",
   "status": "next_growth_target",
   "previous_run": {
     "run_id": 43716856279,
@@ -7,19 +7,16 @@
     "net_new_appearances": 0
   },
   "target": {
-    "auctioneer": "All Wales Auction - North Wales Auction",
-    "operator": "Williams & Goodwin The Property People Limited",
-    "source_route": "first-party All Wales Auction site + Bamboo Proptech property pages",
-    "rationale": "Unlinked genuine UK auctioneer with evidenced individual Bamboo property pages and historical sold results; source register currently retains 0 appearances.",
+    "auctioneer": "Auction Works",
+    "operator": "Auction Works",
+    "source_route": "first-party Auction Works /search EIG retained-grid archive",
+    "rationale": "All Wales Bamboo has individually evidenced pages but no reconciled surviving index/archive route; move to a distinct accessible EIG archive with an existing complete retained-grid collector. EIG currently shows 53 Auction Works sales in the last 12 months and the source register has no retained corpus appearances for this operator.",
     "evidence": [
-      "https://www.allwalesauction.com/index.php",
-      "https://app.bambooproptech.com/property/6-bedroom-property-1006927",
-      "https://app.bambooproptech.com/property/pennant-abercaseg-road-bethesda-bangor-ll57-3sp-5827632",
-      "https://app.bambooauctions.com/property/three-bedroom-terraced-property-with-mountain-views-9311698",
-      "https://app.bambooproptech.com/property/freehold-mixed-use-property-in-town-centre-9304845"
+      "https://www.auctionworks.co.uk/search",
+      "https://www.eigpropertyauctions.co.uk/auctioneer/auction-works"
     ],
-    "known_evidence_count": "4+ individually evidenced property pages; do not count as banked until a reusable archive/index route is reconciled.",
-    "priority": "Build/identify a reusable Bamboo white-label/archive route for All Wales, then batch the surviving archive; preserve exact dates, guides, achieved prices, rents, outcomes and source snapshots."
+    "known_evidence_count": "EIG reports 53 properties sold across 107 auctions in the last 12 months; this is discovery evidence, not a corpus denominator.",
+    "priority": "Run the existing retained-grid collector against the complete first-party /search archive, reconcile every page/card and detail, deduplicate exact date/address overlaps, then rebuild and publish."
   },
-  "storage_warning": "GitHub Actions reported repository approaching its size quota during the successful 2018 checkpoint publication; future source-snapshot growth must avoid unnecessary duplicate blobs and preserve existing evidence."
+  "storage_warning": "GitHub Actions previously reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs."
 }
