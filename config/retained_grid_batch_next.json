@@ -1,8 +1,8 @@
 {
   "batch_id": "auction-house-online-2018-linked-catalogues",
-  "status": "ready_but_not_triggered",
+  "status": "queued_for_collection",
   "publication_gate_status": "passed",
-  "hold_reason": "Exact-revision publication for the 2019 bank passed; keep untriggered until the next fresh writer-lane check.",
+  "hold_reason": "Queued by protected automation run after confirming no active historical writer; the next historical workflow run should collect the two retained 2018 catalogues.",
   "ready_after_batch_id": "auction-house-online-2019-linked-catalogues",
   "sources": [
     "auction-house-online-2018-12-14",
@@ -26,5 +26,6 @@
     "collection_run_id": 42430045059,
     "bank_commit": "fd76b5f3862291fa4c8896589417412b94d02e41",
     "publication_run_id": 42431017499
-  }
+  },
+  "queued_at": "2026-11-15T13:01:10+00:00"
 }
