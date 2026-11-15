@@ -4022,3 +4022,9 @@ def test_auction_house_online_2018_linked_catalogue_batch_configuration():
         assert source["detail_attempts"] == 2
         assert source["detail_timeout"] == 45
     assert sum(cards for _, cards in expected.values()) == 4
+
+
+def test_auction_works_target_remains_a_first_party_growth_route():
+    source = grids.SOURCES["auction-works"]
+    assert source["base"] == "https://www.auctionworks.co.uk"
+    assert source["archive_path"] == "/search"
