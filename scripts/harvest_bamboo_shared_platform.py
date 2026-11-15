@@ -19,6 +19,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 import json
 import math
+import re
 import sys
 from pathlib import Path
 from urllib.parse import urljoin
@@ -60,6 +61,61 @@ def collect_index(host: str, workers: int = 10) -> tuple[list[dict], int, int]:
     if not all(identities) or len(set(identities)) != total_count:
         raise ValueError("shared index contains missing or duplicate stable property ids")
     return rows, page_count, total_count
+
+
+def collapse_exact_listing_duplicates(rows: list[dict]) -> tuple[list[dict], int]:
+    """Collapse duplicated source rows without merging distinct legal interests.
+
+    A shared platform can retain two stable IDs for the same listing.  Collapse
+    only when date, normalized address, guide, property type, tenure and a
+    non-empty normalized description all agree.  Same-address land parcels with
+    different descriptions or guides therefore remain separate appearances.
+    The richest row remains primary and every source ID, URL and outcome variant
+    is retained on it; the immutable snapshot still contains the raw rows.
+    """
+    def normalized(value: object) -> str:
+        return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+    groups: dict[tuple, list[dict]] = {}
+    passthrough: list[dict] = []
+    for row in rows:
+        description = normalized(row.get("description"))
+        if not row.get("auction_date") or not row.get("address") or not description:
+            passthrough.append(row)
+            continue
+        key = (
+            row["auction_date"], normalized(row["address"]), row.get("guide_price"),
+            normalized(row.get("property_type")), normalized(row.get("tenure")), description,
+        )
+        groups.setdefault(key, []).append(row)
+
+    collapsed = list(passthrough)
+    duplicate_count = 0
+    for members in groups.values():
+        if len(members) == 1:
+            collapsed.append(members[0])
+            continue
+        duplicate_count += len(members) - 1
+        primary = max(members, key=lambda row: (
+            row.get("sale_price") is not None,
+            row.get("status") == "sold",
+            sum(value is not None and value != "" for value in row.values()),
+        )).copy()
+        primary["related_source_lot_ids"] = sorted({
+            row["source_lot_id"] for row in members if row.get("source_lot_id")
+        })
+        primary["related_original_urls"] = sorted({
+            row["original_url"] for row in members if row.get("original_url")
+        })
+        primary["source_record_variants"] = [{
+            "source_lot_id": row.get("source_lot_id"),
+            "original_url": row.get("original_url"),
+            "status": row.get("status"),
+            "sale_price": row.get("sale_price"),
+        } for row in sorted(members, key=lambda row: row.get("source_lot_id") or "")]
+        primary["duplicate_source_rows_collapsed"] = len(members) - 1
+        collapsed.append(primary)
+    return sorted(collapsed, key=lambda row: row["appearance_id"]), duplicate_count
 
 
 def harvest(
@@ -137,7 +193,7 @@ def harvest(
         "basis": "complete shared Bamboo index filtered by exact organisation plus stable property details",
     }
     now_utc = datetime.now(timezone.utc)
-    rows = [
+    source_rows = [
         row_from_property(
             details[source_id], auctioneer, slug, host, evidence, now_utc,
             operator_legal_name=operator_legal_name,
@@ -145,16 +201,25 @@ def harvest(
         )
         for source_id in sorted(details)
     ]
-    if len({row["appearance_id"] for row in rows}) != expected_count:
+    if len({row["appearance_id"] for row in source_rows}) != expected_count:
         raise ValueError("operator rows do not have unique stable appearance ids")
+    rows, duplicates_collapsed = collapse_exact_listing_duplicates(source_rows)
 
     appearance_path = corpus.DATA / "appearances" / slug / "bamboo-shared.jsonl.gz"
     existing_ids = ({row["appearance_id"] for row in corpus.iter_rows(appearance_path)}
                     if appearance_path.exists() else set())
     new_rows = [row for row in rows if row["appearance_id"] not in existing_ids]
-    retained = corpus.write_rows(f"{slug}/bamboo-shared", rows)
-    if retained != expected_count:
-        raise ValueError(f"retained {retained} rows; source exposes {expected_count}")
+    # The complete surviving source denominator was reconciled above and its
+    # raw rows are retained in the immutable snapshot. Replace this one
+    # derived shard so a deliberately collapsed extraction duplicate is not
+    # re-added by write_rows' general preserve-existing safeguard.
+    retained = corpus.write_rows(f"{slug}/bamboo-shared", rows, preserve_existing=False)
+    expected_retained = expected_count - duplicates_collapsed
+    if retained != expected_retained:
+        raise ValueError(
+            f"retained {retained} rows; expected {expected_retained} after collapsing "
+            f"{duplicates_collapsed} duplicate source rows"
+        )
 
     today = now_utc.date().isoformat()
     historical = [row for row in rows if row.get("auction_date") and row["auction_date"] <= today]
@@ -171,6 +236,7 @@ def harvest(
         "global_page_count": page_count,
         "visible_source_rows": expected_count,
         "lots_captured": retained,
+        "duplicate_source_rows_collapsed": duplicates_collapsed,
         "detail_payloads_captured": expected_count - len(failures),
         "index_fallback_rows": len(failures),
         "source_rows_complete": True,
@@ -199,6 +265,8 @@ def harvest(
         "shared_platform_rows_reconciled": global_count,
         "shared_platform_pages_reconciled": page_count,
         "archive_appearances_captured": retained,
+        "source_rows_observed": expected_count,
+        "duplicate_source_rows_collapsed": duplicates_collapsed,
         "run_new_appearances": len(new_rows),
         "address_records": sum(bool(row.get("address")) for row in rows),
         "partial_lots": sum(not row.get("address") for row in rows),

@@ -6,6 +6,34 @@ The programme covers individual auction appearances across UK auction houses, br
 
 Keep guide and achieved prices distinct. Preserve sold prior, sold after, unsold, withdrawn and postponed outcomes; never manufacture missing prices. Preserve original evidence and separate changed legal interests when matching properties.
 
+## 15 November protected four-operator Bamboo gain
+
+The latest workflow inventory showed no active collector or publisher, so the
+reusable shared-index runner collected Tutis Estates, Haslams, Luscombe Maye and
+Killens in one protected batch. It reconciled all 251 pages and 5,013 stable IDs
+once, observed 119 exact-organisation rows and banked 118 address-bearing
+appearances after one evidence-preserving duplicate collapse.
+
+The gain is 106 exact-dated addresses inside the twenty-year window, four future
+records, eight undated records and zero partial records. It adds eight in-window
+commercial/mixed-use appearances, 118 guides (106 in-window), 68 achieved prices
+(all in-window) and 21 published rents (20 in-window). Sixteen operator-source-
+years are newly represented.
+
+The duplicate was two Tutis IDs for 159 Grange Road with matching date, address,
+guide, type, tenure and description. The retained sold row carries both IDs,
+URLs and source outcome variants; the raw immutable snapshot retains both source
+rows. Two same-date/address Killens Henton land rows remain separate because
+their guides and descriptions identify different legal interests. No other
+stable-ID, URL or exact date/address overlap was found against the corpus.
+
+The rebuilt corpus contains 315,842 appearances, 304,526 addresses and 307,360
+in-window appearances. The reusable collector now explicitly replaces only its
+fully reconciled derived shard, preventing the general preserve-existing guard
+from resurrecting a proven extraction duplicate. The next target is a verified
+108-row batch spanning GTH, Chartwell Noble, Welcome Homes Property, Firmin & Co
+and Steve Gooch. National completeness remains false.
+
 ## 15 November protected three-operator Bamboo gain
 
 Auction Sniper Scan run 43685703675 and Savills bulk run 43685042160 reached

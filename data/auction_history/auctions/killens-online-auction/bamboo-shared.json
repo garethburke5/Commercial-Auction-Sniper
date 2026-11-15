@@ -1,0 +1,67 @@
+{
+  "auctioneer": "Killens Online Auction",
+  "operator_legal_name": "KILLENS LIMITED LIABILITY PARTNERSHIP",
+  "operator_company_number": "OC335754",
+  "source_auction_id": "killens-online-auction:bamboo-shared",
+  "source_url": "https://app.bambooproptech.com/",
+  "organisation": "killens",
+  "global_index_rows": 5013,
+  "global_page_count": 251,
+  "visible_source_rows": 28,
+  "lots_captured": 28,
+  "detail_payloads_captured": 17,
+  "index_fallback_rows": 11,
+  "source_rows_complete": true,
+  "catalogue_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "errors": [
+    {
+      "source_id": "64048017eed9b453ad5d6531",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "640483434e20b6217c63b397",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "640485236ca0d157b5e10b15",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "640486b84e20b6217c63b3b1",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "6404887c15290035096816e4",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "65d767444f690a625193f74f",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "65d768b14cd2bf2bbd0f492c",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "65d76a1dd2903f25b8f16441",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "6acfaaef4d87d75058fc558b",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "6acfb2254d87d75058fca232",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    },
+    {
+      "source_id": "6acfb7511c4a1740eaf3607c",
+      "error": "ValueError: detail page no longer exposes propertyData"
+    }
+  ],
+  "checked_at": "2026-11-15T09:09:33.998164+00:00",
+  "completion_scope": "all 'killens' listings surviving in the 5013-row public shared Bamboo index; not a claim that deleted listings or earlier platforms are covered",
+  "duplicate_source_rows_collapsed": 0
+}

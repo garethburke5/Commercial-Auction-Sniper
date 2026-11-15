@@ -142,7 +142,7 @@
     "national_completeness_verified": false,
     "different_next_target": "Collect City & Rural Property Auctions\u2019 first-party catalogue and result archive. Start with the official 29 March 2023 catalogue at https://catalogue.cityandruralpropertyauctions.com/march23/catalogue.pdf, inventory every additional catalogue on the official catalogue subdomain and every published result link from https://cityandruralpropertyauctions.com/, and bank only evidenced individual lots. Preserve exact auction dates, lot numbers, addresses, guide and achieved prices, rents, outcomes and original URLs in immutable snapshots; reconcile each catalogue denominator; deduplicate overlapping catalogue/result evidence; and reconcile operator, branch and trading-name labels without counting aliases as auctioneers. National completeness remains false."
   },
-  "next_growth_target": "Batch Kivells' accessible 2024 first-party result PDFs for the still-uncollected 17 January, 21 February, 20 March, 17 April and 15 May events through the existing reusable saved-PDF runner. Reconcile every individual result card and event denominator before admission. Do not revisit Stags' removed 2019-2020 event grids unless a materially different retained object route is found.",
+  "next_growth_target": "Reconcile the legal operators and trading names for GTH, Chartwell Noble, Welcome Homes Property, Firmin & Co and Steve Gooch, then batch their 108 surviving exact-organisation Bamboo rows through the reusable shared-index runner. Validate each denominator before writing, preserve immutable raw rows, collapse only proven extraction duplicates, retain distinct legal interests and exclude stable-ID, URL and exact-date/address overlaps before claiming growth.",
   "runs": [
     {
       "source": "bidx1_canonical",
@@ -6034,6 +6034,83 @@
       "future_dated": 241
     },
     "next_growth_target": "Capture Tutis Estates' 32 surviving tutisestates Bamboo properties in the next shared-index batch after confirming the exact denominator; TUTIS ESTATES LIMITED (company 07845303) and the firm's official property-auctions page establish the operator, and stable-ID, URL and exact-date/address overlap controls remain mandatory.",
+    "national_completeness_verified": false
+  },
+  "bamboo_shared_operator_batch_2_growth": {
+    "checked_at": "2026-11-15T09:18:27+00:00",
+    "opportunity": "Capture the complete surviving Bamboo inventories for Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction in one protected shared-index batch.",
+    "source_url": "https://app.bambooproptech.com/",
+    "shared_platform_pages_reconciled": 251,
+    "shared_platform_rows_reconciled": 5013,
+    "operators_banked": {
+      "Tutis Estates": 31,
+      "Haslams": 30,
+      "Luscombe Maye": 29,
+      "Killens Online Auction": 28
+    },
+    "visible_operator_source_rows": 119,
+    "detail_pages_captured": 108,
+    "index_fallback_rows": 11,
+    "duplicate_source_rows_collapsed": 1,
+    "net_new_appearances": 118,
+    "new_address_records": 118,
+    "new_partial_lots": 0,
+    "new_dated_address_records_in_twenty_year_window": 106,
+    "new_undated_appearances": 8,
+    "new_future_dated_appearances": 4,
+    "commercial_or_mixed_use": 8,
+    "commercial_or_mixed_use_in_twenty_year_window": 8,
+    "sector_breakdown": {
+      "commercial": 5,
+      "mixed-use": 3,
+      "land": 29,
+      "residential": 69,
+      "unknown": 12
+    },
+    "new_guide_prices": 118,
+    "new_guide_prices_in_twenty_year_window": 106,
+    "new_sale_prices": 68,
+    "new_sale_prices_in_twenty_year_window": 68,
+    "new_rent_values": 21,
+    "new_rent_values_in_twenty_year_window": 20,
+    "outcome_breakdown": {
+      "sold": 68,
+      "available": 4,
+      "unknown": 46
+    },
+    "source_years_observed": [2021, 2022, 2023, 2024, 2025, 2026],
+    "newly_covered_operator_source_years": 16,
+    "newly_covered_source_years_by_operator": {
+      "Tutis Estates": [2024, 2025, 2026],
+      "Haslams": [2024, 2025, 2026],
+      "Luscombe Maye": [2023, 2024, 2025, 2026],
+      "Killens Online Auction": [2021, 2022, 2023, 2024, 2025, 2026]
+    },
+    "exact_date_address_overlaps_excluded": 0,
+    "stable_id_or_url_overlaps_excluded": 0,
+    "duplicate_appearance_ids": 0,
+    "duplicate_source_lot_ids": 0,
+    "related_legal_interests_retained": 2,
+    "related_legal_interests_note": "Two separately published Killens Henton land interests share a date/address but have different guides and descriptions (paddock and woodland versus pasture and woodland); both remain separate appearances.",
+    "duplicate_collapse_note": "Two Tutis stable IDs for 159 Grange Road matched on date, normalized address, guide, property type, tenure and description. The richer sold row retains both source IDs, URLs and outcome variants; both raw source rows remain in the immutable snapshot.",
+    "pagination_reconciled": true,
+    "denominator_reconciled": true,
+    "operator_reconciliation": "TUTIS ESTATES LIMITED, HASLAMS ESTATE AGENTS LIMITED, LUSCOMBE MAYE (1873) LTD and KILLENS LIMITED LIABILITY PARTNERSHIP are the canonical operators. Their offices, branches and shortened or auction trading labels are not counted as extra auctioneers; Bamboo Auctions is the technology provider.",
+    "completion_scope": "All 119 exact-organisation source rows surviving in the 5013-row shared public Bamboo index, yielding 118 deduplicated appearances; not a claim that deleted listings or earlier systems are covered.",
+    "database_rebuild_verified": true,
+    "publication_started": false,
+    "writer_protection": "The latest workflow inventory and main revision were checked before collection; no scan, history-bank, historical collector or publisher was active, prior cancelled scan/Savills jobs had banked no history, and no duplicate external workflow was launched.",
+    "corpus_after_rebuild": {
+      "appearances": 315842,
+      "address_records": 304526,
+      "partial": 11316,
+      "in_window_appearances": 307360,
+      "in_window_guide_prices": 109247,
+      "in_window_sale_prices": 114705,
+      "undated": 5117,
+      "future_dated": 245
+    },
+    "next_growth_target": "Reconcile GTH, Chartwell Noble, Welcome Homes Property, Firmin & Co and Steve Gooch, then batch their 108 surviving exact Bamboo rows through the reusable runner with source-denominator and overlap controls.",
     "national_completeness_verified": false
   }
 }

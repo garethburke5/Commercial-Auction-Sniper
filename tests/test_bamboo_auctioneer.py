@@ -1,13 +1,19 @@
 from datetime import datetime, timezone
 import json
 
+import scripts.harvest_bamboo_shared_platform as shared
+
 from scripts.harvest_bamboo_auctioneer import (
     bamboo_sector,
     extract_next_data,
     published_rent,
     row_from_property,
 )
-from scripts.harvest_bamboo_shared_platform import collect_index, harvest_batch
+from scripts.harvest_bamboo_shared_platform import (
+    collapse_exact_listing_duplicates,
+    collect_index,
+    harvest_batch,
+)
 
 
 def test_extract_next_data():
@@ -228,3 +234,81 @@ def test_shared_batch_validates_every_denominator_before_writes(monkeypatch):
     else:
         raise AssertionError("batch denominator drift was not rejected")
     assert calls == []
+
+
+def test_exact_duplicate_source_rows_keep_richest_evidence_and_both_urls():
+    common = {
+        "auction_date": "2024-07-23",
+        "address": "159 Grange Road, Coventry, CV6 6DD",
+        "guide_price": 128000,
+        "property_type": "Terraced",
+        "tenure": "Freehold",
+        "description": "The same published property description.",
+    }
+    rows = [
+        dict(common, appearance_id="Auctioneer|bamboo:one", source_lot_id="one",
+             original_url="https://example/one", status="unknown", sale_price=None),
+        dict(common, appearance_id="Auctioneer|bamboo:two", source_lot_id="two",
+             original_url="https://example/two", status="sold", sale_price=128000),
+    ]
+    collapsed, duplicate_count = collapse_exact_listing_duplicates(rows)
+    assert duplicate_count == 1 and len(collapsed) == 1
+    assert collapsed[0]["sale_price"] == 128000
+    assert collapsed[0]["related_source_lot_ids"] == ["one", "two"]
+    assert collapsed[0]["related_original_urls"] == ["https://example/one", "https://example/two"]
+    assert len(collapsed[0]["source_record_variants"]) == 2
+
+
+def test_same_address_land_interests_are_not_collapsed():
+    base = {
+        "auction_date": "2024-04-11", "address": "Wells Road, Henton, BA5 1PD",
+        "property_type": "Land", "tenure": "Freehold", "status": "unknown",
+        "sale_price": None,
+    }
+    rows = [
+        dict(base, appearance_id="Auctioneer|bamboo:paddock", source_lot_id="paddock",
+             original_url="https://example/paddock", guide_price=50000,
+             description="Paddock and woodland at Henton"),
+        dict(base, appearance_id="Auctioneer|bamboo:pasture", source_lot_id="pasture",
+             original_url="https://example/pasture", guide_price=70000,
+             description="Pasture and woodland at Henton"),
+    ]
+    collapsed, duplicate_count = collapse_exact_listing_duplicates(rows)
+    assert duplicate_count == 0 and len(collapsed) == 2
+
+
+def test_shared_collector_replaces_only_its_reconciled_shard(monkeypatch, tmp_path):
+    """Collapsed rows must not be resurrected by preserve-existing merging."""
+    calls = []
+
+    def write_rows(key, rows, preserve_existing=True):
+        calls.append((key, preserve_existing))
+        return len(rows)
+
+    monkeypatch.setattr(shared.corpus, "ROOT", tmp_path)
+    monkeypatch.setattr(shared.corpus, "DATA", tmp_path / "data")
+    monkeypatch.setattr(shared.corpus, "write_rows", write_rows)
+    monkeypatch.setattr(shared.corpus, "save_gzip", lambda *args, **kwargs: None)
+    monkeypatch.setattr(shared.corpus, "save_json", lambda *args, **kwargs: None)
+    monkeypatch.setattr(shared.corpus, "now", lambda: "2026-11-15T00:00:00+00:00")
+    monkeypatch.setattr(shared.corpus, "digest", lambda value: "a" * 64)
+    monkeypatch.setattr(shared, "fetch", lambda url: b"detail")
+    monkeypatch.setattr(shared, "page_props", lambda raw: {
+        "propertyData": {"_id": "one", "organisation": "operator"}
+    })
+    monkeypatch.setattr(shared, "row_from_property", lambda *args, **kwargs: {
+        "appearance_id": "Operator|one", "auction_date": "2026-01-01",
+        "address": "1 High Street", "guide_price": 100000,
+        "sale_price": None, "annual_rent": None, "sector": "residential",
+        "property_type": "House", "tenure": "Freehold",
+        "description": "One house", "source_lot_id": "one",
+        "original_url": "https://example.test/one",
+    })
+
+    result = shared.harvest(
+        "operator", "Operator", "operator", 1,
+        index_bundle=([{"_id": "one", "handle": "one", "organisation": "operator"}], 1, 1),
+    )
+
+    assert result["archive_appearances_captured"] == 1
+    assert calls == [("operator/bamboo-shared", False)]

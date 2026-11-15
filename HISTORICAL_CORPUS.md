@@ -3,6 +3,46 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 15 November 2026 — four-operator shared Bamboo batch
+
+The reusable batch runner reconciled the complete **251-page, 5,013-ID public
+Bamboo marketplace once** and banked **118 net new appearances and 118 address
+records** across Tutis Estates (31), Haslams (30), Luscombe Maye (29) and Killens
+Online Auction (28). Stable-ID, original-URL and exact normalized date/address
+checks found no overlap with the earlier corpus.
+
+Of the additions, **106 are exact-dated inside the preceding twenty-year
+window**, four are future-dated, eight are undated and none is partial. The
+all-sector split is five commercial, three mixed-use, 29 land, 69 residential
+and 12 unknown; all eight commercial/mixed-use appearances are in-window.
+
+The source exposed 119 rows. Two Tutis stable IDs represented the same 159
+Grange Road appearance with the same date, address, guide, tenure, property type
+and description; the richer sold row is retained with both IDs, URLs and outcome
+variants, while the immutable snapshot preserves both raw source rows. Two
+Killens Henton rows sharing a date/address remain separate legal interests
+because their published guides and descriptions differ.
+
+The batch adds **118 guides, 68 achieved prices and 21 rents**; the in-window
+subsets are 106, 68 and 20. Outcomes remain distinct: 68 sold, four available
+and 46 unknown. It establishes 16 operator-source-years: Tutis and Haslams
+2024–2026, Luscombe Maye 2023–2026, and Killens 2021–2026.
+
+TUTIS ESTATES LIMITED, HASLAMS ESTATE AGENTS LIMITED, LUSCOMBE MAYE (1873) LTD
+and KILLENS LIMITED LIABILITY PARTNERSHIP are the reconciled operators. Their
+offices and trading labels are not inflated into additional auctioneers.
+Completeness remains limited to listings surviving in the shared index.
+
+The rebuilt corpus holds **315,842 appearances, 304,526 address records, 11,316
+partial records and 307,360 in-window appearances**, with **109,247 in-window
+guides and 114,705 in-window achieved prices**. Undated and future totals are
+5,117 and 245.
+
+Next concrete growth target: reconcile and batch the 108 surviving exact Bamboo
+rows for GTH (22), Chartwell Noble (22), Welcome Homes Property (22), Firmin & Co
+(21) and Steve Gooch (21), subject to legal/trading-name verification and the
+same source-row and overlap controls. National completeness remains false.
+
 ## 15 November 2026 — three-operator shared Bamboo batch
 
 The batch runner reconciled the complete **251-page, 5,013-ID public Bamboo

@@ -7,6 +7,33 @@ current individual lots plus the preceding twenty years of available historical
 appearances, retaining older evidence too. National coverage is NOT yet verified.
 A commercial website filter is not permission to discard residential or land records.
 
+## Persisted historical gain — four shared-platform operators, 15 November
+
+One protected batch reconciled the 251-page, 5,013-ID Bamboo index once and
+banked 118 address-bearing appearances for Tutis Estates (31), Haslams (30),
+Luscombe Maye (29) and Killens Online Auction (28). The dated split is 106 inside
+the twenty-year window, four future-dated and eight undated; partial records are
+zero. Stable-ID, URL and cross-corpus exact date/address comparisons found no
+overlap with previously banked evidence.
+
+The all-sector gain contains five commercial, three mixed-use, 29 land, 69
+residential and 12 unknown appearances. All eight commercial/mixed-use records
+are in-window. It adds 118 guides, 68 achieved prices and 21 rents; the in-window
+subsets are 106, 68 and 20. Sixteen operator-source-years are newly represented.
+
+One of 119 raw rows was a duplicate Tutis source listing. It was collapsed only
+after date, normalized address, guide, property type, tenure and description all
+matched; both stable IDs, URLs and outcome variants survive on the banked row and
+both raw rows remain in the immutable snapshot. The two Killens Henton entries
+sharing a date/address remain separate legal interests because their guides and
+published descriptions differ.
+
+The rebuilt corpus holds 315,842 appearances, 304,526 address records and 307,360
+in-window appearances. Offices and trading names were reconciled to four legal
+operators without inflating auctioneer counts. Next target: verify and batch the
+108 surviving GTH, Chartwell Noble, Welcome Homes Property, Firmin & Co and Steve
+Gooch Bamboo rows. National completeness remains false.
+
 ## Persisted historical gain — three shared-platform operators, 15 November
 
 One protected batch reconciled the 251-page, 5,013-ID Bamboo index once and banked
