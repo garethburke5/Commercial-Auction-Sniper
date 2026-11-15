@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T21:59:16.953Z",
-  "status": "repair_persisted",
+  "generated_at": "2026-11-15T23:00:17+00:00",
+  "status": "target_queued",
   "previous_run": {
     "run_id": 43761172514,
     "commit": "39c6370f4fdb0e391f2a74565dd8658c1a6b9325",
@@ -146,7 +146,7 @@
       "outcome": "timed_out",
       "exit_code": -15,
       "diagnostic_tail": "",
-      "duration_seconds": 300.0,
+      "duration_seconds": 300,
       "checked_at": "2026-11-15T22:19:59.120137+00:00"
     },
     {
@@ -1144,5 +1144,11 @@
       "duration_seconds": 0.16,
       "checked_at": "2026-11-15T22:33:28.160329+00:00"
     }
+  },
+  "next_run": {
+    "target": "All Wales Auction",
+    "route": "first-party catalogue PDFs",
+    "action": "Run focused All Wales Auction archive expansion",
+    "rationale": "The previous successful historical run did not execute the All Wales step because its head commit did not carry the focus trigger; the target remains genuinely uncaptured at zero retained appearances. Execute the four retained 2020-2021 first-party catalogues before selecting another source."
   }
 }
