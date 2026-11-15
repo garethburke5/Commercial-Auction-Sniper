@@ -1,23 +1,60 @@
 {
-  "generated_at": "2026-11-15T16:58:27+00:00",
-  "status": "collection_triggered",
+  "generated_at": "2026-11-15T17:57:13.774Z",
+  "status": "target_persisted",
   "previous_run": {
     "run_id": 43728265844,
     "commit": "7ac3a5aca24f607c7935001c17bd8eb6cbc5e9a1",
     "net_new_appearances": 79,
     "auctioneer": "Bradley Hall"
   },
+  "runs": [
+    {
+      "run_id": 43740715178,
+      "status": "completed_with_checkpoint",
+      "result": "Clarke & Simpson collector was not executed because the bounded-continuation test failed before collection; the job nevertheless rebuilt and published the saved-lot checkpoint.",
+      "failure": "tests/test_history_continuation.py::test_banked_continuation_checkpoint_is_valid_json expected a top-level runs list; existing continuation file lacked it.",
+      "bank_commit": "6fac737eec6bd33b13c2541d20e0d5e093aa5296",
+      "net_new_appearances": 0
+    }
+  ],
   "target": {
-    "auctioneer": "Clarke & Simpson",
-    "operator": "Clarke & Simpson",
-    "source_route": "EIG retained-grid archive / existing reusable harvest_eig_retained_grids.py clarke-simpson",
-    "rationale": "Bradley Hall is now represented at 79 appearances on main. Move immediately to the next genuine zero-retained EIG operator rather than refreshing Bradley Hall. Clarke & Simpson's surviving first-party EIG search archive exposes 167 rows and has a reusable collector route.",
+    "auctioneer": "All Wales Auction",
+    "operator_north": "Williams & Goodwin The Property People Limited",
+    "operator_south": "Peter Alan Limited",
+    "source_route": "All Wales Auction first-party catalogue PDFs",
+    "rationale": "Clarke & Simpson is already represented at 170 appearances on main, so do not refresh it. All Wales Auction remains at zero retained appearances while its first-party catalogue archive exposes address-level lot material and explicitly identifies the North/South regional lots. This is a materially different operator/source route with multi-year surviving evidence.",
     "evidence": [
-      "https://clarke-simpson.eigonlineauctions.com/search",
-      "https://www.eigpropertyauctions.co.uk/auctioneer/clarke-simpson"
+      "https://www.allwalesauction.com/about-us.html",
+      "https://www.allwalesauction.com/catalogue.php",
+      "https://www.allwalesauction.com/downloads/301120-december-2020-full-catalogue.pdf",
+      "https://www.allwalesauction.com/downloads/220221-march-catalogue.pdf",
+      "https://www.allwalesauction.com/downloads/full-catalogue-may-2021.pdf",
+      "https://www.allwalesauction.com/downloads/120721-july-catalogue.pdf"
     ],
-    "known_evidence_count": 167,
-    "priority": "Run the existing Clarke & Simpson retained-grid collector, reconcile the complete live denominator, every stable numeric/UUID identity and detail page, exclude exact date/address overlaps, then rebuild and publish. Preserve all outcomes, guide/achieved prices, rents and source snapshots."
+    "accessible_catalogues": [
+      {
+        "date": "2020-11-30",
+        "url": "https://www.allwalesauction.com/downloads/301120-december-2020-full-catalogue.pdf",
+        "identified_all_wales_lots": "118-126"
+      },
+      {
+        "date": "2021-03",
+        "url": "https://www.allwalesauction.com/downloads/220221-march-catalogue.pdf",
+        "identified_all_wales_lots": "131-136"
+      },
+      {
+        "date": "2021-05",
+        "url": "https://www.allwalesauction.com/downloads/full-catalogue-may-2021.pdf",
+        "identified_all_wales_lots": "115-120"
+      },
+      {
+        "date": "2021-07",
+        "url": "https://www.allwalesauction.com/downloads/120721-july-catalogue.pdf",
+        "identified_all_wales_lots": "157-162"
+      }
+    ],
+    "known_evidence_count": 0,
+    "priority": "Build one reusable first-party PDF/OCR runner for these catalogues, snapshot each source once, extract every individually evidenced All Wales lot with exact event date, address/locality, guide, published outcome and achieved price where present, reconcile North/South brand and legal-operator attribution without alias double-counting, deduplicate against the corpus, then rebuild and publish. Keep any non-property/unclear rows null or excluded rather than inferred."
   },
   "storage_warning": "GitHub Actions previously reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs."
 }
