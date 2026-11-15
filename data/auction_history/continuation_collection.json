@@ -1,22 +1,23 @@
 {
-  "generated_at": "2026-11-15T16:04:11+00:00",
+  "generated_at": "2026-11-15T16:58:27+00:00",
   "status": "collection_triggered",
   "previous_run": {
     "run_id": 43728265844,
     "commit": "7ac3a5aca24f607c7935001c17bd8eb6cbc5e9a1",
-    "net_new_appearances": 0
+    "net_new_appearances": 79,
+    "auctioneer": "Bradley Hall"
   },
   "target": {
-    "auctioneer": "Bradley Hall",
-    "operator": "Bradley Hall",
-    "source_route": "EIG retained-grid archive / existing reusable harvest_eig_retained_grids.py bradley-hall",
-    "rationale": "Auction Works is already represented in the main corpus at 653 appearances; do not repeat it. Bradley Hall is a genuine zero-retained-appearance EIG operator with an existing workflow collector and first-party/EIG route. Prioritise this materially different source over stale Auction Works continuation state.",
+    "auctioneer": "Clarke & Simpson",
+    "operator": "Clarke & Simpson",
+    "source_route": "EIG retained-grid archive / existing reusable harvest_eig_retained_grids.py clarke-simpson",
+    "rationale": "Bradley Hall is now represented at 79 appearances on main. Move immediately to the next genuine zero-retained EIG operator rather than refreshing Bradley Hall. Clarke & Simpson's surviving first-party EIG search archive exposes 167 rows and has a reusable collector route.",
     "evidence": [
-      "https://www.eigpropertyauctions.co.uk/auctioneer/bradley-hall-auctions",
-      "https://www.bradleyhall.co.uk/"
+      "https://clarke-simpson.eigonlineauctions.com/search",
+      "https://www.eigpropertyauctions.co.uk/auctioneer/clarke-simpson"
     ],
-    "known_evidence_count": "Source register currently records 0 retained appearances; individual lot count must be established by the complete retained-grid reconciliation.",
-    "priority": "Run the existing Bradley Hall retained-grid collector, reconcile every retained page/card/detail, deduplicate exact date/address overlaps against the corpus, then rebuild and publish."
+    "known_evidence_count": 167,
+    "priority": "Run the existing Clarke & Simpson retained-grid collector, reconcile the complete live denominator, every stable numeric/UUID identity and detail page, exclude exact date/address overlaps, then rebuild and publish. Preserve all outcomes, guide/achieved prices, rents and source snapshots."
   },
   "storage_warning": "GitHub Actions previously reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs."
 }
