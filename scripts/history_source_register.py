@@ -41,7 +41,10 @@ def build(progress,directory,registry,continuation,catalogues):
             'collection_status':'partial holdings; full coverage unverified' if label in holdings else 'not linked to retained corpus; source assessment required',
             'twenty_year_complete':False})
     latest={}
-    for run in continuation.get('runs',[]):latest[run['source']]=run
+    for run in continuation.get('runs',[]):
+        source=run.get('source')
+        if source:
+            latest[source]=run
     latest.update(continuation.get('latest_by_source',{}))
     gaps=[]
     for path,s in catalogues:
