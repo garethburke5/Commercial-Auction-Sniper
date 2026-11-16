@@ -1,41 +1,38 @@
 {
-  "updated_at": "2026-11-16T12:14:34Z",
+  "updated_at": "2026-11-16T13:14:00Z",
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Andrew Grant Auctions / Andrew Grant",
-    "task": "Recover the retained 2018 Andrew Grant commercial/residential auction catalogue evidence and any additional 2017-2020 individual-lot material, using the surviving Property-World catalogue as a discovery/recovery seed and preserving the published auction date, guide, achieved price, outcome and rent.",
-    "reason": "The source register currently has zero retained Andrew Grant appearances. A surviving 2018 catalogue contains individually numbered Andrew Grant Commercial lots, including a £100,000 guide freehold town-centre retail investment at 52 High Street, Brierley Hill with £12,000 pa rent and a SOLD PRIOR outcome. This is a concrete legacy corpus opportunity, unlike current-only regional refreshes.",
+    "auctioneer_lineage": "Auction House Online / national shared platform — retained 2018 archive",
+    "task": "Run the already-admitted two-catalogue 2018 retained-grid batch, reconcile every surviving individual result card against its catalogue denominator, bank each evidenced lot once, then move immediately to the next uncovered source/year rather than refreshing exhausted Auction House Online labels.",
+    "reason": "The queued manifest contains two surviving first-party 2018 Auction House Online catalogues with four visible individual result cards. The current corpus has only one 2018 Auction House Online appearance, so this is a concrete uncaptured source-year checkpoint. The batch is small, but it is already admitted and protected; it should be completed before moving to a larger uncovered source/year.",
     "first_party_or_saved_seeds": [
-      "https://interactive.property-world.co.uk/sdlbigwood_may18/Catalogue.pdf",
-      "https://www.andrew-grant.co.uk/"
+      "https://online.auctionhouse.co.uk/past-auctions/7962",
+      "https://online.auctionhouse.co.uk/past-auctions/4359"
     ],
-    "recovery_requirement": "Use the surviving catalogue as evidence only where the individual lot text is preserved; seek additional publisher-retained or archived Andrew Grant catalogue/result pages for adjacent events. Do not count directory entries or annual auction totals as properties. Reconcile Andrew Grant's auction service separately from unrelated iamsold current listings.",
+    "recovery_requirement": "Preserve each individual lot date, guide, achieved price, published outcome, original URL and immutable snapshot. Deduplicate exact overlaps against existing Auction House Online and regional branch identities. Do not treat the four-card catalogue denominator as four if any card cannot be individually reconciled.",
     "admission_rules": [
       "Bank individual lot appearances only.",
       "Preserve exact auction date, guide, achieved price, published outcome and rent separately.",
       "Retain original URL and immutable source snapshot/checksum.",
-      "Keep commercial, mixed-use, residential and land records; do not apply the commercial website filter to permanent banking.",
-      "Deduplicate against any existing Andrew Grant/related operator evidence before claiming growth.",
-      "Leave unknown values null and keep legal-interest variants separate."
+      "Keep all property sectors; permanent banking is not commercial-filtered.",
+      "Reconcile Auction House regional branches/trading names without double-counting shared-platform appearances.",
+      "Unknown values remain null; partial, undated and future-dated records remain distinct."
     ],
-    "recovery_evidence": [
-      "https://www.countrylife.co.uk/property/20-bedroom-castle-sale-just-500000-huge-amount-work-174955",
-      "https://www.thelondonoffice.co.uk/downloads/tlo-acquire-issue-24.pdf",
-      "https://eig-web-uks.azurewebsites.net/information/property-auctions/worcestershire",
-      "https://www.cpcfinance.co.uk/wp-content/uploads/2016/10/List-of-UK-Property-Auctions-2016-October-December.pdf"
-    ],
-    "recovery_evidence_notes": [
-      "Country Life independently preserves a 13 March 2018 Andrew Grant auction listing for Ribbesford House, with an April 2018 auction date and £500,000 guide.",
-      "The London Office issue 24 preserves an Andrew Grant Cotheridge property with multiple commercial units and farmland, useful as older discovery evidence but not itself an individual auction appearance until an auction date is established.",
-      "EIG's Worcestershire auctioneer directory identifies Andrew Grant as a local auctioneer and lists auction activity in the region; directory evidence is discovery-only and is not to be banked as property records.",
-      "A CPC Finance 2016 UK auction calendar independently lists Andrew Grant as an auctioneer with a 22 November 2016 auction date, establishing an older source-year lead but not an individual lot."
-    ],
-    "batch_strategy": "Prioritise surviving 2018 catalogue first, then recover adjacent 2017-2020 Andrew Grant event/catalogue pages in one bounded batch. Do not create a separate workflow step per event."
+    "batch_strategy": "Execute the queued two-catalogue 2018 batch once through the existing reusable retained-grid runner, merge/rebuild once, publish once, then select a materially larger uncovered source/year. Do not add another dated workflow step for the four-card checkpoint.",
+    "next_after_checkpoint": "Move to a larger uncovered historical source/year or saved catalogue set; do not continue reclassifying the exhausted Auction House Online 2018 archive."
   },
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "last historical run failed at publication reconciliation; no historical writer currently active",
     "action": "No historical writer is active. Do not rerun the failed 43845687349 collector unless its publication safeguard is present; use the persisted Andrew Grant batch as the next growth run.",
     "last_reviewed": "2026-11-16T12:14:34Z"
-  }
+  },
+  "corrections": [
+    {
+      "date": "2026-11-16",
+      "issue": "The previously cited Property-World May 2018 PDF was checked directly and is an SDL Auctions/SDL Bigwood catalogue, not an Andrew Grant catalogue. It contains lot 170, 52 High Street, Brierley Hill, but no Andrew Grant attribution.",
+      "action": "Do not bank that PDF as Andrew Grant evidence and do not use its lot 170 as an Andrew Grant appearance. Preserve the discovery note only as a rejected/misattributed seed. Andrew Grant remains zero retained appearances until genuine Andrew Grant individual auction evidence is recovered.",
+      "evidence": "https://interactive.property-world.co.uk/sdlbigwood_may18/Catalogue.pdf"
+    }
+  ]
 }
