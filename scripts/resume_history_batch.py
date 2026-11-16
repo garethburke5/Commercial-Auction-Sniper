@@ -72,6 +72,7 @@ TASKS=(
     ('mchugh_legacy', ['scripts/harvest_mchugh_legacy.py', '8']),
     ('barnard_marcus', ['scripts/resume_barnard_marcus_history.py', '--limit', '4']),
     ('dawsons_results', ['scripts/harvest_dawsons_history.py']),
+    ('city_rural_property_auctions', ['scripts/harvest_city_rural_property_auctions.py']),
 )
 
 # These rolling archives have explicitly reconciled pagination. Re-fetching
