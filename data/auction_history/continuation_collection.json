@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T06:07:21.073Z",
+  "generated_at": "2026-11-16T07:00:00Z",
   "status": "target_ready",
   "previous_run": {
     "run_id": 43783977536,
@@ -2560,11 +2560,11 @@
     }
   },
   "next_run": {
-    "target": "Auction House Bristol & West / Morgan Beddoe legacy 2021-2022",
-    "action": "Run the new reusable Morgan Beddoe legacy collector. It starts from 14 independently evidenced 2021-2022 property pages and attempts sitemap discovery for additional property pages, then snapshots, parses, deduplicates and banks individual appearances through the normal rebuild/publication path.",
-    "scope": "All sectors; Morgan Beddoe and Auction House Bristol & West are one operator lineage. Preserve exact auction dates, guide and achieved prices, published outcomes, rents where explicitly published, original URLs and immutable snapshots. Unknown fields remain null. Do not count related legal interests or aliases as separate appearances.",
-    "rationale": "The source register has zero retained appearances for Auction House Bristol & West. Surviving Morgan Beddoe pages independently evidence multiple 2021-2022 auctions, including 12 May 2022 Pier View Hotel (£700,000 guide), 15 February 2022 4 Kingshill Road (£300,000 + VAT guide and £19,760 pa rent), 16 December 2021 Quinton House (£550,000 guide) and 13 May 2021 Leonard Stanley House (£950,000 guide). This is a materially different recovery route from the confirmed-404 All Wales PDFs and inaccessible Durrants result links.",
-    "collector_commit": "7e0e6b7cc533329261ae4bdb006c2dc1cde3f4cc"
+    "auctioneer": "Auction House Oxfordshire",
+    "action": "Run the regional first-party archive collector now including Oxfordshire, then snapshot, deduplicate and rebuild before publication. The collector already reconciles every pagination page and stable lot redirect ID; this addition closes a real uncovered regional branch rather than creating an alias.",
+    "scope": "All sectors and all surviving rows in https://www.auctionhouse.co.uk/oxfordshire/auction/past-auctions; preserve exact individual lot end dates, guides, published outcomes and original URLs. Unknown values remain null. Auction House UK is the shared operator; Oxfordshire is a regional branch, not a new legal auctioneer.",
+    "rationale": "The source register has zero retained Auction House Oxfordshire appearances and the regional collector currently covers 19 regions but omits Oxfordshire. The first-party Oxfordshire past-auctions surface exists and is a distinct regional archive route. This is a concrete uncovered branch and should be tested before further low-value refreshes.",
+    "collector_commit": "10fc5572816ab0abedadd88f95b7017c7bbe47ea"
   },
   "next_growth_target": {
     "auctioneer": "City & Rural Property Auctions",
@@ -2617,7 +2617,7 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "City & Rural has zero retained appearances but accessible 2023 first-party event/property evidence; run this new collector before lower-value refreshes.",
+  "focus_reason": "Auction House Oxfordshire has zero retained appearances and a live first-party past-auctions archive; add it to the reusable regional collector and bank every surviving individual row.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
