@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T02:04:00+00:00",
+  "generated_at": "2026-11-16T03:00:00+00:00",
   "status": "target_queued",
   "previous_run": {
     "run_id": 43783977536,
@@ -1236,7 +1236,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 6327,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:40:24.202804+00:00"
     },
     {
@@ -1348,7 +1348,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6328,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:41:14.463032+00:00"
     },
     {
@@ -1420,7 +1420,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6328,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:41:52.158420+00:00"
     },
     {
@@ -1468,7 +1468,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6383,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:42:06.139171+00:00"
     },
     {
@@ -1476,7 +1476,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6414,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:42:06.146525+00:00"
     },
     {
@@ -1492,7 +1492,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6417,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:42:14.791139+00:00"
     },
     {
@@ -1500,7 +1500,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 6421,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T02:42:14.794889+00:00"
     },
     {
@@ -2036,10 +2036,10 @@
     }
   },
   "next_run": {
-    "target": "Durrants retained 2021\u20132022 catalogue/result expansion",
-    "action": "Rebuild historical database from banked records and collect Durrants catalogues",
-    "scope": "search retained publisher/platform copies for exact 2021\u20132022 calendar dates and batch every surviving individual-lot inventory through the existing Durrants manifest runner",
-    "rationale": "All Wales direct PDFs are confirmed HTTP 404 and Kivells 2022 half-year review is already banked (40 net appearances); Durrants is the next persisted growth target with a reusable collector and an explicit 2021\u20132022 evidence gap."
+    "target": "Auction House Essex & Kent (Pre June 2024) / successor lineage recovery",
+    "action": "Use the existing EIG/past-lots infrastructure and first-party retained source material to recover the pre-June-2024 Auction House Essex & Kent calendar, prioritising 2021-2024 individual lots and exact dated appearances; reconcile the 2022 Kent merger and June 2024 independence as one operator lineage rather than counting aliases.",
+    "scope": "All sectors; individual lot appearances only; preserve exact auction dates, guide and achieved prices separately, all published outcomes and original URLs; deduplicate against existing Auction House Essex & Kent and Auction House UK lineage before banking.",
+    "rationale": "The source register currently shows zero retained appearances for the pre-June-2024 Essex & Kent label despite independent evidence that the branch ran multiple auctions and handled residential, commercial, land and investment property. A contemporary source reports 23 lots at the 2 November 2022 auction and historical sales statistics, while the operator's own history confirms the Essex/Kent merger in 2022 and June 2024 move to The Auction Department. This is a materially different, accessible growth route from the exhausted Durrants result links."
   },
   "next_target": {
     "auctioneer": "Kivells Auctions",
@@ -2054,5 +2054,30 @@
     "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
     "target": "Kivells 2022 half-year review",
     "result": "No Actions run observed for the contents-API commit; target was already banked in historical corpus, so no duplicate collector was launched."
+  },
+  "durrants_route_assessment": {
+    "checked_at": "2026-11-16T02:58:00+00:00",
+    "finding": "Official Durrants auction calendar exposes historical property-auction dates from 24 February 2021 through 30 November 2022, but the 2021-2022 result links are now rendered as 'Get in touch to view results'. A materially different first-party route exists for 2024 result PDFs, but those years are already represented and therefore were not treated as growth.",
+    "historical_dates": [
+      "2021-02-24",
+      "2021-04-28",
+      "2021-05-26",
+      "2021-08-25",
+      "2021-09-29",
+      "2021-11-24",
+      "2021-12-15",
+      "2022-03-30",
+      "2022-06-08",
+      "2022-06-29",
+      "2022-09-28",
+      "2022-11-02",
+      "2022-11-30"
+    ],
+    "alternative_evidence_urls": [
+      "https://durrants.com/property-auctions/auctions-calendar/",
+      "https://media.rightmove.co.uk/39k/38444/153389396/38444_100043024658_DOC_00_0000.pdf",
+      "https://media.rightmove.co.uk/61k/60207/149903912/60207_100043024453_DOC_00_0001.pdf"
+    ],
+    "decision": "Do not repeatedly refresh the dead 2021-2022 result links. Move to a different uncovered source while retaining these dates as a recovery lead."
   }
 }
