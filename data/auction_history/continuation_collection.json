@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T02:00:00+00:00",
-  "status": "target_queued",
+  "generated_at": "2026-11-16T02:02:00+00:00",
+  "status": "target_triggered",
   "previous_run": {
     "run_id": 43783977536,
     "commit": "50036cf85c1c78378dc37390b6dcceba29fb75dd",
@@ -1628,10 +1628,11 @@
     }
   },
   "next_run": {
-    "target": "All Wales Auction",
-    "route": "first-party catalogue PDFs",
-    "action": "Run focused All Wales Auction archive expansion",
-    "rationale": "The previous successful historical run did not execute the All Wales step because its head commit did not carry the focus trigger; the target remains genuinely uncaptured at zero retained appearances. Execute the four retained 2020-2021 first-party catalogues before selecting another source."
+    "target": "Kivells Auctions 2022 half-year review",
+    "action": "Run focused Kivells result PDF expansion: bank 2022 half-year review cards",
+    "expected_individual_cards": 40,
+    "expected_offered_denominator": 43,
+    "rationale": "All Wales direct first-party PDF route returned HTTP 404 for all four retained catalogues; do not repeat that route. Kivells review is an accessible retained source with 40 individually identifiable sold cards."
   },
   "next_target": {
     "auctioneer": "Kivells Auctions",
