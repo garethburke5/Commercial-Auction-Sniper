@@ -1,31 +1,32 @@
 {
-  "updated_at": "2026-11-16T13:14:00Z",
+  "updated_at": "2026-11-16T14:15:22Z",
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction House Online / national shared platform — retained 2018 archive",
-    "task": "Run the already-admitted two-catalogue 2018 retained-grid batch, reconcile every surviving individual result card against its catalogue denominator, bank each evidenced lot once, then move immediately to the next uncovered source/year rather than refreshing exhausted Auction House Online labels.",
-    "reason": "The queued manifest contains two surviving first-party 2018 Auction House Online catalogues with four visible individual result cards. The current corpus has only one 2018 Auction House Online appearance, so this is a concrete uncaptured source-year checkpoint. The batch is small, but it is already admitted and protected; it should be completed before moving to a larger uncovered source/year.",
+    "auctioneer_lineage": "Retained legacy regional/national auctioneer archives — rotating saved-source batch",
+    "task": "Run the existing retained-legacy collector batch now that no historical writer is active. Prioritise collectors with saved catalogue/result inventories and known incomplete holdings, bank individual lots, rebuild once and publish once; then move to the next uncovered source/year rather than refreshing exhausted archives.",
+    "reason": "The 2018 Auction House Online target is already represented by retained appearance directories and is not a genuine current growth gap. The last published historical checkpoint remained at 313,319 appearances. The reusable retained-legacy batch is the highest-yield existing route that can process multiple saved source inventories in one run without adding dated workflow steps.",
     "first_party_or_saved_seeds": [
-      "https://online.auctionhouse.co.uk/past-auctions/7962",
-      "https://online.auctionhouse.co.uk/past-auctions/4359"
+      "data/auction_history/appearances/auction-house-online-2018-02-16",
+      "data/auction_history/appearances/auction-house-online-2018-12-14",
+      "data/auction_history/auctions/source-corpus",
+      "data/auction_history/continuation_collection.json"
     ],
-    "recovery_requirement": "Preserve each individual lot date, guide, achieved price, published outcome, original URL and immutable snapshot. Deduplicate exact overlaps against existing Auction House Online and regional branch identities. Do not treat the four-card catalogue denominator as four if any card cannot be individually reconciled.",
+    "recovery_requirement": "Preserve individual dates, guide and achieved price separately, published outcomes, rent, original URLs and immutable snapshots/checksums. Deduplicate shared-platform and branch aliases before claiming growth. Unknown values remain null.",
     "admission_rules": [
       "Bank individual lot appearances only.",
-      "Preserve exact auction date, guide, achieved price, published outcome and rent separately.",
-      "Retain original URL and immutable source snapshot/checksum.",
-      "Keep all property sectors; permanent banking is not commercial-filtered.",
-      "Reconcile Auction House regional branches/trading names without double-counting shared-platform appearances.",
-      "Unknown values remain null; partial, undated and future-dated records remain distinct."
+      "Keep all sectors in permanent banking; commercial/mixed-use reporting is a separate measure.",
+      "Do not count catalogue denominators, directory entries or aliases as appearances.",
+      "Preserve partial, undated, future-dated and duplicate states distinctly.",
+      "Merge/rebuild once and publish once after the batch; preserve any failed checkpoint."
     ],
-    "batch_strategy": "Execute the queued two-catalogue 2018 batch once through the existing reusable retained-grid runner, merge/rebuild once, publish once, then select a materially larger uncovered source/year. Do not add another dated workflow step for the four-card checkpoint.",
-    "next_after_checkpoint": "Move to a larger uncovered historical source/year or saved catalogue set; do not continue reclassifying the exhausted Auction House Online 2018 archive."
+    "batch_strategy": "Use the already implemented 'retained-legacy' workflow path, which batches multiple saved collectors including Sutton Kersh, Knight Frank, Auction Estates, Hollis Morgan, Dedman Gray, John Francis, Swift, Sharpes, Seel, Eddisons, McHugh and others. Do not add a new dated workflow step for this rotation.",
+    "next_after_checkpoint": "Measure the net banked appearances and then select the largest accessible uncovered source/year or saved catalogue set; do not repeat zero-growth retained sources."
   },
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "last historical run failed at publication reconciliation; no historical writer currently active",
-    "action": "No historical writer is active. Do not rerun the failed 43845687349 collector unless its publication safeguard is present; use the persisted Andrew Grant batch as the next growth run.",
-    "last_reviewed": "2026-11-16T12:14:34Z"
+    "status": "no historical writer active; ce38cb81c363de10e7cc31182fcd4d0369ffaa26 is the latest published history checkpoint",
+    "action": "The next push intentionally triggers the existing retained-legacy batch. Do not launch another historical writer until that run completes.",
+    "last_reviewed": "2026-11-16T14:15:22Z"
   },
   "corrections": [
     {
