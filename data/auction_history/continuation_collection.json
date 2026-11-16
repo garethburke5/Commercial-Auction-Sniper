@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T05:01:54.839Z",
+  "generated_at": "2026-11-16T06:07:21.073Z",
   "status": "target_ready",
   "previous_run": {
     "run_id": 43783977536,
@@ -1976,7 +1976,67 @@
       "checked_at": "2026-11-16T05:23:47.070348+00:00"
     }
   ],
-  "next_task": 56,
+  "next_task": {
+    "priority": 1,
+    "auctioneer": "Auction House Essex & Kent (Pre June 2024)",
+    "lineage": "Auction House Essex -> Auction House Kent (launched Jan 2020) -> combined Auction House Essex & Kent (2022) -> independent The Auction Department (June 2024)",
+    "years": [
+      "2019",
+      "2020",
+      "2021",
+      "2022",
+      "2023",
+      "2024"
+    ],
+    "growth_basis": "The corpus currently has only 17 appearances under the Essex & Kent lineage, while the first-party Auction House Online platform exposes many surviving individual lot pages for this branch across 2019-2024. This is a concrete uncovered legacy/platform opportunity.",
+    "seed_evidence": [
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/12132",
+        "date": "2019-08-08",
+        "address": "Site at 22 to 24 Wolseley Avenue, Jaywick, Clacton-On-Sea, Essex, CO15 2JH",
+        "guide": "£50,000-£60,000"
+      },
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/8c3f9e87-26c0-4dc0-956d-6baa6def2449",
+        "date": "2019-04-18",
+        "address": "5 Glebe Way, Jaywick, Clacton-On-Sea, Essex, CO15 2EN",
+        "guide": "£60,000-£70,000"
+      },
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/38798",
+        "date": "2021-03-11",
+        "address": "25 Clyde Street, Sheerness, Kent, ME12 2QF",
+        "guide": "£110,000"
+      },
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/96198",
+        "date": "2023-06-20",
+        "address": "1 Ivy Lane, Canterbury, Kent, CT1 1TU",
+        "guide": "£150,000"
+      },
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/106214",
+        "date": "2023-11-07",
+        "address": "371 Luton Road, Chatham, Kent, ME4 5BH",
+        "guide": "£90,000"
+      },
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/120870",
+        "date": "2024-06-04",
+        "address": "3 Beatty Lane, Basildon, Essex, SS14 1QH",
+        "guide": "£230,000"
+      },
+      {
+        "url": "https://online.auctionhouse.co.uk/lot/details/121111",
+        "date": "2024-06-04",
+        "address": "15 Ash Road, Rochester, Kent, ME2 2JL",
+        "guide": "£205,000"
+      }
+    ],
+    "collection_method": "Use the existing Auction House Online/shared-platform retrieval route where possible; batch individual surviving lot pages, preserve original URLs and immutable snapshots, reconcile the Essex/Kent trading-name lineage, and deduplicate against existing Auction House Online and Essex/Kent records before banking growth.",
+    "do_not_count": "Search-result snippets, directory entries, annual totals or aliases. Unknown outcomes/prices remain null.",
+    "national_completeness_verified": false
+  },
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
@@ -2503,7 +2563,7 @@
     "target": "Auction House Bristol & West / Morgan Beddoe legacy 2021-2022",
     "action": "Run the new reusable Morgan Beddoe legacy collector. It starts from 14 independently evidenced 2021-2022 property pages and attempts sitemap discovery for additional property pages, then snapshots, parses, deduplicates and banks individual appearances through the normal rebuild/publication path.",
     "scope": "All sectors; Morgan Beddoe and Auction House Bristol & West are one operator lineage. Preserve exact auction dates, guide and achieved prices, published outcomes, rents where explicitly published, original URLs and immutable snapshots. Unknown fields remain null. Do not count related legal interests or aliases as separate appearances.",
-    "rationale": "The source register has zero retained appearances for Auction House Bristol & West. Surviving Morgan Beddoe pages independently evidence multiple 2021-2022 auctions, including 12 May 2022 Pier View Hotel (\u00a3700,000 guide), 15 February 2022 4 Kingshill Road (\u00a3300,000 + VAT guide and \u00a319,760 pa rent), 16 December 2021 Quinton House (\u00a3550,000 guide) and 13 May 2021 Leonard Stanley House (\u00a3950,000 guide). This is a materially different recovery route from the confirmed-404 All Wales PDFs and inaccessible Durrants result links.",
+    "rationale": "The source register has zero retained appearances for Auction House Bristol & West. Surviving Morgan Beddoe pages independently evidence multiple 2021-2022 auctions, including 12 May 2022 Pier View Hotel (£700,000 guide), 15 February 2022 4 Kingshill Road (£300,000 + VAT guide and £19,760 pa rent), 16 December 2021 Quinton House (£550,000 guide) and 13 May 2021 Leonard Stanley House (£950,000 guide). This is a materially different recovery route from the confirmed-404 All Wales PDFs and inaccessible Durrants result links.",
     "collector_commit": "7e0e6b7cc533329261ae4bdb006c2dc1cde3f4cc"
   },
   "next_growth_target": {
@@ -2557,5 +2617,10 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "City & Rural has zero retained appearances but accessible 2023 first-party event/property evidence; run this new collector before lower-value refreshes."
+  "focus_reason": "City & Rural has zero retained appearances but accessible 2023 first-party event/property evidence; run this new collector before lower-value refreshes.",
+  "correction": {
+    "previous_focus": "City & Rural Property Auctions",
+    "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
+    "checked_at": "2026-11-16T06:03:55Z"
+  }
 }
