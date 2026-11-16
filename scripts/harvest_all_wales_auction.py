@@ -9,6 +9,8 @@ from __future__ import annotations
 import argparse, base64, gzip, io, json, re, sys
 from pathlib import Path
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from pypdf import PdfReader
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import historical_corpus as corpus
@@ -82,13 +84,16 @@ def parse_lots(text,cfg,evidence):
     return rows
 
 def harvest():
+    session=requests.Session()
+    retry=Retry(total=3, connect=3, read=3, status=3, backoff_factor=1.0, status_forcelist=(429,500,502,503,504), allowed_methods=frozenset({"GET"}), raise_on_status=False)
+    session.mount("https://", HTTPAdapter(max_retries=retry))
     observed=[]; summaries=[]
     out=corpus.DATA/"appearances/all_wales_auction/canonical.jsonl.gz"
     existing=list(corpus.iter_rows(out)) if out.exists() else []
     before={r["appearance_id"] for r in existing}
     for cfg in CATALOGUES:
         try:
-            r=requests.get(cfg["url"],headers=HEADERS,timeout=90)
+            r=session.get(cfg["url"],headers=HEADERS,timeout=90)
             if r.status_code == 404:
                 summaries.append({"date":cfg["date"],"source_url":cfg["url"],"expected_lots":cfg["lots"][1]-cfg["lots"][0]+1,
                                   "captured_lots":0,"complete":False,"source_failure":"HTTP 404"})
