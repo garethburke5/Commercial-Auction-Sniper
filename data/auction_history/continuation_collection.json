@@ -1,12 +1,12 @@
 {
-  "generated_at": "2026-11-15T23:00:17+00:00",
+  "generated_at": "2026-11-16T02:00:00+00:00",
   "status": "target_queued",
   "previous_run": {
-    "run_id": 43761172514,
-    "commit": "39c6370f4fdb0e391f2a74565dd8658c1a6b9325",
+    "run_id": 43783977536,
+    "commit": "50036cf85c1c78378dc37390b6dcceba29fb75dd",
     "net_new_appearances": 0,
     "auctioneer": "All Wales Auction",
-    "result": "Collector reached execution but failed on a syntax error in the run_new_partial_lots summary; no All Wales records were written. Publication still banked the unchanged corpus checkpoint."
+    "result": "Collector executed but all four retained first-party PDF URLs returned HTTP 404; no records were written. The source failures are now recorded as a blocked route. Move to the next accessible growth target rather than repeatedly refreshing these dead URLs."
   },
   "runs": [
     {
@@ -634,7 +634,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "latest unfiltered sold table is unchanged; historical filters remain terminal",
       "retry_after_seconds": 11894,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:07:37.201873+00:00"
     },
     {
@@ -746,7 +746,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 11891,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:08:31.280670+00:00"
     },
     {
@@ -818,7 +818,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 11893,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:09:07.522418+00:00"
     },
     {
@@ -866,7 +866,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 11946,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:09:23.755836+00:00"
     },
     {
@@ -874,7 +874,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 11977,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:09:23.761156+00:00"
     },
     {
@@ -890,7 +890,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 11980,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:09:31.800227+00:00"
     },
     {
@@ -898,7 +898,7 @@
       "outcome": "deferred_unchanged_archive",
       "reason": "explicitly reconciled archive produced no new appearances; six-hour refresh",
       "retry_after_seconds": 11984,
-      "duration_seconds": 0.0,
+      "duration_seconds": 0,
       "checked_at": "2026-11-16T01:09:31.803646+00:00"
     },
     {
@@ -1100,9 +1100,19 @@
       "diagnostic_tail": "",
       "duration_seconds": 20.76,
       "checked_at": "2026-11-16T01:27:37.217746+00:00"
+    },
+    {
+      "run_id": null,
+      "status": "queued",
+      "auctioneer": "Kivells Auctions",
+      "source_year": 2022,
+      "target": "half-year review four-event batch",
+      "expected_individual_cards": 40,
+      "expected_offered_denominator": 43,
+      "result": "queued after All Wales direct URLs returned HTTP 404"
     }
   ],
-  "next_task": 15,
+  "next_task": 0,
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
@@ -1622,5 +1632,14 @@
     "route": "first-party catalogue PDFs",
     "action": "Run focused All Wales Auction archive expansion",
     "rationale": "The previous successful historical run did not execute the All Wales step because its head commit did not carry the focus trigger; the target remains genuinely uncaptured at zero retained appearances. Execute the four retained 2020-2021 first-party catalogues before selecting another source."
+  },
+  "next_target": {
+    "auctioneer": "Kivells Auctions",
+    "source_year": 2022,
+    "scope": "retained first-party 2022 half-year review; four exact-dated events: 26 January, 23 February, 30 March and 4 May 2022",
+    "expected_individual_cards": 40,
+    "expected_offered_denominator": 43,
+    "priority": "accessible individual sold cards not yet banked; preserve three unidentified offered outcomes as null; do not substitute annual denominator",
+    "rationale": "All Wales surviving URLs are now confirmed HTTP 404 on the direct first-party route. This Kivells batch is the next persisted, bounded, evidenced growth opportunity already identified in HISTORICAL_CORPUS.md."
   }
 }
