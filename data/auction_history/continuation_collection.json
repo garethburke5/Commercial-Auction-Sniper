@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T02:02:00+00:00",
-  "status": "target_triggered",
+  "generated_at": "2026-11-16T02:04:00+00:00",
+  "status": "target_queued",
   "previous_run": {
     "run_id": 43783977536,
     "commit": "50036cf85c1c78378dc37390b6dcceba29fb75dd",
@@ -1628,11 +1628,10 @@
     }
   },
   "next_run": {
-    "target": "Kivells Auctions 2022 half-year review",
-    "action": "Run focused Kivells result PDF expansion: bank 2022 half-year review cards",
-    "expected_individual_cards": 40,
-    "expected_offered_denominator": 43,
-    "rationale": "All Wales direct first-party PDF route returned HTTP 404 for all four retained catalogues; do not repeat that route. Kivells review is an accessible retained source with 40 individually identifiable sold cards."
+    "target": "Durrants retained 2021–2022 catalogue/result expansion",
+    "action": "Rebuild historical database from banked records and collect Durrants catalogues",
+    "scope": "search retained publisher/platform copies for exact 2021–2022 calendar dates and batch every surviving individual-lot inventory through the existing Durrants manifest runner",
+    "rationale": "All Wales direct PDFs are confirmed HTTP 404 and Kivells 2022 half-year review is already banked (40 net appearances); Durrants is the next persisted growth target with a reusable collector and an explicit 2021–2022 evidence gap."
   },
   "next_target": {
     "auctioneer": "Kivells Auctions",
@@ -1642,5 +1641,10 @@
     "expected_offered_denominator": 43,
     "priority": "accessible individual sold cards not yet banked; preserve three unidentified offered outcomes as null; do not substitute annual denominator",
     "rationale": "All Wales surviving URLs are now confirmed HTTP 404 on the direct first-party route. This Kivells batch is the next persisted, bounded, evidenced growth opportunity already identified in HISTORICAL_CORPUS.md."
+  },
+  "previous_trigger_attempt": {
+    "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
+    "target": "Kivells 2022 half-year review",
+    "result": "No Actions run observed for the contents-API commit; target was already banked in historical corpus, so no duplicate collector was launched."
   }
 }
