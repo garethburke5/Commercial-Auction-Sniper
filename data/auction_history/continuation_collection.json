@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T07:00:00Z",
+  "generated_at": "2026-11-16T07:02:00Z",
   "status": "target_ready",
   "previous_run": {
     "run_id": 43783977536,
@@ -1976,67 +1976,7 @@
       "checked_at": "2026-11-16T05:23:47.070348+00:00"
     }
   ],
-  "next_task": {
-    "priority": 1,
-    "auctioneer": "Auction House Essex & Kent (Pre June 2024)",
-    "lineage": "Auction House Essex -> Auction House Kent (launched Jan 2020) -> combined Auction House Essex & Kent (2022) -> independent The Auction Department (June 2024)",
-    "years": [
-      "2019",
-      "2020",
-      "2021",
-      "2022",
-      "2023",
-      "2024"
-    ],
-    "growth_basis": "The corpus currently has only 17 appearances under the Essex & Kent lineage, while the first-party Auction House Online platform exposes many surviving individual lot pages for this branch across 2019-2024. This is a concrete uncovered legacy/platform opportunity.",
-    "seed_evidence": [
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/12132",
-        "date": "2019-08-08",
-        "address": "Site at 22 to 24 Wolseley Avenue, Jaywick, Clacton-On-Sea, Essex, CO15 2JH",
-        "guide": "£50,000-£60,000"
-      },
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/8c3f9e87-26c0-4dc0-956d-6baa6def2449",
-        "date": "2019-04-18",
-        "address": "5 Glebe Way, Jaywick, Clacton-On-Sea, Essex, CO15 2EN",
-        "guide": "£60,000-£70,000"
-      },
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/38798",
-        "date": "2021-03-11",
-        "address": "25 Clyde Street, Sheerness, Kent, ME12 2QF",
-        "guide": "£110,000"
-      },
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/96198",
-        "date": "2023-06-20",
-        "address": "1 Ivy Lane, Canterbury, Kent, CT1 1TU",
-        "guide": "£150,000"
-      },
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/106214",
-        "date": "2023-11-07",
-        "address": "371 Luton Road, Chatham, Kent, ME4 5BH",
-        "guide": "£90,000"
-      },
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/120870",
-        "date": "2024-06-04",
-        "address": "3 Beatty Lane, Basildon, Essex, SS14 1QH",
-        "guide": "£230,000"
-      },
-      {
-        "url": "https://online.auctionhouse.co.uk/lot/details/121111",
-        "date": "2024-06-04",
-        "address": "15 Ash Road, Rochester, Kent, ME2 2JL",
-        "guide": "£205,000"
-      }
-    ],
-    "collection_method": "Use the existing Auction House Online/shared-platform retrieval route where possible; batch individual surviving lot pages, preserve original URLs and immutable snapshots, reconcile the Essex/Kent trading-name lineage, and deduplicate against existing Auction House Online and Essex/Kent records before banking growth.",
-    "do_not_count": "Search-result snippets, directory entries, annual totals or aliases. Unknown outcomes/prices remain null.",
-    "national_completeness_verified": false
-  },
+  "next_task": 50,
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
