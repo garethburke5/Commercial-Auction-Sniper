@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T03:04:00+00:00",
-  "status": "target_queued",
+  "generated_at": "2026-11-16T03:59:00+00:00",
+  "status": "target_ready",
   "previous_run": {
     "run_id": 43783977536,
     "commit": "50036cf85c1c78378dc37390b6dcceba29fb75dd",
@@ -2036,10 +2036,11 @@
     }
   },
   "next_run": {
-    "target": "Auction House Bristol & West / Morgan Beddoe legacy 2022 recovery",
-    "action": "Batch surviving legacy Morgan Beddoe property pages and any retained Auction House Bristol & West catalogue/result copies for 2021-2022 through a reusable legacy-source runner. Start with the independently evidenced 12 May 2022 Pier View Hotel page, then discover the surrounding auction's other individual lots before admission.",
-    "scope": "All sectors; reconcile Morgan Beddoe -> Auction House Bristol & West as one operator lineage; preserve exact auction dates, guides, achieved prices and published outcomes separately; keep source URLs and immutable snapshots; deduplicate against existing Auction House Bristol & West/Bristol corpus before banking.",
-    "rationale": "The source register has zero retained appearances for Auction House Bristol & West, while the public EIG directory confirms the operator and its residential/commercial scope. A surviving legacy first-party-style Morgan Beddoe property page independently identifies a Bristol & West auction on 12 May 2022, with a £700,000 guide, commercial pub/hotel/development use and the exact auction date. This is a materially different recovery route from the exhausted All Wales PDFs and the inaccessible Durrants 2021-2022 result links."
+    "target": "Auction House Bristol & West / Morgan Beddoe legacy 2021-2022",
+    "action": "Run the new reusable Morgan Beddoe legacy collector. It starts from 14 independently evidenced 2021-2022 property pages and attempts sitemap discovery for additional property pages, then snapshots, parses, deduplicates and banks individual appearances through the normal rebuild/publication path.",
+    "scope": "All sectors; Morgan Beddoe and Auction House Bristol & West are one operator lineage. Preserve exact auction dates, guide and achieved prices, published outcomes, rents where explicitly published, original URLs and immutable snapshots. Unknown fields remain null. Do not count related legal interests or aliases as separate appearances.",
+    "rationale": "The source register has zero retained appearances for Auction House Bristol & West. Surviving Morgan Beddoe pages independently evidence multiple 2021-2022 auctions, including 12 May 2022 Pier View Hotel (£700,000 guide), 15 February 2022 4 Kingshill Road (£300,000 + VAT guide and £19,760 pa rent), 16 December 2021 Quinton House (£550,000 guide) and 13 May 2021 Leonard Stanley House (£950,000 guide). This is a materially different recovery route from the confirmed-404 All Wales PDFs and inaccessible Durrants result links.",
+    "collector_commit": "7e0e6b7cc533329261ae4bdb006c2dc1cde3f4cc"
   },
   "next_target": {
     "auctioneer": "Kivells Auctions",
