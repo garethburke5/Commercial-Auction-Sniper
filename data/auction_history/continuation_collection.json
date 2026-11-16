@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-16T03:59:00+00:00",
+  "generated_at": "2026-11-16T05:01:54.839Z",
   "status": "target_ready",
   "previous_run": {
     "run_id": 43783977536,
@@ -1520,7 +1520,7 @@
       "checked_at": "2026-11-16T02:43:39.595876+00:00"
     }
   ],
-  "next_task": 51,
+  "next_task": 59,
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
@@ -2044,7 +2044,10 @@
   },
   "next_growth_target": {
     "auctioneer": "City & Rural Property Auctions",
-    "source_years": [2023, 2024],
+    "source_years": [
+      2023,
+      2024
+    ],
     "scope": "surviving first-party auction event pages and linked individual property pages discoverable from the retained 2023 event seeds and XML sitemaps",
     "priority": "unbanked individual lot appearances; preserve exact auction dates, guides, achieved prices, outcomes and rents",
     "rationale": "Source register currently has zero retained City & Rural appearances, while first-party evidence exposes a 2023 auction event page and individual 2023 commercial/mixed-use lots. A March 2023 first-party catalogue PDF also survives, providing a second retrieval route.",
@@ -2089,5 +2092,6 @@
       "https://media.rightmove.co.uk/61k/60207/149903912/60207_100043024453_DOC_00_0001.pdf"
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
-  }
+  },
+  "focus_reason": "City & Rural has zero retained appearances but accessible 2023 first-party event/property evidence; run this new collector before lower-value refreshes."
 }
