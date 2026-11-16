@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-16T11:20:23Z",
+  "updated_at": "2026-11-16T12:14:34Z",
   "next_growth_target": {
     "priority": 1,
     "auctioneer_lineage": "Andrew Grant Auctions / Andrew Grant",
@@ -17,11 +17,25 @@
       "Keep commercial, mixed-use, residential and land records; do not apply the commercial website filter to permanent banking.",
       "Deduplicate against any existing Andrew Grant/related operator evidence before claiming growth.",
       "Leave unknown values null and keep legal-interest variants separate."
-    ]
+    ],
+    "recovery_evidence": [
+      "https://www.countrylife.co.uk/property/20-bedroom-castle-sale-just-500000-huge-amount-work-174955",
+      "https://www.thelondonoffice.co.uk/downloads/tlo-acquire-issue-24.pdf",
+      "https://eig-web-uks.azurewebsites.net/information/property-auctions/worcestershire",
+      "https://www.cpcfinance.co.uk/wp-content/uploads/2016/10/List-of-UK-Property-Auctions-2016-October-December.pdf"
+    ],
+    "recovery_evidence_notes": [
+      "Country Life independently preserves a 13 March 2018 Andrew Grant auction listing for Ribbesford House, with an April 2018 auction date and £500,000 guide.",
+      "The London Office issue 24 preserves an Andrew Grant Cotheridge property with multiple commercial units and farmland, useful as older discovery evidence but not itself an individual auction appearance until an auction date is established.",
+      "EIG's Worcestershire auctioneer directory identifies Andrew Grant as a local auctioneer and lists auction activity in the region; directory evidence is discovery-only and is not to be banked as property records.",
+      "A CPC Finance 2016 UK auction calendar independently lists Andrew Grant as an auctioneer with a 22 November 2016 auction date, establishing an older source-year lead but not an individual lot."
+    ],
+    "batch_strategy": "Prioritise surviving 2018 catalogue first, then recover adjacent 2017-2020 Andrew Grant event/catalogue pages in one bounded batch. Do not create a separate workflow step per event."
   },
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "last historical run failed at publication reconciliation; no historical writer currently active",
-    "action": "Do not rerun the failed collector until the publication conflict safeguard is deployed. The source checkpoint artifact from run 43845687349 is retained."
+    "action": "No historical writer is active. Do not rerun the failed 43845687349 collector unless its publication safeguard is present; use the persisted Andrew Grant batch as the next growth run.",
+    "last_reviewed": "2026-11-16T12:14:34Z"
   }
 }
