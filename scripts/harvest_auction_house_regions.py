@@ -50,6 +50,8 @@ REGIONS = (
     ("northantsbedsandbucks", "Auction House Northants, Beds & Bucks", "auction-house-northantsbedsbucks"),
     ("chesterfieldandnorthderbyshire", "Auction House Chesterfield & North Derbyshire", "auction-house-chesterfieldnorthderbyshire"),
     ("northernireland", "Auction House Northern Ireland", "auction-house-northernireland"),
+    # Oxfordshire was present in the EIG directory but absent from the regional archive rotation. Its first-party past-auctions table is a separate regional source and must be reconciled under the existing shared Auction House operator lineage.
+    ("oxfordshire", "Auction House Oxfordshire", "auction-house-oxfordshire"),
 )
 
 # A regional archive can serve its stable redirect IDs from either the shared
