@@ -2286,3 +2286,14 @@ The bounded Auction House South West / Bristol & West route exposes no pre-2018 
 - Next concrete growth target: reconcile the exact retained/current identity conflict for Auction House North West lot **366952** on archive page 2, then rerun its existing 14-page collector once. Preserve both evidence objects, admit only absent individual lots and rebuild once. Do not retry All Wales, SDL Kinetic, Oxfordshire or Goldings without a new retrieval route.
 - National completeness remains **false**.
 
+## 18 November 2026 — Auction House North West identity-safe reconciliation
+
+- Improved the reusable regional collector so a changed stable lot ID preserves both retained/current evidence objects and cannot abort later cards on the same page. Strong reconciliation uses the stable lot ID, exact end time, postcode and building number; different properties remain separate.
+- The observed lot `366952` is one appearance at 16 St. James('s) Street, Brighton, BN2 1RF, ending 6 October 2026 at 12:39. The source revised its guide from **£140,000** to **£119,000**. Both guide publications and immutable page snapshots are retained; the address punctuation variant is not counted as a second property.
+- Focused workflow [44399091773](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/44399091773) passed its tests, reconciled **14/14 pages** and **404 current rows**, banked source evidence and rebuilt before checkpoint publication.
+- Net newly banked appearances: **0**. Newly dated address records inside the preceding 20-year window: **0**. New commercial/mixed-use appearances: **0**. Newly covered source-years: **0**. New guide-price publication evidence: **1**. New achieved-price evidence: **0**. New partial, undated, future-dated and duplicate records admitted: **0**.
+- The retained North West set contains **431 historical appearances**, all with addresses, from 24 January 2019 onward. The current surface extends to 24 November 2026; future-dated rows were not counted as historical growth.
+- Corpus totals remain **316,731 appearances**, **305,415 address records**, **11,316 partial lots**, **308,288 appearances inside the preceding 20-year window**, **109,984 appearances with a guide price** and **114,878 with an achieved price**.
+- Next concrete growth target: the uncovered first-party **abbotFox Auctions** listing archive. Its accessible paginated property surface exposes roughly 1,471 listings and surviving auction-tagged rows with exact online-auction end dates, guide ranges and SOLD FOR outcomes. Build one paginated reusable collector, exclude ordinary estate-agency listings, snapshot list/detail pages, deduplicate exact property/events and reconcile the auction trading division without alias inflation.
+- National completeness remains **false**.
+

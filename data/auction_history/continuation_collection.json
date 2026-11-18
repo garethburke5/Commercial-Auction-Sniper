@@ -1,20 +1,20 @@
 {
-  "generated_at": "2026-11-18T20:16:00Z",
+  "generated_at": "2026-11-18T21:20:00Z",
   "status": "ready_for_collection",
   "previous_run": {
-    "run_id": 44388022907,
-    "commit": "635d3b2e7ca3e7a31d8788f1127338d2396dc8c4",
+    "run_id": 44399091773,
+    "commit": "fe64c619db48bd0abc05c3e96c21216b4c713438",
     "net_new_appearances": 0,
     "newly_dated_address_records_within_20_years": 0,
     "commercial_mixed_use_new_appearances": 0,
     "newly_covered_source_years": [],
-    "new_guide_price_evidence": 0,
+    "new_guide_price_evidence": 1,
     "new_sale_price_evidence": 0,
     "undated_new_records": 0,
     "future_dated_new_records": 0,
     "duplicate_new_records": 0,
-    "auctioneer": "Goldings Auctions",
-    "result": "Focused 47-catalogue first-party refresh completed after repairing retained snapshot selection. All 635 appearances were already banked; no collection growth was claimed."
+    "auctioneer": "Auction House North West",
+    "result": "All 14 pages and 404 current rows reconciled. No absent historical appearance was found. One same-property guide revision (£140,000 to £119,000) was preserved as a second immutable publication variant."
   },
   "runs": [
     {
@@ -361,19 +361,26 @@
       "exit_code": 0,
       "checked_at": "2026-11-18T20:12:09.090590+00:00",
       "diagnostic_tail": "47 catalogues discovered; 37 complete, 10 incomplete; 635 appearances captured; 0 new appearances, 0 new address records, 0 new partial lots; failures []."
+    },
+    {
+      "source": "auction_house_north_west",
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T21:15:12.322114+00:00",
+      "diagnostic_tail": "14/14 pages, 404 current rows, 431 retained historical appearances, 0 new appearances, 1 guide-price variant, 0 identity conflicts, archive pagination complete."
     }
   ],
   "next_task": 20,
   "target": {
-    "auctioneer": "Auction House North West",
-    "source_route": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2 plus retained Auction House North West snapshots",
-    "rationale": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
+    "auctioneer": "abbotFox Auctions",
+    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and subsequent first-party pagination/detail URLs",
+    "rationale": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
     "evidence": [
-      "retained/current lot 366952 card pair",
-      "14-page first-party archive"
+      "first-party paginated property archive",
+      "first-party auction-tagged detail pages"
     ],
-    "known_evidence_count": 423,
-    "priority": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank."
+    "known_evidence_count": 0,
+    "priority": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes."
   },
   "storage_warning": "GitHub Actions reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs.",
   "latest_by_source": {
@@ -768,11 +775,23 @@
     },
     "auction_house_north_west": {
       "source": "auction_house_north_west",
-      "outcome": "failed",
-      "exit_code": 1,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:20:56.646667+00:00\",\n  \"pages_expected\": 14,\n  \"pages_captured\": 14,\n  \"current_archive_rows\": 377,\n  \"property_appearances_captured\": 423,\n  \"run_new_appearances\": 0,\n  \"address_records\": 423,\n  \"partial_lots\": 0,\n  \"earliest_lot_end_date\": \"2019-01-24\",\n  \"latest_lot_end_date\": \"2026-11-10\",\n  \"by_status\": {\n    \"sold_prior\": 29,\n    \"sold\": 265,\n    \"sold_after\": 58,\n    \"no_bids\": 29,\n    \"last_bid\": 27,\n    \"withdrawn\": 12,\n    \"postponed\": 3\n  },\n  \"page_counts\": {\n    \"1\": 30,\n    \"2\": 30,\n    \"3\": 30,\n    \"4\": 30,\n    \"5\": 30,\n    \"6\": 30,\n    \"7\": 30,\n    \"8\": 30,\n    \"9\": 30,\n    \"10\": 30,\n    \"11\": 30,\n    \"12\": 30,\n    \"13\": 30,\n    \"14\": 7\n  },\n  \"failures\": [\n    {\n      \"page\": 2,\n      \"url\": \"https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2\",\n      \"error\": \"ValueError: source identity drift for lot 366952\"\n    }\n  ],\n  \"archive_pagination_complete\": false\n}\n",
-      "duration_seconds": 7.33,
-      "checked_at": "2026-11-16T05:20:56.701229+00:00"
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T21:15:12.322114+00:00",
+      "pages_expected": 14,
+      "pages_captured": 14,
+      "current_archive_rows": 404,
+      "property_appearances_captured": 431,
+      "run_new_appearances": 0,
+      "run_new_guide_price_variants": 1,
+      "address_records": 431,
+      "partial_lots": 0,
+      "earliest_lot_end_date": "2019-01-24",
+      "latest_lot_end_date": "2026-11-24",
+      "identity_conflicts": [],
+      "archive_pagination_complete": true,
+      "failures": [],
+      "note": "Lot 366952 was the same BN2 1RF building and exact end time with an apostrophe-only address variant. Both £140,000 and £119,000 guides and their snapshots are retained on one appearance."
     },
     "auction_house_south_west": {
       "source": "auction_house_south_west",
@@ -985,68 +1004,66 @@
     }
   },
   "next_run": {
-    "auctioneer": "Auction House North West",
-    "action": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank.",
-    "scope": "All sectors, 14 first-party archive pages, exact retained/current identity reconciliation before admission.",
-    "rationale": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
-    "collector": "scripts/harvest_auction_house_north_west.py"
+    "auctioneer": "abbotFox Auctions",
+    "action": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes.",
+    "scope": "All sectors and all surviving first-party auction-tagged property listings across the paginated archive.",
+    "rationale": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
+    "collector": "scripts/harvest_abbotfox_auctions.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction House North West — regional branch of Auction House UK",
-    "task": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank.",
-    "reason": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
-    "source_route": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2 plus retained Auction House North West snapshots",
-    "collector": "scripts/harvest_auction_house_north_west.py",
+    "auctioneer_lineage": "abbotFox Auctions — genuine Norwich auctioneer/trading division, currently absent from the retained corpus",
+    "task": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes.",
+    "reason": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
+    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and subsequent first-party pagination/detail URLs",
+    "collector_target": "scripts/harvest_abbotfox_auctions.py",
     "observed_inventory": {
-      "pages_expected": 14,
-      "pages_captured": 14,
-      "current_archive_rows": 377,
-      "retained_appearances": 423,
-      "identity_conflict_lot_id": "366952",
-      "date_range": [
-        "2019-01-24",
-        "2026-11-10"
+      "first_party_listings_approx": 1471,
+      "retained_appearances": 0,
+      "evidence_examples": [
+        "auction end date/time",
+        "guide range",
+        "SOLD FOR amount",
+        "individual first-party property URL"
       ]
     },
     "admission_rules": [
-      "Compare the retained and current lot 366952 cards field by field; never overwrite or discard either evidence object.",
-      "Keep the branch identity under Auction House UK lineage and do not count it as a new auctioneer.",
-      "Preserve exact dates, guide and achieved prices, rents, outcomes, original URLs and immutable snapshots; unknown values remain null.",
-      "Deduplicate exact event/lot/property overlaps before reporting any growth, then rebuild once."
+      "Filter on explicit abbotFox Auctions/unconditional online auction evidence; ordinary estate-agency listings are not auction appearances.",
+      "Batch all accessible pagination pages in one reusable run and preserve immutable list/detail snapshots and original URLs.",
+      "Preserve individual auction end dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
+      "Deduplicate exact property/event overlaps and reconcile abbotFox Auctions as a trading division rather than inventing an alias auctioneer."
     ],
-    "blocked_route_avoidance": "Do not retry All Wales 404 PDFs, SDL Kinetic 403 POSTs, Oxfordshire's empty results surface or Goldings without a new source route."
+    "blocked_route_avoidance": "Do not refresh Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West again without a new source route or newly published lots."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction House North West — regional branch of Auction House UK",
-    "task": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank.",
-    "reason": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
-    "source_route": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2 plus retained Auction House North West snapshots",
-    "collector": "scripts/harvest_auction_house_north_west.py",
+    "auctioneer_lineage": "abbotFox Auctions — genuine Norwich auctioneer/trading division, currently absent from the retained corpus",
+    "task": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes.",
+    "reason": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
+    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and subsequent first-party pagination/detail URLs",
+    "collector_target": "scripts/harvest_abbotfox_auctions.py",
     "observed_inventory": {
-      "pages_expected": 14,
-      "pages_captured": 14,
-      "current_archive_rows": 377,
-      "retained_appearances": 423,
-      "identity_conflict_lot_id": "366952",
-      "date_range": [
-        "2019-01-24",
-        "2026-11-10"
+      "first_party_listings_approx": 1471,
+      "retained_appearances": 0,
+      "evidence_examples": [
+        "auction end date/time",
+        "guide range",
+        "SOLD FOR amount",
+        "individual first-party property URL"
       ]
     },
     "admission_rules": [
-      "Compare the retained and current lot 366952 cards field by field; never overwrite or discard either evidence object.",
-      "Keep the branch identity under Auction House UK lineage and do not count it as a new auctioneer.",
-      "Preserve exact dates, guide and achieved prices, rents, outcomes, original URLs and immutable snapshots; unknown values remain null.",
-      "Deduplicate exact event/lot/property overlaps before reporting any growth, then rebuild once."
+      "Filter on explicit abbotFox Auctions/unconditional online auction evidence; ordinary estate-agency listings are not auction appearances.",
+      "Batch all accessible pagination pages in one reusable run and preserve immutable list/detail snapshots and original URLs.",
+      "Preserve individual auction end dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
+      "Deduplicate exact property/event overlaps and reconcile abbotFox Auctions as a trading division rather than inventing an alias auctioneer."
     ],
-    "blocked_route_avoidance": "Do not retry All Wales 404 PDFs, SDL Kinetic 403 POSTs, Oxfordshire's empty results surface or Goldings without a new source route."
+    "blocked_route_avoidance": "Do not refresh Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West again without a new source route or newly published lots."
   },
   "previous_trigger_attempt": {
-    "commit": "12e74a0156fc8bb68e9edc3941977db57e215848",
-    "target": "Goldings retained result catalogues",
-    "result": "Workflow 44388022907 completed successfully; 47 catalogues and 635 appearances reconciled, with zero net new records after deduplication."
+    "commit": "675b7272b5712327fdb5141862371cf676c6c66e",
+    "target": "Auction House North West identity reconciliation",
+    "result": "Workflow 44399091773 completed successfully; 14/14 pages and 404 current rows reconciled, zero new appearances and one new guide-price publication variant preserved."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
@@ -1073,13 +1090,13 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "All Wales was terminally unavailable on four HTTP 404 catalogue URLs. Goldings snapshot selection was repaired and 47 catalogues refreshed, but all 635 appearances were duplicates. Move to Auction House North West's single exact identity conflict before any further broad refresh.",
+  "focus_reason": "Auction House North West is now fully page-reconciled and produced no new appearances; one guide revision was preserved without duplicating the property. Move to the uncovered, accessible abbotFox first-party listing archive.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-18T20:16:00Z",
+  "updated_at": "2026-11-18T21:20:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "Auction House Oxfordshire run 44344767108 completed; no historical writer is active.",
@@ -1092,13 +1109,19 @@
       "issue": "The previously cited Property-World May 2018 PDF was checked directly and is an SDL Auctions/SDL Bigwood catalogue, not an Andrew Grant catalogue. It contains lot 170, 52 High Street, Brierley Hill, but no Andrew Grant attribution.",
       "action": "Do not bank that PDF as Andrew Grant evidence and do not use its lot 170 as an Andrew Grant appearance. Preserve the discovery note only as a rejected/misattributed seed. Andrew Grant remains zero retained appearances until genuine Andrew Grant individual auction evidence is recovered.",
       "evidence": "https://interactive.property-world.co.uk/sdlbigwood_may18/Catalogue.pdf"
+    },
+    {
+      "checked_at": "2026-11-18T21:11:00Z",
+      "workflow_run": 44398032297,
+      "kind": "test_escape_fix",
+      "result": "A literal regex escape stopped the collector before execution; corrected and verified by 531 passing focused/admission tests on the succeeding run. No generated evidence was lost."
     }
   ],
   "current_collection_request": {
-    "source": "auction_house_north_west_identity_reconciliation",
-    "collector": "scripts/harvest_auction_house_north_west.py",
-    "requested_at": "2026-11-18T20:16:00Z",
-    "pages_expected": 14,
-    "identity_conflict_lot_id": "366952"
+    "source": "abbotfox_first_party_listing_archive",
+    "collector": "scripts/harvest_abbotfox_auctions.py",
+    "requested_at": "2026-11-18T21:20:00Z",
+    "estimated_first_party_listings": 1471,
+    "retained_appearances": 0
   }
 }
