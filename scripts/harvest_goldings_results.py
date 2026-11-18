@@ -232,19 +232,30 @@ def load_saved_catalogue(catalogue: dict) -> tuple[bytes, str, dict] | None:
     if not state_path.exists():
         return None
     state = json.loads(state_path.read_text())
-    evidence = state.get("source_evidence") or {}
-    snapshot_name = evidence.get("snapshot_path")
-    snapshot = corpus.ROOT / snapshot_name if snapshot_name else None
-    if state.get("source_url") != catalogue["source_url"] or not snapshot or not snapshot.exists():
+    if state.get("source_url") != catalogue["source_url"]:
         return None
-    try:
-        saved = corpus.read_gzip(snapshot)
-    except gzip.BadGzipFile:
-        # One retained legacy snapshot was written as plain JSON before the
-        # corpus writer standardised gzip output. Preserve and reuse that
-        # immutable evidence instead of aborting the whole catalogue batch.
-        saved = json.loads(snapshot.read_text())
-    return saved["html"].encode("utf-8"), catalogue["source_url"], saved["evidence"]
+    # Recovery states may point source_evidence at a structured PDF extraction
+    # while retaining the original first-party HTML under result_source_evidence.
+    # Prefer the exact result snapshot and ignore non-HTML evidence envelopes.
+    for evidence_key in ("result_source_evidence", "source_evidence"):
+        evidence = state.get(evidence_key) or {}
+        snapshot_name = evidence.get("snapshot_path")
+        snapshot = corpus.ROOT / snapshot_name if snapshot_name else None
+        if not snapshot or not snapshot.exists():
+            continue
+        try:
+            saved = corpus.read_gzip(snapshot)
+        except gzip.BadGzipFile:
+            # Some retained legacy snapshots are plain JSON despite a .gz
+            # suffix. Preserve and reuse that immutable evidence.
+            saved = json.loads(snapshot.read_text())
+        if isinstance(saved, dict) and isinstance(saved.get("html"), str):
+            return (
+                saved["html"].encode("utf-8"),
+                catalogue["source_url"],
+                saved.get("evidence") or evidence,
+            )
+    return None
 
 
 def harvest(refresh: bool = False, workers: int = 8) -> None:

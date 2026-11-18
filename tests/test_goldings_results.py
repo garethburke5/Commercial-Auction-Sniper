@@ -97,7 +97,12 @@ def test_saved_catalogue_accepts_legacy_plain_json_with_gz_suffix(tmp_path, monk
     state_path = state_dir / f"{goldings.catalogue_slug(source_url)}.json"
     state_path.write_text(json.dumps({
         "source_url": source_url,
-        "source_evidence": {"snapshot_path": "snapshots/legacy.json.gz"},
+        "source_evidence": {"snapshot_path": "snapshots/structured-catalogue.json"},
+        "result_source_evidence": {"snapshot_path": "snapshots/legacy.json.gz"},
+    }))
+    (tmp_path / "snapshots" / "structured-catalogue.json").write_text(json.dumps({
+        "lot_records": [{"lot_number": "1"}],
+        "evidence": {"source_url": "https://example.invalid/catalogue.pdf"},
     }))
     monkeypatch.setattr(goldings.corpus, "DATA", data_root)
     monkeypatch.setattr(goldings.corpus, "ROOT", tmp_path)
