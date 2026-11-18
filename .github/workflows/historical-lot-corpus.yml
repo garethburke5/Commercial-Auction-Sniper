@@ -1452,6 +1452,10 @@ jobs:
         timeout-minutes: 25
         continue-on-error: true
         run: python -u scripts/harvest_auction_house_national.py
+      - name: Collect Auction House Oxfordshire dedicated regional results
+        if: startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect Auction House Oxfordshire archive')
+        timeout-minutes: 15
+        run: python -u scripts/harvest_auction_house_regions.py --region oxfordshire
       - name: Recover older dedicated Auction House regional results
         if: inputs.focus == 'all' && !startsWith(github.event.head_commit.message, 'Run focused retained legacy refresh')
         timeout-minutes: 25

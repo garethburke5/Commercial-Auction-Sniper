@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-18T16:08:00Z",
-  "status": "collection_requested",
+  "generated_at": "2026-11-18T16:13:00Z",
+  "status": "collector_improvement_ready",
   "previous_run": {
     "run_id": null,
     "commit": null,
@@ -310,6 +310,24 @@
         "Killens Online Auction": 28
       },
       "note": "Four exact organisations recovered from one retained 5,013-row Bamboo index. The Tutis exact duplicate is collapsed while retaining both source IDs, URLs and outcome variants; Bamboo remains the platform, not the auctioneer."
+    },
+    {
+      "source": "sdl_kinetic_2026",
+      "command": "python -u scripts/harvest_sdl_kinetic_2026.py",
+      "started_at": "2026-11-18T16:06:13Z",
+      "finished_at": "2026-11-18T16:10:51Z",
+      "workflow_run_id": 44343282415,
+      "outcome": "blocked",
+      "source_rows_reconciled": 0,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_dated_address_records_twenty_year_window": 0,
+      "run_new_commercial_mixed_use": 0,
+      "run_new_guide_price_rows": 0,
+      "run_new_sale_price_rows": 0,
+      "newly_covered_source_years": [],
+      "blocker": "All eleven explicit 2026 event-feed POSTs returned HTTP 403 from the first-party Kinetic property-functions endpoint. No catalogue rows were admitted and the route is terminal until a browser-equivalent or retained-payload recovery path exists.",
+      "next_action": "Do not repeat the direct Kinetic POST. Rotate to the separately accessible Auction House Oxfordshire first-party past-auctions table."
     }
   ],
   "next_task": 20,
@@ -938,37 +956,33 @@
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "SDL Property Auctions — trading name of Eddisons Commercial Limited",
-    "task": "Run the existing reusable SDL 2026 Kinetic collector across all ten first-party live-stream catalogues, bank every individually evidenced lot, then rebuild and publish once.",
-    "reason": "The corpus has SDL Property Auctions inventories for 2022-2025 but no retained 2026 appearances. The first-party 2026 archive exposes ten dated catalogue events from 29 January to 22 October; this is a substantial uncovered source-year rather than an exhausted refresh.",
-    "source_route": "First-party SDL 2026 archive and linked Kinetic catalogue/event payloads",
-    "source_year": 2026,
-    "known_event_count": 10,
-    "collector": "scripts/harvest_sdl_kinetic_2026.py",
+    "auctioneer_lineage": "Auction House Oxfordshire — regional Auction House UK branch, not a new legal auctioneer",
+    "task": "Run the reusable regional archive collector only for Oxfordshire and bank every unseen stable lot redirect row across the first-party past-auctions pagination.",
+    "reason": "The source register has zero retained Auction House Oxfordshire appearances. The first-party Oxfordshire past-auctions surface is a distinct uncovered branch, while the generic regional runner previously omitted it.",
+    "source_route": "https://www.auctionhouse.co.uk/oxfordshire/auction/past-auctions",
+    "collector": "scripts/harvest_auction_house_regions.py --region oxfordshire",
     "admission_rules": [
-      "Batch all accessible 2026 catalogues in one reusable run.",
-      "Preserve exact event and lot dates, guides, realised prices, rents, published outcomes, original URLs and immutable snapshots.",
-      "Treat SDL Property Auctions as an Eddisons Commercial Limited trading name, not a new legal auctioneer.",
-      "Leave unknown values null and reconcile exact overlaps before claiming growth."
+      "Preserve exact individual lot end dates, guide and achieved prices, published outcomes, original URLs and immutable page snapshots.",
+      "Deduplicate stable lot redirect IDs and exact overlaps before claiming growth.",
+      "Treat Oxfordshire as a regional Auction House UK branch, not an additional legal auctioneer.",
+      "Unknown values remain null; directory evidence alone is not a property appearance."
     ],
-    "blocked_route_avoidance": "Do not retry retired legacy catalogue redirects; follow the materially different live 2026 Kinetic route."
+    "blocked_route_avoidance": "Do not retry the SDL Kinetic direct POST unless a materially different browser-equivalent or retained-payload route is available."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "SDL Property Auctions — trading name of Eddisons Commercial Limited",
-    "task": "Run the existing reusable SDL 2026 Kinetic collector across all ten first-party live-stream catalogues, bank every individually evidenced lot, then rebuild and publish once.",
-    "reason": "The corpus has SDL Property Auctions inventories for 2022-2025 but no retained 2026 appearances. The first-party 2026 archive exposes ten dated catalogue events from 29 January to 22 October; this is a substantial uncovered source-year rather than an exhausted refresh.",
-    "source_route": "First-party SDL 2026 archive and linked Kinetic catalogue/event payloads",
-    "source_year": 2026,
-    "known_event_count": 10,
-    "collector": "scripts/harvest_sdl_kinetic_2026.py",
+    "auctioneer_lineage": "Auction House Oxfordshire — regional Auction House UK branch, not a new legal auctioneer",
+    "task": "Run the reusable regional archive collector only for Oxfordshire and bank every unseen stable lot redirect row across the first-party past-auctions pagination.",
+    "reason": "The source register has zero retained Auction House Oxfordshire appearances. The first-party Oxfordshire past-auctions surface is a distinct uncovered branch, while the generic regional runner previously omitted it.",
+    "source_route": "https://www.auctionhouse.co.uk/oxfordshire/auction/past-auctions",
+    "collector": "scripts/harvest_auction_house_regions.py --region oxfordshire",
     "admission_rules": [
-      "Batch all accessible 2026 catalogues in one reusable run.",
-      "Preserve exact event and lot dates, guides, realised prices, rents, published outcomes, original URLs and immutable snapshots.",
-      "Treat SDL Property Auctions as an Eddisons Commercial Limited trading name, not a new legal auctioneer.",
-      "Leave unknown values null and reconcile exact overlaps before claiming growth."
+      "Preserve exact individual lot end dates, guide and achieved prices, published outcomes, original URLs and immutable page snapshots.",
+      "Deduplicate stable lot redirect IDs and exact overlaps before claiming growth.",
+      "Treat Oxfordshire as a regional Auction House UK branch, not an additional legal auctioneer.",
+      "Unknown values remain null; directory evidence alone is not a property appearance."
     ],
-    "blocked_route_avoidance": "Do not retry retired legacy catalogue redirects; follow the materially different live 2026 Kinetic route."
+    "blocked_route_avoidance": "Do not retry the SDL Kinetic direct POST unless a materially different browser-equivalent or retained-payload route is available."
   },
   "previous_trigger_attempt": {
     "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
@@ -1000,7 +1014,7 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Launch the existing ten-catalogue SDL Property Auctions 2026 Kinetic batch, an uncovered retained source-year, rather than repeat retired legacy redirect diagnostics.",
+  "focus_reason": "SDL 2026 direct Kinetic feeds are terminally HTTP 403 on the runner route; rotate immediately to the uncovered Auction House Oxfordshire first-party results archive with a single-region reusable collector.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
@@ -1009,9 +1023,9 @@
   "updated_at": "2026-11-18T15:02:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "No historical writer active immediately before requesting the SDL 2026 Kinetic batch.",
-    "action": "Run only the dedicated SDL Kinetic 2026 step plus rebuild/publication; do not launch a duplicate collector while it is in flight.",
-    "last_reviewed": "2026-11-18T16:08:00Z"
+    "status": "SDL run 44343282415 completed and no historical writer is active.",
+    "action": "Trigger only the focused Oxfordshire regional collector; do not run the other nineteen reconciled regions.",
+    "last_reviewed": "2026-11-18T16:13:00Z"
   },
   "corrections": [
     {
@@ -1020,15 +1034,5 @@
       "action": "Do not bank that PDF as Andrew Grant evidence and do not use its lot 170 as an Andrew Grant appearance. Preserve the discovery note only as a rejected/misattributed seed. Andrew Grant remains zero retained appearances until genuine Andrew Grant individual auction evidence is recovered.",
       "evidence": "https://interactive.property-world.co.uk/sdlbigwood_may18/Catalogue.pdf"
     }
-  ],
-  "current_collection_request": {
-    "source": "sdl_kinetic_2026",
-    "auctioneer_lineage": "SDL Property Auctions — trading name of Eddisons Commercial Limited",
-    "collector": "scripts/harvest_sdl_kinetic_2026.py",
-    "requested_at": "2026-11-18T16:08:00Z",
-    "event_count": 10,
-    "source_year": 2026,
-    "expected_route": "first-party SDL archive and Kinetic catalogue/event payloads",
-    "admission": "Bank individually evidenced lots only; preserve exact dates, guide and achieved prices, rent, outcomes, original URLs and immutable snapshots; deduplicate exact overlaps before reporting growth."
-  }
+  ]
 }

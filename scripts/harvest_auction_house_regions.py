@@ -6,6 +6,7 @@ already-banked appearance is preserved unchanged and only unseen IDs are added.
 """
 from __future__ import annotations
 
+import argparse
 from collections import Counter
 from datetime import datetime
 import json
@@ -295,15 +296,21 @@ def harvest_region(session: requests.Session, url_slug: str, auctioneer: str,
     return summary
 
 
-def harvest() -> None:
+def harvest(region_slugs: set[str] | None = None) -> None:
+    available = {entry[0] for entry in REGIONS}
+    requested = set(region_slugs or ())
+    unknown = requested - available
+    if unknown:
+        raise SystemExit(f"unknown Auction House region(s): {', '.join(sorted(unknown))}")
+    selected = [entry for entry in REGIONS if not requested or entry[0] in requested]
     session = requests.Session()
     session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
     summaries = []
-    for url_slug, auctioneer, canonical_slug in REGIONS:
+    for url_slug, auctioneer, canonical_slug in selected:
         summaries.append(harvest_region(session, url_slug, auctioneer, canonical_slug))
     overall = {
         "checked_at": corpus.now(),
-        "regions_requested": len(REGIONS),
+        "regions_requested": len(selected),
         "regions_complete": sum(item["archive_pagination_complete"] for item in summaries),
         "regions_blocked": sum(bool(item["blocked_pages"]) for item in summaries),
         "pages_captured": sum(item["pages_captured"] for item in summaries),
@@ -321,4 +328,7 @@ def harvest() -> None:
 
 
 if __name__ == "__main__":
-    harvest()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--region", action="append", default=[], help="collect only this regional URL slug; repeatable")
+    args = parser.parse_args()
+    harvest(set(args.region))
