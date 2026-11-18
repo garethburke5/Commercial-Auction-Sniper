@@ -12,6 +12,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 import argparse
+import gzip
 import json
 import re
 import sys
@@ -236,7 +237,13 @@ def load_saved_catalogue(catalogue: dict) -> tuple[bytes, str, dict] | None:
     snapshot = corpus.ROOT / snapshot_name if snapshot_name else None
     if state.get("source_url") != catalogue["source_url"] or not snapshot or not snapshot.exists():
         return None
-    saved = corpus.read_gzip(snapshot)
+    try:
+        saved = corpus.read_gzip(snapshot)
+    except gzip.BadGzipFile:
+        # One retained legacy snapshot was written as plain JSON before the
+        # corpus writer standardised gzip output. Preserve and reuse that
+        # immutable evidence instead of aborting the whole catalogue batch.
+        saved = json.loads(snapshot.read_text())
     return saved["html"].encode("utf-8"), catalogue["source_url"], saved["evidence"]
 
 

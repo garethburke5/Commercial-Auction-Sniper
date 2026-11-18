@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+import json
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -76,3 +77,34 @@ def test_catalogue_identity_is_scoped_to_exact_auction_date():
     assert rows[0]["source_auction_id"] == "goldings:23-09-2026"
     assert rows[0]["source_lot_id"] == "363703"
     assert rows[0]["source_property_id"] == "31305"
+
+def test_saved_catalogue_accepts_legacy_plain_json_with_gz_suffix(tmp_path, monkeypatch):
+    source_url = "https://www.goldingsauctions.co.uk/auction/23-09-2026/"
+    catalogue = {
+        "source_url": source_url,
+        "source_auction_id": "goldings:23-09-2026",
+        "auction_date": "2026-09-23",
+    }
+    data_root = tmp_path / "data"
+    state_dir = data_root / "auctions" / "goldings"
+    state_dir.mkdir(parents=True)
+    snapshot = tmp_path / "snapshots" / "legacy.json.gz"
+    snapshot.parent.mkdir()
+    snapshot.write_text(json.dumps({
+        "html": CATALOGUE,
+        "evidence": {"source_url": source_url, "legacy_encoding": "plain-json"},
+    }))
+    state_path = state_dir / f"{goldings.catalogue_slug(source_url)}.json"
+    state_path.write_text(json.dumps({
+        "source_url": source_url,
+        "source_evidence": {"snapshot_path": "snapshots/legacy.json.gz"},
+    }))
+    monkeypatch.setattr(goldings.corpus, "DATA", data_root)
+    monkeypatch.setattr(goldings.corpus, "ROOT", tmp_path)
+
+    html, returned_url, evidence = goldings.load_saved_catalogue(catalogue)
+
+    assert html.decode("utf-8") == CATALOGUE
+    assert returned_url == source_url
+    assert evidence["legacy_encoding"] == "plain-json"
+
