@@ -3,6 +3,37 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 18 November 2026 — saved Bamboo exact-organisation batch
+
+Three exact organisations already retained on the Bamboo shared-platform recovery
+branch were banked together through the reusable batch manifest: West Wales
+Properties (40), Howkins & Harrison (32) and Arron James Online Auction (32).
+The batch adds **104 net individual appearances**, all full-address records with
+stable Bamboo property identifiers, original property URLs and immutable
+organisation-filtered index/detail snapshots. Bamboo remains the technology
+platform and is not counted as an auctioneer.
+
+All 104 appearance IDs are unique and none existed on current `main`. The batch
+adds **100 individually dated address records inside the preceding 20-year
+window**, four future-dated records, no undated records and no partial records.
+It adds **104 guide observations** (100 in-window), **63 achieved-price
+observations** (all in-window), one published rent and three commercial/mixed-use
+appearances (all in-window). It establishes 12 new operator-year inventories:
+West Wales Properties for 2022-2024, Howkins & Harrison for 2022-2026 and Arron
+James for 2022 and 2024-2026.
+
+The reusable collector reconciles the full 5,013-row, 251-page Bamboo index once
+and filters only exact organisation identifiers. Operator, branch and trading
+labels are registered against their legal lineages, so aliases are not counted
+as additional auctioneers. Surviving public inventory is reconciled, but deleted
+listings and earlier platforms remain outside the completeness claim. National
+completeness remains false.
+
+The next saved-source batch is 119 retained Bamboo rows yielding **118 canonical
+appearances** across Tutis Estates, Haslams, Luscombe Maye and Killens Online
+Auction. One Tutis exact-listing duplicate is already collapsed with both source
+IDs, URLs and outcome variants preserved.
+
 ## 18 November 2026 — saved Stags and Carter Jonas evidence batch
 
 The retained Stags Bamboo and Homeflow inventories and the retained Carter Jonas

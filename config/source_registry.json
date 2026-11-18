@@ -1060,6 +1060,61 @@
       "relationship_evidence": "https://www.stags.co.uk/offices",
       "assessment": "office label maps to the shared Stags operator and is not a separate auctioneer",
       "verified_on": "2026-11-14"
+    },
+    {
+      "brand": "West Wales Properties",
+      "source": "West Wales Properties",
+      "canonical_network": null,
+      "parent_family": "ASKENS LIMITED and independently operated West Wales Properties franchise companies",
+      "region_slug": null,
+      "regional_labels": [
+        "West Wales Properties",
+        "West Wales Property Auctions",
+        "West Wales Commercial"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:westwalesproperties",
+      "relationship_evidence": "https://westwalesproperties.co.uk/contact-us/",
+      "inventory_equivalence_verified": false,
+      "assessment": "ASKENS LIMITED (company 03304253) is the franchisor for the West Wales Properties network. Its offices and franchise companies are attribution within this exact shared auction inventory and are not counted as additional auctioneers. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Howkins & Harrison",
+      "source": "Howkins & Harrison",
+      "canonical_network": null,
+      "parent_family": "HOWKINS AND HARRISON LLP",
+      "region_slug": null,
+      "regional_labels": [
+        "Howkins & Harrison",
+        "Howkins and Harrison"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:howkinsandharrison",
+      "relationship_evidence": "https://www.howkinsandharrison.co.uk/privacy-policy/",
+      "inventory_equivalence_verified": false,
+      "assessment": "HOWKINS AND HARRISON LLP (company OC316701) is the canonical operator. Its branches and ampersand/plain-and trading labels are attribution within one auctioneer and are not counted separately. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Arron James Online Auction",
+      "source": "Arron James Online Auction",
+      "canonical_network": null,
+      "parent_family": "ARRON JAMES LTD",
+      "region_slug": null,
+      "regional_labels": [
+        "Arron James Online Auction",
+        "Arron James"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:arronjames",
+      "relationship_evidence": "https://find-and-update.company-information.service.gov.uk/company/11649468",
+      "inventory_equivalence_verified": false,
+      "assessment": "ARRON JAMES LTD (company 11649468) is the canonical operator behind the Arron James Online Auction label. The shortened Arron James trading label is not counted as another auctioneer. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
     }
   ],
   "priority_assessments": [

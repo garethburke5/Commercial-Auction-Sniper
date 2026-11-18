@@ -1,22 +1,14 @@
 {
-  "generated_at": "2026-11-18T09:04:00Z",
+  "generated_at": "2026-11-18T14:03:00Z",
   "status": "target_ready",
   "previous_run": {
     "run_id": null,
     "commit": null,
-    "net_new_appearances": 409,
-    "auctioneer": "Stags and Carter Jonas",
+    "net_new_appearances": 104,
+    "auctioneer": "West Wales Properties, Howkins & Harrison and Arron James Online Auction",
     "result": "Saved immutable source evidence banked; protected rebuild and publication requested from this source commit."
   },
   "runs": [
-    {
-      "source": "eddisons_insights",
-      "outcome": "timed_out",
-      "exit_code": -15,
-      "diagnostic_tail": "",
-      "duration_seconds": 18.12,
-      "checked_at": "2026-11-16T05:23:47.070348+00:00"
-    },
     {
       "source": "auction_house_regions",
       "outcome": "failed",
@@ -267,9 +259,38 @@
       "cross_platform_overlaps_merged": 30,
       "note": "Saved immutable Stags and Carter Jonas inventories banked as canonical operators. Stags merges 30 same-date strong-particulars Bamboo/Homeflow overlaps while retaining different auction dates; Bamboo and Homeflow are platforms, not auctioneers.",
       "date_boundary_note": "Two Stags records classified as future when reconciled on 2026-11-14 are dated 2026-11-18 and are inside the published window on rebuild day."
+    },
+    {
+      "source": "bamboo_saved_exact_organisation_batch_2",
+      "command": "bank saved West Wales Properties, Howkins & Harrison and Arron James exact-organisation Bamboo inventories, then rebuild current main",
+      "started_at": "2026-11-18T14:03:00Z",
+      "finished_at": "2026-11-18T14:03:00Z",
+      "outcome": "completed",
+      "run_new_appearances": 104,
+      "run_new_address_records": 104,
+      "run_new_partial_records": 0,
+      "run_new_in_window_appearances": 100,
+      "run_new_guide_prices_total": 104,
+      "run_new_guide_prices_in_window": 100,
+      "run_new_sale_price_observations": 63,
+      "run_new_sale_prices_in_window": 63,
+      "run_new_commercial_or_mixed": 3,
+      "run_new_commercial_or_mixed_in_window": 3,
+      "run_new_rent_observations": 1,
+      "run_new_source_year_inventories": 12,
+      "run_future_dated_records": 4,
+      "run_undated_records": 0,
+      "source_rows_reconciled": 104,
+      "duplicate_appearance_ids": 0,
+      "operators": {
+        "West Wales Properties": 40,
+        "Howkins & Harrison": 32,
+        "Arron James Online Auction": 32
+      },
+      "note": "Three exact organisations recovered from one retained 5,013-row Bamboo index. Bamboo is the platform, not an auctioneer; operator labels and branches remain reconciled to their canonical legal lineages."
     }
   ],
-  "next_task": 18,
+  "next_task": 19,
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
@@ -825,6 +846,35 @@
       "cross_platform_overlaps_merged": 30,
       "note": "Saved immutable Stags and Carter Jonas inventories banked as canonical operators. Stags merges 30 same-date strong-particulars Bamboo/Homeflow overlaps while retaining different auction dates; Bamboo and Homeflow are platforms, not auctioneers.",
       "date_boundary_note": "Two Stags records classified as future when reconciled on 2026-11-14 are dated 2026-11-18 and are inside the published window on rebuild day."
+    },
+    "bamboo_saved_exact_organisation_batch_2": {
+      "source": "bamboo_saved_exact_organisation_batch_2",
+      "command": "bank saved West Wales Properties, Howkins & Harrison and Arron James exact-organisation Bamboo inventories, then rebuild current main",
+      "started_at": "2026-11-18T14:03:00Z",
+      "finished_at": "2026-11-18T14:03:00Z",
+      "outcome": "completed",
+      "run_new_appearances": 104,
+      "run_new_address_records": 104,
+      "run_new_partial_records": 0,
+      "run_new_in_window_appearances": 100,
+      "run_new_guide_prices_total": 104,
+      "run_new_guide_prices_in_window": 100,
+      "run_new_sale_price_observations": 63,
+      "run_new_sale_prices_in_window": 63,
+      "run_new_commercial_or_mixed": 3,
+      "run_new_commercial_or_mixed_in_window": 3,
+      "run_new_rent_observations": 1,
+      "run_new_source_year_inventories": 12,
+      "run_future_dated_records": 4,
+      "run_undated_records": 0,
+      "source_rows_reconciled": 104,
+      "duplicate_appearance_ids": 0,
+      "operators": {
+        "West Wales Properties": 40,
+        "Howkins & Harrison": 32,
+        "Arron James Online Auction": 32
+      },
+      "note": "Three exact organisations recovered from one retained 5,013-row Bamboo index. Bamboo is the platform, not an auctioneer; operator labels and branches remain reconciled to their canonical legal lineages."
     }
   },
   "next_run": {
@@ -836,45 +886,51 @@
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "West Wales Properties, Howkins & Harrison and Arron James — exact organisations on the retained Bamboo shared platform",
-    "task": "Bank the next retained exact-organisation Bamboo batch through the reusable shared-platform runner, deduplicate against current main, then rebuild and publish once.",
-    "reason": "The saved recovery branch contains 104 individually evidenced appearances not present on current main: West Wales Properties 40, Howkins & Harrison 32 and Arron James 32. This is a multi-operator saved-source batch rather than another archive refresh.",
-    "expected_saved_appearances": 104,
+    "auctioneer_lineage": "Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction — exact organisations on the retained Bamboo shared platform",
+    "task": "Bank the next retained four-operator Bamboo batch through the reusable shared-platform runner, preserving the one evidenced exact-listing collapse, then rebuild and publish once.",
+    "reason": "The retained recovery branch contains 119 source rows yielding 118 canonical appearances: Tutis Estates 31 from 32 rows after one exact duplicate collapse, Haslams 30, Luscombe Maye 29 and Killens Online Auction 28.",
+    "expected_saved_source_rows": 119,
+    "expected_canonical_appearances": 118,
     "saved_inventory_breakdown": {
-      "West Wales Properties": 40,
-      "Howkins & Harrison": 32,
-      "Arron James": 32
+      "Tutis Estates": 31,
+      "Haslams": 30,
+      "Luscombe Maye": 29,
+      "Killens Online Auction": 28
     },
+    "known_duplicate_handling": "Tutis has one exact listing duplicate already collapsed by date, normalized address, guide, property type, tenure and non-empty description; all source IDs, URLs and outcome variants remain in the retained snapshot.",
     "admission_rules": [
       "Bank individual property appearances only.",
       "Keep all sectors and report commercial/mixed-use separately.",
       "Treat Bamboo as the platform, not an auctioneer.",
-      "Preserve exact dates, guides, achieved prices, outcomes, rents, original URLs and immutable snapshots.",
-      "Keep undated and future-dated rows distinct from the 20-year total.",
-      "Rebuild and publish once after the batch."
+      "Preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots.",
+      "Keep eight currently undated Killens records and all future-dated rows distinct from the 20-year total.",
+      "Rebuild and publish once after the four-operator batch."
     ],
-    "batch_strategy": "Reuse the existing Bamboo shared-platform collector and exact-organisation snapshots; no dated workflow step."
+    "batch_strategy": "Reuse scripts/harvest_bamboo_shared_platform.py with config/bamboo_shared_growth_batch_2.json; do not add per-event workflow steps."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "West Wales Properties, Howkins & Harrison and Arron James — exact organisations on the retained Bamboo shared platform",
-    "task": "Bank the next retained exact-organisation Bamboo batch through the reusable shared-platform runner, deduplicate against current main, then rebuild and publish once.",
-    "reason": "The saved recovery branch contains 104 individually evidenced appearances not present on current main: West Wales Properties 40, Howkins & Harrison 32 and Arron James 32. This is a multi-operator saved-source batch rather than another archive refresh.",
-    "expected_saved_appearances": 104,
+    "auctioneer_lineage": "Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction — exact organisations on the retained Bamboo shared platform",
+    "task": "Bank the next retained four-operator Bamboo batch through the reusable shared-platform runner, preserving the one evidenced exact-listing collapse, then rebuild and publish once.",
+    "reason": "The retained recovery branch contains 119 source rows yielding 118 canonical appearances: Tutis Estates 31 from 32 rows after one exact duplicate collapse, Haslams 30, Luscombe Maye 29 and Killens Online Auction 28.",
+    "expected_saved_source_rows": 119,
+    "expected_canonical_appearances": 118,
     "saved_inventory_breakdown": {
-      "West Wales Properties": 40,
-      "Howkins & Harrison": 32,
-      "Arron James": 32
+      "Tutis Estates": 31,
+      "Haslams": 30,
+      "Luscombe Maye": 29,
+      "Killens Online Auction": 28
     },
+    "known_duplicate_handling": "Tutis has one exact listing duplicate already collapsed by date, normalized address, guide, property type, tenure and non-empty description; all source IDs, URLs and outcome variants remain in the retained snapshot.",
     "admission_rules": [
       "Bank individual property appearances only.",
       "Keep all sectors and report commercial/mixed-use separately.",
       "Treat Bamboo as the platform, not an auctioneer.",
-      "Preserve exact dates, guides, achieved prices, outcomes, rents, original URLs and immutable snapshots.",
-      "Keep undated and future-dated rows distinct from the 20-year total.",
-      "Rebuild and publish once after the batch."
+      "Preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots.",
+      "Keep eight currently undated Killens records and all future-dated rows distinct from the 20-year total.",
+      "Rebuild and publish once after the four-operator batch."
     ],
-    "batch_strategy": "Reuse the existing Bamboo shared-platform collector and exact-organisation snapshots; no dated workflow step."
+    "batch_strategy": "Reuse scripts/harvest_bamboo_shared_platform.py with config/bamboo_shared_growth_batch_2.json; do not add per-event workflow steps."
   },
   "previous_trigger_attempt": {
     "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
@@ -906,18 +962,18 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Bank the next 104 saved exact-organisation Bamboo appearances across three genuine operators before probing another blocked archive.",
+  "focus_reason": "Bank the next 118 canonical saved Bamboo appearances across four exact organisations before probing another blocked archive.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-18T09:16:00Z",
+  "updated_at": "2026-11-18T14:03:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "No historical writer active at the start of the 2026-11-18 Stags/Carter Jonas bank.",
-    "action": "Trigger the protected rebuild-only route from this source commit; do not launch a duplicate collector while publication is in flight.",
-    "last_reviewed": "2026-11-18T09:04:00Z"
+    "status": "No historical writer active immediately before the 2026-11-18 exact-organisation Bamboo bank.",
+    "action": "Trigger only the protected rebuild path from this source commit; do not dispatch a second collector while publication is in flight.",
+    "last_reviewed": "2026-11-18T14:03:00Z"
   },
   "corrections": [
     {
