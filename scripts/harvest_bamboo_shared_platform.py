@@ -1,0 +1,381 @@
+"""Harvest one operator from Bamboo's complete public shared-platform archive.
+
+The public Bamboo Proptech search exposes every surviving listing in a paginated
+Next.js payload.  Each index row carries a stable property id and an explicit
+``organisation`` slug, so one operator can be recovered without treating the
+shared marketplace as the auctioneer.  The collector reconciles the global
+page denominator, filters one exact organisation, captures every surviving
+detail payload, and retains a compact immutable snapshot of that operator's
+index rows and details.
+
+This is intentionally a reusable operator batch rather than a dated workflow
+step.  Branch and trading-name reconciliation must be supplied by the caller.
+"""
+from __future__ import annotations
+
+import argparse
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from datetime import datetime, timezone
+import json
+import math
+import re
+import sys
+from pathlib import Path
+from urllib.parse import urljoin
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+import historical_corpus as corpus
+from scripts.harvest_bamboo_auctioneer import fetch, page_props, row_from_property
+
+
+def collect_index(host: str, workers: int = 10) -> tuple[list[dict], int, int]:
+    """Return the globally reconciled index, page count and source denominator."""
+    base = f"https://{host}/"
+    first = page_props(fetch(base))["propertiesData"]
+    total_count = int(first["meta"]["totalCount"])
+    page_size = len(first["data"])
+    if total_count < 1 or page_size < 1:
+        raise ValueError("shared Bamboo index exposed no property rows")
+    page_count = math.ceil(total_count / page_size)
+    pages: dict[int, dict] = {1: first}
+
+    def one(page: int) -> tuple[int, dict]:
+        value = page_props(fetch(base + f"?page={page}"))["propertiesData"]
+        if int(value["meta"]["totalCount"]) != total_count:
+            raise ValueError(f"page {page} denominator drifted from {total_count}")
+        return page, value
+
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as executor:
+        jobs = [executor.submit(one, page) for page in range(2, page_count + 1)]
+        for position, future in enumerate(as_completed(jobs), 1):
+            page, value = future.result()
+            pages[page] = value
+            if position % 50 == 0 or position + 1 == page_count:
+                print(f"BAMBOO SHARED INDEX {position + 1}/{page_count}", flush=True)
+
+    rows = [row for page in sorted(pages) for row in pages[page]["data"]]
+    identities = [str(row.get("_id") or row.get("id") or "") for row in rows]
+    if len(rows) != total_count:
+        raise ValueError(f"shared index returned {len(rows)} rows; expected {total_count}")
+    if not all(identities) or len(set(identities)) != total_count:
+        raise ValueError("shared index contains missing or duplicate stable property ids")
+    return rows, page_count, total_count
+
+
+def collapse_exact_listing_duplicates(rows: list[dict]) -> tuple[list[dict], int]:
+    """Collapse duplicated source rows without merging distinct legal interests.
+
+    A shared platform can retain two stable IDs for the same listing.  Collapse
+    only when date, normalized address, guide, property type, tenure and a
+    non-empty normalized description all agree.  Same-address land parcels with
+    different descriptions or guides therefore remain separate appearances.
+    The richest row remains primary and every source ID, URL and outcome variant
+    is retained on it; the immutable snapshot still contains the raw rows.
+    """
+    def normalized(value: object) -> str:
+        return re.sub(r"[^a-z0-9]+", " ", str(value or "").lower()).strip()
+
+    groups: dict[tuple, list[dict]] = {}
+    passthrough: list[dict] = []
+    for row in rows:
+        description = normalized(row.get("description"))
+        if not row.get("auction_date") or not row.get("address") or not description:
+            passthrough.append(row)
+            continue
+        key = (
+            row["auction_date"], normalized(row["address"]), row.get("guide_price"),
+            normalized(row.get("property_type")), normalized(row.get("tenure")), description,
+        )
+        groups.setdefault(key, []).append(row)
+
+    collapsed = list(passthrough)
+    duplicate_count = 0
+    for members in groups.values():
+        if len(members) == 1:
+            collapsed.append(members[0])
+            continue
+        duplicate_count += len(members) - 1
+        primary = max(members, key=lambda row: (
+            row.get("sale_price") is not None,
+            row.get("status") == "sold",
+            sum(value is not None and value != "" for value in row.values()),
+        )).copy()
+        primary["related_source_lot_ids"] = sorted({
+            row["source_lot_id"] for row in members if row.get("source_lot_id")
+        })
+        primary["related_original_urls"] = sorted({
+            row["original_url"] for row in members if row.get("original_url")
+        })
+        primary["source_record_variants"] = [{
+            "source_lot_id": row.get("source_lot_id"),
+            "original_url": row.get("original_url"),
+            "status": row.get("status"),
+            "sale_price": row.get("sale_price"),
+        } for row in sorted(members, key=lambda row: row.get("source_lot_id") or "")]
+        primary["duplicate_source_rows_collapsed"] = len(members) - 1
+        collapsed.append(primary)
+    return sorted(collapsed, key=lambda row: row["appearance_id"]), duplicate_count
+
+
+def harvest(
+    organisation: str,
+    auctioneer: str,
+    slug: str,
+    expected_count: int,
+    host: str = "app.bambooproptech.com",
+    workers: int = 10,
+    operator_legal_name: str | None = None,
+    operator_company_number: str | None = None,
+    index_bundle: tuple[list[dict], int, int] | None = None,
+) -> dict:
+    base = f"https://{host}/"
+    index_rows, page_count, global_count = index_bundle or collect_index(host, workers)
+    matches = [row for row in index_rows if row.get("organisation") == organisation]
+    if len(matches) != expected_count:
+        counts = Counter(row.get("organisation") or "(none)" for row in index_rows)
+        raise ValueError(
+            f"organisation {organisation!r} exposes {len(matches)} rows, expected "
+            f"{expected_count}; largest current organisations: {counts.most_common(10)}"
+        )
+    by_id = {str(row.get("_id") or row.get("id")): row for row in matches}
+
+    details: dict[str, dict] = {}
+    failures: dict[str, str] = {}
+
+    def one_detail(summary: dict) -> tuple[str, dict]:
+        source_id = str(summary.get("_id") or summary.get("id"))
+        detail = page_props(fetch(urljoin(base, "property/" + summary["handle"]))).get("propertyData")
+        if not detail:
+            raise ValueError("detail page no longer exposes propertyData")
+        if str(detail.get("_id") or detail.get("id")) != source_id:
+            raise ValueError(f"detail identity mismatch for {source_id}")
+        if detail.get("organisation") not in {None, organisation}:
+            raise ValueError(f"detail organisation drift for {source_id}")
+        return source_id, detail
+
+    with ThreadPoolExecutor(max_workers=max(1, min(workers, 12))) as executor:
+        jobs = {executor.submit(one_detail, row): source_id for source_id, row in by_id.items()}
+        for position, future in enumerate(as_completed(jobs), 1):
+            source_id = jobs[future]
+            try:
+                returned_id, detail = future.result()
+                details[returned_id] = detail
+            except Exception as exc:
+                # Stable index rows remain individual evidence when a retired
+                # detail loses only its richer payload.
+                details[source_id] = by_id[source_id]
+                failures[source_id] = f"{type(exc).__name__}: {exc}"
+            if position % 25 == 0 or position == expected_count:
+                print(f"BAMBOO SHARED DETAIL {position}/{expected_count}", flush=True)
+
+    snapshot = {
+        "source_url": base,
+        "retrieved_at": corpus.now(),
+        "global_index_rows": global_count,
+        "global_page_count": page_count,
+        "organisation": organisation,
+        "organisation_rows": expected_count,
+        "index_matches": [by_id[source_id] for source_id in sorted(by_id)],
+        "property_details": [details[source_id] for source_id in sorted(details)],
+        "detail_failures": failures,
+    }
+    raw = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode()
+    sha256 = corpus.digest(raw)
+    snapshot_path = corpus.DATA / "sources" / slug / "bamboo-shared" / f"archive-{sha256[:16]}.json.gz"
+    if not snapshot_path.exists():
+        corpus.save_gzip(snapshot_path, snapshot)
+    evidence = {
+        "source_url": base,
+        "snapshot_path": str(snapshot_path.relative_to(corpus.ROOT)),
+        "retrieved_at": snapshot["retrieved_at"],
+        "sha256": sha256,
+        "basis": "complete shared Bamboo index filtered by exact organisation plus stable property details",
+    }
+    now_utc = datetime.now(timezone.utc)
+    source_rows = [
+        row_from_property(
+            details[source_id], auctioneer, slug, host, evidence, now_utc,
+            operator_legal_name=operator_legal_name,
+            operator_company_number=operator_company_number,
+        )
+        for source_id in sorted(details)
+    ]
+    if len({row["appearance_id"] for row in source_rows}) != expected_count:
+        raise ValueError("operator rows do not have unique stable appearance ids")
+    rows, duplicates_collapsed = collapse_exact_listing_duplicates(source_rows)
+
+    appearance_path = corpus.DATA / "appearances" / slug / "bamboo-shared.jsonl.gz"
+    existing_ids = ({row["appearance_id"] for row in corpus.iter_rows(appearance_path)}
+                    if appearance_path.exists() else set())
+    new_rows = [row for row in rows if row["appearance_id"] not in existing_ids]
+    # The complete surviving source denominator was reconciled above and its
+    # raw rows are retained in the immutable snapshot. Replace this one
+    # derived shard so a deliberately collapsed extraction duplicate is not
+    # re-added by write_rows' general preserve-existing safeguard.
+    retained = corpus.write_rows(f"{slug}/bamboo-shared", rows, preserve_existing=False)
+    expected_retained = expected_count - duplicates_collapsed
+    if retained != expected_retained:
+        raise ValueError(
+            f"retained {retained} rows; expected {expected_retained} after collapsing "
+            f"{duplicates_collapsed} duplicate source rows"
+        )
+
+    today = now_utc.date().isoformat()
+    historical = [row for row in rows if row.get("auction_date") and row["auction_date"] <= today]
+    future = [row for row in rows if row.get("auction_date") and row["auction_date"] > today]
+    undated = [row for row in rows if not row.get("auction_date")]
+    state = {
+        "auctioneer": auctioneer,
+        "operator_legal_name": operator_legal_name,
+        "operator_company_number": operator_company_number,
+        "source_auction_id": f"{slug}:bamboo-shared",
+        "source_url": base,
+        "organisation": organisation,
+        "global_index_rows": global_count,
+        "global_page_count": page_count,
+        "visible_source_rows": expected_count,
+        "lots_captured": retained,
+        "duplicate_source_rows_collapsed": duplicates_collapsed,
+        "detail_payloads_captured": expected_count - len(failures),
+        "index_fallback_rows": len(failures),
+        "source_rows_complete": True,
+        "catalogue_complete": True,
+        "pagination_reconciled": True,
+        "denominator_reconciled": True,
+        "errors": [{"source_id": key, "error": value} for key, value in sorted(failures.items())],
+        "checked_at": corpus.now(),
+        "completion_scope": (
+            f"all {organisation!r} listings surviving in the {global_count}-row public shared Bamboo index; "
+            "not a claim that deleted listings or earlier platforms are covered"
+        ),
+    }
+    corpus.save_json(corpus.DATA / "auctions" / slug / "bamboo-shared.json", state)
+    summary = {
+        "checked_at": corpus.now(),
+        "auctioneer": auctioneer,
+        "operator": {
+            "canonical_name": auctioneer,
+            "company_name": operator_legal_name,
+            "company_number": operator_company_number,
+            "branches_and_trading_names_are_not_counted_as_separate_auctioneers": True,
+        },
+        "source_url": base,
+        "organisation": organisation,
+        "shared_platform_rows_reconciled": global_count,
+        "shared_platform_pages_reconciled": page_count,
+        "archive_appearances_captured": retained,
+        "source_rows_observed": expected_count,
+        "duplicate_source_rows_collapsed": duplicates_collapsed,
+        "run_new_appearances": len(new_rows),
+        "address_records": sum(bool(row.get("address")) for row in rows),
+        "partial_lots": sum(not row.get("address") for row in rows),
+        "dated_historical_records": len(historical),
+        "future_dated_records": len(future),
+        "undated_records": len(undated),
+        "detail_payloads_captured": expected_count - len(failures),
+        "index_fallback_rows": len(failures),
+        "with_guide_price": sum(row.get("guide_price") is not None for row in rows),
+        "with_sale_price": sum(row.get("sale_price") is not None for row in rows),
+        "with_rent": sum(row.get("annual_rent") is not None for row in rows),
+        "commercial_or_mixed": sum(row.get("sector") in {"commercial", "mixed-use"} for row in rows),
+        "by_sector": dict(Counter(row["sector"] for row in rows)),
+        "by_year": dict(Counter(row["auction_date"][:4] if row.get("auction_date") else "undated" for row in rows)),
+        "source_years": sorted({row["auction_date"][:4] for row in historical}),
+        "pagination_reconciled": True,
+        "denominator_reconciled": True,
+        "complete": True,
+        "completion_scope": state["completion_scope"],
+    }
+    corpus.save_json(corpus.DATA / f"{slug.replace('-', '_')}_bamboo_shared_collection.json", summary)
+    print(json.dumps(summary, indent=2), flush=True)
+    return summary
+
+
+def harvest_batch(
+    operators: list[dict],
+    host: str = "app.bambooproptech.com",
+    workers: int = 10,
+) -> list[dict]:
+    """Harvest multiple exact organisations from one reconciled shared index."""
+    if not operators:
+        raise ValueError("batch config must contain at least one operator")
+    index_bundle = collect_index(host, workers)
+    index_counts = Counter(row.get("organisation") or "(none)" for row in index_bundle[0])
+    seen_organisations: set[str] = set()
+    seen_slugs: set[str] = set()
+    for operator in operators:
+        required = {"organisation", "auctioneer", "slug", "expected_count"}
+        missing = sorted(required - operator.keys())
+        if missing:
+            raise ValueError(f"batch operator is missing required keys: {', '.join(missing)}")
+        organisation = operator["organisation"]
+        slug = operator["slug"]
+        if organisation in seen_organisations or slug in seen_slugs:
+            raise ValueError("batch organisations and slugs must be unique")
+        seen_organisations.add(organisation)
+        seen_slugs.add(slug)
+        actual = index_counts[organisation]
+        expected = int(operator["expected_count"])
+        if actual != expected:
+            raise ValueError(
+                f"organisation {organisation!r} exposes {actual} rows, expected {expected}; "
+                "batch stopped before writing any operator"
+            )
+    summaries = []
+    for operator in operators:
+        summaries.append(harvest(
+            operator["organisation"],
+            operator["auctioneer"],
+            operator["slug"],
+            int(operator["expected_count"]),
+            host=host,
+            workers=workers,
+            operator_legal_name=operator.get("operator_legal_name"),
+            operator_company_number=operator.get("operator_company_number"),
+            index_bundle=index_bundle,
+        ))
+    return summaries
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--organisation")
+    parser.add_argument("--auctioneer")
+    parser.add_argument("--slug")
+    parser.add_argument("--expected-count", type=int)
+    parser.add_argument(
+        "--batch-config",
+        type=Path,
+        help="JSON array of operator objects; the shared index is fetched only once",
+    )
+    parser.add_argument("--host", default="app.bambooproptech.com")
+    parser.add_argument("--workers", type=int, default=10)
+    parser.add_argument("--operator-legal-name")
+    parser.add_argument("--operator-company-number")
+    args = parser.parse_args()
+    if args.batch_config:
+        if any(value is not None for value in (
+            args.organisation, args.auctioneer, args.slug, args.expected_count,
+            args.operator_legal_name, args.operator_company_number,
+        )):
+            parser.error("--batch-config cannot be combined with single-operator options")
+        config = json.loads(args.batch_config.read_text())
+        if not isinstance(config, list):
+            parser.error("--batch-config must contain a JSON array")
+        harvest_batch(config, host=args.host, workers=args.workers)
+    else:
+        missing = [name for name, value in (
+            ("--organisation", args.organisation),
+            ("--auctioneer", args.auctioneer),
+            ("--slug", args.slug),
+            ("--expected-count", args.expected_count),
+        ) if value is None]
+        if missing:
+            parser.error(f"single-operator mode requires {', '.join(missing)}")
+        harvest(
+            args.organisation, args.auctioneer, args.slug, args.expected_count,
+            host=args.host, workers=args.workers,
+            operator_legal_name=args.operator_legal_name,
+            operator_company_number=args.operator_company_number,
+        )

@@ -3,6 +3,41 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 18 November 2026 — saved Bamboo shared-platform evidence batch
+
+Ten complete, exact-organisation inventories previously retained on historical
+recovery branches were reconciled into current `main` through the reusable Bamboo
+shared-platform runner. The batch banks **1,892 net individual appearances** for
+Andrews, Bradleys Estate Agents, Fisher German, Hunters Auctions, Keller Williams
+UK, Lodge & Thomas, My Auction, Rocket Auctions, Webbers and Williams & Goodwin
+The Property People. Every row is address-bearing and carries a stable Bamboo
+property identifier, original property URL and an immutable organisation-filtered
+index/detail snapshot. Bamboo remains the technology platform, not the auctioneer;
+branch, office, franchise and trading-name relationships are recorded separately
+in the source registry.
+
+Of the new appearances, **1,774 are individually dated inside the preceding
+20-year window**, 57 are future-dated and 61 are undated. No partial record or
+pre-window record was added. The batch adds **1,892 guide-price observations**
+(1,774 in-window), **1,438 achieved-price observations** (all in-window), 89
+published rents and 122 commercial/mixed-use appearances (116 in-window). It
+establishes **52 new operator-year source inventories** across 2021-2026; no
+directory entry, platform denominator or branch alias is counted as a property
+appearance or a new auctioneer.
+
+The rebuilt corpus now contains **315,211 appearances, 303,895 full-address
+records and 11,316 partial records**. The current twenty-year window contains
+**306,805 appearances, 108,688 guides and 114,264 achieved prices**. Undated and
+future-dated totals are 5,108 and 178 respectively. National completeness remains
+false.
+
+The same run restored the lost bounded-continuation cursor (`runs`,
+`latest_by_source` and `next_task`) that had made the workflow fail before any
+collector could start. The next saved-evidence target is the canonical Stags
+operator across its Bamboo and Homeflow feeds: bank the retained 362-appearance
+inventory once, preserve the already identified 30 same-appearance overlaps, and
+keep different auction dates distinct.
+
 
 ## 11 November 2026 — Kivells 2022 retained result-book batch
 
