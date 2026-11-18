@@ -18,11 +18,17 @@ once**; different auction dates remain separate appearances. Bamboo and Homeflow
 are platforms rather than auctioneers, and 21 Stags office/department labels are
 registered as aliases of the single Stags operator.
 
-Of the net gain, **388 are individually dated inside the preceding 20-year
-window**, 20 are future-dated and one is undated; no partial record is admitted.
-The batch adds 409 guide observations (388 in-window), 311 achieved-price
+Of the net gain, **390 are individually dated inside the preceding 20-year
+window**, 18 are future-dated and one is undated; no partial record is admitted.
+Two records dated 18 November moved from future to in-window between the saved
+14 November reconciliation and this rebuild. The batch adds 409 guide
+observations (390 in-window), 311 achieved-price
 observations and 31 commercial/mixed-use appearances. It establishes 12 new
-operator-year inventories across 2021-2026. National completeness remains false.
+operator-year inventories across 2021-2026. The published corpus now contains
+**315,620 appearances, 304,304 full-address records and 11,316 partial records**;
+the current twenty-year window contains **307,195 appearances, 109,078 guides
+and 114,575 achieved prices**. The corpus has 5,109 undated records. National
+completeness remains false.
 
 The next concrete saved-source batch is 104 exact-organisation Bamboo
 appearances: West Wales Properties 40, Howkins & Harrison 32 and Arron James 32.

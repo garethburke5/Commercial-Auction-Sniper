@@ -256,16 +256,17 @@
       "run_new_appearances": 409,
       "run_new_address_records": 409,
       "run_new_partial_records": 0,
-      "run_new_in_window_appearances": 388,
-      "run_new_guide_prices_in_window": 388,
+      "run_new_in_window_appearances": 390,
+      "run_new_guide_prices_in_window": 390,
       "run_new_sale_price_observations": 311,
       "run_new_commercial_or_mixed": 31,
       "run_new_source_year_inventories": 12,
-      "run_future_dated_records": 20,
+      "run_future_dated_records": 18,
       "run_undated_records": 1,
       "source_rows_reconciled": 439,
       "cross_platform_overlaps_merged": 30,
-      "note": "Saved immutable Stags and Carter Jonas inventories banked as canonical operators. Stags merges 30 same-date strong-particulars Bamboo/Homeflow overlaps while retaining different auction dates; Bamboo and Homeflow are platforms, not auctioneers."
+      "note": "Saved immutable Stags and Carter Jonas inventories banked as canonical operators. Stags merges 30 same-date strong-particulars Bamboo/Homeflow overlaps while retaining different auction dates; Bamboo and Homeflow are platforms, not auctioneers.",
+      "date_boundary_note": "Two Stags records classified as future when reconciled on 2026-11-14 are dated 2026-11-18 and are inside the published window on rebuild day."
     }
   ],
   "next_task": 18,
@@ -813,16 +814,17 @@
       "run_new_appearances": 409,
       "run_new_address_records": 409,
       "run_new_partial_records": 0,
-      "run_new_in_window_appearances": 388,
-      "run_new_guide_prices_in_window": 388,
+      "run_new_in_window_appearances": 390,
+      "run_new_guide_prices_in_window": 390,
       "run_new_sale_price_observations": 311,
       "run_new_commercial_or_mixed": 31,
       "run_new_source_year_inventories": 12,
-      "run_future_dated_records": 20,
+      "run_future_dated_records": 18,
       "run_undated_records": 1,
       "source_rows_reconciled": 439,
       "cross_platform_overlaps_merged": 30,
-      "note": "Saved immutable Stags and Carter Jonas inventories banked as canonical operators. Stags merges 30 same-date strong-particulars Bamboo/Homeflow overlaps while retaining different auction dates; Bamboo and Homeflow are platforms, not auctioneers."
+      "note": "Saved immutable Stags and Carter Jonas inventories banked as canonical operators. Stags merges 30 same-date strong-particulars Bamboo/Homeflow overlaps while retaining different auction dates; Bamboo and Homeflow are platforms, not auctioneers.",
+      "date_boundary_note": "Two Stags records classified as future when reconciled on 2026-11-14 are dated 2026-11-18 and are inside the published window on rebuild day."
     }
   },
   "next_run": {
@@ -910,7 +912,7 @@
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-18T09:04:00Z",
+  "updated_at": "2026-11-18T09:16:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "No historical writer active at the start of the 2026-11-18 Stags/Carter Jonas bank.",
