@@ -167,6 +167,29 @@ def fetch(session: requests.Session, url: str) -> bytes:
     return raw
 
 
+def same_source_identity(retained: dict, current: dict) -> bool:
+    """Return whether one stable lot ID still describes the same appearance."""
+    return (
+        retained.get("address") == current.get("address")
+        and retained.get("auction_end_time") == current.get("auction_end_time")
+    )
+
+
+def conflict_evidence(source_id: str, page: int, retained: dict, current: dict) -> dict:
+    """Preserve both identities without overwriting either banked appearance."""
+    fields = (
+        "address", "auction_date", "auction_end_time", "guide_price",
+        "guide_price_high", "sale_price", "last_bid_price", "status",
+        "source_url", "source_snapshot", "source_sha256",
+    )
+    return {
+        "source_lot_id": source_id,
+        "page": page,
+        "retained": {field: retained.get(field) for field in fields},
+        "current": {field: current.get(field) for field in fields},
+    }
+
+
 def harvest() -> None:
     session = requests.Session()
     session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
@@ -181,6 +204,7 @@ def harvest() -> None:
     seen_current: dict[str, int] = {}
     page_counts: dict[str, int] = {}
     failures = []
+    identity_conflicts = []
     added = 0
 
     for page in range(1, last_page + 1):
@@ -215,11 +239,15 @@ def harvest() -> None:
                     )
                 seen_current[source_id] = page
                 previous = merged.get(source_id)
-                if previous and (
-                    previous.get("address") != row.get("address")
-                    or previous.get("auction_end_time") != row.get("auction_end_time")
-                ):
-                    raise ValueError(f"source identity drift for lot {source_id}")
+                if previous and not same_source_identity(previous, row):
+                    # Preserve the immutable page snapshot and the full retained
+                    # row, but do not overwrite a stable ID with a different
+                    # property/event. Continue so later rows on this page remain
+                    # eligible for exact admission.
+                    identity_conflicts.append(
+                        conflict_evidence(source_id, page, previous, row)
+                    )
+                    continue
                 if not previous:
                     added += 1
                 merged[source_id] = row
@@ -235,6 +263,7 @@ def harvest() -> None:
     row_total = sum(page_counts.values())
     archive_complete = (
         not failures
+        and not identity_conflicts
         and len(page_counts) == last_page
         and current_count == row_total
     )
@@ -253,6 +282,7 @@ def harvest() -> None:
         "by_status": dict(Counter(row["status"] for row in rows)),
         "page_counts": page_counts,
         "failures": failures,
+        "identity_conflicts": identity_conflicts,
         "archive_pagination_complete": archive_complete,
     }
     corpus.save_json(corpus.DATA / "auction_house_northwest_collection.json", summary)
@@ -273,11 +303,19 @@ def harvest() -> None:
             "retained_scope": "individual online lot endings",
             "retained_rows": len(rows),
         },
-        "errors": failures,
+        "errors": failures + [
+            {
+                "kind": "source_identity_drift",
+                "source_lot_id": item["source_lot_id"],
+                "page": item["page"],
+            }
+            for item in identity_conflicts
+        ],
+        "identity_conflicts": identity_conflicts,
         "checked_at": corpus.now(),
     })
     print(json.dumps(summary, indent=2), flush=True)
-    if failures or not archive_complete:
+    if failures or identity_conflicts or not archive_complete:
         raise SystemExit(1)
 
 

@@ -3,6 +3,8 @@ from scripts.harvest_auction_house_north_west import (
     pagination_extent,
     parse_page,
     result_details,
+    same_source_identity,
+    conflict_evidence,
 )
 
 
@@ -64,3 +66,26 @@ def test_future_pending_rows_are_not_historical_outcomes():
     assert is_historical_outcome(
         {"auction_date": "2999-01-01", "status": "sold_prior"}
     )
+
+def test_identity_conflict_preserves_both_rows_and_is_not_a_match():
+    retained = {
+        "address": "1 Old Street, Manchester, M1 1AA",
+        "auction_end_time": "2025-01-01T12:00:00",
+        "auction_date": "2025-01-01",
+        "source_url": "https://example.invalid/retained",
+        "source_snapshot": "data/retained.json.gz",
+    }
+    current = {
+        "address": "2 New Street, Liverpool, L1 1AA",
+        "auction_end_time": "2026-01-01T12:00:00",
+        "auction_date": "2026-01-01",
+        "source_url": "https://example.invalid/current",
+        "source_snapshot": "data/current.json.gz",
+    }
+
+    assert not same_source_identity(retained, current)
+    evidence = conflict_evidence("366952", 2, retained, current)
+    assert evidence["retained"]["address"] == retained["address"]
+    assert evidence["current"]["address"] == current["address"]
+    assert evidence["retained"]["source_snapshot"] != evidence["current"]["source_snapshot"]
+
