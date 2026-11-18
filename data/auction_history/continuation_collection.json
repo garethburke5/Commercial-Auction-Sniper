@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-18T15:02:00Z",
-  "status": "target_ready",
+  "generated_at": "2026-11-18T16:08:00Z",
+  "status": "collection_requested",
   "previous_run": {
     "run_id": null,
     "commit": null,
@@ -1000,7 +1000,7 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "The saved Bamboo recovery inventories are exhausted after this batch; move to the uncovered ten-event SDL Property Auctions 2026 source-year through the existing Kinetic collector.",
+  "focus_reason": "Launch the existing ten-catalogue SDL Property Auctions 2026 Kinetic batch, an uncovered retained source-year, rather than repeat retired legacy redirect diagnostics.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
@@ -1009,9 +1009,9 @@
   "updated_at": "2026-11-18T15:02:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "No historical writer active immediately before the 2026-11-18 four-operator saved Bamboo bank.",
-    "action": "Trigger only the protected rebuild path from this source commit; do not dispatch SDL or another collector while publication is in flight.",
-    "last_reviewed": "2026-11-18T15:02:00Z"
+    "status": "No historical writer active immediately before requesting the SDL 2026 Kinetic batch.",
+    "action": "Run only the dedicated SDL Kinetic 2026 step plus rebuild/publication; do not launch a duplicate collector while it is in flight.",
+    "last_reviewed": "2026-11-18T16:08:00Z"
   },
   "corrections": [
     {
@@ -1020,5 +1020,15 @@
       "action": "Do not bank that PDF as Andrew Grant evidence and do not use its lot 170 as an Andrew Grant appearance. Preserve the discovery note only as a rejected/misattributed seed. Andrew Grant remains zero retained appearances until genuine Andrew Grant individual auction evidence is recovered.",
       "evidence": "https://interactive.property-world.co.uk/sdlbigwood_may18/Catalogue.pdf"
     }
-  ]
+  ],
+  "current_collection_request": {
+    "source": "sdl_kinetic_2026",
+    "auctioneer_lineage": "SDL Property Auctions — trading name of Eddisons Commercial Limited",
+    "collector": "scripts/harvest_sdl_kinetic_2026.py",
+    "requested_at": "2026-11-18T16:08:00Z",
+    "event_count": 10,
+    "source_year": 2026,
+    "expected_route": "first-party SDL archive and Kinetic catalogue/event payloads",
+    "admission": "Bank individually evidenced lots only; preserve exact dates, guide and achieved prices, rent, outcomes, original URLs and immutable snapshots; deduplicate exact overlaps before reporting growth."
+  }
 }
