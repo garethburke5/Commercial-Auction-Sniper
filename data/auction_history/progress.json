@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-18T14:10:18.065033+00:00",
-  "individual_lot_records_captured": 316613,
-  "records_with_address": 305297,
+  "generated_at": "2026-11-18T15:08:06.820831+00:00",
+  "individual_lot_records_captured": 316731,
+  "records_with_address": 305415,
   "partial_lot_records": 11316,
-  "exact_address_groups": 170872,
-  "groups_with_repeat_appearances": 43201,
+  "exact_address_groups": 170980,
+  "groups_with_repeat_appearances": 43208,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -87,6 +87,7 @@
     "Future Property Auctions": 76690,
     "Goldings Auctions": 635,
     "Harman Healy": 1528,
+    "Haslams": 30,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
     "Howkins & Harrison": 32,
@@ -94,6 +95,7 @@
     "John Francis": 1407,
     "Kal Sangra Shonki Brothers": 464,
     "Keller Williams UK": 41,
+    "Killens Online Auction": 28,
     "Kivells": 413,
     "Knight Frank Auctions": 290,
     "LSH Auctions": 598,
@@ -103,6 +105,7 @@
     "Lodge & Thomas": 60,
     "Lot9 Auction House": 34,
     "Loveitts": 582,
+    "Luscombe Maye": 29,
     "Maggs & Allen": 108,
     "McHugh & Co": 14133,
     "My Auction": 35,
@@ -140,13 +143,14 @@
     "The Auction Company": 123,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3127,
+    "Tutis Estates": 31,
     "Unknown auctioneer": 14,
     "Webbers": 99,
     "West Wales Properties": 40,
     "Williams & Goodwin The Property People": 186
   },
   "by_year": {
-    "null": 5109,
+    "null": 5117,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -166,29 +170,29 @@
     "2018": 8294,
     "2019": 7978,
     "2020": 13957,
-    "2021": 21565,
-    "2022": 27052,
-    "2023": 33851,
-    "2024": 42745,
-    "2025": 48827,
-    "2026": 49652,
+    "2021": 21566,
+    "2022": 27057,
+    "2023": 33870,
+    "2024": 42771,
+    "2025": 48858,
+    "2026": 49680,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42868,
-    "land": 19909,
+    "commercial": 42873,
+    "land": 19938,
     "mixed": 1,
-    "mixed-use": 47827,
-    "residential": 154203,
-    "unknown": 51805
+    "mixed-use": 47830,
+    "residential": 154272,
+    "unknown": 51817
   },
   "date_range": [
     "2002-10-31",
     "2027-01-15"
   ],
-  "surviving_catalogues_completely_harvested": 5006,
+  "surviving_catalogues_completely_harvested": 5010,
   "catalogues_incomplete_or_unreconciled": 563,
-  "catalogue_fetch_or_parse_failures": 39,
+  "catalogue_fetch_or_parse_failures": 50,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -200,12 +204,12 @@
     "through_date": "2026-11-18",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308182,
-      "auction_ids_observed": 15963,
-      "with_guide_price": 109878,
-      "with_sale_price": 114810,
-      "with_both_prices": 50817,
-      "marked_sold": 157777,
+      "lot_appearances": 308288,
+      "auction_ids_observed": 16069,
+      "with_guide_price": 109984,
+      "with_sale_price": 114878,
+      "with_both_prices": 50885,
+      "marked_sold": 157845,
       "marked_sold_without_sale_price": 43707
     },
     "by_auctioneer_and_year": [
@@ -5974,6 +5978,39 @@
         "marked_sold_without_sale_price": 13
       },
       {
+        "auctioneer": "Haslams",
+        "year": 2024,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Haslams",
+        "year": 2025,
+        "lot_appearances": 9,
+        "auction_ids_observed": 9,
+        "with_guide_price": 9,
+        "with_sale_price": 8,
+        "with_both_prices": 8,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Haslams",
+        "year": 2026,
+        "lot_appearances": 11,
+        "auction_ids_observed": 11,
+        "with_guide_price": 11,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 11,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Higgins Drysdale National Property Auctions",
         "year": 2021,
         "lot_appearances": 3,
@@ -6477,6 +6514,72 @@
         "with_sale_price": 4,
         "with_both_prices": 4,
         "marked_sold": 4,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2021,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2022,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2023,
+        "lot_appearances": 2,
+        "auction_ids_observed": 2,
+        "with_guide_price": 2,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2024,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 0,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2025,
+        "lot_appearances": 5,
+        "auction_ids_observed": 5,
+        "with_guide_price": 5,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 4,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Killens Online Auction",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
         "marked_sold_without_sale_price": 0
       },
       {
@@ -7072,6 +7175,50 @@
         "with_both_prices": 64,
         "marked_sold": 118,
         "marked_sold_without_sale_price": 54
+      },
+      {
+        "auctioneer": "Luscombe Maye",
+        "year": 2023,
+        "lot_appearances": 17,
+        "auction_ids_observed": 17,
+        "with_guide_price": 17,
+        "with_sale_price": 7,
+        "with_both_prices": 7,
+        "marked_sold": 7,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Luscombe Maye",
+        "year": 2024,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Luscombe Maye",
+        "year": 2025,
+        "lot_appearances": 8,
+        "auction_ids_observed": 8,
+        "with_guide_price": 8,
+        "with_sale_price": 6,
+        "with_both_prices": 6,
+        "marked_sold": 6,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Luscombe Maye",
+        "year": 2026,
+        "lot_appearances": 3,
+        "auction_ids_observed": 3,
+        "with_guide_price": 3,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Maggs & Allen",
@@ -9395,6 +9542,39 @@
         "marked_sold_without_sale_price": 559
       },
       {
+        "auctioneer": "Tutis Estates",
+        "year": 2024,
+        "lot_appearances": 14,
+        "auction_ids_observed": 14,
+        "with_guide_price": 14,
+        "with_sale_price": 10,
+        "with_both_prices": 10,
+        "marked_sold": 10,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Tutis Estates",
+        "year": 2025,
+        "lot_appearances": 9,
+        "auction_ids_observed": 9,
+        "with_guide_price": 9,
+        "with_sale_price": 3,
+        "with_both_prices": 3,
+        "marked_sold": 3,
+        "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Tutis Estates",
+        "year": 2026,
+        "lot_appearances": 7,
+        "auction_ids_observed": 7,
+        "with_guide_price": 7,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
+      },
+      {
         "auctioneer": "Unknown auctioneer",
         "year": 2013,
         "lot_appearances": 1,
@@ -9582,8 +9762,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5109,
-    "future_dated_appearances": 202,
+    "undated_appearances": 5117,
+    "future_dated_appearances": 206,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
