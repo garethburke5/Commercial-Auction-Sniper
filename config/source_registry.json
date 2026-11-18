@@ -1115,6 +1115,79 @@
       "inventory_equivalence_verified": false,
       "assessment": "ARRON JAMES LTD (company 11649468) is the canonical operator behind the Arron James Online Auction label. The shortened Arron James trading label is not counted as another auctioneer. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
       "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Tutis Estates",
+      "source": "Tutis Estates",
+      "canonical_network": null,
+      "parent_family": "TUTIS ESTATES LIMITED",
+      "region_slug": null,
+      "regional_labels": [
+        "Tutis Estates",
+        "Tutis Auctions"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:tutisestates",
+      "relationship_evidence": "https://find-and-update.company-information.service.gov.uk/company/07845303",
+      "inventory_equivalence_verified": false,
+      "assessment": "TUTIS ESTATES LIMITED (company 07845303) is the canonical operator behind Tutis Estates and the Tutis Auctions trading label. Those labels are one auctioneer here, while Bamboo Auctions is the technology provider. The surviving shared-platform inventory is reconciled after one duplicate source listing was collapsed with both stable IDs and URLs retained; deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Haslams",
+      "source": "Haslams",
+      "canonical_network": null,
+      "parent_family": "HASLAMS ESTATE AGENTS LIMITED",
+      "region_slug": null,
+      "regional_labels": [
+        "Haslams",
+        "Haslams Estate Agents"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:haslams",
+      "relationship_evidence": "https://haslams.net/legal/",
+      "inventory_equivalence_verified": false,
+      "assessment": "HASLAMS ESTATE AGENTS LIMITED (company 02957717) is the canonical operator behind the Haslams auction inventory. Haslams Estate Agents is a trading label and its representative offices are not counted as extra auctioneers. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Luscombe Maye",
+      "source": "Luscombe Maye",
+      "canonical_network": null,
+      "parent_family": "LUSCOMBE MAYE (1873) LTD",
+      "region_slug": null,
+      "regional_labels": [
+        "Luscombe Maye",
+        "Luscombe Maye Online Auctions"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:luscombemaye",
+      "relationship_evidence": "https://luscombemaye.com/auction-properties/",
+      "inventory_equivalence_verified": false,
+      "assessment": "LUSCOMBE MAYE (1873) LTD (company 13039587) is the canonical operator behind Luscombe Maye's online property auctions. Its offices and the shortened or online-auction labels are attribution within one auctioneer; Bamboo Auctions is the technology partner. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Killens Online Auction",
+      "source": "Killens Online Auction",
+      "canonical_network": null,
+      "parent_family": "KILLENS LIMITED LIABILITY PARTNERSHIP",
+      "region_slug": null,
+      "regional_labels": [
+        "Killens",
+        "Killens LLP",
+        "Killens Online Auction"
+      ],
+      "source_url": "https://app.bambooproptech.com/",
+      "collector": "scripts.harvest_bamboo_shared_platform",
+      "shared_feed": "bamboo:killens",
+      "relationship_evidence": "https://www.killens.org.uk/auctions/online-property-auctions/",
+      "inventory_equivalence_verified": false,
+      "assessment": "KILLENS LIMITED LIABILITY PARTNERSHIP (company OC335754) is the canonical operator behind Killens and Killens Online Auction. Its Chew Magna, Wells and Mendip Auction Rooms locations are offices within the same operator and are not counted as extra auctioneers. Two same-date Henton land interests remain separate because their guides and published descriptions differ. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
+      "verified_on": "2026-11-15"
     }
   ],
   "priority_assessments": [

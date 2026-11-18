@@ -1,22 +1,14 @@
 {
-  "generated_at": "2026-11-18T14:03:00Z",
+  "generated_at": "2026-11-18T15:02:00Z",
   "status": "target_ready",
   "previous_run": {
     "run_id": null,
     "commit": null,
-    "net_new_appearances": 104,
-    "auctioneer": "West Wales Properties, Howkins & Harrison and Arron James Online Auction",
+    "net_new_appearances": 118,
+    "auctioneer": "Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction",
     "result": "Saved immutable source evidence banked; protected rebuild and publication requested from this source commit."
   },
   "runs": [
-    {
-      "source": "auction_house_regions",
-      "outcome": "failed",
-      "exit_code": 1,
-      "diagnostic_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 324, in <module>\n    harvest()\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 303, in harvest\n    summaries.append(harvest_region(session, url_slug, auctioneer, canonical_slug))\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 193, in harvest_region\n    first_raw = fetch(session, index)\n                ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 186, in fetch\n    raise ValueError(\"source returned no results table\")\nValueError: source returned no results table\n",
-      "duration_seconds": 38.6,
-      "checked_at": "2026-11-16T07:06:09.797202+00:00"
-    },
     {
       "source": "network_auctions",
       "outcome": "completed",
@@ -288,9 +280,39 @@
         "Arron James Online Auction": 32
       },
       "note": "Three exact organisations recovered from one retained 5,013-row Bamboo index. Bamboo is the platform, not an auctioneer; operator labels and branches remain reconciled to their canonical legal lineages."
+    },
+    {
+      "source": "bamboo_saved_exact_organisation_batch_3",
+      "command": "bank saved Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction Bamboo inventories, then rebuild current main",
+      "started_at": "2026-11-18T15:02:00Z",
+      "finished_at": "2026-11-18T15:02:00Z",
+      "outcome": "completed",
+      "source_rows_reconciled": 119,
+      "duplicate_source_rows_collapsed": 1,
+      "run_new_appearances": 118,
+      "run_new_address_records": 118,
+      "run_new_partial_records": 0,
+      "run_new_in_window_appearances": 106,
+      "run_future_dated_records": 4,
+      "run_undated_records": 8,
+      "run_new_guide_prices_total": 118,
+      "run_new_guide_prices_in_window": 106,
+      "run_new_sale_price_observations": 68,
+      "run_new_sale_prices_in_window": 68,
+      "run_new_rent_observations": 21,
+      "run_new_commercial_or_mixed": 8,
+      "run_new_commercial_or_mixed_in_window": 8,
+      "run_new_source_year_inventories": 16,
+      "operators": {
+        "Tutis Estates": 31,
+        "Haslams": 30,
+        "Luscombe Maye": 29,
+        "Killens Online Auction": 28
+      },
+      "note": "Four exact organisations recovered from one retained 5,013-row Bamboo index. The Tutis exact duplicate is collapsed while retaining both source IDs, URLs and outcome variants; Bamboo remains the platform, not the auctioneer."
     }
   ],
-  "next_task": 19,
+  "next_task": 20,
   "target": {
     "auctioneer": "All Wales Auction",
     "operator_north": "Williams & Goodwin The Property People Limited",
@@ -875,6 +897,36 @@
         "Arron James Online Auction": 32
       },
       "note": "Three exact organisations recovered from one retained 5,013-row Bamboo index. Bamboo is the platform, not an auctioneer; operator labels and branches remain reconciled to their canonical legal lineages."
+    },
+    "bamboo_saved_exact_organisation_batch_3": {
+      "source": "bamboo_saved_exact_organisation_batch_3",
+      "command": "bank saved Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction Bamboo inventories, then rebuild current main",
+      "started_at": "2026-11-18T15:02:00Z",
+      "finished_at": "2026-11-18T15:02:00Z",
+      "outcome": "completed",
+      "source_rows_reconciled": 119,
+      "duplicate_source_rows_collapsed": 1,
+      "run_new_appearances": 118,
+      "run_new_address_records": 118,
+      "run_new_partial_records": 0,
+      "run_new_in_window_appearances": 106,
+      "run_future_dated_records": 4,
+      "run_undated_records": 8,
+      "run_new_guide_prices_total": 118,
+      "run_new_guide_prices_in_window": 106,
+      "run_new_sale_price_observations": 68,
+      "run_new_sale_prices_in_window": 68,
+      "run_new_rent_observations": 21,
+      "run_new_commercial_or_mixed": 8,
+      "run_new_commercial_or_mixed_in_window": 8,
+      "run_new_source_year_inventories": 16,
+      "operators": {
+        "Tutis Estates": 31,
+        "Haslams": 30,
+        "Luscombe Maye": 29,
+        "Killens Online Auction": 28
+      },
+      "note": "Four exact organisations recovered from one retained 5,013-row Bamboo index. The Tutis exact duplicate is collapsed while retaining both source IDs, URLs and outcome variants; Bamboo remains the platform, not the auctioneer."
     }
   },
   "next_run": {
@@ -886,51 +938,37 @@
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction — exact organisations on the retained Bamboo shared platform",
-    "task": "Bank the next retained four-operator Bamboo batch through the reusable shared-platform runner, preserving the one evidenced exact-listing collapse, then rebuild and publish once.",
-    "reason": "The retained recovery branch contains 119 source rows yielding 118 canonical appearances: Tutis Estates 31 from 32 rows after one exact duplicate collapse, Haslams 30, Luscombe Maye 29 and Killens Online Auction 28.",
-    "expected_saved_source_rows": 119,
-    "expected_canonical_appearances": 118,
-    "saved_inventory_breakdown": {
-      "Tutis Estates": 31,
-      "Haslams": 30,
-      "Luscombe Maye": 29,
-      "Killens Online Auction": 28
-    },
-    "known_duplicate_handling": "Tutis has one exact listing duplicate already collapsed by date, normalized address, guide, property type, tenure and non-empty description; all source IDs, URLs and outcome variants remain in the retained snapshot.",
+    "auctioneer_lineage": "SDL Property Auctions — trading name of Eddisons Commercial Limited",
+    "task": "Run the existing reusable SDL 2026 Kinetic collector across all ten first-party live-stream catalogues, bank every individually evidenced lot, then rebuild and publish once.",
+    "reason": "The corpus has SDL Property Auctions inventories for 2022-2025 but no retained 2026 appearances. The first-party 2026 archive exposes ten dated catalogue events from 29 January to 22 October; this is a substantial uncovered source-year rather than an exhausted refresh.",
+    "source_route": "First-party SDL 2026 archive and linked Kinetic catalogue/event payloads",
+    "source_year": 2026,
+    "known_event_count": 10,
+    "collector": "scripts/harvest_sdl_kinetic_2026.py",
     "admission_rules": [
-      "Bank individual property appearances only.",
-      "Keep all sectors and report commercial/mixed-use separately.",
-      "Treat Bamboo as the platform, not an auctioneer.",
-      "Preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots.",
-      "Keep eight currently undated Killens records and all future-dated rows distinct from the 20-year total.",
-      "Rebuild and publish once after the four-operator batch."
+      "Batch all accessible 2026 catalogues in one reusable run.",
+      "Preserve exact event and lot dates, guides, realised prices, rents, published outcomes, original URLs and immutable snapshots.",
+      "Treat SDL Property Auctions as an Eddisons Commercial Limited trading name, not a new legal auctioneer.",
+      "Leave unknown values null and reconcile exact overlaps before claiming growth."
     ],
-    "batch_strategy": "Reuse scripts/harvest_bamboo_shared_platform.py with config/bamboo_shared_growth_batch_2.json; do not add per-event workflow steps."
+    "blocked_route_avoidance": "Do not retry retired legacy catalogue redirects; follow the materially different live 2026 Kinetic route."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction — exact organisations on the retained Bamboo shared platform",
-    "task": "Bank the next retained four-operator Bamboo batch through the reusable shared-platform runner, preserving the one evidenced exact-listing collapse, then rebuild and publish once.",
-    "reason": "The retained recovery branch contains 119 source rows yielding 118 canonical appearances: Tutis Estates 31 from 32 rows after one exact duplicate collapse, Haslams 30, Luscombe Maye 29 and Killens Online Auction 28.",
-    "expected_saved_source_rows": 119,
-    "expected_canonical_appearances": 118,
-    "saved_inventory_breakdown": {
-      "Tutis Estates": 31,
-      "Haslams": 30,
-      "Luscombe Maye": 29,
-      "Killens Online Auction": 28
-    },
-    "known_duplicate_handling": "Tutis has one exact listing duplicate already collapsed by date, normalized address, guide, property type, tenure and non-empty description; all source IDs, URLs and outcome variants remain in the retained snapshot.",
+    "auctioneer_lineage": "SDL Property Auctions — trading name of Eddisons Commercial Limited",
+    "task": "Run the existing reusable SDL 2026 Kinetic collector across all ten first-party live-stream catalogues, bank every individually evidenced lot, then rebuild and publish once.",
+    "reason": "The corpus has SDL Property Auctions inventories for 2022-2025 but no retained 2026 appearances. The first-party 2026 archive exposes ten dated catalogue events from 29 January to 22 October; this is a substantial uncovered source-year rather than an exhausted refresh.",
+    "source_route": "First-party SDL 2026 archive and linked Kinetic catalogue/event payloads",
+    "source_year": 2026,
+    "known_event_count": 10,
+    "collector": "scripts/harvest_sdl_kinetic_2026.py",
     "admission_rules": [
-      "Bank individual property appearances only.",
-      "Keep all sectors and report commercial/mixed-use separately.",
-      "Treat Bamboo as the platform, not an auctioneer.",
-      "Preserve dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots.",
-      "Keep eight currently undated Killens records and all future-dated rows distinct from the 20-year total.",
-      "Rebuild and publish once after the four-operator batch."
+      "Batch all accessible 2026 catalogues in one reusable run.",
+      "Preserve exact event and lot dates, guides, realised prices, rents, published outcomes, original URLs and immutable snapshots.",
+      "Treat SDL Property Auctions as an Eddisons Commercial Limited trading name, not a new legal auctioneer.",
+      "Leave unknown values null and reconcile exact overlaps before claiming growth."
     ],
-    "batch_strategy": "Reuse scripts/harvest_bamboo_shared_platform.py with config/bamboo_shared_growth_batch_2.json; do not add per-event workflow steps."
+    "blocked_route_avoidance": "Do not retry retired legacy catalogue redirects; follow the materially different live 2026 Kinetic route."
   },
   "previous_trigger_attempt": {
     "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
@@ -962,18 +1000,18 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Bank the next 118 canonical saved Bamboo appearances across four exact organisations before probing another blocked archive.",
+  "focus_reason": "The saved Bamboo recovery inventories are exhausted after this batch; move to the uncovered ten-event SDL Property Auctions 2026 source-year through the existing Kinetic collector.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-18T14:03:00Z",
+  "updated_at": "2026-11-18T15:02:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "No historical writer active immediately before the 2026-11-18 exact-organisation Bamboo bank.",
-    "action": "Trigger only the protected rebuild path from this source commit; do not dispatch a second collector while publication is in flight.",
-    "last_reviewed": "2026-11-18T14:03:00Z"
+    "status": "No historical writer active immediately before the 2026-11-18 four-operator saved Bamboo bank.",
+    "action": "Trigger only the protected rebuild path from this source commit; do not dispatch SDL or another collector while publication is in flight.",
+    "last_reviewed": "2026-11-18T15:02:00Z"
   },
   "corrections": [
     {

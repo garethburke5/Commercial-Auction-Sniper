@@ -3,6 +3,34 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 18 November 2026 — saved Bamboo exact-organisation batch 2
+
+The final retained four-operator Bamboo recovery manifest was banked as one
+reusable batch: Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction.
+It contains 119 source rows and yields **118 canonical individual appearances**:
+31 Tutis, 30 Haslams, 29 Luscombe Maye and 28 Killens. All 118 are full-address
+records with stable property identifiers, original URLs and immutable
+organisation-filtered index/detail snapshots.
+
+One Tutis source row is an exact duplicate on date, normalized address, guide,
+property type, tenure and non-empty description. It is collapsed once while both
+stable source IDs, URLs and outcome variants remain preserved. No other duplicate
+appearance identity is present, and distinct same-date Killens land interests
+remain separate because their guides and descriptions differ.
+
+The batch adds **106 individually dated address records inside the preceding
+20-year window**, four future-dated records, eight undated Killens records and no
+partial records. It adds **118 guide observations** (106 in-window), **68 achieved
+prices** (all in-window), 21 rent observations and eight commercial/mixed-use
+appearances (all in-window). It establishes 16 operator-year inventories across
+2021-2026. Bamboo is the technology provider, not an auctioneer; offices and
+trading labels are reconciled to the four canonical operator lineages.
+
+This completes the retained exact-organisation Bamboo recovery manifests, but
+does not claim coverage of deleted listings or earlier platforms. The next
+substantial source-year target is the ten-event first-party SDL Property Auctions
+2026 Kinetic archive. National completeness remains false.
+
 ## 18 November 2026 — saved Bamboo exact-organisation batch
 
 Three exact organisations already retained on the Bamboo shared-platform recovery
