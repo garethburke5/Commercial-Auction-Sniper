@@ -1,12 +1,20 @@
 {
-  "generated_at": "2026-11-18T16:20:00Z",
-  "status": "collection_requested",
+  "generated_at": "2026-11-18T20:16:00Z",
+  "status": "ready_for_collection",
   "previous_run": {
-    "run_id": null,
-    "commit": null,
-    "net_new_appearances": 118,
-    "auctioneer": "Tutis Estates, Haslams, Luscombe Maye and Killens Online Auction",
-    "result": "Saved immutable source evidence banked; protected rebuild and publication requested from this source commit."
+    "run_id": 44388022907,
+    "commit": "635d3b2e7ca3e7a31d8788f1127338d2396dc8c4",
+    "net_new_appearances": 0,
+    "newly_dated_address_records_within_20_years": 0,
+    "commercial_mixed_use_new_appearances": 0,
+    "newly_covered_source_years": [],
+    "new_guide_price_evidence": 0,
+    "new_sale_price_evidence": 0,
+    "undated_new_records": 0,
+    "future_dated_new_records": 0,
+    "duplicate_new_records": 0,
+    "auctioneer": "Goldings Auctions",
+    "result": "Focused 47-catalogue first-party refresh completed after repairing retained snapshot selection. All 635 appearances were already banked; no collection growth was claimed."
   },
   "runs": [
     {
@@ -346,47 +354,26 @@
       "newly_covered_source_years": [],
       "blocker": "The first-party Oxfordshire past-auctions response contained no Past online auction results table, so the stable lot-row collector had no admissible property inventory.",
       "next_action": "Do not refresh the Oxfordshire route without a different retained table or platform source. Rotate to the accessible All Wales Auction first-party catalogue PDFs."
+    },
+    {
+      "source": "goldings_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T20:12:09.090590+00:00",
+      "diagnostic_tail": "47 catalogues discovered; 37 complete, 10 incomplete; 635 appearances captured; 0 new appearances, 0 new address records, 0 new partial lots; failures []."
     }
   ],
   "next_task": 20,
   "target": {
-    "auctioneer": "All Wales Auction",
-    "operator_north": "Williams & Goodwin The Property People Limited",
-    "operator_south": "Peter Alan Limited",
-    "source_route": "All Wales Auction first-party catalogue PDFs",
-    "rationale": "Clarke & Simpson is already represented at 170 appearances on main. All Wales Auction remains at zero retained appearances while its first-party catalogue archive exposes multi-year address-level lot material. This is a materially different operator/source route.",
+    "auctioneer": "Auction House North West",
+    "source_route": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2 plus retained Auction House North West snapshots",
+    "rationale": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
     "evidence": [
-      "https://www.allwalesauction.com/about-us.html",
-      "https://www.allwalesauction.com/catalogue.php",
-      "https://www.allwalesauction.com/downloads/301120-december-2020-full-catalogue.pdf",
-      "https://www.allwalesauction.com/downloads/220221-march-catalogue.pdf",
-      "https://www.allwalesauction.com/downloads/full-catalogue-may-2021.pdf",
-      "https://www.allwalesauction.com/downloads/120721-july-catalogue.pdf"
+      "retained/current lot 366952 card pair",
+      "14-page first-party archive"
     ],
-    "accessible_catalogues": [
-      {
-        "date": "2020-11-30",
-        "url": "https://www.allwalesauction.com/downloads/301120-december-2020-full-catalogue.pdf",
-        "identified_all_wales_lots": "118-126"
-      },
-      {
-        "date": "2021-03",
-        "url": "https://www.allwalesauction.com/downloads/220221-march-catalogue.pdf",
-        "identified_all_wales_lots": "131-136"
-      },
-      {
-        "date": "2021-05",
-        "url": "https://www.allwalesauction.com/downloads/full-catalogue-may-2021.pdf",
-        "identified_all_wales_lots": "115-120"
-      },
-      {
-        "date": "2021-07",
-        "url": "https://www.allwalesauction.com/downloads/120721-july-catalogue.pdf",
-        "identified_all_wales_lots": "157-162"
-      }
-    ],
-    "known_evidence_count": 0,
-    "priority": "Run one reusable first-party PDF/OCR batch, snapshot each source once, extract every individually evidenced lot, preserve exact event date/address/locality/guide/outcome/achieved price, reconcile North/South operator lineage, deduplicate, rebuild and publish. Unknown values remain null."
+    "known_evidence_count": 423,
+    "priority": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank."
   },
   "storage_warning": "GitHub Actions reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs.",
   "latest_by_source": {
@@ -528,11 +515,32 @@
     },
     "goldings_results": {
       "source": "goldings_results",
-      "outcome": "failed",
-      "exit_code": 1,
-      "diagnostic_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_goldings_results.py\", line 366, in <module>\n    harvest(refresh=args.refresh, workers=args.workers)\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_goldings_results.py\", line 249, in harvest\n    saved = None if refresh else load_saved_catalogue(catalogue)\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_goldings_results.py\", line 239, in load_saved_catalogue\n    saved = corpus.read_gzip(snapshot)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/historical_corpus.py\", line 89, in read_gzip\n    return json.load(f)\n           ^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 338, in read\n    return self._buffer.read(size)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/_compression.py\", line 118, in readall\n    while data := self.read(sys.maxsize):\n                  ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 544, in read\n    if not self._read_gzip_header():\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 513, in _read_gzip_header\n    last_mtime = _read_gzip_header(self._fp)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
-      "duration_seconds": 1.62,
-      "checked_at": "2026-11-16T05:18:30.827956+00:00"
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T20:12:09.090590+00:00",
+      "source_url": "https://www.goldingsauctions.co.uk/auctions/auction-results/",
+      "catalogues_discovered": 47,
+      "catalogues_complete": 37,
+      "catalogues_incomplete": 10,
+      "published_lots_offered": 639,
+      "visible_source_rows": 621,
+      "appearances_captured": 635,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_partial_lots": 0,
+      "date_range": [
+        "2015-12-02",
+        "2026-09-23"
+      ],
+      "by_sector": {
+        "residential": 489,
+        "mixed-use": 39,
+        "commercial": 10,
+        "land": 19,
+        "unknown": 78
+      },
+      "failures": [],
+      "note": "Recovered the exact first-party HTML snapshot retained under result_source_evidence when a structured 2020 PDF recovery occupied source_evidence. Refresh was complete but deduplicated entirely against the existing bank."
     },
     "maggs_allen_results": {
       "source": "maggs_allen_results",
@@ -963,63 +971,82 @@
         "Killens Online Auction": 28
       },
       "note": "Four exact organisations recovered from one retained 5,013-row Bamboo index. The Tutis exact duplicate is collapsed while retaining both source IDs, URLs and outcome variants; Bamboo remains the platform, not the auctioneer."
+    },
+    "all_wales_auction": {
+      "source": "all_wales_auction",
+      "outcome": "blocked",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T16:25:00Z",
+      "catalogues_attempted": 4,
+      "catalogues_retrieved": 0,
+      "expected_identified_lots": 27,
+      "run_new_appearances": 0,
+      "blocker": "All four retained first-party catalogue URLs returned HTTP 404; no PDF bytes or individual lot evidence were available to admit."
     }
   },
   "next_run": {
-    "auctioneer": "Auction House Oxfordshire",
-    "action": "Run the regional first-party archive collector now including Oxfordshire, then snapshot, deduplicate and rebuild before publication. The collector already reconciles every pagination page and stable lot redirect ID; this addition closes a real uncovered regional branch rather than creating an alias.",
-    "scope": "All sectors and all surviving rows in https://www.auctionhouse.co.uk/oxfordshire/auction/past-auctions; preserve exact individual lot end dates, guides, published outcomes and original URLs. Unknown values remain null. Auction House UK is the shared operator; Oxfordshire is a regional branch, not a new legal auctioneer.",
-    "rationale": "The source register has zero retained Auction House Oxfordshire appearances and the regional collector currently covers 19 regions but omits Oxfordshire. The first-party Oxfordshire past-auctions surface exists and is a distinct regional archive route. This is a concrete uncovered branch and should be tested before further low-value refreshes.",
-    "collector_commit": "10fc5572816ab0abedadd88f95b7017c7bbe47ea"
+    "auctioneer": "Auction House North West",
+    "action": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank.",
+    "scope": "All sectors, 14 first-party archive pages, exact retained/current identity reconciliation before admission.",
+    "rationale": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
+    "collector": "scripts/harvest_auction_house_north_west.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "All Wales Auction — North Wales lots attributed to Williams & Goodwin The Property People Limited and South Wales lots to Peter Alan Limited",
-    "task": "Batch the four accessible first-party All Wales Auction catalogues from November 2020 to July 2021 through the existing PDF/OCR collector, bank every individually evidenced lot and rebuild once.",
-    "reason": "All Wales Auction has zero retained appearances while four first-party catalogue PDFs expose at least 27 identified address-level lots across a previously uncovered 2020-2021 source range.",
-    "source_route": "https://www.allwalesauction.com/catalogue.php and retained first-party catalogue PDFs",
-    "known_catalogues": 4,
-    "identified_lot_ranges": [
-      "2020-11-30 lots 118-126",
-      "2021-03 lots 131-136",
-      "2021-05 lots 115-120",
-      "2021-07 lots 157-162"
-    ],
-    "collector": "scripts/harvest_all_wales_auction.py",
+    "auctioneer_lineage": "Auction House North West — regional branch of Auction House UK",
+    "task": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank.",
+    "reason": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
+    "source_route": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2 plus retained Auction House North West snapshots",
+    "collector": "scripts/harvest_auction_house_north_west.py",
+    "observed_inventory": {
+      "pages_expected": 14,
+      "pages_captured": 14,
+      "current_archive_rows": 377,
+      "retained_appearances": 423,
+      "identity_conflict_lot_id": "366952",
+      "date_range": [
+        "2019-01-24",
+        "2026-11-10"
+      ]
+    },
     "admission_rules": [
-      "Batch all four accessible catalogues in one reusable run and preserve immutable PDF snapshots and original URLs.",
-      "Preserve exact event dates, addresses or locality-only evidence, guide and achieved prices, rent and every published outcome; unknown values remain null.",
-      "Reconcile North and South operator lineages without counting All Wales Auction aliases as extra auctioneers.",
-      "Deduplicate exact property/event/lot overlaps before reporting growth."
+      "Compare the retained and current lot 366952 cards field by field; never overwrite or discard either evidence object.",
+      "Keep the branch identity under Auction House UK lineage and do not count it as a new auctioneer.",
+      "Preserve exact dates, guide and achieved prices, rents, outcomes, original URLs and immutable snapshots; unknown values remain null.",
+      "Deduplicate exact event/lot/property overlaps before reporting any growth, then rebuild once."
     ],
-    "blocked_route_avoidance": "Do not retry SDL Kinetic direct POSTs or the Oxfordshire empty results surface without a materially different source route."
+    "blocked_route_avoidance": "Do not retry All Wales 404 PDFs, SDL Kinetic 403 POSTs, Oxfordshire's empty results surface or Goldings without a new source route."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "All Wales Auction — North Wales lots attributed to Williams & Goodwin The Property People Limited and South Wales lots to Peter Alan Limited",
-    "task": "Batch the four accessible first-party All Wales Auction catalogues from November 2020 to July 2021 through the existing PDF/OCR collector, bank every individually evidenced lot and rebuild once.",
-    "reason": "All Wales Auction has zero retained appearances while four first-party catalogue PDFs expose at least 27 identified address-level lots across a previously uncovered 2020-2021 source range.",
-    "source_route": "https://www.allwalesauction.com/catalogue.php and retained first-party catalogue PDFs",
-    "known_catalogues": 4,
-    "identified_lot_ranges": [
-      "2020-11-30 lots 118-126",
-      "2021-03 lots 131-136",
-      "2021-05 lots 115-120",
-      "2021-07 lots 157-162"
-    ],
-    "collector": "scripts/harvest_all_wales_auction.py",
+    "auctioneer_lineage": "Auction House North West — regional branch of Auction House UK",
+    "task": "Repair the exact saved/current identity conflict for lot 366952 on archive page 2, then rerun the existing 14-page regional collector once and admit only individually evidenced rows absent from the bank.",
+    "reason": "The latest first-party pass enumerated all 14 archive pages and 377 current rows but stopped completeness reconciliation on one stable lot identity drift. Resolving the exact saved/current card pair is a materially different route from the exhausted All Wales PDFs and fully deduplicated Goldings refresh.",
+    "source_route": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2 plus retained Auction House North West snapshots",
+    "collector": "scripts/harvest_auction_house_north_west.py",
+    "observed_inventory": {
+      "pages_expected": 14,
+      "pages_captured": 14,
+      "current_archive_rows": 377,
+      "retained_appearances": 423,
+      "identity_conflict_lot_id": "366952",
+      "date_range": [
+        "2019-01-24",
+        "2026-11-10"
+      ]
+    },
     "admission_rules": [
-      "Batch all four accessible catalogues in one reusable run and preserve immutable PDF snapshots and original URLs.",
-      "Preserve exact event dates, addresses or locality-only evidence, guide and achieved prices, rent and every published outcome; unknown values remain null.",
-      "Reconcile North and South operator lineages without counting All Wales Auction aliases as extra auctioneers.",
-      "Deduplicate exact property/event/lot overlaps before reporting growth."
+      "Compare the retained and current lot 366952 cards field by field; never overwrite or discard either evidence object.",
+      "Keep the branch identity under Auction House UK lineage and do not count it as a new auctioneer.",
+      "Preserve exact dates, guide and achieved prices, rents, outcomes, original URLs and immutable snapshots; unknown values remain null.",
+      "Deduplicate exact event/lot/property overlaps before reporting any growth, then rebuild once."
     ],
-    "blocked_route_avoidance": "Do not retry SDL Kinetic direct POSTs or the Oxfordshire empty results surface without a materially different source route."
+    "blocked_route_avoidance": "Do not retry All Wales 404 PDFs, SDL Kinetic 403 POSTs, Oxfordshire's empty results surface or Goldings without a new source route."
   },
   "previous_trigger_attempt": {
-    "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
-    "target": "Kivells 2022 half-year review",
-    "result": "No Actions run observed for the contents-API commit; target was already banked in historical corpus, so no duplicate collector was launched."
+    "commit": "12e74a0156fc8bb68e9edc3941977db57e215848",
+    "target": "Goldings retained result catalogues",
+    "result": "Workflow 44388022907 completed successfully; 47 catalogues and 635 appearances reconciled, with zero net new records after deduplication."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
@@ -1046,13 +1073,13 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Two live routes were bounded and recorded: SDL Kinetic returned HTTP 403 for every feed and Auction House Oxfordshire exposed no results table. Move to four accessible All Wales first-party PDFs with a known individual-lot inventory.",
+  "focus_reason": "All Wales was terminally unavailable on four HTTP 404 catalogue URLs. Goldings snapshot selection was repaired and 47 catalogues refreshed, but all 635 appearances were duplicates. Move to Auction House North West's single exact identity conflict before any further broad refresh.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-18T15:02:00Z",
+  "updated_at": "2026-11-18T20:16:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "Auction House Oxfordshire run 44344767108 completed; no historical writer is active.",
@@ -1068,14 +1095,10 @@
     }
   ],
   "current_collection_request": {
-    "source": "all_wales_auction_catalogues",
-    "collector": "scripts/harvest_all_wales_auction.py",
-    "requested_at": "2026-11-18T16:20:00Z",
-    "catalogue_count": 4,
-    "source_years": [
-      2020,
-      2021
-    ],
-    "expected_identified_lots": 27
+    "source": "auction_house_north_west_identity_reconciliation",
+    "collector": "scripts/harvest_auction_house_north_west.py",
+    "requested_at": "2026-11-18T20:16:00Z",
+    "pages_expected": 14,
+    "identity_conflict_lot_id": "366952"
   }
 }

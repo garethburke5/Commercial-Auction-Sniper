@@ -2275,3 +2275,14 @@ The bounded Auction House South West / Bristol & West route exposes no pre-2018 
 - **Next concrete growth target:** batch City & Rural Property Auctions' five-page first-party past-auction/result archive and official catalogue subdomain through one reusable runner, beginning with the 29 March 2023 catalogue. The corpus currently contains 166 appearances across 30 City & Rural event identities; reconcile every linked lot against exact date/address/lot identities, preserve immutable catalogue/result evidence, and bank only missing appearances or genuinely new price, rent and outcome evidence.
 - National completeness remains **false** until source-by-source lot inventories and genuine auctioneer/branch/trading-name coverage reconcile.
 
+## 18 November 2026 — Goldings retained-result recovery
+
+- Repaired a collection-blocking retained-snapshot fault: the collector now prefers the exact first-party HTML held under `result_source_evidence`, skips structured non-HTML recovery envelopes, and accepts legacy plain-JSON snapshots carrying a `.gz` suffix. Four focused regression tests passed.
+- Focused workflow [44388022907](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/44388022907) completed successfully, then banked source evidence and rebuilt the database before checkpoint publication.
+- Goldings inventory reconciled: **47 catalogues**, **639 published lots offered**, **621 visible current rows**, **635 retained appearances**, **37 complete catalogues**, **10 incomplete/unreconciled**, date range **2015-12-02 to 2026-09-23**. Retained sectors are 489 residential, 39 mixed-use, 10 commercial, 19 land and 78 unknown.
+- Net newly banked appearances: **0**. Newly dated address records inside the preceding 20-year window: **0**. New commercial/mixed-use appearances: **0**. Newly covered source-years: **0**. New guide-price evidence: **0**. New achieved-price evidence: **0**. New partial, undated, future-dated and duplicate records admitted: **0**.
+- The corpus therefore remains **316,731 appearances**, **305,415 address records**, **11,316 partial lots**, **308,288 appearances inside the preceding 20-year window**, **109,984 with guide prices** and **114,878 with achieved prices**. No growth is claimed: all 635 Goldings appearances deduplicated against the existing bank.
+- The preceding All Wales batch is now recorded as terminal on its current route: all four known first-party catalogue PDF URLs returned HTTP 404, so none of the 27 identified lot ranges could be admitted.
+- Next concrete growth target: reconcile the exact retained/current identity conflict for Auction House North West lot **366952** on archive page 2, then rerun its existing 14-page collector once. Preserve both evidence objects, admit only absent individual lots and rebuild once. Do not retry All Wales, SDL Kinetic, Oxfordshire or Goldings without a new retrieval route.
+- National completeness remains **false**.
+
