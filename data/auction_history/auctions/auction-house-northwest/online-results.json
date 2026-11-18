@@ -3,9 +3,9 @@
   "source_auction_id": "auction-house-northwest:online-results",
   "auction_date": null,
   "catalogue_complete": false,
-  "source_rows_complete": false,
+  "source_rows_complete": true,
   "denominator_reconciled": false,
-  "archive_pagination_complete": false,
+  "archive_pagination_complete": true,
   "lots_captured": 431,
   "current_archive_rows": 404,
   "completion_scope": "all rows across every retained first-party online-results page",
@@ -420,44 +420,7 @@
     "retained_scope": "individual online lot endings",
     "retained_rows": 431
   },
-  "errors": [
-    {
-      "kind": "source_identity_drift",
-      "source_lot_id": "366952",
-      "page": 2
-    }
-  ],
-  "identity_conflicts": [
-    {
-      "source_lot_id": "366952",
-      "page": 2,
-      "retained": {
-        "address": "16 St. James Street, Brighton, East Sussex, BN2 1RF",
-        "auction_date": "2026-10-06",
-        "auction_end_time": "2026-10-06T12:39:00",
-        "guide_price": 140000,
-        "guide_price_high": null,
-        "sale_price": null,
-        "last_bid_price": null,
-        "status": "no_bids",
-        "source_url": null,
-        "source_snapshot": null,
-        "source_sha256": null
-      },
-      "current": {
-        "address": "16 St. James's Street, Brighton, East Sussex, BN2 1RF",
-        "auction_date": "2026-10-06",
-        "auction_end_time": "2026-10-06T12:39:00",
-        "guide_price": 119000,
-        "guide_price_high": null,
-        "sale_price": null,
-        "last_bid_price": null,
-        "status": "no_bids",
-        "source_url": null,
-        "source_snapshot": null,
-        "source_sha256": null
-      }
-    }
-  ],
-  "checked_at": "2026-11-18T21:02:11.445794+00:00"
+  "errors": [],
+  "identity_conflicts": [],
+  "checked_at": "2026-11-18T21:15:12.322870+00:00"
 }

@@ -1,10 +1,11 @@
 {
-  "checked_at": "2026-11-18T21:02:11.445101+00:00",
+  "checked_at": "2026-11-18T21:15:12.322114+00:00",
   "pages_expected": 14,
   "pages_captured": 14,
   "current_archive_rows": 404,
   "property_appearances_captured": 431,
   "run_new_appearances": 0,
+  "run_new_guide_price_variants": 1,
   "address_records": 431,
   "partial_lots": 0,
   "earliest_lot_end_date": "2019-01-24",
@@ -35,37 +36,6 @@
     "14": 14
   },
   "failures": [],
-  "identity_conflicts": [
-    {
-      "source_lot_id": "366952",
-      "page": 2,
-      "retained": {
-        "address": "16 St. James Street, Brighton, East Sussex, BN2 1RF",
-        "auction_date": "2026-10-06",
-        "auction_end_time": "2026-10-06T12:39:00",
-        "guide_price": 140000,
-        "guide_price_high": null,
-        "sale_price": null,
-        "last_bid_price": null,
-        "status": "no_bids",
-        "source_url": null,
-        "source_snapshot": null,
-        "source_sha256": null
-      },
-      "current": {
-        "address": "16 St. James's Street, Brighton, East Sussex, BN2 1RF",
-        "auction_date": "2026-10-06",
-        "auction_end_time": "2026-10-06T12:39:00",
-        "guide_price": 119000,
-        "guide_price_high": null,
-        "sale_price": null,
-        "last_bid_price": null,
-        "status": "no_bids",
-        "source_url": null,
-        "source_snapshot": null,
-        "source_sha256": null
-      }
-    }
-  ],
-  "archive_pagination_complete": false
+  "identity_conflicts": [],
+  "archive_pagination_complete": true
 }
