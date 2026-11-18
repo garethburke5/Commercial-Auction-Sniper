@@ -167,12 +167,65 @@ def fetch(session: requests.Session, url: str) -> bytes:
     return raw
 
 
+def _building_key(row: dict) -> tuple[str | None, str | None]:
+    address = clean(row.get("address")) or ""
+    postcode = clean(row.get("postcode"))
+    if not postcode:
+        match = corpus.PC.search(address)
+        postcode = match.group().upper() if match else None
+    number = re.match(r"^([0-9]+[A-Za-z]?)\\b", address)
+    return (postcode.upper() if postcode else None,
+            number.group(1).upper() if number else None)
+
+
 def same_source_identity(retained: dict, current: dict) -> bool:
-    """Return whether one stable lot ID still describes the same appearance."""
-    return (
-        retained.get("address") == current.get("address")
-        and retained.get("auction_end_time") == current.get("auction_end_time")
+    """Match a stable lot ID without conflating different legal properties."""
+    if retained.get("auction_end_time") != current.get("auction_end_time"):
+        return False
+    if retained.get("address") == current.get("address"):
+        return True
+    retained_key = _building_key(retained)
+    current_key = _building_key(current)
+    return bool(
+        retained_key[0]
+        and retained_key[1]
+        and retained_key == current_key
     )
+
+
+def merge_republished_appearance(retained: dict, current: dict) -> tuple[dict, bool]:
+    """Keep the newest row while preserving every published price/evidence variant."""
+    merged = dict(current)
+    variants = list(retained.get("publication_variants") or [])
+    retained_variant = {
+        "address": retained.get("address"),
+        "guide_price": retained.get("guide_price"),
+        "guide_price_high": retained.get("guide_price_high"),
+        "guide_text": retained.get("guide_text"),
+        "result_text": retained.get("result_text"),
+        "status": retained.get("status"),
+        "source_evidence": retained.get("source_evidence"),
+    }
+    current_variant = {
+        "address": current.get("address"),
+        "guide_price": current.get("guide_price"),
+        "guide_price_high": current.get("guide_price_high"),
+        "guide_text": current.get("guide_text"),
+        "result_text": current.get("result_text"),
+        "status": current.get("status"),
+        "source_evidence": current.get("source_evidence"),
+    }
+    for variant in (retained_variant, current_variant):
+        signature = json.dumps(variant, sort_keys=True, default=str)
+        if all(json.dumps(item, sort_keys=True, default=str) != signature for item in variants):
+            variants.append(variant)
+    merged["publication_variants"] = variants
+    changed_guide = (
+        retained.get("guide_price"), retained.get("guide_price_high")
+    ) != (
+        current.get("guide_price"), current.get("guide_price_high")
+    )
+    return merged, changed_guide
 
 
 def conflict_evidence(source_id: str, page: int, retained: dict, current: dict) -> dict:
@@ -205,6 +258,7 @@ def harvest() -> None:
     page_counts: dict[str, int] = {}
     failures = []
     identity_conflicts = []
+    guide_price_updates = 0
     added = 0
 
     for page in range(1, last_page + 1):
@@ -248,7 +302,10 @@ def harvest() -> None:
                         conflict_evidence(source_id, page, previous, row)
                     )
                     continue
-                if not previous:
+                if previous:
+                    row, changed_guide = merge_republished_appearance(previous, row)
+                    guide_price_updates += int(changed_guide)
+                else:
                     added += 1
                 merged[source_id] = row
         except Exception as exc:
@@ -275,6 +332,7 @@ def harvest() -> None:
         "current_archive_rows": current_count,
         "property_appearances_captured": len(rows),
         "run_new_appearances": added,
+        "run_new_guide_price_variants": guide_price_updates,
         "address_records": sum(bool(row.get("address")) for row in rows),
         "partial_lots": sum(not row.get("address") for row in rows),
         "earliest_lot_end_date": min(dates) if dates else None,

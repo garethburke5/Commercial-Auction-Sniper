@@ -5,6 +5,7 @@ from scripts.harvest_auction_house_north_west import (
     result_details,
     same_source_identity,
     conflict_evidence,
+    merge_republished_appearance,
 )
 
 
@@ -88,4 +89,34 @@ def test_identity_conflict_preserves_both_rows_and_is_not_a_match():
     assert evidence["retained"]["address"] == retained["address"]
     assert evidence["current"]["address"] == current["address"]
     assert evidence["retained"]["source_snapshot"] != evidence["current"]["source_snapshot"]
+
+def test_same_event_building_accepts_apostrophe_variant_and_preserves_guides():
+    retained = {
+        "address": "16 St. James Street, Brighton, East Sussex, BN2 1RF",
+        "postcode": "BN2 1RF",
+        "auction_end_time": "2026-10-06T12:39:00",
+        "guide_price": 140000,
+        "guide_text": "£140,000",
+        "status": "no_bids",
+        "source_evidence": {"snapshot_path": "data/retained.json.gz"},
+    }
+    current = {
+        "address": "16 St. James's Street, Brighton, East Sussex, BN2 1RF",
+        "postcode": "BN2 1RF",
+        "auction_end_time": "2026-10-06T12:39:00",
+        "guide_price": 119000,
+        "guide_text": "£119,000",
+        "status": "no_bids",
+        "source_evidence": {"snapshot_path": "data/current.json.gz"},
+    }
+
+    assert same_source_identity(retained, current)
+    merged, changed = merge_republished_appearance(retained, current)
+    assert changed
+    assert merged["guide_price"] == 119000
+    assert [item["guide_price"] for item in merged["publication_variants"]] == [140000, 119000]
+    assert [item["source_evidence"]["snapshot_path"] for item in merged["publication_variants"]] == [
+        "data/retained.json.gz",
+        "data/current.json.gz",
+    ]
 
