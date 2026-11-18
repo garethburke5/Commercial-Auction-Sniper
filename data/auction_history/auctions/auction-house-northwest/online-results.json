@@ -7,7 +7,7 @@
   "denominator_reconciled": false,
   "archive_pagination_complete": false,
   "lots_captured": 431,
-  "current_archive_rows": 392,
+  "current_archive_rows": 404,
   "completion_scope": "all rows across every retained first-party online-results page",
   "source_property_ids": [
     "100121",
@@ -321,17 +321,29 @@
     "363457",
     "363780",
     "363828",
+    "364157",
     "364293",
     "364299",
     "364319",
     "364375",
     "364996",
+    "365123",
+    "365187",
     "365192",
+    "365212",
     "365301",
+    "365382",
+    "365435",
     "365721",
+    "366134",
+    "366776",
     "366952",
     "366953",
     "366997",
+    "367078",
+    "367132",
+    "367283",
+    "368031",
     "368091",
     "368882",
     "368902",
@@ -410,10 +422,42 @@
   },
   "errors": [
     {
-      "page": 2,
-      "url": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2",
-      "error": "ValueError: source identity drift for lot 366952"
+      "kind": "source_identity_drift",
+      "source_lot_id": "366952",
+      "page": 2
     }
   ],
-  "checked_at": "2026-11-18T13:29:37.045154+00:00"
+  "identity_conflicts": [
+    {
+      "source_lot_id": "366952",
+      "page": 2,
+      "retained": {
+        "address": "16 St. James Street, Brighton, East Sussex, BN2 1RF",
+        "auction_date": "2026-10-06",
+        "auction_end_time": "2026-10-06T12:39:00",
+        "guide_price": 140000,
+        "guide_price_high": null,
+        "sale_price": null,
+        "last_bid_price": null,
+        "status": "no_bids",
+        "source_url": null,
+        "source_snapshot": null,
+        "source_sha256": null
+      },
+      "current": {
+        "address": "16 St. James's Street, Brighton, East Sussex, BN2 1RF",
+        "auction_date": "2026-10-06",
+        "auction_end_time": "2026-10-06T12:39:00",
+        "guide_price": 119000,
+        "guide_price_high": null,
+        "sale_price": null,
+        "last_bid_price": null,
+        "status": "no_bids",
+        "source_url": null,
+        "source_snapshot": null,
+        "source_sha256": null
+      }
+    }
+  ],
+  "checked_at": "2026-11-18T21:02:11.445794+00:00"
 }

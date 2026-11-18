@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-18T20:14:01.846664+00:00",
-  "corpus_checkpoint": "2026-11-18T20:13:39.279190+00:00",
+  "generated_at": "2026-11-18T21:03:59.773798+00:00",
+  "corpus_checkpoint": "2026-11-18T21:03:37.986395+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -18404,11 +18404,32 @@
     },
     "goldings_results": {
       "source": "goldings_results",
-      "outcome": "failed",
-      "exit_code": 1,
-      "diagnostic_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_goldings_results.py\", line 366, in <module>\n    harvest(refresh=args.refresh, workers=args.workers)\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_goldings_results.py\", line 249, in harvest\n    saved = None if refresh else load_saved_catalogue(catalogue)\n                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_goldings_results.py\", line 239, in load_saved_catalogue\n    saved = corpus.read_gzip(snapshot)\n            ^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/historical_corpus.py\", line 89, in read_gzip\n    return json.load(f)\n           ^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/json/__init__.py\", line 293, in load\n    return loads(fp.read(),\n                 ^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 338, in read\n    return self._buffer.read(size)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/_compression.py\", line 118, in readall\n    while data := self.read(sys.maxsize):\n                  ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 544, in read\n    if not self._read_gzip_header():\n           ^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 513, in _read_gzip_header\n    last_mtime = _read_gzip_header(self._fp)\n                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/gzip.py\", line 473, in _read_gzip_header\n    raise BadGzipFile('Not a gzipped file (%r)' % magic)\ngzip.BadGzipFile: Not a gzipped file (b'{\\n')\n",
-      "duration_seconds": 1.62,
-      "checked_at": "2026-11-16T05:18:30.827956+00:00"
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T20:12:09.090590+00:00",
+      "source_url": "https://www.goldingsauctions.co.uk/auctions/auction-results/",
+      "catalogues_discovered": 47,
+      "catalogues_complete": 37,
+      "catalogues_incomplete": 10,
+      "published_lots_offered": 639,
+      "visible_source_rows": 621,
+      "appearances_captured": 635,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_partial_lots": 0,
+      "date_range": [
+        "2015-12-02",
+        "2026-09-23"
+      ],
+      "by_sector": {
+        "residential": 489,
+        "mixed-use": 39,
+        "commercial": 10,
+        "land": 19,
+        "unknown": 78
+      },
+      "failures": [],
+      "note": "Recovered the exact first-party HTML snapshot retained under result_source_evidence when a structured 2020 PDF recovery occupied source_evidence. Refresh was complete but deduplicated entirely against the existing bank."
     },
     "maggs_allen_results": {
       "source": "maggs_allen_results",
@@ -18673,6 +18694,17 @@
       "diagnostic_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 324, in <module>\n    harvest()\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 303, in harvest\n    summaries.append(harvest_region(session, url_slug, auctioneer, canonical_slug))\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 193, in harvest_region\n    first_raw = fetch(session, index)\n                ^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_auction_house_regions.py\", line 186, in fetch\n    raise ValueError(\"source returned no results table\")\nValueError: source returned no results table\n",
       "duration_seconds": 38.6,
       "checked_at": "2026-11-16T07:06:09.797202+00:00"
+    },
+    "all_wales_auction": {
+      "source": "all_wales_auction",
+      "outcome": "blocked",
+      "exit_code": 0,
+      "checked_at": "2026-11-18T16:25:00Z",
+      "catalogues_attempted": 4,
+      "catalogues_retrieved": 0,
+      "expected_identified_lots": 27,
+      "run_new_appearances": 0,
+      "blocker": "All four retained first-party catalogue URLs returned HTTP 404; no PDF bytes or individual lot evidence were available to admit."
     }
   },
   "unresolved_catalogues": [
@@ -19387,12 +19419,12 @@
       "lots_captured": 431,
       "errors": [
         {
-          "page": 2,
-          "url": "https://www.auctionhouse.co.uk/northwest/auction/past-auctions?page=2",
-          "error": "ValueError: source identity drift for lot 366952"
+          "kind": "source_identity_drift",
+          "source_lot_id": "366952",
+          "page": 2
         }
       ],
-      "checked_at": "2026-11-18T13:29:37.045154+00:00"
+      "checked_at": "2026-11-18T21:02:11.445794+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2012-03-28.json",
@@ -23916,7 +23948,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-18T20:14:01.377839+00:00",
+    "checked_at": "2026-11-18T21:03:59.301725+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
