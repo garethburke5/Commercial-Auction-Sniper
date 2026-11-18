@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-18T21:17:01.821504+00:00",
-  "individual_lot_records_captured": 316731,
-  "records_with_address": 305415,
+  "generated_at": "2026-11-18T21:56:37.597488+00:00",
+  "individual_lot_records_captured": 316739,
+  "records_with_address": 305423,
   "partial_lot_records": 11316,
-  "exact_address_groups": 170980,
-  "groups_with_repeat_appearances": 43208,
+  "exact_address_groups": 170987,
+  "groups_with_repeat_appearances": 43209,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -23,7 +23,7 @@
     "Auction House Birmingham & Black Country": 124,
     "Auction House Bristol": 9,
     "Auction House Cheshire": 70,
-    "Auction House Cheshire, Staffordshire & Shropshire": 291,
+    "Auction House Cheshire, Staffordshire & Shropshire": 292,
     "Auction House Chesterfield & North Derbyshire": 2,
     "Auction House Chesterfield and North Derbyshire": 4,
     "Auction House Coventry & Warwickshire": 157,
@@ -47,7 +47,7 @@
     "Auction House Notts & Derby": 475,
     "Auction House Online": 52,
     "Auction House Scotland": 244,
-    "Auction House South West": 495,
+    "Auction House South West": 496,
     "Auction House South Yorkshire": 2248,
     "Auction House Sussex & Hampshire": 123,
     "Auction House Symonds & Sampson": 2,
@@ -82,11 +82,11 @@
     "Dedman Gray": 2851,
     "Durrants": 37,
     "Edward Mellor": 10339,
-    "First for Auctions": 1454,
+    "First for Auctions": 1457,
     "Fisher German": 271,
     "Future Property Auctions": 76690,
     "Goldings Auctions": 635,
-    "Harman Healy": 1528,
+    "Harman Healy": 1529,
     "Haslams": 30,
     "Higgins Drysdale National Property Auctions": 163,
     "Hollis Morgan": 813,
@@ -142,7 +142,7 @@
     "TW Gaze": 28,
     "The Auction Company": 123,
     "The Property Auction House": 132,
-    "Town & Country Property Auctions": 3127,
+    "Town & Country Property Auctions": 3129,
     "Tutis Estates": 31,
     "Unknown auctioneer": 14,
     "Webbers": 99,
@@ -175,7 +175,7 @@
     "2023": 33870,
     "2024": 42771,
     "2025": 48858,
-    "2026": 49680,
+    "2026": 49688,
     "2027": 6
   },
   "by_sector": {
@@ -183,8 +183,8 @@
     "land": 19938,
     "mixed": 1,
     "mixed-use": 47830,
-    "residential": 154272,
-    "unknown": 51817
+    "residential": 154276,
+    "unknown": 51821
   },
   "date_range": [
     "2002-10-31",
@@ -204,13 +204,13 @@
     "through_date": "2026-11-18",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308288,
-      "auction_ids_observed": 16069,
+      "lot_appearances": 308291,
+      "auction_ids_observed": 16072,
       "with_guide_price": 109984,
       "with_sale_price": 114878,
       "with_both_prices": 50885,
-      "marked_sold": 157845,
-      "marked_sold_without_sale_price": 43707
+      "marked_sold": 157847,
+      "marked_sold_without_sale_price": 43709
     },
     "by_auctioneer_and_year": [
       {
@@ -5969,8 +5969,8 @@
       {
         "auctioneer": "Harman Healy",
         "year": 2026,
-        "lot_appearances": 121,
-        "auction_ids_observed": 15,
+        "lot_appearances": 122,
+        "auction_ids_observed": 16,
         "with_guide_price": 0,
         "with_sale_price": 49,
         "with_both_prices": 0,
@@ -9533,13 +9533,13 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1430,
-        "auction_ids_observed": 623,
+        "lot_appearances": 1432,
+        "auction_ids_observed": 625,
         "with_guide_price": 0,
         "with_sale_price": 261,
         "with_both_prices": 0,
-        "marked_sold": 820,
-        "marked_sold_without_sale_price": 559
+        "marked_sold": 822,
+        "marked_sold_without_sale_price": 561
       },
       {
         "auctioneer": "Tutis Estates",
@@ -9763,7 +9763,7 @@
       }
     ],
     "undated_appearances": 5117,
-    "future_dated_appearances": 206,
+    "future_dated_appearances": 211,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -9774,14 +9774,14 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-18T13:39:02.901776+00:00",
+    "checked_at": "2026-11-18T21:44:57.598881+00:00",
     "lots_captured": 5698,
-    "current_run_unique_lots": 5643,
+    "current_run_unique_lots": 5693,
     "expected_public_results": 5693,
-    "run_new_appearances": 1,
-    "run_new_address_records": 1,
+    "run_new_appearances": 0,
+    "run_new_address_records": 0,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 55,
+    "retained_not_in_current_public_pagination": 5,
     "pages_captured": [
       1,
       2,
@@ -9835,6 +9835,7 @@
       50,
       51,
       52,
+      53,
       54,
       55,
       56,
@@ -9898,13 +9899,8 @@
       114
     ],
     "pages_expected": 114,
-    "results_complete": false,
-    "failures": [
-      {
-        "page": 53,
-        "error": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
-      }
-    ],
+    "results_complete": true,
+    "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
   }
 }

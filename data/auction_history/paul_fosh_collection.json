@@ -1,12 +1,12 @@
 {
-  "checked_at": "2026-11-18T13:39:02.901776+00:00",
+  "checked_at": "2026-11-18T21:44:57.598881+00:00",
   "lots_captured": 5698,
-  "current_run_unique_lots": 5643,
+  "current_run_unique_lots": 5693,
   "expected_public_results": 5693,
-  "run_new_appearances": 1,
-  "run_new_address_records": 1,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "retained_not_in_current_public_pagination": 55,
+  "retained_not_in_current_public_pagination": 5,
   "pages_captured": [
     1,
     2,
@@ -60,6 +60,7 @@
     50,
     51,
     52,
+    53,
     54,
     55,
     56,
@@ -123,12 +124,7 @@
     114
   ],
   "pages_expected": 114,
-  "results_complete": false,
-  "failures": [
-    {
-      "page": 53,
-      "error": "URLError: <urlopen error _ssl.c:994: The handshake operation timed out>"
-    }
-  ],
+  "results_complete": true,
+  "failures": [],
   "date_basis": "individual published lot end dates; not inferred auction-container dates"
 }
