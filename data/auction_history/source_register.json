@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-18T16:10:42.022087+00:00",
-  "corpus_checkpoint": "2026-11-18T16:10:15.935176+00:00",
+  "generated_at": "2026-11-18T16:17:55.871415+00:00",
+  "corpus_checkpoint": "2026-11-18T16:17:33.177208+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -18366,6 +18366,24 @@
       },
       "note": "Four exact organisations recovered from one retained 5,013-row Bamboo index. The Tutis exact duplicate is collapsed while retaining both source IDs, URLs and outcome variants; Bamboo remains the platform, not the auctioneer."
     },
+    "sdl_kinetic_2026": {
+      "source": "sdl_kinetic_2026",
+      "command": "python -u scripts/harvest_sdl_kinetic_2026.py",
+      "started_at": "2026-11-18T16:06:13Z",
+      "finished_at": "2026-11-18T16:10:51Z",
+      "workflow_run_id": 44343282415,
+      "outcome": "blocked",
+      "source_rows_reconciled": 0,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_dated_address_records_twenty_year_window": 0,
+      "run_new_commercial_mixed_use": 0,
+      "run_new_guide_price_rows": 0,
+      "run_new_sale_price_rows": 0,
+      "newly_covered_source_years": [],
+      "blocker": "All eleven explicit 2026 event-feed POSTs returned HTTP 403 from the first-party Kinetic property-functions endpoint. No catalogue rows were admitted and the route is terminal until a browser-equivalent or retained-payload recovery path exists.",
+      "next_action": "Do not repeat the direct Kinetic POST. Rotate to the separately accessible Auction House Oxfordshire first-party past-auctions table."
+    },
     "goldings_results": {
       "source": "goldings_results",
       "outcome": "failed",
@@ -23880,7 +23898,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-18T16:10:41.288082+00:00",
+    "checked_at": "2026-11-18T16:17:55.282167+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
