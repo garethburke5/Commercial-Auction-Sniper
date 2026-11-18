@@ -1,0 +1,33 @@
+{
+  "auctioneer": "Bagshaws",
+  "source_auction_id": "bagshaws:2026-11-16:bagshaws-november-land-property-auction-bakewell",
+  "auction_date": "2026-11-16",
+  "catalogue_complete": false,
+  "lots_captured": 4,
+  "source_url": "https://www.bagshaws.com/property-auction/bagshaws-november-land-property-auction-bakewell/",
+  "completion_scope": "all explicit property cards and tabular result rows on the retained page; original catalogue denominator unavailable",
+  "source_evidence": {
+    "source_url": "https://www.bagshaws.com/property-auction/bagshaws-november-land-property-auction-bakewell/",
+    "retrieved_at": "2026-11-18T13:27:39.328371+00:00",
+    "sha256": "fa0f94830c21f05591b3587f1a351049362c7fc993fedb5099ee5a8c1ea7e462",
+    "snapshot_path": "data/auction_history/sources/bagshaws/bagshaws-november-land-property-auction-bakewell-fa0f94830c21f055.json.gz",
+    "archive_evidence": {
+      "source_url": "https://www.bagshaws.com/bagshaws-property/auctions-archive/",
+      "retrieved_at": "2026-11-18T13:27:38.727929+00:00",
+      "sha256": "4227ae8bc2c849413a268de0c3978d57f1648d445b80eb3025313aadf349b234",
+      "snapshot_path": "data/auction_history/sources/bagshaws/archive-4227ae8bc2c84941.json.gz",
+      "basis": "first-party property auction archive manifest"
+    },
+    "basis": "first-party dated auction page property cards and result table rows"
+  },
+  "page_detail": {
+    "property_cards": 4,
+    "published_result_rows": 0,
+    "published_table_result_rows": 0,
+    "published_narrative_result_rows": 0,
+    "result_rows_matched_to_cards": 0,
+    "result_rows_without_matching_card": 0
+  },
+  "errors": [],
+  "checked_at": "2026-11-18T13:27:39.357714+00:00"
+}

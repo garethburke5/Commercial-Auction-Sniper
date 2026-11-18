@@ -6,8 +6,8 @@
   "source_rows_complete": false,
   "denominator_reconciled": false,
   "archive_pagination_complete": false,
-  "lots_captured": 423,
-  "current_archive_rows": 377,
+  "lots_captured": 431,
+  "current_archive_rows": 392,
   "completion_scope": "all rows across every retained first-party online-results page",
   "source_property_ids": [
     "100121",
@@ -296,7 +296,6 @@
     "358117",
     "358272",
     "358383",
-    "358826",
     "358866",
     "359088",
     "359111",
@@ -316,12 +315,20 @@
     "361485",
     "362073",
     "362356",
+    "362671",
+    "362755",
+    "363283",
     "363457",
     "363780",
     "363828",
     "364293",
+    "364299",
+    "364319",
     "364375",
     "364996",
+    "365192",
+    "365301",
+    "365721",
     "366952",
     "366953",
     "366997",
@@ -349,6 +356,7 @@
     "371607",
     "371661",
     "371684",
+    "371858",
     "371961",
     "372100",
     "372108",
@@ -357,9 +365,16 @@
     "373083",
     "373336",
     "373350",
+    "373584",
+    "373957",
     "374010",
+    "374462",
     "374789",
     "374790",
+    "374998",
+    "376116",
+    "376143",
+    "376837",
     "81487",
     "81495",
     "89221",
@@ -391,7 +406,7 @@
   "reconciliation_note": {
     "kind": "original_event_denominator_unavailable",
     "retained_scope": "individual online lot endings",
-    "retained_rows": 423
+    "retained_rows": 431
   },
   "errors": [
     {
@@ -400,5 +415,5 @@
       "error": "ValueError: source identity drift for lot 366952"
     }
   ],
-  "checked_at": "2026-11-16T05:20:56.647134+00:00"
+  "checked_at": "2026-11-18T13:29:37.045154+00:00"
 }
