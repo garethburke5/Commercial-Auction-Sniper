@@ -3,6 +3,32 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 18 November 2026 — saved Stags and Carter Jonas evidence batch
+
+The retained Stags Bamboo and Homeflow inventories and the retained Carter Jonas
+Bamboo inventory were banked together through reusable collectors. The batch adds
+**409 net individual appearances**, all with full addresses: 362 for the canonical
+Stags operator and 47 for Carter Jonas. It preserves the original lot URLs,
+immutable source snapshots, exact dates, guides, achieved prices, published
+outcomes and 11 Stags rent observations.
+
+The source files contain 439 rows before reconciliation. **Thirty Stags
+cross-platform rows are same-date, strong-particulars overlaps and are merged
+once**; different auction dates remain separate appearances. Bamboo and Homeflow
+are platforms rather than auctioneers, and 21 Stags office/department labels are
+registered as aliases of the single Stags operator.
+
+Of the net gain, **388 are individually dated inside the preceding 20-year
+window**, 20 are future-dated and one is undated; no partial record is admitted.
+The batch adds 409 guide observations (388 in-window), 311 achieved-price
+observations and 31 commercial/mixed-use appearances. It establishes 12 new
+operator-year inventories across 2021-2026. National completeness remains false.
+
+The next concrete saved-source batch is 104 exact-organisation Bamboo
+appearances: West Wales Properties 40, Howkins & Harrison 32 and Arron James 32.
+It should run once through the existing shared-platform collector before another
+blocked archive is revisited.
+
 ## 18 November 2026 — saved Bamboo shared-platform evidence batch
 
 Ten complete, exact-organisation inventories previously retained on historical
