@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-18T16:13:00Z",
-  "status": "collector_improvement_ready",
+  "generated_at": "2026-11-18T16:20:00Z",
+  "status": "collection_requested",
   "previous_run": {
     "run_id": null,
     "commit": null,
@@ -328,6 +328,24 @@
       "newly_covered_source_years": [],
       "blocker": "All eleven explicit 2026 event-feed POSTs returned HTTP 403 from the first-party Kinetic property-functions endpoint. No catalogue rows were admitted and the route is terminal until a browser-equivalent or retained-payload recovery path exists.",
       "next_action": "Do not repeat the direct Kinetic POST. Rotate to the separately accessible Auction House Oxfordshire first-party past-auctions table."
+    },
+    {
+      "source": "auction_house_oxfordshire",
+      "command": "python -u scripts/harvest_auction_house_regions.py --region oxfordshire",
+      "started_at": "2026-11-18T16:13:50Z",
+      "finished_at": "2026-11-18T16:18:00Z",
+      "workflow_run_id": 44344767108,
+      "outcome": "blocked",
+      "source_rows_reconciled": 0,
+      "run_new_appearances": 0,
+      "run_new_address_records": 0,
+      "run_new_dated_address_records_twenty_year_window": 0,
+      "run_new_commercial_mixed_use": 0,
+      "run_new_guide_price_rows": 0,
+      "run_new_sale_price_rows": 0,
+      "newly_covered_source_years": [],
+      "blocker": "The first-party Oxfordshire past-auctions response contained no Past online auction results table, so the stable lot-row collector had no admissible property inventory.",
+      "next_action": "Do not refresh the Oxfordshire route without a different retained table or platform source. Rotate to the accessible All Wales Auction first-party catalogue PDFs."
     }
   ],
   "next_task": 20,
@@ -956,33 +974,47 @@
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction House Oxfordshire — regional Auction House UK branch, not a new legal auctioneer",
-    "task": "Run the reusable regional archive collector only for Oxfordshire and bank every unseen stable lot redirect row across the first-party past-auctions pagination.",
-    "reason": "The source register has zero retained Auction House Oxfordshire appearances. The first-party Oxfordshire past-auctions surface is a distinct uncovered branch, while the generic regional runner previously omitted it.",
-    "source_route": "https://www.auctionhouse.co.uk/oxfordshire/auction/past-auctions",
-    "collector": "scripts/harvest_auction_house_regions.py --region oxfordshire",
-    "admission_rules": [
-      "Preserve exact individual lot end dates, guide and achieved prices, published outcomes, original URLs and immutable page snapshots.",
-      "Deduplicate stable lot redirect IDs and exact overlaps before claiming growth.",
-      "Treat Oxfordshire as a regional Auction House UK branch, not an additional legal auctioneer.",
-      "Unknown values remain null; directory evidence alone is not a property appearance."
+    "auctioneer_lineage": "All Wales Auction — North Wales lots attributed to Williams & Goodwin The Property People Limited and South Wales lots to Peter Alan Limited",
+    "task": "Batch the four accessible first-party All Wales Auction catalogues from November 2020 to July 2021 through the existing PDF/OCR collector, bank every individually evidenced lot and rebuild once.",
+    "reason": "All Wales Auction has zero retained appearances while four first-party catalogue PDFs expose at least 27 identified address-level lots across a previously uncovered 2020-2021 source range.",
+    "source_route": "https://www.allwalesauction.com/catalogue.php and retained first-party catalogue PDFs",
+    "known_catalogues": 4,
+    "identified_lot_ranges": [
+      "2020-11-30 lots 118-126",
+      "2021-03 lots 131-136",
+      "2021-05 lots 115-120",
+      "2021-07 lots 157-162"
     ],
-    "blocked_route_avoidance": "Do not retry the SDL Kinetic direct POST unless a materially different browser-equivalent or retained-payload route is available."
+    "collector": "scripts/harvest_all_wales_auction.py",
+    "admission_rules": [
+      "Batch all four accessible catalogues in one reusable run and preserve immutable PDF snapshots and original URLs.",
+      "Preserve exact event dates, addresses or locality-only evidence, guide and achieved prices, rent and every published outcome; unknown values remain null.",
+      "Reconcile North and South operator lineages without counting All Wales Auction aliases as extra auctioneers.",
+      "Deduplicate exact property/event/lot overlaps before reporting growth."
+    ],
+    "blocked_route_avoidance": "Do not retry SDL Kinetic direct POSTs or the Oxfordshire empty results surface without a materially different source route."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction House Oxfordshire — regional Auction House UK branch, not a new legal auctioneer",
-    "task": "Run the reusable regional archive collector only for Oxfordshire and bank every unseen stable lot redirect row across the first-party past-auctions pagination.",
-    "reason": "The source register has zero retained Auction House Oxfordshire appearances. The first-party Oxfordshire past-auctions surface is a distinct uncovered branch, while the generic regional runner previously omitted it.",
-    "source_route": "https://www.auctionhouse.co.uk/oxfordshire/auction/past-auctions",
-    "collector": "scripts/harvest_auction_house_regions.py --region oxfordshire",
-    "admission_rules": [
-      "Preserve exact individual lot end dates, guide and achieved prices, published outcomes, original URLs and immutable page snapshots.",
-      "Deduplicate stable lot redirect IDs and exact overlaps before claiming growth.",
-      "Treat Oxfordshire as a regional Auction House UK branch, not an additional legal auctioneer.",
-      "Unknown values remain null; directory evidence alone is not a property appearance."
+    "auctioneer_lineage": "All Wales Auction — North Wales lots attributed to Williams & Goodwin The Property People Limited and South Wales lots to Peter Alan Limited",
+    "task": "Batch the four accessible first-party All Wales Auction catalogues from November 2020 to July 2021 through the existing PDF/OCR collector, bank every individually evidenced lot and rebuild once.",
+    "reason": "All Wales Auction has zero retained appearances while four first-party catalogue PDFs expose at least 27 identified address-level lots across a previously uncovered 2020-2021 source range.",
+    "source_route": "https://www.allwalesauction.com/catalogue.php and retained first-party catalogue PDFs",
+    "known_catalogues": 4,
+    "identified_lot_ranges": [
+      "2020-11-30 lots 118-126",
+      "2021-03 lots 131-136",
+      "2021-05 lots 115-120",
+      "2021-07 lots 157-162"
     ],
-    "blocked_route_avoidance": "Do not retry the SDL Kinetic direct POST unless a materially different browser-equivalent or retained-payload route is available."
+    "collector": "scripts/harvest_all_wales_auction.py",
+    "admission_rules": [
+      "Batch all four accessible catalogues in one reusable run and preserve immutable PDF snapshots and original URLs.",
+      "Preserve exact event dates, addresses or locality-only evidence, guide and achieved prices, rent and every published outcome; unknown values remain null.",
+      "Reconcile North and South operator lineages without counting All Wales Auction aliases as extra auctioneers.",
+      "Deduplicate exact property/event/lot overlaps before reporting growth."
+    ],
+    "blocked_route_avoidance": "Do not retry SDL Kinetic direct POSTs or the Oxfordshire empty results surface without a materially different source route."
   },
   "previous_trigger_attempt": {
     "commit": "dc3714c12c99537b86d8d2703331222fc21fa0cd",
@@ -1014,7 +1046,7 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "SDL 2026 direct Kinetic feeds are terminally HTTP 403 on the runner route; rotate immediately to the uncovered Auction House Oxfordshire first-party results archive with a single-region reusable collector.",
+  "focus_reason": "Two live routes were bounded and recorded: SDL Kinetic returned HTTP 403 for every feed and Auction House Oxfordshire exposed no results table. Move to four accessible All Wales first-party PDFs with a known individual-lot inventory.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
@@ -1023,9 +1055,9 @@
   "updated_at": "2026-11-18T15:02:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "SDL run 44343282415 completed and no historical writer is active.",
-    "action": "Trigger only the focused Oxfordshire regional collector; do not run the other nineteen reconciled regions.",
-    "last_reviewed": "2026-11-18T16:13:00Z"
+    "status": "Auction House Oxfordshire run 44344767108 completed; no historical writer is active.",
+    "action": "Trigger only the focused four-catalogue All Wales batch, then rebuild and publish once.",
+    "last_reviewed": "2026-11-18T16:20:00Z"
   },
   "corrections": [
     {
@@ -1034,5 +1066,16 @@
       "action": "Do not bank that PDF as Andrew Grant evidence and do not use its lot 170 as an Andrew Grant appearance. Preserve the discovery note only as a rejected/misattributed seed. Andrew Grant remains zero retained appearances until genuine Andrew Grant individual auction evidence is recovered.",
       "evidence": "https://interactive.property-world.co.uk/sdlbigwood_may18/Catalogue.pdf"
     }
-  ]
+  ],
+  "current_collection_request": {
+    "source": "all_wales_auction_catalogues",
+    "collector": "scripts/harvest_all_wales_auction.py",
+    "requested_at": "2026-11-18T16:20:00Z",
+    "catalogue_count": 4,
+    "source_years": [
+      2020,
+      2021
+    ],
+    "expected_identified_lots": 27
+  }
 }

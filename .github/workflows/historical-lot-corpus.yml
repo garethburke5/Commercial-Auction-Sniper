@@ -354,7 +354,7 @@ jobs:
         timeout-minutes: 12
         run: python -u scripts/harvest_eig_retained_grids.py the-auction-company --workers 12
       - name: Collect All Wales Auction surviving catalogue PDFs
-        if: startsWith(github.event.head_commit.message, 'Run focused All Wales Auction archive expansion')
+        if: startsWith(github.event.head_commit.message, 'Run focused All Wales Auction archive expansion') || startsWith(github.event.head_commit.message, 'Rebuild historical database from banked records and collect All Wales Auction archive')
         timeout-minutes: 15
         run: python -u scripts/harvest_all_wales_auction.py
       - name: Collect Auction Works complete property archive
