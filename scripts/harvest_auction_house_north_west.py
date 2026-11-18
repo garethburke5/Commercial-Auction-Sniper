@@ -173,7 +173,7 @@ def _building_key(row: dict) -> tuple[str | None, str | None]:
     if not postcode:
         match = corpus.PC.search(address)
         postcode = match.group().upper() if match else None
-    number = re.match(r"^([0-9]+[A-Za-z]?)\\b", address)
+    number = re.match(r"^([0-9]+[A-Za-z]?)\b", address)
     return (postcode.upper() if postcode else None,
             number.group(1).upper() if number else None)
 
