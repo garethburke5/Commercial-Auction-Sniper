@@ -10,7 +10,10 @@ def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026", method="Traditi
       <p class="pd-type">Land</p><h1>Land at Palace Lane, Newby Bridge</h1>
       <p class="pd-location">Ulverston, Cumbria, LA12 8NQ</p>
       <div class="pd-heading-price"><span>Guide price</span><strong>£35,000+</strong></div>
-      <div class="pd-panel-price"><span>Starting bid</span><strong>£41,000</strong></div>
+      <div class="pd-panel"><p>{'FINAL BID' if status.lower() == 'sold' else 'STARTING BID'}</p>
+        <div class="pd-panel-price"><span>Starting bid</span><strong>£41,000</strong></div>
+        <p>{'This lot has been sold.' if status.lower() == 'sold' else 'Bidding available.'}</p>
+      </div>
       <div class="pd-facts">
         <div class="pd-fact"><span>Tenure</span><strong>Freehold</strong></div>
         <div class="pd-fact"><span>Property type</span><strong>Land</strong></div>
@@ -48,7 +51,7 @@ def test_detail_preserves_guide_starting_bid_status_rent_and_null_sale():
     assert row["tenure"] == "Freehold"
     assert row["guide_price"] == 35000
     assert row["starting_bid"] == 41000
-    assert row["sale_price"] is None
+    assert row["sale_price"] == 41000
     assert row["status"] == "sold"
     assert row["annual_rent"] == 9900
 
@@ -83,3 +86,11 @@ def test_undated_modern_method_lot_is_retained_without_inventing_date():
 
 def test_parse_date_accepts_first_party_sept_abbreviation():
     assert parse_date("Auction: Tue, 1 Sept 2026") == "2026-09-01"
+
+
+def test_available_starting_bid_is_not_treated_as_sale_price():
+    row, _ = parse_detail(
+        fixture(status="For sale"),
+        "https://connectukauctions.co.uk/property/available123", [])
+    assert row["starting_bid"] == 41000
+    assert row["sale_price"] is None
