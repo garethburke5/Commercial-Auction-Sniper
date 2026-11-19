@@ -185,7 +185,15 @@ def parse_detail(html, url, evidence):
     starting_bid = money(panel_price) if panel_label and "starting" in panel_label.lower() else None
     outcome_panel_text = clean(panel.parent.get_text(" ", strip=True)) if panel and panel.parent else None
     final_bid_match = re.search(r"(?i)final\s+bid\s*£\s*([\d,.]+)", outcome_panel_text or "")
-    sale_price = money(final_bid_match.group(1)) if final_bid_match and status_for(status_text) == "sold" else None
+    final_bid_indicated = bool(re.search(r"(?i)\bfinal\s+bid\b", outcome_panel_text or ""))
+    sale_price = None
+    if status_for(status_text) == "sold":
+        if final_bid_match:
+            sale_price = money(final_bid_match.group(1))
+        elif final_bid_indicated:
+            # The rendered result label and amount are sibling elements; the
+            # underlying amount span keeps a stale "Starting bid" label.
+            sale_price = money(panel_price)
     facts = fact_values(main)
     property_type = facts.get("property type") or clean(main.select_one(".pd-type").get_text(" ", strip=True) if main.select_one(".pd-type") else None)
     description_el = main.select_one(".pd-description")
