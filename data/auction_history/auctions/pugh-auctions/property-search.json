@@ -4,20 +4,20 @@
   "auction_date": null,
   "catalogue_complete": false,
   "archive_pagination_complete": true,
-  "lots_captured": 6894,
+  "lots_captured": 6895,
   "source_url": "https://www.pugh-auctions.com/property-search",
   "pages_expected": 369,
-  "published_property_rows": 7362,
-  "published_rows_reconciled": 7362,
+  "published_property_rows": 7376,
+  "published_rows_reconciled": 7376,
   "source_rows_reconciled_complete": true,
-  "grid_tail_source_rows": 422,
+  "grid_tail_source_rows": 436,
   "reverse_tail_source_rows": 0,
   "reverse_covered_normal_pages": [],
   "reverse_tail_upgraded_undated": 0,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 0,
-  "undated_tail_appearances_captured": 0,
-  "undated_tail_existing_appearances_enriched": 0,
+  "undated_tail_source_rows": 436,
+  "undated_tail_appearances_captured": 57,
+  "undated_tail_existing_appearances_enriched": 377,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
     "202508071608sq_nlsh",
@@ -76,6 +76,7 @@
     "202609021014sq_jfpn",
     "202609140959sq_q7n5",
     "202609231433sq_vxpe",
+    "202610011219sq_oseb",
     "202610012319sq_4e41",
     "202610012324sq_jwx6",
     "202610131313sq_5019",
@@ -441,9 +442,15 @@
       "source_lot_id": "202609231433sq_vxpe",
       "url": "https://www.pugh-auctions.com/property/202609231433sq_vxpe",
       "error": "ValueError: detail page has no exact lot and auction date"
+    },
+    {
+      "kind": "detail_page_recovery",
+      "source_lot_id": "202610011219sq_oseb",
+      "url": "https://www.pugh-auctions.com/property/202610011219sq_oseb",
+      "error": "ValueError: detail page has no exact lot and auction date"
     }
   ],
   "completion_scope": "all retained first-party property-search rows; original auction denominators unavailable",
   "errors": [],
-  "checked_at": "2026-11-18T21:35:50.611853+00:00"
+  "checked_at": "2026-11-19T12:09:46.401051+00:00"
 }

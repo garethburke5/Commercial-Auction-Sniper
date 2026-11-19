@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-19T12:03:07.173278+00:00",
-  "corpus_checkpoint": "2026-11-19T12:02:45.059390+00:00",
+  "generated_at": "2026-11-19T12:11:20.783561+00:00",
+  "corpus_checkpoint": "2026-11-19T12:10:54.616847+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1167,7 +1167,7 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Barnett Ross",
       "match_basis": "exact label",
-      "retained_appearances": 7601,
+      "retained_appearances": 7605,
       "years_with_retained_evidence": [
         2006,
         2007,
@@ -5733,7 +5733,7 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Pugh Auctioneers",
       "match_basis": "existing evidenced source registry",
-      "retained_appearances": 6896,
+      "retained_appearances": 6897,
       "years_with_retained_evidence": [
         2013,
         2018,
@@ -5747,7 +5747,7 @@
         2026
       ],
       "with_guide_price": 487,
-      "with_sale_price": 156,
+      "with_sale_price": 160,
       "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
@@ -7466,7 +7466,7 @@
       "scope_status": "requires UK/branch/trading-name reconciliation",
       "matched_corpus_label": "Symonds & Sampson",
       "match_basis": "existing evidenced source registry",
-      "retained_appearances": 1142,
+      "retained_appearances": 1143,
       "years_with_retained_evidence": [
         2023,
         2024,
@@ -8407,7 +8407,7 @@
     "BTG Eddisons": 3036,
     "Bagshaws": 377,
     "Barnard Marcus Auctions": 7107,
-    "Barnett Ross": 7601,
+    "Barnett Ross": 7605,
     "Barney Estates": 130,
     "Bid.": 254,
     "BidX1": 294,
@@ -8467,7 +8467,7 @@
     "Pearsons Auctions": 520,
     "Phillip Arnold Auctions": 2431,
     "Property Auction Agent": 70,
-    "Pugh Auctioneers": 6896,
+    "Pugh Auctioneers": 6897,
     "Purplebricks Online Auctions": 2451,
     "Robinson & Hall": 546,
     "Rocket Auctions": 154,
@@ -8486,7 +8486,7 @@
     "Strettons": 199,
     "Sutton Kersh": 11401,
     "Swift Property Auctions": 146,
-    "Symonds & Sampson": 1142,
+    "Symonds & Sampson": 1143,
     "TW Gaze": 28,
     "The Auction Company": 123,
     "The Property Auction House": 132,
@@ -8503,13 +8503,13 @@
     "through_date": "2026-11-19",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308323,
-      "auction_ids_observed": 16088,
+      "lot_appearances": 308327,
+      "auction_ids_observed": 16089,
       "with_guide_price": 110016,
-      "with_sale_price": 114879,
+      "with_sale_price": 114883,
       "with_both_prices": 50886,
       "marked_sold": 157867,
-      "marked_sold_without_sale_price": 43728
+      "marked_sold_without_sale_price": 43724
     },
     "by_auctioneer_and_year": [
       {
@@ -12332,13 +12332,13 @@
       {
         "auctioneer": "Barnett Ross",
         "year": 2026,
-        "lot_appearances": 111,
-        "auction_ids_observed": 7,
+        "lot_appearances": 115,
+        "auction_ids_observed": 8,
         "with_guide_price": 0,
         "with_sale_price": 50,
         "with_both_prices": 0,
-        "marked_sold": 86,
-        "marked_sold_without_sale_price": 36
+        "marked_sold": 87,
+        "marked_sold_without_sale_price": 37
       },
       {
         "auctioneer": "Barney Estates",
@@ -16504,10 +16504,10 @@
         "lot_appearances": 670,
         "auction_ids_observed": 12,
         "with_guide_price": 0,
-        "with_sale_price": 18,
+        "with_sale_price": 22,
         "with_both_prices": 0,
-        "marked_sold": 506,
-        "marked_sold_without_sale_price": 488
+        "marked_sold": 505,
+        "marked_sold_without_sale_price": 483
       },
       {
         "auctioneer": "Pugh Auctioneers",
@@ -18094,7 +18094,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5244,
+    "undated_appearances": 5246,
     "future_dated_appearances": 232,
     "national_completeness_verified": false,
     "limits": [
@@ -18493,6 +18493,206 @@
       "failures": [],
       "note": "Lot 366952 was the same BN2 1RF building and exact end time with an apostrophe-only address variant. Both \u00a3140,000 and \u00a3119,000 guides and their snapshots are retained on one appearance."
     },
+    "auction_estates_results": {
+      "source": "auction_estates_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:21.092157+00:00\",\n  \"source_url\": \"https://www.auctionestates.co.uk/auction-results\",\n  \"catalogues_discovered\": 57,\n  \"catalogues_complete\": 57,\n  \"appearances_captured\": 2072,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2016-12-13\",\n    \"2026-10-08\"\n  ],\n  \"by_status\": {\n    \"sold\": 937,\n    \"sold_prior\": 596,\n    \"unsold\": 370,\n    \"unknown\": 81,\n    \"sold_after\": 88\n  },\n  \"by_sector\": {\n    \"residential\": 847,\n    \"commercial\": 354,\n    \"land\": 349,\n    \"unknown\": 294,\n    \"mixed-use\": 228\n  },\n  \"catalogue_completion_claimed\": true,\n  \"failures\": []\n}\n",
+      "duration_seconds": 9.68,
+      "checked_at": "2026-11-19T12:07:21.190267+00:00"
+    },
+    "hollis_morgan_results": {
+      "source": "hollis_morgan_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:26.964468+00:00\",\n  \"archive_urls\": [\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2010.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2011.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2012.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2013.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2014.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2015.html\"\n  ],\n  \"catalogues_discovered\": 33,\n  \"catalogues_source_rows_complete\": 33,\n  \"catalogues_original_denominator_reconciled\": 0,\n  \"appearances_captured\": 813,\n  \"address_records\": 549,\n  \"partial_lots\": 264,\n  \"catalogues_by_source_format\": {\n    \"printed_lot_labels\": 13,\n    \"stable_property_urls\": 20\n  },\n  \"catalogues_with_unknown_exact_date\": 1,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2010-09-22\",\n    \"2015-11-18\"\n  ],\n  \"by_status\": {\n    \"unknown\": 155,\n    \"postponed\": 86,\n    \"sold\": 291,\n    \"withdrawn\": 75,\n    \"unsold\": 14,\n    \"sold_prior\": 102,\n    \"available\": 62,\n    \"sale_agreed\": 11,\n    \"sold_after\": 17\n  },\n  \"by_sector\": {\n    \"residential\": 432,\n    \"unknown\": 81,\n    \"commercial\": 53,\n    \"mixed-use\": 200,\n    \"land\": 47\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 5.83,
+      "checked_at": "2026-11-19T12:07:27.019184+00:00"
+    },
+    "dedman_gray_results": {
+      "source": "dedman_gray_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:29.501480+00:00\",\n  \"source_url\": \"https://ams-webtemplates.eigroup.co.uk/embed/script/auction/4a7995f2-9c5d-4ca4-a92d-84f05a99af25/3993/119\",\n  \"catalogues_discovered\": 87,\n  \"catalogues_captured\": 87,\n  \"catalogues_complete\": 87,\n  \"appearances_captured\": 2851,\n  \"address_records\": 2851,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2013-02-13\",\n    \"2026-10-08\"\n  ],\n  \"by_sector\": {\n    \"residential\": 1933,\n    \"land\": 363,\n    \"unknown\": 110,\n    \"mixed-use\": 253,\n    \"commercial\": 192\n  },\n  \"by_status\": {\n    \"sold_after\": 285,\n    \"sold\": 1229,\n    \"sold_prior\": 465,\n    \"available\": 29,\n    \"withdrawn\": 776,\n    \"unknown\": 23,\n    \"postponed\": 44\n  },\n  \"failures\": [],\n  \"complete\": true\n}\n",
+      "duration_seconds": 2.52,
+      "checked_at": "2026-11-19T12:07:29.540816+00:00"
+    },
+    "john_francis_results": {
+      "source": "john_francis_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:45.108007+00:00\",\n  \"source_url\": \"https://www.johnfrancis.co.uk/pages/past_auctions\",\n  \"archive_available\": false,\n  \"catalogue_discovery_basis\": \"saved_first_party_catalogue_states_after_archive_failure\",\n  \"catalogues_discovered\": 80,\n  \"catalogues_captured\": 80,\n  \"catalogues_complete\": 80,\n  \"appearances_captured\": 1407,\n  \"address_records\": 1407,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2013-09-26\",\n    \"2025-11-11\"\n  ],\n  \"by_sector\": {\n    \"unknown\": 1160,\n    \"land\": 131,\n    \"residential\": 82,\n    \"commercial\": 28,\n    \"mixed-use\": 6\n  },\n  \"by_status\": {\n    \"sold\": 580,\n    \"unsold\": 116,\n    \"withdrawn\": 79,\n    \"unknown\": 521,\n    \"sold_prior\": 57,\n    \"sold_after\": 49,\n    \"postponed\": 5\n  },\n  \"refresh_blockers\": [\n    {\n      \"source_id\": \"archive\",\n      \"source_url\": \"https://www.johnfrancis.co.uk/pages/past_auctions\",\n      \"error\": \"failed to fetch https://www.johnfrancis.co.uk/pages/past_auctions: 403 Client Error: Forbidden for url: https://www.johnfrancis.co.uk/pages/past_auctions\"\n    }\n  ],\n  \"failures\": [],\n  \"complete\": true\n}\n",
+      "duration_seconds": 15.6,
+      "checked_at": "2026-11-19T12:07:45.141602+00:00"
+    },
+    "swift_property_auctions": {
+      "source": "swift_property_auctions",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:47.006545+00:00\",\n  \"source_url\": \"https://www.swiftpropertyauctions.co.uk/previous-auctions\",\n  \"catalogues_discovered\": 16,\n  \"catalogues_captured\": 16,\n  \"catalogues_complete\": 16,\n  \"appearances_captured\": 146,\n  \"address_records\": 146,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2024-07-16\",\n    \"2026-10-14\"\n  ],\n  \"by_sector\": {\n    \"residential\": 97,\n    \"mixed-use\": 15,\n    \"unknown\": 13,\n    \"commercial\": 14,\n    \"land\": 7\n  },\n  \"by_status\": {\n    \"postponed\": 35,\n    \"withdrawn\": 44,\n    \"unsold\": 15,\n    \"sold\": 22,\n    \"sold_prior\": 25,\n    \"sold_after\": 5\n  },\n  \"reconciliation_discrepancies\": [],\n  \"failures\": [],\n  \"complete\": true\n}\n",
+      "duration_seconds": 1.92,
+      "checked_at": "2026-11-19T12:07:47.062410+00:00"
+    },
+    "sharpes_results": {
+      "source": "sharpes_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:48.702365+00:00\",\n  \"source_urls\": {\n    \"traditional\": \"https://www.sharpesauctions.co.uk/previous-auctions.php?type=traditional\",\n    \"modern\": \"https://www.sharpesauctions.co.uk/previous-auctions.php?type=modern\"\n  },\n  \"catalogues_discovered\": 93,\n  \"catalogues_captured\": 93,\n  \"catalogues_complete\": 93,\n  \"appearances_captured\": 1238,\n  \"address_records\": 1238,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2018-02-06\",\n    \"2026-11-19\"\n  ],\n  \"by_auction_type\": {\n    \"traditional\": 1133,\n    \"modern\": 105\n  },\n  \"by_sector\": {\n    \"unknown\": 1040,\n    \"land\": 61,\n    \"residential\": 114,\n    \"commercial\": 23\n  },\n  \"by_status\": {\n    \"sold_prior\": 195,\n    \"sold\": 468,\n    \"withdrawn\": 60,\n    \"unsold\": 282,\n    \"sold_after\": 96,\n    \"postponed\": 137\n  },\n  \"failures\": [],\n  \"complete\": true\n}\n",
+      "duration_seconds": 1.67,
+      "checked_at": "2026-11-19T12:07:48.732449+00:00"
+    },
+    "seel_catalogues": {
+      "source": "seel_catalogues",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:07:48.949501+00:00\",\n  \"source\": \"Seel & Co first-party retained catalogue PDFs\",\n  \"catalogues_discovered\": 17,\n  \"catalogues_banked\": 17,\n  \"catalogues_complete\": 17,\n  \"catalogues_deferred\": 0,\n  \"appearances_captured\": 460,\n  \"address_records\": 459,\n  \"partial_lots\": 1,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2019-12-10\",\n    \"2022-04-05\"\n  ],\n  \"by_status\": {\n    \"unknown\": 371,\n    \"postponed\": 9,\n    \"withdrawn\": 21,\n    \"sold_prior\": 26,\n    \"sold\": 33\n  },\n  \"by_sector\": {\n    \"unknown\": 318,\n    \"land\": 82,\n    \"mixed-use\": 5,\n    \"commercial\": 20,\n    \"residential\": 35\n  },\n  \"deferred_catalogues\": [],\n  \"failures\": []\n}\n",
+      "duration_seconds": 0.26,
+      "checked_at": "2026-11-19T12:07:48.999253+00:00"
+    },
+    "bond_wolfe_history": {
+      "source": "bond_wolfe_history",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\"archive_auctions\": 53, \"already_banked\": 53, \"written\": [], \"skipped_future\": []}\n",
+      "duration_seconds": 0.72,
+      "checked_at": "2026-11-19T12:07:49.717116+00:00"
+    },
+    "barnett_ross_canonical": {
+      "source": "barnett_ross_canonical",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "BANKED Barnett Ross 202611-19 4 rows complete=True\n{\n  \"checked_at\": \"2026-11-19T12:07:51.604069+00:00\",\n  \"catalogues_discovered\": 155,\n  \"catalogue_states_present\": 155,\n  \"catalogues_complete\": 155,\n  \"lots_captured\": 7605,\n  \"auction_dates_unresolved\": 44,\n  \"first_auction_date\": \"2002-10-31\",\n  \"last_auction_date\": \"2026-11-19\",\n  \"incomplete_catalogues\": [],\n  \"complete\": true,\n  \"run_new_appearances\": 4,\n  \"run_corrected_auction_dates\": 0,\n  \"run_corrected_appearances\": 0,\n  \"date_corrections\": [],\n  \"run_new_address_records\": 4,\n  \"run_new_partial_lots\": 0,\n  \"run_by_sector\": {\n    \"unknown\": 4\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 1.92,
+      "checked_at": "2026-11-19T12:07:51.637812+00:00"
+    },
+    "pugh_canonical": {
+      "source": "pugh_canonical",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "on date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606180930sq_gh0e\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606180930sq_gh0e\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606291218sq_15f0\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606291218sq_15f0\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607011129sq_94tl\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607011129sq_94tl\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607011126sq_axou\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607011126sq_axou\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607281200sq_fs8j\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607281200sq_fs8j\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606300914sq_1y5v\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606300914sq_1y5v\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202605291304sq_rifz\",\n      \"url\": \"https://www.pugh-auctions.com/property/202605291304sq_rifz\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607291003sq_9l1y\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607291003sq_9l1y\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607241507sq_5y1k\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607241507sq_5y1k\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202604241518sq_l2gr\",\n      \"url\": \"https://www.pugh-auctions.com/property/202604241518sq_l2gr\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608191148sq_p5jc\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608191148sq_p5jc\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608041343sq_hq3x\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608041343sq_hq3x\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608281350sq_e5wq\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608281350sq_e5wq\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202609021014sq_jfpn\",\n      \"url\": \"https://www.pugh-auctions.com/property/202609021014sq_jfpn\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608211436sq_cv3j\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608211436sq_cv3j\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608241342sq_crms\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608241342sq_crms\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202609140959sq_q7n5\",\n      \"url\": \"https://www.pugh-auctions.com/property/202609140959sq_q7n5\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610131313sq_5019\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610131313sq_5019\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"34893\",\n      \"url\": \"https://www.pugh-auctions.com/property/34893\",\n      \"error\": \"HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610012319sq_4e41\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610012319sq_4e41\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610012324sq_jwx6\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610012324sq_jwx6\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202609231433sq_vxpe\",\n      \"url\": \"https://www.pugh-auctions.com/property/202609231433sq_vxpe\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610011219sq_oseb\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610011219sq_oseb\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    }\n  ],\n  \"archive_pagination_complete\": true,\n  \"property_appearances_captured\": 6895,\n  \"canonical_shard_rows\": 6895,\n  \"legacy_rows_enriched\": 0,\n  \"run_new_appearances\": 1,\n  \"run_new_address_records\": 1,\n  \"run_new_partial_lots\": 0,\n  \"run_by_sector\": {\n    \"unknown\": 1\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 114.91,
+      "checked_at": "2026-11-19T12:09:46.554911+00:00"
+    },
+    "symonds_sampson_canonical": {
+      "source": "symonds_sampson_canonical",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:09:54.570380+00:00\",\n  \"sitemap_property_urls\": 220,\n  \"property_pages_captured\": 241,\n  \"pages_already_banked\": 240,\n  \"pages_attempted_this_run\": 1,\n  \"run_new_appearances\": 1,\n  \"addresses_recovered_from_saved_html\": 0,\n  \"address_records\": 144,\n  \"partial_lots\": 97,\n  \"exact_dates_recovered\": 32,\n  \"date_unresolved_pages\": 151,\n  \"by_sector\": {\n    \"land\": 79,\n    \"residential\": 117,\n    \"unknown\": 45\n  },\n  \"retained_pages_no_longer_in_sitemap\": 21,\n  \"failures\": [],\n  \"complete\": true,\n  \"completion_scope\": \"currently exposed sitemap URLs only; not twenty-year catalogue completeness\"\n}\n",
+      "duration_seconds": 8.08,
+      "checked_at": "2026-11-19T12:09:54.637712+00:00"
+    },
+    "symonds_sampson_events": {
+      "source": "symonds_sampson_events",
+      "outcome": "failed",
+      "exit_code": 1,
+      "diagnostic_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_symonds_sampson_events.py\", line 263, in <module>\n    harvest(args.workers)\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_symonds_sampson_events.py\", line 151, in harvest\n    raw = fetch(url)\n          ^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_symonds_sampson_events.py\", line 51, in fetch\n    with urlopen(Request(url, headers={\"User-Agent\": \"Commercial-Auction-Sniper/1.0\"}), timeout=60) as response:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 215, in urlopen\n    return opener.open(url, data, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 521, in open\n    response = meth(req, response)\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 630, in http_response\n    response = self.parent.error(\n               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 559, in error\n    return self._call_chain(*args)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 492, in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 639, in http_error_default\n    raise HTTPError(req.full_url, code, msg, hdrs, fp)\nurllib.error.HTTPError: HTTP Error 403: Forbidden\n",
+      "duration_seconds": 0.26,
+      "checked_at": "2026-11-19T12:09:54.904426+00:00"
+    },
+    "bidx1_canonical": {
+      "source": "bidx1_canonical",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:10:15.971086+00:00\",\n  \"seed_auctions\": 43,\n  \"catalogues_complete\": 43,\n  \"property_appearances_captured\": 294,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"detail_pages_reused_after_live_index_reconciliation\": 294,\n  \"by_sector\": {\n    \"commercial\": 130,\n    \"residential\": 164\n  },\n  \"auctions\": {\n    \"4561\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"6854\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7260\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7445\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2838\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"3184\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3185\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3200\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3182\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"5857\": {\n      \"published_result_count\": 24,\n      \"lots_captured\": 24,\n      \"catalogue_complete\": true\n    },\n    \"7569\": {\n      \"published_result_count\": 4,\n      \"lots_captured\": 4,\n      \"catalogue_complete\": true\n    },\n    \"7593\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2221\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"2454\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"2767\": {\n      \"published_result_count\": 5,\n      \"lots_captured\": 5,\n      \"catalogue_complete\": true\n    },\n    \"2808\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2852\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2860\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2886\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2916\": {\n      \"published_result_count\": 2,\n      \"lots_captured\": 2,\n      \"catalogue_complete\": true\n    },\n    \"2936\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3083\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4321\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4451\": {\n      \"published_result_count\": 9,\n      \"lots_captured\": 9,\n      \"catalogue_complete\": true\n    },\n    \"4506\": {\n      \"published_result_count\": 2,\n      \"lots_captured\": 2,\n      \"catalogue_complete\": true\n    },\n    \"4547\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4553\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"5711\": {\n      \"published_result_count\": 15,\n      \"lots_captured\": 15,\n      \"catalogue_complete\": true\n    },\n    \"5969\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"6016\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6024\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6293\": {\n      \"published_result_count\": 23,\n      \"lots_captured\": 23,\n      \"catalogue_complete\": true\n    },\n    \"6366\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6378\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7024\": {\n      \"published_result_count\": 29,\n      \"lots_captured\": 29,\n      \"catalogue_complete\": true\n    },\n    \"7147\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7215\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7263\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7269\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7379\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"7386\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7432\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7455\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    }\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 21.16,
+      "checked_at": "2026-11-19T12:10:16.062217+00:00"
+    },
+    "strettons_results": {
+      "source": "strettons_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "STRETTONS 1 / 4 auctions 29 lots\nSTRETTONS 2 / 4 auctions 53 lots\nSTRETTONS 3 / 4 auctions 80 lots\nSTRETTONS 4 / 4 auctions 145 lots\n{\n  \"checked_at\": \"2026-11-19T12:10:17.238324+00:00\",\n  \"source_url\": \"https://www.strettons.co.uk/data/past_auction.json\",\n  \"live_index_auctions\": 4,\n  \"recovered_catalogue_seeds\": [],\n  \"blocked_recovery_evidence\": [\n    {\n      \"auction_id\": \"2765\",\n      \"auction_date\": \"2025-07-10\",\n      \"updated_at\": null,\n      \"discovery_url\": \"https://www.strettons.co.uk/auctions/past-auctions/past-auction-details/2765/\",\n      \"reason\": \"retained HTML survives but first-party page-data payload returns HTTP 404\"\n    },\n    {\n      \"auction_id\": \"2766\",\n      \"auction_date\": \"2025-09-11\",\n      \"updated_at\": null,\n      \"discovery_url\": \"https://www.strettons.co.uk/auctions/past-auctions/past-auction-details/2766/\",\n      \"reason\": \"retained HTML survives but first-party page-data payload returns HTTP 404\"\n    },\n    {\n      \"auction_id\": \"2767\",\n      \"auction_date\": \"2025-10-23\",\n      \"updated_at\": null,\n      \"discovery_url\": \"https://www.strettons.co.uk/auctions/past-auctions/past-auction-details/2767/\",\n      \"reason\": \"retained HTML survives but first-party page-data payload returns HTTP 404\"\n    }\n  ],\n  \"auctions_discovered\": 4,\n  \"auctions_captured\": 4,\n  \"auctions_complete\": 4,\n  \"auctions_reused\": 0,\n  \"appearances_captured\": 199,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"by_sector\": {\n    \"commercial\": 32,\n    \"residential\": 118,\n    \"land\": 19,\n    \"unknown\": 12,\n    \"mixed-use\": 18\n  },\n  \"index_evidence\": {\n    \"source_url\": \"https://www.strettons.co.uk/data/past_auction.json\",\n    \"retrieved_at\": \"2026-11-19T12:10:16.799709+00:00\",\n    \"sha256\": \"71e85a2482f203d46b96b528e95496c1db9da68e7152340a9f1f2ec846b895a9\",\n    \"snapshot_path\": \"data/auction_history/sources/strettons/past-auction-index-71e85a2482f203d4.json.gz\",\n    \"basis\": \"first-party past-auction index JSON\"\n  },\n  \"auctions\": {\n    \"3608\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3608\",\n      \"auction_date\": \"2026-06-04\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 29,\n      \"lots_captured\": 29,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3608/page-data.json\",\n      \"source_updated_at\": \"2026-11-19T11:00:18.409Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:17.169857+00:00\"\n    },\n    \"3610\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3610\",\n      \"auction_date\": \"2026-09-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 24,\n      \"lots_captured\": 24,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3610/page-data.json\",\n      \"source_updated_at\": \"2026-11-19T11:00:05.762Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:17.192137+00:00\"\n    },\n    \"3609\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3609\",\n      \"auction_date\": \"2026-07-28\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 27,\n      \"lots_captured\": 27,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3609/page-data.json\",\n      \"source_updated_at\": \"2026-11-19T11:00:18.252Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:17.214720+00:00\"\n    },\n    \"3611\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3611\",\n      \"auction_date\": \"2026-10-29\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 65,\n      \"lots_captured\": 65,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3611/page-data.json\",\n      \"source_updated_at\": \"2026-11-19T11:00:05.767Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:17.217572+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 1.22,
+      "checked_at": "2026-11-19T12:10:17.280638+00:00"
+    },
+    "cheffins_history": {
+      "source": "cheffins_history",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "   \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"fb7905bf4d3af19c3aefb51f5467c4c3782f28281bacf62a20f038948923c69d\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:48.878378+00:00\"\n    },\n    \"573\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:573\",\n      \"auction_date\": \"2025-06-11\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 12,\n      \"visible_source_rows\": 12,\n      \"lots_captured\": 12,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2025_573.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"2644f94700bd8d966c727db20de78bb8a8ba071fb243f43ca77b2125edb25809\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:49.216417+00:00\"\n    },\n    \"574\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:574\",\n      \"auction_date\": \"2025-09-24\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 19,\n      \"visible_source_rows\": 19,\n      \"lots_captured\": 19,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,september-2025_574.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"25e637f777c267d42af0a437acb8040d3d9c826f73ecc1e2a0e97d797e645494\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.096951+00:00\"\n    },\n    \"575\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:575\",\n      \"auction_date\": \"2025-12-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 10,\n      \"visible_source_rows\": 10,\n      \"lots_captured\": 10,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,december-2025_575.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"cefc8d2bb4d6d5a846915fa6433e12908ad111023d2130d2eb48e223a89cd5ae\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:49.977249+00:00\"\n    },\n    \"576\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:576\",\n      \"auction_date\": \"2026-03-04\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 10,\n      \"visible_source_rows\": 10,\n      \"lots_captured\": 10,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,march-2026_576.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"3a24c4479934ad8ad187ac80ae148ffa3d0f762a2f7990423088c5808e24a2a3\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.205988+00:00\"\n    },\n    \"577\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:577\",\n      \"auction_date\": \"2026-06-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 20,\n      \"visible_source_rows\": 20,\n      \"lots_captured\": 20,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2026_577.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"e978fdba6dc63b4fb0949c7188d1d7dde3a6990ee0d1ff68c7ee5103aa00ae76\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.291234+00:00\"\n    },\n    \"578\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:578\",\n      \"auction_date\": \"2026-09-23\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 24,\n      \"visible_source_rows\": 24,\n      \"lots_captured\": 24,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,september-2026_578.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"442a60b4edd4959951ff142280b4ab88cbe36074653119bedef01a776bf3c766\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.409707+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 1.12,
+      "checked_at": "2026-11-19T12:10:18.400390+00:00"
+    },
+    "btg_eddisons_catalogues": {
+      "source": "btg_eddisons_catalogues",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "e-1-e508cc9e46290e76.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-efa157ef4de09e8c.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-c37ef260f3fce465.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-22b91b2e0c9fd55b.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        }\n      ],\n      \"errors\": [],\n      \"checked_at\": \"2026-10-21T17:38:16.989679+00:00\"\n    },\n    \"live-stream-october-2026\": {\n      \"auctioneer\": \"BTG Eddisons\",\n      \"source_auction_id\": \"btg-eddisons:live-stream-october-2026\",\n      \"auction_date\": null,\n      \"auction_date_start\": \"2026-10-28\",\n      \"auction_date_end\": \"2026-10-29\",\n      \"auction_date_basis\": \"two-day live-stream range; source does not assign individual lots to a day\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_results_found\": 278,\n      \"visible_source_rows\": 278,\n      \"lots_captured\": 278,\n      \"source_duplicate_rows\": 0,\n      \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026\",\n      \"pagination_reconciled\": true,\n      \"pages_expected\": 3,\n      \"pages_captured\": 3,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published results found count on first-party catalogue\",\n      \"completion_scope\": \"all property cards across every retained catalogue page\",\n      \"source_evidence\": [\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026\",\n          \"retrieved_at\": \"2026-10-30T13:44:05.941560+00:00\",\n          \"sha256\": \"f97963c6c690c5c705ef661a6e283b6cef638734d875c3d68ca447d4b5a72d56\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/live-stream-october-2026/page-1-f97963c6c690c5c7.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-8eef85150fdc9bae.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-9a39b69fa69ebd90.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-dae0bb07070c43f5.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        },\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026?page=2\",\n          \"retrieved_at\": \"2026-10-30T13:44:07.579457+00:00\",\n          \"sha256\": \"366910fda72afcbbdd635defa51b562d8a8925df7a682d592834477d33f957ae\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/live-stream-october-2026/page-2-366910fda72afcbb.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-8eef85150fdc9bae.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-9a39b69fa69ebd90.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-dae0bb07070c43f5.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        },\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026?page=3\",\n          \"retrieved_at\": \"2026-10-30T13:44:12.429575+00:00\",\n          \"sha256\": \"7e50be4c1d96a947109feaa3687a7ffc5a04c9eb3cae56549d1ac30ff4da9226\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/live-stream-october-2026/page-3-7e50be4c1d96a947.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-8eef85150fdc9bae.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-9a39b69fa69ebd90.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-dae0bb07070c43f5.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        }\n      ],\n      \"errors\": [],\n      \"checked_at\": \"2026-10-30T13:44:12.724505+00:00\"\n    },\n    \"online-november-2026\": {\n      \"auctioneer\": \"BTG Eddisons\",\n      \"source_auction_id\": \"btg-eddisons:online-november-2026\",\n      \"auction_date\": \"2026-11-11\",\n      \"auction_date_start\": \"2026-11-10\",\n      \"auction_date_end\": \"2026-11-11\",\n      \"auction_date_basis\": \"published closing day of first-party online-auction date range\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_results_found\": 54,\n      \"visible_source_rows\": 54,\n      \"lots_captured\": 54,\n      \"source_duplicate_rows\": 0,\n      \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/online/november-2026\",\n      \"pagination_reconciled\": true,\n      \"pages_expected\": 1,\n      \"pages_captured\": 1,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published results found count on first-party catalogue\",\n      \"completion_scope\": \"all property cards across every retained catalogue page\",\n      \"source_evidence\": [\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/online/november-2026\",\n          \"retrieved_at\": \"2026-11-12T10:24:25.626217+00:00\",\n          \"sha256\": \"6a1beebc0a964ae1f0e7502237acdd01e99888982cadbb3d4778f7933458f57e\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/online-november-2026/page-1-6a1beebc0a964ae1.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-aa8c7b3791d9d2a7.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-ef728a0384cfc25e.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-72eff55e7a247f87.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        }\n      ],\n      \"errors\": [],\n      \"checked_at\": \"2026-11-12T10:24:25.989832+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 3.62,
+      "checked_at": "2026-11-19T12:10:22.025482+00:00"
+    },
+    "sdl_legacy_catalogues": {
+      "source": "sdl_legacy_catalogues",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "ocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-july-2022/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.118616+00:00\"\n    },\n    \"catalogues-knight-frank-october-2022\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:30:49.057623+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.119112+00:00\"\n    },\n    \"catalogues-knight-frank-catalogue-29th-march-2023\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-29th-march-2023/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:30:52.729242+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-29th-march-2023/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.117704+00:00\"\n    },\n    \"catalogues-knight-frank-catalogue-march-2023\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-march-2023/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:30:53.229330+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-march-2023/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.118132+00:00\"\n    },\n    \"catalogues-april-2024-national-property-auction-catalogue\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/buy-property/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:35:57.544779+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/buy-property/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.116133+00:00\"\n    }\n  },\n  \"failures\": [],\n  \"scope_warning\": \"featured retained rows only; no catalogue is counted complete\"\n}\n",
+      "duration_seconds": 3.47,
+      "checked_at": "2026-11-19T12:10:25.499825+00:00"
+    },
+    "smith_sons_results": {
+      "source": "smith_sons_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "0\",\n        \"sha256\": \"27bd98c5cfec6a7d7427befde3457352cb92dc9a84408c3beeb3243f1f348b97\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-14063-27bd98c5cfec6a7d.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:30.735682+00:00\"\n    },\n    \"12403\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:12403\",\n      \"auction_date\": \"2016-12-07\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 33,\n      \"visible_source_rows\": 33,\n      \"lots_captured\": 33,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/12403\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/12403?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:30.520440+00:00\",\n        \"sha256\": \"849f6f96eeafca06c27117e50d9007f871bfd3ca8e15afd140d5204c249bc443\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-12403-849f6f96eeafca06.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:30.840058+00:00\"\n    },\n    \"11672\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:11672\",\n      \"auction_date\": \"2016-09-21\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 43,\n      \"visible_source_rows\": 43,\n      \"lots_captured\": 43,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/11672\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/11672?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:31.873504+00:00\",\n        \"sha256\": \"daa21e073f6e1733d298db0f406c0df4b3e360f652a93974568e48e36547400e\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-11672-daa21e073f6e1733.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:30.967561+00:00\"\n    },\n    \"11123\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:11123\",\n      \"auction_date\": \"2016-07-06\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 25,\n      \"visible_source_rows\": 25,\n      \"lots_captured\": 25,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/11123\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/11123?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:33.032013+00:00\",\n        \"sha256\": \"573fd5db4de8b8ede04c2959e03afa0e8081fbb0a09512e170b49cc347526800\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-11123-573fd5db4de8b8ed.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:31.090166+00:00\"\n    },\n    \"6365\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:6365\",\n      \"auction_date\": \"2014-12-02\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 25,\n      \"visible_source_rows\": 25,\n      \"lots_captured\": 25,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/6365\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/6365?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:34.260241+00:00\",\n        \"sha256\": \"ecf6d1ecaddfb2e74323a50648a568002d07e02feb14220afd293a63ff865f7c\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-6365-ecf6d1ecaddfb2e7.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-19T12:10:31.171448+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 5.83,
+      "checked_at": "2026-11-19T12:10:31.328485+00:00"
+    },
+    "town_country_results": {
+      "source": "town_country_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:10:33.409207+00:00\",\n  \"source_url\": \"https://www.townandcountrypropertyauctions.co.uk/past-auctions?order=RecentlyEnded&lotResultType=All\",\n  \"pages_expected\": 57,\n  \"pages_fetched_this_run\": 1,\n  \"pages_captured\": 57,\n  \"current_archive_rows\": 2841,\n  \"property_appearances_captured\": 3129,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"address_records\": 3128,\n  \"partial_lots\": 1,\n  \"earliest_lot_end_date\": \"2022-02-21\",\n  \"latest_lot_end_date\": \"2026-11-18\",\n  \"by_status\": {\n    \"sold_prior\": 1528,\n    \"sold\": 583,\n    \"sold_post\": 268,\n    \"withdrawn\": 193,\n    \"postponed\": 260,\n    \"no_bids\": 174,\n    \"unsold\": 117,\n    \"unknown\": 6\n  },\n  \"by_sector\": {\n    \"residential\": 1271,\n    \"unknown\": 1351,\n    \"commercial\": 148,\n    \"land\": 248,\n    \"mixed-use\": 111\n  },\n  \"page_counts\": {\n    \"1\": 50,\n    \"2\": 50,\n    \"3\": 50,\n    \"4\": 50,\n    \"5\": 50,\n    \"6\": 50,\n    \"7\": 50,\n    \"8\": 50,\n    \"9\": 50,\n    \"10\": 50,\n    \"11\": 50,\n    \"12\": 50,\n    \"13\": 50,\n    \"14\": 50,\n    \"15\": 50,\n    \"16\": 50,\n    \"17\": 50,\n    \"18\": 50,\n    \"19\": 50,\n    \"20\": 50,\n    \"21\": 50,\n    \"22\": 50,\n    \"23\": 50,\n    \"24\": 50,\n    \"25\": 50,\n    \"26\": 50,\n    \"27\": 50,\n    \"28\": 50,\n    \"29\": 50,\n    \"30\": 50,\n    \"31\": 50,\n    \"32\": 50,\n    \"33\": 50,\n    \"34\": 50,\n    \"35\": 50,\n    \"36\": 50,\n    \"37\": 50,\n    \"38\": 50,\n    \"39\": 50,\n    \"40\": 50,\n    \"41\": 50,\n    \"42\": 50,\n    \"43\": 50,\n    \"44\": 50,\n    \"45\": 50,\n    \"46\": 50,\n    \"47\": 50,\n    \"48\": 50,\n    \"49\": 50,\n    \"50\": 50,\n    \"51\": 50,\n    \"52\": 50,\n    \"53\": 50,\n    \"54\": 50,\n    \"55\": 50,\n    \"56\": 50,\n    \"57\": 41\n  },\n  \"failures\": [],\n  \"archive_pagination_complete\": true,\n  \"scope_warning\": \"individual timed lots; original catalogue denominators are unavailable and no auction catalogue is counted complete\"\n}\n",
+      "duration_seconds": 2.17,
+      "checked_at": "2026-11-19T12:10:33.499491+00:00"
+    },
+    "brown_co_results": {
+      "source": "brown_co_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"source\": \"brown-co\",\n  \"skipped\": \"complete first-party search archive supersedes the rolling result page\"\n}\n",
+      "duration_seconds": 0.21,
+      "checked_at": "2026-11-19T12:10:33.716501+00:00"
+    },
+    "bagshaws_results": {
+      "source": "bagshaws_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:10:35.188379+00:00\",\n  \"source_url\": \"https://www.bagshaws.com/bagshaws-property/auctions-archive/\",\n  \"archive_pages_discovered\": 51,\n  \"archive_pages_captured_this_run\": 0,\n  \"archive_pages_skipped_existing\": 51,\n  \"pages_with_no_explicit_lot_rows_this_run\": 0,\n  \"banked_appearances\": 377,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2019-11-18\",\n    \"2026-11-16\"\n  ],\n  \"by_status\": {\n    \"unknown\": 81,\n    \"unsold\": 36,\n    \"postponed\": 8,\n    \"sold\": 224,\n    \"sold_after\": 4,\n    \"sold_prior\": 21,\n    \"withdrawn\": 3\n  },\n  \"catalogue_completion_claimed\": false,\n  \"completion_scope\": \"retained page rows only; no original catalogue denominator\",\n  \"page_details_this_run\": {},\n  \"failures\": []\n}\n",
+      "duration_seconds": 1.52,
+      "checked_at": "2026-11-19T12:10:35.236237+00:00"
+    },
+    "anderson_garland_results": {
+      "source": "anderson_garland_results",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "ndandproperty.com/listings/residential_sale-RX726318-bardon-mill\",\n      \"sha256\": \"7be88608514a612d6cdbb4a80bb220111784b940dc535619c0c460f16aed6d1c\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX708159-newcastle-upon-tyne\",\n      \"sha256\": \"84a08e434b1444f6cd20e352664aeeda716ab99d25d5ce1a96e066962bda80d5\",\n      \"admitted\": true\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX681175-corbridge\",\n      \"sha256\": \"13fdb7b9f47cb3d7021c32e8acf61d500be6b1d9976bd2158f990dba2cfbb88a\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX657100-hexham\",\n      \"sha256\": \"f95dd536b173bc1266a889922bd6abb21ddfc83fd142eb4892975e988dded9e2\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX664056-hexham\",\n      \"sha256\": \"ea000118d17cc8d0842875193bbbad7488372fc7c79597f9d3a1885f1f55a7ea\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX579124-newcastle-upon-tyne\",\n      \"sha256\": \"664b2f393516a0058aa56be0d93178ee23c8e2c9eb22d194b15f6d6eec56f5c5\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX644140-northumberland\",\n      \"sha256\": \"9ece64d0917854d02a0819d8a264f46819527563baa6ed7503240c77abdac6fa\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX644163-hexham\",\n      \"sha256\": \"a261d4c23ca24a4d7e5cd8b016babcdb183917e619fe44d0e2e5224e321c15da\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX628397-hexham\",\n      \"sha256\": \"4209d37f700b8aeca1e14e51056577fb82f417983b3c47617ee6b6429d71df49\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX611007-ryton\",\n      \"sha256\": \"0bf5e21c8f664eaac1af44f3450a876fea8869b5991d9cd41ca8da1b622191bd\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX604693-bishop-auckland\",\n      \"sha256\": \"0cb8c29f4ea07edbcd0699e09a0b75b8de73ef4063f65acda30da6f12a4364f1\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX590241-gateshead\",\n      \"sha256\": \"3682d024bd500f13b26480066c81e2c75a768fdcb9524310ade256c27369d3e0\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX589780-newcastle-upon-tyne\",\n      \"sha256\": \"0daaee09ae0332713d2199b1839ecf970aefa8433b902cc01d33fc0e378f165f\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX587057-hexham\",\n      \"sha256\": \"b1dd96055ae98700fe6b432abd4350e7036bf7b9554afb736e870cb5f0c964ab\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577677-staithes\",\n      \"sha256\": \"42f96f23da8144b6832e52baf33c09321fc4d5c958dc49a29d8a6b4c75ca7ac1\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577672-hexham\",\n      \"sha256\": \"5dfefff1ab177309b6ef6ed1a4681f7791bb506417cd1239726c1bd086f7a361\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577669-riding-mill\",\n      \"sha256\": \"bce1db67d098106281c903df41c42233b7f78afd487c620629c5860b16248f51\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577666-alston\",\n      \"sha256\": \"097c576ca1af78c812fa1e1e331af6fce259f6b39596ac109a20e03113ad393c\",\n      \"admitted\": true\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX572399-corbridge\",\n      \"sha256\": \"84b21113bd4155a1b1c293a28952087c0539acd95f8eef278b8dcb9decb35530\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX571199-morpeth\",\n      \"sha256\": \"b49bb2c86643f0f35c853496872f8a0d0781c469c2626018b86573bdc065294b\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX572418-ponteland\",\n      \"sha256\": \"9b73e95464da1ba6159290bfc94307da8cbf6e12d0b93455dd6f0b2ad1c46c87\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX572185-stanley\",\n      \"sha256\": \"4ab0f9643a82a8e178dae4d96d2e6947953130aa5faf09333b4df7c0cfe2551d\",\n      \"admitted\": true\n    }\n  ],\n  \"catalogue_scope_warning\": \"source is a recent selected-results page plus exact dated sold-auction details from the reconciled retained listing index; original catalogue denominators remain unavailable\",\n  \"result_page\": {\n    \"auctioneer\": \"Anderson & Garland\",\n    \"source_auction_id\": \"anderson-garland:recent-auction-results\",\n    \"auction_date\": null,\n    \"catalogue_complete\": false,\n    \"result_page_rows_complete\": true,\n    \"published_selected_results\": 25,\n    \"lots_captured\": 25,\n    \"source_url\": \"https://aglandandproperty.com/auction-results\",\n    \"completion_scope\": \"every sold-property block on the first-party recent-results page; not a dated full catalogue\",\n    \"source_evidence\": {\n      \"source_url\": \"https://aglandandproperty.com/auction-results\",\n      \"retrieved_at\": \"2026-11-19T12:10:36.445261+00:00\",\n      \"sha256\": \"86ab94ff18c1f63b868987cb993d60f5a8d2be8d8f24219e860f503571da10ff\",\n      \"snapshot_path\": \"data/auction_history/sources/anderson-garland/recent-auction-results-86ab94ff18c1f63b.json.gz\",\n      \"basis\": \"first-party retained recent auction results page\"\n    },\n    \"errors\": [],\n    \"checked_at\": \"2026-11-19T12:10:42.612747+00:00\"\n  },\n  \"failures\": []\n}\n",
+      "duration_seconds": 7.43,
+      "checked_at": "2026-11-19T12:10:42.668335+00:00"
+    },
+    "edward_mellor_pdfs": {
+      "source": "edward_mellor_pdfs",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "ps://edwardmellor.co.uk/pdf/archive/20170901_September_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171001_October_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171201_December_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20180201_February_Auction_Results_2018.pdf\"\n  ],\n  \"processed_source_urls\": [\n    \"https://edwardmellor.co.uk/pdf/archive/20101001_Auction_Results_October_2010.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20101208_Auction_Results_December_2010.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110208_Auction_Results_February_2011.pdf.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110315_Auction_Results_March_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110504_Auction_Results_May_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110609_Auction_Results_June_2011.pdf.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110721_Auction_Results_July_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110930_Auction_Results_September_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20111027_October_Auction_Results_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20111209_December_Auction_Results_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120209_February_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120313_March_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120501_May_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120607_June_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120701_July_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120901_September_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20121001_October_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20121201_December_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130201_February_Auction_Results_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130301_Auction_Results_March_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130319_Auction_Results_March_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130501_Auction_Results_May_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130601_June_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130901_September_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20131001_October_2013_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20131201_December_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20140201_February_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20140301_March_Auction_Results_2014.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20140401_April_Auction_Results_2014.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150201_February_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150301_March_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150401_April_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150601_June_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150701_July_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150901_September_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20151001_October_Auction_Results_2015_issue_2.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20151201_December_Auctions_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160210_February_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160316_March_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160401_April_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160601_June_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160701_July_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160901_September_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20161001_October_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170201_February_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170301_March_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170401_April_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170601_June_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170701_July_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170901_September_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171001_October_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171201_December_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20180201_February_Auction_Results_2018.pdf\"\n  ],\n  \"archive_evidence\": {\n    \"source_url\": \"https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/\",\n    \"retrieved_at\": \"2026-11-19T12:10:44.583504+00:00\",\n    \"sha256\": \"4df820670a0c6c5728eb25c17d62f8a7249dd54d85826b12d41d230b0f6c2fab\",\n    \"snapshot_path\": \"data/auction_history/sources/edward-mellor-pdfs/archive-4df820670a0c6c57.json.gz\",\n    \"basis\": \"first-party catalogue and results archive\"\n  },\n  \"terminal_source_failures\": [\n    {\n      \"url\": \"https://edwardmellor.co.uk/pdf/archive/20130701_Auction Results July 2013.pdf\",\n      \"label\": \"Auction Results July 2013\",\n      \"error\": \"HTTPError: 404 Client Error: Not Found for url: https://edwardmellor.co.uk/403.shtml/\"\n    },\n    {\n      \"url\": \"https://edwardmellor.co.uk/pdf/archive/20161201_December_Auction_Results_2016.pdf\",\n      \"label\": \"December Auction Results 2016\",\n      \"error\": \"SourceObjectUnavailable: first-party PDF response is truncated or malformed (458802 bytes)\",\n      \"terminal\": true\n    }\n  ],\n  \"failures\": []\n}\n",
+      "duration_seconds": 2.37,
+      "checked_at": "2026-11-19T12:10:45.041698+00:00"
+    },
+    "future_property_auctions": {
+      "source": "future_property_auctions",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "rchived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73cacb35-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73cacb35-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T00:15:16.340360+00:00\",\n        \"sha256\": \"8935e9ccdff59d7df2373a86ebe7aea1d5c3d308aac438e35994523b14c4547c\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/414/auction-8935e9ccdff59d7d.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T00:15:16.376842+00:00\"\n    },\n    \"386\": {\n      \"auctioneer\": \"Future Property Auctions\",\n      \"source_auction_id\": \"future-property:73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_numeric_auction_id\": \"386\",\n      \"auction_uuid\": \"73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n      \"auction_title\": \"OCTOBER 2019 Timed Online Property Auction\",\n      \"auction_date\": \"2019-10-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_listing_count\": 36,\n      \"lots_captured\": 36,\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"complete first-party BidJS listing map for this archived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T01:05:34.458952+00:00\",\n        \"sha256\": \"548c5df2380f3b36be9d9c6c7058501fb338f43c6b77c05330d834acd9fd9973\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/386/auction-548c5df2380f3b36.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T01:05:34.474744+00:00\"\n    },\n    \"372\": {\n      \"auctioneer\": \"Future Property Auctions\",\n      \"source_auction_id\": \"future-property:73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_numeric_auction_id\": \"372\",\n      \"auction_uuid\": \"73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"auction_title\": \"Timed Online Land & Property Auction\",\n      \"auction_date\": \"2019-09-26\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_listing_count\": 3,\n      \"lots_captured\": 3,\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"complete first-party BidJS listing map for this archived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T00:11:13.913931+00:00\",\n        \"sha256\": \"04e55c62557f38cc727883fe718384f4bbaa213a57f392a3f11491ef1890c9d2\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/372/auction-04e55c62557f38cc.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T00:11:13.915285+00:00\"\n    },\n    \"366\": {\n      \"auctioneer\": \"Future Property Auctions\",\n      \"source_auction_id\": \"future-property:73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_numeric_auction_id\": \"366\",\n      \"auction_uuid\": \"73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"auction_title\": \"1a Drum Brae Drive, Edinburgh\",\n      \"auction_date\": \"2019-09-24\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_listing_count\": 1,\n      \"lots_captured\": 1,\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"complete first-party BidJS listing map for this archived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T00:11:27.695166+00:00\",\n        \"sha256\": \"14d9ccbba4f6d7522e3b55272ea0bc93f0b38d9b6ba35753a513fd2f030f25fb\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/366/auction-14d9ccbba4f6d752.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T00:11:27.696111+00:00\"\n    }\n  },\n  \"deferred_failures\": [],\n  \"failures\": []\n}\n",
+      "duration_seconds": 5.93,
+      "checked_at": "2026-11-19T12:10:50.972773+00:00"
+    },
+    "auction_house_northeast": {
+      "source": "auction_house_northeast",
+      "outcome": "completed",
+      "exit_code": 0,
+      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-19T12:11:02.577039+00:00\",\n  \"pages_expected\": 20,\n  \"pages_captured\": 20,\n  \"current_archive_rows\": 590,\n  \"property_appearances_captured\": 627,\n  \"run_new_appearances\": 0,\n  \"address_records\": 627,\n  \"partial_lots\": 0,\n  \"earliest_lot_end_date\": \"2018-10-18\",\n  \"latest_lot_end_date\": \"2026-11-24\",\n  \"by_status\": {\n    \"sold_prior\": 52,\n    \"sold\": 409,\n    \"sold_after\": 54,\n    \"last_bid\": 78,\n    \"no_bids\": 14,\n    \"postponed\": 17,\n    \"withdrawn\": 3\n  },\n  \"page_counts\": {\n    \"1\": 30,\n    \"2\": 30,\n    \"3\": 30,\n    \"4\": 30,\n    \"5\": 30,\n    \"6\": 30,\n    \"7\": 30,\n    \"8\": 30,\n    \"9\": 30,\n    \"10\": 30,\n    \"11\": 30,\n    \"12\": 30,\n    \"13\": 30,\n    \"14\": 30,\n    \"15\": 30,\n    \"16\": 30,\n    \"17\": 30,\n    \"18\": 30,\n    \"19\": 30,\n    \"20\": 20\n  },\n  \"failures\": [],\n  \"archive_pagination_complete\": true\n}\n",
+      "duration_seconds": 11.59,
+      "checked_at": "2026-11-19T12:11:02.623224+00:00"
+    },
     "maggs_allen_results": {
       "source": "maggs_allen_results",
       "outcome": "completed",
@@ -18508,206 +18708,6 @@
       "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:18:36.076872+00:00\",\n  \"source_url\": \"https://www.knightfrankauctions.com/recently-sold/\",\n  \"published_source_rows\": 291,\n  \"distinct_source_identities\": 290,\n  \"duplicate_source_presentations\": 1,\n  \"appearances_captured\": 290,\n  \"detail_pages_enriched\": 290,\n  \"dated_appearances\": 269,\n  \"undated_appearances\": 21,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2021-07-15\",\n    \"2026-10-22\"\n  ],\n  \"by_status\": {\n    \"sold\": 220,\n    \"sold_prior\": 55,\n    \"sold_after\": 15\n  },\n  \"by_sector\": {\n    \"residential\": 173,\n    \"land\": 29,\n    \"mixed-use\": 28,\n    \"unknown\": 41,\n    \"commercial\": 19\n  },\n  \"catalogue_completion_claimed\": false,\n  \"completion_scope\": \"every retained card in the first-party recently-sold selection; not the original auction catalogues\",\n  \"failures\": []\n}\n",
       "duration_seconds": 1.02,
       "checked_at": "2026-11-16T05:18:36.123168+00:00"
-    },
-    "auction_estates_results": {
-      "source": "auction_estates_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:18:41.875114+00:00\",\n  \"source_url\": \"https://www.auctionestates.co.uk/auction-results\",\n  \"catalogues_discovered\": 57,\n  \"catalogues_complete\": 57,\n  \"appearances_captured\": 2072,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2016-12-13\",\n    \"2026-10-08\"\n  ],\n  \"by_status\": {\n    \"sold\": 937,\n    \"sold_prior\": 596,\n    \"unsold\": 370,\n    \"unknown\": 81,\n    \"sold_after\": 88\n  },\n  \"by_sector\": {\n    \"residential\": 847,\n    \"commercial\": 354,\n    \"land\": 349,\n    \"unknown\": 294,\n    \"mixed-use\": 228\n  },\n  \"catalogue_completion_claimed\": true,\n  \"failures\": []\n}\n",
-      "duration_seconds": 5.83,
-      "checked_at": "2026-11-16T05:18:41.952021+00:00"
-    },
-    "hollis_morgan_results": {
-      "source": "hollis_morgan_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:18:46.842293+00:00\",\n  \"archive_urls\": [\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2010.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2011.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2012.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2013.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2014.html\",\n    \"https://www.hollismorgan.co.uk/auctions/auction-archive/auction-archive-2015.html\"\n  ],\n  \"catalogues_discovered\": 33,\n  \"catalogues_source_rows_complete\": 33,\n  \"catalogues_original_denominator_reconciled\": 0,\n  \"appearances_captured\": 813,\n  \"address_records\": 549,\n  \"partial_lots\": 264,\n  \"catalogues_by_source_format\": {\n    \"printed_lot_labels\": 13,\n    \"stable_property_urls\": 20\n  },\n  \"catalogues_with_unknown_exact_date\": 1,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2010-09-22\",\n    \"2015-11-18\"\n  ],\n  \"by_status\": {\n    \"unknown\": 155,\n    \"postponed\": 86,\n    \"sold\": 291,\n    \"withdrawn\": 75,\n    \"unsold\": 14,\n    \"sold_prior\": 102,\n    \"available\": 62,\n    \"sale_agreed\": 11,\n    \"sold_after\": 17\n  },\n  \"by_sector\": {\n    \"residential\": 432,\n    \"unknown\": 81,\n    \"commercial\": 53,\n    \"mixed-use\": 200,\n    \"land\": 47\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 4.92,
-      "checked_at": "2026-11-16T05:18:46.878177+00:00"
-    },
-    "dedman_gray_results": {
-      "source": "dedman_gray_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:18:48.653419+00:00\",\n  \"source_url\": \"https://ams-webtemplates.eigroup.co.uk/embed/script/auction/4a7995f2-9c5d-4ca4-a92d-84f05a99af25/3993/119\",\n  \"catalogues_discovered\": 87,\n  \"catalogues_captured\": 87,\n  \"catalogues_complete\": 87,\n  \"appearances_captured\": 2851,\n  \"address_records\": 2851,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2013-02-13\",\n    \"2026-10-08\"\n  ],\n  \"by_sector\": {\n    \"residential\": 1933,\n    \"land\": 363,\n    \"unknown\": 110,\n    \"mixed-use\": 253,\n    \"commercial\": 192\n  },\n  \"by_status\": {\n    \"sold_after\": 285,\n    \"sold\": 1229,\n    \"sold_prior\": 465,\n    \"available\": 29,\n    \"withdrawn\": 776,\n    \"unknown\": 23,\n    \"postponed\": 44\n  },\n  \"failures\": [],\n  \"complete\": true\n}\n",
-      "duration_seconds": 1.82,
-      "checked_at": "2026-11-16T05:18:48.698077+00:00"
-    },
-    "john_francis_results": {
-      "source": "john_francis_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:04.137329+00:00\",\n  \"source_url\": \"https://www.johnfrancis.co.uk/pages/past_auctions\",\n  \"archive_available\": false,\n  \"catalogue_discovery_basis\": \"saved_first_party_catalogue_states_after_archive_failure\",\n  \"catalogues_discovered\": 80,\n  \"catalogues_captured\": 80,\n  \"catalogues_complete\": 80,\n  \"appearances_captured\": 1407,\n  \"address_records\": 1407,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2013-09-26\",\n    \"2025-11-11\"\n  ],\n  \"by_sector\": {\n    \"unknown\": 1160,\n    \"land\": 131,\n    \"residential\": 82,\n    \"commercial\": 28,\n    \"mixed-use\": 6\n  },\n  \"by_status\": {\n    \"sold\": 580,\n    \"unsold\": 116,\n    \"withdrawn\": 79,\n    \"unknown\": 521,\n    \"sold_prior\": 57,\n    \"sold_after\": 49,\n    \"postponed\": 5\n  },\n  \"refresh_blockers\": [\n    {\n      \"source_id\": \"archive\",\n      \"source_url\": \"https://www.johnfrancis.co.uk/pages/past_auctions\",\n      \"error\": \"failed to fetch https://www.johnfrancis.co.uk/pages/past_auctions: 403 Client Error: Forbidden for url: https://www.johnfrancis.co.uk/pages/past_auctions\"\n    }\n  ],\n  \"failures\": [],\n  \"complete\": true\n}\n",
-      "duration_seconds": 15.49,
-      "checked_at": "2026-11-16T05:19:04.191540+00:00"
-    },
-    "swift_property_auctions": {
-      "source": "swift_property_auctions",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:05.969992+00:00\",\n  \"source_url\": \"https://www.swiftpropertyauctions.co.uk/previous-auctions\",\n  \"catalogues_discovered\": 16,\n  \"catalogues_captured\": 16,\n  \"catalogues_complete\": 16,\n  \"appearances_captured\": 146,\n  \"address_records\": 146,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2024-07-16\",\n    \"2026-10-14\"\n  ],\n  \"by_sector\": {\n    \"residential\": 97,\n    \"mixed-use\": 15,\n    \"unknown\": 13,\n    \"commercial\": 14,\n    \"land\": 7\n  },\n  \"by_status\": {\n    \"postponed\": 35,\n    \"withdrawn\": 44,\n    \"unsold\": 15,\n    \"sold\": 22,\n    \"sold_prior\": 25,\n    \"sold_after\": 5\n  },\n  \"reconciliation_discrepancies\": [],\n  \"failures\": [],\n  \"complete\": true\n}\n",
-      "duration_seconds": 1.82,
-      "checked_at": "2026-11-16T05:19:06.011849+00:00"
-    },
-    "sharpes_results": {
-      "source": "sharpes_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:07.285313+00:00\",\n  \"source_urls\": {\n    \"traditional\": \"https://www.sharpesauctions.co.uk/previous-auctions.php?type=traditional\",\n    \"modern\": \"https://www.sharpesauctions.co.uk/previous-auctions.php?type=modern\"\n  },\n  \"catalogues_discovered\": 92,\n  \"catalogues_captured\": 92,\n  \"catalogues_complete\": 92,\n  \"appearances_captured\": 1237,\n  \"address_records\": 1237,\n  \"partial_lots\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2018-02-06\",\n    \"2026-11-05\"\n  ],\n  \"by_auction_type\": {\n    \"traditional\": 1133,\n    \"modern\": 104\n  },\n  \"by_sector\": {\n    \"unknown\": 1039,\n    \"land\": 61,\n    \"residential\": 114,\n    \"commercial\": 23\n  },\n  \"by_status\": {\n    \"sold_prior\": 195,\n    \"sold\": 468,\n    \"withdrawn\": 60,\n    \"unsold\": 281,\n    \"sold_after\": 96,\n    \"postponed\": 137\n  },\n  \"failures\": [],\n  \"complete\": true\n}\n",
-      "duration_seconds": 1.32,
-      "checked_at": "2026-11-16T05:19:07.333454+00:00"
-    },
-    "seel_catalogues": {
-      "source": "seel_catalogues",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:07.468356+00:00\",\n  \"source\": \"Seel & Co first-party retained catalogue PDFs\",\n  \"catalogues_discovered\": 17,\n  \"catalogues_banked\": 17,\n  \"catalogues_complete\": 17,\n  \"catalogues_deferred\": 0,\n  \"appearances_captured\": 460,\n  \"address_records\": 459,\n  \"partial_lots\": 1,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2019-12-10\",\n    \"2022-04-05\"\n  ],\n  \"by_status\": {\n    \"unknown\": 371,\n    \"postponed\": 9,\n    \"withdrawn\": 21,\n    \"sold_prior\": 26,\n    \"sold\": 33\n  },\n  \"by_sector\": {\n    \"unknown\": 318,\n    \"land\": 82,\n    \"mixed-use\": 5,\n    \"commercial\": 20,\n    \"residential\": 35\n  },\n  \"deferred_catalogues\": [],\n  \"failures\": []\n}\n",
-      "duration_seconds": 0.16,
-      "checked_at": "2026-11-16T05:19:07.505395+00:00"
-    },
-    "bond_wolfe_history": {
-      "source": "bond_wolfe_history",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\"archive_auctions\": 53, \"already_banked\": 53, \"written\": [], \"skipped_future\": []}\n",
-      "duration_seconds": 0.46,
-      "checked_at": "2026-11-16T05:19:07.973444+00:00"
-    },
-    "barnett_ross_canonical": {
-      "source": "barnett_ross_canonical",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:09.044808+00:00\",\n  \"catalogues_discovered\": 154,\n  \"catalogue_states_present\": 154,\n  \"catalogues_complete\": 154,\n  \"lots_captured\": 7601,\n  \"auction_dates_unresolved\": 44,\n  \"first_auction_date\": \"2002-10-31\",\n  \"last_auction_date\": \"2026-10-22\",\n  \"incomplete_catalogues\": [],\n  \"complete\": true,\n  \"run_new_appearances\": 0,\n  \"run_corrected_auction_dates\": 0,\n  \"run_corrected_appearances\": 0,\n  \"date_corrections\": [],\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_by_sector\": {},\n  \"failures\": []\n}\n",
-      "duration_seconds": 1.12,
-      "checked_at": "2026-11-16T05:19:09.092699+00:00"
-    },
-    "pugh_canonical": {
-      "source": "pugh_canonical",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": " exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606011109sq_yn14\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606011109sq_yn14\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606180930sq_gh0e\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606180930sq_gh0e\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606291218sq_15f0\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606291218sq_15f0\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607011129sq_94tl\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607011129sq_94tl\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607011126sq_axou\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607011126sq_axou\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607281200sq_fs8j\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607281200sq_fs8j\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202606300914sq_1y5v\",\n      \"url\": \"https://www.pugh-auctions.com/property/202606300914sq_1y5v\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202605291304sq_rifz\",\n      \"url\": \"https://www.pugh-auctions.com/property/202605291304sq_rifz\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607291003sq_9l1y\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607291003sq_9l1y\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202607241507sq_5y1k\",\n      \"url\": \"https://www.pugh-auctions.com/property/202607241507sq_5y1k\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202604241518sq_l2gr\",\n      \"url\": \"https://www.pugh-auctions.com/property/202604241518sq_l2gr\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608191148sq_p5jc\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608191148sq_p5jc\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608041343sq_hq3x\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608041343sq_hq3x\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608281350sq_e5wq\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608281350sq_e5wq\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202609021014sq_jfpn\",\n      \"url\": \"https://www.pugh-auctions.com/property/202609021014sq_jfpn\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608211436sq_cv3j\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608211436sq_cv3j\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202608241342sq_crms\",\n      \"url\": \"https://www.pugh-auctions.com/property/202608241342sq_crms\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202609140959sq_q7n5\",\n      \"url\": \"https://www.pugh-auctions.com/property/202609140959sq_q7n5\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610131313sq_5019\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610131313sq_5019\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"34893\",\n      \"url\": \"https://www.pugh-auctions.com/property/34893\",\n      \"error\": \"HTTPError: 404 Client Error: Not Found for url: https://www.pugh-auctions.com/property/32875\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610012319sq_4e41\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610012319sq_4e41\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202610012324sq_jwx6\",\n      \"url\": \"https://www.pugh-auctions.com/property/202610012324sq_jwx6\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    },\n    {\n      \"kind\": \"detail_page_recovery\",\n      \"source_lot_id\": \"202609231433sq_vxpe\",\n      \"url\": \"https://www.pugh-auctions.com/property/202609231433sq_vxpe\",\n      \"error\": \"ValueError: detail page has no exact lot and auction date\"\n    }\n  ],\n  \"archive_pagination_complete\": true,\n  \"property_appearances_captured\": 6894,\n  \"canonical_shard_rows\": 6894,\n  \"legacy_rows_enriched\": 0,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"run_by_sector\": {},\n  \"failures\": []\n}\n",
-      "duration_seconds": 6.33,
-      "checked_at": "2026-11-16T05:19:15.421420+00:00"
-    },
-    "symonds_sampson_canonical": {
-      "source": "symonds_sampson_canonical",
-      "outcome": "failed",
-      "exit_code": 1,
-      "diagnostic_tail": "Symonds & Sampson sitemap exposed zero property pages\n",
-      "duration_seconds": 3.42,
-      "checked_at": "2026-11-16T05:19:18.844397+00:00"
-    },
-    "symonds_sampson_events": {
-      "source": "symonds_sampson_events",
-      "outcome": "failed",
-      "exit_code": 1,
-      "diagnostic_tail": "Traceback (most recent call last):\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_symonds_sampson_events.py\", line 263, in <module>\n    harvest(args.workers)\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_symonds_sampson_events.py\", line 151, in harvest\n    raw = fetch(url)\n          ^^^^^^^^^^\n  File \"/home/runner/work/Commercial-Auction-Sniper/Commercial-Auction-Sniper/scripts/harvest_symonds_sampson_events.py\", line 51, in fetch\n    with urlopen(Request(url, headers={\"User-Agent\": \"Commercial-Auction-Sniper/1.0\"}), timeout=60) as response:\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 215, in urlopen\n    return opener.open(url, data, timeout)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 521, in open\n    response = meth(req, response)\n               ^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 630, in http_response\n    response = self.parent.error(\n               ^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 559, in error\n    return self._call_chain(*args)\n           ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 492, in _call_chain\n    result = func(*args)\n             ^^^^^^^^^^^\n  File \"/opt/hostedtoolcache/Python/3.12.16/x64/lib/python3.12/urllib/request.py\", line 639, in http_error_default\n    raise HTTPError(req.full_url, code, msg, hdrs, fp)\nurllib.error.HTTPError: HTTP Error 403: Forbidden\n",
-      "duration_seconds": 0.26,
-      "checked_at": "2026-11-16T05:19:19.111933+00:00"
-    },
-    "bidx1_canonical": {
-      "source": "bidx1_canonical",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:37.219843+00:00\",\n  \"seed_auctions\": 43,\n  \"catalogues_complete\": 43,\n  \"property_appearances_captured\": 294,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"detail_pages_reused_after_live_index_reconciliation\": 294,\n  \"by_sector\": {\n    \"commercial\": 130,\n    \"residential\": 164\n  },\n  \"auctions\": {\n    \"4561\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"6854\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7260\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7445\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2838\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"3184\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3185\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3200\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3182\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"5857\": {\n      \"published_result_count\": 24,\n      \"lots_captured\": 24,\n      \"catalogue_complete\": true\n    },\n    \"7569\": {\n      \"published_result_count\": 4,\n      \"lots_captured\": 4,\n      \"catalogue_complete\": true\n    },\n    \"7593\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2221\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"2454\": {\n      \"published_result_count\": 10,\n      \"lots_captured\": 10,\n      \"catalogue_complete\": true\n    },\n    \"2767\": {\n      \"published_result_count\": 5,\n      \"lots_captured\": 5,\n      \"catalogue_complete\": true\n    },\n    \"2808\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2852\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2860\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2886\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"2916\": {\n      \"published_result_count\": 2,\n      \"lots_captured\": 2,\n      \"catalogue_complete\": true\n    },\n    \"2936\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"3083\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4321\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4451\": {\n      \"published_result_count\": 9,\n      \"lots_captured\": 9,\n      \"catalogue_complete\": true\n    },\n    \"4506\": {\n      \"published_result_count\": 2,\n      \"lots_captured\": 2,\n      \"catalogue_complete\": true\n    },\n    \"4547\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"4553\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"5711\": {\n      \"published_result_count\": 15,\n      \"lots_captured\": 15,\n      \"catalogue_complete\": true\n    },\n    \"5969\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"6016\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6024\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6293\": {\n      \"published_result_count\": 23,\n      \"lots_captured\": 23,\n      \"catalogue_complete\": true\n    },\n    \"6366\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"6378\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7024\": {\n      \"published_result_count\": 29,\n      \"lots_captured\": 29,\n      \"catalogue_complete\": true\n    },\n    \"7147\": {\n      \"published_result_count\": 19,\n      \"lots_captured\": 19,\n      \"catalogue_complete\": true\n    },\n    \"7215\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7263\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7269\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7379\": {\n      \"published_result_count\": 20,\n      \"lots_captured\": 20,\n      \"catalogue_complete\": true\n    },\n    \"7386\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7432\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    },\n    \"7455\": {\n      \"published_result_count\": 1,\n      \"lots_captured\": 1,\n      \"catalogue_complete\": true\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 18.19,
-      "checked_at": "2026-11-16T05:19:37.309639+00:00"
-    },
-    "strettons_results": {
-      "source": "strettons_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "STRETTONS 4 / 4 auctions 147 lots\n{\n  \"checked_at\": \"2026-11-16T05:19:37.914460+00:00\",\n  \"source_url\": \"https://www.strettons.co.uk/data/past_auction.json\",\n  \"live_index_auctions\": 4,\n  \"recovered_catalogue_seeds\": [],\n  \"blocked_recovery_evidence\": [\n    {\n      \"auction_id\": \"2765\",\n      \"auction_date\": \"2025-07-10\",\n      \"updated_at\": null,\n      \"discovery_url\": \"https://www.strettons.co.uk/auctions/past-auctions/past-auction-details/2765/\",\n      \"reason\": \"retained HTML survives but first-party page-data payload returns HTTP 404\"\n    },\n    {\n      \"auction_id\": \"2766\",\n      \"auction_date\": \"2025-09-11\",\n      \"updated_at\": null,\n      \"discovery_url\": \"https://www.strettons.co.uk/auctions/past-auctions/past-auction-details/2766/\",\n      \"reason\": \"retained HTML survives but first-party page-data payload returns HTTP 404\"\n    },\n    {\n      \"auction_id\": \"2767\",\n      \"auction_date\": \"2025-10-23\",\n      \"updated_at\": null,\n      \"discovery_url\": \"https://www.strettons.co.uk/auctions/past-auctions/past-auction-details/2767/\",\n      \"reason\": \"retained HTML survives but first-party page-data payload returns HTTP 404\"\n    }\n  ],\n  \"auctions_discovered\": 4,\n  \"auctions_captured\": 4,\n  \"auctions_complete\": 4,\n  \"auctions_reused\": 3,\n  \"appearances_captured\": 199,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"by_sector\": {\n    \"commercial\": 32,\n    \"residential\": 118,\n    \"land\": 19,\n    \"unknown\": 12,\n    \"mixed-use\": 18\n  },\n  \"index_evidence\": {\n    \"source_url\": \"https://www.strettons.co.uk/data/past_auction.json\",\n    \"retrieved_at\": \"2026-11-16T05:19:37.570755+00:00\",\n    \"sha256\": \"3c3eda3b6977ea60531614c10ed4e0f1b91db5d2f3454c288d8ad8bebc99b211\",\n    \"snapshot_path\": \"data/auction_history/sources/strettons/past-auction-index-3c3eda3b6977ea60.json.gz\",\n    \"basis\": \"first-party past-auction index JSON\"\n  },\n  \"auctions\": {\n    \"3608\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3608\",\n      \"auction_date\": \"2026-06-04\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 29,\n      \"lots_captured\": 29,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3608/page-data.json\",\n      \"source_updated_at\": \"2026-11-12T12:00:14.283Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-12T18:53:38.252653+00:00\"\n    },\n    \"3609\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3609\",\n      \"auction_date\": \"2026-07-28\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 27,\n      \"lots_captured\": 27,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3609/page-data.json\",\n      \"source_updated_at\": \"2026-11-12T12:00:14.341Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-12T18:53:38.222098+00:00\"\n    },\n    \"3610\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3610\",\n      \"auction_date\": \"2026-09-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 24,\n      \"lots_captured\": 24,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3610/page-data.json\",\n      \"source_updated_at\": \"2026-11-12T12:00:03.020Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-12T18:53:38.352882+00:00\"\n    },\n    \"3611\": {\n      \"auctioneer\": \"Strettons\",\n      \"source_auction_id\": \"strettons:3611\",\n      \"auction_date\": \"2026-10-29\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": null,\n      \"visible_source_rows\": 67,\n      \"lots_captured\": 67,\n      \"source_url\": \"https://www.strettons.co.uk/page-data/auctions/past-auctions/past-auction-details/3611/page-data.json\",\n      \"source_updated_at\": \"2026-11-12T12:00:03.136Z\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"all rows in the first-party unpaginated Gatsby pageContext.properties array\",\n      \"completion_scope\": \"all embedded property rows in the first-party past-auction payload\",\n      \"errors\": [],\n      \"checked_at\": \"2026-11-16T05:19:37.906034+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 0.66,
-      "checked_at": "2026-11-16T05:19:37.978162+00:00"
-    },
-    "cheffins_history": {
-      "source": "cheffins_history",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "   \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"fb7905bf4d3af19c3aefb51f5467c4c3782f28281bacf62a20f038948923c69d\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:48.878378+00:00\"\n    },\n    \"573\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:573\",\n      \"auction_date\": \"2025-06-11\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 12,\n      \"visible_source_rows\": 12,\n      \"lots_captured\": 12,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2025_573.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"2644f94700bd8d966c727db20de78bb8a8ba071fb243f43ca77b2125edb25809\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:49.216417+00:00\"\n    },\n    \"574\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:574\",\n      \"auction_date\": \"2025-09-24\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 19,\n      \"visible_source_rows\": 19,\n      \"lots_captured\": 19,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,september-2025_574.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"25e637f777c267d42af0a437acb8040d3d9c826f73ecc1e2a0e97d797e645494\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.096951+00:00\"\n    },\n    \"575\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:575\",\n      \"auction_date\": \"2025-12-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 10,\n      \"visible_source_rows\": 10,\n      \"lots_captured\": 10,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,december-2025_575.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"cefc8d2bb4d6d5a846915fa6433e12908ad111023d2130d2eb48e223a89cd5ae\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:49.977249+00:00\"\n    },\n    \"576\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:576\",\n      \"auction_date\": \"2026-03-04\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 10,\n      \"visible_source_rows\": 10,\n      \"lots_captured\": 10,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,march-2026_576.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"3a24c4479934ad8ad187ac80ae148ffa3d0f762a2f7990423088c5808e24a2a3\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.205988+00:00\"\n    },\n    \"577\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:577\",\n      \"auction_date\": \"2026-06-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 20,\n      \"visible_source_rows\": 20,\n      \"lots_captured\": 20,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,june-2026_577.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"e978fdba6dc63b4fb0949c7188d1d7dde3a6990ee0d1ff68c7ee5103aa00ae76\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.291234+00:00\"\n    },\n    \"578\": {\n      \"auctioneer\": \"Cheffins\",\n      \"source_auction_id\": \"cheffins:578\",\n      \"auction_date\": \"2026-09-23\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 24,\n      \"visible_source_rows\": 24,\n      \"lots_captured\": 24,\n      \"source_url\": \"https://www.cheffins.co.uk/property-auctions/catalogue-view,september-2026_578.htm\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published Number of lots on first-party result archive\",\n      \"completion_scope\": \"all retained cards on the first-party unpaginated catalogue page\",\n      \"partial_reason\": null,\n      \"auction_date_basis\": \"exact date on catalogue page\",\n      \"source_sha256\": \"442a60b4edd4959951ff142280b4ab88cbe36074653119bedef01a776bf3c766\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-03T21:36:50.409707+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 1.17,
-      "checked_at": "2026-11-16T05:19:39.147526+00:00"
-    },
-    "btg_eddisons_catalogues": {
-      "source": "btg_eddisons_catalogues",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "e-1-e508cc9e46290e76.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-efa157ef4de09e8c.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-c37ef260f3fce465.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-22b91b2e0c9fd55b.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        }\n      ],\n      \"errors\": [],\n      \"checked_at\": \"2026-10-21T17:38:16.989679+00:00\"\n    },\n    \"live-stream-october-2026\": {\n      \"auctioneer\": \"BTG Eddisons\",\n      \"source_auction_id\": \"btg-eddisons:live-stream-october-2026\",\n      \"auction_date\": null,\n      \"auction_date_start\": \"2026-10-28\",\n      \"auction_date_end\": \"2026-10-29\",\n      \"auction_date_basis\": \"two-day live-stream range; source does not assign individual lots to a day\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_results_found\": 278,\n      \"visible_source_rows\": 278,\n      \"lots_captured\": 278,\n      \"source_duplicate_rows\": 0,\n      \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026\",\n      \"pagination_reconciled\": true,\n      \"pages_expected\": 3,\n      \"pages_captured\": 3,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published results found count on first-party catalogue\",\n      \"completion_scope\": \"all property cards across every retained catalogue page\",\n      \"source_evidence\": [\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026\",\n          \"retrieved_at\": \"2026-10-30T13:44:05.941560+00:00\",\n          \"sha256\": \"f97963c6c690c5c705ef661a6e283b6cef638734d875c3d68ca447d4b5a72d56\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/live-stream-october-2026/page-1-f97963c6c690c5c7.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-8eef85150fdc9bae.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-9a39b69fa69ebd90.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-dae0bb07070c43f5.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        },\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026?page=2\",\n          \"retrieved_at\": \"2026-10-30T13:44:07.579457+00:00\",\n          \"sha256\": \"366910fda72afcbbdd635defa51b562d8a8925df7a682d592834477d33f957ae\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/live-stream-october-2026/page-2-366910fda72afcbb.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-8eef85150fdc9bae.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-9a39b69fa69ebd90.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-dae0bb07070c43f5.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        },\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/live-stream/october-2026?page=3\",\n          \"retrieved_at\": \"2026-10-30T13:44:12.429575+00:00\",\n          \"sha256\": \"7e50be4c1d96a947109feaa3687a7ffc5a04c9eb3cae56549d1ac30ff4da9226\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/live-stream-october-2026/page-3-7e50be4c1d96a947.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-8eef85150fdc9bae.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-9a39b69fa69ebd90.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-dae0bb07070c43f5.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        }\n      ],\n      \"errors\": [],\n      \"checked_at\": \"2026-10-30T13:44:12.724505+00:00\"\n    },\n    \"online-november-2026\": {\n      \"auctioneer\": \"BTG Eddisons\",\n      \"source_auction_id\": \"btg-eddisons:online-november-2026\",\n      \"auction_date\": \"2026-11-11\",\n      \"auction_date_start\": \"2026-11-10\",\n      \"auction_date_end\": \"2026-11-11\",\n      \"auction_date_basis\": \"published closing day of first-party online-auction date range\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_results_found\": 54,\n      \"visible_source_rows\": 54,\n      \"lots_captured\": 54,\n      \"source_duplicate_rows\": 0,\n      \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/online/november-2026\",\n      \"pagination_reconciled\": true,\n      \"pages_expected\": 1,\n      \"pages_captured\": 1,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"published results found count on first-party catalogue\",\n      \"completion_scope\": \"all property cards across every retained catalogue page\",\n      \"source_evidence\": [\n        {\n          \"source_url\": \"https://www.btgeddisonspropertyauctions.com/auctions/online/november-2026\",\n          \"retrieved_at\": \"2026-11-12T10:24:25.626217+00:00\",\n          \"sha256\": \"6a1beebc0a964ae1f0e7502237acdd01e99888982cadbb3d4778f7933458f57e\",\n          \"snapshot_path\": \"data/auction_history/sources/eddisons/catalogues/online-november-2026/page-1-6a1beebc0a964ae1.json.gz\",\n          \"archive_snapshot_paths\": [\n            \"data/auction_history/sources/eddisons/catalogues/archive-1-aa8c7b3791d9d2a7.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-2-ef728a0384cfc25e.json.gz\",\n            \"data/auction_history/sources/eddisons/catalogues/archive-3-72eff55e7a247f87.json.gz\"\n          ],\n          \"basis\": \"first-party retained auction catalogue page\"\n        }\n      ],\n      \"errors\": [],\n      \"checked_at\": \"2026-11-12T10:24:25.989832+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 2.72,
-      "checked_at": "2026-11-16T05:19:41.870095+00:00"
-    },
-    "sdl_legacy_catalogues": {
-      "source": "sdl_legacy_catalogues",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "ocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-july-2022/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.118616+00:00\"\n    },\n    \"catalogues-knight-frank-october-2022\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:30:49.057623+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-october-2022/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.119112+00:00\"\n    },\n    \"catalogues-knight-frank-catalogue-29th-march-2023\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-29th-march-2023/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:30:52.729242+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-29th-march-2023/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.117704+00:00\"\n    },\n    \"catalogues-knight-frank-catalogue-march-2023\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-march-2023/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:30:53.229330+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/knight-frank-catalogue-march-2023/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/catalogues/archive/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.118132+00:00\"\n    },\n    \"catalogues-april-2024-national-property-auction-catalogue\": {\n      \"auctioneer\": \"SDL Property Auctions\",\n      \"source_auction_id\": null,\n      \"auction_date\": null,\n      \"catalogue_complete\": false,\n      \"source_rows_captured\": 0,\n      \"lots_captured\": 0,\n      \"published_lots_offered\": null,\n      \"pagination_reconciled\": false,\n      \"denominator_reconciled\": false,\n      \"terminal_unavailable\": true,\n      \"completion_scope\": \"retained catalogue link now resolves to the archive index; no lot rows are exposed\",\n      \"incomplete_reason\": \"first-party catalogue page is no longer retained\",\n      \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/\",\n      \"final_url\": \"https://www.sdlauctions.co.uk/buy-property/\",\n      \"errors\": [],\n      \"checked_at\": \"2026-10-05T11:35:57.544779+00:00\",\n      \"source_blocker\": {\n        \"kind\": \"first_party_catalogue_retired\",\n        \"source_url\": \"https://www.sdlauctions.co.uk/catalogues/april-2024-national-property-auction-catalogue/\",\n        \"final_url\": \"https://www.sdlauctions.co.uk/buy-property/\",\n        \"detail\": \"first-party catalogue page is no longer retained\",\n        \"original_errors\": [\n          \"ValueError: catalogue page has no exact auction date\"\n        ]\n      },\n      \"blocker_reconciled_at\": \"2026-10-25T19:06:55.116133+00:00\"\n    }\n  },\n  \"failures\": [],\n  \"scope_warning\": \"featured retained rows only; no catalogue is counted complete\"\n}\n",
-      "duration_seconds": 0.46,
-      "checked_at": "2026-11-16T05:19:42.338468+00:00"
-    },
-    "smith_sons_results": {
-      "source": "smith_sons_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "0\",\n        \"sha256\": \"27bd98c5cfec6a7d7427befde3457352cb92dc9a84408c3beeb3243f1f348b97\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-14063-27bd98c5cfec6a7d.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-16T05:19:45.706449+00:00\"\n    },\n    \"12403\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:12403\",\n      \"auction_date\": \"2016-12-07\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 33,\n      \"visible_source_rows\": 33,\n      \"lots_captured\": 33,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/12403\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/12403?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:30.520440+00:00\",\n        \"sha256\": \"849f6f96eeafca06c27117e50d9007f871bfd3ca8e15afd140d5204c249bc443\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-12403-849f6f96eeafca06.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-16T05:19:45.757459+00:00\"\n    },\n    \"11672\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:11672\",\n      \"auction_date\": \"2016-09-21\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 43,\n      \"visible_source_rows\": 43,\n      \"lots_captured\": 43,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/11672\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/11672?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:31.873504+00:00\",\n        \"sha256\": \"daa21e073f6e1733d298db0f406c0df4b3e360f652a93974568e48e36547400e\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-11672-daa21e073f6e1733.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-16T05:19:45.818212+00:00\"\n    },\n    \"11123\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:11123\",\n      \"auction_date\": \"2016-07-06\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 25,\n      \"visible_source_rows\": 25,\n      \"lots_captured\": 25,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/11123\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/11123?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:33.032013+00:00\",\n        \"sha256\": \"573fd5db4de8b8ede04c2959e03afa0e8081fbb0a09512e170b49cc347526800\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-11123-573fd5db4de8b8ed.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-16T05:19:45.893939+00:00\"\n    },\n    \"6365\": {\n      \"auctioneer\": \"Smith & Sons\",\n      \"source_auction_id\": \"smith-sons:6365\",\n      \"auction_date\": \"2014-12-02\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_lots_offered\": 25,\n      \"visible_source_rows\": 25,\n      \"lots_captured\": 25,\n      \"source_url\": \"https://www.smithandsons.net/auctionproperties/6365\",\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"duplicate_lot_labels\": {},\n      \"denominator_basis\": \"explicit property count on retained result page\",\n      \"completion_scope\": \"every property card in the 50-row view of the first-party retained result page\",\n      \"source_evidence\": {\n        \"source_url\": \"https://www.smithandsons.net/auctionproperties/6365?pp=50\",\n        \"retrieved_at\": \"2026-10-05T15:08:34.260241+00:00\",\n        \"sha256\": \"ecf6d1ecaddfb2e74323a50648a568002d07e02feb14220afd293a63ff865f7c\",\n        \"snapshot_path\": \"data/auction_history/sources/smith-sons/auction-6365-ecf6d1ecaddfb2e7.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/smith-sons/past-auctions-fdf5c8f7145ce9df.json.gz\",\n        \"basis\": \"retained first-party catalogue recovered beyond current archive; first-party 50-row auction result view\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-11-16T05:19:45.933609+00:00\"\n    }\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 3.72,
-      "checked_at": "2026-11-16T05:19:46.062633+00:00"
-    },
-    "town_country_results": {
-      "source": "town_country_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:54.858618+00:00\",\n  \"source_url\": \"https://www.townandcountrypropertyauctions.co.uk/past-auctions?order=RecentlyEnded&lotResultType=All\",\n  \"pages_expected\": 58,\n  \"pages_fetched_this_run\": 1,\n  \"pages_captured\": 58,\n  \"current_archive_rows\": 2885,\n  \"property_appearances_captured\": 3114,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"address_records\": 3113,\n  \"partial_lots\": 1,\n  \"earliest_lot_end_date\": \"2022-02-21\",\n  \"latest_lot_end_date\": \"2026-11-13\",\n  \"by_status\": {\n    \"sold_prior\": 1517,\n    \"sold\": 583,\n    \"sold_post\": 268,\n    \"withdrawn\": 192,\n    \"postponed\": 258,\n    \"no_bids\": 174,\n    \"unsold\": 116,\n    \"unknown\": 6\n  },\n  \"by_sector\": {\n    \"residential\": 1266,\n    \"unknown\": 1343,\n    \"commercial\": 147,\n    \"land\": 247,\n    \"mixed-use\": 111\n  },\n  \"page_counts\": {\n    \"1\": 50,\n    \"2\": 50,\n    \"3\": 50,\n    \"4\": 50,\n    \"5\": 50,\n    \"6\": 50,\n    \"7\": 50,\n    \"8\": 50,\n    \"9\": 50,\n    \"10\": 50,\n    \"11\": 50,\n    \"12\": 50,\n    \"13\": 50,\n    \"14\": 50,\n    \"15\": 50,\n    \"16\": 50,\n    \"17\": 50,\n    \"18\": 50,\n    \"19\": 50,\n    \"20\": 50,\n    \"21\": 50,\n    \"22\": 50,\n    \"23\": 50,\n    \"24\": 50,\n    \"25\": 50,\n    \"26\": 50,\n    \"27\": 50,\n    \"28\": 50,\n    \"29\": 50,\n    \"30\": 50,\n    \"31\": 50,\n    \"32\": 50,\n    \"33\": 50,\n    \"34\": 50,\n    \"35\": 50,\n    \"36\": 50,\n    \"37\": 50,\n    \"38\": 50,\n    \"39\": 50,\n    \"40\": 50,\n    \"41\": 50,\n    \"42\": 50,\n    \"43\": 50,\n    \"44\": 50,\n    \"45\": 50,\n    \"46\": 50,\n    \"47\": 50,\n    \"48\": 50,\n    \"49\": 50,\n    \"50\": 50,\n    \"51\": 50,\n    \"52\": 50,\n    \"53\": 50,\n    \"54\": 50,\n    \"55\": 50,\n    \"56\": 50,\n    \"57\": 50,\n    \"58\": 35\n  },\n  \"failures\": [],\n  \"archive_pagination_complete\": true,\n  \"scope_warning\": \"individual timed lots; original catalogue denominators are unavailable and no auction catalogue is counted complete\"\n}\n",
-      "duration_seconds": 8.88,
-      "checked_at": "2026-11-16T05:19:54.947251+00:00"
-    },
-    "brown_co_results": {
-      "source": "brown_co_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"source\": \"brown-co\",\n  \"skipped\": \"complete first-party search archive supersedes the rolling result page\"\n}\n",
-      "duration_seconds": 0.16,
-      "checked_at": "2026-11-16T05:19:55.115069+00:00"
-    },
-    "bagshaws_results": {
-      "source": "bagshaws_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:19:56.315396+00:00\",\n  \"source_url\": \"https://www.bagshaws.com/bagshaws-property/auctions-archive/\",\n  \"archive_pages_discovered\": 50,\n  \"archive_pages_captured_this_run\": 0,\n  \"archive_pages_skipped_existing\": 50,\n  \"pages_with_no_explicit_lot_rows_this_run\": 0,\n  \"banked_appearances\": 373,\n  \"run_new_appearances\": 0,\n  \"run_new_address_records\": 0,\n  \"run_new_partial_lots\": 0,\n  \"date_range\": [\n    \"2019-11-18\",\n    \"2026-09-21\"\n  ],\n  \"by_status\": {\n    \"unknown\": 77,\n    \"unsold\": 36,\n    \"postponed\": 8,\n    \"sold\": 224,\n    \"sold_after\": 4,\n    \"sold_prior\": 21,\n    \"withdrawn\": 3\n  },\n  \"catalogue_completion_claimed\": false,\n  \"completion_scope\": \"retained page rows only; no original catalogue denominator\",\n  \"page_details_this_run\": {},\n  \"failures\": []\n}\n",
-      "duration_seconds": 1.27,
-      "checked_at": "2026-11-16T05:19:56.384690+00:00"
-    },
-    "anderson_garland_results": {
-      "source": "anderson_garland_results",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "ndandproperty.com/listings/residential_sale-RX726318-bardon-mill\",\n      \"sha256\": \"52c6eadb3bb82515bd1038ea07d9262a6ba734a252917da9eeb8232b9bd2d364\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX708159-newcastle-upon-tyne\",\n      \"sha256\": \"29a1025b790057979fcc8f69826d8f8a73a73b6a0658922b310ea83ca0d9ec1c\",\n      \"admitted\": true\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX681175-corbridge\",\n      \"sha256\": \"b5786e392310432e53dd23f7de910def36f6c4d0517b75b56dd9defccc85c394\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX657100-hexham\",\n      \"sha256\": \"771fd3d66dd60a8f41f717ecc5437c05ab9dd3750222f0987ba9fa0c5daf5866\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX664056-hexham\",\n      \"sha256\": \"be0fa7ba7806635da9d5c54ef20825b95c624e5b09be3236eedb0d357503001a\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX579124-newcastle-upon-tyne\",\n      \"sha256\": \"9576679133830a087d31b45264e7bb127a66ee43e8cc50a48b929c63a233b526\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX644140-northumberland\",\n      \"sha256\": \"7295cb8c7b0185d7b55a95e97414ea0749b9380e2ef48754b706add881f16923\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX644163-hexham\",\n      \"sha256\": \"1a077dcc4843f208123108b024b2c1ee4aa51342a2de5c7f6d922b43cd68b303\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX628397-hexham\",\n      \"sha256\": \"6a7b673660dba0d6f7c601f36f79a4f97eac68dbe9a83b430f0adde2a87ac279\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX611007-ryton\",\n      \"sha256\": \"679dedcb7d74b5f8f312495be57bf1613597bd5c05245357da789f17a6e5faed\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX604693-bishop-auckland\",\n      \"sha256\": \"a95d0a605ecc399acf932020945f99a2d8f22f7535eeb1475010766ee2b013b4\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX590241-gateshead\",\n      \"sha256\": \"d00801ab323cc330d58f0d0b5d4e7264b94b5ef0a0c5d95f1f5ce723d4c7c162\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX589780-newcastle-upon-tyne\",\n      \"sha256\": \"8032b70a0dedd70e30e3eefa43bfe652923ab9d79bb6bab855845a80f42fac79\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX587057-hexham\",\n      \"sha256\": \"de5ef469bd59322f598c6ed9d5e9a56a788b7fcec735dbc91de140cd3edd0c60\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577677-staithes\",\n      \"sha256\": \"fe736025ced55a8fcf566413c42c8c4cd86a3b06df0d2a43e9461fa1305e044b\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577672-hexham\",\n      \"sha256\": \"083def14103d28423fbfa921a39b2755b3c6b1662b820340691424188f5bc4dc\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577669-riding-mill\",\n      \"sha256\": \"ff842bfced9c24adb4d6f719a6cafd230f73f3d56f90dc49a3a13b9717e25754\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX577666-alston\",\n      \"sha256\": \"82aad3069a8d9faf7e34e344f807b75b6aa3d3bf8edd4887f8827f5a70ca9a6a\",\n      \"admitted\": true\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX571199-morpeth\",\n      \"sha256\": \"6db7ad16e8cef7adda2e5f53fc294775e515bf946fb794558dc026229e18f470\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX572399-corbridge\",\n      \"sha256\": \"d998959411db78419b335bdf74c3e9e664b581c1785571e7e1f5654baf08096c\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX572418-ponteland\",\n      \"sha256\": \"78cb9096ec51cbb7d9322dc1fa6e1f8985c92b5da12db74f499ef44a11308be3\",\n      \"admitted\": false\n    },\n    {\n      \"source_url\": \"https://aglandandproperty.com/listings/residential_sale-RX572185-stanley\",\n      \"sha256\": \"32f74f8504c7947793353459c3d3406c125b5ddee3c71a94232d42fe8b2805a5\",\n      \"admitted\": true\n    }\n  ],\n  \"catalogue_scope_warning\": \"source is a recent selected-results page plus exact dated sold-auction details from the reconciled retained listing index; original catalogue denominators remain unavailable\",\n  \"result_page\": {\n    \"auctioneer\": \"Anderson & Garland\",\n    \"source_auction_id\": \"anderson-garland:recent-auction-results\",\n    \"auction_date\": null,\n    \"catalogue_complete\": false,\n    \"result_page_rows_complete\": true,\n    \"published_selected_results\": 25,\n    \"lots_captured\": 25,\n    \"source_url\": \"https://aglandandproperty.com/auction-results\",\n    \"completion_scope\": \"every sold-property block on the first-party recent-results page; not a dated full catalogue\",\n    \"source_evidence\": {\n      \"source_url\": \"https://aglandandproperty.com/auction-results\",\n      \"retrieved_at\": \"2026-11-16T05:19:57.028374+00:00\",\n      \"sha256\": \"d97fa1f1f57016c4e5b68c9faf69680e5ca9ad6b70fcb2cc11f1d6159f5fe064\",\n      \"snapshot_path\": \"data/auction_history/sources/anderson-garland/recent-auction-results-d97fa1f1f57016c4.json.gz\",\n      \"basis\": \"first-party retained recent auction results page\"\n    },\n    \"errors\": [],\n    \"checked_at\": \"2026-11-16T05:20:00.312201+00:00\"\n  },\n  \"failures\": []\n}\n",
-      "duration_seconds": 3.97,
-      "checked_at": "2026-11-16T05:20:00.359395+00:00"
-    },
-    "edward_mellor_pdfs": {
-      "source": "edward_mellor_pdfs",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "ps://edwardmellor.co.uk/pdf/archive/20170901_September_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171001_October_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171201_December_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20180201_February_Auction_Results_2018.pdf\"\n  ],\n  \"processed_source_urls\": [\n    \"https://edwardmellor.co.uk/pdf/archive/20101001_Auction_Results_October_2010.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20101208_Auction_Results_December_2010.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110208_Auction_Results_February_2011.pdf.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110315_Auction_Results_March_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110504_Auction_Results_May_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110609_Auction_Results_June_2011.pdf.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110721_Auction_Results_July_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20110930_Auction_Results_September_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20111027_October_Auction_Results_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20111209_December_Auction_Results_2011.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120209_February_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120313_March_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120501_May_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120607_June_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120701_July_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20120901_September_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20121001_October_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20121201_December_Auction_Results_2012.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130201_February_Auction_Results_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130301_Auction_Results_March_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130319_Auction_Results_March_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130501_Auction_Results_May_2013.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130601_June_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20130901_September_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20131001_October_2013_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20131201_December_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20140201_February_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20140301_March_Auction_Results_2014.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20140401_April_Auction_Results_2014.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150201_February_Auction_Results.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150301_March_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150401_April_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150601_June_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150701_July_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20150901_September_Auction_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20151001_October_Auction_Results_2015_issue_2.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20151201_December_Auctions_Results_2015.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160210_February_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160316_March_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160401_April_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160601_June_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160701_July_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20160901_September_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20161001_October_Auction_Results_2016.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170201_February_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170301_March_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170401_April_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170601_June_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170701_July_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20170901_September_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171001_October_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20171201_December_Auction_Results_2017.pdf\",\n    \"https://edwardmellor.co.uk/pdf/archive/20180201_February_Auction_Results_2018.pdf\"\n  ],\n  \"archive_evidence\": {\n    \"source_url\": \"https://edwardmellor.co.uk/auctions/catalogue-and-results-archive/\",\n    \"retrieved_at\": \"2026-11-16T05:20:01.931027+00:00\",\n    \"sha256\": \"9cb6e7db756b9b919c21ec28f0a69895714090cc45d97335999481c5eba17adc\",\n    \"snapshot_path\": \"data/auction_history/sources/edward-mellor-pdfs/archive-9cb6e7db756b9b91.json.gz\",\n    \"basis\": \"first-party catalogue and results archive\"\n  },\n  \"terminal_source_failures\": [\n    {\n      \"url\": \"https://edwardmellor.co.uk/pdf/archive/20130701_Auction Results July 2013.pdf\",\n      \"label\": \"Auction Results July 2013\",\n      \"error\": \"HTTPError: 404 Client Error: Not Found for url: https://edwardmellor.co.uk/403.shtml/\"\n    },\n    {\n      \"url\": \"https://edwardmellor.co.uk/pdf/archive/20161201_December_Auction_Results_2016.pdf\",\n      \"label\": \"December Auction Results 2016\",\n      \"error\": \"SourceObjectUnavailable: first-party PDF response is truncated or malformed (458802 bytes)\",\n      \"terminal\": true\n    }\n  ],\n  \"failures\": []\n}\n",
-      "duration_seconds": 1.82,
-      "checked_at": "2026-11-16T05:20:02.180402+00:00"
-    },
-    "future_property_auctions": {
-      "source": "future_property_auctions",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "rchived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73cacb35-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73cacb35-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T00:15:16.340360+00:00\",\n        \"sha256\": \"8935e9ccdff59d7df2373a86ebe7aea1d5c3d308aac438e35994523b14c4547c\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/414/auction-8935e9ccdff59d7d.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T00:15:16.376842+00:00\"\n    },\n    \"386\": {\n      \"auctioneer\": \"Future Property Auctions\",\n      \"source_auction_id\": \"future-property:73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_numeric_auction_id\": \"386\",\n      \"auction_uuid\": \"73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n      \"auction_title\": \"OCTOBER 2019 Timed Online Property Auction\",\n      \"auction_date\": \"2019-10-10\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_listing_count\": 36,\n      \"lots_captured\": 36,\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"complete first-party BidJS listing map for this archived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca7563-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T01:05:34.458952+00:00\",\n        \"sha256\": \"548c5df2380f3b36be9d9c6c7058501fb338f43c6b77c05330d834acd9fd9973\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/386/auction-548c5df2380f3b36.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T01:05:34.474744+00:00\"\n    },\n    \"372\": {\n      \"auctioneer\": \"Future Property Auctions\",\n      \"source_auction_id\": \"future-property:73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_numeric_auction_id\": \"372\",\n      \"auction_uuid\": \"73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"auction_title\": \"Timed Online Land & Property Auction\",\n      \"auction_date\": \"2019-09-26\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_listing_count\": 3,\n      \"lots_captured\": 3,\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"complete first-party BidJS listing map for this archived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca55ba-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T00:11:13.913931+00:00\",\n        \"sha256\": \"04e55c62557f38cc727883fe718384f4bbaa213a57f392a3f11491ef1890c9d2\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/372/auction-04e55c62557f38cc.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T00:11:13.915285+00:00\"\n    },\n    \"366\": {\n      \"auctioneer\": \"Future Property Auctions\",\n      \"source_auction_id\": \"future-property:73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_numeric_auction_id\": \"366\",\n      \"auction_uuid\": \"73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"auction_title\": \"1a Drum Brae Drive, Edinburgh\",\n      \"auction_date\": \"2019-09-24\",\n      \"catalogue_complete\": true,\n      \"source_rows_complete\": true,\n      \"published_listing_count\": 1,\n      \"lots_captured\": 1,\n      \"pagination_reconciled\": true,\n      \"denominator_reconciled\": true,\n      \"denominator_basis\": \"complete first-party BidJS listing map for this archived auction\",\n      \"completion_scope\": \"all listing UUIDs in the archived auction payload\",\n      \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n      \"source_evidence\": {\n        \"source_url\": \"https://hove.eu-west-2.bidjs.com/auction-007/api/v3/auctions/73ca29ba-9350-11ea-9b07-0aad12b14bdc\",\n        \"public_url\": \"https://www.futurepropertyauctions.co.uk/onlineauctions.html#!/\",\n        \"retrieved_at\": \"2026-10-26T00:11:27.695166+00:00\",\n        \"sha256\": \"14d9ccbba4f6d7522e3b55272ea0bc93f0b38d9b6ba35753a513fd2f030f25fb\",\n        \"snapshot_path\": \"data/auction_history/sources/future_property_auctions/366/auction-14d9ccbba4f6d752.json.gz\",\n        \"archive_snapshot_path\": \"data/auction_history/sources/future_property_auctions/archive-39c64d7fd044b3ef.json.gz\",\n        \"basis\": \"complete first-party public BidJS archived-auction payload\"\n      },\n      \"errors\": [],\n      \"checked_at\": \"2026-10-26T00:11:27.696111+00:00\"\n    }\n  },\n  \"deferred_failures\": [],\n  \"failures\": []\n}\n",
-      "duration_seconds": 4.02,
-      "checked_at": "2026-11-16T05:20:06.205117+00:00"
-    },
-    "auction_house_northeast": {
-      "source": "auction_house_northeast",
-      "outcome": "completed",
-      "exit_code": 0,
-      "diagnostic_tail": "{\n  \"checked_at\": \"2026-11-16T05:20:17.940210+00:00\",\n  \"pages_expected\": 20,\n  \"pages_captured\": 20,\n  \"current_archive_rows\": 573,\n  \"property_appearances_captured\": 608,\n  \"run_new_appearances\": 0,\n  \"address_records\": 608,\n  \"partial_lots\": 0,\n  \"earliest_lot_end_date\": \"2018-10-18\",\n  \"latest_lot_end_date\": \"2026-11-24\",\n  \"by_status\": {\n    \"sold_prior\": 52,\n    \"sold\": 406,\n    \"sold_after\": 54,\n    \"last_bid\": 66,\n    \"no_bids\": 12,\n    \"postponed\": 15,\n    \"withdrawn\": 3\n  },\n  \"page_counts\": {\n    \"1\": 30,\n    \"2\": 30,\n    \"3\": 30,\n    \"4\": 30,\n    \"5\": 30,\n    \"6\": 30,\n    \"7\": 30,\n    \"8\": 30,\n    \"9\": 30,\n    \"10\": 30,\n    \"11\": 30,\n    \"12\": 30,\n    \"13\": 30,\n    \"14\": 30,\n    \"15\": 30,\n    \"16\": 30,\n    \"17\": 30,\n    \"18\": 30,\n    \"19\": 30,\n    \"20\": 3\n  },\n  \"failures\": [],\n  \"archive_pagination_complete\": true\n}\n",
-      "duration_seconds": 11.78,
-      "checked_at": "2026-11-16T05:20:17.994027+00:00"
     },
     "auction_house_south_yorkshire": {
       "source": "auction_house_south_yorkshire",
@@ -18869,7 +18869,7 @@
       "source_url": null,
       "lots_captured": 627,
       "errors": [],
-      "checked_at": "2026-11-18T21:37:33.344721+00:00"
+      "checked_at": "2026-11-19T12:11:02.577950+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-chesterfieldnorthderbyshire/regional-online-results.json",
@@ -19490,7 +19490,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-mar2012.pdf",
       "lots_captured": 26,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.750216+00:00"
+      "checked_at": "2026-11-19T12:07:26.670504+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2014-04-30.json",
@@ -19499,7 +19499,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-apr2014.pdf",
       "lots_captured": 39,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.872595+00:00"
+      "checked_at": "2026-11-19T12:07:26.816485+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2014-07-30.json",
@@ -19508,7 +19508,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-july2014.pdf",
       "lots_captured": 43,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.850863+00:00"
+      "checked_at": "2026-11-19T12:07:26.790489+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2015-04-15.json",
@@ -19517,7 +19517,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-apr2015.pdf",
       "lots_captured": 27,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.933985+00:00"
+      "checked_at": "2026-11-19T12:07:26.889870+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2014-06-11.json",
@@ -19526,7 +19526,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-june2014.pdf",
       "lots_captured": 25,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.859218+00:00"
+      "checked_at": "2026-11-19T12:07:26.800501+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2011-05-18.json",
@@ -19535,7 +19535,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-may2011.pdf",
       "lots_captured": 9,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.705123+00:00"
+      "checked_at": "2026-11-19T12:07:26.617812+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2012-09-26.json",
@@ -19544,7 +19544,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-sept2012.pdf",
       "lots_captured": 22,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.733192+00:00"
+      "checked_at": "2026-11-19T12:07:26.650881+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2014-10-01.json",
@@ -19553,7 +19553,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-october2014.pdf",
       "lots_captured": 42,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.837291+00:00"
+      "checked_at": "2026-11-19T12:07:26.773767+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2015-09-30.json",
@@ -19562,7 +19562,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-September2015.pdf",
       "lots_captured": 38,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.904263+00:00"
+      "checked_at": "2026-11-19T12:07:26.854172+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2012-11-28.json",
@@ -19571,7 +19571,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-nov2012.pdf",
       "lots_captured": 26,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.724154+00:00"
+      "checked_at": "2026-11-19T12:07:26.640133+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2013-04-10.json",
@@ -19580,7 +19580,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-april2013.pdf",
       "lots_captured": 18,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.804600+00:00"
+      "checked_at": "2026-11-19T12:07:26.734562+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2015-02-25.json",
@@ -19589,7 +19589,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-feb2015.pdf",
       "lots_captured": 32,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.945294+00:00"
+      "checked_at": "2026-11-19T12:07:26.903552+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2010-09-22.json",
@@ -19598,7 +19598,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-sept2010.pdf",
       "lots_captured": 14,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.684468+00:00"
+      "checked_at": "2026-11-19T12:07:26.594469+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2012-05-30.json",
@@ -19607,7 +19607,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-may2012.pdf",
       "lots_captured": 19,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.743370+00:00"
+      "checked_at": "2026-11-19T12:07:26.662512+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2011-09-14.json",
@@ -19616,7 +19616,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-sept2011.pdf",
       "lots_captured": 25,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.698037+00:00"
+      "checked_at": "2026-11-19T12:07:26.609911+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2011-07-06.json",
@@ -19625,7 +19625,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-july2011.pdf",
       "lots_captured": 13,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.701666+00:00"
+      "checked_at": "2026-11-19T12:07:26.613968+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2010-11-10.json",
@@ -19634,7 +19634,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-nov2010.pdf",
       "lots_captured": 14,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.681276+00:00"
+      "checked_at": "2026-11-19T12:07:26.590864+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/hm-dec2010.json",
@@ -19643,7 +19643,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-dec2010.pdf",
       "lots_captured": 10,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.676898+00:00"
+      "checked_at": "2026-11-19T12:07:26.585919+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2014-11-26.json",
@@ -19652,7 +19652,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-november2014.pdf",
       "lots_captured": 38,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.823293+00:00"
+      "checked_at": "2026-11-19T12:07:26.757085+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2011-02-23.json",
@@ -19661,7 +19661,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-feb2011.pdf",
       "lots_captured": 15,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.714201+00:00"
+      "checked_at": "2026-11-19T12:07:26.628070+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2011-11-16.json",
@@ -19670,7 +19670,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-nov2011.pdf",
       "lots_captured": 25,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.691331+00:00"
+      "checked_at": "2026-11-19T12:07:26.602358+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2013-07-31.json",
@@ -19679,7 +19679,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-july2013.pdf",
       "lots_captured": 25,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.785991+00:00"
+      "checked_at": "2026-11-19T12:07:26.712561+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2013-11-27.json",
@@ -19688,7 +19688,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-nov2013.pdf",
       "lots_captured": 30,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.770299+00:00"
+      "checked_at": "2026-11-19T12:07:26.693945+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2013-05-29.json",
@@ -19697,7 +19697,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-may2013.pdf",
       "lots_captured": 28,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.797050+00:00"
+      "checked_at": "2026-11-19T12:07:26.725704+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2013-09-25.json",
@@ -19706,7 +19706,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-sept2013.pdf",
       "lots_captured": 15,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.776351+00:00"
+      "checked_at": "2026-11-19T12:07:26.701052+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2012-07-25.json",
@@ -19715,7 +19715,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-july2012.pdf",
       "lots_captured": 18,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.738263+00:00"
+      "checked_at": "2026-11-19T12:07:26.656650+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2015-07-22.json",
@@ -19724,7 +19724,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-July2015.pdf",
       "lots_captured": 36,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.916050+00:00"
+      "checked_at": "2026-11-19T12:07:26.868328+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2015-11-18.json",
@@ -19733,7 +19733,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-nov2015.pdf",
       "lots_captured": 30,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.893196+00:00"
+      "checked_at": "2026-11-19T12:07:26.840902+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2013-02-20.json",
@@ -19742,7 +19742,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-feb2013.pdf",
       "lots_captured": 15,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.810974+00:00"
+      "checked_at": "2026-11-19T12:07:26.742137+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2011-04-06.json",
@@ -19751,7 +19751,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-april2011.pdf",
       "lots_captured": 13,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.709664+00:00"
+      "checked_at": "2026-11-19T12:07:26.622954+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2014-02-26.json",
@@ -19760,7 +19760,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-feb2014.pdf",
       "lots_captured": 27,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.882592+00:00"
+      "checked_at": "2026-11-19T12:07:26.828264+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2012-02-01.json",
@@ -19769,7 +19769,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-feb2012.pdf",
       "lots_captured": 33,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.759438+00:00"
+      "checked_at": "2026-11-19T12:07:26.681087+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/hollis-morgan/2015-06-03.json",
@@ -19778,7 +19778,7 @@
       "source_url": "https://www.hollismorgan.co.uk/archivepdf/hm-June2015.pdf",
       "lots_captured": 23,
       "errors": [],
-      "checked_at": "2026-11-19T02:47:38.924481+00:00"
+      "checked_at": "2026-11-19T12:07:26.878516+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-10-03.json",
@@ -19787,7 +19787,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.223738+00:00"
+      "checked_at": "2026-11-19T12:09:54.564029+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-07-23.json",
@@ -19796,7 +19796,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.226770+00:00"
+      "checked_at": "2026-11-19T12:09:54.568535+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-10-25.json",
@@ -19805,7 +19805,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.223930+00:00"
+      "checked_at": "2026-11-19T12:09:54.564316+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-10-23.json",
@@ -19814,7 +19814,7 @@
       "source_url": null,
       "lots_captured": 17,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.226180+00:00"
+      "checked_at": "2026-11-19T12:09:54.567619+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-06-08.json",
@@ -19823,7 +19823,7 @@
       "source_url": null,
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.222090+00:00"
+      "checked_at": "2026-11-19T12:09:54.561636+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-04-20.json",
@@ -19832,7 +19832,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.225794+00:00"
+      "checked_at": "2026-11-19T12:09:54.567066+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-08-26.json",
@@ -19841,7 +19841,7 @@
       "source_url": null,
       "lots_captured": 6,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.226976+00:00"
+      "checked_at": "2026-11-19T12:09:54.568816+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-10-08.json",
@@ -19850,7 +19850,7 @@
       "source_url": null,
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.227168+00:00"
+      "checked_at": "2026-11-19T12:09:54.569131+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2025-12-12.json",
@@ -19859,7 +19859,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.225099+00:00"
+      "checked_at": "2026-11-19T12:09:54.566100+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-12-11.json",
@@ -19868,7 +19868,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.227831+00:00"
+      "checked_at": "2026-11-19T12:09:54.570105+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2025-06-05.json",
@@ -19877,7 +19877,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.224507+00:00"
+      "checked_at": "2026-11-19T12:09:54.565214+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-02-22.json",
@@ -19886,7 +19886,7 @@
       "source_url": null,
       "lots_captured": 3,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.222948+00:00"
+      "checked_at": "2026-11-19T12:09:54.562845+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-04-20.json",
@@ -19895,7 +19895,7 @@
       "source_url": null,
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.222524+00:00"
+      "checked_at": "2026-11-19T12:09:54.562261+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2025-10-23.json",
@@ -19904,7 +19904,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.224908+00:00"
+      "checked_at": "2026-11-19T12:09:54.565791+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2025-11-14.json",
@@ -19913,7 +19913,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.224713+00:00"
+      "checked_at": "2026-11-19T12:09:54.565504+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-09-24.json",
@@ -19922,7 +19922,7 @@
       "source_url": null,
       "lots_captured": 5,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.226375+00:00"
+      "checked_at": "2026-11-19T12:09:54.567926+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-06-20.json",
@@ -19931,7 +19931,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.223336+00:00"
+      "checked_at": "2026-11-19T12:09:54.563446+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-10-23.json",
@@ -19940,7 +19940,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.227385+00:00"
+      "checked_at": "2026-11-19T12:09:54.569418+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-06-19.json",
@@ -19949,7 +19949,7 @@
       "source_url": null,
       "lots_captured": 2,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.226565+00:00"
+      "checked_at": "2026-11-19T12:09:54.568248+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-02-26.json",
@@ -19958,7 +19958,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.225989+00:00"
+      "checked_at": "2026-11-19T12:09:54.567352+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-12-19.json",
@@ -19967,7 +19967,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.224311+00:00"
+      "checked_at": "2026-11-19T12:09:54.564890+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-04-30.json",
@@ -19976,7 +19976,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.225477+00:00"
+      "checked_at": "2026-11-19T12:09:54.566774+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-11-20.json",
@@ -19985,7 +19985,7 @@
       "source_url": null,
       "lots_captured": 6,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.227589+00:00"
+      "checked_at": "2026-11-19T12:09:54.569714+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-09-21.json",
@@ -19994,7 +19994,7 @@
       "source_url": null,
       "lots_captured": 7,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.221490+00:00"
+      "checked_at": "2026-11-19T12:09:54.561004+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-09-19.json",
@@ -20003,7 +20003,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.223528+00:00"
+      "checked_at": "2026-11-19T12:09:54.563716+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-05-25.json",
@@ -20012,7 +20012,7 @@
       "source_url": null,
       "lots_captured": 1,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.222312+00:00"
+      "checked_at": "2026-11-19T12:09:54.561932+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-07-25.json",
@@ -20021,7 +20021,7 @@
       "source_url": null,
       "lots_captured": 3,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.223145+00:00"
+      "checked_at": "2026-11-19T12:09:54.563142+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-12-13.json",
@@ -20030,7 +20030,7 @@
       "source_url": null,
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.220900+00:00"
+      "checked_at": "2026-11-19T12:09:54.560610+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-04-18.json",
@@ -20039,7 +20039,7 @@
       "source_url": null,
       "lots_captured": 4,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.222744+00:00"
+      "checked_at": "2026-11-19T12:09:54.562549+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2026-03-19.json",
@@ -20048,7 +20048,7 @@
       "source_url": null,
       "lots_captured": 3,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.225288+00:00"
+      "checked_at": "2026-11-19T12:09:54.566488+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2023-07-20.json",
@@ -20057,7 +20057,7 @@
       "source_url": null,
       "lots_captured": 3,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.221809+00:00"
+      "checked_at": "2026-11-19T12:09:54.561331+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/symonds-sampson/2024-11-15.json",
@@ -20066,7 +20066,7 @@
       "source_url": null,
       "lots_captured": 3,
       "errors": [],
-      "checked_at": "2026-11-16T02:41:18.224121+00:00"
+      "checked_at": "2026-11-19T12:09:54.564604+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-eastanglia/online-results.json",
@@ -22556,17 +22556,6 @@
       "checked_at": "2026-11-18T21:41:19.023480+00:00"
     },
     {
-      "state_file": "data/auction_history/auctions/barnett-ross/202611-19.json",
-      "auctioneer": "Barnett Ross",
-      "auction_date": "2026-11-19",
-      "source_url": "https://www.barnettross.co.uk/archivelist.php?a=202611&countryid=1&day=19&sortby=sortorder",
-      "lots_captured": 0,
-      "errors": [
-        "Visible rows and property IDs did not reconcile"
-      ],
-      "checked_at": "2026-11-19T02:48:03.343258+00:00"
-    },
-    {
       "state_file": "data/auction_history/auctions/auction-house-wales/regional-online-results.json",
       "auctioneer": "Auction House Wales",
       "auction_date": null,
@@ -22742,9 +22731,9 @@
       "auctioneer": "Pugh Auctioneers",
       "auction_date": null,
       "source_url": "https://www.pugh-auctions.com/property-search",
-      "lots_captured": 6894,
+      "lots_captured": 6895,
       "errors": [],
-      "checked_at": "2026-11-18T21:35:50.611853+00:00"
+      "checked_at": "2026-11-19T12:09:46.401051+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/dawsons/retained-archive.json",
@@ -22950,7 +22939,7 @@
       "source_url": null,
       "lots_captured": 3129,
       "errors": [],
-      "checked_at": "2026-11-19T02:48:42.252957+00:00"
+      "checked_at": "2026-11-19T12:10:33.414125+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/knight-frank/retained-recently-sold.json",
@@ -24024,7 +24013,7 @@
       "source_url": "https://aglandandproperty.com/auction-results",
       "lots_captured": 25,
       "errors": [],
-      "checked_at": "2026-11-19T02:48:48.383516+00:00"
+      "checked_at": "2026-11-19T12:10:42.612747+00:00"
     }
   ],
   "limits": [
@@ -24034,7 +24023,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-19T12:03:06.774770+00:00",
+    "checked_at": "2026-11-19T12:11:20.060661+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
