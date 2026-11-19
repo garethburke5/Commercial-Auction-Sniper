@@ -126,7 +126,10 @@ def exact_auction_date(text, address_postcode=None):
             context = text[max(0, match.start() - 150):min(len(text), match.end() + 150)]
             context_postcodes = {m.group().replace(" ", "").upper() for m in POSTCODE_RE.finditer(context)}
             canonical = (address_postcode or "").replace(" ", "").upper()
-            if canonical and context_postcodes and canonical not in context_postcodes:
+            # Reject any auction-date sentence that introduces a different
+            # postcode: stale copy can mention the canonical address first and
+            # then describe another lot in the sale sentence.
+            if canonical and any(value != canonical for value in context_postcodes):
                 continue
             found[event_date] = corpus.clean(match.group(0))
     if len(found) > 1:
