@@ -2,6 +2,11 @@ from scripts.harvest_connect_uk_auctions import parse_date, parse_detail, sitema
 
 
 def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026", method="Traditional Auction"):
+    payload = (
+        r'self.__next_f.push([1,"{\"propertyId\":\"cmtsjicd3001koojtgwjz427g\",'
+        r'\"isSold\":true,\"initialCurrentBid\":41000,\"initialStartPrice\":38000}"])'
+        if status.lower() == "sold" else ""
+    )
     return f"""
     <main class="pd-page">
       <div class="pd-pills"><span class="pd-status">{status}</span>
@@ -10,7 +15,7 @@ def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026", method="Traditi
       <p class="pd-type">Land</p><h1>Land at Palace Lane, Newby Bridge</h1>
       <p class="pd-location">Ulverston, Cumbria, LA12 8NQ</p>
       <div class="pd-heading-price"><span>Guide price</span><strong>£35,000+</strong></div>
-      <div class="pd-panel"><p>{'FINAL BID' if status.lower() == 'sold' else 'STARTING BID'}</p>
+      <div class="pd-panel"><p>STARTING BID</p>
         <div class="pd-panel-price"><span>Starting bid</span><strong>£41,000</strong></div>
         <p>{'This lot has been sold.' if status.lower() == 'sold' else 'Bidding available.'}</p>
       </div>
@@ -21,6 +26,7 @@ def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026", method="Traditi
       </div>
       <div class="pd-description"><p>Currently let at £825 pcm.</p></div>
       <img src="https://connectrealtime.co.uk/api/public/documents/photo1">
+      <script>{payload}</script>
     </main>
     """
 
@@ -50,7 +56,7 @@ def test_detail_preserves_guide_starting_bid_status_rent_and_null_sale():
     assert row["sector"] == "land"
     assert row["tenure"] == "Freehold"
     assert row["guide_price"] == 35000
-    assert row["starting_bid"] == 41000
+    assert row["starting_bid"] == 38000
     assert row["sale_price"] == 41000
     assert row["status"] == "sold"
     assert row["annual_rent"] == 9900
