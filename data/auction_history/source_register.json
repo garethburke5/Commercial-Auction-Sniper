@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-19T02:25:50.396880+00:00",
-  "corpus_checkpoint": "2026-11-19T02:25:28.412527+00:00",
+  "generated_at": "2026-11-19T02:32:51.080825+00:00",
+  "corpus_checkpoint": "2026-11-19T02:32:29.445480+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1193,13 +1193,15 @@
       "name": "Barney Estates",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/barney-estates",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
+      "matched_corpus_label": "Barney Estates",
+      "match_basis": "exact label",
+      "retained_appearances": 130,
+      "years_with_retained_evidence": [
+        2026
+      ],
+      "with_guide_price": 10,
       "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8346,7 +8348,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 443,
+  "directory_entries_not_linked": 442,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8404,6 +8406,7 @@
     "Bagshaws": 377,
     "Barnard Marcus Auctions": 7107,
     "Barnett Ross": 7601,
+    "Barney Estates": 130,
     "Bid.": 254,
     "BidX1": 294,
     "Bond Wolfe": 9582,
@@ -8497,13 +8500,13 @@
     "through_date": "2026-11-19",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308300,
-      "auction_ids_observed": 16079,
-      "with_guide_price": 109993,
+      "lot_appearances": 308310,
+      "auction_ids_observed": 16081,
+      "with_guide_price": 110003,
       "with_sale_price": 114879,
       "with_both_prices": 50886,
-      "marked_sold": 157848,
-      "marked_sold_without_sale_price": 43709
+      "marked_sold": 157857,
+      "marked_sold_without_sale_price": 43718
     },
     "by_auctioneer_and_year": [
       {
@@ -12333,6 +12336,17 @@
         "with_both_prices": 0,
         "marked_sold": 86,
         "marked_sold_without_sale_price": 36
+      },
+      {
+        "auctioneer": "Barney Estates",
+        "year": 2026,
+        "lot_appearances": 10,
+        "auction_ids_observed": 2,
+        "with_guide_price": 10,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 9
       },
       {
         "auctioneer": "Bid.",
@@ -18066,8 +18080,8 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5117,
-    "future_dated_appearances": 210,
+    "undated_appearances": 5236,
+    "future_dated_appearances": 211,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -20553,6 +20567,15 @@
       "lots_captured": 125,
       "errors": [],
       "checked_at": "2026-11-18T21:39:35.929805+00:00"
+    },
+    {
+      "state_file": "data/auction_history/auctions/barney-estates/first-party-property-api.json",
+      "auctioneer": "Barney Estates",
+      "auction_date": null,
+      "source_url": "https://www.barneyestates.co.uk/properties/",
+      "lots_captured": 130,
+      "errors": [],
+      "checked_at": "2026-11-19T02:31:00.900853+00:00"
     },
     {
       "state_file": "data/auction_history/auctions/auction-house-lincolnshirenorthnottssouthyorks/regional-online-results.json",
@@ -23977,7 +24000,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-19T02:25:49.913673+00:00",
+    "checked_at": "2026-11-19T02:32:50.616603+00:00",
     "sha256": "319419fec8d4c9aa1dd7b9fdad565977a91dae663fa427dda9f1e146a5b1bf08",
     "status": "retrieved"
   }
