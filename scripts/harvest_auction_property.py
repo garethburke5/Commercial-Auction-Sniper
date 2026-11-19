@@ -134,6 +134,24 @@ def annual_rent(text):
     return None, None
 
 
+def sector_for(text):
+    value = (text or "").lower()
+    residential = bool(re.search(
+        r"\b(flat|apartment|house|bungalow|maisonette|cottage|bedroom|residential)\b", value))
+    commercial = bool(re.search(
+        r"\b(shop|retail|office|industrial|warehouse|public house|pub|hotel|restaurant|"
+        r"commercial|business premises|coffee shop|care home)\b", value))
+    if residential and commercial:
+        return "mixed-use"
+    if commercial:
+        return "commercial"
+    if re.search(r"\b(land|plot|paddock|smallholding|farm)\b", value):
+        return "land"
+    if residential:
+        return "residential"
+    return "unknown"
+
+
 def status_and_price(short_texts):
     for value in short_texts:
         match = re.fullmatch(r"(?i)sold\s*(?:for|at|:)\s*£\s*([\d,.]+)", value)
@@ -185,9 +203,18 @@ def parse_detail(html, url, evidence):
     tenure_match = re.search(r"(?i)\btenure\s*:\s*([^|]{2,80}?)(?=\s+(?:viewing|epc|council|guide prices)|$)", body)
     if tenure_match:
         tenure = clean(tenure_match.group(1))
-    rent, rent_text = annual_rent(body)
-    residential = bool(re.search(r"(?i)\b(flat|apartment|house|bungalow|maisonette|cottage|bedroom)\b", body))
-    sector = corpus.sector(body, residential=residential, commercial=False)
+    # Stop before the standard legal/footer copy: it mentions residential and
+    # commercial property generically and must never turn every lot mixed-use.
+    subject_parts = [address]
+    for value in short_texts:
+        key = value.lower()
+        if key.startswith(("administration fee", "disbursements", "guide prices & reserves",
+                           "additional fees", "consumer protection", "anti money laundering")):
+            break
+        subject_parts.append(value)
+    subject_text = " ".join(subject_parts)
+    rent, rent_text = annual_rent(subject_text)
+    sector = sector_for(subject_text)
     description = None
     narrative = [v for v in short_texts if len(v) > 60 and "guide prices" not in v.lower()]
     if narrative:
