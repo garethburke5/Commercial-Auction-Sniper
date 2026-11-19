@@ -1,5 +1,47 @@
 # Historical auction property corpus
 
+## 19 November 2026 — Connect UK complete sitemap and saved-source follow-through
+
+The reusable Connect UK Auctions collector reconciled the complete accessible
+first-party sitemap: **41/41 individual property URLs**, immutable sitemap/detail
+snapshots and **41 newly banked address-bearing appearances**. Connect UK
+Auctions, Connect UK Sales Ltd and Connect UK Land Auctions remain one
+operator/legal/trading-name lineage rather than three auctioneers.
+
+Date growth is reported strictly: **12** new dated address records fall inside
+the preceding twenty-year window, **21** are future-dated and **8** remain
+intentionally undated; no page or publication date was substituted. The batch
+adds **3 commercial or mixed-use appearances** overall (**1** in-window),
+**41 guide-price observations**, **41 starting-bid observations**, **6 achieved
+prices** and **1 annual rent**. The newly represented source year is **2026**.
+There are no partial Connect rows, claimed duplicates or excluded exact overlaps.
+
+The achieved prices come from the snapshotted first-party Next result payload
+that drives the rendered “Final bid” panel. It publishes sold state, current bid
+and initial start price separately; a sold label without that payload remains
+price-null. Historical run
+[44525422450](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/44525422450)
+completed successfully and banked commit
+[0b530823](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/0b530823f140c6f22b775cd12f3a811b7e524dae).
+
+A protected generic replay also banked **6 separate saved-source appearances**
+before cancellation: Barnett Ross 4, Pugh 1 and Symonds & Sampson 1. Five are
+address records, one is partial, four are dated inside the window, two are
+undated, none is commercial/mixed-use, and four add achieved-price evidence.
+They are preserved and reported separately rather than attributed to Connect.
+Across this follow-through, the corpus therefore rose from **316,878 to 316,925
+appearances**: **+47 net appearances, +16 dated address records in-window, +3
+commercial/mixed-use, +41 guides, +10 achieved prices, +1 rent and one new
+source-year**. National completeness remains false.
+
+Next growth target: **Auction Property Ltd / Auction Property / Auction Property
+London**, reconciled as one lineage. Build one reusable collector across its
+first-party sold archive, current properties, auction pages and embedded/API
+inventory. The source has zero retained appearances; its first-party surface
+shows dated individual sold lots and 12 current December lots, while the
+directory denominator reports 43 past plus 12 current lots. Directory totals are
+recovery leads only: admit and count only first-party individual evidence.
+
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
