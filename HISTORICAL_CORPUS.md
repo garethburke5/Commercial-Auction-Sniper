@@ -3,6 +3,39 @@
 This collection is independent of the live-board development work. Its unit of
 progress is one evidenced auction lot appearance, never an auction date alone.
 
+## 19 November 2026 — Barney Estates complete first-party property archive
+
+The reusable Barney Estates / B | E Auction House collector reconciled the
+complete accessible first-party WordPress property collection: **140/140
+published property records**, immutable index/detail evidence, and **130 newly
+banked auction-property appearances**. Ten private-treaty records were excluded.
+Barney Estates, Barney Estates & Auctioneers and B | E Auction House remain one
+operator/trading-name lineage rather than three auctioneers.
+
+Growth is reported without date inflation: **10** new historical dated address
+records fall within the preceding 20 years, **119** appearances remain
+intentionally undated, and **1** is future-dated. The run added **15 commercial
+or mixed-use appearances** overall (none of the strict-dated 20-year subset),
+**118 guide-price values**, **0 achieved sale prices**, and **26 annual rents**.
+The only newly represented source year is **2026**. No exact address/date overlap
+candidates were excluded. A stale Bristol description naming a different
+postcode was specifically prevented from lending its auction date to 14
+Overnhurst Court, and WordPress publication dates were never substituted for
+auction dates.
+
+Workflow 44444424258 completed successfully through banking, database rebuild,
+source-register reconciliation and the protected publication checkpoint at
+commit `179a8816c0730defbb36c66d5b251352275a247b`. The latest rebuilt corpus
+contains **316,878 appearances** after a later scheduled one-record increment.
+National completeness remains false.
+
+Next growth target: **Connect UK Auctions / Connect UK Sales Ltd**, reconciled as
+one lineage. The national register has zero retained appearances while the
+accessible first-party property surface exposes individual current,
+auction-ended and sold cards with addresses, methods, guides, statuses and
+qualifying event dates. The next collector should batch that surface plus
+retained pagination/API and recently-sold routes, rather than deploy per event.
+
 ## 18 November 2026 — saved Bamboo exact-organisation batch 2
 
 The final retained four-operator Bamboo recovery manifest was banked as one
