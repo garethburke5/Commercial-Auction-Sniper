@@ -1,20 +1,24 @@
 {
-  "generated_at": "2026-11-18T21:20:00Z",
+  "generated_at": "2026-11-19T01:36:00Z",
   "status": "ready_for_collection",
   "previous_run": {
-    "run_id": 44399091773,
-    "commit": "fe64c619db48bd0abc05c3e96c21216b4c713438",
-    "net_new_appearances": 0,
-    "newly_dated_address_records_within_20_years": 0,
+    "run_id": 44436677217,
+    "commit": "3b93c0c98a40d9a4701092b721580a4aa010341c",
+    "total_source_appearances_banked": 8,
+    "net_new_appearances": 1,
+    "newly_dated_address_records_within_20_years": 1,
     "commercial_mixed_use_new_appearances": 0,
-    "newly_covered_source_years": [],
+    "newly_covered_source_years": [
+      "2026"
+    ],
     "new_guide_price_evidence": 1,
-    "new_sale_price_evidence": 0,
+    "new_sale_price_evidence": 1,
+    "new_rent_evidence": 1,
     "undated_new_records": 0,
-    "future_dated_new_records": 0,
+    "future_dated_new_records": 7,
     "duplicate_new_records": 0,
-    "auctioneer": "Auction House North West",
-    "result": "All 14 pages and 404 current rows reconciled. No absent historical appearance was found. One same-property guide revision (£140,000 to £119,000) was preserved as a second immutable publication variant."
+    "auctioneer": "abbotFox",
+    "result": "All 123 first-party pages and 1,475 visible property rows reconciled. Eight explicitly auction-dated property appearances were banked: one historical as of 19 November 2026 and seven future-dated. Ordinary estate-agency listings were excluded."
   },
   "runs": [
     {
@@ -1004,61 +1008,69 @@
     }
   },
   "next_run": {
-    "auctioneer": "abbotFox Auctions",
-    "action": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes.",
-    "scope": "All sectors and all surviving first-party auction-tagged property listings across the paginated archive.",
-    "rationale": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
-    "collector": "scripts/harvest_abbotfox_auctions.py"
+    "auctioneer": "Barney Estates / B | E Auction House",
+    "action": "Build a reusable first-party inventory collector for Barney Estates' load-more property archive and individual property pages, batch all accessible cards, and admit only listings with an individually evidenced auction date or other exact event identity.",
+    "scope": "All sectors and all surviving first-party auction-evidenced property listings across the load-more archive and detail pages.",
+    "rationale": "The national register has zero retained Barney Estates appearances, while the first-party site states 784 lots auctioned last year and weekly auctions averaging about 50 lots. Public property/detail pages expose exact addresses, guide prices, sold availability and rents, with explicit auction dates on surviving listings, making this a higher-volume growth route than another abbotFox refresh.",
+    "collector": "scripts/harvest_barney_estates.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "abbotFox Auctions — genuine Norwich auctioneer/trading division, currently absent from the retained corpus",
-    "task": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes.",
-    "reason": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
-    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and subsequent first-party pagination/detail URLs",
-    "collector_target": "scripts/harvest_abbotfox_auctions.py",
+    "auctioneer_lineage": "Barney Estates / B | E Auction House — genuine independent UK auctioneer; reconcile as one operator/trading-name lineage",
+    "task": "Build a reusable first-party inventory collector for Barney Estates' load-more property archive and individual property pages, batch all accessible cards, and admit only listings with an individually evidenced auction date or other exact event identity.",
+    "reason": "The national register has zero retained Barney Estates appearances, while the first-party site states 784 lots auctioned last year and weekly auctions averaging about 50 lots. Public property/detail pages expose exact addresses, guide prices, sold availability and rents, with explicit auction dates on surviving listings, making this a higher-volume growth route than another abbotFox refresh.",
+    "source_route": "https://www.barneyestates.co.uk/properties/ plus its first-party load-more/API route and /property/ detail URLs",
+    "collector_target": "scripts/harvest_barney_estates.py",
     "observed_inventory": {
-      "first_party_listings_approx": 1471,
-      "retained_appearances": 0,
+      "national_register_retained_appearances": 0,
+      "first_party_claimed_lots_last_year": 784,
+      "first_party_auction_frequency_per_year": 52,
+      "first_party_stated_average_lots_per_weekly_auction": 50,
       "evidence_examples": [
-        "auction end date/time",
-        "guide range",
-        "SOLD FOR amount",
-        "individual first-party property URL"
+        "individual property URL",
+        "full address and postcode",
+        "guide price",
+        "sold availability",
+        "annual rent",
+        "explicit auction date on qualifying detail pages"
       ]
     },
     "admission_rules": [
-      "Filter on explicit abbotFox Auctions/unconditional online auction evidence; ordinary estate-agency listings are not auction appearances.",
-      "Batch all accessible pagination pages in one reusable run and preserve immutable list/detail snapshots and original URLs.",
-      "Preserve individual auction end dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
-      "Deduplicate exact property/event overlaps and reconcile abbotFox Auctions as a trading division rather than inventing an alias auctioneer."
+      "Inventory and snapshot all accessible first-party property cards and details, but admit only individually evidenced auction appearances; a directory entry, generic sold listing or auction-house marketing statement is not a property appearance.",
+      "Reconcile Barney Estates and B | E Auction House as one operator/trading-name lineage and check shared-platform overlaps before claiming growth.",
+      "Preserve exact auction dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
+      "Deduplicate exact property/event overlaps, retain related legal interests separately, and report future-dated or undated rows outside historical growth."
     ],
-    "blocked_route_avoidance": "Do not refresh Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West again without a new source route or newly published lots."
+    "blocked_route_avoidance": "Do not refresh abbotFox's now-complete visible surface, Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West without a new source route or newly published lots."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "abbotFox Auctions — genuine Norwich auctioneer/trading division, currently absent from the retained corpus",
-    "task": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes.",
-    "reason": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
-    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and subsequent first-party pagination/detail URLs",
-    "collector_target": "scripts/harvest_abbotfox_auctions.py",
+    "auctioneer_lineage": "Barney Estates / B | E Auction House — genuine independent UK auctioneer; reconcile as one operator/trading-name lineage",
+    "task": "Build a reusable first-party inventory collector for Barney Estates' load-more property archive and individual property pages, batch all accessible cards, and admit only listings with an individually evidenced auction date or other exact event identity.",
+    "reason": "The national register has zero retained Barney Estates appearances, while the first-party site states 784 lots auctioned last year and weekly auctions averaging about 50 lots. Public property/detail pages expose exact addresses, guide prices, sold availability and rents, with explicit auction dates on surviving listings, making this a higher-volume growth route than another abbotFox refresh.",
+    "source_route": "https://www.barneyestates.co.uk/properties/ plus its first-party load-more/API route and /property/ detail URLs",
+    "collector_target": "scripts/harvest_barney_estates.py",
     "observed_inventory": {
-      "first_party_listings_approx": 1471,
-      "retained_appearances": 0,
+      "national_register_retained_appearances": 0,
+      "first_party_claimed_lots_last_year": 784,
+      "first_party_auction_frequency_per_year": 52,
+      "first_party_stated_average_lots_per_weekly_auction": 50,
       "evidence_examples": [
-        "auction end date/time",
-        "guide range",
-        "SOLD FOR amount",
-        "individual first-party property URL"
+        "individual property URL",
+        "full address and postcode",
+        "guide price",
+        "sold availability",
+        "annual rent",
+        "explicit auction date on qualifying detail pages"
       ]
     },
     "admission_rules": [
-      "Filter on explicit abbotFox Auctions/unconditional online auction evidence; ordinary estate-agency listings are not auction appearances.",
-      "Batch all accessible pagination pages in one reusable run and preserve immutable list/detail snapshots and original URLs.",
-      "Preserve individual auction end dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
-      "Deduplicate exact property/event overlaps and reconcile abbotFox Auctions as a trading division rather than inventing an alias auctioneer."
+      "Inventory and snapshot all accessible first-party property cards and details, but admit only individually evidenced auction appearances; a directory entry, generic sold listing or auction-house marketing statement is not a property appearance.",
+      "Reconcile Barney Estates and B | E Auction House as one operator/trading-name lineage and check shared-platform overlaps before claiming growth.",
+      "Preserve exact auction dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
+      "Deduplicate exact property/event overlaps, retain related legal interests separately, and report future-dated or undated rows outside historical growth."
     ],
-    "blocked_route_avoidance": "Do not refresh Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West again without a new source route or newly published lots."
+    "blocked_route_avoidance": "Do not refresh abbotFox's now-complete visible surface, Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West without a new source route or newly published lots."
   },
   "previous_trigger_attempt": {
     "commit": "675b7272b5712327fdb5141862371cf676c6c66e",
@@ -1090,18 +1102,18 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Auction House North West is now fully page-reconciled and produced no new appearances; one guide revision was preserved without duplicating the property. Move to the uncovered, accessible abbotFox first-party listing archive.",
+  "focus_reason": "abbotFox's complete visible first-party surface is now reconciled and banked; move to the uncovered, substantially larger Barney Estates / B | E first-party property inventory.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-18T21:20:00Z",
+  "updated_at": "2026-11-19T01:36:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "Auction House Oxfordshire run 44344767108 completed; no historical writer is active.",
-    "action": "Trigger only the focused four-catalogue All Wales batch, then rebuild and publish once.",
-    "last_reviewed": "2026-11-18T16:20:00Z"
+    "status": "Focused abbotFox run 44436677217 completed successfully; no historical writer is active.",
+    "action": "Inventory Barney Estates' first-party load-more/API surface before triggering a focused collector; rebuild and publish only after source snapshots and overlap checks pass.",
+    "last_reviewed": "2026-11-19T01:36:00Z"
   },
   "corrections": [
     {
@@ -1118,10 +1130,10 @@
     }
   ],
   "current_collection_request": {
-    "source": "abbotfox_first_party_listing_archive",
-    "collector": "scripts/harvest_abbotfox_auctions.py",
-    "requested_at": "2026-11-18T21:20:00Z",
-    "estimated_first_party_listings": 1471,
+    "source": "barney_estates_first_party_property_archive",
+    "collector": "scripts/harvest_barney_estates.py",
+    "requested_at": "2026-11-19T01:36:00Z",
+    "first_party_claimed_lots_last_year": 784,
     "retained_appearances": 0
   }
 }
