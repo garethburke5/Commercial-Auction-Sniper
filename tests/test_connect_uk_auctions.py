@@ -70,3 +70,16 @@ def test_modern_method_header_is_individually_auction_evidenced():
     assert diagnostic is None
     assert row["auction_date"] == "2026-11-04"
     assert row["sale_method"] == "Modern Method"
+
+
+def test_undated_modern_method_lot_is_retained_without_inventing_date():
+    row, diagnostic = parse_detail(
+        fixture(status="For sale", date_text="", method="Modern Method"),
+        "https://connectukauctions.co.uk/property/modern-undated", [])
+    assert row["auction_date"] is None
+    assert row["sale_method"] == "Modern Method"
+    assert diagnostic["reason"].startswith("no explicit individual auction date")
+
+
+def test_parse_date_accepts_first_party_sept_abbreviation():
+    assert parse_date("Auction: Tue, 1 Sept 2026") == "2026-09-01"
