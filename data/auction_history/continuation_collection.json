@@ -1,24 +1,31 @@
 {
-  "generated_at": "2026-11-19T01:36:00Z",
+  "generated_at": "2026-11-19T06:04:55Z",
   "status": "ready_for_collection",
   "previous_run": {
-    "run_id": 44436677217,
-    "commit": "3b93c0c98a40d9a4701092b721580a4aa010341c",
-    "total_source_appearances_banked": 8,
-    "net_new_appearances": 1,
-    "newly_dated_address_records_within_20_years": 1,
-    "commercial_mixed_use_new_appearances": 0,
+    "run_id": 44444424258,
+    "commit": "179a8816c0730defbb36c66d5b251352275a247b",
+    "total_source_appearances_banked": 130,
+    "net_new_appearances": 130,
+    "newly_historical_dated_appearances": 10,
+    "newly_dated_address_records_within_20_years": 10,
+    "commercial_mixed_use_new_appearances": 15,
+    "commercial_mixed_use_new_appearances_within_20_years": 0,
     "newly_covered_source_years": [
       "2026"
     ],
-    "new_guide_price_evidence": 1,
-    "new_sale_price_evidence": 1,
-    "new_rent_evidence": 1,
-    "undated_new_records": 0,
-    "future_dated_new_records": 7,
+    "new_guide_price_evidence": 118,
+    "new_sale_price_evidence": 0,
+    "new_rent_evidence": 26,
+    "undated_new_records": 119,
+    "future_dated_new_records": 1,
     "duplicate_new_records": 0,
-    "auctioneer": "abbotFox",
-    "result": "All 123 first-party pages and 1,475 visible property rows reconciled. Eight explicitly auction-dated property appearances were banked: one historical as of 19 November 2026 and seven future-dated. Ordinary estate-agency listings were excluded."
+    "non_auction_source_records_excluded": 10,
+    "auctioneer": "Barney Estates",
+    "trading_names": [
+      "Barney Estates & Auctioneers",
+      "B | E Auction House"
+    ],
+    "result": "The complete first-party WordPress property collection was reconciled: 140/140 published records and immutable details captured, 130 structured auction listings banked, and 10 private-treaty records excluded. Ten rows have strict historical auction dates, one is future-dated and 119 remain intentionally undated; publication dates were not substituted. The stale 14 Overnhurst Court copy was prevented from inheriting another Bristol lot's auction date."
   },
   "runs": [
     {
@@ -1016,32 +1023,31 @@
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Barney Estates / B | E Auction House — genuine independent UK auctioneer; reconcile as one operator/trading-name lineage",
-    "task": "Build a reusable first-party inventory collector for Barney Estates' load-more property archive and individual property pages, batch all accessible cards, and admit only listings with an individually evidenced auction date or other exact event identity.",
-    "reason": "The national register has zero retained Barney Estates appearances, while the first-party site states 784 lots auctioned last year and weekly auctions averaging about 50 lots. Public property/detail pages expose exact addresses, guide prices, sold availability and rents, with explicit auction dates on surviving listings, making this a higher-volume growth route than another abbotFox refresh.",
-    "source_route": "https://www.barneyestates.co.uk/properties/ plus its first-party load-more/API route and /property/ detail URLs",
-    "collector_target": "scripts/harvest_barney_estates.py",
+    "auctioneer_lineage": "Connect UK Auctions / Connect UK Sales Ltd — reconcile as one genuine operator/legal-name lineage",
+    "task": "Build a reusable first-party inventory collector for the accessible Connect UK Auctions property surface and individual details, batch current, auction-ended and sold cards, then discover and traverse any retained pagination/API archive rather than collecting one event.",
+    "reason": "The national source register has zero retained Connect UK Auctions appearances. Its accessible first-party property surface already exposes individual full-address cards across traditional and modern-method auctions, guide prices, statuses and exact auction dates on qualifying rows; the operator also publishes recently sold evidence. This is a materially different uncovered source with land, residential, commercial and mixed-use stock.",
+    "source_route": "https://connectukauctions.co.uk/property-for-sale plus first-party individual property URLs and any retained pagination/API or recently-sold route discovered from that surface",
+    "collector_target": "scripts/harvest_connect_uk_auctions.py",
     "observed_inventory": {
       "national_register_retained_appearances": 0,
-      "first_party_claimed_lots_last_year": 784,
-      "first_party_auction_frequency_per_year": 52,
-      "first_party_stated_average_lots_per_weekly_auction": 50,
-      "evidence_examples": [
+      "first_party_surface_accessible": true,
+      "visible_evidence": [
         "individual property URL",
         "full address and postcode",
+        "traditional or modern auction method",
         "guide price",
-        "sold availability",
-        "annual rent",
-        "explicit auction date on qualifying detail pages"
-      ]
+        "sold/for-sale/bidding-ended status",
+        "exact auction date where published"
+      ],
+      "expected_scope": "current, auction-ended and sold property cards across land and every property sector; reconcile a reusable archive denominator before completeness claims"
     },
     "admission_rules": [
-      "Inventory and snapshot all accessible first-party property cards and details, but admit only individually evidenced auction appearances; a directory entry, generic sold listing or auction-house marketing statement is not a property appearance.",
-      "Reconcile Barney Estates and B | E Auction House as one operator/trading-name lineage and check shared-platform overlaps before claiming growth.",
-      "Preserve exact auction dates, guide and achieved prices distinctly, rent and every published outcome; unknown values remain null.",
-      "Deduplicate exact property/event overlaps, retain related legal interests separately, and report future-dated or undated rows outside historical growth."
+      "Snapshot the first-party index/API and every admitted detail; directory entries and aggregate marketing claims are not appearances.",
+      "Use only explicit individual auction dates; keep publication, bidding and lease dates separate and leave uncertain dates null.",
+      "Preserve guide and achieved prices distinctly, rent and all outcomes; sold status without a published amount does not create sale-price evidence.",
+      "Reconcile Connect UK Auctions and Connect UK Sales Ltd as one lineage, and deduplicate exact address/date overlaps before claiming growth."
     ],
-    "blocked_route_avoidance": "Do not refresh abbotFox's now-complete visible surface, Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West without a new source route or newly published lots."
+    "blocked_route_avoidance": "Do not refresh Barney Estates' reconciled 140-record surface or the exhausted abbotFox visible surface unless new records appear; do not revisit terminal Goldings, All Wales, SDL Kinetic, Oxfordshire or Auction House North West routes without new evidence."
   },
   "next_target": {
     "priority": 1,
@@ -1108,7 +1114,7 @@
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-19T01:36:00Z",
+  "updated_at": "2026-11-19T06:04:55Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "Focused abbotFox run 44436677217 completed successfully; no historical writer is active.",
