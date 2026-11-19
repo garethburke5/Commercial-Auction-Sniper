@@ -38,6 +38,7 @@ SLUG = "barney-estates"
 BASE = "https://www.barneyestates.co.uk"
 INDEX = BASE + "/properties/"
 API = BASE + "/wp-json/wp/v2/property/"
+API_LIST = API + "?per_page=100&page={page}&_fields=id,link"
 POST_ID_RE = re.compile(r"(?:e-loop-item-|post-)(\d+)")
 MONTHS = {name.lower(): number for number, name in enumerate(
     "January February March April May June July August September October November December".split(), 1
@@ -250,24 +251,39 @@ def harvest(workers=12):
     session = requests.Session()
     session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
     failures, page_evidence, inventory = [], {}, {}
-    first_raw = fetch(session, INDEX)
-    first_items, max_page = page_inventory(first_raw.decode("utf-8", "replace"), INDEX)
-    if not max_page:
-        raise ValueError("first-party archive page denominator missing")
-    inventory.update(first_items)
-    page_evidence[1] = snapshot("index", "page-001", INDEX, first_raw)
-    for page in range(2, max_page + 1):
-        url = f"{INDEX}{page}/"
+    # The REST collection is the stable machine-readable denominator. The
+    # public HTML grid is JS/widget dependent and can omit its load-more anchor
+    # for non-browser clients, so it is evidence but not the completeness gate.
+    page_for_id, max_page = {}, 0
+    try:
+        first_raw = fetch(session, INDEX)
+        page_evidence["html"] = snapshot("index", "public-grid", INDEX, first_raw)
+    except Exception as exc:
+        failures.append({"url": INDEX, "error": f"{type(exc).__name__}: {exc}"[:500]})
+
+    for page in range(1, 101):
+        url = API_LIST.format(page=page)
         try:
             raw = fetch(session, url)
-            items, observed_max = page_inventory(raw.decode("utf-8", "replace"), url)
-            if observed_max and observed_max != max_page:
-                raise ValueError(f"page-count drift {observed_max}/{max_page}")
-            inventory.update(items)
-            page_evidence[page] = snapshot("index", f"page-{page:03d}", url, raw)
+            items = json.loads(raw.decode("utf-8"))
+            if not isinstance(items, list):
+                raise ValueError("REST collection did not return a list")
+            evidence = snapshot("api-index", f"page-{page:03d}", url, raw)
+            page_evidence[page] = evidence
+            max_page = page
+            for item in items:
+                source_id = str(item["id"])
+                inventory[source_id] = item.get("link") or API + source_id
+                page_for_id[source_id] = evidence
+            print(f"BARNEY API INDEX {page}: {len(items)} records", flush=True)
+            if len(items) < 100:
+                break
         except Exception as exc:
-            failures.append({"page": page, "url": url, "error": f"{type(exc).__name__}: {exc}"[:500]})
-        print(f"BARNEY INDEX {page}/{max_page}", flush=True)
+            failures.append({"page": page, "url": url,
+                             "error": f"{type(exc).__name__}: {exc}"[:500]})
+            break
+    if not inventory or max_page == 100:
+        raise ValueError("first-party REST archive denominator missing or unbounded")
 
     detail_items, detail_evidence = {}, {}
     def collect_detail(source_id):
@@ -289,14 +305,6 @@ def harvest(workers=12):
                                  "error": f"{type(exc).__name__}: {exc}"[:500]})
             if position % 20 == 0 or position == len(jobs):
                 print(f"BARNEY DETAIL {position}/{len(jobs)}", flush=True)
-
-    page_for_id = {}
-    for page, evidence in page_evidence.items():
-        payload = corpus.read_gzip(corpus.ROOT / evidence["snapshot_path"])
-        page_url = INDEX if page == 1 else f"{INDEX}{page}/"
-        ids, _ = page_inventory(payload["content"], page_url)
-        for source_id in ids:
-            page_for_id[source_id] = evidence
 
     rows, date_diagnostics, non_auction = [], [], 0
     for source_id, item in sorted(detail_items.items(), key=lambda pair: int(pair[0])):
@@ -348,7 +356,7 @@ def harvest(workers=12):
              "non_auction_property_posts_excluded": non_auction,
              "exact_overlap_candidates_excluded": len(overlaps), "retained_appearances": retained,
              "lots_captured": retained,
-             "completion_scope": "all surviving first-party PropertyHive cards and REST details; only structured sale_by=Auction posts admitted",
+             "completion_scope": "all surviving first-party WordPress REST property records and REST details; only structured sale_by=Auction posts admitted",
              "errors": failures, "checked_at": corpus.now()}
     corpus.save_json(corpus.DATA / "auctions" / SLUG / "first-party-property-api.json", state)
     summary = {"checked_at": corpus.now(), "auctioneer": SOURCE, "source_trading_names": TRADING_NAMES,
