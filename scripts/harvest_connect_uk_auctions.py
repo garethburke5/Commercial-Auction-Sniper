@@ -146,7 +146,7 @@ def status_for(value):
 
 
 def next_result_state(html, source_id):
-    """Read the first-party Next payload that drives the hydrated bid panel."""
+    """Read the snapshotted first-party Next payload driving the hydrated bid panel."""
     text = html.decode("utf-8", "replace") if isinstance(html, bytes) else str(html)
     decoded = text.replace(r'\"', '"')
     marker = re.compile(rf'"propertyId"\s*:\s*"{re.escape(source_id)}"')
