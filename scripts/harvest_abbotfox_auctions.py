@@ -457,3 +457,5 @@ if __name__ == "__main__":
     parser.add_argument("--workers", type=int, default=8)
     args = parser.parse_args()
     harvest(args.workers)
+
+# Focused first-party archive collection trigger: 2026-11-19.
