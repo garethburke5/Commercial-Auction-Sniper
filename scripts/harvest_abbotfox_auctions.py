@@ -149,20 +149,30 @@ def page_denominator(html: str) -> tuple[int, int]:
 
 
 def _card_for(anchor):
+    """Return only a single-property card, never a page-wide ancestor."""
     node = anchor
-    candidate = None
     for _ in range(8):
         node = node.parent
         if node is None:
             break
+        property_ids = {
+            match.group(1)
+            for linked in node.find_all("a", href=True)
+            for match in [PROPERTY_RE.search(urljoin(BASE, linked["href"]))]
+            if match
+        }
+        if len(property_ids) > 1:
+            break
         text = corpus.clean(node.get_text(" ", strip=True))
         if len(text) > 12000:
             break
-        if re.search(r"(?i)\bauction\s+(?:ends?|ending|closes?|closing)\b", text):
-            candidate = node
-            if len(text) >= 80:
-                return node
-    return candidate
+        if (
+            len(property_ids) == 1
+            and len(text) >= 80
+            and re.search(r"(?i)\bauction\s+(?:ends?|ending|closes?|closing)\b", text)
+        ):
+            return node
+    return None
 
 
 def parse_page(html: str, source_url: str) -> tuple[list[dict], int]:
