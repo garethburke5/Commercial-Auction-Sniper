@@ -1,7 +1,7 @@
 {
-  "generated_at": "2026-11-19T01:14:28.026599+00:00",
-  "individual_lot_records_captured": 316739,
-  "records_with_address": 305423,
+  "generated_at": "2026-11-19T01:30:21.005881+00:00",
+  "individual_lot_records_captured": 316747,
+  "records_with_address": 305431,
   "partial_lot_records": 11316,
   "exact_address_groups": 170987,
   "groups_with_repeat_appearances": 43209,
@@ -147,7 +147,8 @@
     "Unknown auctioneer": 14,
     "Webbers": 99,
     "West Wales Properties": 40,
-    "Williams & Goodwin The Property People": 186
+    "Williams & Goodwin The Property People": 186,
+    "abbotFox": 8
   },
   "by_year": {
     "null": 5117,
@@ -175,7 +176,7 @@
     "2023": 33870,
     "2024": 42771,
     "2025": 48858,
-    "2026": 49688,
+    "2026": 49696,
     "2027": 6
   },
   "by_sector": {
@@ -183,7 +184,7 @@
     "land": 19938,
     "mixed": 1,
     "mixed-use": 47830,
-    "residential": 154276,
+    "residential": 154284,
     "unknown": 51821
   },
   "date_range": [
@@ -191,7 +192,7 @@
     "2027-01-15"
   ],
   "surviving_catalogues_completely_harvested": 5010,
-  "catalogues_incomplete_or_unreconciled": 563,
+  "catalogues_incomplete_or_unreconciled": 564,
   "catalogue_fetch_or_parse_failures": 49,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
@@ -204,12 +205,12 @@
     "through_date": "2026-11-19",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308299,
-      "auction_ids_observed": 16078,
-      "with_guide_price": 109992,
-      "with_sale_price": 114878,
-      "with_both_prices": 50885,
-      "marked_sold": 157847,
+      "lot_appearances": 308300,
+      "auction_ids_observed": 16079,
+      "with_guide_price": 109993,
+      "with_sale_price": 114879,
+      "with_both_prices": 50886,
+      "marked_sold": 157848,
       "marked_sold_without_sale_price": 43709
     },
     "by_auctioneer_and_year": [
@@ -9760,10 +9761,21 @@
         "with_both_prices": 19,
         "marked_sold": 19,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "abbotFox",
+        "year": 2026,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 1,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
       }
     ],
     "undated_appearances": 5117,
-    "future_dated_appearances": 203,
+    "future_dated_appearances": 210,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
