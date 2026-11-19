@@ -82,7 +82,10 @@ def sitemap_inventory(xml):
 
 
 def money(value):
-    return corpus.money(value) if value else None
+    if not value:
+        return None
+    # First-party prices conventionally carry a trailing plus sign.
+    return corpus.money(re.sub(r"[+\\s]+$", "", clean(value)))
 
 
 def parse_date(value):
