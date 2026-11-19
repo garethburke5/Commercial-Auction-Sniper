@@ -1,0 +1,24 @@
+{
+  "auctioneer": "Auction Property Ltd",
+  "source_auction_id": "auction-property:first-party-sitemap",
+  "source_url": "https://auctionproperty.co.uk/property-sitemap.xml",
+  "catalogue_complete": false,
+  "source_rows_complete": false,
+  "pagination_reconciled": false,
+  "denominator_reconciled": false,
+  "visible_property_urls": 63,
+  "details_captured": 61,
+  "lots_captured": 61,
+  "completion_scope": "every surviving first-party /property/ URL in the public sitemap; not proof of removed historical lots",
+  "errors": [
+    {
+      "source_url": "https://auctionproperty.co.uk/property/flat-36-coachman-court-rochford/",
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://auctionproperty.co.uk/property/flat-36-coachman-court-rochford/"
+    },
+    {
+      "source_url": "https://auctionproperty.co.uk/property/flat-44-coachman-court-rochford/",
+      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://auctionproperty.co.uk/property/flat-44-coachman-court-rochford/"
+    }
+  ],
+  "checked_at": "2026-11-19T13:09:22.161433+00:00"
+}
