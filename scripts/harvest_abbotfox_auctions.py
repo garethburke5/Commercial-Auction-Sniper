@@ -469,3 +469,4 @@ if __name__ == "__main__":
     harvest(args.workers)
 
 # Focused first-party archive collection trigger: 2026-11-19.
+# Single-card boundary verified; focused retry 2026-11-19.
