@@ -95,6 +95,7 @@ def parse_date(value):
     text = re.sub(r"(?i)^auction:\s*", "", text)
     text = re.sub(r"(?i)^(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?:day)?,\s*", "", text)
     text = re.sub(r"(?i)(\d)(?:st|nd|rd|th)\b", r"\1", text)
+    text = re.sub(r"(?i)\bSept\b", "Sep", text)
     for fmt in ("%d %b %Y", "%d %B %Y"):
         try:
             return datetime.strptime(text, fmt).date().isoformat()
@@ -168,7 +169,7 @@ def parse_detail(html, url, evidence):
     # the same first-party header explicitly labels the individual Auction date.
     recognized_auction_method = (
         "auction" in method_key
-        or (method_key == "modern method" and date_label and date_label.lower().startswith("auction:"))
+        or method_key == "modern method"
     )
     if not recognized_auction_method:
         raise ValueError("individual auction method absent")
@@ -338,4 +339,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     harvest(args.workers)
 
-# Focused sitemap run checkpoint: 2026-11-19-retry-2
+# Focused sitemap run checkpoint: 2026-11-19-retry-3
