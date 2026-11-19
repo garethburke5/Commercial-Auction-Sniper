@@ -184,7 +184,7 @@ def parse_detail(html, url, evidence):
     panel_price = clean(panel.select_one("strong").get_text(" ", strip=True)) if panel and panel.select_one("strong") else None
     starting_bid = money(panel_price) if panel_label and "starting" in panel_label.lower() else None
     outcome_panel_text = clean(panel.parent.get_text(" ", strip=True)) if panel and panel.parent else None
-    final_bid_match = re.search(r"(?i)final\\s+bid\\s*£\\s*([\\d,.]+)", outcome_panel_text or "")
+    final_bid_match = re.search(r"(?i)final\s+bid\s*£\s*([\d,.]+)", outcome_panel_text or "")
     sale_price = money(final_bid_match.group(1)) if final_bid_match and status_for(status_text) == "sold" else None
     facts = fact_values(main)
     property_type = facts.get("property type") or clean(main.select_one(".pd-type").get_text(" ", strip=True) if main.select_one(".pd-type") else None)
