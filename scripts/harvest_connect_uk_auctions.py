@@ -162,10 +162,18 @@ def parse_detail(html, url, evidence):
     method_el, status_el = main.select_one(".pd-method"), main.select_one(".pd-status")
     method = clean(method_el.get_text(" ", strip=True) if method_el else None)
     status_text = clean(status_el.get_text(" ", strip=True) if status_el else None)
-    if not method or "auction" not in method.lower():
+    method_key = (method or "").lower()
+    date_label = clean(date_el.get_text(" ", strip=True) if date_el else None) if (date_el := main.select_one(".pd-date")) else None
+    # The live site's Modern Method detail field omits the word "Auction", while
+    # the same first-party header explicitly labels the individual Auction date.
+    recognized_auction_method = (
+        "auction" in method_key
+        or (method_key == "modern method" and date_label and date_label.lower().startswith("auction:"))
+    )
+    if not recognized_auction_method:
         raise ValueError("individual auction method absent")
-    date_el = main.select_one(".pd-date")
-    auction_date = parse_date(date_el.get_text(" ", strip=True) if date_el else None)
+
+    auction_date = parse_date(date_label)
     guide_box = main.select_one(".pd-heading-price")
     guide_label = clean(guide_box.select_one("span").get_text(" ", strip=True)) if guide_box and guide_box.select_one("span") else None
     guide_text = clean(guide_box.select_one("strong").get_text(" ", strip=True)) if guide_box and guide_box.select_one("strong") else None
