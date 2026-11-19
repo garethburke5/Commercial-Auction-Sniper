@@ -1117,9 +1117,10 @@
   "updated_at": "2026-11-19T06:04:55Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "Focused abbotFox run 44436677217 completed successfully; no historical writer is active.",
-    "action": "Inventory Barney Estates' first-party load-more/API surface before triggering a focused collector; rebuild and publish only after source snapshots and overlap checks pass.",
-    "last_reviewed": "2026-11-19T01:36:00Z"
+    "status": "Focused Barney run 44444424258 and later scheduled history-bank run 44446534258 completed successfully; public platform workflow 44449644517 completed successfully. No generated-data writer is active.",
+    "current_freshness_blocker": "Current collection freshness run 44446823547 failed its age gate: published current collection and per-source success checkpoints remain dated 2026-11-14, older than the 14-hour threshold. Historical banking did not overwrite or discard the retained current evidence.",
+    "action": "Prepare the Connect UK Auctions collector without touching the stale current-board publication. Before any future writer starts, recheck workflow runs and preserve last-known-good current records and failed publication checkpoints.",
+    "last_reviewed": "2026-11-19T06:04:55Z"
   },
   "corrections": [
     {
@@ -1136,10 +1137,11 @@
     }
   ],
   "current_collection_request": {
-    "source": "barney_estates_first_party_property_archive",
-    "collector": "scripts/harvest_barney_estates.py",
-    "requested_at": "2026-11-19T01:36:00Z",
-    "first_party_claimed_lots_last_year": 784,
-    "retained_appearances": 0
+    "source": "connect_uk_auctions_first_party_property_archive",
+    "collector": "scripts/harvest_connect_uk_auctions.py",
+    "requested_at": "2026-11-19T06:04:55Z",
+    "national_register_retained_appearances": 0,
+    "prior_completed_source": "barney_estates_first_party_property_archive",
+    "prior_retained_appearances": 130
   }
 }
