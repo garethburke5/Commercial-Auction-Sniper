@@ -1,11 +1,11 @@
 from scripts.harvest_connect_uk_auctions import parse_date, parse_detail, sitemap_inventory
 
 
-def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026"):
+def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026", method="Traditional Auction"):
     return f"""
     <main class="pd-page">
       <div class="pd-pills"><span class="pd-status">{status}</span>
-        <span class="pd-method">Traditional Auction</span>
+        <span class="pd-method">{method}</span>
         <span class="pd-date">{date_text}</span></div>
       <p class="pd-type">Land</p><h1>Land at Palace Lane, Newby Bridge</h1>
       <p class="pd-location">Ulverston, Cumbria, LA12 8NQ</p>
@@ -14,7 +14,7 @@ def fixture(status="Sold", date_text="Auction: Wed, 4 Nov 2026"):
       <div class="pd-facts">
         <div class="pd-fact"><span>Tenure</span><strong>Freehold</strong></div>
         <div class="pd-fact"><span>Property type</span><strong>Land</strong></div>
-        <div class="pd-fact"><span>Sale method</span><strong>Traditional Auction</strong></div>
+        <div class="pd-fact"><span>Sale method</span><strong>{method}</strong></div>
       </div>
       <div class="pd-description"><p>Currently let at £825 pcm.</p></div>
       <img src="https://connectrealtime.co.uk/api/public/documents/photo1">
@@ -61,3 +61,12 @@ def test_missing_exact_date_stays_null_and_is_diagnostic():
     assert row["status"] == "available"
     assert diagnostic["reason"].startswith("no explicit individual auction date")
 
+
+
+def test_modern_method_header_is_individually_auction_evidenced():
+    row, diagnostic = parse_detail(
+        fixture(status="For sale", method="Modern Method"),
+        "https://connectukauctions.co.uk/property/modern123", [])
+    assert diagnostic is None
+    assert row["auction_date"] == "2026-11-04"
+    assert row["sale_method"] == "Modern Method"
