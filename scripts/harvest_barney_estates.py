@@ -383,3 +383,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     harvest(args.workers)
 
+# Focused archive run checkpoint: 2026-11-19
