@@ -145,6 +145,25 @@ def status_for(value):
             "unsold": "unsold", "under offer": "under_offer"}.get(value, "unknown")
 
 
+def next_result_state(html, source_id):
+    """Read the first-party Next payload that drives the hydrated bid panel."""
+    text = html.decode("utf-8", "replace") if isinstance(html, bytes) else str(html)
+    decoded = text.replace(r'\"', '"')
+    marker = re.compile(rf'"propertyId"\s*:\s*"{re.escape(source_id)}"')
+    for match in marker.finditer(decoded):
+        chunk = decoded[match.start():match.start() + 1800]
+        sold_match = re.search(r'"isSold"\s*:\s*(true|false)', chunk, re.I)
+        current_match = re.search(r'"initialCurrentBid"\s*:\s*([\d.]+)', chunk)
+        start_match = re.search(r'"initialStartPrice"\s*:\s*([\d.]+)', chunk)
+        if sold_match:
+            return {
+                "is_sold": sold_match.group(1).lower() == "true",
+                "current_bid": money(current_match.group(1)) if current_match else None,
+                "start_price": money(start_match.group(1)) if start_match else None,
+            }
+    return {}
+
+
 def parse_detail(html, url, evidence):
     soup = BeautifulSoup(html, "lxml")
     main = soup.select_one("main.pd-page")
@@ -184,6 +203,9 @@ def parse_detail(html, url, evidence):
     panel_price = clean(panel.select_one("strong").get_text(" ", strip=True)) if panel and panel.select_one("strong") else None
     starting_bid = money(panel_price) if panel_label and "starting" in panel_label.lower() else None
     outcome_panel_text = clean(panel.parent.get_text(" ", strip=True)) if panel and panel.parent else None
+    result_state = next_result_state(html, source_id)
+    if result_state.get("start_price") is not None:
+        starting_bid = result_state["start_price"]
     final_bid_match = re.search(r"(?i)final\s+bid\s*£\s*([\d,.]+)", outcome_panel_text or "")
     final_bid_indicated = bool(re.search(r"(?i)\bfinal\s+bid\b", outcome_panel_text or ""))
     sale_price = None
@@ -191,9 +213,11 @@ def parse_detail(html, url, evidence):
         if final_bid_match:
             sale_price = money(final_bid_match.group(1))
         elif final_bid_indicated:
-            # The rendered result label and amount are sibling elements; the
-            # underlying amount span keeps a stale "Starting bid" label.
             sale_price = money(panel_price)
+        elif result_state.get("is_sold"):
+            # The first-party Next payload drives the hydrated "Final bid"
+            # result panel even when the static server HTML retains stale text.
+            sale_price = result_state.get("current_bid")
     facts = fact_values(main)
     property_type = facts.get("property type") or clean(main.select_one(".pd-type").get_text(" ", strip=True) if main.select_one(".pd-type") else None)
     description_el = main.select_one(".pd-description")
