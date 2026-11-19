@@ -25,6 +25,7 @@ def test_parse_historical_detail_preserves_date_guide_and_rent():
     assert row["annual_rent"] == 14400
     assert row["postcode"] == "SL4 3AX"
     assert row["record_quality"] == "address_record"
+    assert row["sector"] == "residential"
 
 
 def test_parse_sold_detail_does_not_invent_achieved_price():
@@ -38,6 +39,15 @@ def test_parse_sold_detail_does_not_invent_achieved_price():
     assert row["status"] == "sold"
     assert row["sale_price"] is None
     assert row["sector"] == "commercial"
+
+
+def test_generic_footer_does_not_make_residential_lot_mixed_use():
+    html = '''<div class="type-property"><div id="content">
+      <h1>Flat 1, High Street, London W1A 1AA</h1></div>
+      <p>FOR SALE BY ONLINE AUCTION 17TH JUNE 2026.</p>
+      <h3>Administration Fee:</h3><p>Commercial and residential buyers must check the legal pack.</p></div>'''
+    row, _ = source.parse_detail(html, "https://auctionproperty.co.uk/property/flat-1/", evidence())
+    assert row["sector"] == "residential"
 
 
 def test_missing_date_stays_null():
