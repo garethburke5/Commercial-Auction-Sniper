@@ -48,17 +48,21 @@ def clean(value):
 
 def fetch(session, url):
     last_error = None
-    for attempt in range(3):
+    for attempt in range(5):
         try:
             response = session.get(url, timeout=90)
+            if response.status_code == 429 and attempt < 4:
+                delay = int(response.headers.get("Retry-After") or (5 * (attempt + 1)))
+                time.sleep(min(delay, 60))
+                continue
             response.raise_for_status()
             if len(response.content) < 200:
                 raise ValueError("short first-party response")
             return response.content
         except Exception as exc:
             last_error = exc
-            if attempt < 2:
-                time.sleep(1.5 * (attempt + 1))
+            if attempt < 4:
+                time.sleep(2.5 * (attempt + 1))
     raise last_error
 
 
@@ -148,18 +152,21 @@ def status_and_price(short_texts):
 
 def parse_detail(html, url, evidence):
     soup = BeautifulSoup(html, "lxml")
-    content = soup.select_one("#content") or soup.select_one("main")
-    if not content:
+    header = soup.select_one("#content") or soup.select_one("main")
+    detail = soup.select_one(".type-property") or soup.select_one("main") or soup.body
+    if not header or not detail:
         raise ValueError("property detail surface absent")
-    heading = content.select_one("h1")
+    heading = header.select_one("h1") or detail.select_one("h1")
     address = clean(heading.get_text(" ", strip=True) if heading else None)
     if not address:
         raise ValueError("exact address heading absent")
     source_id = urlparse(url).path.rstrip("/").split("/")[-1]
     postcode_match = POSTCODE_RE.search(address)
     postcode = postcode_match.group().upper() if postcode_match else None
-    body = clean(content.get_text(" ", strip=True)) or ""
-    short_texts = visible_short_texts(content)
+    # The individual description (and its explicit auction date) is a sibling
+    # of #content in the Elementor single-property template, not its child.
+    body = clean(detail.get_text(" ", strip=True)) or ""
+    short_texts = visible_short_texts(detail)
     auction_date, auction_date_text = parse_date(body)
     guide, guide_text = None, None
     for value in short_texts:
@@ -193,7 +200,7 @@ def parse_detail(html, url, evidence):
         guide_price=guide, guide_price_high=None, sale_price=sale_price,
         starting_bid=None, status=status, description=description,
         annual_rent=rent, rent_text=rent_text,
-        image_urls=sorted(set(img.get("src") for img in content.select("img[src]") if img.get("src"))),
+        image_urls=sorted(set(img.get("src") for img in detail.select("img[src]") if img.get("src"))),
         identity_method="stable_first_party_property_slug", record_quality="address_record",
         auction_date_basis=("individual first-party property detail explicitly states auction date"
                             if auction_date else None),
@@ -228,7 +235,19 @@ def existing_exact_keys(own_path):
     return keys
 
 
-def harvest(workers=12):
+def saved_detail(source_id):
+    paths = sorted((corpus.DATA / "sources" / SLUG / "detail").glob(f"{source_id}-*.json.gz"))
+    if not paths:
+        return None
+    path = paths[-1]
+    payload = corpus.read_gzip(path)
+    evidence = {"source_url": payload["source_url"],
+                "snapshot_path": str(path.relative_to(corpus.ROOT)),
+                "retrieved_at": payload["retrieved_at"], "sha256": payload["sha256"]}
+    return payload["content"].encode("utf-8"), evidence
+
+
+def harvest(workers=12, reparse_saved=False):
     session = requests.Session()
     session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
     sitemap_raw = fetch(session, SITEMAP)
@@ -239,9 +258,13 @@ def harvest(workers=12):
     failures, rows, diagnostics = [], [], []
 
     def collect(url):
-        raw = fetch(session, url)
         source_id = urlparse(url).path.rstrip("/").split("/")[-1]
-        detail_evidence = snapshot("detail", source_id, url, raw)
+        saved = saved_detail(source_id) if reparse_saved else None
+        if saved:
+            raw, detail_evidence = saved
+        else:
+            raw = fetch(session, url)
+            detail_evidence = snapshot("detail", source_id, url, raw)
         return parse_detail(raw.decode("utf-8", "replace"), url,
                             [sitemap_evidence, detail_evidence])
 
@@ -276,6 +299,9 @@ def harvest(workers=12):
         admitted.append(row)
     current_by_id = {row["appearance_id"]: row for row in admitted}
     new_rows = [row for key, row in current_by_id.items() if key not in prior_by_id]
+    newly_dated_rows = [row for key, row in current_by_id.items()
+                         if key in prior_by_id and not prior_by_id[key].get("auction_date")
+                         and row.get("auction_date")]
     evidence_deltas = {}
     for field in ("guide_price", "sale_price", "starting_bid", "annual_rent"):
         evidence_deltas[field] = sum(
@@ -289,7 +315,8 @@ def harvest(workers=12):
 
     today = datetime.now(timezone.utc).date().isoformat()
     floor = date(datetime.now(timezone.utc).year - 20, 1, 1).isoformat()
-    historical = [r for r in new_rows if r.get("auction_date") and r["auction_date"] <= today]
+    dated_gains = new_rows + newly_dated_rows
+    historical = [r for r in dated_gains if r.get("auction_date") and r["auction_date"] <= today]
     in_window = [r for r in historical if r["auction_date"] >= floor]
     future = [r for r in new_rows if r.get("auction_date") and r["auction_date"] > today]
     undated = [r for r in new_rows if not r.get("auction_date")]
@@ -310,6 +337,7 @@ def harvest(workers=12):
                "source_url": SITEMAP, "sitemap_property_urls": len(urls),
                "details_captured": len(rows), "retained_appearances": retained,
                "run_new_appearances": len(new_rows),
+               "run_newly_dated_existing_appearances": len(newly_dated_rows),
                "run_new_historical_dated_appearances": len(historical),
                "run_new_address_records": sum(bool(r.get("address")) for r in new_rows),
                "run_new_partial_lots": sum(r.get("record_quality") != "address_record" for r in new_rows),
@@ -339,5 +367,6 @@ def harvest(workers=12):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--workers", type=int, default=12)
+    parser.add_argument("--reparse-saved", action="store_true")
     args = parser.parse_args()
-    harvest(args.workers)
+    harvest(args.workers, args.reparse_saved)
