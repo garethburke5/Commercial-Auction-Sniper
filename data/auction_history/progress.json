@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-19T17:10:52.698205+00:00",
-  "individual_lot_records_captured": 316988,
-  "records_with_address": 305671,
+  "generated_at": "2026-11-19T21:20:49.011133+00:00",
+  "individual_lot_records_captured": 317000,
+  "records_with_address": 305683,
   "partial_lot_records": 11317,
-  "exact_address_groups": 171207,
-  "groups_with_repeat_appearances": 43226,
+  "exact_address_groups": 171217,
+  "groups_with_repeat_appearances": 43228,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -39,7 +39,7 @@
     "Auction House Lincolnshire, North Notts & South Yorks": 925,
     "Auction House London": 19917,
     "Auction House Manchester": 140,
-    "Auction House North East": 792,
+    "Auction House North East": 793,
     "Auction House North West": 814,
     "Auction House North Yorkshire & Tees Valley": 37,
     "Auction House Northants, Beds & Bucks": 47,
@@ -117,7 +117,7 @@
     "Online Property Auction Group": 51,
     "Opal Property": 20,
     "Pattinson Auctions": 449,
-    "Paul Fosh Auctions": 5698,
+    "Paul Fosh Auctions": 5707,
     "Pearson Ferrier": 275,
     "Pearsons Auctions": 520,
     "Phillip Arnold Auctions": 2431,
@@ -145,7 +145,7 @@
     "TW Gaze": 28,
     "The Auction Company": 123,
     "The Property Auction House": 132,
-    "Town & Country Property Auctions": 3129,
+    "Town & Country Property Auctions": 3131,
     "Tutis Estates": 31,
     "Unknown auctioneer": 14,
     "Webbers": 99,
@@ -179,16 +179,16 @@
     "2023": 33872,
     "2024": 42785,
     "2025": 48881,
-    "2026": 49764,
+    "2026": 49776,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42885,
-    "land": 20050,
+    "commercial": 42887,
+    "land": 20055,
     "mixed": 1,
     "mixed-use": 47852,
-    "residential": 154371,
-    "unknown": 51829
+    "residential": 154372,
+    "unknown": 51833
   },
   "date_range": [
     "2002-10-31",
@@ -208,13 +208,13 @@
     "through_date": "2026-11-19",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308373,
-      "auction_ids_observed": 16108,
+      "lot_appearances": 308384,
+      "auction_ids_observed": 16110,
       "with_guide_price": 110021,
       "with_sale_price": 114889,
       "with_both_prices": 50892,
-      "marked_sold": 157882,
-      "marked_sold_without_sale_price": 43733
+      "marked_sold": 157885,
+      "marked_sold_without_sale_price": 43736
     },
     "by_auctioneer_and_year": [
       {
@@ -7865,13 +7865,13 @@
       {
         "auctioneer": "Paul Fosh Auctions",
         "year": 2026,
-        "lot_appearances": 973,
+        "lot_appearances": 982,
         "auction_ids_observed": 80,
         "with_guide_price": 0,
         "with_sale_price": 539,
         "with_both_prices": 0,
-        "marked_sold": 592,
-        "marked_sold_without_sale_price": 53
+        "marked_sold": 594,
+        "marked_sold_without_sale_price": 55
       },
       {
         "auctioneer": "Pearsons Auctions",
@@ -9603,13 +9603,13 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1432,
-        "auction_ids_observed": 625,
+        "lot_appearances": 1434,
+        "auction_ids_observed": 627,
         "with_guide_price": 0,
         "with_sale_price": 261,
         "with_both_prices": 0,
-        "marked_sold": 822,
-        "marked_sold_without_sale_price": 561
+        "marked_sold": 823,
+        "marked_sold_without_sale_price": 562
       },
       {
         "auctioneer": "Tutis Estates",
@@ -9844,7 +9844,7 @@
       }
     ],
     "undated_appearances": 5251,
-    "future_dated_appearances": 244,
+    "future_dated_appearances": 245,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -9855,12 +9855,12 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-19T02:57:55.474491+00:00",
-    "lots_captured": 5698,
-    "current_run_unique_lots": 5693,
-    "expected_public_results": 5693,
-    "run_new_appearances": 0,
-    "run_new_address_records": 0,
+    "checked_at": "2026-11-19T21:11:44.951655+00:00",
+    "lots_captured": 5707,
+    "current_run_unique_lots": 5702,
+    "expected_public_results": 5702,
+    "run_new_appearances": 9,
+    "run_new_address_records": 9,
     "run_new_partial_lots": 0,
     "retained_not_in_current_public_pagination": 5,
     "pages_captured": [
@@ -9977,9 +9977,10 @@
       111,
       112,
       113,
-      114
+      114,
+      115
     ],
-    "pages_expected": 114,
+    "pages_expected": 115,
     "results_complete": true,
     "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
