@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-19T07:24:43.664555+00:00",
-  "individual_lot_records_captured": 316914,
-  "records_with_address": 305598,
+  "generated_at": "2026-11-19T07:31:50.845379+00:00",
+  "individual_lot_records_captured": 316919,
+  "records_with_address": 305603,
   "partial_lot_records": 11316,
-  "exact_address_groups": 171137,
+  "exact_address_groups": 171142,
   "groups_with_repeat_appearances": 43224,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -77,7 +77,7 @@
     "City & Rural Property Auctions": 166,
     "Clarke & Simpson": 170,
     "Clive Emson": 4152,
-    "Connect UK Auctions": 36,
+    "Connect UK Auctions": 41,
     "Cooper and Tanner": 125,
     "Cottons": 7553,
     "Dawsons": 139,
@@ -153,7 +153,7 @@
     "abbotFox": 8
   },
   "by_year": {
-    "null": 5240,
+    "null": 5244,
     "2002": 129,
     "2003": 717,
     "2004": 689,
@@ -178,15 +178,15 @@
     "2023": 33870,
     "2024": 42771,
     "2025": 48858,
-    "2026": 49740,
+    "2026": 49741,
     "2027": 6
   },
   "by_sector": {
-    "commercial": 42880,
+    "commercial": 42881,
     "land": 20044,
     "mixed": 1,
-    "mixed-use": 47839,
-    "residential": 154328,
+    "mixed-use": 47840,
+    "residential": 154331,
     "unknown": 51822
   },
   "date_range": [
@@ -195,7 +195,7 @@
   ],
   "surviving_catalogues_completely_harvested": 5011,
   "catalogues_incomplete_or_unreconciled": 567,
-  "catalogue_fetch_or_parse_failures": 55,
+  "catalogue_fetch_or_parse_failures": 50,
   "limits": [
     "Counts exclude the pre-existing unverified property_history.json; do not add the two totals.",
     "Exact address groups are not a verified count of unique physical buildings.",
@@ -207,9 +207,9 @@
     "through_date": "2026-11-19",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 308322,
-      "auction_ids_observed": 16087,
-      "with_guide_price": 110015,
+      "lot_appearances": 308323,
+      "auction_ids_observed": 16088,
+      "with_guide_price": 110016,
       "with_sale_price": 114879,
       "with_both_prices": 50886,
       "marked_sold": 157867,
@@ -4872,9 +4872,9 @@
       {
         "auctioneer": "Connect UK Auctions",
         "year": 2026,
-        "lot_appearances": 11,
-        "auction_ids_observed": 5,
-        "with_guide_price": 11,
+        "lot_appearances": 12,
+        "auction_ids_observed": 6,
+        "with_guide_price": 12,
         "with_sale_price": 0,
         "with_both_prices": 0,
         "marked_sold": 10,
@@ -9798,7 +9798,7 @@
         "marked_sold_without_sale_price": 0
       }
     ],
-    "undated_appearances": 5240,
+    "undated_appearances": 5244,
     "future_dated_appearances": 232,
     "national_completeness_verified": false,
     "limits": [

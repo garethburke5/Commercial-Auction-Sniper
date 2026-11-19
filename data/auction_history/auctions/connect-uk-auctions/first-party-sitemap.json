@@ -3,34 +3,13 @@
   "source_auction_id": "connect-uk:first-party-sitemap",
   "source_url": "https://connectukauctions.co.uk/sitemap.xml",
   "catalogue_complete": false,
-  "source_rows_complete": false,
-  "pagination_reconciled": false,
-  "denominator_reconciled": false,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
   "visible_property_urls": 41,
-  "details_captured": 36,
-  "lots_captured": 36,
+  "details_captured": 41,
+  "lots_captured": 41,
   "completion_scope": "every surviving first-party /property/ URL in the public sitemap; not proof of removed historical lots",
-  "errors": [
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmq82kpsb005yfyjt4nj1byj6",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmrw3gpw200cygwjt82j17cga",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmtu42k5v0000ywjt6biiqplf",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmu2eik1v000b96jtqttspi8w",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmu5a3udu001ueyjttb06slx7",
-      "error": "ValueError: individual auction method absent"
-    }
-  ],
-  "checked_at": "2026-11-19T07:23:03.949708+00:00"
+  "errors": [],
+  "checked_at": "2026-11-19T07:30:48.467453+00:00"
 }

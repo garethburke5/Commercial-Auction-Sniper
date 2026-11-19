@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-19T07:23:03.950085+00:00",
+  "checked_at": "2026-11-19T07:30:48.467812+00:00",
   "auctioneer": "Connect UK Auctions",
   "source_trading_names": [
     "Connect UK Sales Ltd",
@@ -8,34 +8,39 @@
   "branches_and_trading_names_counted_separately": false,
   "source_url": "https://connectukauctions.co.uk/sitemap.xml",
   "sitemap_property_urls": 41,
-  "details_captured": 36,
-  "retained_appearances": 36,
-  "run_new_appearances": 3,
-  "run_new_historical_dated_appearances": 2,
-  "run_new_address_records": 3,
+  "details_captured": 41,
+  "retained_appearances": 41,
+  "run_new_appearances": 5,
+  "run_new_historical_dated_appearances": 0,
+  "run_new_address_records": 5,
   "run_new_partial_lots": 0,
-  "run_new_dated_address_records_within_20_years": 2,
-  "run_new_commercial_or_mixed": 1,
+  "run_new_dated_address_records_within_20_years": 0,
+  "run_new_commercial_or_mixed": 2,
   "run_new_commercial_or_mixed_within_20_years": 0,
-  "run_new_guide_prices": 3,
+  "run_new_guide_prices": 5,
   "run_new_sale_prices": 0,
-  "run_new_starting_bids": 3,
+  "run_new_starting_bids": 5,
   "run_new_rents": 0,
   "newly_covered_source_years": [],
-  "new_undated_records": 1,
+  "new_undated_records": 5,
   "new_future_dated_records": 0,
   "exact_overlap_candidates_excluded": 0,
   "overlap_candidates": [],
-  "date_diagnostics_count": 4,
+  "date_diagnostics_count": 8,
   "date_diagnostics": [
-    {
-      "source_id": "cmn4iugyw00050rjtmey3pvbr",
-      "source_url": "https://connectukauctions.co.uk/property/cmn4iugyw00050rjtmey3pvbr",
-      "reason": "no explicit individual auction date; no page or publication date substituted"
-    },
     {
       "source_id": "cmtctuqb9000k9vjtq2d9jd9w",
       "source_url": "https://connectukauctions.co.uk/property/cmtctuqb9000k9vjtq2d9jd9w",
+      "reason": "no explicit individual auction date; no page or publication date substituted"
+    },
+    {
+      "source_id": "cmrw3gpw200cygwjt82j17cga",
+      "source_url": "https://connectukauctions.co.uk/property/cmrw3gpw200cygwjt82j17cga",
+      "reason": "no explicit individual auction date; no page or publication date substituted"
+    },
+    {
+      "source_id": "cmq82kpsb005yfyjt4nj1byj6",
+      "source_url": "https://connectukauctions.co.uk/property/cmq82kpsb005yfyjt4nj1byj6",
       "reason": "no explicit individual auction date; no page or publication date substituted"
     },
     {
@@ -44,46 +49,41 @@
       "reason": "no explicit individual auction date; no page or publication date substituted"
     },
     {
+      "source_id": "cmtu42k5v0000ywjt6biiqplf",
+      "source_url": "https://connectukauctions.co.uk/property/cmtu42k5v0000ywjt6biiqplf",
+      "reason": "no explicit individual auction date; no page or publication date substituted"
+    },
+    {
+      "source_id": "cmu5a3udu001ueyjttb06slx7",
+      "source_url": "https://connectukauctions.co.uk/property/cmu5a3udu001ueyjttb06slx7",
+      "reason": "no explicit individual auction date; no page or publication date substituted"
+    },
+    {
+      "source_id": "cmu2eik1v000b96jtqttspi8w",
+      "source_url": "https://connectukauctions.co.uk/property/cmu2eik1v000b96jtqttspi8w",
+      "reason": "no explicit individual auction date; no page or publication date substituted"
+    },
+    {
       "source_id": "cmwesm81e0001z7jtvexn11c4",
       "source_url": "https://connectukauctions.co.uk/property/cmwesm81e0001z7jtvexn11c4",
       "reason": "no explicit individual auction date; no page or publication date substituted"
     }
   ],
-  "failures": [
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmq82kpsb005yfyjt4nj1byj6",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmrw3gpw200cygwjt82j17cga",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmtu42k5v0000ywjt6biiqplf",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmu2eik1v000b96jtqttspi8w",
-      "error": "ValueError: individual auction method absent"
-    },
-    {
-      "source_url": "https://connectukauctions.co.uk/property/cmu5a3udu001ueyjttb06slx7",
-      "error": "ValueError: individual auction method absent"
-    }
-  ],
+  "failures": [],
   "by_year": {
-    "unda": 4,
-    "2026": 32
+    "unda": 8,
+    "2026": 33
   },
   "by_sector": {
-    "mixed-use": 1,
+    "residential": 7,
     "land": 31,
-    "residential": 4
+    "mixed-use": 2,
+    "commercial": 1
   },
   "by_status": {
-    "available": 24,
+    "available": 29,
     "sold": 12
   },
-  "complete_visible_surface": false,
+  "complete_visible_surface": true,
   "national_completeness_verified": false
 }
