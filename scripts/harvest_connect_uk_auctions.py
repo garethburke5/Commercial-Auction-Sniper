@@ -183,6 +183,9 @@ def parse_detail(html, url, evidence):
     panel_label = clean(panel.select_one("span").get_text(" ", strip=True)) if panel and panel.select_one("span") else None
     panel_price = clean(panel.select_one("strong").get_text(" ", strip=True)) if panel and panel.select_one("strong") else None
     starting_bid = money(panel_price) if panel_label and "starting" in panel_label.lower() else None
+    outcome_panel_text = clean(panel.parent.get_text(" ", strip=True)) if panel and panel.parent else None
+    final_bid_match = re.search(r"(?i)final\\s+bid\\s*£\\s*([\\d,.]+)", outcome_panel_text or "")
+    sale_price = money(final_bid_match.group(1)) if final_bid_match and status_for(status_text) == "sold" else None
     facts = fact_values(main)
     property_type = facts.get("property type") or clean(main.select_one(".pd-type").get_text(" ", strip=True) if main.select_one(".pd-type") else None)
     description_el = main.select_one(".pd-description")
@@ -195,7 +198,7 @@ def parse_detail(html, url, evidence):
         appearance_id=f"{SOURCE}|connect-uk:{source_id}", address=address, postcode=postcode,
         locality=location, sector=sector_for(property_type, combined), property_type=property_type,
         tenure=facts.get("tenure"), guide_price=guide, guide_price_high=None,
-        sale_price=None, starting_bid=starting_bid, status=status_for(status_text),
+        sale_price=sale_price, starting_bid=starting_bid, status=status_for(status_text),
         description=description, annual_rent=rent, rent_text=rent_text,
         image_urls=sorted(set(img.get("src") for img in main.select("img[src]") if img.get("src"))),
         identity_method="stable_first_party_property_id", record_quality="address_record",
@@ -204,7 +207,7 @@ def parse_detail(html, url, evidence):
         auction_date_text=(clean(date_el.get_text(" ", strip=True)) if date_el else None),
         sale_method=method, guide_text=(f"{guide_label} {guide_text}" if guide is not None else None),
         starting_bid_text=(f"{panel_label} {panel_price}" if starting_bid is not None else None),
-        result_text=status_text, source_evidence=evidence,
+        result_text=outcome_panel_text or status_text, source_evidence=evidence,
         operator_canonical_name=SOURCE, source_trading_names=TRADING_NAMES,
         branches_and_trading_names_counted_separately=False)
     diagnostic = None
@@ -279,6 +282,13 @@ def harvest(workers=12):
         admitted.append(row)
     current_by_id = {row["appearance_id"]: row for row in admitted}
     new_rows = [row for key, row in current_by_id.items() if key not in prior_by_id]
+    evidence_deltas = {}
+    for field in ("guide_price", "sale_price", "starting_bid", "annual_rent"):
+        evidence_deltas[field] = sum(
+            row.get(field) is not None
+            and (key not in prior_by_id or prior_by_id[key].get(field) is None)
+            for key, row in current_by_id.items()
+        )
     merged = dict(prior_by_id)
     merged.update(current_by_id)
     retained_rows = sorted(merged.values(), key=lambda r: (r.get("auction_date") or "", r["appearance_id"]))
@@ -313,10 +323,10 @@ def harvest(workers=12):
                "run_new_dated_address_records_within_20_years": sum(bool(r.get("address")) for r in in_window),
                "run_new_commercial_or_mixed": sum(r.get("sector") in {"commercial", "mixed-use"} for r in new_rows),
                "run_new_commercial_or_mixed_within_20_years": sum(r.get("sector") in {"commercial", "mixed-use"} for r in in_window),
-               "run_new_guide_prices": sum(r.get("guide_price") is not None for r in new_rows),
-               "run_new_sale_prices": sum(r.get("sale_price") is not None for r in new_rows),
-               "run_new_starting_bids": sum(r.get("starting_bid") is not None for r in new_rows),
-               "run_new_rents": sum(r.get("annual_rent") is not None for r in new_rows),
+               "run_new_guide_prices": evidence_deltas["guide_price"],
+               "run_new_sale_prices": evidence_deltas["sale_price"],
+               "run_new_starting_bids": evidence_deltas["starting_bid"],
+               "run_new_rents": evidence_deltas["annual_rent"],
                "newly_covered_source_years": sorted(current_years - prior_years),
                "new_undated_records": len(undated), "new_future_dated_records": len(future),
                "exact_overlap_candidates_excluded": len(overlaps), "overlap_candidates": overlaps,
@@ -339,4 +349,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     harvest(args.workers)
 
-# Focused sitemap run checkpoint: 2026-11-19-retry-4
+# Focused sitemap run checkpoint: 2026-11-19-outcome-fix-1
