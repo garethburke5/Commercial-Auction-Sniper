@@ -6,8 +6,8 @@ all property sectors. Connect UK Auctions, Connect UK Sales Ltd and the land
 branding are one operator lineage, not separate auctioneers.
 
 Only an explicit individual auction date is stored. Guide price, starting bid
-and achieved sale price remain distinct; a Sold label without an achieved
-amount never creates sale-price evidence.
+and achieved sale price remain distinct; visible FINAL BID result panels retain
+their published amount, while a Sold label alone never creates sale-price evidence.
 """
 from __future__ import annotations
 
