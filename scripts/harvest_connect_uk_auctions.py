@@ -349,4 +349,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     harvest(args.workers)
 
-# Focused sitemap run checkpoint: 2026-11-19-outcome-fix-1
+# Focused sitemap run checkpoint: 2026-11-19-outcome-fix-2
