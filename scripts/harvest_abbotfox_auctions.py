@@ -420,6 +420,7 @@ def harvest(workers: int = 8) -> dict:
         "property_links_observed": link_count,
         "auction_cards_captured": len(rows),
         "retained_appearances": retained,
+        "lots_captured": retained,
         "page_count": page_count,
         "completion_scope": "all surviving first-party search cards explicitly marked as auctions; ordinary agency listings excluded; removed older listings are outside the visible denominator",
         "errors": failures + detail_failures,
