@@ -119,15 +119,22 @@ def stable_id(slug: str, address: str, auction_end: str) -> str:
 def lot_matches(soup: BeautifulSoup) -> list[re.Match]:
     lines = [clean(line) for line in soup.get_text("\n", strip=True).splitlines()]
     lines = [line for line in lines if line]
-    candidates = set(lines)
-    candidates.update(" ".join(lines[max(0, i - 1):i + 1]) for i in range(len(lines)))
     matches, seen = [], set()
-    for candidate in candidates:
-        for match in LOT_RE.finditer(candidate):
-            key = tuple(match.group(name) for name in ("address", "start", "end", "guide", "scale"))
-            if key not in seen:
-                seen.add(key)
-                matches.append(match)
+    for index, line in enumerate(lines):
+        candidates = [line]
+        # Join adjacent nodes only when this node is not already a complete
+        # lot. Split markup remains supported without prefixing the next lot.
+        if not LOT_RE.search(line):
+            if index:
+                candidates.append(f"{lines[index - 1]} {line}")
+            if index + 1 < len(lines):
+                candidates.append(f"{line} {lines[index + 1]}")
+        for candidate in candidates:
+            for match in LOT_RE.finditer(candidate):
+                key = tuple(match.group(name) for name in ("address", "start", "end", "guide", "scale"))
+                if key not in seen:
+                    seen.add(key)
+                    matches.append(match)
     return matches
 
 
