@@ -34,6 +34,7 @@ on:
           - dawsons
           - bagshaws-saved-narratives
           - bramleys-news
+          - bradley-hall
   push:
     branches: [main]
     paths:
@@ -99,6 +100,8 @@ on:
       - scripts/harvest_eddisons_insights.py
       - scripts/harvest_bramleys_news.py
       - tests/test_bramleys_news.py
+      - scripts/harvest_bradley_hall.py
+      - tests/test_bradley_hall.py
       - scripts/harvest_mchugh_results.py
       - scripts/harvest_mchugh_legacy.py
       - scripts/harvest_phillip_arnold_results.py
@@ -1170,6 +1173,12 @@ jobs:
         if: inputs.focus == 'bramleys-news' || startsWith(github.event.head_commit.message, 'Run focused Bramleys auction-news expansion')
         timeout-minutes: 15
         run: python -u scripts/harvest_bramleys_news.py
+      - name: Collect Bradley Hall complete visible online-lot inventory
+        if: inputs.focus == 'bradley-hall' || startsWith(github.event.head_commit.message, 'Run focused Bradley Hall expansion')
+        timeout-minutes: 25
+        run: |
+          python -m pytest tests/test_bradley_hall.py -q
+          python -u scripts/harvest_bradley_hall.py --workers 12
       - name: Collect Butters John Bee paired catalogue and result archive
         if: startsWith(github.event.head_commit.message, 'Run focused Butters John Bee archive expansion')
         timeout-minutes: 25
