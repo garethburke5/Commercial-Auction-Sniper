@@ -239,6 +239,8 @@ def parse_detail(html, url, evidence=None):
         status = "unsold"
     elif re.search(r"\bsold at auction\b|\bsold\b", status_text or "", re.I):
         status = "sold"
+    elif re.search(r"\bFor Sale By Auction\b", status_text or "", re.I):
+        status = "available"
     elif auction_date and auction_date > date.today().isoformat():
         status = "available"
     else:
