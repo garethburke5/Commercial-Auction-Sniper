@@ -4028,3 +4028,12 @@ def test_auction_works_target_remains_a_first_party_growth_route():
     source = grids.SOURCES["auction-works"]
     assert source["base"] == "https://www.auctionworks.co.uk"
     assert source["archive_path"] == "/search"
+
+
+def test_the_auction_group_shared_platform_growth_route():
+    source = grids.SOURCES["the-auction-group"]
+    assert source["auctioneer"] == "The Auction Group"
+    assert source["base"] == "https://online.the-auctiongroup.co.uk"
+    assert source["archive_path"] == "/search"
+    assert source["exclude_exact_cross_source_overlaps"] is True
+    assert grids.select_targets(["the-auction-group"]) == ["the-auction-group"]

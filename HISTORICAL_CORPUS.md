@@ -1,6 +1,19 @@
 # Historical auction property corpus
 
 
+## 25 November 2026 — Bradley Hall visible inventory bank and detail repair
+
+Historical run [45700277214](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45700277214) completed successfully and banked commit [5d1e78d6](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/5d1e78d6ba63ad03a388e691e96b6de3709f0651). The reusable Bradley Hall collector reconciled both first-party search pages and all 82 visible cards. Eighteen property appearances survived cross-source exact address/date deduplication; 64 overlap candidates were excluded. The repair retry captured all 82 stable detail pages, leaving zero fetch failures and making the currently visible surface evidence-complete. This is not proof of removed historical lots.
+
+Bradley Hall net growth is **18 appearances and 18 address records**. One is a dated historical address record inside the strict twenty-year window and 17 are future-dated; there are no undated or partial additions. Card-level classification identifies **4 commercial/mixed-use appearances overall and 0 in-window**. The source adds **17 guides, 1 achieved price, 13 starting bids and 2 rents**, and opens source-year **2026**. Bradley Hall, Bradley Hall Ltd and Bradley Hall Auctions remain one operator lineage rather than three auctioneers.
+
+The detail retry exposed a sector-integrity issue: generic template wording reclassified every retained row as mixed-use. That inflated 18-row figure is rejected. A regression-tested focused repair preserves a known card sector and classifies an unknown row only from property-specific fields. The trustworthy run-growth subset remains four commercial/mixed rows. The workflow guard now prevents this focused repair from starting the generic bounded rotation.
+
+The corpus checkpoint after the protected bank/rebuild is **317,862 appearances, 306,545 address records and 11,317 partial records**. National completeness remains false. Public platform run [45704576323](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45704576323) completed successfully before the repair was queued.
+
+Auction Local is no longer the next target: on 25 November its first-party search surface returned **0 of 0**, and recently indexed detail UUIDs returned 404. The materially different next growth route is **The Auction Group**. Its accessible first-party EIG surface exposes **195 individually addressed lots** across multiple auction dates. It is prepared as a single manifest-driven run through the reusable retained-grid collector, with exact dates, prices, rents, outcomes, stable detail URLs, immutable snapshots and cross-source overlap exclusion required before growth is claimed. Start it only after the Bradley sector repair and its publication checkpoint are terminal.
+
+
 ## 25 November 2026 — Bramleys auction-news batch
 
 Focused historical run [45652786316](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45652786316) completed successfully and banked commit `c65c4bb8f999b86c1bbedcf8ff1d63b8754631a1`. The reusable collector reconciled six first-party news archive pages and all five discovered auction-tagged articles. Strict address, bidding-window and guide admission retained two individual 2023 property appearances and two guide-price observations. Three furniture-sale articles and one generic auction-advice article produced no property records and were not counted.

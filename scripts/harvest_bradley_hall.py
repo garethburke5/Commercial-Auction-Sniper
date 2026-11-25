@@ -224,9 +224,13 @@ def enrich_detail(row, html, evidence):
     rent, rent_text = annual_rent(text)
     if row.get("annual_rent") is None and rent is not None:
         row["annual_rent"], row["rent_text"] = rent, rent_text
-    row["sector"] = sector_for(" ".join(filter(None, (
-        row.get("address"), row.get("property_title"), row.get("description"), text[:12000],
-    ))))
+    # The detail template contains generic residential and commercial wording
+    # in its boilerplate. Preserve a card classification, and only classify an
+    # unknown row from property-specific fields rather than the whole page.
+    if (row.get("sector") or "unknown") == "unknown":
+        row["sector"] = sector_for(" ".join(filter(None, (
+            row.get("address"), row.get("property_title"), row.get("description"),
+        ))))
     row["image_urls"] = sorted({
         urljoin(row["original_url"], img["src"]) for img in soup.select("img[src]")
         if "eigpropertyauctions" in img.get("src", "")

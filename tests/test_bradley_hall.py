@@ -90,3 +90,17 @@ def test_detail_enrichment_adds_guide_rent_and_snapshot():
     assert enriched["annual_rent"] == 15000
     assert enriched["sector"] == "commercial"
     assert len(enriched["source_evidence"]) == 2
+
+
+def test_detail_boilerplate_does_not_inflate_sector():
+    row = {
+        "guide_price": 100000, "annual_rent": None, "rent_text": None,
+        "status": "available", "sector": "residential",
+        "address": "1 Example Road, Newcastle, NE1 1AA",
+        "property_title": "Two Bedroom Terrace", "description": "Vacant house",
+        "original_url": "https://auction.bradleyhall.co.uk/lot/details/11111111-2222-3333-4444-555555555555",
+        "source_evidence": [evidence()],
+    }
+    html = "<main><h1>Two Bedroom Terrace</h1></main><footer>Residential and commercial property auctions</footer>"
+    enriched = source.enrich_detail(row, html, dict(evidence(), basis="stable lot detail"))
+    assert enriched["sector"] == "residential"

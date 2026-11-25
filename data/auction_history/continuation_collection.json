@@ -1,39 +1,37 @@
 {
-  "generated_at": "2026-11-25T16:44:00Z",
-  "status": "ready_for_collection",
+  "generated_at": "2026-11-25T21:39:00Z",
+  "status": "bradley_sector_integrity_repair_queued_then_the_auction_group_ready",
   "previous_run": {
-    "run_id": 45652786316,
-    "protected_run_ids": [
-      45652786316,
-      45653810489,
-      45598349040
+    "run_id": 45700277214,
+    "commit": "5d1e78d6ba63ad03a388e691e96b6de3709f0651",
+    "auctioneer": "Bradley Hall Auctions",
+    "trading_names": [
+      "Bradley Hall",
+      "Bradley Hall Ltd",
+      "Bradley Hall Auctions"
     ],
-    "commit": "c65c4bb8f999b86c1bbedcf8ff1d63b8754631a1",
-    "total_source_appearances_banked": 2,
-    "net_new_appearances": 2,
-    "newly_historical_dated_appearances": 2,
-    "newly_dated_address_records_within_20_years": 2,
-    "commercial_mixed_use_new_appearances": 0,
+    "result": "The first-party search denominator reconciled 82/82 cards over two pages. Eighteen non-overlapping property appearances were banked; 64 exact address/date overlaps were excluded. A detail repair captured all 82 stable detail pages. A subsequent sector-only integrity repair is queued because generic template wording must not reclassify every row as mixed-use.",
+    "total_source_appearances_banked": 18,
+    "net_new_appearances": 18,
+    "newly_historical_dated_appearances": 1,
+    "newly_dated_address_records_within_20_years": 1,
+    "commercial_mixed_use_new_appearances": 4,
     "commercial_mixed_use_new_appearances_within_20_years": 0,
     "newly_covered_source_years": [
-      "Bramleys LLP:2023"
+      "Bradley Hall Auctions:2026"
     ],
-    "new_guide_price_evidence": 2,
-    "new_sale_price_evidence": 0,
-    "new_starting_bid_evidence": null,
-    "new_rent_evidence": 0,
+    "new_guide_price_evidence": 17,
+    "new_sale_price_evidence": 1,
+    "new_starting_bid_evidence": 13,
+    "new_rent_evidence": 2,
     "undated_new_records": 0,
-    "future_dated_new_records": 0,
-    "duplicate_new_records": 0,
+    "future_dated_new_records": 17,
+    "duplicate_new_records": 64,
     "partial_new_records": 0,
-    "exact_overlap_candidates_excluded": null,
-    "auctioneer": "Bramleys LLP",
-    "trading_names": [
-      "Bramleys",
-      "Bramleys LLP",
-      "Bramleys Estate Agents"
-    ],
-    "result": "The reusable news collector reconciled six archive pages and five auction-tagged articles. Strict address/date/guide admission banked two 2023 property appearances and two guide observations. Furniture-sale and generic advice articles were preserved as source evidence but counted as zero properties. No partial, undated, future-dated, commercial/mixed-use or achieved-price growth is claimed."
+    "detail_pages_captured": 82,
+    "visible_lot_denominator": 82,
+    "complete_visible_surface": true,
+    "integrity_note": "Trust the original card-level count of four commercial/mixed-use additions. Do not report the temporary all-18 mixed-use detail classification."
   },
   "runs": [
     {
@@ -1067,25 +1065,25 @@
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction Local — independent UK property auctioneer",
-    "task": "Build a reusable first-party collector that inventories the complete accessible /search result pagination and every linked /lot/details/{uuid} page, then banks all uncaptured individually evidenced property appearances across every sector in one bounded batch.",
-    "reason": "Auction Local is a genuine uncovered operator. Its first-party search surface and stable UUID lot-detail URLs are accessible, and indexed detail pages contain explicit auction evidence. This offers a larger address-level inventory than another Bramleys refresh.",
-    "source_route": "https://www.auctionlocal.co.uk/search and all linked https://www.auctionlocal.co.uk/lot/details/{uuid} pages",
-    "collector_target": "scripts/harvest_auction_local.py",
+    "auctioneer_lineage": "The Auction Group — independent UK property auctioneer",
+    "task": "After the Bradley sector integrity repair and its publication checkpoint, run one manifest-defined batch through the reusable EIG retained-grid collector across all 195 currently visible first-party lots and every represented date/property sector.",
+    "reason": "The national register has zero retained appearances under The Auction Group, while its accessible first-party EIG search surface exposes 195 individually addressed lots with stable detail URLs, explicit dates, results, guides and sale prices.",
+    "source_route": "https://online.the-auctiongroup.co.uk/search and linked stable lot detail pages",
+    "collector_target": "scripts/harvest_eig_retained_grids.py with config/retained_grid_batch.json",
     "observed_inventory": {
       "national_register_retained_appearances": 0,
-      "first_party_search_surface_accessible": true,
-      "stable_lot_detail_urls_observed": true,
-      "sectors": "residential, commercial, land and mixed-use where published",
-      "denominator_status": "pagination and result total must be reconciled by the collector before completeness claims"
+      "first_party_visible_lot_denominator": 195,
+      "shared_platform": "EIG white-label retained grid",
+      "sectors": "all published sectors",
+      "denominator_status": "must be pagination- and detail-reconciled before completeness claims"
     },
     "admission_rules": [
-      "Enumerate all accessible search pagination and stable lot-detail UUIDs before claiming the visible archive is reconciled.",
-      "Admit only individual property pages with explicit auction evidence; directory and search pages are inventory evidence, not properties.",
-      "Preserve exact bidding dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable index/detail snapshots; leave unknown values null.",
-      "Deduplicate exact property/date overlaps and reconcile Auction Local trading labels as one operator."
+      "Admit only individual property cards with explicit auction evidence.",
+      "Preserve exact dates, guide/starting/current/achieved prices distinctly, rents, all outcomes, original URLs and immutable snapshots; unknown values remain null.",
+      "Deduplicate stable UUIDs and exact address/date overlaps before claiming net growth.",
+      "Reconcile branches and trading names without counting aliases as separate auctioneers."
     ],
-    "blocked_route_avoidance": "Do not refresh Bramleys' six-page news surface: five auction-tagged articles were reconciled and only two property lot blocks survived strict admission. Do not rerun abbotFox without new auction URLs."
+    "blocked_route_avoidance": "Auction Local returned 0 of 0 on 25 November 2026 and recently indexed stable detail URLs returned 404. Do not revisit without a new first-party inventory route."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
@@ -1118,13 +1116,13 @@
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-25T16:44:00Z",
+  "updated_at": "2026-11-25T21:39:00Z",
   "in_flight_protection": {
-    "active_workflow_run": 45653810489,
-    "status": "Historical run 45652786316 completed successfully and banked commit c65c4bb8f999b86c1bbedcf8ff1d63b8754631a1. Public platform run 45653810489 is still in progress from that immutable source revision. No additional collector was launched.",
-    "current_freshness_blocker": "Current collection freshness run 45594999974 remains failed; the all-sector historical bank is separate from the commercial website filter.",
-    "action": "Do not launch Auction Local collection until public run 45653810489 completes and active workflow runs are rechecked.",
-    "last_reviewed": "2026-11-25T16:44:00Z"
+    "completed_run_id": 45704576323,
+    "name": "Public platform foundation",
+    "head_sha": "5d1e78d6ba63ad03a388e691e96b6de3709f0651",
+    "status": "completed_success",
+    "next_instruction": "Allow the focused Bradley sector repair to finish and publish before triggering the prepared The Auction Group manifest."
   },
   "corrections": [
     {

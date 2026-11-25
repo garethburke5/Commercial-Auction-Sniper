@@ -1,37 +1,24 @@
 {
-  "batch_id": "auction-house-online-2018-linked-catalogues",
-  "status": "queued_for_collection",
-  "publication_gate_status": "passed",
-  "hold_reason": "Queued after fresh writer-lane check; exact 2018 manifest is the next protected collection batch.",
-  "ready_after_batch_id": "auction-house-online-2019-linked-catalogues",
+  "batch_id": "the-auction-group-complete-visible-shared-platform",
+  "status": "prepared_after_bradley_hall_bank",
+  "publication_gate_status": "wait_for_run_45704576323",
+  "hold_reason": "Do not start until public platform run 45704576323 is terminal.",
   "sources": [
-    "auction-house-online-2018-12-14",
-    "auction-house-online-2018-02-16"
+    "the-auction-group"
   ],
-  "published_visible_cards": 4,
+  "published_visible_cards": 195,
   "source_events": [
     {
-      "source": "auction-house-online-2018-12-14",
-      "url": "https://online.auctionhouse.co.uk/past-auctions/7962",
-      "published_visible_cards": 3
-    },
-    {
-      "source": "auction-house-online-2018-02-16",
-      "url": "https://online.auctionhouse.co.uk/past-auctions/4359",
-      "published_visible_cards": 1
+      "source": "the-auction-group",
+      "url": "https://online.the-auctiongroup.co.uk/search",
+      "published_visible_cards": 195
     }
   ],
-  "notes": "Complete surviving linked first-party Auction House Online archive for 2018. The official archive index exposes only these two linked catalogues and four result cards. This small year-completion batch is a checkpoint; after it, move to a different uncovered source/year rather than continuing with exhausted Auction House Online archive labels.",
-  "preceding_batch_run": {
-    "collection_run_id": 42430045059,
-    "bank_commit": "fd76b5f3862291fa4c8896589417412b94d02e41",
-    "publication_run_id": 42431017499
-  },
+  "notes": "One reusable retained-grid batch across every currently visible The Auction Group catalogue date and property sector. Reconcile pagination, stable lot UUIDs, exact address/date overlaps, detail evidence, guides, rents and achieved prices before any completeness claim. The visible surface is not proof of deleted historical lots.",
   "trigger": {
-    "requested_at": "2026-11-08T01:13:00Z",
-    "mode": "manifest_only_recovery",
+    "mode": "manifest_shared_platform_batch",
     "accepted_workflow_prefix": "Rebuild historical database from banked records and collect retained-grid batch",
-    "preceding_publication_run": 42431017499
-  },
-  "queued_at": "2026-11-15T13:01:10+00:00"
+    "prepared_at": "2026-11-25T21:30:00Z",
+    "blocked_by_publication_run_id": 45704576323
+  }
 }

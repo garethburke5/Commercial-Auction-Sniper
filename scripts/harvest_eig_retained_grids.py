@@ -32,6 +32,12 @@ SOURCES = {
         "base": "https://www.auctionworks.co.uk",
         "archive_path": "/search",
     },
+    "the-auction-group": {
+        "auctioneer": "The Auction Group",
+        "base": "https://online.the-auctiongroup.co.uk",
+        "archive_path": "/search",
+        "exclude_exact_cross_source_overlaps": True,
+    },
     "bradley-hall": {
         "auctioneer": "Bradley Hall",
         "base": "https://auction.bradleyhall.co.uk",
