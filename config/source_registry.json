@@ -1188,6 +1188,25 @@
       "inventory_equivalence_verified": false,
       "assessment": "KILLENS LIMITED LIABILITY PARTNERSHIP (company OC335754) is the canonical operator behind Killens and Killens Online Auction. Its Chew Magna, Wells and Mendip Auction Rooms locations are offices within the same operator and are not counted as extra auctioneers. Two same-date Henton land interests remain separate because their guides and published descriptions differ. The surviving shared-platform inventory is reconciled, but deleted listings and earlier systems remain unverified.",
       "verified_on": "2026-11-15"
+    },
+    {
+      "brand": "Bramleys",
+      "source": "Bramleys LLP",
+      "canonical_network": null,
+      "parent_family": "BRAMLEYS LLP",
+      "region_slug": null,
+      "regional_labels": [
+        "Bramleys",
+        "Bramleys LLP",
+        "Bramleys Estate Agents"
+      ],
+      "source_url": "https://www.bramleys.com/auction/under-our-hammer/",
+      "collector": "scripts/harvest_bramleys_news.py",
+      "shared_feed": null,
+      "relationship_evidence": "https://www.bramleys.com/",
+      "inventory_equivalence_verified": false,
+      "assessment": "Bramleys, Bramleys LLP and Bramleys Estate Agents are labels for one operator and are not counted as separate auctioneers. The first-party news collector retains individually evidenced historical auction appearances; the current property sitemap and selected news articles do not establish complete historical catalogue coverage.",
+      "verified_on": "2026-11-25"
     }
   ],
   "priority_assessments": [
