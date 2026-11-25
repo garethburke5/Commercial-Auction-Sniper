@@ -1,35 +1,35 @@
 {
-  "generated_at": "2026-11-25T10:05:00Z",
+  "generated_at": "2026-11-25T15:10:00Z",
   "status": "ready_for_collection",
   "previous_run": {
-    "run_id": 45582858698,
+    "run_id": 45594087137,
     "protected_run_ids": [
-      45582736757,
-      45582858698
+      45594087137,
+      45598349040,
+      45594999974
     ],
-    "commit": "29e054415ff9a65ded916bfeb03fec3b791dba25",
-    "total_source_appearances_banked": 670,
-    "net_new_appearances": 670,
-    "newly_historical_dated_appearances": 672,
-    "newly_dated_address_records_within_20_years": 672,
-    "commercial_mixed_use_new_appearances": 296,
-    "commercial_mixed_use_new_appearances_within_20_years": null,
+    "commit": "d63b4d90eabfc2712b0b90686690549c62a389f3",
+    "total_source_appearances_banked": 3163,
+    "net_new_appearances": 32,
+    "newly_historical_dated_appearances": 32,
+    "newly_dated_address_records_within_20_years": 32,
+    "commercial_mixed_use_new_appearances": 2,
+    "commercial_mixed_use_new_appearances_within_20_years": 2,
     "newly_covered_source_years": [],
-    "new_guide_price_evidence": 118,
-    "new_sale_price_evidence": 57,
+    "new_guide_price_evidence": 0,
+    "new_sale_price_evidence": 1,
     "new_starting_bid_evidence": null,
-    "new_rent_evidence": 1,
-    "undated_new_records": 1,
-    "future_dated_new_records": 2,
+    "new_rent_evidence": 0,
+    "undated_new_records": 0,
+    "future_dated_new_records": 0,
     "duplicate_new_records": 0,
     "partial_new_records": 0,
-    "exact_overlap_candidates_excluded": 0,
-    "auctioneer": "Protected multi-source batch plus Auction Property Ltd",
+    "exact_overlap_candidates_excluded": null,
+    "auctioneer": "Town & Country Property Auctions",
     "trading_names": [
-      "Auction Property",
-      "Auction Property London"
+      "Town & Country Property Auctions"
     ],
-    "result": "The protected bounded batch banked 669 address appearances (Future Property Auctions 550, Auction House regional lineages 118, Pugh 1). The focused Auction Property batch banked one future mixed-use appearance and repaired five missing historical dates by reconciling 41 auction pages, 64 catalogue cards and 64 property-sitemap URLs. Combined growth is 670 net address appearances, 672 newly dated address records inside the strict twenty-year window, 296 commercial/mixed-use appearances overall, 118 new guide observations and 57 new achieved-price observations. One bounded row is undated and two newly banked rows are future-dated. No new partials or source-years were claimed. The strict in-window commercial/mixed cross-subset is left null because the aggregate protected-batch checkpoint does not expose a lossless sector-by-date delta."
+    "result": "The complete accessible 57-page Town & Country past-auction pagination banked 32 new address appearances, all dated in 2026 and inside the strict twenty-year window. Two are mixed-use, 14 residential and 16 sector-unknown. One new achieved-price observation and no new guide-price observations were added. No partial, undated, future-dated or newly covered source-year claim is made."
   },
   "runs": [
     {
@@ -383,19 +383,26 @@
       "exit_code": 0,
       "checked_at": "2026-11-18T21:15:12.322114+00:00",
       "diagnostic_tail": "14/14 pages, 404 current rows, 431 retained historical appearances, 0 new appearances, 1 guide-price variant, 0 identity conflicts, archive pagination complete."
+    },
+    {
+      "source": "town_country",
+      "outcome": "completed",
+      "exit_code": 0,
+      "checked_at": "2026-11-25T10:27:56.825744+00:00",
+      "diagnostic_tail": "57/57 pages; 2,838 current archive rows; 3,163 retained appearances; 32 new address appearances; 0 partials; 2 mixed-use; 0 new guides; 1 new achieved price; archive pagination complete."
     }
   ],
   "next_task": 20,
   "target": {
-    "auctioneer": "abbotFox Auctions",
-    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and every subsequent first-party pagination/detail URL",
-    "rationale": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
+    "auctioneer": "Bramleys LLP",
+    "source_route": "https://www.bramleys.com/news/ and accessible first-party auction-tagged article pagination, seeded by the March 2023 auction article",
+    "rationale": "The current 504-URL property sitemap contains no explicit auction pages and tested indexed historical detail pages now return 404, but first-party auction news articles retain dated individual addresses and guide evidence. This is a materially different recovery route rather than another refresh of the exhausted current-property surface.",
     "evidence": [
-      "first-party paginated property archive",
-      "first-party auction-tagged detail pages"
+      "first-party auction news articles",
+      "first-party news/archive pagination"
     ],
-    "known_evidence_count": 8,
-    "priority": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch."
+    "known_evidence_count": 3,
+    "priority": "Build and run a reusable batch collector over Bramleys' accessible first-party news/archive pages, admitting only individually addressed auction properties and banking every uncaptured appearance before moving to another source."
   },
   "storage_warning": "GitHub Actions reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs.",
   "latest_by_source": {
@@ -1019,53 +1026,55 @@
     }
   },
   "next_run": {
-    "auctioneer": "abbotFox Auctions / abbotFox",
-    "action": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch.",
-    "scope": "All sectors across auction-tagged rows in the complete accessible first-party property pagination.",
-    "rationale": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
-    "collector": "scripts/harvest_abbotfox_auctions.py"
+    "auctioneer": "Bramleys LLP",
+    "action": "Build and run a reusable batch collector over Bramleys' accessible first-party news/archive pages, admitting only individually addressed auction properties and banking every uncaptured appearance before moving to another source.",
+    "scope": "All sectors across individually addressed auction properties in accessible first-party auction-news articles.",
+    "rationale": "The current 504-URL property sitemap contains no explicit auction pages and tested indexed historical detail pages now return 404, but first-party auction news articles retain dated individual addresses and guide evidence. This is a materially different recovery route rather than another refresh of the exhausted current-property surface.",
+    "collector": "scripts/harvest_bramleys_auction_news.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "abbotFox Auctions / abbotFox — reconcile as one genuine operator/trading-name lineage",
-    "task": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch.",
-    "reason": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
-    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and every subsequent first-party pagination/detail URL",
-    "collector_target": "scripts/harvest_abbotfox_auctions.py",
+    "auctioneer_lineage": "Bramleys LLP — first-party auction-news archive",
+    "task": "Build and run a reusable batch collector over Bramleys' accessible first-party news/archive pages, admitting only individually addressed auction properties and banking every uncaptured appearance before moving to another source.",
+    "reason": "The current 504-URL property sitemap contains no explicit auction pages and tested indexed historical detail pages now return 404, but first-party auction news articles retain dated individual addresses and guide evidence. This is a materially different recovery route rather than another refresh of the exhausted current-property surface.",
+    "source_route": "https://www.bramleys.com/news/ and accessible first-party auction-tagged article pagination, seeded by the March 2023 auction article",
+    "collector_target": "scripts/harvest_bramleys_auction_news.py",
     "observed_inventory": {
-      "national_register_retained_appearances": 8,
-      "first_party_listing_records_approximately": 1471,
-      "archive_pagination_accessible": true,
-      "admission_scope": "auction-tagged individual property listings only"
+      "current_property_sitemap_urls": 504,
+      "current_sitemap_explicit_auction_pages": 0,
+      "initial_first_party_news_seed_lots": 3,
+      "historical_detail_route_status": "tested indexed property-detail URLs return 404",
+      "admission_scope": "individually addressed auction properties published in first-party news articles only"
     },
     "admission_rules": [
-      "Reconcile the complete pagination denominator before making a source-completeness claim.",
-      "Admit only individual pages with explicit auction evidence; exclude ordinary agency listings.",
-      "Preserve exact auction end dates, guides, SOLD FOR outcomes, original URLs and immutable index/detail snapshots; leave unknown values null.",
-      "Reconcile abbotFox and abbotFox Auctions as one lineage and deduplicate exact property/date overlaps before claiming growth."
+      "Inventory all accessible first-party news/archive pagination and auction-tagged articles in one bounded batch before any completeness claim.",
+      "Admit only individual property appearances with an address and explicit auction context; do not count directory, article or catalogue pages as properties.",
+      "Preserve exact auction dates, guides, achieved prices, rents and every published outcome distinctly; preserve original URLs and immutable article snapshots; leave unknown values null.",
+      "Deduplicate exact address/date overlaps against existing Bramleys holdings and keep related legal interests separate."
     ],
-    "blocked_route_avoidance": "Do not refresh Auction Property's reconciled 64-URL surface, Connect UK's 41-URL surface or other exhausted archives unless a new lot URL or materially different recovery route appears."
+    "blocked_route_avoidance": "Do not rerun abbotFox: all 123 pages and 1,475 visible listings were reconciled, only eight explicit auction cards existed and all eight appearances are banked. Do not refresh Bramleys' current property sitemap unless new auction URLs appear."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "abbotFox Auctions / abbotFox — reconcile as one genuine operator/trading-name lineage",
-    "task": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch.",
-    "reason": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
-    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and every subsequent first-party pagination/detail URL",
-    "collector_target": "scripts/harvest_abbotfox_auctions.py",
+    "auctioneer_lineage": "Bramleys LLP — first-party auction-news archive",
+    "task": "Build and run a reusable batch collector over Bramleys' accessible first-party news/archive pages, admitting only individually addressed auction properties and banking every uncaptured appearance before moving to another source.",
+    "reason": "The current 504-URL property sitemap contains no explicit auction pages and tested indexed historical detail pages now return 404, but first-party auction news articles retain dated individual addresses and guide evidence. This is a materially different recovery route rather than another refresh of the exhausted current-property surface.",
+    "source_route": "https://www.bramleys.com/news/ and accessible first-party auction-tagged article pagination, seeded by the March 2023 auction article",
+    "collector_target": "scripts/harvest_bramleys_auction_news.py",
     "observed_inventory": {
-      "national_register_retained_appearances": 8,
-      "first_party_listing_records_approximately": 1471,
-      "archive_pagination_accessible": true,
-      "admission_scope": "auction-tagged individual property listings only"
+      "current_property_sitemap_urls": 504,
+      "current_sitemap_explicit_auction_pages": 0,
+      "initial_first_party_news_seed_lots": 3,
+      "historical_detail_route_status": "tested indexed property-detail URLs return 404",
+      "admission_scope": "individually addressed auction properties published in first-party news articles only"
     },
     "admission_rules": [
-      "Reconcile the complete pagination denominator before making a source-completeness claim.",
-      "Admit only individual pages with explicit auction evidence; exclude ordinary agency listings.",
-      "Preserve exact auction end dates, guides, SOLD FOR outcomes, original URLs and immutable index/detail snapshots; leave unknown values null.",
-      "Reconcile abbotFox and abbotFox Auctions as one lineage and deduplicate exact property/date overlaps before claiming growth."
+      "Inventory all accessible first-party news/archive pagination and auction-tagged articles in one bounded batch before any completeness claim.",
+      "Admit only individual property appearances with an address and explicit auction context; do not count directory, article or catalogue pages as properties.",
+      "Preserve exact auction dates, guides, achieved prices, rents and every published outcome distinctly; preserve original URLs and immutable article snapshots; leave unknown values null.",
+      "Deduplicate exact address/date overlaps against existing Bramleys holdings and keep related legal interests separate."
     ],
-    "blocked_route_avoidance": "Do not refresh Auction Property's reconciled 64-URL surface, Connect UK's 41-URL surface or other exhausted archives unless a new lot URL or materially different recovery route appears."
+    "blocked_route_avoidance": "Do not rerun abbotFox: all 123 pages and 1,475 visible listings were reconciled, only eight explicit auction cards existed and all eight appearances are banked. Do not refresh Bramleys' current property sitemap unless new auction URLs appear."
   },
   "previous_trigger_attempt": {
     "commit": "675b7272b5712327fdb5141862371cf676c6c66e",
@@ -1097,19 +1106,19 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Connect UK's complete visible sitemap is reconciled and its hydrated final-bid evidence is now preserved; move to Auction Property Ltd's accessible zero-holding first-party archive.",
+  "focus_reason": "Town & Country banked 32 appearances. abbotFox is fully reconciled and Bramleys' current sitemap is non-productive, so move to the materially different first-party Bramleys auction-news archive and batch every accessible article.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-25T10:05:00Z",
+  "updated_at": "2026-11-25T15:10:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
-    "status": "Historical run 44525422450 completed successfully and banked commit 0b530823f140c6f22b775cd12f3a811b7e524dae. Public platform run 44526337219 then completed successfully, including production-domain deployment. No generated-data writer is active.",
-    "current_freshness_blocker": "Current collection freshness run 44520739997 failed its age gate; the all-sector historical bank remains separate from the commercial website filter and retained current-board evidence was not discarded.",
-    "action": "Begin the Auction Property Ltd reusable collector only after rechecking active workflow runs; do not refresh Connect UK's reconciled 41-URL surface unless new URLs appear.",
-    "last_reviewed": "2026-11-19T12:52:00Z"
+    "status": "Historical run 45594087137 completed successfully and banked commit d63b4d90eabfc2712b0b90686690549c62a389f3. Public platform run 45598349040 failed and its publication checkpoint remains preserved. No generated-data writer was active at review.",
+    "current_freshness_blocker": "Current collection freshness run 45594999974 failed; the all-sector historical bank remains separate from the commercial website filter and retained evidence was not discarded.",
+    "action": "Recheck active workflow runs before starting the Bramleys news batch; do not launch duplicate collectors or overwrite the failed publication checkpoint.",
+    "last_reviewed": "2026-11-25T15:10:00Z"
   },
   "corrections": [
     {
@@ -1129,15 +1138,20 @@
       "workflow_run": 44525422450,
       "kind": "hydrated_result_payload",
       "result": "The static Connect UK sold-card label retained stale starting-bid text. The first-party Next payload and hydrated panel publish isSold, initialCurrentBid and initialStartPrice separately. The reusable collector now snapshots and parses those fields, adding six achieved prices without duplicating appearances."
+    },
+    {
+      "checked_at": "2026-11-25T15:10:00Z",
+      "kind": "stale_next_target",
+      "result": "abbotFox is already fully reconciled: 123/123 pages, 1,475 visible listing links, eight explicitly auction-marked cards and eight retained appearances. The stale rerun target was replaced with the materially different Bramleys first-party auction-news route."
     }
   ],
   "current_collection_request": {
-    "source": "auction_property_ltd_first_party_archive",
-    "collector": "scripts/harvest_auction_property_ltd.py",
-    "requested_at": "2026-11-19T12:43:00Z",
-    "national_register_retained_appearances": 0,
-    "prior_completed_source": "connect_uk_auctions_first_party_property_sitemap",
-    "prior_retained_appearances": 41
+    "source": "bramleys_first_party_auction_news_archive",
+    "collector": "scripts/harvest_bramleys_auction_news.py",
+    "requested_at": "2026-11-25T15:10:00Z",
+    "initial_seed_lots": 3,
+    "exhausted_source": "abbotfox_first_party_property_archive",
+    "exhausted_source_retained_appearances": 8
   },
   "additional_preserved_growth": {
     "workflow_run": 44520123353,
