@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-25T15:10:00Z",
-  "status": "ready_for_collection",
+  "generated_at": "2026-11-25T16:29:00Z",
+  "status": "collection_requested",
   "previous_run": {
     "run_id": 45594087137,
     "protected_run_ids": [
@@ -1077,9 +1077,12 @@
     "blocked_route_avoidance": "Do not rerun abbotFox: all 123 pages and 1,475 visible listings were reconciled, only eight explicit auction cards existed and all eight appearances are banked. Do not refresh Bramleys' current property sitemap unless new auction URLs appear."
   },
   "previous_trigger_attempt": {
-    "commit": "675b7272b5712327fdb5141862371cf676c6c66e",
-    "target": "Auction House North West identity reconciliation",
-    "result": "Workflow 44399091773 completed successfully; 14/14 pages and 404 current rows reconciled, zero new appearances and one new guide-price publication variant preserved."
+    "source": "bramleys_first_party_auction_news_archive",
+    "collector": "scripts/harvest_bramleys_news.py",
+    "requested_at": "2026-11-25T16:29:00Z",
+    "trigger_commit_parent": "bcdbd09e2024344caf621c4a1da7a52fa87190da",
+    "objective": "Batch every accessible first-party auction-tagged news article and bank only individually addressed property appearances with explicit bidding windows and guides.",
+    "protected_publication_checkpoint_run": 45598349040
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
@@ -1112,7 +1115,7 @@
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-25T15:10:00Z",
+  "updated_at": "2026-11-25T16:29:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "Historical run 45594087137 completed successfully and banked commit d63b4d90eabfc2712b0b90686690549c62a389f3. Public platform run 45598349040 failed and its publication checkpoint remains preserved. No generated-data writer was active at review.",
