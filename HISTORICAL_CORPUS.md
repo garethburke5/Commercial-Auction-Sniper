@@ -1,5 +1,53 @@
 # Historical auction property corpus
 
+## 25 November 2026 — Auction Property catalogue batch and saved-source bank
+
+The reusable Auction Property collector now reconciles the complete accessible
+first-party surface: **41 auction pages, 64 catalogue cards, 64 property-sitemap
+URLs and 64 retained appearances**. Auction Property Ltd, Auction Property and
+Auction Property London remain one operator/legal/trading-name lineage. The
+catalogue pages supplied exact dates for all five previously undated appearances,
+and the property sitemap supplied one genuinely new future-dated mixed-use lot.
+The source now contains **51 historical/in-window dated appearances, 13 future
+appearances and no undated rows**, with **17 commercial/mixed-use appearances**
+overall (**16 in-window**), **19 guides, no achieved prices and 8 rents**. No
+exact overlap was excluded and no partial row was created. Source years remain
+2023–2026; no source-year was newly opened.
+
+The protected bounded batch that was already in flight banked **669** additional
+address appearances before the focused run: **550 Future Property Auctions,
+118 Auction House regional appearances and 1 Pugh appearance**. Together the two
+checkpoints raised the corpus from **317,000 to 317,670 appearances**: **+670
+net address appearances**, **+672 newly dated address records inside the strict
+twenty-year window** (667 new dated rows plus the five repaired Auction Property
+dates), **+296 commercial/mixed-use appearances**, **+118 guide observations**
+and **+57 achieved prices**. The focused Auction Property portion also added one
+rent. One bounded-batch row is undated and one is future-dated; the focused new
+row is future-dated. There were **0 new partial rows**, no newly covered
+source-years, and canonical banking—not raw source rows—is used for the net
+growth total.
+
+Historical runs
+[45582736757](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45582736757)
+and
+[45582858698](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45582858698)
+completed through banking, database rebuild and source-register reconciliation at
+commits
+[05c1339f](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/05c1339f6398524ce766981d4c1fdeda21fc18c2)
+and
+[29e05441](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/29e054415ff9a65ded916bfeb03fec3b791dba25).
+The production-domain deployment succeeded. The parallel GitHub Pages deploy
+step failed after tests and export, so that failed publication checkpoint remains
+visible rather than being overwritten.
+
+Next growth target: expand the existing **abbotFox Auctions** collector over the
+accessible first-party paginated listing archive. The register has only **8**
+retained appearances while roughly **1,471** first-party listing records are
+enumerable. Admit only individually evidenced auction listings, preserve exact
+end dates, guides and sold outcomes, snapshot pages immutably, and reconcile the
+full pagination denominator before claiming completeness. National completeness
+remains false.
+
 ## 19 November 2026 — Connect UK complete sitemap and saved-source follow-through
 
 The reusable Connect UK Auctions collector reconciled the complete accessible
