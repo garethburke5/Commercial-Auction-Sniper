@@ -1,5 +1,18 @@
 # Historical auction property corpus
 
+
+## 25 November 2026 — Town & Country banked growth and next archive route
+
+Historical run [45594087137](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45594087137) completed successfully and banked commit `d63b4d90eabfc2712b0b90686690549c62a389f3`. The complete accessible Town & Country past-auction pagination was reconciled: 57/57 pages, 2,838 currently visible archive rows and 3,163 accumulated evidenced property appearances. This run added 32 address appearances, all dated in 2026 and inside the strict twenty-year window. Two are mixed-use, 14 residential and 16 remain sector-unknown. It added no guide-price observations and one achieved-price observation. No partial, undated, future-dated or newly covered source-year claim is made.
+
+The national corpus is now 317,702 appearances: 306,385 address records and 11,317 partial records, with 171,330 exact address groups. National completeness remains false.
+
+The previous abbotFox continuation target was stale and is closed: its reusable collector already reconciled all 123 accessible pagination pages and 1,475 visible listing links, of which only eight cards carried explicit auction evidence; all eight retained appearances are already banked. Ordinary agency listings must not be admitted or counted as auction properties.
+
+Bramleys' current property sitemap is also not a substantial historical route: 504 current property URLs yielded no explicit auction pages, while indexed historical property-detail URLs tested through the first-party site now return 404. The materially different next growth route is therefore a reusable Bramleys first-party auction-news collector. It should enumerate accessible news/archive pages in one batch, admit only individually addressed auction properties, preserve article and original property URLs plus immutable snapshots, retain exact auction dates, guides and outcomes where published, and deduplicate against existing Bramleys holdings. The March 2023 first-party auction article supplies the initial three-lot seed; every accessible auction-tagged news article should be inventoried before any completeness claim.
+
+The failed public-platform publication checkpoint remains preserved. No duplicate collector or publication run was launched during this reconciliation.
+
 ## 25 November 2026 — Auction Property catalogue batch and saved-source bank
 
 The reusable Auction Property collector now reconciles the complete accessible
