@@ -29,6 +29,7 @@ TRADING_NAMES = ["Auction Property", "Auction Property London"]
 SLUG = "auction-property-ltd"
 BASE = "https://auctionproperty.co.uk"
 SITEMAP = BASE + "/property-sitemap.xml"
+AUCTION_SITEMAP = BASE + "/auction-sitemap.xml"
 POSTCODE_RE = re.compile(
     r"\b(?:GIR\s?0AA|(?:[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKSTUW]?|"
     r"[A-PR-UWYZ]\d[A-HJKSTUW]?|[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRVWXY])"
@@ -78,14 +79,92 @@ def snapshot(kind, key, url, raw):
             "retrieved_at": retrieved_at, "sha256": sha}
 
 
-def sitemap_inventory(xml):
+def sitemap_inventory(xml, kind="property"):
     soup = BeautifulSoup(xml, "xml")
     urls = []
+    pattern = rf"https://auctionproperty\.co\.uk/{re.escape(kind)}/[^/?#]+/"
     for loc in soup.find_all("loc"):
         url = clean(loc.get_text())
-        if url and re.fullmatch(r"https://auctionproperty\.co\.uk/property/[^/?#]+/", url):
+        if url and re.fullmatch(pattern, url):
             urls.append(url)
     return sorted(set(urls))
+
+
+def calendar_date(text):
+    value = clean(text)
+    if not value:
+        return None
+    match = re.search(
+        r"(?i)\b(\d{1,2})(?:st|nd|rd|th)?\s+"
+        r"(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|"
+        r"jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)"
+        r"\s+(20\d{2})\b",
+        value,
+    )
+    if not match:
+        return None
+    day, month, year = match.groups()
+    try:
+        return datetime.strptime(f"{day} {month[:3].title()} {year}", "%d %b %Y").date().isoformat()
+    except ValueError:
+        return None
+
+
+def auction_catalogue_inventory(html, url, evidence):
+    """Return one evidenced card per individual lot on an auction page."""
+    soup = BeautifulSoup(html, "lxml")
+    heading = soup.select_one("h1")
+    page_date = calendar_date(heading.get_text(" ", strip=True) if heading else None)
+    rows = []
+    for article in soup.select("article"):
+        text = clean(article.get_text(" ", strip=True)) or ""
+        links = sorted({
+            link.get("href") for link in article.select('a[href*="/property/"]')
+            if link.get("href") and re.fullmatch(
+                r"https://auctionproperty\.co\.uk/property/[^/?#]+/",
+                link.get("href"),
+            )
+        })
+        if not links:
+            continue
+        auction_date, _ = parse_date(text)
+        auction_date = auction_date or page_date
+        lot_match = re.search(r"(?i)\bLOT\s+(\d+[A-Z]?)\b", text)
+        status_match = re.search(
+            r"(?i)\b(Sold Prior|Sold After|Sold|Withdrawn|Postponed|Unsold)\b",
+            text,
+        )
+        heading_node = article.select_one("h3")
+        address = clean(heading_node.get_text(" ", strip=True) if heading_node else None)
+        for property_url in links:
+            rows.append({
+                "property_url": property_url,
+                "auction_date": auction_date,
+                "lot_number": lot_match.group(1).upper() if lot_match else None,
+                "outcome": status_match.group(1) if status_match else None,
+                "address": address,
+                "auction_url": url,
+                "source_evidence": evidence,
+            })
+    return rows
+
+
+def apply_catalogue_evidence(row, cards):
+    """Enrich a property detail only where one auction card gives an exact date."""
+    exact = [card for card in cards if card.get("auction_date")]
+    dates = sorted({card["auction_date"] for card in exact})
+    if not row.get("auction_date") and len(dates) == 1:
+        row["auction_date"] = dates[0]
+        row["auction_date_precision"] = "day"
+        row["auction_date_basis"] = "explicit date on first-party auction catalogue card/page"
+        row["source_auction_id"] = f"auction-property:{dates[0]}"
+    evidence = list(row.get("source_evidence") or [])
+    for card in cards:
+        for item in card.get("source_evidence") or []:
+            if item not in evidence:
+                evidence.append(item)
+    row["source_evidence"] = evidence
+    return row
 
 
 def money(value):
@@ -282,7 +361,40 @@ def harvest(workers=12, reparse_saved=False):
     if not urls:
         raise ValueError("first-party property sitemap denominator missing")
     sitemap_evidence = snapshot("inventory", "property-sitemap", SITEMAP, sitemap_raw)
-    failures, rows, diagnostics = [], [], []
+
+    auction_sitemap_raw = fetch(session, AUCTION_SITEMAP)
+    auction_urls = sitemap_inventory(
+        auction_sitemap_raw.decode("utf-8", "replace"), kind="auction"
+    )
+    if not auction_urls:
+        raise ValueError("first-party auction sitemap denominator missing")
+    auction_sitemap_evidence = snapshot(
+        "inventory", "auction-sitemap", AUCTION_SITEMAP, auction_sitemap_raw
+    )
+    catalogue_failures, catalogue_cards = [], []
+    for position, auction_url in enumerate(auction_urls, 1):
+        try:
+            raw = fetch(session, auction_url)
+            source_id = urlparse(auction_url).path.rstrip("/").split("/")[-1]
+            page_evidence = snapshot("auction", source_id, auction_url, raw)
+            catalogue_cards.extend(auction_catalogue_inventory(
+                raw.decode("utf-8", "replace"),
+                auction_url,
+                [auction_sitemap_evidence, page_evidence],
+            ))
+        except Exception as exc:
+            catalogue_failures.append({
+                "source_url": auction_url,
+                "error": f"{type(exc).__name__}: {exc}"[:500],
+            })
+        if position % 10 == 0 or position == len(auction_urls):
+            print(f"AUCTION PROPERTY CATALOGUE {position}/{len(auction_urls)}", flush=True)
+
+    cards_by_url = {}
+    for card in catalogue_cards:
+        cards_by_url.setdefault(card["property_url"], []).append(card)
+    urls = sorted(set(urls) | set(cards_by_url))
+    failures, rows, diagnostics = list(catalogue_failures), [], []
 
     def collect(url):
         source_id = urlparse(url).path.rstrip("/").split("/")[-1]
@@ -292,8 +404,15 @@ def harvest(workers=12, reparse_saved=False):
         else:
             raw = fetch(session, url)
             detail_evidence = snapshot("detail", source_id, url, raw)
-        return parse_detail(raw.decode("utf-8", "replace"), url,
-                            [sitemap_evidence, detail_evidence])
+        row, diagnostic = parse_detail(
+            raw.decode("utf-8", "replace"),
+            url,
+            [sitemap_evidence, detail_evidence],
+        )
+        row = apply_catalogue_evidence(row, cards_by_url.get(url, []))
+        if row.get("auction_date"):
+            diagnostic = None
+        return row, diagnostic
 
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 16))) as executor:
         jobs = {executor.submit(collect, url): url for url in urls}
@@ -354,14 +473,23 @@ def harvest(workers=12, reparse_saved=False):
              "source_url": SITEMAP, "catalogue_complete": False,
              "source_rows_complete": complete, "pagination_reconciled": complete,
              "denominator_reconciled": complete, "visible_property_urls": len(urls),
+             "auction_pages_discovered": len(auction_urls),
+             "auction_cards_captured": len(catalogue_cards),
+             "auction_linked_property_urls": len(cards_by_url),
              "details_captured": len(rows), "lots_captured": retained,
-             "completion_scope": "every surviving first-party /property/ URL in the public sitemap; not proof of removed historical lots",
+             "completion_scope": "union of every surviving first-party /property/ sitemap URL and every individual property linked by all first-party auction pages",
              "errors": failures, "checked_at": corpus.now()}
     corpus.save_json(corpus.DATA / "auctions" / SLUG / "first-party-sitemap.json", state)
     summary = {"checked_at": corpus.now(), "auctioneer": SOURCE,
                "source_trading_names": TRADING_NAMES,
                "branches_and_trading_names_counted_separately": False,
-               "source_url": SITEMAP, "sitemap_property_urls": len(urls),
+               "source_url": SITEMAP,
+               "auction_sitemap_url": AUCTION_SITEMAP,
+               "sitemap_property_urls": len(sitemap_inventory(sitemap_raw.decode("utf-8", "replace"))),
+               "auction_pages_discovered": len(auction_urls),
+               "auction_cards_captured": len(catalogue_cards),
+               "auction_linked_property_urls": len(cards_by_url),
+               "union_property_urls": len(urls),
                "details_captured": len(rows), "retained_appearances": retained,
                "run_new_appearances": len(new_rows),
                "run_newly_dated_existing_appearances": len(newly_dated_rows),
