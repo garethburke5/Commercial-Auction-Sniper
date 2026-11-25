@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-25T16:47:49.725711+00:00",
+  "checked_at": "2026-11-25T21:04:37.334669+00:00",
   "auctioneer": "Bradley Hall Auctions",
   "source_trading_names": [
     "Bradley Hall",
@@ -22,23 +22,21 @@
   "search_pages_reconciled": 2,
   "visible_lot_denominator": 82,
   "visible_lot_cards": 82,
-  "detail_pages_captured": 0,
+  "detail_pages_captured": 82,
   "retained_appearances": 18,
-  "run_new_appearances": 18,
-  "run_new_address_records": 18,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_address_records_within_20_years": 1,
-  "run_new_commercial_or_mixed": 4,
+  "run_new_dated_address_records_within_20_years": 0,
+  "run_new_commercial_or_mixed": 0,
   "run_new_commercial_or_mixed_within_20_years": 0,
-  "run_new_guide_prices": 17,
-  "run_new_sale_prices": 1,
-  "run_new_starting_bids": 13,
-  "run_new_rents": 2,
-  "newly_covered_source_years": [
-    "2026"
-  ],
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_starting_bids": 0,
+  "run_new_rents": 0,
+  "newly_covered_source_years": [],
   "new_undated_records": 0,
-  "new_future_dated_records": 17,
+  "new_future_dated_records": 0,
   "exact_overlap_candidates_excluded": 64,
   "overlap_candidates": [
     {
@@ -555,10 +553,7 @@
     }
   ],
   "by_sector": {
-    "residential": 9,
-    "unknown": 5,
-    "commercial": 3,
-    "mixed-use": 1
+    "mixed-use": 18
   },
   "by_status": {
     "sold_prior": 1,
@@ -567,433 +562,22 @@
   "search_evidence": [
     {
       "source_url": "https://auction.bradleyhall.co.uk/search?order=EndingSoonest&page=1",
-      "retrieved_at": "2026-11-25T16:47:30.214938+00:00",
-      "sha256": "565f2f7c1eba58347367e3b9f84319114b4f5315cbae60e81112b214af350647",
-      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-1-565f2f7c1eba5834.json.gz",
+      "retrieved_at": "2026-11-25T21:04:23.870302+00:00",
+      "sha256": "710842e4439a1ef0511bbf9250feb21dd7b5b7864ab09f226b60ebb5edc5f0f6",
+      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-1-710842e4439a1ef0.json.gz",
       "basis": "first-party Bradley Hall complete visible search pagination"
     },
     {
       "source_url": "https://auction.bradleyhall.co.uk/search?page=2&view=List&order=EndingSoonest&token=PGNyaXRlcmlhIHBhZ2U9IjEiIHBhZ2VTaXplPSI1MCIgc2hvd0FsbD0iZmFsc2UiIG9yZGVyPSIyIiB2aWV3PSIwIj48ZmlsdGVyPjxsb3Q-PGhhc1dpZGdldD5mYWxzZTwvaGFzV2lkZ2V0PjwvbG90PjwvZmlsdGVyPjwvY3JpdGVyaWE-0",
-      "retrieved_at": "2026-11-25T16:47:30.732916+00:00",
-      "sha256": "49830f543126da6386a4649e1efda3cbe571344e4aa42e2c3b7f22f517ec1fc4",
-      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-2-49830f543126da63.json.gz",
+      "retrieved_at": "2026-11-25T21:04:24.475649+00:00",
+      "sha256": "be7106b2788c3ed43c73c1e5963b36cdc665f46032914c7adb7d20b4b59c1b73",
+      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-2-be7106b2788c3ed4.json.gz",
       "basis": "first-party Bradley Hall complete visible search pagination"
     }
   ],
-  "detail_failures": [
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:819a981d-522e-4109-a0d9-aaa025230061:2026-11-26",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/819a981d-522e-4109-a0d9-aaa025230061",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:44d826e5-6902-47ad-ac1a-2ef3284e7b48:2026-12-11",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/44d826e5-6902-47ad-ac1a-2ef3284e7b48",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:9bcf9a00-44ce-4295-a9ba-422f0605527c:2026-11-26",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/9bcf9a00-44ce-4295-a9ba-422f0605527c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:b34bd757-617b-4701-adbe-8a9ae76ce49c:2026-12-10",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/b34bd757-617b-4701-adbe-8a9ae76ce49c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:0d85ff50-dc29-44a5-9e03-763c6345bb3d:2026-11-30",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/0d85ff50-dc29-44a5-9e03-763c6345bb3d",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:29d341d6-190a-4d30-a8cb-4492b65926fd:2026-12-01",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/29d341d6-190a-4d30-a8cb-4492b65926fd",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:258e2999-780c-46b3-ac96-69fb637b7438:2026-12-07",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/258e2999-780c-46b3-ac96-69fb637b7438",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:6212a481-28d3-45ba-aade-1e0900aa4f4c:2026-12-14",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/6212a481-28d3-45ba-aade-1e0900aa4f4c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:40e9257d-262b-420e-b3d1-08a790d51d71:2026-11-30",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/40e9257d-262b-420e-b3d1-08a790d51d71",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:b66186a0-e8ca-4e3a-8d69-14271fdc98d9:2026-12-14",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/b66186a0-e8ca-4e3a-8d69-14271fdc98d9",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:89430f60-cc8f-4d7f-84d4-fab929b5b0ac:2026-12-14",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/89430f60-cc8f-4d7f-84d4-fab929b5b0ac",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:7ff5b8f2-34c6-4e83-8869-7339707ab177:2026-12-17",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/7ff5b8f2-34c6-4e83-8869-7339707ab177",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:b1471e60-0a38-4c9a-9b8c-ec271731caa6:2026-12-11",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/b1471e60-0a38-4c9a-9b8c-ec271731caa6",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:fce3f2e7-1544-44a0-b98b-bfdcfbdad7ab:2026-12-15",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/fce3f2e7-1544-44a0-b98b-bfdcfbdad7ab",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:d3c47586-4a55-42ab-be99-ab57c6a8744e:2026-12-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/d3c47586-4a55-42ab-be99-ab57c6a8744e",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:c3bd0af0-89c9-4c22-bd10-9df8b730a04e:2026-12-15",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/c3bd0af0-89c9-4c22-bd10-9df8b730a04e",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:e6cf8ede-0cfe-4692-bac0-3f0fd58169a0:2026-12-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/e6cf8ede-0cfe-4692-bac0-3f0fd58169a0",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:0d940a53-8563-4975-9a2f-6ad870ef210b:2026-12-17",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/0d940a53-8563-4975-9a2f-6ad870ef210b",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:03059dab-f2ca-4629-9b41-55cadfe7fc3d:2026-12-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/03059dab-f2ca-4629-9b41-55cadfe7fc3d",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:2650cf10-68c4-4ab4-9daa-e0a1068a5c04:2026-12-17",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/2650cf10-68c4-4ab4-9daa-e0a1068a5c04",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:894ab4db-b0cb-4b16-9047-14cd2d213409:2026-12-17",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/894ab4db-b0cb-4b16-9047-14cd2d213409",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:c28a3491-e827-4ce1-b061-cd00e1c82db6:2026-12-18",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/c28a3491-e827-4ce1-b061-cd00e1c82db6",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:7c540fdd-d088-433e-a311-a74ada5c62a1:2026-12-17",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/7c540fdd-d088-433e-a311-a74ada5c62a1",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:730c6180-564c-4421-965b-3b6ebb0bc135:2026-12-22",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/730c6180-564c-4421-965b-3b6ebb0bc135",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:8f9c31e4-d919-46a0-8d81-6a43cf5d07af:2026-12-22",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/8f9c31e4-d919-46a0-8d81-6a43cf5d07af",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:4260d901-351b-4cb8-9386-7b401a85ca81:2026-11-19",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/4260d901-351b-4cb8-9386-7b401a85ca81",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:8ac22c9b-4136-44e4-8d85-3d6ba5ae28bd:2027-01-05",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/8ac22c9b-4136-44e4-8d85-3d6ba5ae28bd",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:c1effa50-055b-48d5-9f02-ebc7a52c96c2:2026-11-10",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/c1effa50-055b-48d5-9f02-ebc7a52c96c2",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:49e63ca9-b7b7-47c3-b580-15fae463beb4:2026-10-23",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/49e63ca9-b7b7-47c3-b580-15fae463beb4",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:996d162a-1382-43c7-ae95-3cdb48886dab:2026-09-22",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/996d162a-1382-43c7-ae95-3cdb48886dab",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:35efd941-6eac-4659-8d2e-73c4e60fa9cb:2026-10-26",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/35efd941-6eac-4659-8d2e-73c4e60fa9cb",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:4eb17dc1-5794-42cb-8183-434dc1b660ca:2026-09-23",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/4eb17dc1-5794-42cb-8183-434dc1b660ca",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:e62a87e1-6a88-47b2-a221-3a038e5331c5:2026-10-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/e62a87e1-6a88-47b2-a221-3a038e5331c5",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:0f9d29a7-87e6-410f-9d12-93ce1b3cd205:2026-10-15",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/0f9d29a7-87e6-410f-9d12-93ce1b3cd205",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:360d17d9-2500-4270-907a-888de56e6ba4:2026-10-20",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/360d17d9-2500-4270-907a-888de56e6ba4",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:a2c9dbde-dbe4-44c1-b1f0-7e1a0932973d:2026-09-04",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/a2c9dbde-dbe4-44c1-b1f0-7e1a0932973d",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:82fb6023-0c7e-4abe-9fd8-1da90ee2d60c:2026-09-21",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/82fb6023-0c7e-4abe-9fd8-1da90ee2d60c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:a9828930-6ccd-4e2c-a1f1-495bc92fe7a9:2026-09-04",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/a9828930-6ccd-4e2c-a1f1-495bc92fe7a9",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:37ceb0c6-ff4e-484e-8347-93bb3d21d782:2026-09-02",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/37ceb0c6-ff4e-484e-8347-93bb3d21d782",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:fe57b7cd-059a-4ac8-b30f-f0c23fb2dd61:2026-08-18",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/fe57b7cd-059a-4ac8-b30f-f0c23fb2dd61",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:7cc99b0d-a08d-494c-b1f9-9d62e2f63899:2026-08-07",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/7cc99b0d-a08d-494c-b1f9-9d62e2f63899",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:cd57e71b-19eb-4f60-89fb-4d3ba7ecab35:2026-06-19",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/cd57e71b-19eb-4f60-89fb-4d3ba7ecab35",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:9fe01b93-0100-409d-8203-5973b00d528a:2026-07-13",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/9fe01b93-0100-409d-8203-5973b00d528a",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:2d06339a-750b-48eb-8c3f-c149ae9135a1:2026-07-28",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/2d06339a-750b-48eb-8c3f-c149ae9135a1",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:54dd70ae-71af-4530-beaf-ba5ac724332e:2026-07-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/54dd70ae-71af-4530-beaf-ba5ac724332e",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:347d5dde-3f2f-4563-af4a-a51375d1c826:2026-07-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/347d5dde-3f2f-4563-af4a-a51375d1c826",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:69fa623f-d8bf-4422-b9e6-03d95532605a:2026-07-31",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/69fa623f-d8bf-4422-b9e6-03d95532605a",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:74f23531-731f-4ef3-8c9e-b8c74b8699c9:2026-07-09",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/74f23531-731f-4ef3-8c9e-b8c74b8699c9",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:0b9cf128-ac6b-43c6-bad5-84a9e090d605:2026-07-06",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/0b9cf128-ac6b-43c6-bad5-84a9e090d605",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:22f4933e-ef37-48ba-991e-1e97b63ade2c:2026-05-27",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/22f4933e-ef37-48ba-991e-1e97b63ade2c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:54c2a2c9-7485-4113-b490-e5dace470af2:2026-04-17",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/54c2a2c9-7485-4113-b490-e5dace470af2",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:90397d48-1f93-410d-a088-ed43bc88db4e:2026-04-24",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/90397d48-1f93-410d-a088-ed43bc88db4e",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:ff93f2b1-46b3-4f87-ba5d-707b8768dbe1:2026-05-06",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/ff93f2b1-46b3-4f87-ba5d-707b8768dbe1",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:e85eccdf-e8ea-4f26-a9ac-4fa2bfd1ac75:2026-03-13",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/e85eccdf-e8ea-4f26-a9ac-4fa2bfd1ac75",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:f15addbb-3fba-4968-84a0-ab67357cb9a4:2026-02-20",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/f15addbb-3fba-4968-84a0-ab67357cb9a4",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:a9c7eb62-cf9b-41d3-b094-e396f220d807:2026-04-09",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/a9c7eb62-cf9b-41d3-b094-e396f220d807",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:753d398c-5978-4590-8cc7-2fc35f63be20:2026-04-01",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/753d398c-5978-4590-8cc7-2fc35f63be20",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:331d73e9-a6da-4553-8f1b-9f1a71ae0fd6:2025-12-22",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/331d73e9-a6da-4553-8f1b-9f1a71ae0fd6",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:b9e3c516-a1fc-444a-8b1d-31917e595c87:2026-01-09",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/b9e3c516-a1fc-444a-8b1d-31917e595c87",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:f0c358cc-6f71-4bac-98fe-e15d62795c4d:2026-01-08",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/f0c358cc-6f71-4bac-98fe-e15d62795c4d",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:192d8a52-4b99-4285-8edc-2863b4d88738:2025-12-16",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/192d8a52-4b99-4285-8edc-2863b4d88738",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:a4f8db3c-0264-4ec3-aad1-5ddcedd1c1c5:2025-12-11",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/a4f8db3c-0264-4ec3-aad1-5ddcedd1c1c5",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:a9621309-8e17-471f-ba97-bab649f5dfec:2025-12-09",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/a9621309-8e17-471f-ba97-bab649f5dfec",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:b041584d-3ec1-46b4-989e-aa5ede82686c:2025-12-09",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/b041584d-3ec1-46b4-989e-aa5ede82686c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:2533a399-d81c-464c-8e63-d95f0884dc0f:2025-11-18",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/2533a399-d81c-464c-8e63-d95f0884dc0f",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:011f72c6-bb7d-4c13-b831-58f13daf0c11:2025-10-31",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/011f72c6-bb7d-4c13-b831-58f13daf0c11",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:e2b0b0a9-7f0e-4b6e-b455-431298cab5c9:2025-11-07",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/e2b0b0a9-7f0e-4b6e-b455-431298cab5c9",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:be96d8c5-9747-43b6-96f8-8546dd4c871f:2025-10-09",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/be96d8c5-9747-43b6-96f8-8546dd4c871f",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:12d6efd2-fe67-4ee7-9d61-4663036208ec:2025-10-15",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/12d6efd2-fe67-4ee7-9d61-4663036208ec",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:caacdff3-55fe-4250-b7fc-8900b6acaa2c:2025-08-26",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/caacdff3-55fe-4250-b7fc-8900b6acaa2c",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:bc0f9a2c-2f06-4c8b-a418-9c5af362ba8a:2025-09-04",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/bc0f9a2c-2f06-4c8b-a418-9c5af362ba8a",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:255a936c-a4a3-4679-b0d3-62d259a42a90:2025-10-03",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/255a936c-a4a3-4679-b0d3-62d259a42a90",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:0feb27bf-2bb6-4ec8-9bc8-d5a13ba55ad6:2025-08-01",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/0feb27bf-2bb6-4ec8-9bc8-d5a13ba55ad6",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:2f21a143-1676-4657-8502-c46d7e935342:2025-08-04",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/2f21a143-1676-4657-8502-c46d7e935342",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:d3a95038-fdf2-4c4d-9f96-ca07e19be654:2025-08-21",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/d3a95038-fdf2-4c4d-9f96-ca07e19be654",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:539de0d2-b5fe-450a-8fe1-f269b6c95206:2025-07-31",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/539de0d2-b5fe-450a-8fe1-f269b6c95206",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:5e0b270e-f62e-4442-9860-a141fb481cd1:2025-08-12",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/5e0b270e-f62e-4442-9860-a141fb481cd1",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:8bf47581-7fcd-4841-bfc4-a35726b858e2:2025-07-30",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/8bf47581-7fcd-4841-bfc4-a35726b858e2",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:08ee54dc-4cf3-4c6e-a06a-68ad9d8d251b:2025-07-28",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/08ee54dc-4cf3-4c6e-a06a-68ad9d8d251b",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:f373005e-e259-4b26-8c94-807bc39aa178:2025-07-11",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/f373005e-e259-4b26-8c94-807bc39aa178",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:509c73c0-c7db-430f-bef7-b3904cef316b:2025-05-19",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/509c73c0-c7db-430f-bef7-b3904cef316b",
-      "error": "KeyError: 'source_id'"
-    },
-    {
-      "appearance_id": "Bradley Hall Auctions|bradley-hall:79149fbc-f95b-4254-bc9d-c5a79f52fbdf:2025-04-22",
-      "url": "https://auction.bradleyhall.co.uk/lot/details/79149fbc-f95b-4254-bc9d-c5a79f52fbdf",
-      "error": "KeyError: 'source_id'"
-    }
-  ],
+  "detail_failures": [],
   "failures": [],
-  "complete_visible_surface": false,
+  "complete_visible_surface": true,
   "completion_scope": "every currently visible first-party search card and linked detail; not proof of removed historical lots",
   "national_completeness_verified": false
 }

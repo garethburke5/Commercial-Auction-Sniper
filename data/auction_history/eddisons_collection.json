@@ -1,9 +1,9 @@
 {
-  "checked_at": "2026-11-25T16:55:08.536711+00:00",
+  "checked_at": "2026-11-25T21:18:32.433319+00:00",
   "source_url": "https://www.eddisons.com/insights/property-auctions",
-  "archive_pages_reconciled": 3,
-  "articles_discovered": 26,
-  "articles_captured": 26,
+  "archive_pages_reconciled": 2,
+  "articles_discovered": 17,
+  "articles_captured": 17,
   "selected_result_appearances_captured": 202,
   "run_new_appearances": 0,
   "run_new_address_records": 0,
@@ -19,21 +19,15 @@
   "archive_evidence": [
     {
       "source_url": "https://www.eddisons.com/insights/property-auctions",
-      "retrieved_at": "2026-11-25T16:53:21.527717+00:00",
-      "sha256": "70e80d52d7e210c94c4abd1ade6746389963fd6ae4e357f62f967911a6b7b603",
-      "snapshot_path": "data/auction_history/sources/eddisons/insights/archive-page-1-70e80d52d7e210c9.json.gz"
-    },
-    {
-      "source_url": "https://www.eddisons.com/insights/property-auctions?page=2",
-      "retrieved_at": "2026-11-25T16:53:23.563328+00:00",
-      "sha256": "0f71061cef670b691560728ded0bf9a717ebf1089af99d8f432699b0a14c463d",
-      "snapshot_path": "data/auction_history/sources/eddisons/insights/archive-page-2-0f71061cef670b69.json.gz"
+      "retrieved_at": "2026-11-25T21:14:17.718766+00:00",
+      "sha256": "657cccdc4c9d34658118625ca01d37ef765f8b3721cdc3a2959c1634461923c0",
+      "snapshot_path": "data/auction_history/sources/eddisons/insights/archive-page-1-657cccdc4c9d3465.json.gz"
     },
     {
       "source_url": "https://www.eddisons.com/insights/property-auctions?page=3",
-      "retrieved_at": "2026-11-25T16:53:25.564808+00:00",
-      "sha256": "26cbe2578e2421e41f0452b547044c0e0ced000ea35693466da93fc4b791fed1",
-      "snapshot_path": "data/auction_history/sources/eddisons/insights/archive-page-3-26cbe2578e2421e4.json.gz"
+      "retrieved_at": "2026-11-25T21:15:07.535224+00:00",
+      "sha256": "a8aca82020d5acf942cbf99200bf861b07cccc32a16a0d604103bc17acf0ef71",
+      "snapshot_path": "data/auction_history/sources/eddisons/insights/archive-page-3-a8aca82020d5acf9.json.gz"
     }
   ],
   "articles": {
@@ -49,7 +43,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2024-07",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:53:28.273657+00:00"
+      "checked_at": "2026-11-25T21:15:09.596818+00:00"
     },
     "2024-08": {
       "auctioneer": "BTG Eddisons",
@@ -63,7 +57,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2024-08",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:53:31.663686+00:00"
+      "checked_at": "2026-11-25T21:15:11.123472+00:00"
     },
     "2024-09": {
       "auctioneer": "BTG Eddisons",
@@ -77,7 +71,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2024-09",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:53:34.430497+00:00"
+      "checked_at": "2026-11-25T21:15:12.850700+00:00"
     },
     "2024-10": {
       "auctioneer": "BTG Eddisons",
@@ -91,7 +85,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2024-10",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:53:38.868828+00:00"
+      "checked_at": "2026-11-25T21:15:14.710435+00:00"
     },
     "2024-11": {
       "auctioneer": "BTG Eddisons",
@@ -105,7 +99,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2024-11",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:53:45.856907+00:00"
+      "checked_at": "2026-11-25T21:15:16.329258+00:00"
     },
     "2024-12": {
       "auctioneer": "BTG Eddisons",
@@ -119,133 +113,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2024-12",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:53:49.192013+00:00"
-    },
-    "2025-01": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-01",
-      "auction_date": null,
-      "auction_month": "2025-01",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 10,
-      "lots_captured": 10,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-01",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:53:52.993508+00:00"
-    },
-    "2025-02": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-02",
-      "auction_date": null,
-      "auction_month": "2025-02",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 10,
-      "lots_captured": 10,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-02",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:53:57.195516+00:00"
-    },
-    "2025-03": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-03",
-      "auction_date": null,
-      "auction_month": "2025-03",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 12,
-      "lots_captured": 12,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-03",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:01.965698+00:00"
-    },
-    "2025-04": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-04",
-      "auction_date": null,
-      "auction_month": "2025-04",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 6,
-      "lots_captured": 6,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-04",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:03.858768+00:00"
-    },
-    "2025-05": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-05",
-      "auction_date": null,
-      "auction_month": "2025-05",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-05",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:08.696135+00:00"
-    },
-    "2025-06": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-06",
-      "auction_date": null,
-      "auction_month": "2025-06",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-06",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:12.400708+00:00"
-    },
-    "2025-07": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-07",
-      "auction_date": null,
-      "auction_month": "2025-07",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-07",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:16.363386+00:00"
-    },
-    "2025-09": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-09",
-      "auction_date": null,
-      "auction_month": "2025-09",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 8,
-      "lots_captured": 8,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-09",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:20.549667+00:00"
-    },
-    "2025-11": {
-      "auctioneer": "BTG Eddisons",
-      "source_auction_id": "btg-eddisons:sold-at-auction:2025-11",
-      "auction_date": null,
-      "auction_month": "2025-11",
-      "catalogue_complete": false,
-      "article_rows_complete": true,
-      "published_selected_results": 9,
-      "lots_captured": 9,
-      "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-11",
-      "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
-      "errors": [],
-      "checked_at": "2026-11-25T16:54:24.125444+00:00"
+      "checked_at": "2026-11-25T21:15:17.307904+00:00"
     },
     "2025-12": {
       "auctioneer": "BTG Eddisons",
@@ -259,7 +127,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2025-12",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:28.155613+00:00"
+      "checked_at": "2026-11-25T21:15:18.754042+00:00"
     },
     "2026-01": {
       "auctioneer": "BTG Eddisons",
@@ -273,7 +141,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-01",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:31.127107+00:00"
+      "checked_at": "2026-11-25T21:15:20.098737+00:00"
     },
     "2026-02": {
       "auctioneer": "BTG Eddisons",
@@ -287,7 +155,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-02",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:34.904441+00:00"
+      "checked_at": "2026-11-25T21:15:21.373151+00:00"
     },
     "2026-03": {
       "auctioneer": "BTG Eddisons",
@@ -301,7 +169,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-03",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:37.821878+00:00"
+      "checked_at": "2026-11-25T21:15:22.751704+00:00"
     },
     "2026-04": {
       "auctioneer": "BTG Eddisons",
@@ -315,7 +183,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-04",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:41.509038+00:00"
+      "checked_at": "2026-11-25T21:15:27.062779+00:00"
     },
     "2026-05": {
       "auctioneer": "BTG Eddisons",
@@ -329,7 +197,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-05",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:44.619716+00:00"
+      "checked_at": "2026-11-25T21:15:32.970123+00:00"
     },
     "2026-06": {
       "auctioneer": "BTG Eddisons",
@@ -343,7 +211,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-06",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:48.712760+00:00"
+      "checked_at": "2026-11-25T21:15:48.397638+00:00"
     },
     "2026-07": {
       "auctioneer": "BTG Eddisons",
@@ -357,7 +225,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-07",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:55.073019+00:00"
+      "checked_at": "2026-11-25T21:15:59.940929+00:00"
     },
     "2026-08": {
       "auctioneer": "BTG Eddisons",
@@ -371,7 +239,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-08",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:54:59.983830+00:00"
+      "checked_at": "2026-11-25T21:16:18.250182+00:00"
     },
     "2026-09": {
       "auctioneer": "BTG Eddisons",
@@ -385,7 +253,7 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-09",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:55:04.040256+00:00"
+      "checked_at": "2026-11-25T21:18:26.799262+00:00"
     },
     "2026-10": {
       "auctioneer": "BTG Eddisons",
@@ -399,8 +267,15 @@
       "source_url": "https://www.eddisons.com/insights/sold-at-auction-2026-10",
       "completion_scope": "every property block in the first-party selected-results article; not the full auction catalogue",
       "errors": [],
-      "checked_at": "2026-11-25T16:55:08.269422+00:00"
+      "checked_at": "2026-11-25T21:18:32.167877+00:00"
     }
   },
-  "failures": []
+  "failures": [
+    {
+      "kind": "archive_page",
+      "page": 2,
+      "url": "https://www.eddisons.com/insights/property-auctions?page=2",
+      "error": "HTTPError: 525 Server Error: <none> for url: https://www.eddisons.com/insights/property-auctions?page=2"
+    }
+  ]
 }
