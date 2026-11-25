@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-25T10:29:17.915121+00:00",
+  "checked_at": "2026-11-25T16:50:51.082528+00:00",
   "pages_expected": 9,
   "pages_captured": 9,
-  "current_archive_rows": 245,
+  "current_archive_rows": 217,
   "property_appearances_captured": 269,
   "run_new_appearances": 0,
   "address_records": 269,
@@ -27,8 +27,14 @@
     "6": 30,
     "7": 30,
     "8": 30,
-    "9": 5
+    "9": 3
   },
-  "failures": [],
-  "archive_pagination_complete": true
+  "failures": [
+    {
+      "page": 1,
+      "url": "https://www.auctionhouse.co.uk/southwest/auction/past-auctions",
+      "error": "ValueError: source identity drift for lot 376763"
+    }
+  ],
+  "archive_pagination_complete": false
 }
