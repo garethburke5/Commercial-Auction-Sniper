@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-25T21:39:00Z",
-  "status": "bradley_sector_integrity_repair_queued_then_the_auction_group_ready",
+  "generated_at": "2026-11-25T22:59:00Z",
+  "status": "the_auction_group_manifest_batch_released",
   "previous_run": {
     "run_id": 45700277214,
     "commit": "5d1e78d6ba63ad03a388e691e96b6de3709f0651",
@@ -1185,5 +1185,14 @@
       "unknown": 5
     },
     "note": "A generic bounded replay refreshed genuinely new saved-source evidence before cancellation. The six rows and four achieved prices were preserved rather than discarded; they are reported separately from Connect UK growth."
+  },
+  "active_collection": {
+    "source": "The Auction Group",
+    "collector": "scripts/harvest_eig_retained_grids.py",
+    "manifest": "config/retained_grid_batch.json",
+    "visible_lot_denominator": 195,
+    "source_register_retained_before_run": 0,
+    "triggered_from_commit_parent": "73e71e4babc2f8ae25e7842cdc5e3ddbcebd7b39",
+    "preflight": "Savills 45706048829 cancelled before source harvest; publication terminal; no active historical/publication writer observed."
   }
 }

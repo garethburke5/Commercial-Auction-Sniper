@@ -1,8 +1,8 @@
 {
   "batch_id": "the-auction-group-complete-visible-shared-platform",
-  "status": "prepared_after_bradley_hall_bank",
-  "publication_gate_status": "wait_for_run_45704576323",
-  "hold_reason": "Do not start until public platform run 45704576323 is terminal.",
+  "status": "released_for_collection",
+  "publication_gate_status": "terminal_success",
+  "hold_reason": null,
   "sources": [
     "the-auction-group"
   ],
@@ -19,6 +19,12 @@
     "mode": "manifest_shared_platform_batch",
     "accepted_workflow_prefix": "Rebuild historical database from banked records and collect retained-grid batch",
     "prepared_at": "2026-11-25T21:30:00Z",
-    "blocked_by_publication_run_id": 45704576323
-  }
+    "blocked_by_publication_run_id": null,
+    "preflight": {
+      "savills_writer_run_id": 45706048829,
+      "savills_writer_conclusion": "cancelled_before_source_harvest",
+      "main_verified": "73e71e4babc2f8ae25e7842cdc5e3ddbcebd7b39"
+    }
+  },
+  "released_at": "2026-11-25T22:59:00Z"
 }
