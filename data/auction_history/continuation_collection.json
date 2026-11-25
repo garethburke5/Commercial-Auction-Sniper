@@ -1,33 +1,35 @@
 {
-  "generated_at": "2026-11-19T12:52:00Z",
+  "generated_at": "2026-11-25T10:05:00Z",
   "status": "ready_for_collection",
   "previous_run": {
-    "run_id": 44525422450,
-    "commit": "0b530823f140c6f22b775cd12f3a811b7e524dae",
-    "total_source_appearances_banked": 41,
-    "net_new_appearances": 41,
-    "newly_historical_dated_appearances": 12,
-    "newly_dated_address_records_within_20_years": 12,
-    "commercial_mixed_use_new_appearances": 3,
-    "commercial_mixed_use_new_appearances_within_20_years": 1,
-    "newly_covered_source_years": [
-      "2026"
+    "run_id": 45582858698,
+    "protected_run_ids": [
+      45582736757,
+      45582858698
     ],
-    "new_guide_price_evidence": 41,
-    "new_sale_price_evidence": 6,
-    "new_starting_bid_evidence": 41,
+    "commit": "29e054415ff9a65ded916bfeb03fec3b791dba25",
+    "total_source_appearances_banked": 670,
+    "net_new_appearances": 670,
+    "newly_historical_dated_appearances": 672,
+    "newly_dated_address_records_within_20_years": 672,
+    "commercial_mixed_use_new_appearances": 296,
+    "commercial_mixed_use_new_appearances_within_20_years": null,
+    "newly_covered_source_years": [],
+    "new_guide_price_evidence": 118,
+    "new_sale_price_evidence": 57,
+    "new_starting_bid_evidence": null,
     "new_rent_evidence": 1,
-    "undated_new_records": 8,
-    "future_dated_new_records": 21,
+    "undated_new_records": 1,
+    "future_dated_new_records": 2,
     "duplicate_new_records": 0,
     "partial_new_records": 0,
     "exact_overlap_candidates_excluded": 0,
-    "auctioneer": "Connect UK Auctions",
+    "auctioneer": "Protected multi-source batch plus Auction Property Ltd",
     "trading_names": [
-      "Connect UK Sales Ltd",
-      "Connect UK Land Auctions"
+      "Auction Property",
+      "Auction Property London"
     ],
-    "result": "The complete 41-URL first-party property sitemap is banked as one operator lineage. All rows are address records; 12 are historical-dated inside the twenty-year window, 21 are future-dated and 8 remain intentionally undated. The collector snapshots every detail and preserves 41 guides, 41 starting bids, one rent and six first-party achieved prices. Sold status without the hydrated first-party current-bid payload remains price-null."
+    "result": "The protected bounded batch banked 669 address appearances (Future Property Auctions 550, Auction House regional lineages 118, Pugh 1). The focused Auction Property batch banked one future mixed-use appearance and repaired five missing historical dates by reconciling 41 auction pages, 64 catalogue cards and 64 property-sitemap URLs. Combined growth is 670 net address appearances, 672 newly dated address records inside the strict twenty-year window, 296 commercial/mixed-use appearances overall, 118 new guide observations and 57 new achieved-price observations. One bounded row is undated and two newly banked rows are future-dated. No new partials or source-years were claimed. The strict in-window commercial/mixed cross-subset is left null because the aggregate protected-batch checkpoint does not expose a lossless sector-by-date delta."
   },
   "runs": [
     {
@@ -386,14 +388,14 @@
   "next_task": 20,
   "target": {
     "auctioneer": "abbotFox Auctions",
-    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and subsequent first-party pagination/detail URLs",
-    "rationale": "The national register has zero abbotFox appearances. The accessible first-party archive exposes roughly 1,471 property listings; surviving paginated rows include explicit unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, creating a substantial address-level opportunity rather than another completed-source refresh.",
+    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and every subsequent first-party pagination/detail URL",
+    "rationale": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
     "evidence": [
       "first-party paginated property archive",
       "first-party auction-tagged detail pages"
     ],
-    "known_evidence_count": 0,
-    "priority": "Build a reusable paginated first-party listing-history collector over abbotFox's /properties?start= archive, select only individually evidenced auction listings, snapshot every source page, and bank exact property appearances with published end dates, guides and sold outcomes."
+    "known_evidence_count": 8,
+    "priority": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch."
   },
   "storage_warning": "GitHub Actions reported the repository approaching its size quota; preserve immutable source snapshots but avoid duplicate blobs.",
   "latest_by_source": {
@@ -1017,67 +1019,53 @@
     }
   },
   "next_run": {
-    "auctioneer": "Auction Property Ltd / Auction Property London",
-    "action": "Build one reusable first-party collector covering the sold-property archive, current properties, auction-date pages and their embedded/API inventory; batch every accessible past and current individual lot rather than adding per-event workflow steps.",
-    "scope": "All sectors across the surviving first-party sold archive, current lots and event/API inventory.",
-    "rationale": "The national register has zero retained Auction Property Ltd appearances. The first-party site exposes dated individual sold lots and 12 current December 2026 lots with addresses, sectors and guides; the public directory reports 43 past plus 12 current lots, providing a 55-lot recovery lead that must be reconciled against first-party evidence before admission.",
-    "collector": "scripts/harvest_auction_property_ltd.py"
+    "auctioneer": "abbotFox Auctions / abbotFox",
+    "action": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch.",
+    "scope": "All sectors across auction-tagged rows in the complete accessible first-party property pagination.",
+    "rationale": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
+    "collector": "scripts/harvest_abbotfox_auctions.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction Property Ltd / Auction Property / Auction Property London — reconcile as one genuine operator/legal-name lineage",
-    "task": "Build one reusable first-party collector covering the sold-property archive, current properties, auction-date pages and their embedded/API inventory; batch every accessible past and current individual lot rather than adding per-event workflow steps.",
-    "reason": "The national register has zero retained Auction Property Ltd appearances. The first-party site exposes dated individual sold lots and 12 current December 2026 lots with addresses, sectors and guides; the public directory reports 43 past plus 12 current lots, providing a 55-lot recovery lead that must be reconciled against first-party evidence before admission.",
-    "source_route": "https://auctionproperty.co.uk/sold-properties/ plus https://auctionproperty.co.uk/properties/, auction pages, sitemap and any embedded WordPress/JSON payload or retained pagination",
-    "collector_target": "scripts/harvest_auction_property_ltd.py",
+    "auctioneer_lineage": "abbotFox Auctions / abbotFox — reconcile as one genuine operator/trading-name lineage",
+    "task": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch.",
+    "reason": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
+    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and every subsequent first-party pagination/detail URL",
+    "collector_target": "scripts/harvest_abbotfox_auctions.py",
     "observed_inventory": {
-      "national_register_retained_appearances": 0,
-      "first_party_sold_archive_accessible": true,
-      "current_first_party_lots": 12,
-      "directory_reported_past_lots": 43,
-      "directory_reported_total_lots": 55,
-      "sectors": [
-        "residential",
-        "land",
-        "mixed-use",
-        "commercial"
-      ]
+      "national_register_retained_appearances": 8,
+      "first_party_listing_records_approximately": 1471,
+      "archive_pagination_accessible": true,
+      "admission_scope": "auction-tagged individual property listings only"
     },
     "admission_rules": [
-      "Snapshot the first-party index/API, auction page and each admitted individual detail; directory totals are recovery leads, not captured appearances.",
-      "Preserve exact individual auction dates, guides, achieved prices, rents and all published outcomes; leave unavailable values null.",
-      "Reconcile Auction Property, Auction Property London and Auction Property Ltd as one lineage, and deduplicate exact property/date overlaps before claiming growth.",
-      "Keep current/future lots separately classified from historical dated growth and do not infer sale prices from sold labels."
+      "Reconcile the complete pagination denominator before making a source-completeness claim.",
+      "Admit only individual pages with explicit auction evidence; exclude ordinary agency listings.",
+      "Preserve exact auction end dates, guides, SOLD FOR outcomes, original URLs and immutable index/detail snapshots; leave unknown values null.",
+      "Reconcile abbotFox and abbotFox Auctions as one lineage and deduplicate exact property/date overlaps before claiming growth."
     ],
-    "blocked_route_avoidance": "Do not refresh Connect UK's reconciled 41-URL sitemap or Barney Estates' 140-record surface unless new lot URLs appear; do not revisit terminal blockers without a materially different route."
+    "blocked_route_avoidance": "Do not refresh Auction Property's reconciled 64-URL surface, Connect UK's 41-URL surface or other exhausted archives unless a new lot URL or materially different recovery route appears."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction Property Ltd / Auction Property / Auction Property London — reconcile as one genuine operator/legal-name lineage",
-    "task": "Build one reusable first-party collector covering the sold-property archive, current properties, auction-date pages and their embedded/API inventory; batch every accessible past and current individual lot rather than adding per-event workflow steps.",
-    "reason": "The national register has zero retained Auction Property Ltd appearances. The first-party site exposes dated individual sold lots and 12 current December 2026 lots with addresses, sectors and guides; the public directory reports 43 past plus 12 current lots, providing a 55-lot recovery lead that must be reconciled against first-party evidence before admission.",
-    "source_route": "https://auctionproperty.co.uk/sold-properties/ plus https://auctionproperty.co.uk/properties/, auction pages, sitemap and any embedded WordPress/JSON payload or retained pagination",
-    "collector_target": "scripts/harvest_auction_property_ltd.py",
+    "auctioneer_lineage": "abbotFox Auctions / abbotFox — reconcile as one genuine operator/trading-name lineage",
+    "task": "Expand the existing reusable first-party collector across the complete /properties?start= pagination, select only individually evidenced auction listings, and bank every currently uncaptured address appearance in one bounded batch.",
+    "reason": "The national register retains only 8 abbotFox appearances while the accessible first-party property archive enumerates roughly 1,471 listing records. Surviving auction-tagged detail pages publish unconditional-online-auction end dates, guide ranges and SOLD FOR outcomes, so full pagination reconciliation offers a substantial individual-lot opportunity.",
+    "source_route": "https://www.abbotfox.co.uk/properties?start=0 and every subsequent first-party pagination/detail URL",
+    "collector_target": "scripts/harvest_abbotfox_auctions.py",
     "observed_inventory": {
-      "national_register_retained_appearances": 0,
-      "first_party_sold_archive_accessible": true,
-      "current_first_party_lots": 12,
-      "directory_reported_past_lots": 43,
-      "directory_reported_total_lots": 55,
-      "sectors": [
-        "residential",
-        "land",
-        "mixed-use",
-        "commercial"
-      ]
+      "national_register_retained_appearances": 8,
+      "first_party_listing_records_approximately": 1471,
+      "archive_pagination_accessible": true,
+      "admission_scope": "auction-tagged individual property listings only"
     },
     "admission_rules": [
-      "Snapshot the first-party index/API, auction page and each admitted individual detail; directory totals are recovery leads, not captured appearances.",
-      "Preserve exact individual auction dates, guides, achieved prices, rents and all published outcomes; leave unavailable values null.",
-      "Reconcile Auction Property, Auction Property London and Auction Property Ltd as one lineage, and deduplicate exact property/date overlaps before claiming growth.",
-      "Keep current/future lots separately classified from historical dated growth and do not infer sale prices from sold labels."
+      "Reconcile the complete pagination denominator before making a source-completeness claim.",
+      "Admit only individual pages with explicit auction evidence; exclude ordinary agency listings.",
+      "Preserve exact auction end dates, guides, SOLD FOR outcomes, original URLs and immutable index/detail snapshots; leave unknown values null.",
+      "Reconcile abbotFox and abbotFox Auctions as one lineage and deduplicate exact property/date overlaps before claiming growth."
     ],
-    "blocked_route_avoidance": "Do not refresh Connect UK's reconciled 41-URL sitemap or Barney Estates' 140-record surface unless new lot URLs appear; do not revisit terminal blockers without a materially different route."
+    "blocked_route_avoidance": "Do not refresh Auction Property's reconciled 64-URL surface, Connect UK's 41-URL surface or other exhausted archives unless a new lot URL or materially different recovery route appears."
   },
   "previous_trigger_attempt": {
     "commit": "675b7272b5712327fdb5141862371cf676c6c66e",
@@ -1115,7 +1103,7 @@
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-19T12:52:00Z",
+  "updated_at": "2026-11-25T10:05:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "Historical run 44525422450 completed successfully and banked commit 0b530823f140c6f22b775cd12f3a811b7e524dae. Public platform run 44526337219 then completed successfully, including production-domain deployment. No generated-data writer is active.",
