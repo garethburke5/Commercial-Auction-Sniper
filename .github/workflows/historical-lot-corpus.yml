@@ -1155,7 +1155,7 @@ jobs:
         if: startsWith(github.event.head_commit.message, 'Run focused Connect UK Auctions archive expansion')
         timeout-minutes: 30
         run: python -u scripts/harvest_connect_uk_auctions.py --workers 12
-      - name: Collect Auction Property complete first-party property sitemap
+      - name: Collect Auction Property auction-page batch and property sitemap
         if: startsWith(github.event.head_commit.message, 'Run focused Auction Property archive expansion')
         timeout-minutes: 30
         run: python -u scripts/harvest_auction_property.py --workers 12
