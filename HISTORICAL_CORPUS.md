@@ -1,6 +1,19 @@
 # Historical auction property corpus
 
 
+## 25 November 2026 — Bramleys auction-news batch
+
+Focused historical run [45652786316](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45652786316) completed successfully and banked commit `c65c4bb8f999b86c1bbedcf8ff1d63b8754631a1`. The reusable collector reconciled six first-party news archive pages and all five discovered auction-tagged articles. Strict address, bidding-window and guide admission retained two individual 2023 property appearances and two guide-price observations. Three furniture-sale articles and one generic auction-advice article produced no property records and were not counted.
+
+Corpus growth from the prior 317,702 checkpoint is two appearances and two dated address records inside the strict twenty-year window, taking the corpus to 317,704 appearances and 306,387 address records. Partial records remain 11,317. Commercial/mixed-use growth is zero; achieved-price growth is zero; undated and future-dated growth are zero. Bramleys 2023 is a newly evidenced source-year. The selected news articles are not complete auction catalogues, so national completeness remains false.
+
+The directory name `Bramleys`, the collected label `Bramleys LLP` and the public-facing `Bramleys Estate Agents` label are now explicitly reconciled as one operator. They are not counted as separate auctioneers.
+
+The next concrete growth target is Auction Local. Its accessible first-party search surface and stable `/lot/details/{uuid}` URLs must be inventoried in one reusable batch across every property sector, with exact dates, prices, outcomes, original URLs and immutable snapshots preserved. Search pages are inventory evidence only and must not be counted as properties. The collector must reconcile pagination and deduplicate exact property/date overlaps before any growth or completeness claim.
+
+Public platform run 45653810489 remains protected while it publishes the Bramleys banked revision. No Auction Local collector is to start until that run completes and active workflows are rechecked.
+
+
 ## 25 November 2026 — Town & Country banked growth and next archive route
 
 Historical run [45594087137](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45594087137) completed successfully and banked commit `d63b4d90eabfc2712b0b90686690549c62a389f3`. The complete accessible Town & Country past-auction pagination was reconciled: 57/57 pages, 2,838 currently visible archive rows and 3,163 accumulated evidenced property appearances. This run added 32 address appearances, all dated in 2026 and inside the strict twenty-year window. Two are mixed-use, 14 residential and 16 remain sector-unknown. It added no guide-price observations and one achieved-price observation. No partial, undated, future-dated or newly covered source-year claim is made.
