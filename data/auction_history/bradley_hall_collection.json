@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-25T21:04:37.334669+00:00",
+  "checked_at": "2026-11-25T21:41:38.796108+00:00",
   "auctioneer": "Bradley Hall Auctions",
   "source_trading_names": [
     "Bradley Hall",
@@ -553,7 +553,10 @@
     }
   ],
   "by_sector": {
-    "mixed-use": 18
+    "residential": 9,
+    "unknown": 5,
+    "commercial": 3,
+    "mixed-use": 1
   },
   "by_status": {
     "sold_prior": 1,
@@ -562,16 +565,16 @@
   "search_evidence": [
     {
       "source_url": "https://auction.bradleyhall.co.uk/search?order=EndingSoonest&page=1",
-      "retrieved_at": "2026-11-25T21:04:23.870302+00:00",
-      "sha256": "710842e4439a1ef0511bbf9250feb21dd7b5b7864ab09f226b60ebb5edc5f0f6",
-      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-1-710842e4439a1ef0.json.gz",
+      "retrieved_at": "2026-11-25T21:41:14.017247+00:00",
+      "sha256": "ca775a6f77fa43e2722b82417be531dceffce6f3edd23be3252344d6790c1a37",
+      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-1-ca775a6f77fa43e2.json.gz",
       "basis": "first-party Bradley Hall complete visible search pagination"
     },
     {
       "source_url": "https://auction.bradleyhall.co.uk/search?page=2&view=List&order=EndingSoonest&token=PGNyaXRlcmlhIHBhZ2U9IjEiIHBhZ2VTaXplPSI1MCIgc2hvd0FsbD0iZmFsc2UiIG9yZGVyPSIyIiB2aWV3PSIwIj48ZmlsdGVyPjxsb3Q-PGhhc1dpZGdldD5mYWxzZTwvaGFzV2lkZ2V0PjwvbG90PjwvZmlsdGVyPjwvY3JpdGVyaWE-0",
-      "retrieved_at": "2026-11-25T21:04:24.475649+00:00",
-      "sha256": "be7106b2788c3ed43c73c1e5963b36cdc665f46032914c7adb7d20b4b59c1b73",
-      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-2-be7106b2788c3ed4.json.gz",
+      "retrieved_at": "2026-11-25T21:41:14.449790+00:00",
+      "sha256": "f4d06371120061b9035b84bdb610d108f95e9480985e1a69b22bfa095d7b3a64",
+      "snapshot_path": "data/auction_history/sources/bradley-hall-auctions/search/page-2-f4d06371120061b9.json.gz",
       "basis": "first-party Bradley Hall complete visible search pagination"
     }
   ],
