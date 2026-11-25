@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-25T16:38:00Z",
+  "generated_at": "2026-11-25T16:48:00Z",
   "status": "collection_retry_requested",
   "previous_run": {
     "run_id": 45594087137,
@@ -1079,9 +1079,12 @@
   "previous_trigger_attempt": {
     "source": "bramleys_first_party_auction_news_archive",
     "collector": "scripts/harvest_bramleys_news.py",
-    "first_run_id": 45651469294,
-    "requested_at": "2026-11-25T16:38:00Z",
-    "result": "Admission test found adjacent-line duplicate candidate; collector did not run and no Bramleys records were banked. Parser fixed before this retry.",
+    "failed_run_ids": [
+      45651469294,
+      45652214520
+    ],
+    "requested_at": "2026-11-25T16:48:00Z",
+    "result": "Admission fixtures exposed false address candidates from adjacent rendered lines. No Bramleys rows were banked. Parser now admits only independent first-party lot blocks before this retry.",
     "protected_publication_checkpoint_run": 45598349040
   },
   "durrants_route_assessment": {
@@ -1115,7 +1118,7 @@
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-25T16:38:00Z",
+  "updated_at": "2026-11-25T16:48:00Z",
   "in_flight_protection": {
     "active_workflow_run": null,
     "status": "Historical run 45594087137 completed successfully and banked commit d63b4d90eabfc2712b0b90686690549c62a389f3. Public platform run 45598349040 failed and its publication checkpoint remains preserved. No generated-data writer was active at review.",
