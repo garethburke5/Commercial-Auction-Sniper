@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-11-19T17:09:45.677647+00:00",
+  "checked_at": "2026-11-25T09:38:54.444302+00:00",
   "auctioneer": "Auction Property Ltd",
   "source_trading_names": [
     "Auction Property",
@@ -7,71 +7,49 @@
   ],
   "branches_and_trading_names_counted_separately": false,
   "source_url": "https://auctionproperty.co.uk/property-sitemap.xml",
-  "sitemap_property_urls": 63,
-  "details_captured": 63,
-  "retained_appearances": 63,
-  "run_new_appearances": 0,
-  "run_newly_dated_existing_appearances": 0,
-  "run_new_historical_dated_appearances": 0,
-  "run_new_address_records": 0,
+  "auction_sitemap_url": "https://auctionproperty.co.uk/auction-sitemap.xml",
+  "sitemap_property_urls": 64,
+  "auction_pages_discovered": 41,
+  "auction_cards_captured": 64,
+  "auction_linked_property_urls": 64,
+  "union_property_urls": 64,
+  "details_captured": 64,
+  "retained_appearances": 64,
+  "run_new_appearances": 1,
+  "run_newly_dated_existing_appearances": 5,
+  "run_new_historical_dated_appearances": 5,
+  "run_new_address_records": 1,
   "run_new_partial_lots": 0,
-  "run_new_dated_address_records_within_20_years": 0,
-  "run_new_commercial_or_mixed": 0,
-  "run_new_commercial_or_mixed_within_20_years": 0,
-  "run_new_guide_prices": 0,
+  "run_new_dated_address_records_within_20_years": 5,
+  "run_new_commercial_or_mixed": 1,
+  "run_new_commercial_or_mixed_within_20_years": 1,
+  "run_new_guide_prices": 1,
   "run_new_sale_prices": 0,
   "run_new_starting_bids": 0,
-  "run_new_rents": 0,
+  "run_new_rents": 1,
   "newly_covered_source_years": [],
   "new_undated_records": 0,
-  "new_future_dated_records": 0,
+  "new_future_dated_records": 1,
   "exact_overlap_candidates_excluded": 0,
   "overlap_candidates": [],
-  "date_diagnostics_count": 5,
-  "date_diagnostics": [
-    {
-      "source_id": "flat-4-7-claremont-road-windsor",
-      "source_url": "https://auctionproperty.co.uk/property/flat-4-7-claremont-road-windsor/",
-      "reason": "no explicit individual auction date; no page or publication date substituted"
-    },
-    {
-      "source_id": "flat-5-coachman-court-rochford",
-      "source_url": "https://auctionproperty.co.uk/property/flat-5-coachman-court-rochford/",
-      "reason": "no explicit individual auction date; no page or publication date substituted"
-    },
-    {
-      "source_id": "land-at-hunts-wood-east-of-hunts-lane-west-of-burnham",
-      "source_url": "https://auctionproperty.co.uk/property/land-at-hunts-wood-east-of-hunts-lane-west-of-burnham/",
-      "reason": "no explicit individual auction date; no page or publication date substituted"
-    },
-    {
-      "source_id": "land-to-the-rear-of-orchard-house-hunts-hill-swindon",
-      "source_url": "https://auctionproperty.co.uk/property/land-to-the-rear-of-orchard-house-hunts-hill-swindon/",
-      "reason": "no explicit individual auction date; no page or publication date substituted"
-    },
-    {
-      "source_id": "ye-olde-george-inn-146-high-street-colnbrook-slough",
-      "source_url": "https://auctionproperty.co.uk/property/ye-olde-george-inn-146-high-street-colnbrook-slough/",
-      "reason": "no explicit individual auction date; no page or publication date substituted"
-    }
-  ],
+  "date_diagnostics_count": 0,
+  "date_diagnostics": [],
   "failures": [],
   "by_year": {
-    "unda": 5,
-    "2023": 2,
-    "2024": 14,
+    "2023": 3,
+    "2024": 18,
     "2025": 23,
-    "2026": 19
+    "2026": 20
   },
   "by_sector": {
     "residential": 40,
     "land": 5,
-    "mixed-use": 12,
+    "mixed-use": 13,
     "commercial": 4,
     "unknown": 2
   },
   "by_status": {
-    "available": 45,
+    "available": 46,
     "withdrawn": 2,
     "sold": 16
   },
