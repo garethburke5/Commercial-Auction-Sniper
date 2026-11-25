@@ -31,6 +31,7 @@ def test_search_page_preserves_results_guides_and_pagination():
     assert denominator == 82
     assert len(rows) == 1
     row = rows[0]
+    assert row["source_id"] == "c1effa50-055b-48d5-9f02-ebc7a52c96c2"
     assert row["auction_date"] == "2026-11-10"
     assert row["status"] == "sold_prior"
     assert row["sale_price"] == 140000

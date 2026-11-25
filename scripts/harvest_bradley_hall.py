@@ -194,6 +194,7 @@ def parse_page(html, page_url, evidence):
             # The EIG UUID identifies the legal interest, while one interest can
             # be re-offered.  Date remains part of the appearance identity.
             appearance_id=f"{SOURCE}|bradley-hall:{source_id}:{auction_date}",
+            source_id=source_id,
             address=address, postcode=pc.group().upper() if pc else None,
             locality=address, sector=sector_for(combined), status=status,
             guide_price=guide, guide_price_high=None, starting_bid=starting_bid,
