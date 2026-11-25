@@ -1,5 +1,18 @@
 # Historical auction property corpus
 
+## 25 November 2026 — protected writer-lane hold before The Auction Group batch
+
+No historical collection was started in this checkpoint because scheduled Savills workflow [45706048829](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45706048829) remained reported in progress in `actions/checkout@v4` from 21:37 UTC, with no heartbeat after 21:37:33 UTC even after its declared 45-minute job limit. Its source discovery, harvesting and commit steps never started; main remained at `cc39b328b6b9f6e459918b30a57d886605953964`. This is a GitHub runner/checkout blocker, not a Savills source result, and it must not be counted as a zero-yield archive refresh.
+
+The protected publication checkpoint [45707173130](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45707173130) completed successfully. The current scan [45706570726](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45706570726) completed unsuccessfully and is terminal. No duplicate collector or generated-data writer was launched while the Savills job remained non-terminal.
+
+Checkpoint growth is therefore **0 net appearances, 0 newly dated address records inside the strict twenty-year window, 0 commercial/mixed-use additions, 0 newly covered source-years, 0 new guides and 0 new achieved prices**. There are no new partial, undated, future-dated or duplicate records to report.
+
+The materially different ready growth route remains **The Auction Group** through the reusable manifest-driven retained-grid collector. Its live first-party search surface still reconciles to **195 individually addressed cards** across multiple property dates and sectors, while the source register has **0 retained appearances**. The manifest requires stable lot identities, exact date/address cross-source overlap exclusion, details, guides, rents, outcomes, original URLs and immutable snapshots before growth is claimed. Launch only after workflow 45706048829 becomes terminal and main is re-read. A follow-on candidate is Online Property Auction Group: its first-party past grid currently exposes 100 cards against 51 retained appearances, but its cross-source overlap guard must be verified before collection.
+
+National completeness remains false.
+
+
 
 ## 25 November 2026 — Bradley Hall visible inventory bank and detail repair
 
