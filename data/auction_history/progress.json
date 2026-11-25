@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-25T21:43:21.059422+00:00",
-  "individual_lot_records_captured": 317862,
-  "records_with_address": 306545,
+  "generated_at": "2026-11-25T23:04:01.243562+00:00",
+  "individual_lot_records_captured": 318058,
+  "records_with_address": 306741,
   "partial_lot_records": 11317,
-  "exact_address_groups": 171419,
-  "groups_with_repeat_appearances": 43358,
+  "exact_address_groups": 171609,
+  "groups_with_repeat_appearances": 43362,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -146,6 +146,7 @@
     "Symonds & Sampson": 1144,
     "TW Gaze": 28,
     "The Auction Company": 123,
+    "The Auction Group": 196,
     "The Property Auction House": 132,
     "Town & Country Property Auctions": 3302,
     "Tutis Estates": 31,
@@ -179,24 +180,24 @@
     "2021": 21566,
     "2022": 27057,
     "2023": 33875,
-    "2024": 42789,
-    "2025": 48881,
-    "2026": 50633,
-    "2027": 7
+    "2024": 42798,
+    "2025": 48963,
+    "2026": 50726,
+    "2027": 19
   },
   "by_sector": {
-    "commercial": 42959,
-    "land": 20135,
+    "commercial": 42964,
+    "land": 20138,
     "mixed": 1,
-    "mixed-use": 48090,
-    "residential": 154685,
-    "unknown": 51992
+    "mixed-use": 48094,
+    "residential": 154856,
+    "unknown": 52005
   },
   "date_range": [
     "2002-10-31",
-    "2027-01-15"
+    "2027-01-27"
   ],
-  "surviving_catalogues_completely_harvested": 5013,
+  "surviving_catalogues_completely_harvested": 5107,
   "catalogues_incomplete_or_unreconciled": 573,
   "catalogue_fetch_or_parse_failures": 50,
   "limits": [
@@ -210,13 +211,13 @@
     "through_date": "2026-11-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309296,
-      "auction_ids_observed": 16189,
-      "with_guide_price": 110202,
-      "with_sale_price": 114961,
-      "with_both_prices": 50919,
-      "marked_sold": 157972,
-      "marked_sold_without_sale_price": 43751
+      "lot_appearances": 309462,
+      "auction_ids_observed": 16281,
+      "with_guide_price": 110368,
+      "with_sale_price": 114989,
+      "with_both_prices": 50947,
+      "marked_sold": 158129,
+      "marked_sold_without_sale_price": 43880
     },
     "by_auctioneer_and_year": [
       {
@@ -9526,6 +9527,39 @@
         "marked_sold_without_sale_price": 22
       },
       {
+        "auctioneer": "The Auction Group",
+        "year": 2024,
+        "lot_appearances": 9,
+        "auction_ids_observed": 5,
+        "with_guide_price": 9,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 8,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "The Auction Group",
+        "year": 2025,
+        "lot_appearances": 82,
+        "auction_ids_observed": 43,
+        "with_guide_price": 82,
+        "with_sale_price": 16,
+        "with_both_prices": 16,
+        "marked_sold": 82,
+        "marked_sold_without_sale_price": 66
+      },
+      {
+        "auctioneer": "The Auction Group",
+        "year": 2026,
+        "lot_appearances": 75,
+        "auction_ids_observed": 44,
+        "with_guide_price": 75,
+        "with_sale_price": 11,
+        "with_both_prices": 11,
+        "marked_sold": 67,
+        "marked_sold_without_sale_price": 56
+      },
+      {
         "auctioneer": "The Property Auction House",
         "year": 2022,
         "lot_appearances": 19,
@@ -9868,7 +9902,7 @@
       }
     ],
     "undated_appearances": 5248,
-    "future_dated_appearances": 198,
+    "future_dated_appearances": 228,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

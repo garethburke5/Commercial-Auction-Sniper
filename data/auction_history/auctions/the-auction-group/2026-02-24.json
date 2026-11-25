@@ -1,0 +1,52 @@
+{
+  "auctioneer": "The Auction Group",
+  "source_auction_id": "the-auction-group:2026-02-24",
+  "auction_date": "2026-02-24",
+  "source_url": "https://online.the-auctiongroup.co.uk/search",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 1,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/search",
+      "retrieved_at": "2026-11-25T23:01:46.317931+00:00",
+      "sha256": "539c24a6bfda6f1192b2b68ce59d1b8f97b58d0526cabc1b4c233cf0a7577cae",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-1-539c24a6bfda6f11.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/search?page=2",
+      "retrieved_at": "2026-11-25T23:01:46.418212+00:00",
+      "sha256": "8e1011aed29b09476fa65871cd7e6f19b3ef5fe5860beea3d99970d7a3a4bfa3",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-2-8e1011aed29b0947.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/search?page=3",
+      "retrieved_at": "2026-11-25T23:01:46.517422+00:00",
+      "sha256": "287158ce316c084f6219ac8d489de43d10cc5c0fc03505b63b064a533c049da6",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-3-287158ce316c084f.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 4
+    },
+    {
+      "source_url": "https://online.the-auctiongroup.co.uk/search?page=4",
+      "retrieved_at": "2026-11-25T23:01:46.628779+00:00",
+      "sha256": "847e7f7d7a417efe3fbe3aac65e623ec872d906e7dc26b8fc5c904a0a60464ee",
+      "snapshot_path": "data/auction_history/sources/the-auction-group/past-auctions-page-4-847e7f7d7a417efe.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 4,
+      "page_count": 4
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-25T23:02:13.693400+00:00"
+}
