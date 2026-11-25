@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-25T09:40:01.775213+00:00",
-  "individual_lot_records_captured": 317670,
-  "records_with_address": 306353,
+  "generated_at": "2026-11-25T10:45:12.023639+00:00",
+  "individual_lot_records_captured": 317702,
+  "records_with_address": 306385,
   "partial_lot_records": 11317,
-  "exact_address_groups": 171310,
-  "groups_with_repeat_appearances": 43286,
+  "exact_address_groups": 171330,
+  "groups_with_repeat_appearances": 43298,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -145,7 +145,7 @@
     "TW Gaze": 28,
     "The Auction Company": 123,
     "The Property Auction House": 132,
-    "Town & Country Property Auctions": 3131,
+    "Town & Country Property Auctions": 3163,
     "Tutis Estates": 31,
     "Unknown auctioneer": 14,
     "Webbers": 99,
@@ -179,16 +179,16 @@
     "2023": 33873,
     "2024": 42789,
     "2025": 48881,
-    "2026": 50445,
+    "2026": 50477,
     "2027": 6
   },
   "by_sector": {
     "commercial": 42951,
     "land": 20110,
     "mixed": 1,
-    "mixed-use": 48084,
-    "residential": 154615,
-    "unknown": 51909
+    "mixed-use": 48086,
+    "residential": 154629,
+    "unknown": 51925
   },
   "date_range": [
     "2002-10-31",
@@ -208,13 +208,13 @@
     "through_date": "2026-11-25",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309122,
-      "auction_ids_observed": 16167,
+      "lot_appearances": 309154,
+      "auction_ids_observed": 16182,
       "with_guide_price": 110200,
-      "with_sale_price": 114947,
+      "with_sale_price": 114948,
       "with_both_prices": 50919,
-      "marked_sold": 157946,
-      "marked_sold_without_sale_price": 43739
+      "marked_sold": 157956,
+      "marked_sold_without_sale_price": 43748
     },
     "by_auctioneer_and_year": [
       {
@@ -9603,13 +9603,13 @@
       {
         "auctioneer": "Town & Country Property Auctions",
         "year": 2026,
-        "lot_appearances": 1434,
-        "auction_ids_observed": 627,
+        "lot_appearances": 1466,
+        "auction_ids_observed": 642,
         "with_guide_price": 0,
-        "with_sale_price": 261,
+        "with_sale_price": 262,
         "with_both_prices": 0,
-        "marked_sold": 823,
-        "marked_sold_without_sale_price": 562
+        "marked_sold": 833,
+        "marked_sold_without_sale_price": 571
       },
       {
         "auctioneer": "Tutis Estates",
@@ -9855,14 +9855,14 @@
     ]
   },
   "paul_fosh_results": {
-    "checked_at": "2026-11-19T21:11:44.951655+00:00",
+    "checked_at": "2026-11-25T10:36:18.601565+00:00",
     "lots_captured": 5707,
-    "current_run_unique_lots": 5702,
-    "expected_public_results": 5702,
-    "run_new_appearances": 9,
-    "run_new_address_records": 9,
+    "current_run_unique_lots": 5696,
+    "expected_public_results": 5696,
+    "run_new_appearances": 0,
+    "run_new_address_records": 0,
     "run_new_partial_lots": 0,
-    "retained_not_in_current_public_pagination": 5,
+    "retained_not_in_current_public_pagination": 11,
     "pages_captured": [
       1,
       2,
@@ -9977,10 +9977,9 @@
       111,
       112,
       113,
-      114,
-      115
+      114
     ],
-    "pages_expected": 115,
+    "pages_expected": 114,
     "results_complete": true,
     "failures": [],
     "date_basis": "individual published lot end dates; not inferred auction-container dates"
