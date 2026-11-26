@@ -61,16 +61,40 @@ def pounds(value: str | None) -> int | None:
     return int(round(float(match.group(1).replace(",", "")))) if match else None
 
 
+def guide_price(value: str | None) -> int | None:
+    """Return only an explicitly labelled guide, never an opening or current bid."""
+    text = clean(value) or ""
+    if not re.search(r"(?i)\bguide\s+price\b", text):
+        return None
+    return pounds(text)
+
+
+def annual_rent(value: str | None) -> tuple[int | None, str | None]:
+    """Preserve explicit annual or monthly rent from a published lot card."""
+    text = clean(value) or ""
+    patterns = (
+        (r"(?i)£\s*([\d,]+(?:\.\d+)?)\s*(?:pcm|per\s+calendar\s+month|per\s+month)", 12),
+        (r"(?i)£\s*([\d,]+(?:\.\d+)?)\s*(?:per\s+annum|p\.?a\.?)", 1),
+        (r"(?i)(?:annual\s+rent|annual\s+income|rental\s+income|producing)\s*(?:of|:|-)?\s*£\s*([\d,]+(?:\.\d+)?)", 1),
+    )
+    for pattern, multiplier in patterns:
+        match = re.search(pattern, text)
+        if match:
+            amount = int(round(float(match.group(1).replace(",", "")))) * multiplier
+            return amount, clean(match.group(0))
+    return None, None
+
+
 def status_and_price(value: str | None) -> tuple[str, int | None]:
     text = (clean(value) or "").casefold()
     if "sold prior" in text or "sale agreed prior" in text:
         status = "sold_prior"
     elif any(value in text for value in ("sold post", "sold after", "sale agreed post", "sale agreed after")):
         status = "sold_after"
-    elif "sale price" in text:
+    elif "sale price" in text or "sale agreed" in text:
         # Several EIG white labels publish achieved amounts as ``Sale price``
-        # without also rendering the word ``sold``.  The label is explicit
-        # achieved-price evidence, not a guide or last bid.
+        # or ``Sale Agreed for`` without also rendering the word ``sold``.
+        # Both are explicit achieved-price evidence, not a guide or last bid.
         status = "sold"
     elif re.search(r"\bsold\b", text):
         status = "sold"
@@ -154,6 +178,10 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
         result_node = card.select_one(".list-guideprice")
         result_text = clean(result_node.get_text(" ", strip=True)) if result_node else None
         status, sale_price = status_and_price(result_text)
+        published_guide_price = guide_price(result_text)
+        rent, rent_text = annual_rent(" ".join(filter(None, [
+            address, property_type, description, result_text,
+        ])))
         image_node = card.select_one("img.list-image[src]")
         image_url = urljoin(BASE, image_node["src"]) if image_node else None
         postcode_match = corpus.PC.search(address or "")
@@ -170,7 +198,10 @@ def parse_page(html: str, page: int, evidence: dict) -> list[dict]:
             locality=address,
             sector=corpus.sector(" ".join(filter(None, [address, property_type, description]))),
             property_type=property_type,
+            guide_price=published_guide_price,
             sale_price=sale_price,
+            annual_rent=rent,
+            annual_rent_text=rent_text,
             status=status,
             description=description,
             image_urls=[image_url] if image_url else [],
@@ -392,7 +423,10 @@ def harvest() -> None:
             for row in added
         ),
         "run_new_sale_prices": sum(row.get("sale_price") is not None for row in added),
-        "run_new_rents": sum(row.get("rent") is not None for row in added),
+        "run_new_rents": sum(
+            row.get("annual_rent") is not None or row.get("rent") is not None
+            for row in added
+        ),
         "run_new_undated": sum(not row.get("auction_date") for row in added),
         "run_new_future_dated": sum((row.get("auction_date") or "") > today.isoformat() for row in added),
         "new_source_years": sorted(years_after - years_before),
