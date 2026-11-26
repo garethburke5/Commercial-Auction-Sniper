@@ -29,6 +29,7 @@ ARCHIVE_URL = BASE + "/past-auctions"
 AUCTIONEER = "Harman Healy"
 SLUG = "harman-healy"
 OPERATOR_METADATA: dict[str, object] = {}
+ENRICH_DETAILS = False
 HEADERS = {"User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)"}
 PAGE_SIZE = 50
 COUNT_RE = re.compile(r"Showing\s+results\s+[\d,]+\s*-\s*[\d,]+\s+of\s+([\d,]+)", re.I)
@@ -242,13 +243,80 @@ def configure(
     slug: str,
     archive_path: str = "/past-auctions",
     operator_metadata: dict[str, object] | None = None,
+    enrich_details: bool = False,
 ) -> None:
-    global BASE, ARCHIVE_URL, AUCTIONEER, SLUG, OPERATOR_METADATA
+    global BASE, ARCHIVE_URL, AUCTIONEER, SLUG, OPERATOR_METADATA, ENRICH_DETAILS
     BASE = base.rstrip("/")
     ARCHIVE_URL = BASE + "/" + archive_path.lstrip("/")
     AUCTIONEER = auctioneer
     SLUG = slug
     OPERATOR_METADATA = dict(operator_metadata or {})
+    ENRICH_DETAILS = bool(enrich_details)
+
+
+def detail_values(html: str) -> dict[str, object]:
+    """Extract only explicitly labelled guide and rent evidence from a lot detail page."""
+    text = clean(BeautifulSoup(html, "lxml").get_text(" ", strip=True)) or ""
+    guide_match = re.search(
+        r"(?i)\\bguide\\s+price\\*?\\s*:?[\\s\\xa0]*£\\s*[\\d,]+(?:\\.\\d+)?",
+        text,
+    )
+    rent, rent_text = annual_rent(text)
+    return {
+        "guide_price": pounds(guide_match.group(0)) if guide_match else None,
+        "annual_rent": rent,
+        "annual_rent_text": rent_text,
+    }
+
+
+def enrich_detail_rows(rows: list[dict]) -> tuple[int, list[dict]]:
+    """Snapshot CPN-style EIG details and merge only missing labelled evidence."""
+    failures: list[dict] = []
+    captured = 0
+
+    def fetch_detail(row: dict) -> tuple[dict, bytes, str]:
+        url = row.get("original_url")
+        if not url:
+            raise ValueError("lot row lacks an original detail URL")
+        response = requests.get(url, headers=HEADERS, timeout=90)
+        response.raise_for_status()
+        if len(response.content) < 1000:
+            raise ValueError("lot detail response is unexpectedly short")
+        return row, response.content, response.url
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = {pool.submit(fetch_detail, row): row for row in rows}
+        for future in as_completed(futures):
+            source_row = futures[future]
+            try:
+                row, raw, resolved = future.result()
+                html = raw.decode("utf-8", "replace")
+                values = detail_values(html)
+                sha = corpus.digest(raw)
+                source_id = str(row.get("source_lot_id") or row.get("property_id"))
+                snapshot = corpus.DATA / f"sources/{SLUG}" / f"lot-{source_id}-{sha[:16]}.json.gz"
+                evidence = {
+                    "source_url": resolved,
+                    "retrieved_at": corpus.now(),
+                    "sha256": sha,
+                    "snapshot_path": str(snapshot.relative_to(corpus.ROOT)),
+                    "basis": "first-party EIG individual lot detail",
+                }
+                corpus.save_gzip(snapshot, {"evidence": evidence, "html": html})
+                if row.get("guide_price") is None and values["guide_price"] is not None:
+                    row["guide_price"] = values["guide_price"]
+                if row.get("annual_rent") is None and values["annual_rent"] is not None:
+                    row["annual_rent"] = values["annual_rent"]
+                    row["annual_rent_text"] = values["annual_rent_text"]
+                row["detail_source_evidence"] = evidence
+                captured += 1
+            except Exception as exc:
+                failures.append({
+                    "source_lot_id": source_row.get("source_lot_id"),
+                    "source_url": source_row.get("original_url"),
+                    "error": f"{type(exc).__name__}: {exc}",
+                })
+    return captured, failures
 
 
 def global_eig_source_ids(exclude_slug: str) -> dict[str, list[dict]]:
@@ -347,6 +415,11 @@ def harvest() -> None:
             f"committed-offer exclusions and {len(set(identities))} identities of {expected} cards"
         )
 
+    detail_pages_captured = 0
+    detail_enrichment_failures: list[dict] = []
+    if ENRICH_DETAILS:
+        detail_pages_captured, detail_enrichment_failures = enrich_detail_rows(observed)
+
     global_ids = global_eig_source_ids(SLUG)
     overlap_exclusions, admissible = [], []
     for row in observed:
@@ -397,6 +470,9 @@ def harvest() -> None:
         "non_auction_exclusions": non_auction_exclusions,
         "duplicate_source_evidence_excluded": len(overlap_exclusions),
         "duplicate_source_exclusions": overlap_exclusions,
+        "detail_pages_captured": detail_pages_captured,
+        "detail_pages_expected": len(observed) if ENRICH_DETAILS else 0,
+        "detail_enrichment_failures": detail_enrichment_failures,
         "source_evidence": evidence_pages,
         "errors": [],
         "checked_at": corpus.now(),
@@ -434,6 +510,9 @@ def harvest() -> None:
         "non_auction_exclusions": non_auction_exclusions,
         "run_duplicate_source_evidence_excluded": len(overlap_exclusions),
         "duplicate_source_exclusions": overlap_exclusions,
+        "detail_pages_captured": detail_pages_captured,
+        "detail_pages_expected": len(observed) if ENRICH_DETAILS else 0,
+        "detail_enrichment_failures": detail_enrichment_failures,
         "date_range": retained_date_range(merged.values()),
         "by_status": dict(Counter(row.get("status") or "unknown" for row in merged.values())),
         "by_sector": dict(Counter(row.get("sector") or "unknown" for row in merged.values())),
