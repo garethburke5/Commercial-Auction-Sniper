@@ -6,14 +6,29 @@ def test_discovers_stable_card_identity_and_card_local_text():
     <section>
       <article><h3>1 High Street, Town, AB1 2CD</h3><h3>£100,000</h3>
         <p>For sale by online auction 18th September 2026. Guide Price £100,000.</p>
-        <a href="/property/ABC123/ab1/town/high-street/land">Full Details</a></article>
+        <a href="/property/DWRABC123/ab1/town/high-street/land">Full Details</a></article>
       <article><h3>2 High Street, Town, AB1 2CE</h3><p>Private treaty sale.</p>
-        <a href="/property/DEF456/ab1/town/high-street/house/2-bedrooms">Full Details</a></article>
+        <a href="/property/TMPDEF456/ab1/town/high-street/house/2-bedrooms">Full Details</a></article>
     </section>"""
     rows = collector.discover_page(html, collector.INDEX)
-    assert set(rows) == {"abc123", "def456"}
-    assert "18th September 2026" in rows["abc123"]["card_text"]
-    assert "Private treaty" not in rows["abc123"]["card_text"]
+    assert set(rows) == {"dwrabc123", "tmpdef456"}
+    assert "18th September 2026" in rows["dwrabc123"]["card_text"]
+    assert "Private treaty" not in rows["dwrabc123"]["card_text"]
+
+
+def test_directory_links_are_not_individual_properties():
+    html = '<a href="/property/london/property-for-sale-in-london">London directory</a>'
+    assert collector.discover_page(html, collector.INDEX) == {}
+
+
+def test_retained_visible_denominator_and_request_headers():
+    assert len(collector.KNOWN_DETAIL_URLS) == 25
+    assert set(collector.KNOWN_DETAIL_URLS) == {
+        collector.property_identity(url) for url in collector.KNOWN_DETAIL_URLS.values()
+    }
+    session = collector.new_session()
+    assert session.headers["User-Agent"].startswith("Commercial-Auction-Sniper/")
+    assert session.headers["Accept-Language"].startswith("en-GB")
 
 
 def test_discovers_webdadi_embedded_property_feed_without_rendered_cards():
