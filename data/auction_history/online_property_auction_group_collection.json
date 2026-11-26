@@ -1,53 +1,69 @@
 {
-  "checked_at": "2026-10-27T05:43:42.611099+00:00",
+  "checked_at": "2026-11-26T02:02:36.899091+00:00",
   "auctioneer": "Online Property Auction Group",
-  "parser_version": 6,
+  "parser_version": 8,
   "source_url": "https://www.opagroup.co.uk/past-auctions?lotResultType=All",
-  "archive_sha256": "1a5864b4466a1690db3eef6f2950f4f1fcb3e4d5a501a167ffb0e17f14ce3d2c",
+  "platform_event_id": null,
+  "archive_sha256": "42eeea0e38159506d15eb4c563812ea5d4c8e3adc2bfb355150ec9077aa8a776",
   "archive_page_count": 2,
   "archive_page_rows": [
     50,
-    1
+    50
   ],
   "archive_page_visible_cards": [
     50,
-    1
+    50
   ],
-  "visible_source_rows": 51,
-  "published_result_count": 51,
-  "distinct_source_identities": 51,
+  "visible_source_rows": 100,
+  "expected_visible_cards": null,
+  "event_advertised_lots": null,
+  "event_advertised_lot_discrepancy": null,
+  "past_results_index_lots": null,
+  "past_results_index_discrepancy": null,
+  "published_result_count": 100,
+  "distinct_source_identities": 100,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
-  "appearances_captured": 51,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "archive_visible_inventory_reconciled": true,
+  "archive_reconciliation_note": null,
+  "appearances_captured": 101,
+  "run_new_appearances": 50,
+  "run_new_address_records": 50,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 0,
-  "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
-  "run_new_sale_prices": 0,
-  "run_new_rents": 2,
+  "run_new_dated_twenty_year_address_records": 50,
+  "run_new_commercial_mixed": 15,
+  "run_new_guide_prices": 50,
+  "run_new_sale_prices": 6,
+  "run_new_rents": 13,
   "run_new_undated": 0,
   "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
+  "duplicate_source_identity_exclusions": 0,
+  "exact_date_address_overlap_exclusions": 0,
+  "exact_overlap_reconciliation": [],
   "new_source_years": [],
   "date_range": [
     "2023-09-21",
-    "2026-10-28"
+    "2026-11-25"
   ],
   "by_status": {
-    "sold": 47,
+    "sold": 53,
     "withdrawn": 3,
-    "sold_prior": 1
+    "sold_prior": 1,
+    "unsold": 44
   },
   "by_sector": {
-    "land": 8,
-    "commercial": 15,
-    "residential": 20,
-    "mixed-use": 8
+    "land": 26,
+    "commercial": 18,
+    "residential": 37,
+    "mixed-use": 20
   },
-  "detail_pages_captured": 51,
+  "by_attributed_auctioneer": {
+    "Online Property Auction Group": 101
+  },
+  "detail_pages_captured": 100,
+  "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
   "failures": []
