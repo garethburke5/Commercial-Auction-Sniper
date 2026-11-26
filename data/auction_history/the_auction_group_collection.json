@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-11-25T23:02:13.704500+00:00",
+  "checked_at": "2026-11-26T08:16:11.186685+00:00",
   "auctioneer": "The Auction Group",
   "parser_version": 8,
   "source_url": "https://online.the-auctiongroup.co.uk/search",
   "platform_event_id": null,
-  "archive_sha256": "cd884ca2763488c31fe78074f928e9d0065fe105f15c69d948a0bc0c5f13129d",
+  "archive_sha256": "fefbabf11b140defc3bc5d7a9b79fa3f46267675c6ec01910a1e7784d24691c2",
   "archive_page_count": 4,
   "archive_page_rows": [
     50,
@@ -32,26 +32,21 @@
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
   "appearances_captured": 196,
-  "run_new_appearances": 196,
-  "run_new_address_records": 196,
+  "run_new_appearances": 0,
+  "run_new_address_records": 0,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 166,
-  "run_new_commercial_mixed": 9,
-  "run_new_guide_prices": 196,
-  "run_new_sale_prices": 28,
-  "run_new_rents": 5,
+  "run_new_dated_twenty_year_address_records": 0,
+  "run_new_commercial_mixed": 0,
+  "run_new_guide_prices": 0,
+  "run_new_sale_prices": 0,
+  "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 30,
+  "run_new_future_dated": 0,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
   "exact_overlap_reconciliation": [],
-  "new_source_years": [
-    2024,
-    2025,
-    2026,
-    2027
-  ],
+  "new_source_years": [],
   "date_range": [
     "2024-09-11",
     "2027-01-27"
@@ -59,17 +54,17 @@
   "by_status": {
     "unknown": 30,
     "sold_prior": 97,
-    "withdrawn": 1,
+    "sold_after": 41,
     "sold": 19,
     "unsold": 8,
-    "sold_after": 41
+    "withdrawn": 1
   },
   "by_sector": {
     "residential": 171,
-    "mixed-use": 4,
-    "land": 3,
     "unknown": 13,
-    "commercial": 5
+    "commercial": 5,
+    "land": 3,
+    "mixed-use": 4
   },
   "by_attributed_auctioneer": {
     "The Auction Group": 196
