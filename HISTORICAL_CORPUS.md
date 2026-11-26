@@ -1,5 +1,23 @@
 # Historical auction property corpus
 
+## 26 November 2026 — changed retained-grid four-source bank
+
+Focused historical run [45742755402](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45742755402) completed the reusable manifest batch and banked commit [63b73560](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/63b735605dda5a6f0a43b4d320efec6b1df2f7c1). It reconciled **262 individually evidenced auction cards** across Sage & Co Auctions (25), Bowen (29), The Property Auction House (133) and Landmark Auctions (75), captured all 262 stable detail pages with zero recovery failures, and excluded six Property Auction House property/committed-offer cards as non-auction inventory.
+
+The bank adds **14 net appearances and 14 address records**: Sage & Co 7, Bowen 2, The Property Auction House 1 and Landmark 4. **Two** are newly dated address records inside the strict twenty-year window; the other **12 net additions are future-dated**, with no partial or undated additions. The source summaries flag 18 future-dated cards across the complete current grids, but six were already banked and are not claimed again.
+
+The batch adds **2 commercial/mixed-use appearances**, **14 guide-price observations, 2 achieved-price observations and 0 rents**. It opens **0 new source-years** because the affected years were already represented. Exact date/address and stable-source duplicate exclusions are zero; unknown values remain null and guide/achieved evidence remains distinct.
+
+Two earlier attempts in the same writer lane produced zero growth because admission caught a collector syntax error and then stale exact-dictionary test fixtures. Both faults were repaired before the successful retry; their checkpoint commits are retained and are not counted as collection gains.
+
+The rebuilt corpus contains **318,122 appearances, 306,805 address records and 11,317 partial records**. The strict 26 November 2006–26 November 2026 window contains **309,533 appearances**, including **110,432 with guide prices and 114,997 with achieved prices**. Retained exceptions are **5,248 undated and 221 future-dated appearances**.
+
+Public platform run [45743376536](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45743376536) completed successfully after the bank.
+
+The next concrete growth target is **The Property Auction Group**, a distinct operator from The Auction Group and Online Property Auction Group. Its official first-party event surface exposes Upcoming/Past auction tabs and property routes, while the national source register has **0 linked retained appearances**. Build one reusable event/card/detail collector, reconcile the complete accessible past-event denominator, admit only individually evidenced auction properties across every sector, preserve exact dates/prices/rents/outcomes/original URLs and immutable snapshots, and exclude ordinary agency/lettings cards. Do not count the three operators as aliases.
+
+National completeness remains false.
+
 ## 26 November 2026 — Online Property Auction Group bank and changed-surface batch
 
 Historical run [45739490351](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45739490351) completed successfully and banked commit [7b41ff5a](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/7b41ff5a82fd6c3d27fa404929ec0a5fe9bebaab). The reusable runner reconciled both first-party past-results pages and all 100 visible cards/details.

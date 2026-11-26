@@ -1030,66 +1030,59 @@
     }
   },
   "next_run": {
-    "auctioneer": "Auction Local",
-    "action": "Build a reusable first-party collector that inventories the complete accessible /search result pagination and every linked /lot/details/{uuid} page, then banks all uncaptured individually evidenced property appearances across every sector in one bounded batch.",
-    "scope": "All property sectors across the complete accessible first-party search and lot-detail surface.",
-    "rationale": "Auction Local is a genuine uncovered operator. Its first-party search surface and stable UUID lot-detail URLs are accessible, and indexed detail pages contain explicit auction evidence. This offers a larger address-level inventory than another Bramleys refresh.",
-    "collector": "scripts/harvest_auction_local.py"
+    "auctioneer": "The Property Auction Group",
+    "action": "Build one reusable first-party event/card/detail collector across the complete accessible Past auction-event surface and every linked individual property route, then bank all uncaptured evidenced appearances across every sector in one bounded batch.",
+    "scope": "All property sectors across the complete accessible first-party Past event, event-card and property-detail surface.",
+    "rationale": "The official first-party site exposes Upcoming/Past auction tabs and property routes while the national source register has 0 linked retained appearances. This is an uncovered genuine operator with a materially different route from the four reconciled retained grids.",
+    "collector": "scripts/harvest_the_property_auction_group.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "Auction Local — independent UK property auctioneer",
-    "task": "Build a reusable first-party collector that inventories the complete accessible /search result pagination and every linked /lot/details/{uuid} page, then banks all uncaptured individually evidenced property appearances across every sector in one bounded batch.",
-    "reason": "Auction Local is a genuine uncovered operator. Its first-party search surface and stable UUID lot-detail URLs are accessible, and indexed detail pages contain explicit auction evidence. This offers a larger address-level inventory than another Bramleys refresh.",
-    "source_route": "https://www.auctionlocal.co.uk/search and all linked https://www.auctionlocal.co.uk/lot/details/{uuid} pages",
-    "collector_target": "scripts/harvest_auction_local.py",
+    "auctioneer_lineage": "The Property Auction Group — distinct from The Auction Group and Online Property Auction Group",
+    "task": "Build one reusable first-party event/card/detail collector across the complete accessible Past auction-event surface and every linked individual property route, then bank all uncaptured evidenced appearances across every sector in one bounded batch.",
+    "reason": "The official first-party site exposes Upcoming/Past auction tabs and property routes while the national source register has 0 linked retained appearances. This is an uncovered genuine operator with a materially different route from the four reconciled retained grids.",
+    "source_route": "https://www.thepropertyauctiongroup.co.uk/events/property-auctions/the-property-auction-group-auctions and all linked first-party past-event/property pages",
+    "collector_target": "scripts/harvest_the_property_auction_group.py",
     "observed_inventory": {
       "national_register_retained_appearances": 0,
-      "first_party_search_surface_accessible": true,
-      "stable_lot_detail_urls_observed": true,
+      "first_party_event_surface_accessible": true,
+      "past_tab_observed": true,
       "sectors": "residential, commercial, land and mixed-use where published",
-      "denominator_status": "pagination and result total must be reconciled by the collector before completeness claims"
+      "denominator_status": "all accessible past-event pagination, event cards and linked property identities must be reconciled before completeness claims"
     },
     "admission_rules": [
-      "Enumerate all accessible search pagination and stable lot-detail UUIDs before claiming the visible archive is reconciled.",
-      "Admit only individual property pages with explicit auction evidence; directory and search pages are inventory evidence, not properties.",
-      "Preserve exact bidding dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable index/detail snapshots; leave unknown values null.",
-      "Deduplicate exact property/date overlaps and reconcile Auction Local trading labels as one operator."
+      "Inventory the complete accessible Past event surface and all linked individual property URLs before claiming a visible denominator.",
+      "Admit only individually evidenced auction properties; event pages, directory rows and ordinary agency or lettings cards are inventory evidence, not captured properties.",
+      "Preserve exact bidding dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable event/detail snapshots; leave unknown values null.",
+      "Deduplicate exact property/date overlaps while preserving separate legal interests and repeat appearances.",
+      "Keep The Property Auction Group distinct from The Auction Group and Online Property Auction Group unless legal or first-party evidence proves an alias relationship."
     ],
-    "blocked_route_avoidance": "Do not refresh Bramleys' six-page news surface: five auction-tagged articles were reconciled and only two property lot blocks survived strict admission. Do not rerun abbotFox without new auction URLs."
+    "blocked_route_avoidance": "Do not refresh Sage & Co, Bowen, The Property Auction House or Landmark until their visible inventories change again. Do not retry Auction Local's current 0-of-0/404 route without a new retrieval route.",
+    "next_after": "If the first-party Past tab yields no individual property inventory, record that bounded blocker once and rotate immediately to another source-register operator with accessible card/detail pages."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Changed retained-grid surfaces: Sage & Co Auctions; Bowen; The Property Auction House; Landmark Auctions",
-    "task": "Run one manifest-defined multi-source batch across all currently visible first-party cards and sectors.",
-    "reason": "Current published denominators exceed their last complete 16 November checkpoints, providing a bounded net-growth opportunity without revisiting exhausted grids.",
-    "source_route": "Each source's first-party /search retained grid and stable detail pages",
-    "collector_target": "scripts/harvest_eig_retained_grids.py with config/retained_grid_batch.json",
+    "auctioneer_lineage": "The Property Auction Group — distinct from The Auction Group and Online Property Auction Group",
+    "task": "Build one reusable first-party event/card/detail collector across the complete accessible Past auction-event surface and every linked individual property route, then bank all uncaptured evidenced appearances across every sector in one bounded batch.",
+    "reason": "The official first-party site exposes Upcoming/Past auction tabs and property routes while the national source register has 0 linked retained appearances. This is an uncovered genuine operator with a materially different route from the four reconciled retained grids.",
+    "source_route": "https://www.thepropertyauctiongroup.co.uk/events/property-auctions/the-property-auction-group-auctions and all linked first-party past-event/property pages",
+    "collector_target": "scripts/harvest_the_property_auction_group.py",
     "observed_inventory": {
-      "sage-co-auctions": {
-        "previous": 18,
-        "current": 25
-      },
-      "bowen": {
-        "previous": 27,
-        "current": 29
-      },
-      "the-property-auction-house": {
-        "previous_published": 138,
-        "current_published": 139,
-        "note": "property/committed-offer cards remain excluded"
-      },
-      "landmark-auctions": {
-        "previous": 71,
-        "current": 75
-      }
+      "national_register_retained_appearances": 0,
+      "first_party_event_surface_accessible": true,
+      "past_tab_observed": true,
+      "sectors": "residential, commercial, land and mixed-use where published",
+      "denominator_status": "all accessible past-event pagination, event cards and linked property identities must be reconciled before completeness claims"
     },
     "admission_rules": [
-      "Preserve every individual date, guide/current/starting/achieved price, rent, outcome, original URL and immutable snapshot.",
-      "Exclude unambiguous exact cross-source address/date overlaps while preserving distinct related interests.",
-      "Do not count committed-offer/property cards as auction appearances."
+      "Inventory the complete accessible Past event surface and all linked individual property URLs before claiming a visible denominator.",
+      "Admit only individually evidenced auction properties; event pages, directory rows and ordinary agency or lettings cards are inventory evidence, not captured properties.",
+      "Preserve exact bidding dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable event/detail snapshots; leave unknown values null.",
+      "Deduplicate exact property/date overlaps while preserving separate legal interests and repeat appearances.",
+      "Keep The Property Auction Group distinct from The Auction Group and Online Property Auction Group unless legal or first-party evidence proves an alias relationship."
     ],
-    "next_after": "Select an uncovered genuine auctioneer or a materially larger changed shared-platform surface; do not refresh these sources again unless their inventory changes."
+    "blocked_route_avoidance": "Do not refresh Sage & Co, Bowen, The Property Auction House or Landmark until their visible inventories change again. Do not retry Auction Local's current 0-of-0/404 route without a new retrieval route.",
+    "next_after": "If the first-party Past tab yields no individual property inventory, record that bounded blocker once and rotate immediately to another source-register operator with accessible card/detail pages."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
