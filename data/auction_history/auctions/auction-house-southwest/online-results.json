@@ -6,8 +6,8 @@
   "source_rows_complete": false,
   "denominator_reconciled": false,
   "archive_pagination_complete": false,
-  "lots_captured": 270,
-  "current_archive_rows": 219,
+  "lots_captured": 271,
+  "current_archive_rows": 221,
   "completion_scope": "all rows across every retained first-party online-results page",
   "source_property_ids": [
     "103290",
@@ -220,12 +220,14 @@
     "370826",
     "371434",
     "371543",
+    "372320",
     "373081",
     "374913",
     "376196",
     "376648",
     "376763",
     "378840",
+    "379370",
     "81401",
     "88013",
     "88749"
@@ -233,7 +235,7 @@
   "reconciliation_note": {
     "kind": "original_event_denominator_unavailable",
     "retained_scope": "individual online lot endings",
-    "retained_rows": 270
+    "retained_rows": 271
   },
   "errors": [
     {
@@ -242,5 +244,5 @@
       "error": "ValueError: source identity drift for lot 376763"
     }
   ],
-  "checked_at": "2026-11-26T13:08:39.387056+00:00"
+  "checked_at": "2026-11-26T22:39:26.235258+00:00"
 }
