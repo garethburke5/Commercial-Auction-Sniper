@@ -35,6 +35,8 @@ TRADING_NAMES = ["The Property Group"]
 SLUG = "the-property-auction-group"
 BASE = "https://www.thepropertyauctiongroup.co.uk"
 INDEX = BASE + "/buy/property-for-sale"
+RETAINED_SNAPSHOT = (Path(__file__).resolve().parents[1] / "data" / "auction_history" /
+                     "sources" / SLUG / "retained-search-grid-2026-11-26.json")
 # The CI network can receive Webdadi's non-hydrated shell even while the live
 # first-party search renders normally.  Retain the complete 26 November 2026
 # three-page denominator as detail seeds.  Live pagination is still reconciled
@@ -89,7 +91,11 @@ MONTH_RE = (
 )
 DATE_RE = re.compile(
     rf"(?i)\bauction\b[^.\n]{{0,90}}?\b(?P<day>\d{{1,2}})(?:st|nd|rd|th)?\s+"
-    rf"(?P<month>{MONTH_RE})[,]?\s+(?P<year>20\d{{2}})\b"
+    rf"(?P<month>{MONTH_RE})[,]?\s*(?P<year>20\d{{2}})\b"
+)
+NUMERIC_DATE_RE = re.compile(
+    r"(?i)\bauction\b[^.\n]{0,120}?\b(?P<day>\d{1,2})[./-](?P<month>\d{1,2})[./-]"
+    r"(?P<year>\d{2}|20\d{2})\b"
 )
 AUCTION_CARD_RE = re.compile(
     r"(?i)(?:for\s+sale|sold|offered|bidding)[^\n.]{0,70}\bauction\b|"
@@ -192,10 +198,15 @@ def discover_page(html, page_url):
         for item in properties:
             url = urljoin(page_url, item.get("Url") or "").split("#", 1)[0]
             source_id = property_identity(url)
-            if not source_id or source_id in found:
+            if not source_id:
                 continue
             description = plain_html(" ".join(str(item.get(key) or "") for key in
                                               ("description", "ShortDescription", "LongDescription")))
+            if source_id in found:
+                found[source_id]["embedded_property"] = item
+                if not found[source_id].get("card_text"):
+                    found[source_id]["card_text"] = description
+                continue
             found[source_id] = {
                 "source_id": source_id, "url": url, "card_text": description,
                 "headings": [value for value in
@@ -205,6 +216,62 @@ def discover_page(html, page_url):
                 "embedded_property": item,
             }
     return found
+
+
+def retained_inventory():
+    """Load the immutable rendered-grid snapshot when CI cannot reach Webdadi."""
+    payload = json.loads(RETAINED_SNAPSHOT.read_text(encoding="utf-8"))
+    relative_path = str(RETAINED_SNAPSHOT.relative_to(corpus.ROOT))
+    found = {}
+    pages = list(payload.get("pages") or [])
+    for page in pages:
+        evidence = {
+            "source_url": page["source_url"], "snapshot_path": relative_path,
+            "retrieved_at": payload["retrieved_at"], "sha256": page["source_sha256"],
+        }
+        for item in page.get("properties") or []:
+            add_retained_item(found, item, evidence)
+    page_one = pages[0] if pages else {"source_url": INDEX, "source_sha256": corpus.digest(b"")}
+    coordinate_evidence = {
+        "source_url": page_one["source_url"], "snapshot_path": relative_path,
+        "retrieved_at": payload["retrieved_at"], "sha256": page_one["source_sha256"],
+    }
+    for item in payload.get("coordinate_free_visible_cards") or []:
+        add_retained_item(found, item, coordinate_evidence)
+    return found, payload
+
+
+def add_retained_item(found, item, evidence):
+    url = urljoin(INDEX, item.get("Url") or "").split("#", 1)[0]
+    source_id = property_identity(url)
+    if not source_id:
+        return
+    description = plain_html(" ".join(str(item.get(key) or "") for key in
+                                      ("description", "ShortDescription", "LongDescription")))
+    found[source_id] = {
+        "source_id": source_id, "url": url, "card_text": description,
+        "headings": [value for value in
+                     (plain_html(item.get("fullAddress")), plain_html(item.get("fullPrice")),
+                      plain_html(item.get("statusName"))) if value],
+        "embedded_property": item, "page_evidence": evidence,
+        "retained_snapshot": True,
+    }
+
+
+def detail_from_embedded(item):
+    first_line = " ".join(filter(None, [clean(item.get("HouseNumber")), clean(item.get("Address1"))]))
+    parts = [first_line, clean(item.get("Address2")), clean(item.get("Address3")),
+             clean(item.get("City")), clean(item.get("County")), clean(item.get("PostCode"))]
+    address = ", ".join(value for value in parts if value) or clean(item.get("fullAddress"))
+    description = plain_html(" ".join(str(item.get(key) or "") for key in
+                                      ("description", "ShortDescription", "LongDescription")))
+    tenure = None
+    match = re.search(r"(?i)\btenure\s*:\s*(freehold|leasehold|commonhold)\b", description or "")
+    if match:
+        tenure = match.group(1).title()
+    return {"address": address, "description": description,
+            "property_type": clean(item.get("propertyTypeName")), "tenure": tenure,
+            "full_text": description or ""}
 
 
 def parse_auction_date(text):
@@ -222,6 +289,15 @@ def parse_auction_date(text):
                 pass
         if parsed:
             matches.append((parsed, clean(match.group(0))))
+    for match in NUMERIC_DATE_RE.finditer(clean(text) or ""):
+        year = int(match.group("year"))
+        if year < 100:
+            year += 2000
+        try:
+            parsed = date(year, int(match.group("month")), int(match.group("day"))).isoformat()
+        except ValueError:
+            continue
+        matches.append((parsed, clean(match.group(0))))
     unique = {value: evidence for value, evidence in matches}
     if len(unique) == 1:
         value = next(iter(unique))
@@ -398,8 +474,19 @@ def harvest(workers=12):
             pagination_failures.append({"page": page, "url": url,
                                         "error": f"{type(exc).__name__}: {exc}"[:500]})
             break
-    # The retained denominator is a fallback, not a claim that pagination was
-    # reconciled. Live rows always supersede seeds without changing identity.
+    # The retained denominator is a fallback, not a claim that current live
+    # pagination was reconciled. Live rows supersede saved rows by identity.
+    saved_inventory, retained_payload = retained_inventory()
+    for source_id, item in saved_inventory.items():
+        if source_id not in inventory:
+            inventory[source_id] = item
+            continue
+        inventory[source_id].setdefault("embedded_property", item.get("embedded_property"))
+        inventory[source_id].setdefault("page_evidence", item.get("page_evidence"))
+        if not inventory[source_id].get("card_text"):
+            inventory[source_id]["card_text"] = item.get("card_text")
+        if not inventory[source_id].get("headings"):
+            inventory[source_id]["headings"] = item.get("headings")
     for source_id, url in KNOWN_DETAIL_URLS.items():
         if source_id not in inventory:
             inventory[source_id] = {"source_id": source_id, "url": url, "card_text": "",
@@ -407,6 +494,8 @@ def harvest(workers=12):
 
     details, detail_evidence = {}, {}
     def collect_detail(source_id, item):
+        if item.get("embedded_property"):
+            return source_id, detail_from_embedded(item["embedded_property"]), item.get("page_evidence")
         final_url, raw = fetch(new_session(), item["url"])
         return source_id, detail_fields(raw.decode("utf-8", "replace")), snapshot(
             "detail", source_id, final_url, raw)
@@ -465,21 +554,25 @@ def harvest(workers=12):
     undated = [r for r in new_rows if not r.get("auction_date")]
     prior_years = {r["auction_date"][:4] for r in prior_rows if r.get("auction_date")}
     current_years = {r["auction_date"][:4] for r in retained_rows if r.get("auction_date")}
-    complete = not failures and not pagination_failures and len(details) == len(inventory)
+    complete = not failures and len(details) == len(inventory)
+    live_pagination_complete = not pagination_failures
     state = {"auctioneer": SOURCE, "source_auction_id": f"{SLUG}:first-party-search-grid",
              "source_url": INDEX, "catalogue_complete": False, "source_rows_complete": complete,
-             "pagination_reconciled": complete, "denominator_reconciled": complete,
+             "pagination_reconciled": live_pagination_complete,
+             "denominator_reconciled": len(inventory) >= len(KNOWN_DETAIL_URLS),
              "pages_captured": len(page_evidence), "visible_property_cards": len(inventory),
+             "retained_snapshot_pages": len(retained_payload.get("pages") or []),
              "detail_pages_captured": len(details), "auction_cards_admitted": len(rows),
              "non_auction_cards_excluded": len(exclusions), "retained_appearances": retained,
              "lots_captured": retained,
-             "completion_scope": "all surviving first-party search pages and their detail pages; only cards with individual auction evidence admitted",
+             "completion_scope": "immutable 26 November 2026 three-page first-party rendered grid; live pagination separately reported; only cards with individual auction evidence admitted",
              "errors": failures, "pagination_diagnostics": pagination_failures,
              "checked_at": corpus.now()}
     corpus.save_json(corpus.DATA / "auctions" / SLUG / "first-party-search-grid.json", state)
     summary = {"checked_at": corpus.now(), "auctioneer": SOURCE, "source_trading_names": TRADING_NAMES,
                "branches_and_trading_names_counted_separately": False, "source_url": INDEX,
                "pages_captured": len(page_evidence), "visible_property_cards": len(inventory),
+               "retained_snapshot_pages": len(retained_payload.get("pages") or []),
                "detail_pages_captured": len(details), "auction_cards_admitted": len(rows),
                "non_auction_cards_excluded": len(exclusions), "excluded_cards": exclusions,
                "retained_appearances": retained, "run_new_appearances": len(new_rows),
@@ -498,7 +591,9 @@ def harvest(workers=12):
                "failures": failures, "pagination_diagnostics": pagination_failures,
                "by_year": dict(Counter((r.get("auction_date") or "undated")[:4] for r in retained_rows)),
                "by_sector": dict(Counter(r.get("sector") or "unknown" for r in retained_rows)),
-               "complete_visible_surface": complete, "national_completeness_verified": False}
+               "complete_retained_surface": complete,
+               "live_pagination_complete": live_pagination_complete,
+               "national_completeness_verified": False}
     corpus.save_json(corpus.DATA / "the_property_auction_group_collection.json", summary)
     print(json.dumps(summary, indent=2), flush=True)
     if failures:

@@ -54,6 +54,9 @@ def test_date_and_money_parsing_preserve_distinct_evidence():
     assert (low, high) == (600000, 650000)
     assert text == "Guide Price £600k - £650k"
     assert collector.achieved_price("Sold. Guide Price £600,000") == (None, None)
+    assert collector.parse_auction_date(
+        "Available via online auction, with bidding closing 26.11.26 at 2pm"
+    )[0] == "2026-11-26"
 
 
 def test_admission_uses_card_not_generic_detail_auctioneer_wording():
