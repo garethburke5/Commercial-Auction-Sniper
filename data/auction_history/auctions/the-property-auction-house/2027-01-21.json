@@ -1,0 +1,43 @@
+{
+  "auctioneer": "The Property Auction House",
+  "source_auction_id": "the-property-auction-house:2027-01-21",
+  "auction_date": "2027-01-21",
+  "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
+  "platform_event_id": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "pagination_reconciled": true,
+  "lots_captured": 2,
+  "completion_scope": "all rows for this date in the reconciled retained flat archive; not evidence of deleted rows or a separate event catalogue",
+  "source_evidence": [
+    {
+      "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
+      "retrieved_at": "2026-11-26T02:31:38.517505+00:00",
+      "sha256": "68b5c8428fe47cb018cad14ea4b474262ad24d55ab0ab171b80b9630851d2b98",
+      "snapshot_path": "data/auction_history/sources/the-property-auction-house/past-auctions-page-1-68b5c8428fe47cb0.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 1,
+      "page_count": 3
+    },
+    {
+      "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search?page=2",
+      "retrieved_at": "2026-11-26T02:31:38.575524+00:00",
+      "sha256": "f6f3e8d30602806387c1553c02bd5e0ab09dd346099f2e6af25130d57060ae32",
+      "snapshot_path": "data/auction_history/sources/the-property-auction-house/past-auctions-page-2-f6f3e8d306028063.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 2,
+      "page_count": 3
+    },
+    {
+      "source_url": "https://thepropertyauctionhouse.eigonlineauctions.com/search?page=3",
+      "retrieved_at": "2026-11-26T02:31:38.625141+00:00",
+      "sha256": "b6d1be47aaf2197b490099975627c20c1ae4e05527e6912fd5b151b9d927835c",
+      "snapshot_path": "data/auction_history/sources/the-property-auction-house/past-auctions-page-3-b6d1be47aaf2197b.json.gz",
+      "basis": "first-party retained EIG white-label past-auction grid",
+      "page": 3,
+      "page_count": 3
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-26T02:32:08.340753+00:00"
+}

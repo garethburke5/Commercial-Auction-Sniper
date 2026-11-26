@@ -1,41 +1,41 @@
 {
-  "checked_at": "2026-11-16T07:23:41.025846+00:00",
+  "checked_at": "2026-11-26T02:31:22.189319+00:00",
   "auctioneer": "Sage & Co Auctions",
   "parser_version": 8,
   "source_url": "https://sageandco.eigonlineauctions.com/search",
   "platform_event_id": null,
-  "archive_sha256": "4e9b32d060dbb6010b1031d67eab2db3f16ecb8781d3ef3a77dcc905532e89e3",
+  "archive_sha256": "93c494069f2c1dfa95e40a6e7e6f0e68513cf426830fbf0a16a51e7f9d2686dc",
   "archive_page_count": 1,
   "archive_page_rows": [
-    18
+    25
   ],
   "archive_page_visible_cards": [
-    18
+    25
   ],
-  "visible_source_rows": 18,
+  "visible_source_rows": 25,
   "expected_visible_cards": null,
   "event_advertised_lots": null,
   "event_advertised_lot_discrepancy": null,
   "past_results_index_lots": null,
   "past_results_index_discrepancy": null,
-  "published_result_count": 18,
-  "distinct_source_identities": 18,
+  "published_result_count": 25,
+  "distinct_source_identities": 25,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 18,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 25,
+  "run_new_appearances": 7,
+  "run_new_address_records": 7,
   "run_new_partial_lots": 0,
-  "run_new_dated_twenty_year_address_records": 0,
-  "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
-  "run_new_sale_prices": 0,
+  "run_new_dated_twenty_year_address_records": 1,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 7,
+  "run_new_sale_prices": 1,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 6,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -43,27 +43,27 @@
   "new_source_years": [],
   "date_range": [
     "2026-08-05",
-    "2026-11-18"
+    "2026-12-09"
   ],
   "by_status": {
-    "unknown": 3,
-    "unsold": 5,
-    "withdrawn": 3,
+    "withdrawn": 4,
+    "unsold": 6,
     "postponed": 2,
-    "sold": 2,
-    "sold_prior": 3
+    "sold": 3,
+    "sold_prior": 4,
+    "unknown": 6
   },
   "by_sector": {
-    "residential": 9,
-    "land": 3,
+    "residential": 14,
+    "land": 4,
     "unknown": 2,
     "mixed-use": 3,
-    "commercial": 1
+    "commercial": 2
   },
   "by_attributed_auctioneer": {
-    "Sage & Co Auctions": 18
+    "Sage & Co Auctions": 25
   },
-  "detail_pages_captured": 18,
+  "detail_pages_captured": 25,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",

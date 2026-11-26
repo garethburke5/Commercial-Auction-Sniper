@@ -1,41 +1,41 @@
 {
-  "checked_at": "2026-11-16T07:23:52.608180+00:00",
+  "checked_at": "2026-11-26T02:31:36.249478+00:00",
   "auctioneer": "Bowen",
   "parser_version": 8,
   "source_url": "https://bowensonandwatson.eigonlineauctions.com/search",
   "platform_event_id": null,
-  "archive_sha256": "448ad01833dd2712d11af19d9882e2aa713b09b33cd127cb748a4486648a3070",
+  "archive_sha256": "27f07792ff11f2ab76a525a88b1f2d0b652d932af849c57574882c8c416d914a",
   "archive_page_count": 1,
   "archive_page_rows": [
-    27
+    29
   ],
   "archive_page_visible_cards": [
-    27
+    29
   ],
-  "visible_source_rows": 27,
+  "visible_source_rows": 29,
   "expected_visible_cards": null,
   "event_advertised_lots": null,
   "event_advertised_lot_discrepancy": null,
   "past_results_index_lots": null,
   "past_results_index_discrepancy": null,
-  "published_result_count": 27,
-  "distinct_source_identities": 27,
+  "published_result_count": 29,
+  "distinct_source_identities": 29,
   "non_auction_property_cards_excluded": 0,
   "non_auction_exclusions": [],
   "archive_pagination_complete": true,
   "archive_visible_inventory_reconciled": true,
   "archive_reconciliation_note": null,
-  "appearances_captured": 27,
-  "run_new_appearances": 0,
-  "run_new_address_records": 0,
+  "appearances_captured": 29,
+  "run_new_appearances": 2,
+  "run_new_address_records": 2,
   "run_new_partial_lots": 0,
   "run_new_dated_twenty_year_address_records": 0,
-  "run_new_commercial_mixed": 0,
-  "run_new_guide_prices": 0,
+  "run_new_commercial_mixed": 1,
+  "run_new_guide_prices": 2,
   "run_new_sale_prices": 0,
   "run_new_rents": 0,
   "run_new_undated": 0,
-  "run_new_future_dated": 0,
+  "run_new_future_dated": 2,
   "run_duplicate_source_evidence_excluded": 0,
   "duplicate_source_identity_exclusions": 0,
   "exact_date_address_overlap_exclusions": 0,
@@ -43,24 +43,24 @@
   "new_source_years": [],
   "date_range": [
     "2020-12-11",
-    "2026-12-10"
+    "2026-12-17"
   ],
   "by_status": {
     "sold": 17,
     "unsold": 3,
     "sold_prior": 1,
-    "unknown": 3,
+    "unknown": 5,
     "withdrawn": 3
   },
   "by_sector": {
-    "residential": 19,
+    "residential": 20,
     "land": 5,
-    "commercial": 3
+    "commercial": 4
   },
   "by_attributed_auctioneer": {
-    "Bowen": 27
+    "Bowen": 29
   },
-  "detail_pages_captured": 27,
+  "detail_pages_captured": 29,
   "detail_recovery_complete": true,
   "detail_recovery_failures": [],
   "completion_scope": "every auction-lot card in every page of the surviving first-party grid; explicit /property/details/ committed-offer cards are reconciled but excluded, and deleted earlier lots are not claimed",
