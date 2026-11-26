@@ -1,5 +1,18 @@
 # Historical auction property corpus
 
+## 26 November 2026 — Online Property Auction Group bank and changed-surface batch
+
+Historical run [45739490351](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45739490351) completed successfully and banked commit [7b41ff5a](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/7b41ff5a82fd6c3d27fa404929ec0a5fe9bebaab). The reusable runner reconciled both first-party past-results pages and all 100 visible cards/details.
+
+The bank adds **50 net appearances and 50 dated address records inside the strict twenty-year window**. It adds **15 commercial/mixed-use appearances, 50 guides, 6 achieved prices and 13 rents**. There are no partial, undated, future-dated, stable-ID duplicate or exact address/date overlap additions. The source already covered 2023–2026, so no new source-year is claimed. The retained Online Property Auction Group total is now 101 appearances; the extra retained row is older evidence no longer present on the current 100-card surface.
+
+Public platform run [45740147679](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45740147679) completed successfully, including GitHub Pages, Cloudflare production deployment and live property-data verification.
+
+The next growth action is one reusable changed-surface batch across Sage & Co Auctions, Bowen, The Property Auction House and Landmark Auctions. Their current first-party surfaces have grown from the last complete checkpoints (18→25, 27→29, 138→139 published cards before non-auction exclusions, and 71→75 respectively). Each source now uses the exact cross-source address/date overlap guard. This is a single batch across multiple accessible catalogues, not four dated workflow deployments.
+
+National completeness remains false.
+
+
 ## 26 November 2026 — The Auction Group bank and Online Property Auction Group expansion
 
 Historical run [45717807286](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45717807286) completed successfully and banked commit [21b5c06b](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/21b5c06b04fa4e46485b0df207b5c686881898b8). The reusable retained-grid runner reconciled four first-party pages and all **196** visible Auction Group lot cards and detail pages. The live denominator increased from the prepared 195 to 196 before collection; the reconciled value, not the prepared estimate, is authoritative.

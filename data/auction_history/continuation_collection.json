@@ -1,38 +1,29 @@
 {
-  "generated_at": "2026-11-26T02:00:00Z",
-  "status": "online_property_auction_group_batch_released_after_auction_group_bank",
+  "generated_at": "2026-11-26T02:17:00Z",
+  "status": "four_source_changed_surface_batch_released",
   "previous_run": {
-    "run_id": 45717807286,
-    "commit": "21b5c06b04fa4e46485b0df207b5c686881898b8",
-    "auctioneer": "The Auction Group",
-    "result": "Four pages, 196/196 visible property cards and 196/196 detail pages reconciled and banked; no duplicate or partial additions.",
-    "total_source_appearances_banked": 196,
-    "net_new_appearances": 196,
-    "newly_historical_dated_appearances": 166,
-    "newly_dated_address_records_within_20_years": 166,
-    "commercial_mixed_use_new_appearances": 9,
-    "commercial_mixed_use_new_appearances_within_20_years": 9,
-    "newly_covered_source_years": [
-      "The Auction Group:2024",
-      "The Auction Group:2025",
-      "The Auction Group:2026"
-    ],
-    "future_source_years": [
-      "The Auction Group:2027"
-    ],
-    "new_guide_price_evidence": 196,
-    "new_sale_price_evidence": 28,
-    "new_rent_evidence": 5,
+    "run_id": 45739490351,
+    "commit": "7b41ff5a82fd6c3d27fa404929ec0a5fe9bebaab",
+    "auctioneer": "Online Property Auction Group",
+    "result": "Two pages and 100/100 visible past-result cards/details reconciled; 50 new canonical appearances banked.",
+    "net_new_appearances": 50,
+    "newly_dated_address_records_within_20_years": 50,
+    "commercial_mixed_use_new_appearances": 15,
+    "commercial_mixed_use_new_appearances_within_20_years": 15,
+    "newly_covered_source_years": [],
+    "new_guide_price_evidence": 50,
+    "new_sale_price_evidence": 6,
+    "new_rent_evidence": 13,
     "undated_new_records": 0,
-    "future_dated_new_records": 30,
+    "future_dated_new_records": 0,
     "duplicate_new_records": 0,
     "partial_new_records": 0,
-    "detail_pages_captured": 196,
-    "visible_lot_denominator": 196,
+    "detail_pages_captured": 100,
+    "visible_lot_denominator": 100,
     "complete_visible_surface": true,
     "publication_checkpoint": {
-      "run_id": 45718637273,
-      "github_pages": "failure",
+      "run_id": 45740147679,
+      "github_pages": "success",
       "cloudflare_production": "success",
       "live_verification": "success"
     }
@@ -1069,22 +1060,36 @@
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "Online Property Auction Group",
-    "task": "Run one manifest-defined retained-grid batch across all currently visible first-party past-auction result cards and every property sector.",
-    "reason": "The first-party past grid exposes 100 cards, while only 51 appearances were retained at the 27 October checkpoint.",
-    "source_route": "https://www.opagroup.co.uk/past-auctions?lotResultType=All and linked stable lot detail pages",
+    "auctioneer_lineage": "Changed retained-grid surfaces: Sage & Co Auctions; Bowen; The Property Auction House; Landmark Auctions",
+    "task": "Run one manifest-defined multi-source batch across all currently visible first-party cards and sectors.",
+    "reason": "Current published denominators exceed their last complete 16 November checkpoints, providing a bounded net-growth opportunity without revisiting exhausted grids.",
+    "source_route": "Each source's first-party /search retained grid and stable detail pages",
     "collector_target": "scripts/harvest_eig_retained_grids.py with config/retained_grid_batch.json",
     "observed_inventory": {
-      "retained_before_run": 51,
-      "first_party_visible_past_cards": 100,
-      "sectors": "all published sectors"
+      "sage-co-auctions": {
+        "previous": 18,
+        "current": 25
+      },
+      "bowen": {
+        "previous": 27,
+        "current": 29
+      },
+      "the-property-auction-house": {
+        "previous_published": 138,
+        "current_published": 139,
+        "note": "property/committed-offer cards remain excluded"
+      },
+      "landmark-auctions": {
+        "previous": 71,
+        "current": 75
+      }
     },
     "admission_rules": [
-      "Admit only individual property result cards with explicit auction evidence.",
-      "Preserve exact dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots; unknown values remain null.",
-      "Deduplicate stable identities and exclude only unambiguous exact cross-source address/date overlaps; preserve distinct related interests."
+      "Preserve every individual date, guide/current/starting/achieved price, rent, outcome, original URL and immutable snapshot.",
+      "Exclude unambiguous exact cross-source address/date overlaps while preserving distinct related interests.",
+      "Do not count committed-offer/property cards as auction appearances."
     ],
-    "next_after": "Verify remaining Online Property Auction Group delta, then select another uncovered EIG/shared-platform source rather than refreshing a complete surface."
+    "next_after": "Select an uncovered genuine auctioneer or a materially larger changed shared-platform surface; do not refresh these sources again unless their inventory changes."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",

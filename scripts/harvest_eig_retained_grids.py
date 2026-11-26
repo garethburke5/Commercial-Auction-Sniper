@@ -61,7 +61,8 @@ SOURCES = {
     "the-property-auction-house": {
         "auctioneer": "The Property Auction House",
         "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
-        "archive_path": "/search",
+        "archive_path": "/search",,
+        "exclude_exact_cross_source_overlaps": True
     },
     "property-auction-agent": {
         "auctioneer": "Property Auction Agent",
@@ -89,7 +90,8 @@ SOURCES = {
         "base": "https://sageandco.eigonlineauctions.com",
         "archive_path": "/search",
         "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
-        "operator_company_number": "13328873",
+        "operator_company_number": "13328873",,
+        "exclude_exact_cross_source_overlaps": True
     },
     "bowen": {
         "auctioneer": "Bowen",
@@ -99,7 +101,8 @@ SOURCES = {
             "Bowen Son and Watson",
             "Bowen Son and Watson with Kent Jones",
         ],
-        "merged_firms": ["Kent Jones"],
+        "merged_firms": ["Kent Jones"],,
+        "exclude_exact_cross_source_overlaps": True
     },
     "astleys": {
         "auctioneer": "Astleys",
@@ -141,7 +144,8 @@ SOURCES = {
         "partner_agents": [
             "Daniels Estate Agents",
             "The Landmark Consultancy",
-        ],
+        ],,
+        "exclude_exact_cross_source_overlaps": True
     },
     "auction-house-online-2025-11": {
         "auctioneer": "Auction House Online",

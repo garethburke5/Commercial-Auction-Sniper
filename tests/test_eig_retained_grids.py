@@ -4044,3 +4044,17 @@ def test_online_property_auction_group_uses_past_grid_and_exact_overlap_guard():
     assert source["base"] == "https://www.opagroup.co.uk"
     assert source["archive_path"] == "/past-auctions?lotResultType=All"
     assert source["exclude_exact_cross_source_overlaps"] is True
+
+
+def test_changed_surface_batch_sources_use_exact_overlap_guard():
+    expected = {
+        "sage-co-auctions": "https://sageandco.eigonlineauctions.com",
+        "bowen": "https://bowensonandwatson.eigonlineauctions.com",
+        "the-property-auction-house": "https://thepropertyauctionhouse.eigonlineauctions.com",
+        "landmark-auctions": "https://onlineauctions.landmarkauctions.co.uk",
+    }
+    for slug, base in expected.items():
+        source = grids.SOURCES[slug]
+        assert source["base"] == base
+        assert source["archive_path"] == "/search"
+        assert source["exclude_exact_cross_source_overlaps"] is True

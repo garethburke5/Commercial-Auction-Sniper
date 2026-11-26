@@ -1,32 +1,50 @@
 {
-  "batch_id": "online-property-auction-group-past-results-expansion",
+  "batch_id": "changed-retained-grid-surfaces-2026-11-26",
   "status": "released_for_collection",
-  "publication_gate_status": "cloudflare_success_github_pages_failure_preserved",
+  "publication_gate_status": "terminal_success",
   "hold_reason": null,
   "sources": [
-    "online-property-auction-group"
+    "sage-co-auctions",
+    "bowen",
+    "the-property-auction-house",
+    "landmark-auctions"
   ],
-  "published_visible_cards": 100,
+  "published_visible_cards": 268,
   "source_events": [
     {
-      "source": "online-property-auction-group",
-      "url": "https://www.opagroup.co.uk/past-auctions?lotResultType=All",
-      "published_visible_cards": 100
+      "source": "sage-co-auctions",
+      "url": "https://sageandco.eigonlineauctions.com/search",
+      "published_visible_cards": 25
+    },
+    {
+      "source": "bowen",
+      "url": "https://bowensonandwatson.eigonlineauctions.com/search",
+      "published_visible_cards": 29
+    },
+    {
+      "source": "the-property-auction-house",
+      "url": "https://thepropertyauctionhouse.eigonlineauctions.com/search",
+      "published_visible_cards": 139,
+      "note": "includes property/committed-offer cards that must be excluded"
+    },
+    {
+      "source": "landmark-auctions",
+      "url": "https://onlineauctions.landmarkauctions.co.uk/search",
+      "published_visible_cards": 75
     }
   ],
-  "notes": "Reusable retained-grid expansion across every currently visible Online Property Auction Group past-result card and property sector. Live pagination is authoritative; exact cross-source address/date overlaps are excluded before growth is claimed.",
+  "notes": "One reusable changed-surface batch across four first-party retained grids. Live pagination is authoritative. Exclude non-auction property cards and exact cross-source address/date overlaps before claiming growth.",
   "trigger": {
     "mode": "manifest_shared_platform_batch",
     "accepted_workflow_prefix": "Rebuild historical database from banked records and collect retained-grid batch",
-    "prepared_at": "2026-11-26T02:00:00Z",
+    "prepared_at": "2026-11-26T02:17:00Z",
     "blocked_by_publication_run_id": null,
     "preflight": {
-      "auction_group_bank_commit": "21b5c06b04fa4e46485b0df207b5c686881898b8",
-      "auction_group_publication_run_id": 45718637273,
-      "cloudflare_production": "success",
-      "github_pages": "failure_preserved",
+      "online_property_auction_group_bank_commit": "7b41ff5a82fd6c3d27fa404929ec0a5fe9bebaab",
+      "publication_run_id": 45740147679,
+      "publication_conclusion": "success",
       "active_writer_count": 0
     }
   },
-  "released_at": "2026-11-26T02:00:00Z"
+  "released_at": "2026-11-26T02:17:00Z"
 }
