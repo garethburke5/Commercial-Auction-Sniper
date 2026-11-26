@@ -258,7 +258,7 @@ def detail_values(html: str) -> dict[str, object]:
     """Extract only explicitly labelled guide and rent evidence from a lot detail page."""
     text = clean(BeautifulSoup(html, "lxml").get_text(" ", strip=True)) or ""
     guide_match = re.search(
-        r"(?i)\\bguide\\s+price\\*?\\s*:?[\\s\\xa0]*£\\s*[\\d,]+(?:\\.\\d+)?",
+        r"(?i)\bguide\s+price\*?\s*:?[\s\xa0]*£\s*[\d,]+(?:\.\d+)?",
         text,
     )
     rent, rent_text = annual_rent(text)
