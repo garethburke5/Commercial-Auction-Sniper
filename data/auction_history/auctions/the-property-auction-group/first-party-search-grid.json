@@ -3,144 +3,19 @@
   "source_auction_id": "the-property-auction-group:first-party-search-grid",
   "source_url": "https://www.thepropertyauctiongroup.co.uk/buy/property-for-sale",
   "catalogue_complete": false,
-  "source_rows_complete": false,
+  "source_rows_complete": true,
   "pagination_reconciled": false,
-  "denominator_reconciled": false,
+  "denominator_reconciled": true,
   "pages_captured": 0,
   "visible_property_cards": 25,
-  "detail_pages_captured": 0,
-  "auction_cards_admitted": 0,
+  "retained_snapshot_pages": 3,
+  "detail_pages_captured": 25,
+  "auction_cards_admitted": 25,
   "non_auction_cards_excluded": 0,
-  "retained_appearances": 0,
-  "lots_captured": 0,
-  "completion_scope": "all surviving first-party search pages and their detail pages; only cards with individual auction evidence admitted",
-  "errors": [
-    {
-      "source_id": "dwr0003f0",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003f0/cm24/stanstead/brook-view/house/4-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003f0/cm24/stanstead/brook-view/house/4-bedrooms"
-    },
-    {
-      "source_id": "dwr000400",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000400/wd6/borehamwood/park-crescent/bungalow/3-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000400/wd6/borehamwood/park-crescent/bungalow/3-bedrooms"
-    },
-    {
-      "source_id": "dwr000411",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000411/sg4/hitchin/hitchin-road/land",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000411/sg4/hitchin/hitchin-road/land"
-    },
-    {
-      "source_id": "dwr000412",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000412/cm6/dunmow/1-chelmsford-road/other/7-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000412/cm6/dunmow/1-chelmsford-road/other/7-bedrooms"
-    },
-    {
-      "source_id": "dwr000416",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000416/sg18/biggleswade/high-street/flat/6-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000416/sg18/biggleswade/high-street/flat/6-bedrooms"
-    },
-    {
-      "source_id": "dwr0003e9",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003e9/sw1v/london/sold-pre-auction/mid-terraced-house/3-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003e9/sw1v/london/sold-pre-auction/mid-terraced-house/3-bedrooms"
-    },
-    {
-      "source_id": "dwr000413",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000413/so20/stockbridge/stockbridge-road/detached-house/4-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000413/so20/stockbridge/stockbridge-road/detached-house/4-bedrooms"
-    },
-    {
-      "source_id": "dwr00040b",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr00040b/sg19/sandy/garden-fields/detached-house/4-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr00040b/sg19/sandy/garden-fields/detached-house/4-bedrooms"
-    },
-    {
-      "source_id": "dwr0003ef",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003ef/lu5/toddington/old-park-farm/farm-house/6-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003ef/lu5/toddington/old-park-farm/farm-house/6-bedrooms"
-    },
-    {
-      "source_id": "dwr0003fc",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003fc/sg1/stevenage/mendip-way/town-house/3-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003fc/sg1/stevenage/mendip-way/town-house/3-bedrooms"
-    },
-    {
-      "source_id": "tmp0003ea",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/tmp0003ea/sw3d/london/sold-prior-to-auction/mid-terraced-house/3-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/tmp0003ea/sw3d/london/sold-prior-to-auction/mid-terraced-house/3-bedrooms"
-    },
-    {
-      "source_id": "dwr0003fb",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003fb/e17/london/stirling-road/semi-detached-house/3-bedrooms",
-      "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003fb/e17/london/stirling-road/semi-detached-house/3-bedrooms"
-    },
-    {
-      "source_id": "dwr000410",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000410/sg15/arlesey/27-hospital-road/other/4-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000410/sg15/arlesey/27-hospital-road/other/4-bedrooms"
-    },
-    {
-      "source_id": "dwr00040f",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr00040f/cm20/harlow/arkwrights/terraced-house/3-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr00040f/cm20/harlow/arkwrights/terraced-house/3-bedrooms"
-    },
-    {
-      "source_id": "dwr0003f9",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003f9/cm23/bishops-stortford/cedar-court/flat/2-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003f9/cm23/bishops-stortford/cedar-court/flat/2-bedrooms"
-    },
-    {
-      "source_id": "dwr0003ed",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003ed/ip24/thetford/guildhall-street/house/6-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003ed/ip24/thetford/guildhall-street/house/6-bedrooms"
-    },
-    {
-      "source_id": "dwr000405",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000405/al7/welwyn-garden-city/tempsford/apartment/2-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000405/al7/welwyn-garden-city/tempsford/apartment/2-bedrooms"
-    },
-    {
-      "source_id": "dwr000402",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000402/sg18/biggleswade/high-street/other/1-bedroom",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000402/sg18/biggleswade/high-street/other/1-bedroom"
-    },
-    {
-      "source_id": "dwr0003f4",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003f4/n22/london/parkside-court/flat/2-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003f4/n22/london/parkside-court/flat/2-bedrooms"
-    },
-    {
-      "source_id": "dwr000401",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000401/cm20/harlow/hornbeams/flat/2-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000401/cm20/harlow/hornbeams/flat/2-bedrooms"
-    },
-    {
-      "source_id": "dwr00040d",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr00040d/sg5/hitchin/galley-wood/apartment/1-bedroom",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr00040d/sg5/hitchin/galley-wood/apartment/1-bedroom"
-    },
-    {
-      "source_id": "dwr000414",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr000414/sg7/baldock/high-street-/apartment/1-bedroom",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr000414/sg7/baldock/high-street-/apartment/1-bedroom"
-    },
-    {
-      "source_id": "dwr0003f2",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003f2/cm6/dunmow/collops-road/land",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003f2/cm6/dunmow/collops-road/land"
-    },
-    {
-      "source_id": "dwr0003fd",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003fd/e11/london/high-road/flat/1-bedroom",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003fd/e11/london/high-road/flat/1-bedroom"
-    },
-    {
-      "source_id": "dwr0003ee",
-      "source_url": "https://www.thepropertyauctiongroup.co.uk/property/dwr0003ee/cm23/bishops-stortford-/castle-view-/retirement-property/2-bedrooms",
-      "error": "HTTPError: 429 Client Error: Too Many Requests for url: https://www.thepropertyauctiongroup.co.uk/property/dwr0003ee/cm23/bishops-stortford-/castle-view-/retirement-property/2-bedrooms"
-    }
-  ],
+  "retained_appearances": 25,
+  "lots_captured": 25,
+  "completion_scope": "immutable 26 November 2026 three-page first-party rendered grid; live pagination separately reported; only cards with individual auction evidence admitted",
+  "errors": [],
   "pagination_diagnostics": [
     {
       "page": 1,
@@ -148,5 +23,5 @@
       "error": "HTTPError: 403 Client Error: Forbidden for url: https://www.thepropertyauctiongroup.co.uk/buy/property-for-sale"
     }
   ],
-  "checked_at": "2026-11-26T08:24:27.523492+00:00"
+  "checked_at": "2026-11-26T13:32:42.259292+00:00"
 }
