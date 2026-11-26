@@ -16,6 +16,7 @@ import argparse
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
+from html import unescape
 import json
 import re
 import sys
@@ -34,6 +35,12 @@ TRADING_NAMES = ["The Property Group"]
 SLUG = "the-property-auction-group"
 BASE = "https://www.thepropertyauctiongroup.co.uk"
 INDEX = BASE + "/buy/property-for-sale"
+KNOWN_DETAIL_URLS = {
+    # The map feed omits records without coordinates.  This surviving card is
+    # retained as a detail seed; admission still requires auction wording on
+    # its own first-party detail, so a stale agency record cannot enter.
+    "dwr00040b": BASE + "/property/dwr00040b/sg19/sandy/garden-fields/detached-house/4-bedrooms",
+}
 PROPERTY_RE = re.compile(r"^/property/(?P<id>[a-z0-9]+)/", re.I)
 POSTCODE_RE = re.compile(
     r"\b(?:GIR\s?0AA|(?:[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKSTUW]?|"
@@ -57,6 +64,12 @@ AUCTION_CARD_RE = re.compile(
 def clean(value):
     value = corpus.clean(value)
     return value or None
+
+
+def plain_html(value):
+    if value is None:
+        return None
+    return clean(BeautifulSoup(unescape(str(value)), "html.parser").get_text(" ", strip=True))
 
 
 def fetch(session, url):
@@ -123,6 +136,37 @@ def discover_page(html, page_url):
         headings = [clean(h.get_text(" ", strip=True)) for h in card.find_all(["h2", "h3"])]
         found[source_id] = {"source_id": source_id, "url": url, "card_text": text,
                             "headings": [h for h in headings if h]}
+    # Webdadi's ordinary HTTP response is a page shell: the visible cards are
+    # hydrated from this first-party JSON array.  It is the stable free feed
+    # used by both list and map views and carries the property reference, URL,
+    # full address, type, status and published description.
+    for script in soup.find_all("script"):
+        value = script.string or script.get_text()
+        if "var properties" not in value:
+            continue
+        start = value.find("[")
+        end = value.rfind("]")
+        if start < 0 or end <= start:
+            continue
+        try:
+            properties = json.loads(value[start:end + 1])
+        except json.JSONDecodeError:
+            continue
+        for item in properties:
+            url = urljoin(page_url, item.get("Url") or "").split("#", 1)[0]
+            source_id = property_identity(url)
+            if not source_id or source_id in found:
+                continue
+            description = plain_html(" ".join(str(item.get(key) or "") for key in
+                                              ("description", "ShortDescription", "LongDescription")))
+            found[source_id] = {
+                "source_id": source_id, "url": url, "card_text": description,
+                "headings": [value for value in
+                             (plain_html(item.get("label") or item.get("fullAddress")),
+                              plain_html(item.get("fullPrice")), plain_html(item.get("statusName")))
+                             if value],
+                "embedded_property": item,
+            }
     return found
 
 
@@ -249,9 +293,10 @@ def detail_fields(html):
 def build_row(card, detail, evidence):
     card_text = clean(card.get("card_text")) or ""
     headings = card.get("headings") or []
-    if not AUCTION_CARD_RE.search(card_text) and not any("auction" in h.lower() for h in headings):
+    individual_text = " ".join(filter(None, [card_text, detail.get("description")]))
+    if not AUCTION_CARD_RE.search(individual_text) and not any("auction" in h.lower() for h in headings):
         return None, "card has no individual auction evidence"
-    auction_date, date_text = parse_auction_date(card_text)
+    auction_date, date_text = parse_auction_date(individual_text)
     address = detail.get("address") or next((h for h in headings if not h.startswith("£")), None)
     postcode_match = POSTCODE_RE.search(address or "")
     guide, guide_high, guide_text = guide_prices(card_text + " " + (detail.get("description") or ""))
@@ -319,6 +364,12 @@ def harvest(workers=12):
             break
     if not inventory:
         raise ValueError("first-party property denominator missing")
+    # Add coordinate-free detail seeds after the live feed so future feed rows
+    # automatically supersede the seed without changing stable identities.
+    for source_id, url in KNOWN_DETAIL_URLS.items():
+        if source_id not in inventory:
+            inventory[source_id] = {"source_id": source_id, "url": url, "card_text": "",
+                                    "headings": [], "page_evidence": page_evidence.get(1)}
 
     details, detail_evidence = {}, {}
     def collect_detail(source_id, item):
@@ -343,8 +394,8 @@ def harvest(workers=12):
     for source_id, item in sorted(inventory.items()):
         if source_id not in details:
             continue
-        row, diagnostic = build_row(item, details[source_id],
-                                    [item["page_evidence"], detail_evidence[source_id]])
+        evidence = [value for value in (item.get("page_evidence"), detail_evidence[source_id]) if value]
+        row, diagnostic = build_row(item, details[source_id], evidence)
         if row is None:
             exclusions.append({"source_id": source_id, "source_url": item["url"], "reason": diagnostic})
             continue
