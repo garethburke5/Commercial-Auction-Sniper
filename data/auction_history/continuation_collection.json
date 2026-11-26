@@ -1,31 +1,47 @@
 {
-  "generated_at": "2026-11-26T02:17:00Z",
-  "status": "four_source_changed_surface_batch_released",
+  "generated_at": "2026-11-26T13:51:12.022Z",
+  "status": "the_property_auction_group_growth_published_brookvale_next",
   "previous_run": {
-    "run_id": 45739490351,
-    "commit": "7b41ff5a82fd6c3d27fa404929ec0a5fe9bebaab",
-    "auctioneer": "Online Property Auction Group",
-    "result": "Two pages and 100/100 visible past-result cards/details reconciled; 50 new canonical appearances banked.",
-    "net_new_appearances": 50,
-    "newly_dated_address_records_within_20_years": 50,
-    "commercial_mixed_use_new_appearances": 15,
-    "commercial_mixed_use_new_appearances_within_20_years": 15,
-    "newly_covered_source_years": [],
-    "new_guide_price_evidence": 50,
-    "new_sale_price_evidence": 6,
-    "new_rent_evidence": 13,
-    "undated_new_records": 0,
-    "future_dated_new_records": 0,
+    "run_id": 45829782027,
+    "commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e",
+    "source_commit": "c6b575be1d3d0b779ad9a18584c8418f185be3c9",
+    "auctioneer": "The Property Auction Group",
+    "trading_name_alias": "The Property Group",
+    "trading_name_counted_separately": false,
+    "result": "All 25 individually identified properties from the retained three-page first-party search grid were banked through the reusable collector after the live GitHub runner route returned HTTP 403/429.",
+    "net_new_appearances": 25,
+    "new_address_records": 25,
+    "newly_dated_address_records_within_20_years": 7,
+    "commercial_mixed_use_new_appearances": 5,
+    "commercial_mixed_use_new_appearances_within_20_years": 1,
+    "newly_covered_source_years": [
+      2026
+    ],
+    "new_guide_price_evidence": 20,
+    "new_sale_price_evidence": 0,
+    "new_rent_evidence": 6,
+    "undated_new_records": 13,
+    "future_dated_new_records": 5,
     "duplicate_new_records": 0,
     "partial_new_records": 0,
-    "detail_pages_captured": 100,
-    "visible_lot_denominator": 100,
-    "complete_visible_surface": true,
+    "detail_pages_captured": 25,
+    "visible_lot_denominator": 25,
+    "retained_snapshot_pages": 3,
+    "live_pages_captured_in_ci": 0,
+    "complete_retained_surface": true,
+    "live_route_blocker": "GitHub-hosted collection received HTTP 403/429 from the first-party site; the immutable retained 2026-11-26 three-page grid snapshot was ingested instead.",
     "publication_checkpoint": {
-      "run_id": 45740147679,
+      "run_id": 45829782027,
       "github_pages": "success",
-      "cloudflare_production": "success",
-      "live_verification": "success"
+      "database_rebuild": "success",
+      "generated_data_commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e",
+      "publish_now_run_id": 45829782162,
+      "publish_now_conclusion": "failure",
+      "public_platform_run_id": 45829698464,
+      "public_platform_conclusion": "success",
+      "generated_data_publication_run_id": 45830708747,
+      "generated_data_publication_conclusion": "success",
+      "production_domain_verification": "success"
     }
   },
   "runs": [
@@ -1027,62 +1043,96 @@
       "expected_identified_lots": 27,
       "run_new_appearances": 0,
       "blocker": "All four retained first-party catalogue URLs returned HTTP 404; no PDF bytes or individual lot evidence were available to admit."
+    },
+    "the_property_auction_group": {
+      "run_id": 45829782027,
+      "commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e",
+      "source_commit": "c6b575be1d3d0b779ad9a18584c8418f185be3c9",
+      "auctioneer": "The Property Auction Group",
+      "trading_name_alias": "The Property Group",
+      "trading_name_counted_separately": false,
+      "result": "All 25 individually identified properties from the retained three-page first-party search grid were banked through the reusable collector after the live GitHub runner route returned HTTP 403/429.",
+      "net_new_appearances": 25,
+      "new_address_records": 25,
+      "newly_dated_address_records_within_20_years": 7,
+      "commercial_mixed_use_new_appearances": 5,
+      "commercial_mixed_use_new_appearances_within_20_years": 1,
+      "newly_covered_source_years": [
+        2026
+      ],
+      "new_guide_price_evidence": 20,
+      "new_sale_price_evidence": 0,
+      "new_rent_evidence": 6,
+      "undated_new_records": 13,
+      "future_dated_new_records": 5,
+      "duplicate_new_records": 0,
+      "partial_new_records": 0,
+      "detail_pages_captured": 25,
+      "visible_lot_denominator": 25,
+      "retained_snapshot_pages": 3,
+      "live_pages_captured_in_ci": 0,
+      "complete_retained_surface": true,
+      "live_route_blocker": "GitHub-hosted collection received HTTP 403/429 from the first-party site; the immutable retained 2026-11-26 three-page grid snapshot was ingested instead.",
+      "publication_checkpoint": {
+        "run_id": 45829782027,
+        "github_pages": "success",
+        "database_rebuild": "success",
+        "generated_data_commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e"
+      }
     }
   },
   "next_run": {
-    "auctioneer": "The Property Auction Group",
-    "action": "Build one reusable first-party event/card/detail collector across the complete accessible Past auction-event surface and every linked individual property route, then bank all uncaptured evidenced appearances across every sector in one bounded batch.",
-    "scope": "All property sectors across the complete accessible first-party Past event, event-card and property-detail surface.",
-    "rationale": "The official first-party site exposes Upcoming/Past auction tabs and property routes while the national source register has 0 linked retained appearances. This is an uncovered genuine operator with a materially different route from the four reconciled retained grids.",
-    "collector": "scripts/harvest_the_property_auction_group.py"
+    "auctioneer": "Brookvale Auctions",
+    "action": "Build one reusable first-party search/card/detail collector for the complete accessible Brookvale Auctions result pagination, then bank every uncaptured individual property appearance across all sectors in one bounded batch.",
+    "scope": "All property sectors across the complete accessible first-party grid and every linked detail/result page.",
+    "rationale": "The updated national register has 0 linked Brookvale appearances while the accessible first-party auction grid currently exposes 30 individual properties, including ended lots with explicit dates, outcomes and achieved prices. This is a materially different, unblocked route with a reconciliable visible denominator.",
+    "collector": "scripts/harvest_brookvale_auctions.py"
   },
   "next_growth_target": {
     "priority": 1,
-    "auctioneer_lineage": "The Property Auction Group — distinct from The Auction Group and Online Property Auction Group",
-    "task": "Build one reusable first-party event/card/detail collector across the complete accessible Past auction-event surface and every linked individual property route, then bank all uncaptured evidenced appearances across every sector in one bounded batch.",
-    "reason": "The official first-party site exposes Upcoming/Past auction tabs and property routes while the national source register has 0 linked retained appearances. This is an uncovered genuine operator with a materially different route from the four reconciled retained grids.",
-    "source_route": "https://www.thepropertyauctiongroup.co.uk/events/property-auctions/the-property-auction-group-auctions and all linked first-party past-event/property pages",
-    "collector_target": "scripts/harvest_the_property_auction_group.py",
+    "auctioneer_lineage": "Brookvale Auctions — reconcile partner-agent mentions without counting those agents as separate auctioneers",
+    "task": "Build one reusable first-party search/card/detail collector for the complete accessible Brookvale Auctions result pagination, then bank every uncaptured individual property appearance across all sectors in one bounded batch.",
+    "reason": "The updated national register has 0 linked Brookvale appearances while the accessible first-party auction grid currently exposes 30 individual properties, including ended lots with explicit dates, outcomes and achieved prices. This is a materially different, unblocked route with a reconciliable visible denominator.",
+    "source_route": "https://auction.brookvale.uk/ and https://auction.brookvale.uk/search plus every linked first-party property detail/result page",
+    "collector_target": "scripts/harvest_brookvale_auctions.py",
     "observed_inventory": {
       "national_register_retained_appearances": 0,
-      "first_party_event_surface_accessible": true,
-      "past_tab_observed": true,
+      "visible_first_party_property_cards": 30,
+      "result_surface_accessible": true,
+      "published_fields": "individual address, end date, status/outcome, guide price where present, achieved price where present and bid count where present",
       "sectors": "residential, commercial, land and mixed-use where published",
-      "denominator_status": "all accessible past-event pagination, event cards and linked property identities must be reconciled before completeness claims"
+      "denominator_status": "reconcile all accessible pagination and linked property identities before completeness claims"
     },
     "admission_rules": [
-      "Inventory the complete accessible Past event surface and all linked individual property URLs before claiming a visible denominator.",
-      "Admit only individually evidenced auction properties; event pages, directory rows and ordinary agency or lettings cards are inventory evidence, not captured properties.",
-      "Preserve exact bidding dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable event/detail snapshots; leave unknown values null.",
-      "Deduplicate exact property/date overlaps while preserving separate legal interests and repeat appearances.",
-      "Keep The Property Auction Group distinct from The Auction Group and Online Property Auction Group unless legal or first-party evidence proves an alias relationship."
+      "Admit only individually evidenced auction properties; directory rows and partner-agent names are not captured lots or separate auctioneers.",
+      "Preserve exact end dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable search/detail snapshots; unknown values remain null.",
+      "Deduplicate exact property/date overlaps against existing shared-platform evidence while preserving repeat appearances and distinct legal interests.",
+      "Batch all accessible pages and detail routes through one reusable runner rather than a dated single-event workflow."
     ],
-    "blocked_route_avoidance": "Do not refresh Sage & Co, Bowen, The Property Auction House or Landmark until their visible inventories change again. Do not retry Auction Local's current 0-of-0/404 route without a new retrieval route.",
-    "next_after": "If the first-party Past tab yields no individual property inventory, record that bounded blocker once and rotate immediately to another source-register operator with accessible card/detail pages."
+    "blocked_route_avoidance": "Do not retry The Property Auction Group live CI route until its HTTP 403/429 behaviour changes; the retained 25-card surface is already banked. Do not retry Auction Local, All Wales Auction, Sage & Co, Bowen, The Property Auction House or Landmark without a materially new retrieval route."
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "The Property Auction Group — distinct from The Auction Group and Online Property Auction Group",
-    "task": "Build one reusable first-party event/card/detail collector across the complete accessible Past auction-event surface and every linked individual property route, then bank all uncaptured evidenced appearances across every sector in one bounded batch.",
-    "reason": "The official first-party site exposes Upcoming/Past auction tabs and property routes while the national source register has 0 linked retained appearances. This is an uncovered genuine operator with a materially different route from the four reconciled retained grids.",
-    "source_route": "https://www.thepropertyauctiongroup.co.uk/events/property-auctions/the-property-auction-group-auctions and all linked first-party past-event/property pages",
-    "collector_target": "scripts/harvest_the_property_auction_group.py",
+    "auctioneer_lineage": "Brookvale Auctions — reconcile partner-agent mentions without counting those agents as separate auctioneers",
+    "task": "Build one reusable first-party search/card/detail collector for the complete accessible Brookvale Auctions result pagination, then bank every uncaptured individual property appearance across all sectors in one bounded batch.",
+    "reason": "The updated national register has 0 linked Brookvale appearances while the accessible first-party auction grid currently exposes 30 individual properties, including ended lots with explicit dates, outcomes and achieved prices. This is a materially different, unblocked route with a reconciliable visible denominator.",
+    "source_route": "https://auction.brookvale.uk/ and https://auction.brookvale.uk/search plus every linked first-party property detail/result page",
+    "collector_target": "scripts/harvest_brookvale_auctions.py",
     "observed_inventory": {
       "national_register_retained_appearances": 0,
-      "first_party_event_surface_accessible": true,
-      "past_tab_observed": true,
+      "visible_first_party_property_cards": 30,
+      "result_surface_accessible": true,
+      "published_fields": "individual address, end date, status/outcome, guide price where present, achieved price where present and bid count where present",
       "sectors": "residential, commercial, land and mixed-use where published",
-      "denominator_status": "all accessible past-event pagination, event cards and linked property identities must be reconciled before completeness claims"
+      "denominator_status": "reconcile all accessible pagination and linked property identities before completeness claims"
     },
     "admission_rules": [
-      "Inventory the complete accessible Past event surface and all linked individual property URLs before claiming a visible denominator.",
-      "Admit only individually evidenced auction properties; event pages, directory rows and ordinary agency or lettings cards are inventory evidence, not captured properties.",
-      "Preserve exact bidding dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable event/detail snapshots; leave unknown values null.",
-      "Deduplicate exact property/date overlaps while preserving separate legal interests and repeat appearances.",
-      "Keep The Property Auction Group distinct from The Auction Group and Online Property Auction Group unless legal or first-party evidence proves an alias relationship."
+      "Admit only individually evidenced auction properties; directory rows and partner-agent names are not captured lots or separate auctioneers.",
+      "Preserve exact end dates, guide and achieved prices distinctly, rents, every published outcome, original URLs and immutable search/detail snapshots; unknown values remain null.",
+      "Deduplicate exact property/date overlaps against existing shared-platform evidence while preserving repeat appearances and distinct legal interests.",
+      "Batch all accessible pages and detail routes through one reusable runner rather than a dated single-event workflow."
     ],
-    "blocked_route_avoidance": "Do not refresh Sage & Co, Bowen, The Property Auction House or Landmark until their visible inventories change again. Do not retry Auction Local's current 0-of-0/404 route without a new retrieval route.",
-    "next_after": "If the first-party Past tab yields no individual property inventory, record that bounded blocker once and rotate immediately to another source-register operator with accessible card/detail pages."
+    "blocked_route_avoidance": "Do not retry The Property Auction Group live CI route until its HTTP 403/429 behaviour changes; the retained 25-card surface is already banked. Do not retry Auction Local, All Wales Auction, Sage & Co, Bowen, The Property Auction House or Landmark without a materially new retrieval route."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
@@ -1109,19 +1159,42 @@
     ],
     "decision": "Terminal on the direct historical-results route for now; retain the official calendar dates as recovery leads but do not repeatedly refresh the 'Get in touch' links."
   },
-  "focus_reason": "Bramleys' full accessible auction-news surface yielded two banked property appearances and is now reconciled at article-block scope. Move to Auction Local's larger uncovered first-party lot inventory.",
+  "focus_reason": "The Property Auction Group retained grid yielded 25 banked appearances and is reconciled at its saved three-page surface. Move to Brookvale Auctions' accessible 30-card first-party result grid with explicit dates, outcomes and prices.",
   "correction": {
     "previous_focus": "City & Rural Property Auctions",
     "finding": "The current corpus already contains 166 City & Rural Property Auctions appearances; the prior zero-holding assumption was stale and must not drive another duplicate collection.",
     "checked_at": "2026-11-16T06:03:55Z"
   },
-  "updated_at": "2026-11-25T21:39:00Z",
+  "updated_at": "2026-11-26T13:51:12.022Z",
   "in_flight_protection": {
-    "completed_run_id": 45704576323,
-    "name": "Public platform foundation",
-    "head_sha": "5d1e78d6ba63ad03a388e691e96b6de3709f0651",
-    "status": "completed_success",
-    "next_instruction": "Allow the focused Bradley sector repair to finish and publish before triggering the prepared The Auction Group manifest."
+    "completed_run_id": 45829782027,
+    "name": "Focused historical collection",
+    "head_sha": "c6b575be1d3d0b779ad9a18584c8418f185be3c9",
+    "status": "completed_success_and_generated_data_published",
+    "publication_run_ids": [
+      45829782162,
+      45829698464
+    ],
+    "next_instruction": "Do not start Brookvale collection until the two publication workflows for the completed checkpoint are terminal; then inventory the full Brookvale pagination before writing generated data.",
+    "failed_publication_checkpoint": {
+      "run_id": 45829782162,
+      "conclusion": "failure",
+      "failed_step": "regression tests",
+      "failure": "tests/test_durrants_results.py required continuation_collection.json.national_completeness_verified; 1 failed, 1699 passed, 22 subtests passed",
+      "preservation": "Checkpoint retained; the missing false flag is restored in this metadata commit. No captured source evidence was discarded."
+    },
+    "completed_publication_checkpoints": [
+      {
+        "run_id": 45829698464,
+        "conclusion": "success",
+        "scope": "public platform foundation for source revision"
+      },
+      {
+        "run_id": 45830708747,
+        "conclusion": "success",
+        "scope": "generated-data checkpoint, GitHub Pages and production-domain verification"
+      }
+    ]
   },
   "corrections": [
     {
@@ -1154,12 +1227,13 @@
     }
   ],
   "current_collection_request": {
-    "source": "auction_local_first_party_search_and_lot_details",
-    "collector": "scripts/harvest_auction_local.py",
-    "requested_at": "2026-11-25T16:44:00Z",
+    "source": "brookvale_first_party_search_and_lot_details",
+    "collector": "scripts/harvest_brookvale_auctions.py",
+    "requested_at": "2026-11-26T13:39:58.923Z",
     "national_register_retained_appearances": 0,
-    "prior_completed_source": "bramleys_first_party_auction_news_archive",
-    "prior_retained_appearances": 2
+    "observed_visible_property_cards": 30,
+    "prior_completed_source": "the_property_auction_group_retained_three_page_grid",
+    "prior_retained_appearances": 25
   },
   "additional_preserved_growth": {
     "workflow_run": 44520123353,
@@ -1184,5 +1258,71 @@
       "unknown": 5
     },
     "note": "A generic bounded replay refreshed genuinely new saved-source evidence before cancellation. The six rows and four achieved prices were preserved rather than discarded; they are reported separately from Connect UK growth."
-  }
+  },
+  "completed_growth_checkpoints": [
+    {
+      "run_id": 45739490351,
+      "commit": "7b41ff5a82fd6c3d27fa404929ec0a5fe9bebaab",
+      "auctioneer": "Online Property Auction Group",
+      "result": "Two pages and 100/100 visible past-result cards/details reconciled; 50 new canonical appearances banked.",
+      "net_new_appearances": 50,
+      "newly_dated_address_records_within_20_years": 50,
+      "commercial_mixed_use_new_appearances": 15,
+      "commercial_mixed_use_new_appearances_within_20_years": 15,
+      "newly_covered_source_years": [],
+      "new_guide_price_evidence": 50,
+      "new_sale_price_evidence": 6,
+      "new_rent_evidence": 13,
+      "undated_new_records": 0,
+      "future_dated_new_records": 0,
+      "duplicate_new_records": 0,
+      "partial_new_records": 0,
+      "detail_pages_captured": 100,
+      "visible_lot_denominator": 100,
+      "complete_visible_surface": true,
+      "publication_checkpoint": {
+        "run_id": 45740147679,
+        "github_pages": "success",
+        "cloudflare_production": "success",
+        "live_verification": "success"
+      }
+    },
+    {
+      "run_id": 45829782027,
+      "commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e",
+      "source_commit": "c6b575be1d3d0b779ad9a18584c8418f185be3c9",
+      "auctioneer": "The Property Auction Group",
+      "trading_name_alias": "The Property Group",
+      "trading_name_counted_separately": false,
+      "result": "All 25 individually identified properties from the retained three-page first-party search grid were banked through the reusable collector after the live GitHub runner route returned HTTP 403/429.",
+      "net_new_appearances": 25,
+      "new_address_records": 25,
+      "newly_dated_address_records_within_20_years": 7,
+      "commercial_mixed_use_new_appearances": 5,
+      "commercial_mixed_use_new_appearances_within_20_years": 1,
+      "newly_covered_source_years": [
+        2026
+      ],
+      "new_guide_price_evidence": 20,
+      "new_sale_price_evidence": 0,
+      "new_rent_evidence": 6,
+      "undated_new_records": 13,
+      "future_dated_new_records": 5,
+      "duplicate_new_records": 0,
+      "partial_new_records": 0,
+      "detail_pages_captured": 25,
+      "visible_lot_denominator": 25,
+      "retained_snapshot_pages": 3,
+      "live_pages_captured_in_ci": 0,
+      "complete_retained_surface": true,
+      "live_route_blocker": "GitHub-hosted collection received HTTP 403/429 from the first-party site; the immutable retained 2026-11-26 three-page grid snapshot was ingested instead.",
+      "publication_checkpoint": {
+        "run_id": 45829782027,
+        "github_pages": "success",
+        "database_rebuild": "success",
+        "generated_data_commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e"
+      }
+    }
+  ],
+  "national_completeness_verified": false
 }
