@@ -16,6 +16,20 @@ def test_discovers_stable_card_identity_and_card_local_text():
     assert "Private treaty" not in rows["abc123"]["card_text"]
 
 
+def test_discovers_webdadi_embedded_property_feed_without_rendered_cards():
+    html = """<script>var properties = [{
+      "internalCode":"DWR0003EF", "fullAddress":"Old Park Farm, LU5",
+      "statusName":"Sold", "fullPrice":"Sold", "propertyTypeName":"Farm House",
+      "description":"For sale by online auction 18th September 2026. Guide Price &pound;2.25m",
+      "ShortDescription":"", "LongDescription":"",
+      "Url":"/property/dwr0003ef/lu5/toddington/old-park-farm/farm-house/6-bedrooms"
+    }]</script>"""
+    rows = collector.discover_page(html, collector.INDEX)
+    assert set(rows) == {"dwr0003ef"}
+    assert "£2.25m" in rows["dwr0003ef"]["card_text"]
+    assert rows["dwr0003ef"]["headings"] == ["Old Park Farm, LU5", "Sold", "Sold"]
+
+
 def test_date_and_money_parsing_preserve_distinct_evidence():
     event_date, basis = collector.parse_auction_date(
         "For sale by online auction on 3rd December, 2026 bidding closes at 1.30pm")
