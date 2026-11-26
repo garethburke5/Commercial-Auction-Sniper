@@ -1,0 +1,41 @@
+{
+  "auctioneer": "CPN Auctions",
+  "trading_name_aliases": [
+    "CPN"
+  ],
+  "trading_name_aliases_counted_separately": false,
+  "operator_scope_note": "CPN is a trading shorthand for CPN Auctions and is not counted as a separate auctioneer.",
+  "source_auction_id": "cpn-auctions:retained-past-auctions",
+  "auction_date": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 14,
+  "visible_source_rows": 14,
+  "visible_source_cards": 14,
+  "lots_captured": 14,
+  "source_url": "https://auctions.thecpn.co.uk/search?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "duplicate_source_evidence_excluded": 0,
+  "duplicate_source_exclusions": [],
+  "detail_pages_captured": 14,
+  "detail_pages_expected": 14,
+  "detail_enrichment_failures": [],
+  "source_evidence": [
+    {
+      "source_url": "https://auctions.thecpn.co.uk/search?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-11-26T19:08:30.173360+00:00",
+      "sha256": "a94a8fb813a34835da3ec62d5e5fdb148b7762b8404d063cf4c89a8e5b0bdf2c",
+      "snapshot_path": "data/auction_history/sources/cpn-auctions/past-auctions-page-1-a94a8fb813a34835.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 1,
+      "total_pages": 1,
+      "published_archive_lots": 14
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-26T19:08:37.244820+00:00"
+}

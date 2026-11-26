@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-11-26T19:03:58.238643+00:00",
-  "individual_lot_records_captured": 318212,
-  "records_with_address": 306895,
+  "generated_at": "2026-11-26T19:09:50.769279+00:00",
+  "individual_lot_records_captured": 318226,
+  "records_with_address": 306909,
   "partial_lot_records": 11317,
-  "exact_address_groups": 171739,
-  "groups_with_repeat_appearances": 43378,
+  "exact_address_groups": 171751,
+  "groups_with_repeat_appearances": 43380,
   "by_auctioneer": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -76,6 +76,7 @@
     "Brookvale Auctions": 32,
     "Brown&Co": 478,
     "Butters John Bee": 1446,
+    "CPN Auctions": 14,
     "Carter Jonas": 47,
     "Cheffins": 740,
     "City & Rural Property Auctions": 166,
@@ -183,23 +184,23 @@
     "2022": 27057,
     "2023": 33875,
     "2024": 42799,
-    "2025": 48975,
-    "2026": 50850,
+    "2025": 48984,
+    "2026": 50855,
     "2027": 23
   },
   "by_sector": {
-    "commercial": 42970,
-    "land": 20164,
+    "commercial": 42977,
+    "land": 20166,
     "mixed": 1,
-    "mixed-use": 48115,
-    "residential": 154935,
-    "unknown": 52027
+    "mixed-use": 48116,
+    "residential": 154937,
+    "unknown": 52029
   },
   "date_range": [
     "2002-10-31",
     "2027-01-28"
   ],
-  "surviving_catalogues_completely_harvested": 5124,
+  "surviving_catalogues_completely_harvested": 5125,
   "catalogues_incomplete_or_unreconciled": 574,
   "catalogue_fetch_or_parse_failures": 50,
   "limits": [
@@ -213,13 +214,13 @@
     "through_date": "2026-11-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309586,
-      "auction_ids_observed": 16322,
-      "with_guide_price": 110429,
-      "with_sale_price": 115021,
-      "with_both_prices": 50955,
-      "marked_sold": 158192,
-      "marked_sold_without_sale_price": 43911
+      "lot_appearances": 309600,
+      "auction_ids_observed": 16333,
+      "with_guide_price": 110443,
+      "with_sale_price": 115026,
+      "with_both_prices": 50960,
+      "marked_sold": 158202,
+      "marked_sold_without_sale_price": 43916
     },
     "by_auctioneer_and_year": [
       {
@@ -4599,6 +4600,28 @@
         "with_both_prices": 105,
         "marked_sold": 197,
         "marked_sold_without_sale_price": 92
+      },
+      {
+        "auctioneer": "CPN Auctions",
+        "year": 2025,
+        "lot_appearances": 9,
+        "auction_ids_observed": 7,
+        "with_guide_price": 9,
+        "with_sale_price": 4,
+        "with_both_prices": 4,
+        "marked_sold": 9,
+        "marked_sold_without_sale_price": 5
+      },
+      {
+        "auctioneer": "CPN Auctions",
+        "year": 2026,
+        "lot_appearances": 5,
+        "auction_ids_observed": 4,
+        "with_guide_price": 5,
+        "with_sale_price": 1,
+        "with_both_prices": 1,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 0
       },
       {
         "auctioneer": "Carter Jonas",
