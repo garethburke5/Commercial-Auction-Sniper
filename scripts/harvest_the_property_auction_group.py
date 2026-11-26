@@ -35,13 +35,50 @@ TRADING_NAMES = ["The Property Group"]
 SLUG = "the-property-auction-group"
 BASE = "https://www.thepropertyauctiongroup.co.uk"
 INDEX = BASE + "/buy/property-for-sale"
+# The CI network can receive Webdadi's non-hydrated shell even while the live
+# first-party search renders normally.  Retain the complete 26 November 2026
+# three-page denominator as detail seeds.  Live pagination is still reconciled
+# first and can add future references; every seed must independently pass the
+# auction-evidence gate on its immutable first-party detail snapshot.
 KNOWN_DETAIL_URLS = {
-    # The map feed omits records without coordinates.  This surviving card is
-    # retained as a detail seed; admission still requires auction wording on
-    # its own first-party detail, so a stale agency record cannot enter.
+    "dwr0003ef": BASE + "/property/dwr0003ef/lu5/toddington/old-park-farm/farm-house/6-bedrooms",
+    "dwr0003e9": BASE + "/property/dwr0003e9/sw1v/london/sold-pre-auction/mid-terraced-house/3-bedrooms",
+    "dwr000411": BASE + "/property/dwr000411/sg4/hitchin/hitchin-road/land",
+    "tmp0003ea": BASE + "/property/tmp0003ea/sw3d/london/sold-prior-to-auction/mid-terraced-house/3-bedrooms",
+    "dwr000400": BASE + "/property/dwr000400/wd6/borehamwood/park-crescent/bungalow/3-bedrooms",
+    "dwr000412": BASE + "/property/dwr000412/cm6/dunmow/1-chelmsford-road/other/7-bedrooms",
+    "dwr0003fb": BASE + "/property/dwr0003fb/e17/london/stirling-road/semi-detached-house/3-bedrooms",
+    "dwr000413": BASE + "/property/dwr000413/so20/stockbridge/stockbridge-road/detached-house/4-bedrooms",
+    "dwr000416": BASE + "/property/dwr000416/sg18/biggleswade/high-street/flat/6-bedrooms",
+    "dwr0003fc": BASE + "/property/dwr0003fc/sg1/stevenage/mendip-way/town-house/3-bedrooms",
     "dwr00040b": BASE + "/property/dwr00040b/sg19/sandy/garden-fields/detached-house/4-bedrooms",
+    "dwr0003f0": BASE + "/property/dwr0003f0/cm24/stanstead/brook-view/house/4-bedrooms",
+    "dwr000410": BASE + "/property/dwr000410/sg15/arlesey/27-hospital-road/other/4-bedrooms",
+    "dwr00040f": BASE + "/property/dwr00040f/cm20/harlow/arkwrights/terraced-house/3-bedrooms",
+    "dwr0003f4": BASE + "/property/dwr0003f4/n22/london/parkside-court/flat/2-bedrooms",
+    "dwr0003f9": BASE + "/property/dwr0003f9/cm23/bishops-stortford/cedar-court/flat/2-bedrooms",
+    "dwr0003fd": BASE + "/property/dwr0003fd/e11/london/high-road/flat/1-bedroom",
+    "dwr000402": BASE + "/property/dwr000402/sg18/biggleswade/high-street/other/1-bedroom",
+    "dwr000405": BASE + "/property/dwr000405/al7/welwyn-garden-city/tempsford/apartment/2-bedrooms",
+    "dwr000401": BASE + "/property/dwr000401/cm20/harlow/hornbeams/flat/2-bedrooms",
+    "dwr0003ed": BASE + "/property/dwr0003ed/ip24/thetford/guildhall-street/house/6-bedrooms",
+    "dwr00040d": BASE + "/property/dwr00040d/sg5/hitchin/galley-wood/apartment/1-bedroom",
+    "dwr000414": BASE + "/property/dwr000414/sg7/baldock/high-street-/apartment/1-bedroom",
+    "dwr0003f2": BASE + "/property/dwr0003f2/cm6/dunmow/collops-road/land",
+    "dwr0003ee": BASE + "/property/dwr0003ee/cm23/bishops-stortford-/castle-view-/retirement-property/2-bedrooms",
 }
-PROPERTY_RE = re.compile(r"^/property/(?P<id>[a-z0-9]+)/", re.I)
+PROPERTY_RE = re.compile(r"^/property/(?P<id>(?:dwr|tmp)[a-z0-9]+)/", re.I)
+REQUEST_HEADERS = {
+    "User-Agent": "Commercial-Auction-Sniper/1.0 (+historical lot research)",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-GB,en;q=0.9",
+}
+
+
+def new_session():
+    session = requests.Session()
+    session.headers.update(REQUEST_HEADERS)
+    return session
 POSTCODE_RE = re.compile(
     r"\b(?:GIR\s?0AA|(?:[A-PR-UWYZ][A-HK-Y]?\d[\dA-HJKSTUW]?|"
     r"[A-PR-UWYZ]\d[A-HJKSTUW]?|[A-PR-UWYZ][A-HK-Y]\d[ABEHMNPRVWXY])"
@@ -341,9 +378,8 @@ def existing_exact_keys(own_path):
 
 
 def harvest(workers=12):
-    session = requests.Session()
-    session.headers["User-Agent"] = "Commercial-Auction-Sniper/1.0 (+historical lot research)"
-    failures, page_evidence, inventory = [], {}, {}
+    session = new_session()
+    failures, pagination_failures, page_evidence, inventory = [], [], {}, {}
     for page in range(1, 21):
         url = INDEX if page == 1 else f"{INDEX}?page={page}"
         try:
@@ -359,13 +395,11 @@ def harvest(workers=12):
                 inventory[source_id]["page_evidence"] = evidence
             print(f"PROPERTY AUCTION GROUP PAGE {page}: {len(new_ids)} new properties", flush=True)
         except Exception as exc:
-            failures.append({"page": page, "url": url,
-                             "error": f"{type(exc).__name__}: {exc}"[:500]})
+            pagination_failures.append({"page": page, "url": url,
+                                        "error": f"{type(exc).__name__}: {exc}"[:500]})
             break
-    if not inventory:
-        raise ValueError("first-party property denominator missing")
-    # Add coordinate-free detail seeds after the live feed so future feed rows
-    # automatically supersede the seed without changing stable identities.
+    # The retained denominator is a fallback, not a claim that pagination was
+    # reconciled. Live rows always supersede seeds without changing identity.
     for source_id, url in KNOWN_DETAIL_URLS.items():
         if source_id not in inventory:
             inventory[source_id] = {"source_id": source_id, "url": url, "card_text": "",
@@ -373,7 +407,7 @@ def harvest(workers=12):
 
     details, detail_evidence = {}, {}
     def collect_detail(source_id, item):
-        final_url, raw = fetch(requests.Session(), item["url"])
+        final_url, raw = fetch(new_session(), item["url"])
         return source_id, detail_fields(raw.decode("utf-8", "replace")), snapshot(
             "detail", source_id, final_url, raw)
     with ThreadPoolExecutor(max_workers=max(1, min(workers, 16))) as executor:
@@ -431,7 +465,7 @@ def harvest(workers=12):
     undated = [r for r in new_rows if not r.get("auction_date")]
     prior_years = {r["auction_date"][:4] for r in prior_rows if r.get("auction_date")}
     current_years = {r["auction_date"][:4] for r in retained_rows if r.get("auction_date")}
-    complete = not failures and len(details) == len(inventory)
+    complete = not failures and not pagination_failures and len(details) == len(inventory)
     state = {"auctioneer": SOURCE, "source_auction_id": f"{SLUG}:first-party-search-grid",
              "source_url": INDEX, "catalogue_complete": False, "source_rows_complete": complete,
              "pagination_reconciled": complete, "denominator_reconciled": complete,
@@ -440,7 +474,8 @@ def harvest(workers=12):
              "non_auction_cards_excluded": len(exclusions), "retained_appearances": retained,
              "lots_captured": retained,
              "completion_scope": "all surviving first-party search pages and their detail pages; only cards with individual auction evidence admitted",
-             "errors": failures, "checked_at": corpus.now()}
+             "errors": failures, "pagination_diagnostics": pagination_failures,
+             "checked_at": corpus.now()}
     corpus.save_json(corpus.DATA / "auctions" / SLUG / "first-party-search-grid.json", state)
     summary = {"checked_at": corpus.now(), "auctioneer": SOURCE, "source_trading_names": TRADING_NAMES,
                "branches_and_trading_names_counted_separately": False, "source_url": INDEX,
@@ -460,7 +495,7 @@ def harvest(workers=12):
                "new_undated_records": len(undated), "new_future_dated_records": len(future),
                "exact_overlap_candidates_excluded": len(overlaps), "overlap_candidates": overlaps,
                "date_diagnostics_count": len(date_diagnostics), "date_diagnostics": date_diagnostics,
-               "failures": failures,
+               "failures": failures, "pagination_diagnostics": pagination_failures,
                "by_year": dict(Counter((r.get("auction_date") or "undated")[:4] for r in retained_rows)),
                "by_sector": dict(Counter(r.get("sector") or "unknown" for r in retained_rows)),
                "complete_visible_surface": complete, "national_completeness_verified": False}
