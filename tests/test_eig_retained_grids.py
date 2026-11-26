@@ -296,6 +296,7 @@ def test_the_property_auction_house_uses_full_first_party_search_archive():
         "auctioneer": "The Property Auction House",
         "base": "https://thepropertyauctionhouse.eigonlineauctions.com",
         "archive_path": "/search",
+        "exclude_exact_cross_source_overlaps": True,
     }
 
 
@@ -336,6 +337,7 @@ def test_sage_co_uses_full_archive_and_distinct_legal_operator():
         "archive_path": "/search",
         "operator_legal_name": "SAGE & CO AUCTIONS LIMITED",
         "operator_company_number": "13328873",
+        "exclude_exact_cross_source_overlaps": True,
     }
 
 
@@ -349,6 +351,7 @@ def test_bowen_reconciles_historical_trading_names_as_one_operator():
             "Bowen Son and Watson with Kent Jones",
         ],
         "merged_firms": ["Kent Jones"],
+        "exclude_exact_cross_source_overlaps": True,
     }
 
 
@@ -479,6 +482,7 @@ def test_landmark_uses_full_archive_and_one_legal_operator():
             "Daniels Estate Agents",
             "The Landmark Consultancy",
         ],
+        "exclude_exact_cross_source_overlaps": True,
     }
 
 
