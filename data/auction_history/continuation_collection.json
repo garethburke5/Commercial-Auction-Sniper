@@ -1,37 +1,41 @@
 {
-  "generated_at": "2026-11-25T22:59:00Z",
-  "status": "the_auction_group_manifest_batch_released",
+  "generated_at": "2026-11-26T02:00:00Z",
+  "status": "online_property_auction_group_batch_released_after_auction_group_bank",
   "previous_run": {
-    "run_id": 45700277214,
-    "commit": "5d1e78d6ba63ad03a388e691e96b6de3709f0651",
-    "auctioneer": "Bradley Hall Auctions",
-    "trading_names": [
-      "Bradley Hall",
-      "Bradley Hall Ltd",
-      "Bradley Hall Auctions"
-    ],
-    "result": "The first-party search denominator reconciled 82/82 cards over two pages. Eighteen non-overlapping property appearances were banked; 64 exact address/date overlaps were excluded. A detail repair captured all 82 stable detail pages. A subsequent sector-only integrity repair is queued because generic template wording must not reclassify every row as mixed-use.",
-    "total_source_appearances_banked": 18,
-    "net_new_appearances": 18,
-    "newly_historical_dated_appearances": 1,
-    "newly_dated_address_records_within_20_years": 1,
-    "commercial_mixed_use_new_appearances": 4,
-    "commercial_mixed_use_new_appearances_within_20_years": 0,
+    "run_id": 45717807286,
+    "commit": "21b5c06b04fa4e46485b0df207b5c686881898b8",
+    "auctioneer": "The Auction Group",
+    "result": "Four pages, 196/196 visible property cards and 196/196 detail pages reconciled and banked; no duplicate or partial additions.",
+    "total_source_appearances_banked": 196,
+    "net_new_appearances": 196,
+    "newly_historical_dated_appearances": 166,
+    "newly_dated_address_records_within_20_years": 166,
+    "commercial_mixed_use_new_appearances": 9,
+    "commercial_mixed_use_new_appearances_within_20_years": 9,
     "newly_covered_source_years": [
-      "Bradley Hall Auctions:2026"
+      "The Auction Group:2024",
+      "The Auction Group:2025",
+      "The Auction Group:2026"
     ],
-    "new_guide_price_evidence": 17,
-    "new_sale_price_evidence": 1,
-    "new_starting_bid_evidence": 13,
-    "new_rent_evidence": 2,
+    "future_source_years": [
+      "The Auction Group:2027"
+    ],
+    "new_guide_price_evidence": 196,
+    "new_sale_price_evidence": 28,
+    "new_rent_evidence": 5,
     "undated_new_records": 0,
-    "future_dated_new_records": 17,
-    "duplicate_new_records": 64,
+    "future_dated_new_records": 30,
+    "duplicate_new_records": 0,
     "partial_new_records": 0,
-    "detail_pages_captured": 82,
-    "visible_lot_denominator": 82,
+    "detail_pages_captured": 196,
+    "visible_lot_denominator": 196,
     "complete_visible_surface": true,
-    "integrity_note": "Trust the original card-level count of four commercial/mixed-use additions. Do not report the temporary all-18 mixed-use detail classification."
+    "publication_checkpoint": {
+      "run_id": 45718637273,
+      "github_pages": "failure",
+      "cloudflare_production": "success",
+      "live_verification": "success"
+    }
   },
   "runs": [
     {
@@ -1065,25 +1069,22 @@
   },
   "next_target": {
     "priority": 1,
-    "auctioneer_lineage": "The Auction Group — independent UK property auctioneer",
-    "task": "After the Bradley sector integrity repair and its publication checkpoint, run one manifest-defined batch through the reusable EIG retained-grid collector across all 195 currently visible first-party lots and every represented date/property sector.",
-    "reason": "The national register has zero retained appearances under The Auction Group, while its accessible first-party EIG search surface exposes 195 individually addressed lots with stable detail URLs, explicit dates, results, guides and sale prices.",
-    "source_route": "https://online.the-auctiongroup.co.uk/search and linked stable lot detail pages",
+    "auctioneer_lineage": "Online Property Auction Group",
+    "task": "Run one manifest-defined retained-grid batch across all currently visible first-party past-auction result cards and every property sector.",
+    "reason": "The first-party past grid exposes 100 cards, while only 51 appearances were retained at the 27 October checkpoint.",
+    "source_route": "https://www.opagroup.co.uk/past-auctions?lotResultType=All and linked stable lot detail pages",
     "collector_target": "scripts/harvest_eig_retained_grids.py with config/retained_grid_batch.json",
     "observed_inventory": {
-      "national_register_retained_appearances": 0,
-      "first_party_visible_lot_denominator": 195,
-      "shared_platform": "EIG white-label retained grid",
-      "sectors": "all published sectors",
-      "denominator_status": "must be pagination- and detail-reconciled before completeness claims"
+      "retained_before_run": 51,
+      "first_party_visible_past_cards": 100,
+      "sectors": "all published sectors"
     },
     "admission_rules": [
-      "Admit only individual property cards with explicit auction evidence.",
-      "Preserve exact dates, guide/starting/current/achieved prices distinctly, rents, all outcomes, original URLs and immutable snapshots; unknown values remain null.",
-      "Deduplicate stable UUIDs and exact address/date overlaps before claiming net growth.",
-      "Reconcile branches and trading names without counting aliases as separate auctioneers."
+      "Admit only individual property result cards with explicit auction evidence.",
+      "Preserve exact dates, guides, achieved prices, rents, outcomes, original URLs and immutable snapshots; unknown values remain null.",
+      "Deduplicate stable identities and exclude only unambiguous exact cross-source address/date overlaps; preserve distinct related interests."
     ],
-    "blocked_route_avoidance": "Auction Local returned 0 of 0 on 25 November 2026 and recently indexed stable detail URLs returned 404. Do not revisit without a new first-party inventory route."
+    "next_after": "Verify remaining Online Property Auction Group delta, then select another uncovered EIG/shared-platform source rather than refreshing a complete surface."
   },
   "durrants_route_assessment": {
     "checked_at": "2026-11-16T02:58:00+00:00",
@@ -1185,14 +1186,5 @@
       "unknown": 5
     },
     "note": "A generic bounded replay refreshed genuinely new saved-source evidence before cancellation. The six rows and four achieved prices were preserved rather than discarded; they are reported separately from Connect UK growth."
-  },
-  "active_collection": {
-    "source": "The Auction Group",
-    "collector": "scripts/harvest_eig_retained_grids.py",
-    "manifest": "config/retained_grid_batch.json",
-    "visible_lot_denominator": 195,
-    "source_register_retained_before_run": 0,
-    "triggered_from_commit_parent": "73e71e4babc2f8ae25e7842cdc5e3ddbcebd7b39",
-    "preflight": "Savills 45706048829 cancelled before source harvest; publication terminal; no active historical/publication writer observed."
   }
 }

@@ -1,5 +1,18 @@
 # Historical auction property corpus
 
+## 26 November 2026 — The Auction Group bank and Online Property Auction Group expansion
+
+Historical run [45717807286](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45717807286) completed successfully and banked commit [21b5c06b](https://github.com/garethburke5/Commercial-Auction-Sniper/commit/21b5c06b04fa4e46485b0df207b5c686881898b8). The reusable retained-grid runner reconciled four first-party pages and all **196** visible Auction Group lot cards and detail pages. The live denominator increased from the prepared 195 to 196 before collection; the reconciled value, not the prepared estimate, is authoritative.
+
+The bank adds **196 net appearances and 196 address records**. **166** are dated address records inside the strict twenty-year window and **30** are future-dated; there are no undated or partial additions. It adds **9 commercial/mixed-use appearances**, **196 guide prices**, **28 achieved prices** and **5 rents**. There were no stable-ID or exact address/date overlap exclusions. Source years **2024, 2025 and 2026** are newly covered inside the window; 2027 is preserved and reported as future-dated rather than historical growth. Published outcomes are retained separately: 97 sold prior, 41 sold after, 19 sold, 8 unsold, 1 withdrawn and 30 not yet resolved.
+
+Public platform run [45718637273](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45718637273) preserved a split checkpoint: the GitHub Pages deployment failed, but the production Cloudflare deployment and its live property-data/code verification completed successfully. The bank is not discarded or rerun.
+
+The next concrete growth target is **Online Property Auction Group**. Its first-party past grid now exposes **100 visible result cards**, compared with 51 retained appearances last checked on 27 October. The reusable runner is configured to use the explicit past-results surface and to exclude unambiguous exact cross-source address/date overlaps while preserving distinct related interests. This is a growth collection, not a zero-yield refresh.
+
+National completeness remains false.
+
+
 ## 25 November 2026 — protected writer-lane hold before The Auction Group batch
 
 No historical collection was started in this checkpoint because scheduled Savills workflow [45706048829](https://github.com/garethburke5/Commercial-Auction-Sniper/actions/runs/45706048829) remained reported in progress in `actions/checkout@v4` from 21:37 UTC, with no heartbeat after 21:37:33 UTC even after its declared 45-minute job limit. Its source discovery, harvesting and commit steps never started; main remained at `cc39b328b6b9f6e459918b30a57d886605953964`. This is a GitHub runner/checkout blocker, not a Savills source result, and it must not be counted as a zero-yield archive refresh.

@@ -5925,6 +5925,8 @@ SOURCES = {
     "online-property-auction-group": {
         "auctioneer": "Online Property Auction Group",
         "base": "https://www.opagroup.co.uk",
+        "archive_path": "/past-auctions?lotResultType=All",
+        "exclude_exact_cross_source_overlaps": True,
     },
     "the-auction-company": {
         "auctioneer": "The Auction Company",

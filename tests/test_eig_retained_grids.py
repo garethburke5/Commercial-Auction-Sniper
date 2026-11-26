@@ -4037,3 +4037,10 @@ def test_the_auction_group_shared_platform_growth_route():
     assert source["archive_path"] == "/search"
     assert source["exclude_exact_cross_source_overlaps"] is True
     assert grids.select_targets(["the-auction-group"]) == ["the-auction-group"]
+
+
+def test_online_property_auction_group_uses_past_grid_and_exact_overlap_guard():
+    source = grids.SOURCES["online-property-auction-group"]
+    assert source["base"] == "https://www.opagroup.co.uk"
+    assert source["archive_path"] == "/past-auctions?lotResultType=All"
+    assert source["exclude_exact_cross_source_overlaps"] is True
