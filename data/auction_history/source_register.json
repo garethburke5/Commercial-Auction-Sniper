@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-26T13:34:40.228609+00:00",
-  "corpus_checkpoint": "2026-11-26T13:34:18.125827+00:00",
+  "generated_at": "2026-11-26T14:06:26.514259+00:00",
+  "corpus_checkpoint": "2026-11-26T14:06:08.831457+00:00",
   "scope": "All sectors; preceding twenty years; retain older evidence. Directory entries are candidates, not a verified national denominator.",
   "national_completeness_verified": false,
   "directory_entries": [
@@ -1462,13 +1462,17 @@
       "name": "Brookvale Auctions",
       "directory_url": "https://www.eigpropertyauctions.co.uk/auctioneer/brookvale-auctions",
       "scope_status": "requires UK/branch/trading-name reconciliation",
-      "matched_corpus_label": null,
-      "match_basis": null,
-      "retained_appearances": 0,
-      "years_with_retained_evidence": [],
-      "with_guide_price": 0,
-      "with_sale_price": 0,
-      "collection_status": "not linked to retained corpus; source assessment required",
+      "matched_corpus_label": "Brookvale Auctions",
+      "match_basis": "exact label",
+      "retained_appearances": 32,
+      "years_with_retained_evidence": [
+        2024,
+        2025,
+        2026
+      ],
+      "with_guide_price": 2,
+      "with_sale_price": 15,
+      "collection_status": "partial holdings; full coverage unverified",
       "twenty_year_complete": false
     },
     {
@@ -8365,7 +8369,7 @@
     }
   ],
   "directory_entry_count": 568,
-  "directory_entries_not_linked": 436,
+  "directory_entries_not_linked": 435,
   "corpus_labels": {
     "247 Property Auctions": 263,
     "Acuitus": 5734,
@@ -8434,6 +8438,7 @@
     "Bradley Hall Auctions": 18,
     "Bradleys Estate Agents": 426,
     "Bramleys LLP": 2,
+    "Brookvale Auctions": 32,
     "Brown&Co": 478,
     "Butters John Bee": 1446,
     "Carter Jonas": 47,
@@ -8523,13 +8528,13 @@
     "through_date": "2026-11-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309559,
-      "auction_ids_observed": 16298,
-      "with_guide_price": 110427,
-      "with_sale_price": 115006,
+      "lot_appearances": 309586,
+      "auction_ids_observed": 16322,
+      "with_guide_price": 110429,
+      "with_sale_price": 115021,
       "with_both_prices": 50955,
-      "marked_sold": 158167,
-      "marked_sold_without_sale_price": 43901
+      "marked_sold": 158192,
+      "marked_sold_without_sale_price": 43911
     },
     "by_auctioneer_and_year": [
       {
@@ -12777,6 +12782,39 @@
         "with_both_prices": 0,
         "marked_sold": 0,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2024,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2025,
+        "lot_appearances": 12,
+        "auction_ids_observed": 11,
+        "with_guide_price": 0,
+        "with_sale_price": 5,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2026,
+        "lot_appearances": 14,
+        "auction_ids_observed": 12,
+        "with_guide_price": 2,
+        "with_sale_price": 10,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Brown&Co",
@@ -18225,7 +18263,7 @@
       }
     ],
     "undated_appearances": 5261,
-    "future_dated_appearances": 240,
+    "future_dated_appearances": 245,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",
@@ -18903,6 +18941,42 @@
       "expected_identified_lots": 27,
       "run_new_appearances": 0,
       "blocker": "All four retained first-party catalogue URLs returned HTTP 404; no PDF bytes or individual lot evidence were available to admit."
+    },
+    "the_property_auction_group": {
+      "run_id": 45829782027,
+      "commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e",
+      "source_commit": "c6b575be1d3d0b779ad9a18584c8418f185be3c9",
+      "auctioneer": "The Property Auction Group",
+      "trading_name_alias": "The Property Group",
+      "trading_name_counted_separately": false,
+      "result": "All 25 individually identified properties from the retained three-page first-party search grid were banked through the reusable collector after the live GitHub runner route returned HTTP 403/429.",
+      "net_new_appearances": 25,
+      "new_address_records": 25,
+      "newly_dated_address_records_within_20_years": 7,
+      "commercial_mixed_use_new_appearances": 5,
+      "commercial_mixed_use_new_appearances_within_20_years": 1,
+      "newly_covered_source_years": [
+        2026
+      ],
+      "new_guide_price_evidence": 20,
+      "new_sale_price_evidence": 0,
+      "new_rent_evidence": 6,
+      "undated_new_records": 13,
+      "future_dated_new_records": 5,
+      "duplicate_new_records": 0,
+      "partial_new_records": 0,
+      "detail_pages_captured": 25,
+      "visible_lot_denominator": 25,
+      "retained_snapshot_pages": 3,
+      "live_pages_captured_in_ci": 0,
+      "complete_retained_surface": true,
+      "live_route_blocker": "GitHub-hosted collection received HTTP 403/429 from the first-party site; the immutable retained 2026-11-26 three-page grid snapshot was ingested instead.",
+      "publication_checkpoint": {
+        "run_id": 45829782027,
+        "github_pages": "success",
+        "database_rebuild": "success",
+        "generated_data_commit": "0eec0fa0c22a3bf507e9ed6855d124d4553b9a1e"
+      }
     }
   },
   "unresolved_catalogues": [
@@ -24245,7 +24319,7 @@
   ],
   "directory_discovery": {
     "source_url": "https://www.eigpropertyauctions.co.uk/auctioneer",
-    "checked_at": "2026-11-26T13:34:39.749018+00:00",
+    "checked_at": "2026-11-26T14:06:26.154425+00:00",
     "sha256": "ca8c6827b2533aa965db57b601cf0b68c77d0b0a13ec2f646275a65ae384c0e9",
     "status": "retrieved"
   }

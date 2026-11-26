@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-26T13:34:18.125827+00:00",
-  "individual_lot_records_captured": 318180,
-  "records_with_address": 306863,
+  "generated_at": "2026-11-26T14:06:08.831457+00:00",
+  "individual_lot_records_captured": 318212,
+  "records_with_address": 306895,
   "partial_lot_records": 11317,
-  "exact_address_groups": 171707,
+  "exact_address_groups": 171739,
   "groups_with_repeat_appearances": 43378,
   "by_auctioneer": {
     "247 Property Auctions": 263,
@@ -73,6 +73,7 @@
     "Bradley Hall Auctions": 18,
     "Bradleys Estate Agents": 426,
     "Bramleys LLP": 2,
+    "Brookvale Auctions": 32,
     "Brown&Co": 478,
     "Butters John Bee": 1446,
     "Carter Jonas": 47,
@@ -181,24 +182,24 @@
     "2021": 21566,
     "2022": 27057,
     "2023": 33875,
-    "2024": 42798,
-    "2025": 48963,
-    "2026": 50831,
+    "2024": 42799,
+    "2025": 48975,
+    "2026": 50850,
     "2027": 23
   },
   "by_sector": {
-    "commercial": 42969,
-    "land": 20162,
+    "commercial": 42970,
+    "land": 20164,
     "mixed": 1,
-    "mixed-use": 48113,
-    "residential": 154927,
-    "unknown": 52008
+    "mixed-use": 48115,
+    "residential": 154935,
+    "unknown": 52027
   },
   "date_range": [
     "2002-10-31",
     "2027-01-28"
   ],
-  "surviving_catalogues_completely_harvested": 5123,
+  "surviving_catalogues_completely_harvested": 5124,
   "catalogues_incomplete_or_unreconciled": 574,
   "catalogue_fetch_or_parse_failures": 50,
   "limits": [
@@ -212,13 +213,13 @@
     "through_date": "2026-11-26",
     "scope": "All property types; retained lot appearances in the preceding 20 years.",
     "totals": {
-      "lot_appearances": 309559,
-      "auction_ids_observed": 16298,
-      "with_guide_price": 110427,
-      "with_sale_price": 115006,
+      "lot_appearances": 309586,
+      "auction_ids_observed": 16322,
+      "with_guide_price": 110429,
+      "with_sale_price": 115021,
       "with_both_prices": 50955,
-      "marked_sold": 158167,
-      "marked_sold_without_sale_price": 43901
+      "marked_sold": 158192,
+      "marked_sold_without_sale_price": 43911
     },
     "by_auctioneer_and_year": [
       {
@@ -4466,6 +4467,39 @@
         "with_both_prices": 0,
         "marked_sold": 0,
         "marked_sold_without_sale_price": 0
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2024,
+        "lot_appearances": 1,
+        "auction_ids_observed": 1,
+        "with_guide_price": 0,
+        "with_sale_price": 0,
+        "with_both_prices": 0,
+        "marked_sold": 1,
+        "marked_sold_without_sale_price": 1
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2025,
+        "lot_appearances": 12,
+        "auction_ids_observed": 11,
+        "with_guide_price": 0,
+        "with_sale_price": 5,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 7
+      },
+      {
+        "auctioneer": "Brookvale Auctions",
+        "year": 2026,
+        "lot_appearances": 14,
+        "auction_ids_observed": 12,
+        "with_guide_price": 2,
+        "with_sale_price": 10,
+        "with_both_prices": 0,
+        "marked_sold": 12,
+        "marked_sold_without_sale_price": 2
       },
       {
         "auctioneer": "Brown&Co",
@@ -9914,7 +9948,7 @@
       }
     ],
     "undated_appearances": 5261,
-    "future_dated_appearances": 240,
+    "future_dated_appearances": 245,
     "national_completeness_verified": false,
     "limits": [
       "Observed auction IDs are not a verified denominator of all auctions held.",

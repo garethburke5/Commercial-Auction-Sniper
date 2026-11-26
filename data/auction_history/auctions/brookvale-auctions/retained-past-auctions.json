@@ -1,0 +1,35 @@
+{
+  "auctioneer": "Brookvale Auctions",
+  "partner_agents_not_counted_as_auctioneers": true,
+  "operator_scope_note": "Brookvale Auctions is the auctioneer; named partner agents remain source provenance and are not counted separately.",
+  "source_auction_id": "brookvale-auctions:retained-past-auctions",
+  "auction_date": null,
+  "catalogue_complete": true,
+  "source_rows_complete": true,
+  "published_lots_offered": 32,
+  "visible_source_rows": 32,
+  "visible_source_cards": 32,
+  "lots_captured": 32,
+  "source_url": "https://auction.brookvale.uk/search?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+  "pagination_reconciled": true,
+  "denominator_reconciled": true,
+  "completion_scope": "every lot card across every page of the first-party retained past-auctions grid",
+  "non_auction_property_cards_excluded": 0,
+  "non_auction_exclusions": [],
+  "duplicate_source_evidence_excluded": 0,
+  "duplicate_source_exclusions": [],
+  "source_evidence": [
+    {
+      "source_url": "https://auction.brookvale.uk/search?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
+      "retrieved_at": "2026-11-26T14:04:53.249551+00:00",
+      "sha256": "f0e46ef6a8e6e668c384b4244c78ed97357ff90987114d2927c46ec7e042ebd6",
+      "snapshot_path": "data/auction_history/sources/brookvale-auctions/past-auctions-page-1-f0e46ef6a8e6e668.json.gz",
+      "basis": "first-party retained past-auctions lot grid",
+      "page": 1,
+      "total_pages": 1,
+      "published_archive_lots": 32
+    }
+  ],
+  "errors": [],
+  "checked_at": "2026-11-26T14:04:57.927141+00:00"
+}
