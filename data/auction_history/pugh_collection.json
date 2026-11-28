@@ -1,7 +1,7 @@
 {
-  "checked_at": "2026-11-28T14:32:24.823393+00:00",
+  "checked_at": "2026-11-28T21:55:02.317794+00:00",
   "source_url": "https://www.pugh-auctions.com/property-search",
-  "published_property_rows": 7446,
+  "published_property_rows": 7439,
   "observed_property_ids": 6992,
   "observed_source_ids": [
     "10088",
@@ -6997,7 +6997,7 @@
     "rightmove_93121146",
     "rightmove_93655437"
   ],
-  "pages_expected": 373,
+  "pages_expected": 372,
   "pages_captured_this_run": [
     1,
     2,
@@ -7733,9 +7733,9 @@
   "reverse_covered_normal_pages": [],
   "reverse_tail_upgraded_undated": 0,
   "unresolved_source_rows": 0,
-  "undated_tail_source_rows": 506,
-  "undated_tail_appearances_captured": 57,
-  "undated_tail_existing_appearances_enriched": 447,
+  "undated_tail_source_rows": 0,
+  "undated_tail_appearances_captured": 0,
+  "undated_tail_existing_appearances_enriched": 0,
   "detail_pages_recovered_this_run": 0,
   "detail_recovered_source_ids": [],
   "detail_blocked_source_ids": [
@@ -8176,7 +8176,7 @@
       "error": "ValueError: detail page has no exact lot and auction date"
     }
   ],
-  "archive_pagination_complete": true,
+  "archive_pagination_complete": false,
   "property_appearances_captured": 6896,
   "canonical_shard_rows": 6896,
   "legacy_rows_enriched": 0,
@@ -8184,5 +8184,11 @@
   "run_new_address_records": 0,
   "run_new_partial_lots": 0,
   "run_by_sector": {},
-  "failures": []
+  "failures": [
+    {
+      "kind": "grid_tail_growth_recovery",
+      "url": "https://www.pugh-auctions.com/property-search?order-results=date-desc&show-results=80&include-sold=on&page=1",
+      "error": "ValueError: Published result count changed in grid fallback"
+    }
+  ]
 }

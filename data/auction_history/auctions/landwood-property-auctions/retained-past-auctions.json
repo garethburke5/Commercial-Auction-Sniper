@@ -16,10 +16,13 @@
   "non_auction_exclusions": [],
   "duplicate_source_evidence_excluded": 0,
   "duplicate_source_exclusions": [],
+  "detail_pages_captured": 0,
+  "detail_pages_expected": 0,
+  "detail_enrichment_failures": [],
   "source_evidence": [
     {
       "source_url": "https://www.landwoodpropertyauctions.com/past-auctions?page=1&viewType=List&order=OrderOfSaleAscending&lotResultType=All",
-      "retrieved_at": "2026-11-26T08:14:03.648986+00:00",
+      "retrieved_at": "2026-11-28T22:10:49.893669+00:00",
       "sha256": "98e3f92a519f72d08082d1d9381e996df11ca262b48c8ac636a5464c2b583df5",
       "snapshot_path": "data/auction_history/sources/landwood-property-auctions/past-auctions-page-1-98e3f92a519f72d0.json.gz",
       "basis": "first-party retained past-auctions lot grid",
@@ -579,5 +582,5 @@
     }
   ],
   "errors": [],
-  "checked_at": "2026-11-26T08:14:22.021563+00:00"
+  "checked_at": "2026-11-28T22:11:03.493105+00:00"
 }
